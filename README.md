@@ -2,8 +2,8 @@ java-corpus
 ===========
 
 Collection of open-source Java programs.
-To compile any project, run the `compile` script in each directory.
-(The scripts for large projects often use auxillary files `COMPILE_ARGS` because the projects.)
+To compile any project, run the `compile.sh` script in each directory.
+(The scripts for large projects often use auxillary files `COMPILE_ARGS`.)
 
 Why
 ---
