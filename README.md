@@ -10,3 +10,10 @@ Why
 
 To provide a large collection of easy-to-compile code for running experiments.
 Especially experiments that use alternative/modified Java compilers.
+
+Credits
+-------
+
+- [Qualitas Corpus](http://qualitascorpus.com/)
+- [Qualitas.class](http://java.labsoft.dcc.ufmg.br/qualitas.class/)
+
