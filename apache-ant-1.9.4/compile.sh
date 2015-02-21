@@ -1,0 +1,2 @@
+#! /bin/bash
+javac -cp ./src/etc/testcases/taskdefs/conditions/jars/nosign.jar:./src/etc/testcases/taskdefs/conditions/jars/pass.jar:./src/etc/testcases/taskdefs/conditions/jars/apassword.jar:./lib/optional/junit-3.8.2.jar:./lib/optional/junit-4.11.jar:./lib/bcel-5.2.jar:./lib/bsf-all-3.1.jar:./lib/bsh.jar:./lib/bsh-core.jar:./lib/apache-commons-net.jar:./lib/commons-logging.jar:./lib/commons-logging-api-1.0.4.jar:./lib/jai-core.jar:./lib/jai_codec.jar:./lib/jasper-compiler.jar:./lib/jasper-runtime.jar:./lib/jdepend-2.9.1.jar @COMPILE_ARGS
