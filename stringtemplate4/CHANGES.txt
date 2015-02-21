@@ -1,0 +1,468 @@
+****************************************************************************
+As of ST 4.0.8, March 25 2014, we are no longer updating this file. Instead,
+we are using the github release mechanism. For example, here is
+4.0.8 release notes:
+
+https://github.com/antlr/stringtemplate4/releases/tag/4.0.8
+****************************************************************************
+
+Terence Parr, parrt at cs usfca edu
+ANTLR project lead and supreme dictator for life
+University of San Francisco
+
+CHANGES
+
+January 30, 2013
+
+* Require EOF in Group.g (rule group)
+* Minor cleanup and documentation tweaks
+* Improve ObjectModelAdaptor caching performance, eliminate chance of deadlock
+
+January 4, 2013 -- Release 4.0.7
+
+* Fixed README for release
+
+January 1, 2013
+
+* Tweaked escapes in <<...>>. Do NOT replace if it's <\\>.
+  Escapes: >\> means >> inside of <<...>>.
+  Escapes: \>> means >> inside of <<...>> unless at end like <<...\>>>>.
+  In that case, use <%..>>%> instead.
+
+* Added warning about: "Missing newline after newline escape <\\>"
+
+* Actually: %\> is the escape to avoid end of string
+
+* Several STViz updates:
+  * Highlight template subexpressions and literal text responsible for output
+  * Gray out hidden (inherited+aliased) attributes
+  * Highlight user-instanced templates in bold
+
+December 31, 2012
+
+* Reversing decision to use >\> and %\> as the escapes now for >> and %>.
+  Simply allowing >>> is the best, such as <<Hi <name>>>.
+  It will strip off the >> and leave > as the appropriate end of expression.
+  Added testTripleAngleOnEnds.  Even <<<x>>> works now.  There is no escape
+  for %>.
+
+December 26, 2012
+
+* Allow [] as a dictionary value, resolves antlr/stringtemplate4#33
+
+December 25, 2012
+
+* Fix issues with bytecode to source mapping
+* Fix several STViz bugs
+* Improved error location reporting
+* Fix several unit tests
+* Explicit InstanceScope tracking in the interpreter
+
+December 15, 2012
+
+* throw exceptionWhen the attribute name is no to be consistent with the
+  other check for '.' in the name.
+
+December 13, 2012
+
+* Allow [] as a default value for formal arguments (fixes antlr/stringtemplate4#20)
+* Add method STViz.waitForClose()
+* Specify -Dtest.interactive to have STViz tests leave the window open for the user
+* Code cleanup
+
+December 11, 2012
+
+* Don't cache the STNoSuchPropertyException and STNoSuchAttributeException
+  instances.
+* Add ErrorType.NO_SUCH_ATTRIBUTE_PASS_THROUGH, reported on <foo(...)> where foo
+  contains a parameter with no default value and no matching attribute exists in
+  the surrounding scope.
+* Improved message when reporting ErrorType.NO_SUCH_PROPERTY.
+
+December 10, 2012
+
+* DateRenderer and StringRenderer now use the provided locale (fixes
+  antlr/stringtemplate4#11)
+* Fixes for handling of arrays (fixes antlr/stringtemplate4#12 and other
+  unreported issues)
+* Try to load template file (.st) if group file (.stg) failed with IOException
+  (fixes antlr/stringtemplate4#14)
+* Add STGroup.GROUP_FILE_EXTENSION and STGroup.TEMPLATE_FILE_EXTENSION
+* Updated documentation, code cleanup
+
+December 9, 2012
+
+* >\> and %\> are the escapes now for >> and %> Fixes antlr/stringtemplate4#17
+
+December 3, 2012 -- Release 4.0.7-rc-1
+
+December 1, 2012
+
+* Missing ANT target for STParser.g in build
+
+September 26, 2012 -- Release 4.0.6
+
+* STRawGroupDir problem and ST("template") issue. When there are no formal
+  args for template t and you map t across some values, t implicitly gets
+  arg "it".  E.g., "$names:bold()$" and bold as "<b>$it$</b>".
+
+August 13, 2012
+
+* Fixed https://github.com/antlr/stringtemplate4/issues/5
+
+May 21, 2012
+
+* Made fields in the error messages public
+
+February 8, 2012 -- 4.0.5 release
+
+December 25, 2011
+
+* STLexer.tokens missing from src build
+
+* Added STRawGroupDir that expects pure templates in .st files not template defs
+  with headers. So use $name$ not
+
+  foo(name) ::= "$name"
+
+December 4, 2011
+
+* synchronized object model adaptor
+* import illegal in group files embedded in STGroupDirs
+
+July 19, 2011 (Udo)
+
+* Fixed Misc.newline issue in test code (Udo)
+
+July 18, 2011 -- Release 4.0.4
+
+* Added delimiters "<", ">" notation to group file.
+
+July 5, 2011
+
+* added "get import list" method.
+* added methods to allow deep vs shallow setting of renderers; interp always
+  asks native group defining template for the renderer.
+* STGroup.getInstanceOf was not auto-adding "/" to front if none was present
+
+June 30, 2011
+
+* Updated javadoc on getAttributeRenderer()
+* Updated javadoc on unload/importTemplates in STGroup() (ub)
+* Added test case for unload of groups specified in group file imports. (ub)
+
+June 24, 2011
+
+* STGroup.unload() now removes imports that were specified in the group
+  file, but only calls unload() on templates that were explicitly added
+  in the program. Resolves both Sam's and Udo's concerns. :)
+
+June 22, 2011
+
+* subtemplates {...} in subdirectories didn't work.
+
+June 21, 2011 -- Release 4.0.3
+
+* {} wasn't allowed as a template
+
+June 16, 2011
+
+* Major overhaul of template names:
+** '/' allowed as starting ID letter like </a/b()>
+** getInstanceOf names must be fully qualified.  If you don't put / on
+   front, one is added for you.
+** template refs in expr are relative to location of surrounding template
+   unless prefixed with /. In that case they are relative to root of group.
+** import statement no longer allows fully qualified file name.
+** Changed all unit tests to use fully qualified names and see results that way.
+
+June 15, 2011
+
+* STGroup.unload() calls unload() on each group in the imports list
+  instead of clearing the list. (Thanks to Sam...wait, did Udo already
+  try this?)
+
+June 14, 2011
+
+* STRuntimeMessage got NPE upon ST.impl == null
+* ctor ST() is protected; not for users. bad users!
+
+June 11, 2011 (Udo)
+
+* Removed warning (access static member through instance)
+
+June 4, 2011 (Udo)
+
+* Fixed and added tests
+
+May 29, 2011 (Udo)
+
+* Fixed test case for <\n> to handle different line.separator sizes
+
+May 28, 2011 (Udo)
+
+* BUG: On Windows wrapped lines are separated with \r\r\n
+* made tests run on Windows and non-US locales
+
+May 20, 2011 (Udo)
+
+* STGroupDir.load(String name) no longer checks for (parent) group file when name specifies no parent (no '/')
+
+May 18, 2011 (Udo)
+
+* unload in STGroup now also unloads the import relationships
+* Fixed test testRendererWithPredefinedFormat2 to also work in non-PDT timezones
+* Fixed tests testArg1, testArg2 in TestGroupSyntaxErrors
+* Fixed "URI is not hierarchical" issue when STGroupFile is imported from jar file
+
+May 17, 2011 (Udo)
+
+* Added getTemplateNames to STGroup
+
+May 14, 2011
+
+* passthru() didn't watch for empty formal args
+
+May 10-15, 2011 (Udo)
+
+* fixed bug raising a NullPointerException when a formalArg's default value has a syntax error.
+Example: main(a={(<"")>}) ::= ""
+* STGroupFile.getName() returns group name also for imported groups (was null before).
+
+4.0.2 -- May 3, 2011
+
+* Backing out change from 4/17; don't want Serializable implementation.
+* Improved error msg for out of order required parameters (after optional ones)
+
+April 26, 2011
+
+* rest() stripped nulls, which it shouldn't. Was inconsistent with trunc(), etc...
+
+April 21, 2011
+
+* Made STGroup.iterateAcrossValues an instance variable not static.
+  That needed a change to convertAnythingIteratableToIterator, etc..
+  to non-static.
+* Removed STDump as unneeded; Use STViz.
+
+April 17, 2011
+
+* Added implements Serializable to ST, STGroup.
+
+April 16, 2011
+
+* Made compatible with Java 1.5; removed Arrays.copyOf() ref.
+* Updated ANT build to ref ant lib dir not /usr/local/lib/
+
+April 11, 2011
+
+* Dictionaries weren't inherited. Added unit test.
+
+4.0.1 -- April 10, 2011
+
+* Added STNoSuchAttributeException to distinguish from no such property.
+* Pass through didn't handle case properly of empty or nonexistent attributes.
+  We only pass through nonempty values. Further, it makes no sense to set
+  values for parameter x if x has no definition above. That is the same as
+  having no value.  This is required to get default attributes to work
+  with passthru in all cases.  Added unit tests.
+* Oops.  That is not quite correct. If no value exists or the attribute
+  itself does not exist, we must set the parameter to null ifthere is no
+  default parameter. otherwise the interpreter will complain about a
+  missing argument value.
+* Was missing alreadyLoaded = true; in STGroupString.
+* Bug fix for <@super.r()> exprs; it tried to doubly-define region.
+  Code generator didn't generate mangled name either; fixed and then updated
+  http://www.antlr.org/wiki/display/ST4/Template+to+Bytecode+mapping
+* Improved error msg when referencing implicit attributes like 'i'.
+
+April 9, 2011
+
+* Sam pointed out that regions didn't work with <% %>
+* Cleaned up STViz.
+* STViz expands template attribute view when you click in output
+* STViz template and attribute tree views now grouped.
+* default arguments were not evaluated in context of invoked template;
+  couldn't see other args.
+* Added '...' pass through arg back in. Only allowed with named arg lists
+  or as sole arg. Not allowed in <(name)()> indirect includes.
+  Inserts new passthru bytecode to set any unset args.
+* AST pane not updated upon new ST selection
+* Scroll output pane when ST selected
+* Added STGroup.iterateAcrossValues static boolean for v3 compatibility
+  v3 iterates across values not keys like v4. But to convert ANTLR templates,
+  it's too hard to find without static typing in templates.
+* Cleaned up ST.locals[] creation; centralized in Interpreter.
+* MapModelAdaptor made copy of STs unnecessarily and w/o copying locals[]
+
+April 8, 2011
+
+* Added scope tree showing all inherited attributes (dynamic scoping) in lower
+  left "attributes" pane.
+* Undid some bugs I introduced concerning selecting templates.  Tried to
+  move the cursor in output window which triggered multiple / wrong update
+  events.
+
+ April 6, 2011
+
+* Ignore indentation in <% .. %> templates but keep white space between elements
+* Added better error msg for internal errors during template evaluation.
+  context [outputFile parser genericParser rule ruleBlockSingleAlt alt element
+   ruleRefAndListLabel ruleRef] 1:1 internal error caused by: java.lang.NullPointerException
+	at org.stringtemplate.v4.ST.rawSetAttribute(ST.java:294)
+	at org.stringtemplate.v4.Interpreter.storeArgs(Interpreter.java:576)
+	at org.stringtemplate.v4.Interpreter.super_new(Interpreter.java:495)
+    ...
+
+April 4, 2011
+
+* in TestSubtemplates.java there was an extra (bad) import
+* fixed a couple of unit tests that failed.
+* removed .class files from depot
+* added t() ::= <% ... %> template that ignores all newlines inside template.
+  This allows arbitrary formatting within a template that does not result
+  in new lines in the output. This is useful when you have a really complicated
+  template with IFs and such that needs to generate output all on the same line.
+  Currently, this can be quite challenging. There's no way to read a huge
+  template on one line.
+
+April 3, 2011
+
+* ST.getAttribute() only looks in that template now. Can't look up
+  since it doesn't know what interp is executing. It's just to get
+  an attr out of a template now.  Moved dynamically scope getAttribute()
+  to Interpreter.
+* STRuntimeMessage takes an Interpreter interp arg now.
+* ST dropped some weight.  No need for enclosingInstance ptr now. That is
+  properly done in interpreter as a stack of scopes.  Now, there is no
+  side-effect whatsoever in ST instances for execution. THREAD SAFE eval now.
+* Added <<<...>>> template that ignores all \n inside; use <\n> to get one.
+* Interpreter interp added to ModelAdaptor. BREAKING CHANGE IF YOU'VE BUILT
+  a model adaptor (rare)
+* Internal clean up so stack of template evaluation scopes has debug info.
+  Required changes across lots of files.  Started referring to scopes
+  so entire path to root is available and with debugging info if debug on
+  for that interpreter. Extracted InstanceScope from inner class.
+
+March 30 - April 2, 2011
+
+* ST.inspect() now returns an STViz, which has all the goodies and gives
+  you access to the GUI stuff.
+* added aggr.{prop1, prop2} for ST.add(). Too useful. (Was in v3).
+  Use ST.addAggr("aggr.{p1,p2}", a1, a2);
+* refactored to fold DebugST into ST; adds one object ptr to every ST
+  instance but worth reduction in complexity. "new ST(...)" calls didn't
+  work (not DebugST objects) in inspector.  ST.inspect() for any ST now.
+* Fixed bug in STViz. Didn't highlight entire output when you click
+  topmost template.
+* STGroup.debug no longer there nor static.  It's an instance var of
+  Interpreter.  ST.inspect() tells interp to debug. STGroup.trackCreationEvents
+  says to record where in code an ST was created and where code added attributes.
+* Gutted tree model for STViz, refactored debugging/event tracking code.
+* creation events had wrong location (launch of interp location); only tracks
+  now for externally/injected created templates.
+
+March 29, 2011
+
+* Fixed bug where escaped quotes in template defs were not unescaped for use
+  by compiler.
+
+4.0 -- March 27, 2011
+
+* ST.add() returns self now so we can chain.  t.add("x", 1).add("y", "hi");
+* import from files in jar didn't work.
+* removed field tokens from STGroupString
+* improved imports lookup
+* made fields of events public final.
+* augmented debug event toString and fixed start/stop issue with eval
+  events.  renamed fields to be more clear.
+* Added IndentEvent for dbg
+* ^(INDENT expr-sub-tree) is now ^(INDENTED_EXPR INDENT expr-sub-tree)
+  with changes to grammars.  More consistent with subtree root being operator.
+  STViz now highlights indentation properly in template pane.
+* Altered CodeGenerator.g to pass AST node for indentation not just string.
+  This way we get INDENT operations into the sourceMap for indent debug events.
+
+4.0b5 -- March 6, 2011
+
+BIG THANKS to Sam Harwell and, again, to Udo Borkowski for debugging help and
+suggestions. Sam is doing the C# implementation.  Benjamin Niemann is doing
+the Python port. Alan Condit is doing Objective-C.
+
+* true/false were only allowed as default args; now allowed as template
+  arg expressions in templates. Works as dictionary value too.
+* couldn't have anonymous templates inside a region.
+* parentheses were a bit weird in conditions.  Now, conditions cannot
+  use parentheses to mean "early evaluation" except as obj.(propName)
+* nativeGroup of all implicit templates was STGroup.defaultGroup.
+* removed all writes of the enclosingInstance at evaluation time; fixed
+  issue for STViz.
+* comments on line by themselves don't emit \n to output
+* STViz tried to highlight AST pane even when we switched ASTs
+* combined load_str, write into write_str single op. minor optimizations too.
+  Seems a tiny bit faster per benchmarks.
+* Added ST.VERSION auto-updated by ANT.
+* added STGroupString
+* Added support for this in group.g:
+  oldStyleHeader // ignore but lets us use this parser in AW for both v3 and v4
+    :   'group' ID ( ':' ID )?
+	    ( 'implements' ID (',' ID)* )?
+	    ';'
+	;
+* IndexOutOfBounds Exception when using "cap" format on empty string
+* @t.() ::= "" caused NPE
+* Region redefinition caused NPE. "<@r>a<@end><@r()>"
+* STViz couldn't see first subtemplate when computing template range in output.
+* Was incorrectly computing filename to load template .st files from group dir.
+* Listener was not notified upon "no such template" in group dir.
+* Redid how ST found imported files, dir, etc.. Can now import a template
+  file even.  Can be absolute path or relative path.  If relative, it
+  looks in dir of .stg file with import then CLASSPATH.
+* The listener of import groups is now set to that of group that imports
+  them.
+* Regions behave like <if> tags now. Indent respected if <@r>...<@end> on
+  indented single line.  Indent/newlines ignored after those tags if
+  on separate lines.
+
+4.0b4 -- February 5, 2011
+
+BIG THANKS to Udo Borkowski for his help debugging these betas and his
+suggestions.
+
+* added write to file methods
+* had infinite loop for expr: "<t()$"
+* the default file encoding is now UTF-8
+* early eval <(x)> using new STWriter derived from type of current STWriter.
+  e.g., AutoIndentWriter.
+* didn't detect nonterminated comment. <!bad comment>
+* added two literals "true" and "false" to the template argument syntax; e.g.,
+  stat(name,x=true,y=false) ::= "..."
+* it was treating "..." default arg as a template not string.
+* throws STException now upon not finding group file or group dir instead
+  of sending err to listener.
+* default args couldn't have subtemplates
+  t(x,y={<x:{s|<s>}>}) ::= "..."
+* Added a new benchmark from Oliver Zeigermann.
+
+4.0b3 -- January 28, 2011
+
+* exception in lexer blew out of parsing
+* missing '}' in {...} caused infinite loop
+* NPE in storeArgs if empty arg list
+* removed debugging prints.
+* x={<(...)>} default arg was hardcoded to <...> not $..$ or whatever.
+* The grammar needed to match and ignore an optional INDENT before region @end
+* when redefining a region (template) the newline before the >> was kept.
+* WS not ignored in front of STRING token in expressions.
+* closing STViz doesn't exit vm now.
+* throws exception if registering renderer or model adaptor for primitive
+
+4.0b2 -- January 22, 2011
+
+* Order of static init issue; an error mgr was null.
+* Fixed some unit testing the Windows friendly
+* Fix bug in triple if-elseif-elseif-elseif; added unit tests
+* bug where I did not say current_ip when calling exec() from writeObject
+* Updated README to include install information
+
+4.0b1 -- January 14, 2011
