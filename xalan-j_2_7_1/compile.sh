@@ -1,0 +1,1 @@
+javac -cp ./lib/javax.servlet-3.0.jar:./lib/junit-4.12.jar:./lib/hamcrest-core-1.3.jar:./tools/xalan2jdoc.jar:./tools/xalan2jtaglet.jar:./tools/JLex.jar:./tools/ant.jar:./tools/stylebook-1.0-b3_xalan-2.jar:./tools/java_cup.jar:./lib/regexp.jar:./lib/BCEL.jar:./lib/runtime.jar:./lib/xercesImpl.jar:./lib/xml-apis.jar @COMPILE_ARGS
