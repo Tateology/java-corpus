@@ -1,0 +1,110 @@
+./src/edu/rice/cs/drjava/model/DefaultGlobalModel.java:246: error: cannot find symbol
+      tVersion = tVersion.onlyMajorVersionAndVendor();
+                         ^
+  symbol:   method onlyMajorVersionAndVendor()
+  location: variable tVersion of type FullVersion
+./src/edu/rice/cs/drjava/model/DefaultGlobalModel.java:286: error: cannot find symbol
+      return "priority "+_priority+", version "+_first.versionString()+" "+_first.maintenance()+" "+_first.update()+" "+_first.release()+" "+_first.vendor()+" "+_first.location()+", descriptor "+_second.getName();
+                                                                                                                                                                       ^
+  symbol:   method location()
+  location: variable _first of type FullVersion
+./src/edu/rice/cs/drjava/model/DefaultGlobalModel.java:367: error: cannot find symbol
+      int priority = (edu.rice.cs.util.FileOps.getDrJavaFile().equals(tVersion.location())) ?
+                                                                              ^
+  symbol:   method location()
+  location: variable tVersion of type FullVersion
+./src/edu/rice/cs/drjava/model/JDKToolsLibrary.java:105: error: an enum switch case label must be the unqualified name of an enumeration constant
+      case JAVA_8: return "edu.rice.cs.drjava.model.compiler.Javac170Compiler";
+           ^
+./src/edu/rice/cs/drjava/model/JDKDescriptor.java:163: error: an enum switch case label must be the unqualified name of an enumeration constant
+        case ORACLE:
+             ^
+./src/edu/rice/cs/drjava/model/debug/jpda/JPDADebugger.java:731: error: incompatible types
+      for (StackFrame f : thread.frames()) {
+                                       ^
+  required: StackFrame
+  found:    Object
+./src/edu/rice/cs/drjava/model/debug/jpda/JPDADebugger.java:1424: error: incompatible types
+        for (LocalVariable v : thread.frame(0).visibleVariables()) {
+                                                               ^
+  required: LocalVariable
+  found:    Object
+./src/edu/rice/cs/drjava/model/debug/jpda/JPDADebugger.java:1691: error: incompatible types
+      for (LocalVariable var : _runningThread.frame(0).visibleVariables()) {
+                                                                       ^
+  required: LocalVariable
+  found:    Object
+./src/edu/rice/cs/drjava/model/debug/jpda/JPDADebugger.java:1956: error: DelegatingLocation is not abstract and does not override abstract method compareTo(Object) in Comparable
+  protected static class DelegatingLocation implements Location {
+                   ^
+./src/edu/rice/cs/drjava/model/debug/jpda/PendingRequestManager.java:113: error: incompatible types
+      for(Location l: rt.allLineLocations()) {
+                                         ^
+  required: Location
+  found:    Object
+./src/edu/rice/cs/drjava/model/debug/jpda/PendingRequestManager.java:116: error: incompatible types
+      for(ReferenceType nested: rt.nestedTypes()) {
+                                              ^
+  required: ReferenceType
+  found:    Object
+./src/edu/rice/cs/drjava/model/debug/jpda/EventHandlerThread.java:261: error: incompatible types
+            for (StepRequest step : erm.stepRequests()) {
+                                                    ^
+  required: StepRequest
+  found:    Object
+./src/edu/rice/cs/drjava/model/JarJDKToolsLibrary.java:287: error: no suitable method found for parseFullVersion(String,String,String,File)
+        result = JavaVersion.parseFullVersion(parsedVersion, vendor, vendor, f);
+                            ^
+    method JavaVersion.parseFullVersion(String) is not applicable
+      (actual and formal argument lists differ in length)
+    method JavaVersion.parseFullVersion(String,String,String) is not applicable
+      (actual and formal argument lists differ in length)
+./src/edu/rice/cs/drjava/model/JarJDKToolsLibrary.java:291: error: no suitable method found for parseFullVersion(String,String,String,File)
+        result = JavaVersion.parseFullVersion(parsedVersion, vendor, vendor, f);
+                            ^
+    method JavaVersion.parseFullVersion(String) is not applicable
+      (actual and formal argument lists differ in length)
+    method JavaVersion.parseFullVersion(String,String,String) is not applicable
+      (actual and formal argument lists differ in length)
+./src/edu/rice/cs/drjava/model/JarJDKToolsLibrary.java:296: error: no suitable method found for parseFullVersion(String,String,String,File)
+        result = JavaVersion.parseFullVersion(parsedVersion, vendor, vendor, f);
+                            ^
+    method JavaVersion.parseFullVersion(String) is not applicable
+      (actual and formal argument lists differ in length)
+    method JavaVersion.parseFullVersion(String,String,String) is not applicable
+      (actual and formal argument lists differ in length)
+./src/edu/rice/cs/drjava/model/JarJDKToolsLibrary.java:301: error: no suitable method found for parseFullVersion(String,String,String,File)
+        result = JavaVersion.parseFullVersion(parsedVersion, vendor, vendor, f);
+                            ^
+    method JavaVersion.parseFullVersion(String) is not applicable
+      (actual and formal argument lists differ in length)
+    method JavaVersion.parseFullVersion(String,String,String) is not applicable
+      (actual and formal argument lists differ in length)
+./src/edu/rice/cs/drjava/model/JarJDKToolsLibrary.java:318: error: no suitable method found for parseFullVersion(String,String,String,File)
+            result = JavaVersion.parseFullVersion(parsedVersion = v, vendor, vendor, f);
+                                ^
+    method JavaVersion.parseFullVersion(String) is not applicable
+      (actual and formal argument lists differ in length)
+    method JavaVersion.parseFullVersion(String,String,String) is not applicable
+      (actual and formal argument lists differ in length)
+./src/edu/rice/cs/drjava/model/JarJDKToolsLibrary.java:330: error: method parseClassVersion in enum JavaVersion cannot be applied to given types;
+              result = JavaVersion.parseClassVersion(jf.getInputStream(je)).fullVersion();
+                                  ^
+  required: String
+  found: InputStream
+  reason: actual argument InputStream cannot be converted to String by method invocation conversion
+./src/edu/rice/cs/drjava/model/JarJDKToolsLibrary.java:384: error: no suitable method found for parseFullVersion(String,String,String,File)
+      result = JavaVersion.parseFullVersion(parsedVersion,vendor,vendor,f);
+                          ^
+    method JavaVersion.parseFullVersion(String) is not applicable
+      (actual and formal argument lists differ in length)
+    method JavaVersion.parseFullVersion(String,String,String) is not applicable
+      (actual and formal argument lists differ in length)
+./src/edu/rice/cs/drjava/ui/DrJavaErrorHandler.java:141: error: cannot find symbol
+          equals(edu.rice.cs.plt.reflect.JavaVersion.VendorType.ORACLE)) return false;
+                                                               ^
+  symbol:   variable ORACLE
+  location: class VendorType
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+20 errors

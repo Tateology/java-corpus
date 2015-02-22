@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<!--
+  HTML file providing an overview of the contents of this package.
+
+  $Id: package.html 3741 2006-04-06 20:56:24Z dlsmith $
+-->
+</head>
+<body bgcolor="white">
+
+  Provides a decision tree used to correctly indent the current line.
+  <p>
+
+  The tree is composed of {@link edu.rice.cs.drjava.model.definitions.indent.IndentRule}s, and asks a series of yes or no
+  questions about the current position before determining the appropriate
+  action.  All nodes use helper methods from {@link edu.rice.cs.drjava.model.definitions.DefinitionsDocument} and
+  the {@link edu.rice.cs.drjava.model.definitions.reducedmodel Reduced Model} package for context.
+  <p>
+
+  The tree itself is built in the {@link edu.rice.cs.drjava.model.definitions.indent.Indenter} class, where a singleton
+  instance is made available to DefinitionsDocument for using on a single line.
+  An outline of the tree is given below.
+  <p>
+
+
+<!-- Indent Rule Decision Tree -->
+<code>
+<ul>
+    <li>1. <b>QuestionInsideComment</b><br>
+    <ul>
+        <!-- Comment Tree -->
+        <li>2. Yes: <b>QuestionPrevLineStartsComment</b><br>
+        <ul>
+            <li>3. Yes: <b>QuestionCurrLineEmptyOrEnterPress</b><br>
+                <i>Starting first line of a mutli-line comment</i>
+            <ul>
+                <li>4. Yes (no auto-close): ActionStartPrevLinePlus(" * ")<br>
+                    <i>Without auto-close comments, we always do the same thing.</i>
+                <li>42. Yes (auto-close): <b>QuestionFollowedByStar</b><br>
+                <ul>
+                    <li>4. Yes: ActionStartPrevLinePlus(" * ")<br>
+                        <i>We are already inside a comment - no need to close it.</i>
+                    <li>41. No: ActionStartPrevLinePlusMultiline<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                  (new String[] { " * \n", " */" }, 0, 3)<br>
+                        <i>We are starting a new block comment - close it.</i>
+                </ul>
+                <li>5. No: ActionStartPrevLinePlus(" ")<br>
+                    <i>Revisiting first line of a mutli-line comment</i>
+            </ul>
+            <li>6. No: <b>QuestionPrevLineStartsWith("*")</b><br>
+            <ul>
+                <li>7. Yes: <b>QuestionCurrLineStartsWith("*")</b><br>
+                <ul>
+                    <li>8. Yes: ActionStartPrevLinePlus("") (Goto 12)<br>
+                        <i>Revisiting middle line of a mutli-line comment (with star)</i>
+                    <li>9. No: <b>QuestionCurrLineEmptyOrEnterPress</b><br>
+                    <ul>
+                        <li>10. Yes: ActionStartPrevLinePlus("* ")<br>
+                            <i>Starting middle line of a mutli-line comment</i>
+                        <li>11. No: ActionStartPrevLinePlus("") (Goto 12)<br>
+                            <i>Revisiting middle line of a mutli-line comment (without star)</i>
+                    </ul>
+                </ul>
+                <li>12. No: ActionStartPrevLinePlus("")<br>
+                    <i>Following a line with no start in a mutli-line comment</i>
+            </ul>
+        </ul>
+
+        <!-- Main Tree -->
+        <li>13. No: <b>QuestionBraceIsParenOrBracket</b></br>
+        <ul>
+            <li>14. Yes: <b>QuestionNewParenPhrase</b><br>
+            <ul>
+                <li>15. Yes: ActionBracePlus(" ")
+                <li>16. No: ActionBracePlus(" " + 1 level)
+            </ul>
+            <li>17. No: <b>QuestionBraceIsCurly</b><br>
+            <ul>
+                <li>18. Yes: <b>QuestionCurrLineStartsWithSkipComments("}")</b><br>
+                <ul>
+                    <li>19. Yes: ActionStartStmtOfBracePlus("")
+
+                    <li>20. No: <b>QuestionStartAfterOpenBrace</b><br>
+                    <ul>
+                        <li>21. Yes: ActionStartStmtOfBracePlus(1 level) (Goto 36)
+                        <li>22. No: <b>QuestionHasCharPrecedingOpenBrace</b><br>
+                        <ul>
+                            <li>23. Yes: ActionStartStmtOfBracePlus(1 level) (Goto 36)
+                            <li>24. No: Goto 25.
+                        </ul>
+                    </ul>
+                </ul>
+                <li>25. No: <b>QuestionStartingNewStmt</b><br>
+                <ul>
+                    <li>26. Yes: <b>QuestionLineContains(":")</b><br>
+                    <ul>
+                        <li>27. Yes: <b>QuestionExistsCharInStmt("?", ":")</b><br>
+                        <ul>
+                            <li>28. Yes: ActionStartPrevStmtPlus("", false) (Goto 30)
+                            <li>29. No: ActionStartStmtOfBracePlus(1 level) (Goto 36)
+                        </ul>
+                        <li>30. No: ActionStartPrevStmtPlus("", true)
+                    </ul>
+                    <li>31. No: <b>QuestionCurrLineStartsWithSkipComments("{")</b><br>
+                    <ul>
+                        <li>32. Yes: ActionStartCurrStmtPlus("")
+                        <li>33. No: <b>QuestionLineContains(":")</b><br>
+                        <ul>
+                            <li>34. Yes: <b>QuestionExistsCharInStmt("?", ":")</b><br>
+                            <ul>
+                                <li>35. Yes: ActionStartCurrStmtPlus(1 level) (Goto 37)
+                                <li>36. No: ActionStartStmtOfBracePlus(1 level)
+                            </ul>
+                            <li>37. No: ActionStartCurrStmtPlus(1 level)
+                        </ul>
+                    </ul>
+                </ul>
+            </ul>
+        </ul>
+    </ul>
+</ul>
+<p>
+
+  @see edu.rice.cs.drjava.model.definitions
+  @see edu.rice.cs.drjava.model.definitions.reducedmodel
+</body>
+</html>
+
