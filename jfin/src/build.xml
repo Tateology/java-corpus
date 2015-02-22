@@ -1,0 +1,472 @@
+<?xml version="1.0"?>
+<!--
+  ~ <p> <b>jFin, open source derivatives trade processing</b> </p>
+  ~
+  ~ <p> Copyright (C) 2005, 2006, 2007 Morgan Brown Consultancy Ltd. </p>
+  ~
+  ~ <p> This file is part of jFin. </p>
+  ~
+  ~ <p> jFin is free software; you can redistribute it and/or modify it under the
+  ~ terms of the GNU General Public License as published by the Free Software
+  ~ Foundation; either version 2 of the License, or (at your option) any later
+  ~ version. </p>
+  ~
+  ~ <p> jFin is distributed in the hope that it will be useful, but <b>WITHOUT
+  ~ ANY WARRANTY</b>; without even the implied warranty of <b>MERCHANTABILITY</b>
+  ~ or <b>FITNESS FOR A PARTICULAR PURPOSE</b>. See the GNU General Public
+  ~ License for more details. </p>
+  ~
+  ~ <p> You should have received a copy of the GNU General Public License along
+  ~ with jFin; if not, write to the Free Software Foundation, Inc., 51 Franklin
+  ~ St, Fifth Floor, Boston, MA 02110-1301 USA. </p>
+  -->
+<project name="jFin DateMath" basedir=".." default="dist">
+	<description>
+    		jFin, open source derivatives trade processing
+    </description>
+
+
+	<property name="tag" value="R1_0_1" />
+
+	<property name="module" value="jFin_DateMath" />
+
+	<property name="src" location="src" />
+	<property name="mainsrc" location="src/main/java" />
+	<property name="junitsrc" location="src/test/java" />
+	<property name="junitdatasrc" location="src/test/data" />
+	<property name="doc" location="doc" />
+	<property name="example_source" location="src/example/java" />
+	<property name="example_shell_source" location="src/example/sh" />
+	<property name="example_bat_source" location="src/example/bat" />
+	<property name="conf_source" location="src/conf" />
+
+	<property name="target" location="target" />
+
+	<property name="fc_sample" location="src/test/data/financialcalendar" />
+	<property name="fc_distsample" location="${target}/src/test/data/financialcalendar" />
+
+	<property name="webinfsrc" location="src/WEB-INF" />
+
+	<property name="jspsrc" location="src/web/jsp" />
+
+	<property name="htmlsrc" location="src/web/html" />
+	<property name="webxml" location="src/web/metadata/jfinwebapp.xml" />
+	<property name="strutsxml" location="src/web/metadata/struts-config.xml" />
+	<property name="weblib" location="weblib" />
+	<property name="webservices" location="src/web/service" />
+	<property name="webresources" location="src/web/resource" />
+	<property name="websource" location="src/web/java" />
+
+
+	<property name="junitlib" location="lib/junit.jar" />
+
+	<property name="debugclasses" value="${target}/classes" />
+	<property name="instrumentedclasses" value="${target}/instrumentedclasses" />
+	<property name="dist_doc" value="${target}/doc" />
+	<property name="javadoc" value="${target}/doc/javadoc" />
+	<property name="jarfilename" value="${module}_${tag}.jar" />
+	<property name="warfilename" value="${module}_${tag}.war" />
+	<property name="jar" value="${target}/${jarfilename}" />
+	<property name="war" value="${target}/${warfilename}" />
+	<property name="zipsrc" value="${target}/${module}_${tag}_src.zip" />
+	<property name="zipbin" value="${target}/${module}_${tag}_bin.zip" />
+	<property name="tarsrc" value="${target}/${module}_${tag}_src.tar" />
+	<property name="tarbin" value="${target}/${module}_${tag}_bin.tar" />
+	<property name="conf" value="${target}/conf" />
+	<property name="junit" value="${target}/test" />
+	<property name="junitdata" value="${junit}/data" />
+	<property name="junitclasses" value="${junit}/classes" />
+	<property name="junitresults" value="${target}/doc/junitresults" />
+	<property name="junitcoverageresults" value="${target}/doc/coverageresults" />
+	<property name="examples" value="${target}/examples" />
+	<property name="collectedsource" value="${target}/collectedsrc" />
+	<property name="distsource" value="${target}/src" />
+	<property name="distjws" value="${target}/jws" />
+	<property name="coberturadatafile" value="${junitcoverageresults}/cobertura.ser" />
+	<property name="lib" value="${target}/lib" />
+
+    <path id="coberturalib">
+        <fileset dir="lib">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+
+	<!-- =================================
+			  External tasks
+			 ================================= -->
+
+	<taskdef classpathref="coberturalib" resource="tasks.properties" >
+	</taskdef>
+
+
+	<!-- =================================
+          target: clean
+
+          Clear down the existing target directory and creates a fresh target directory structure
+         ================================= -->
+	<target name="clean" description="--> Clean the target directory">
+		<!-- tear down the existing target directory -->
+		<delete dir="${target}">
+		</delete>
+
+		<!-- rebuild a fresh target directory structure -->
+		<mkdir dir="${debugclasses}" />
+		<mkdir dir="${instrumentedclasses}" />
+		<mkdir dir="${examples}" />
+		<mkdir dir="${javadoc}" />
+		<mkdir dir="${junit}" />
+		<mkdir dir="${junitresults}" />
+		<mkdir dir="${junitdata}" />
+		<mkdir dir="${junitclasses}" />
+		<mkdir dir="${junitcoverageresults}" />
+		<mkdir dir="${collectedsource}" />
+		<mkdir dir="${distsource}" />
+		<mkdir dir="${distjws}" />
+	</target>
+
+
+
+
+	<!-- =================================
+          target: compile
+
+          Compiles jFin java source for distribution, unit testing and coverage checking
+         ================================= -->
+	<target name="compile" depends="clean" description="Compiles jFin java source">
+		<!-- Copy the sources across into one directory -->
+		<copy todir="${collectedsource}">
+			<fileset dir="${mainsrc}">
+			</fileset>
+		</copy>
+		<copy todir="${collectedsource}">
+			<fileset dir="${junitsrc}">
+			</fileset>
+		</copy>
+		<copy todir="${collectedsource}">
+			<fileset dir="${websource}">
+			</fileset>
+		</copy>
+		<copy todir="${distsource}">
+			<fileset dir="${src}">
+			</fileset>
+		</copy>
+		<!--copy todir="${distsource}">
+			<fileset dir="${fc_source}">
+			</fileset>
+		</copy-->
+		<copy todir="${lib}">
+			<fileset dir="lib">
+                <include name="cobertura.jar"/>
+                <include name="commons-logging-1.0.4.jar"/>
+			</fileset>
+		</copy>
+
+		<!-- Compile the distribution classes -->
+		<javac srcdir="${collectedsource}" excludes="**/test/**" destdir="${debugclasses}" debug="true">
+			<classpath>
+				<fileset dir="${weblib}">
+                </fileset>
+			</classpath>
+		</javac>
+
+		<!-- Compile the test classes -->
+		<javac srcdir="${collectedsource}" includes="**/test/**" destdir="${junitclasses}" debug="true">
+			<classpath path="${junitlib}"></classpath>
+			<classpath path="${debugclasses}"></classpath>
+			<classpath>
+				<fileset dir="${weblib}">
+                </fileset>
+			</classpath>
+		</javac>
+
+		<!-- Compile the instrumented classes for code coverage -->
+		<cobertura-instrument todir="${instrumentedclasses}" datafile="${coberturadatafile}">
+			<fileset dir="${debugclasses}">
+				<include name="**/*.class" />
+				<exclude name="**/test/**.class" />
+				<exclude name="**/example/*.class" />
+			</fileset>
+		</cobertura-instrument>
+	</target>
+
+
+	<!-- =================================
+          target: javadoc
+
+          Generates javadocs
+         ================================= -->
+	<target name="javadoc" description="Generates JavaDocs for jFin">
+		<javadoc destdir="${javadoc}" doctitle="jFin Doc">
+			<fileset dir="${mainsrc}">
+				<include name="**/*.java" />
+			</fileset>
+		</javadoc>
+	</target>
+
+
+	<!-- =================================
+          target: doc
+
+          Copy any ancilliary documentation across from the doc directory
+         ================================= -->
+	<target name="doc" depends="javadoc" description="Copy ancilliary documentation">
+		<copy todir="${dist_doc}">
+			<fileset dir="${doc}">
+			</fileset>
+		</copy>
+	</target>
+
+
+	<!-- =================================
+          target: jar
+
+          Build the binary jar file
+         ================================= -->
+	<target name="jar" depends="compile" description="--> Creates a binary jar">
+		<jar destfile="${jar}" basedir="${debugclasses}">
+		</jar>
+	</target>
+
+
+
+	<!-- =================================
+          target: junit
+
+          Runs the unit tests and generates test and coverage report packs
+         ================================= -->
+	<target name="junit" depends="jar" description="--> Runs and reports on junit tests">
+
+		<echo>${coberturadatafile}</echo>
+
+		<!-- Copy the test data files over to the target directory -->
+		<copy todir="${junitdata}" flatten="false">
+			<fileset dir="${junitdatasrc}">
+			</fileset>
+		</copy>
+		<copy todir="${fc_distsample}" flatten="false">
+			<fileset dir="${fc_sample}">
+			</fileset>
+		</copy>
+
+
+		<!-- Run junit on all tests using the instrumented classes -->
+		<junit fork="yes" forkmode="once" haltonerror="false" haltonfailure="false">
+			<sysproperty key="net.sourceforge.cobertura.datafile" value="${coberturadatafile}" />
+
+			<classpath>
+                <fileset dir="lib">
+                    <include name="*.jar"/>
+                </fileset>
+				<pathelement location="${instrumentedclasses}" />
+				<pathelement location="${debugclasses}" />
+				<pathelement location="${junitclasses}" />
+				
+
+				<fileset dir="${weblib}" id="id">
+				</fileset>
+
+
+
+			</classpath>
+			<batchtest todir="${junitresults}">
+				<fileset dir="${collectedsource}">
+					<include name="**/*Test.java" />
+				</fileset>
+				<formatter type="xml" />
+			</batchtest>
+		</junit>
+
+		<!-- Generate a junit success/failure report -->
+		<junitreport todir="${junitresults}">
+			<fileset dir="${junitresults}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${junitresults}" />
+		</junitreport>
+
+		<!-- Generate the cobertura coverage report -->
+		<cobertura-report datafile="${coberturadatafile}" srcdir="${collectedsource}" destdir="${junitcoverageresults}">
+
+		</cobertura-report>
+	</target>
+
+
+
+
+	<!-- =================================
+          target: build examples
+
+          Compiles the example classes, and copies the java source, shell scripts and
+          classes across to the target directory
+         ================================= -->
+	<target name="build_examples" depends="jar" description="--> Builds the example class file">
+		<!-- Compile the example classes -->
+		<javac srcdir="${example_source}" destdir="${examples}" classpath="${junitlib}:${debugclasses}" debug="true">
+		</javac>
+
+		<!-- Copy across the example java, shell and batch file sources -->
+		<copy todir="${examples}">
+			<fileset dir="${example_source}" />
+			<fileset dir="${example_shell_source}" />
+			<fileset dir="${example_bat_source}" />
+		</copy>
+
+		<!-- Update the jar file name in the target shell files -->
+		<replace dir="${examples}" token="%JAR%" value="${jarfilename}" includes="*.sh">
+		</replace>
+
+		<!-- Update the jar file name in the target bat files -->
+		<replace dir="${examples}" token="%JAR%" value="${jarfilename}" includes="*bat">
+		</replace>
+
+		<!-- Copy across the configuration files -->
+		<copy todir="${conf}">
+			<fileset dir="${conf_source}" />
+		</copy>
+
+		<!--
+			Give the shell scripts execute permission
+			Not required for the zip file (this changes
+			the permissions when it creates the zip) but
+			is useful for testing
+		-->
+		<chmod perm="777" force="true">
+			<fileset dir="${examples}">
+				<include name="*.sh" />
+			</fileset>
+		</chmod>
+
+	</target>
+
+
+    <!-- =================================
+          target: jws
+
+          Copies the java web services across and renames them as .jws so
+          they'll get picked up by Axis.
+         ================================= -->
+    <target name="jws" depends="clean" description="--> Generate jws files">
+	    <copy todir="${distjws}" >
+	    		<fileset dir="${webservices}">
+	    			<include name="**/*.java"/>
+	    		</fileset>
+	    		<mapper type="glob" from="*.java" to="*.jws"/>
+	    </copy>
+    </target>
+
+
+    <!-- =================================
+          target: war
+         ================================= -->
+    <target name="war" depends="jar,jws" description="--> Generate a web app repository file for jFin">
+        <war destfile="${war}" webxml="${webxml}">
+        		<webinf dir="${webinfsrc}"/>
+    			<webinf file="${strutsxml}"/>
+        		<fileset dir="${jspsrc}"/>
+    			<fileset dir="${htmlsrc}"/>
+        		<classes dir="${webresources}"/>
+        		<zipfileset dir="${distjws}" prefix="services"/>
+        		<lib file="${jar}"/>
+        		<lib dir="${weblib}"/>
+    		</war>
+
+    </target>
+
+
+
+	<!-- =================================
+          target: dist
+
+          What it's all about! Construct the distribution files
+         ================================= -->
+	<target name="dist" depends="clean, jar, war, junit, doc, build_examples" description="Create the final binary/doc/src zip file">
+
+		<!-- Create the zip files -->
+		<zip destfile="${zipsrc}">
+			<zipfileset file="${jar}" />
+			<zipfileset dir="${dist_doc}" prefix="doc/" />
+			<zipfileset dir="${distsource}" prefix="src/" />
+			<zipfileset dir="${examples}" prefix="examples/">
+				<exclude name="*.sh" />
+			</zipfileset>
+			<zipfileset dir="${examples}" prefix="examples/" filemode="777">
+				<include name="*.sh" />
+			</zipfileset>
+			<zipfileset dir="${conf_source}" prefix="conf/" />
+		</zip>
+
+		<zip destfile="${zipbin}">
+			<zipfileset file="${jar}" />
+			<zipfileset dir="${dist_doc}" prefix="doc/" />
+			<zipfileset dir="${examples}" prefix="examples/">
+				<exclude name="*.sh" />
+			</zipfileset>
+			<zipfileset dir="${examples}" prefix="examples/" filemode="777">
+				<include name="*.sh" />
+			</zipfileset>
+			<zipfileset dir="${conf_source}" prefix="conf/" />
+		</zip>
+
+
+		<!-- Create the tar files -->
+		<tar destfile="${tarsrc}" longfile="gnu">
+			<tarfileset file="${jar}" />
+			<tarfileset dir="${dist_doc}" prefix="doc/" />
+			<tarfileset dir="${distsource}" prefix="src/" />
+			<tarfileset dir="${examples}" prefix="examples/">
+				<exclude name="*.sh" />
+			</tarfileset>
+			<tarfileset dir="${examples}" prefix="examples/" mode="777">
+				<include name="*.sh" />
+			</tarfileset>
+			<tarfileset dir="${conf_source}" prefix="conf/" />
+		</tar>
+
+		<tar destfile="${tarbin}" longfile="gnu">
+			<tarfileset file="${jar}" />
+			<tarfileset dir="${dist_doc}" prefix="doc/" />
+			<tarfileset dir="${examples}" prefix="examples/">
+				<exclude name="*.sh" />
+			</tarfileset>
+			<tarfileset dir="${examples}" prefix="examples/" mode="777">
+				<include name="*.sh" />
+			</tarfileset>
+			<tarfileset dir="${conf_source}" prefix="conf/" />
+		</tar>
+
+		<!-- GZIP the tar files -->
+
+		<gzip src="${tarsrc}" destfile="${tarsrc}.gz"/>
+		<gzip src="${tarbin}" destfile="${tarbin}.gz"/>
+
+		<!-- Delete the intermediary tar files -->
+
+		<delete file="${tarsrc}" />
+		<delete file="${tarbin}" />
+	</target>
+
+
+
+	<!-- =================================
+          target: jar_to_trade_module
+
+          Time saving task to copy build to Trade module
+         ================================= -->
+	<target name="jar_to_trade_module" depends="jar" description="Time saving task to copy build to Trade module">
+
+		<move todir="../Trade/lib" overwrite="true">
+	    		<fileset dir="../Trade/lib">
+	    			<include name="**/jFin_DateMath*.jar"/>
+	    		</fileset>
+	    		<mapper type="glob" from="*.jar" to="*.jar.backup"/>
+	    </move>
+
+		<copy file="${jar}" todir="../Trade/lib"/>
+
+	</target>
+
+
+
+</project>
+

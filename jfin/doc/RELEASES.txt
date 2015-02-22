@@ -1,0 +1,144 @@
+R1.0.1 Date: 18 February 2010
+Changed the Iso4217Currency enum to build in stricter compilers which do not allow forward references.
+Fixed a minor defect in the ScheduleService.
+Updated the build.xml file to more cleanly build the debug, instrumented and junit classes.
+
+R1.0.0 Date: 2 November 2007
+Added getAdjustedPaymentCalendar() to AccrualPeriod.
+Added daily and weekly frequencies to Frequency.
+Removed 'noisy' logging as info from ISMA Actual Actual default implementation.
+Renamed ScheduleGenerator2 to TypedScheduleGenerator.
+Removed deprecated accessors from Period.
+
+B0.2.0 Date: 19 January 2007
+Added adjust(List<Period>,BusinessDayConvention) method to HolidayCalendar to allow entire schedules to be adjusted.
+Introduced strongly typed new ScheduleGenerator.
+Modified HolidayCalendar and HolidayCalendarFactory to support generics.
+Added org.jfin.date.accrual package to provide common functionality for manipulating accrual periods.
+Added copy constructor to Period and it's subclasses.
+Added org.jfin.date.accrual.impl to provide implementations of fixed and floating accrual periods.
+Created implementation of fixed and floating accrual periods.
+Created implementation of accrual schedule which adjusts and calculates payments for accrual periods.
+
+B0.1.8 Date: 1 January 2007
+Added ScheduleCutter class, which allows schedules or periods to be cut by a set of dates or another schedule.
+Added tests for the ScheduleCutter.
+Changed notionalStart and notionalEnd in Period to be referenceStart and referenceEnd for clarity, deprecated methods referencing the notional start and end dates.
+Moved the financialcalendarimpl source and tests into the main/src and main/test directories.
+Cleaned up coverage report to exclude test and example classes.
+Improved coverage to 100% of non deprecated code for the org.jfin.date.* package.
+
+B0.1.7 Date: 19 December 2006
+Changed Slovenian (SI) currency from SIT to EUR in Iso4217Currency enum.
+Addded LUNAR_MONTHLY value to the Frequency enum.
+Added test for monthly schedules generated on the 31st of each month.
+Fixed bug in schedule generator where monthly schedules generated with reference to the 31st of each month are generated incorrectly.
+Changed the HolidayCalendar abstract class so that concrete implementations can just implement isWeekend and isHoliday independently and adjustments will still work.
+
+B0.1.6 Date: 29 September 2006
+Cleaned up ant build task to comply with very strict parsers.
+Added tests for month end reference provided by scottj.
+Fixed HolidayCalendar to conform to all tests.
+
+B0.1.5 Date: 6 April 2006
+Complete rewrite of ISDA Actual/Actual, now much easier to read and debug
+Tracked down and fixed bug in ISMAActualActual, now all unit tests pass (including those from ISDA documents)
+
+B0.1.4 Date: 30 March 2006
+Added unit tests for short periods: EU30/360 and US30/360
+Rewritten EU30/360 and US30/360, now clearer and works properly for short periods
+Changed PlainSwap example web app to update schedule through AJAX
+Improved way PlainSwap parses numbers and dates
+Added max period count to schedule generator
+
+B0.1.3 Date: 24 March 2006
+Created unit tests for critical bug in ScheduleGenerator
+Fixed critical bug in ScheduleGenerator
+Index.jsp now doesn't look awful on IE
+Updated plainswap.jsp to look better
+
+B0.1.2 Date: 21 March 2006
+Reset times on period start and end dates to midnight on Schedule Generator
+Added unit test for schedule generation errors with stub type NONE
+Resolved schedule generation errors with stub type NONE
+Added links to examples and web services to index.jsp
+Added JVM/jFin installation check on index.jsp
+Included happyaxis.jsp, with link from index.jsp
+
+B0.1.1 Date: 19 March 2006
+Refactored test src so that package names match the packages they are testing
+Added .bat example files courtesy of arb77 at users.sourceforge.net
+Added license to test and util classes
+Added additional class javadocs
+Changed shortStub and longStub enums to the proper names SHORT_FIRST SHORT_LAST
+Changed all enums to upper case
+Finished ISDAMarketConventionDocTest, one failure outstanding to investigate
+Added constructor to Period including values for 'notional' start and end dates
+Period toString now communicates 'notional' start and end date
+Added ISO 3166 Country codes enum
+Added ISO 4217 Currency codes enum
+Changed the default parameters and names to public on HolidayCalendarFactory and DaycountCalculatorFactory
+Added implementation and tests for LONG_SHORT and LONG_LAST stubs in schedule generator
+DaycountCalculator now passes notional periods to the implementation when calculating a period
+Fixed a number of bugs relating to notional periods in DaycountCalculator
+Fixed CSV Tokenizer, now passes all tests
+Added first version of example web services based on Axis 1.3
+Added .war file to ant dist task
+Changed ScheduleGenerator to optionally take a Period prototype
+Created plainswap schedule generator jsp page
+Added getAvailableLocales() to the HolidayCalendarFactory and all implementors
+Removed war file from main distributions
+
+A0.0.6 Date: 21 Feb 2006
+Extended unit test classes, aiming for 100% coverage
+Implemented test class based upon public ISDA Market Convention documentation http://www.isda.org/c_and_a/pdf/mktc1198.pdf
+Fixed bug in ISDA Actual/Actual where leap years weren't picked up
+Fixed bug in AFB Actual/Actual where days between was incorrectly calculated
+Changed DaycountCalculator class to optionally allow the passing of a notional period to accurately calculate short/long stubs
+Updated README.txt
+Added tar.gz to build file
+Added seperate src and bin distribution files
+
+A0.0.5 Date: 17 Feb 2006
+Refactored DaycountCalculatorFactory to be a true abstract Factory
+Refactored HolidayCalendarFactory to be a true abstract Factory
+Added unit test for date adjustments with prelimenary/sanity test pack
+Reorganised project to have a more Maven like structure
+Included cobertura coverage testing
+Root and branch reworking of ant build.xml file, includes unit test and coverage reporting generation
+
+A0.0.4 Date: 8 Feb 2006
+Added Business252 daycount calculator
+Changed singleton implementation of DaycountCalculatorFactory to use the initialisation on demand holder pattern
+Synchronized getDefaultHolidayCalendarProvider in the HolidayCalendarFactory singleton
+Moved all functionality of DateArithmetic to the HolidayCalendar
+Added Tenor utility class
+Cleaned up logging.properties file and added it to build for use by examples
+Updated org.jfin.core.date.holiday.HolidayCalendarException to extend Exception rather than Throwable
+Created DaycountFractionCalculator example, added to examples folder of distribution
+Deleted deprecated 'shunt' package
+Refactored org.jfin.core.date.* to org.jfin.date.*
+Fully javadoc'd org.jfin.date.* and org.jfin.date.daycount.*
+
+A0.0.3 Date: 4 Feb 2006
+Added basic build script
+Added first unit test for DaycountCalculatorFactory
+Refactored DaycountCalculatorFactory to include synonyms
+Provided template looging.properties file in conf/
+Implemented ISMA Actual/Actual
+Implemented AFB Actual/Actual
+Implemented EU, US and IT 30/360
+Added Actual/360 and Actual/365
+Reformatted to put braces on next line
+Implemented short stub on schedule generator
+Added example folder and shell script to the distribution
+
+A0.0.2 Date: 26 Jan 2006
+Refactored HolidayCalendarFactory following feedback from milasx
+Reformatted code, moved copyright notice above imports
+Added comments to DateArithmetic
+Started 'log don't comment' on DateArithmetic and HolidayCalendarFactory
+Refactored out unnecessary FinancialDate class, all dates communicated using java.util.Calendar
+
+A0.0.1 Date: 17 Jan 2006
+First Alpha version

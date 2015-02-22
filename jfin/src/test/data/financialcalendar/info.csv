@@ -1,0 +1,4 @@
+CODE,CENTER,COUNTRY,CURRENCY,TYPE,ISOCOUNTRY,DEFINE1,DEFINE2
+LnB,London bank holidays,England,GBP,Bank,GB,Banks will be closed for the entire day for the purpose of making payments.,
+NYB,New York bank holidays,United States,USD,Bank,US,Banks will be closed for the entire day for the purpose of making payments.,
+TkB,Tokyo bank holidays,Japan,JPY,Bank,JP,Banks will be closed for the entire day for the purpose of making payments.,

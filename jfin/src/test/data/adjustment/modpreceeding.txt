@@ -1,0 +1,10 @@
+# Test pack for adjustment convention modified preceeding
+# Format: unadjustedDate	<tab>	target adjusted date
+2005/12/29	2005/12/29
+2005/12/31	2005/12/30
+2006/01/01	2006/01/02
+2008/02/28	2008/02/28
+2008/02/29	2008/02/29
+2008/03/01	2008/03/03
+2006/02/11	2006/02/10
+2006/02/12	2006/02/10
