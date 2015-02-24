@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+  <properties>
+    <title>Contributing</title>
+    <author>Checkstyle Development Team</author>
+  </properties>
+
+  <body>
+
+    <section name="Introduction">
+
+      <p>
+        Hey, good to see you on this page. It means that you are
+        considering a contribution of your own work to the Checkstyle
+        project. We welcome anything: bugfixes, new check modules, unit
+        tests, documentation improvements, build process simplification,
+        etc.
+      </p>
+
+      <p>
+        This document assumes you are working with the GIT version of
+        checkstyle and that you are familiar with some standard
+        development tools (
+
+        <a href="http://git-scm.com/">GIT</a>,
+        <a href="http://maven.apache.org">Maven</a>,
+        <a href="http://junit.org">JUnit</a>).
+      </p>
+      <p>
+        <b>ATTENTION:</b> if you have idea how to improve Checkstyle please create issue on
+        our <a href="https://github.com/checkstyle/checkstyle/issues">tracking system</a>.
+        As soon as one of admins of our project approved your idea you are good to start
+        implementation and you will be welcome with final code contribution.
+        Please do not expect that we will accept any code that you send to us.
+        Example of ideal <a href="https://github.com/checkstyle/checkstyle/issues/258">issue description</a>,
+        and how it is commented on fix <a href="https://github.com/checkstyle/checkstyle/pull/601">Pull Request</a>.
+      </p>
+      <p>
+        <b>ATTENTION:</b> any new Check that you are going to introduce you need to contribute to our
+        sanbox project <a href="https://github.com/sevntu-checkstyle/sevntu.checkstyle">sevntu.checkstyle</a>.
+        We are receiving only bug fixes for now to our main project, here is a
+        <a href="https://groups.google.com/forum/#!topic/checkstyle-devel/JbhfiiSqKsQ">reason</a>.
+      </p>
+    </section>
+
+    <section name="Quality matters">
+
+      <p>
+        The developer team of checkstyle is really a lazy bunch of
+        people.  We try to avoid work as best as we can, but most of all
+        we try to avoid working on bugs that are reported by end users.
+      </p>
+
+      <p>
+        To that end, we use a set of development tools that ensure that
+        the quality of our code is kept at a fairly high level. Like
+        most projects today, we use JUnit to test our code. However we
+        do take this one step further and measure the coverage of our
+        unit tests using
+
+        <a href="http://cobertura.sourceforge.net/">Cobertura</a>.
+
+        This means it is not sufficient to pass all tests, but the tests
+        should ideally execute each line in the code. To generate the
+        Cobertura report, run the Maven command
+
+        <code>mvn cobertura:cobertura</code>.
+
+        Check results on report target/site/cobertura/index.html in project home folder.
+      </p>
+
+      <p>
+        Besides using unit testing, we obviously also use checkstyle to
+        check it's own code.
+      </p>
+
+      <p>
+        The Maven command <code>mvn clean verify</code> must pass
+        without any errors.
+      </p>
+
+      <p>
+        If you add new end user features (Check, Filter, ....), remember to document
+        them in JavaDoc of java classes and xdoc files that used to generate that site.
+        Please recheck site and all bundles generation by <code>mvn -Pdistro package</code>
+      </p>
+
+      <p>
+        The last step of verification that all works fine please do testing of your
+        functionality on any open-source project (Spring, Hibernate, ....).
+        Here is how to do it from <a href="http://checkstyle.sourceforge.net/cmdline.html">command line</a>
+      </p>
+    </section>
+
+    <section name="Submitting your contribution">
+
+      <p>
+        Once you have made sure that your changes pass the Maven command
+        <code>mvn clean verify</code>, the code coverage is of high
+        standard and everything is documented, then you are ready to
+        submit your work.
+      </p>
+
+      <p>
+        Please use <a href="http://help.github.com/articles/using-pull-requests">Pull Request</a>
+        feature of <a href="http://github.com/">Github</a>.<br/>
+        Please provide wide description of update with detailed explanation of problem
+        and how you propose to resolve it.
+        <b>ATTENTION:</b> Please recheck that in your Pull Request there is ONLY your changes and all of them are rebased from most recent HEAD of our master branch.
+      </p>
+
+      <p>
+        <b>ATTENTION:</b> Please provide meaningful message for commit with reference to github issue or Pull Request for more details.<br/>
+        Ideal format for message is "Brief message ..... , issue(or pull request) #NUMBER".
+        <a href="https://github.com/checkstyle/checkstyle/commit/9303fd9d971eb55cdfd62686ba2f5698edb2c83e">Good example</a>
+      </p>
+
+      <p>
+        After you do Pull Request please recheck that our where is no problem from our build system:
+        <a href="https://travis-ci.org/checkstyle/checkstyle">Travis</a> and
+        <a href="https://coveralls.io/r/checkstyle/checkstyle">Coveralls</a>.
+        You will see that your Pull Request on Github is marked by that jobs automatically in few minutes.
+      </p>
+
+      <p>
+        We are not only lazy but at times we are also busy with our day
+        jobs.  This means that you might not always get an immediate
+        answer. You are not being ignored, and we value your work - we
+        might just be too busy to review your code, especially if it is
+        a bit complex. If you don't get a response within two weeks,
+        feel free to send a reminder email about your tracker item.
+      </p>
+    </section>
+  </body>
+</document>

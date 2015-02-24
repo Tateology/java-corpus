@@ -1,0 +1,1 @@
+javac -encoding ISO-8859-1 -cp ./lib/guava.jar:./lib/apache-commons.jar:./lib/apache-ant-1.8.2.jar:./lib/tools7.jar:./lib/checkstyle-6.3.jar:./lib/commons-cli-2.0.jar:./lib/antlr-3.1.2-jar-with-dependencies.jar:./lib/junit.jar:./lib/hamcrest.jar:./lib/antlr-4.5-complete.jar @COMPILE_ARGS

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+  <properties>
+    <title>Modifiers</title>
+    <author>Checkstyle Development Team</author>
+  </properties>
+
+  <body>
+    <section name="ModifierOrder">
+      <subsection name="Description">
+        <p>
+          Checks that the order of modifiers conforms to the suggestions in
+          the <a
+          href="http://java.sun.com/docs/books/jls/second_edition/html/classes.doc.html">Java
+          Language specification, sections 8.1.1, 8.3.1 and 8.4.3</a>. The
+          correct order is:
+        </p>
+
+        <ol>
+          <li>
+            <code>public</code>
+          </li>
+          <li>
+            <code>protected</code>
+          </li>
+          <li>
+            <code>private</code>
+          </li>
+          <li>
+            <code>abstract</code>
+          </li>
+          <li>
+            <code>static</code>
+          </li>
+          <li>
+            <code>final</code>
+          </li>
+          <li>
+            <code>transient</code>
+          </li>
+          <li>
+            <code>volatile</code>
+          </li>
+          <li>
+            <code>synchronized</code>
+          </li>
+          <li>
+            <code>native</code>
+          </li>
+          <li>
+            <code>strictfp</code>
+          </li>
+        </ol>
+      </subsection>
+
+      <subsection name="Example">
+        <p> To configure the check: </p>
+        <source>
+&lt;module name=&quot;ModifierOrder&quot;/&gt;
+        </source>
+      </subsection>
+
+      <subsection name="Package">
+        <p> com.puppycrawl.tools.checkstyle.checks.modifier </p>
+      </subsection>
+
+      <subsection name="Parent Module">
+        <p>
+          <a href="config.html#TreeWalker">TreeWalker</a>
+        </p>
+      </subsection>
+    </section>
+
+    <section name="RedundantModifier">
+
+      <subsection name="Description">
+        <p>
+          Checks for redundant modifiers in:
+        </p>
+        <ol>
+          <li>interface and annotation definitions,</li>
+          <li>the final modifier on methods of final classes, and </li>
+          <li>
+            inner <code>interface</code> declarations that are declared
+            as <code>static</code>.
+          </li>
+        </ol>
+        <p>
+          Rationale: The Java Language Specification strongly
+          discourages the usage of <code>public</code> and <code>abstract</code> for method
+          declarations in interface definitions as a matter of style.
+        </p>
+
+        <p>
+          Interfaces by definition are abstract so the <code>abstract</code>
+          modifier on the interface is redundant.
+        </p>
+
+        <p>
+          Variables in interfaces and annotations are automatically
+          public, static and final, so these modifiers are redundant as
+          well.
+        </p>
+
+        <p>
+          As annotations are a form of interface, their fields are also
+          automatically public, static and final just as their
+          annotation fields are automatically public and abstract.
+        </p>
+
+        <p>
+          Final classes by definition cannot be extended so the <code>final</code>
+          modifier on the method of a final class is redundant.
+        </p>
+      </subsection>
+
+      <subsection name="Properties">
+        <table>
+          <tr>
+            <th>name</th>
+            <th>description</th>
+            <th>type</th>
+            <th>default value</th>
+          </tr>
+          <tr>
+            <td>tokens</td>
+            <td>tokens to check</td>
+            <td>
+              subset of tokens <a
+              href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#METHOD_DEF">METHOD_DEF</a>,
+              <a
+              href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#VARIABLE_DEF">VARIABLE_DEF</a>,
+              <a
+              href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#ANNOTATION_FIELD_DEF">ANNOTATION_FIELD_DEF</a>,
+              <a
+              href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#INTERFACE_DEF">INTERFACE_DEF</a>
+            </td>
+            <td>
+              <a
+              href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#METHOD_DEF">METHOD_DEF</a>,
+              <a
+              href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#VARIABLE_DEF">VARIABLE_DEF</a>,
+              <a
+              href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#ANNOTATION_FIELD_DEF">ANNOTATION_FIELD_DEF</a>,
+              <a
+              href="apidocs/com/puppycrawl/tools/checkstyle/api/TokenTypes.html#INTERFACE_DEF">INTERFACE_DEF</a>
+            </td>
+          </tr>
+        </table>
+      </subsection>
+
+      <subsection name="Example">
+        <p> To configure the check: </p>
+        <source>
+&lt;module name=&quot;RedundantModifier&quot;/&gt;
+        </source>
+
+        <p>
+          To configure the check to check only methods and not variables:
+        </p>
+        <source>
+&lt;module name=&quot;RedundantModifier&quot;&gt;
+  &lt;property name=&quot;tokens&quot; value=&quot;METHOD_DEF&quot;/&gt;
+&lt;/module&gt;
+        </source>
+      </subsection>
+
+      <subsection name="Package">
+        <p> com.puppycrawl.tools.checkstyle.checks.modifier </p>
+      </subsection>
+
+      <subsection name="Parent Module">
+        <p>
+          <a href="config.html#TreeWalker">TreeWalker</a>
+        </p>
+      </subsection>
+    </section>
+  </body>
+</document>

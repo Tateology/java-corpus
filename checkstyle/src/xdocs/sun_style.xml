@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+   <properties>
+      <title>Sun's Java Style</title>
+      <author>Checkstyle Development Team</author>
+   </properties>
+
+   <body>
+      <section name="Sun's Java Style Checkstyle Coverage">
+         <subsection name="Description">
+                <p>
+                    This coverage report will be created for
+                    <a
+                        href="http://www.oracle.com/technetwork/java/codeconvtoc-136057.html">Code Conventions for the Java TM Programming Language</a>
+                    Revised April 20, 1999
+                </p>
+
+                <p>
+                    <a href="reports/javadoc/openjdk8/">Checkstyle's html report for Open JDK library (javadoc validation)</a>
+                </p>
+                <p>
+                    <a
+                        href="https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/sun_checks.xml">
+                    incomplete Checkstyle configuration for 'Sun's Java Style'</a>
+                </p>
+         </subsection>
+         <subsection name="Coverage table">
+            <table>
+               <thead>
+                  <tr>
+                     <th>Sun Style Rule</th>
+                     <th>Checkstyle Check</th>
+                     <th>Applied to config</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                     <td> --  </td>
+                     <td> --  </td>
+                     <td> --  </td>
+                  </tr>
+               </tbody>
+            </table>
+         </subsection>
+      </section>
+   </body>
+</document>

@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document xmlns="http://maven.apache.org/XDOC/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+  <properties>
+    <title>Property Types</title>
+    <author>Oliver Burn</author>
+  </properties>
+
+  <body>
+    <section name="Property Types">
+    <p>
+      Checkstyle is configured using properties, which are string
+      representations. This document describes how these string
+      representations are mapped to typed properties.
+    </p>
+
+    <subsection name="integer">
+      <p>
+        This property represents an integer. The string representation is
+        parsed using the <code>java.lang.Integer</code> class.
+      </p>
+    </subsection>
+
+    <subsection name="string">
+      <p>
+        This property represents a string. The literal string representation
+        is used.
+      </p>
+    </subsection>
+
+    <subsection name="boolean">
+      <p>
+        This property represents a boolean. The default value is <code>false</code>. The following string representations will
+        map to <code>true</code>:
+      </p>
+
+      <ul>
+        <li><code>yes</code></li>
+        <li><code>true</code></li>
+        <li><code>on</code></li>
+      </ul>
+
+      <p>Anything else will map to <code>false</code>.</p>
+    </subsection>
+
+    <subsection name="stringSet">
+      <p>
+        This property represents a set of strings. The string representation
+        is parsed as a set of comma (',') separated strings.
+      </p>
+      <p>
+        Alternatively, this property can be supplied multiple times which
+        is equivalent to a set of comma separated strings. For example, the
+        following:
+      </p>
+      <source>
+&lt;property name=&quot;tokens&quot; value=&quot;DIV_ASSIGN,PLUS_ASSIGN&quot;/&gt;
+      </source>
+      <p>can instead be expressed as:</p>
+      <source>
+&lt;property name=&quot;tokens&quot; value=&quot;DIV_ASSIGN&quot;/&gt;
+&lt;property name=&quot;tokens&quot; value=&quot;PLUS_ASSIGN&quot;/&gt;
+      </source>
+    </subsection>
+
+    <subsection name="intSet">
+      <p>
+        This property represents a set of integers. The string representation
+        is parsed as a set of comma (',') separated integers that are parsed
+        using the <code>java.lang.Integer</code> class.
+      </p>
+      <p>
+        Alternatively, this property can be supplied multiple times which
+        is equivalent to a set of comma separated integers. For example, the
+        following:
+      </p>
+      <source>
+&lt;property name=&quot;tokens&quot; value=&quot;42,666&quot;/&gt;
+      </source>
+      <p>can instead be expressed as:</p>
+      <source>
+&lt;property name=&quot;tokens&quot; value=&quot;42&quot;/&gt;
+&lt;property name=&quot;tokens&quot; value=&quot;666&quot;/&gt;
+      </source>
+    </subsection>
+
+    <subsection name="regexp">
+      <p>
+        This property represents a regular expression. The string
+        representation is parsed using <a
+        href="http://docs.oracle.com/javase/7/docs/api/index.html?java/util/regex/package-summary.html">java.util.regex
+        package</a>.
+      </p>
+    </subsection>
+
+    <subsection name="parenPad">
+      <p>
+        This property represents the policy for padding with white space. The
+        following table describes the valid options:
+      </p>
+
+      <table summary="padding options">
+        <tr>
+          <td>Option</td>
+          <td>Definition</td>
+        </tr>
+        <tr>
+          <td><code>nospace</code></td>
+          <td>
+            Do not pad. For example, <code>method(a, b);</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>space</code></td>
+          <td>
+            Ensure padding. For example,
+            <code>method( a, b );</code>
+          </td>
+        </tr>
+      </table>
+    </subsection>
+
+    <subsection name="wrapOp">
+      <p>
+        This property represents the policy for wrapping lines.
+        The following table describes the valid options:
+      </p>
+
+      <table summary="wrap options">
+        <tr>
+          <td>Option</td>
+          <td>Definition</td>
+        </tr>
+        <tr>
+          <td><code>nl</code></td>
+          <td>
+            The token must be on a new line. For example:
+            <pre>
+    someVariable = aBigVariableNameToMakeThings + "this may work"
+                   + lookVeryInteresting;
+            </pre>
+          </td>
+        </tr>
+        <tr>
+          <td><code>eol</code></td>
+          <td>
+            The token must be at the end of the line. For example:
+            <pre>
+    someVariable = aBigVariableNameToMakeThings + "this may work" +
+                   lookVeryInteresting;
+            </pre>
+          </td>
+        </tr>
+      </table>
+    </subsection>
+
+    <subsection name="block">
+      <p>
+        This property represents the policy for checking block statements. The
+        following table describes the valid options:
+      </p>
+
+      <table summary="block options">
+        <tr>
+          <td>Option</td>
+          <td>Definition</td>
+        </tr>
+        <tr>
+          <td><code>text</code></td>
+          <td>
+            Require that there is some text in the block. For example:
+            <pre>
+    catch (Exception ex) {
+        // This is a bad coding practice
+    }
+            </pre>
+          </td>
+        </tr>
+        <tr>
+          <td><code>stmt</code></td>
+          <td>
+            Require that there is a statement in the block. For example:
+            <pre>
+    finally {
+        lock.release();
+    }
+            </pre>
+          </td>
+        </tr>
+      </table>
+    </subsection>
+
+    <subsection name="lcurly">
+      <p>
+        This property represents the policy for checking the placement of a
+        left curly brace (<code>'{'</code>). The following table
+        describes the valid options:
+      </p>
+
+      <table summary="left curly options">
+        <tr>
+          <td>Option</td>
+          <td>Definition</td>
+        </tr>
+
+        <tr>
+          <td><code>eol</code></td>
+          <td>
+            The brace must always be on the end of the line. For example:
+            <pre>
+    if (condition) {
+        ...
+            </pre>
+          </td>
+        </tr>
+
+        <tr>
+          <td><code>nl</code></td>
+          <td>
+            The brace must always be on a new line. For example:
+            <pre>
+    if (condition)
+    {
+        ...
+            </pre>
+          </td>
+        </tr>
+
+        <tr>
+          <td><code>nlow</code></td>
+          <td>
+            If the brace will fit on the first line of the statement, taking
+            into account maximum line length, then apply <code>eol</code> rule. Otherwise apply the <code>nl</code> rule. <code>nlow</code> is a
+            mnemonic for "new line on wrap". For the example above Checkstyle
+            will enforce:
+            <pre>
+    if (condition) {
+        ...
+            </pre>
+            But for a statement spanning multiple lines, Checkstyle will
+            enforce:
+            <pre>
+    if (condition1 &amp;&amp; condition2 &amp;&amp;
+        condition3 &amp;&amp; condition4)
+    {
+        ...
+            </pre>
+          </td>
+        </tr>
+      </table>
+    </subsection>
+
+    <subsection name="rcurly">
+      <p>
+        This property represents the policy for checking the placement of a
+        right curly brace (<code>'}'</code>). The following table
+        describes the valid options:
+      </p>
+
+      <table summary="right curly options">
+        <tr>
+          <td>Option</td>
+          <td>Definition</td>
+        </tr>
+
+        <tr>
+          <td><code>same</code></td>
+          <td>
+            The brace must be on the same line as the next statement. For
+            example:
+            <pre>
+    try {
+        ...
+    } finally {
+            </pre>
+          </td>
+        </tr>
+
+        <tr>
+          <td><code>alone</code></td>
+          <td>
+            The brace must be alone on the line. For example:
+            <pre>
+    try {
+        ...
+    }
+    finally {
+            </pre>
+          </td>
+        </tr>
+      </table>
+    </subsection>
+
+    <subsection name="scope">
+      <p>This property represents a Java scope. The scope is treated
+      inclusively (as javadoc does): 'package' means all 'package', 'protected'
+      and 'public' methods/fields/classes. The valid options are:</p>
+
+      <ul>
+        <li><code>nothing</code></li>
+        <li><code>public</code></li>
+        <li><code>protected</code></li>
+        <li><code>package</code></li>
+        <li><code>private</code></li>
+        <li><code>anoninner</code></li>
+      </ul>
+    </subsection>
+
+    <subsection name="severity">
+      <p>
+        This property represents the severity level of a check violation. The
+        valid options are:
+      </p>
+
+      <ul>
+        <li><code>ignore</code></li>
+        <li><code>info</code></li>
+        <li><code>warning</code></li>
+        <li><code>error</code></li>
+      </ul>
+    </subsection>
+
+    <subsection name="importOrder">
+      <p>
+        This property represents the policy for checking imports order.
+        The following table describes the valid options:
+      </p>
+
+      <table summary="import order options">
+        <tr>
+          <td>Option</td>
+          <td>Definition</td>
+        </tr>
+
+        <tr>
+          <td><code>top</code></td>
+          <td>All static imports are at the top. For example:
+              <pre>
+    import static a.b.C.*;
+    import static x.y.Z.*;
+
+    import a.b.D;
+    import x.y.Z;</pre>
+          </td>
+        </tr>
+
+        <tr>
+          <td><code>above</code></td>
+          <td>All static imports are above the local group. For example:
+            <pre>
+    import static a.b.C.*;
+    import a.b.D;
+
+    import static x.y.Z.*;
+    import x.y.Z;</pre>
+          </td>
+        </tr>
+
+        <tr>
+          <td><code>inflow</code></td>
+          <td>All static imports are processed like non static
+              imports. For example:
+              <pre>
+    import static a.b.C.*;
+    import a.b.D;
+
+    import x.y.Z;
+    import static x.y.Z.*;</pre>
+          </td>
+        </tr>
+
+        <tr>
+          <td><code>under</code></td>
+          <td>All static imports are under the local group. For example:
+              <pre>
+    import a.b.D;
+    import static a.b.C.*;
+
+    import x.y.Z;
+    import static x.y.Z.*;</pre>
+          </td>
+        </tr>
+
+        <tr>
+          <td><code>bottom</code></td>
+          <td>All static imports are at the bottom. For example:
+              <pre>
+    import a.b.D;
+    import x.y.Z;
+
+    import static a.b.C.*;
+    import static x.y.Z.*;</pre>
+          </td>
+        </tr>
+      </table>
+    </subsection>
+
+
+    <subsection name="elementStyle">
+      <p>
+        This property represents the policy for the styles for defining
+        elements in an annotation. The following table
+        describes the valid options:
+      </p>
+
+      <table summary="elementStyle options">
+        <tr>
+          <td>Option</td>
+          <td>Definition</td>
+        </tr>
+
+        <tr>
+          <td><code>expanded</code></td>
+          <td>
+            The expanded version is sometimes referred to as "named parameters"
+            in other languages. Example:
+            <pre>@SuppressWarnings(value={"unchecked","unused",})</pre>
+          </td>
+        </tr>
+
+        <tr>
+          <td><code>compact</code></td>
+          <td>
+            This style can only be used when there is an element called 'value'
+            which is either the sole element or all other elements have default
+            values. Examples:
+            <pre>@SuppressWarnings({"unchecked","unused",})</pre>
+            and:
+            <pre>@SuppressWarnings("unchecked")</pre>
+          </td>
+        </tr>
+
+        <tr>
+          <td><code>compact_no_array</code></td>
+          <td>
+            It is similar to the <code>compact</code> style but
+            single value arrays are flagged. With annotations a single value
+            array does not need to be placed in an array initializer.
+            This style can only be used when there is an element called 'value'
+            which is either the sole element or all other elements have
+            default values.
+            Example: <pre>@SuppressWarnings("unchecked")</pre>
+          </td>
+        </tr>
+
+        <tr>
+          <td><code>ignore</code></td>
+          <td>
+            Anything goes.
+          </td>
+        </tr>
+      </table>
+    </subsection>
+
+
+    <subsection name="closingParens">
+      <p>
+        This property represents the policy for the styles for the ending
+        parenthesis. The following table describes the valid options:
+      </p>
+
+      <table summary="closingParens options">
+        <tr>
+          <td>Option</td>
+          <td>Definition</td>
+        </tr>
+
+        <tr>
+          <td><code>always</code></td>
+          <td>
+            Example:
+            <pre>@Deprecated()</pre>
+          </td>
+        </tr>
+
+        <tr>
+          <td><code>never</code></td>
+          <td>
+            Example:
+            <pre>@Deprecated</pre>
+          </td>
+        </tr>
+
+        <tr>
+          <td><code>ignore</code></td>
+          <td>
+            Anything goes.
+          </td>
+        </tr>
+      </table>
+    </subsection>
+
+
+    <subsection name="trailingArrayComma">
+      <p>
+        This property represents the policy for the styles for the trailing
+        array comma. The following table describes the valid options:
+      </p>
+
+      <table summary="trailingArrayComma options">
+        <tr>
+          <td>Option</td>
+          <td>Definition</td>
+        </tr>
+
+        <tr>
+          <td><code>always</code></td>
+          <td>
+            Example:
+            <pre>@SuppressWarnings(value={"unchecked","unused",})</pre>
+          </td>
+        </tr>
+
+        <tr>
+          <td><code>never</code></td>
+          <td>
+            Example:
+            <pre>@SuppressWarnings(value={"unchecked","unused"})</pre>
+          </td>
+        </tr>
+
+        <tr>
+          <td><code>ignore</code></td>
+          <td>
+            Anything goes.
+          </td>
+        </tr>
+      </table>
+    </subsection>
+    </section>
+  </body>
+</document>

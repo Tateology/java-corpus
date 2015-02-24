@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/DECORATION/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd">
+  
+  <bannerLeft>
+    <name>Checkstyle ${projectVersion}</name>
+  </bannerLeft>
+  <bannerRight>
+    <alt>Checkstyle</alt>
+    <href>http://checkstyle.sourceforge.net</href>
+    <src>images/logo.png</src>
+  </bannerRight>
+  
+  <poweredBy>
+    <logo name="GitHub" href="https://github.com/checkstyle/checkstyle" 
+    	img="images/github_logo_social_coding_outlined.png" 
+    	width="120" height="45"/>
+    <logo name="SourceForge"
+          img="images/sflogo.gif"
+          href="http://sourceforge.net/projects/checkstyle"
+          />
+    <logo name="Twitter"
+          img="images/twitter_button.png"
+          href="https://twitter.com/checkstyle_java"
+          />
+    <logo name="Stackoverflow"
+          img="images/stackoverflow.jpeg"
+          href="http://stackoverflow.com/questions/tagged/checkstyle"
+          />
+  </poweredBy>
+  
+  <body>
+    <menu name="About">
+      <item name="Checkstyle" href="index.html"/>
+      <item name="Release Notes" href="releasenotes.html"/>
+    </menu>
+
+    <menu name="Documentation">
+      <item name="Configuration" href="config.html">
+        <item name="Property Types" href="property_types.html"/>
+      </item>
+
+      <item name="Running" href="running.html">
+        <item name="Ant Task" href="anttask.html"/>
+        <item name="Command Line" href="cmdline.html"/>
+      </item>
+
+      <item name="Available Checks" href="availablechecks.html"/>
+      <item name="Standard Checks" href="checks.html">
+        <item name="Annotations"        href="config_annotation.html"/>
+        <item name="Block Checks"       href="config_blocks.html"/>
+        <item name="Class Design"       href="config_design.html"/>
+        <item name="Coding"             href="config_coding.html"/>
+        <item name="Headers"            href="config_header.html"/>
+        <item name="Imports"            href="config_imports.html"/>
+        <item name="Javadoc Comments"   href="config_javadoc.html"/>
+        <item name="Metrics"            href="config_metrics.html"/>
+        <item name="Miscellaneous"      href="config_misc.html"/>
+        <item name="Modifiers"          href="config_modifier.html"/>
+        <item name="Naming Conventions" href="config_naming.html"/>
+        <item name="Regexp"             href="config_regexp.html"/>
+        <item name="Size Violations"    href="config_sizes.html"/>
+        <item name="Whitespace"         href="config_whitespace.html"/>
+      </item>
+
+      <item name="Extending Checkstyle" href="extending.html">
+        <item name="Writing checks" href="writingchecks.html"/>
+        <item name="Writing filters" href="writingfilters.html"/>
+        <item name="Writing listeners" href="writinglisteners.html"/>
+      </item>
+      
+      <item name="Style Configurations" href="style_configs.html">
+        <item name="Google's Style" href="google_style.html"/>
+        <item name="Sun's Style" href="sun_style.html"/>
+      </item>
+    </menu>
+
+    <menu name="Developers">
+      <item name="Javadoc" href="apidocs/index.html"/>
+      <item name="Project Page"
+            href="http://sourceforge.net/projects/checkstyle"/>
+      <item name="Contributing" href="contributing.html"/>
+    </menu>
+
+    <menu ref="reports"/>
+  </body>
+</project>
