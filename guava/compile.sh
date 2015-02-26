@@ -1,0 +1,1 @@
+javac -encoding ISO-8859-1 -cp ./lib/caliper-1.2.1.jar:./lib/junit.jar:./lib/hamcrest.jar:./lib/jsr305-1.3.9.jar:./lib/truth-0.25.jar:./lib/easymock-3.2.jar:./lib/mockito-core-1.9.5.jar:./lib/gdata-java-client.1.42.0.jar @COMPILE_ARGS

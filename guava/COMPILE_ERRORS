@@ -1,0 +1,45 @@
+./guava-tests/benchmark/com/google/common/cache/MapMakerComparisonBenchmark.java:39: error: <K,V>makeComputingMap(Function<? super K,? extends V>) is not public in MapMaker; cannot be accessed from outside package
+  private final Map<Object, Object> computingMap = new MapMaker().makeComputingMap(IDENTITY);
+                                                                 ^
+  where K,V are type-variables:
+    K extends Object declared in method <K,V>makeComputingMap(Function<? super K,? extends V>)
+    V extends Object declared in method <K,V>makeComputingMap(Function<? super K,? extends V>)
+./guava-tests/benchmark/com/google/common/net/UriParameterMapBenchmark.java:81: error: cannot find symbol
+      UriParameterMap map = legacyParse(randomParams[i & mask], Charsets.UTF_8);
+      ^
+  symbol:   class UriParameterMap
+  location: class UriParameterMapBenchmark
+./guava-tests/benchmark/com/google/common/net/UriParameterMapBenchmark.java:96: error: cannot find symbol
+      UriParameterMap map = UriParameterMap.parse(randomParams[i & mask], Charsets.UTF_8);
+      ^
+  symbol:   class UriParameterMap
+  location: class UriParameterMapBenchmark
+./guava-tests/benchmark/com/google/common/net/UriParameterMapBenchmark.java:96: error: cannot find symbol
+      UriParameterMap map = UriParameterMap.parse(randomParams[i & mask], Charsets.UTF_8);
+                            ^
+  symbol:   variable UriParameterMap
+  location: class UriParameterMapBenchmark
+./guava-tests/benchmark/com/google/common/net/UriParameterMapBenchmark.java:110: error: cannot find symbol
+    UriParameterMap map = new UriParameterMap();
+    ^
+  symbol:   class UriParameterMap
+  location: class UriParameterMapBenchmark
+./guava-tests/benchmark/com/google/common/net/UriParameterMapBenchmark.java:110: error: cannot find symbol
+    UriParameterMap map = new UriParameterMap();
+                              ^
+  symbol:   class UriParameterMap
+  location: class UriParameterMapBenchmark
+./guava-tests/benchmark/com/google/common/net/UriParameterMapBenchmark.java:117: error: cannot find symbol
+          throw new TooManyUriParametersException();
+                    ^
+  symbol:   class TooManyUriParametersException
+  location: class UriParameterMapBenchmark
+./guava-tests/benchmark/com/google/common/util/concurrent/FuturesCombineBenchmark.java:61: error: cannot find symbol
+        return Futures.combine(combiner, executor, futures);
+                      ^
+  symbol:   method combine(Callable<V>,Executor,Iterable<CAP#1>)
+  location: class Futures
+  where V is a type-variable:
+    V extends Object declared in method <V>combine(Callable<V>,Executor,Iterable<? extends ListenableFuture<?>>)
+  where CAP#1 is a fresh type-variable:
+    CAP#1 extends ListenableFuture<?> from capture of ? extends ListenableFuture<?>
