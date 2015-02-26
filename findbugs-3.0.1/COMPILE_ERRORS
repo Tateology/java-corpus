@@ -1,0 +1,11 @@
+./src/infonodeJava/edu/umd/cs/findbugs/gui2/DockLayout.java:56: error: DockLayout is not abstract and does not override abstract method resetCommentsInputPane() in FindBugsLayoutManager
+public class DockLayout implements FindBugsLayoutManager {
+       ^
+./src/infonodeJava/edu/umd/cs/findbugs/gui2/DockLayout.java:146: error: cannot find symbol
+        topView = new View(L10N.getLocalString("view.bugs", "Bugs"), null, frame.bugListPanel());
+                                                                                ^
+  symbol:   method bugListPanel()
+  location: variable frame of type MainFrame
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+2 errors
