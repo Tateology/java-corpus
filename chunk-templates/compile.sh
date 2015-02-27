@@ -1,0 +1,1 @@
+javac -classpath "./lib/junit-4.3.jar:./lib/android_modeled.jar:./lib/javacsv.jar:./lib/jeplite-0.8.7a.jar:./lib/json-smart-1.0.8.jar:./lib/wiremock-1.33-standalone.jar:./lib/andriod-src.jar" @COMPILE_ARGS
