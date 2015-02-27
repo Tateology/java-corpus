@@ -1,0 +1,107 @@
+/* Styles in editor that differ from the "live" layout **/
+p, table {
+ margin: 0.5em 0;
+}
+
+p.meta {
+ margin: 0;
+}
+
+p.comment {
+ color: #666;
+ font-style: italic;
+}
+
+pre.wiki {
+ overflow: visible !important;
+ word-wrap: break-word !important;
+ white-space: -moz-pre-wrap !important;
+ white-space: pre-wrap !important;
+}
+
+div.collapsible {
+ min-height: 1em;
+}
+
+div.collapsible > * {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+div.collapsible > p.title {
+ margin-left: 0;
+ margin-right: 0;
+}
+
+div.collapsible.collapsed {
+ display: block !important;
+ visibility: visible !important;
+}
+
+div.collapsible.hidden {
+ display: block !important;
+ visibility: visible !important;
+}
+
+div.collapsible.hidden > p.title{
+ background-image: url(../images/collapsibleHidden.png);
+}
+
+div.collapsable>p:first-child {
+/* like .meta */
+ color: #BF8660;
+ font-style: italic;
+}
+
+tr.hidden {
+ display: table-row;
+ background-color: #eee;
+ color: #666;
+}
+
+tt:before,
+tt:after {
+ color: #BF8660;
+}
+
+tt.htmlescape:before {
+ content: "<html>";
+}
+
+tt.htmlescape:after {
+ content: "</html>";
+}
+
+tt.inlinecode:before {
+ content: "<code>";
+}
+
+tt.inlinecode:after {
+ content: "</code>";
+}
+ 
+tt.plaintexttable:before {
+ content: "<plaintexttable>";
+}
+
+tt.plaintexttable:after {
+ content: "</plaintexttable>";
+}
+
+tt.hashtable:before {
+ content: "<hashtable>";
+}
+
+tt.hashtable:after {
+ content: "</hashtable>";
+}
+
+tt.nested:before {
+ content: "<nested>";
+}
+
+tt.nested:after {
+ content: "</nested>";
+}
+
+

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<suiteResults>
+  <FitNesseVersion>$suiteExecutionReport.version</FitNesseVersion>
+  <rootPath>#escape($suiteExecutionReport.rootPath)</rootPath>
+#foreach ($reference in $suiteExecutionReport.pageHistoryReferences)
+  <pageHistoryReference>
+    <name>#escape($reference.pageName)</name>
+    <date>$reference.getDateString()</date>
+    <pageHistoryLink>$reference.pageName?pageHistory&amp;resultDate=$reference.resultDate</pageHistoryLink>
+    <counts>
+      <right>$reference.testSummary.right</right>
+      <wrong>$reference.testSummary.wrong</wrong>
+      <ignores>$reference.testSummary.ignores</ignores>
+      <exceptions>$reference.testSummary.exceptions</exceptions>
+    </counts>
+    <runTimeInMillis>$reference.RunTimeInMillis</runTimeInMillis>
+  </pageHistoryReference>
+#end
+#foreach ($log in $suiteExecutionReport.executionLogs)
+  <executionLog>
+    <testSystem>#escape($log.testSystemName)</testSystem>
+    <command>#escape($log.command)</command>
+    <exitCode>#escape($log.exitCode)</exitCode>
+    #if( $log.stdOut )<stdOut>#escape($log.stdOut)</stdOut>#end
+    #if( $log.stdOut )<stdErr>#escape($log.stdErr)</stdErr>#end
+#foreach( $exception in $log.exceptions)
+    <exception>#escape($exception.message)</exception>
+#end
+  </executionLog>
+#end
+  <finalCounts>
+    <right>$suiteExecutionReport.finalCounts.right</right>
+    <wrong>$suiteExecutionReport.finalCounts.wrong</wrong>
+    <ignores>$suiteExecutionReport.finalCounts.ignores</ignores>
+    <exceptions>$suiteExecutionReport.finalCounts.exceptions</exceptions>
+  </finalCounts>
+  <totalRunTimeInMillis>$suiteExecutionReport.totalRunTimeInMillis</totalRunTimeInMillis>
+</suiteResults>
+

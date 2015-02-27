@@ -1,0 +1,51 @@
+<table>
+ <tr>
+  <td>$currentDate</td>
+  <td class="meta">FitNesse Version: $version</td>
+  <td><a href="?pageHistory&resultDate=$resultDate">Page History</a></td>
+ </tr>
+</table>
+
+#if( $logs.empty )
+<p>No execution log available.</p>
+#end
+#foreach( $log in $logs )
+#if( $log.testSystemName )
+<h3>${log.testSystemName}</h3>
+<table>
+ <tr>
+  <th>Test page:</th><td>$viewLocation</td>
+ </tr>
+ <tr>
+  <th>Command:</th><td>#escape($log.command)</td>
+ </tr>
+ <tr>
+  <th>Exit code:</th><td>$log.exitCode</td>
+ </tr>
+ <tr>
+  <th>Time elapsed:</th><td>$runTime seconds</td>
+ </tr>
+</table>
+#else
+<h3>This test ran as part of a suite.</h3>
+#end
+#set( $stdOut = $log.stdOut)
+#if( $stdOut != '' )
+<hr/>
+<h4>Standard Output:</h4>
+<pre>#escape($stdOut)</pre>
+#end
+#set( $stdErr = $log.stdErr)
+#if( $stdErr != '' )
+<hr/>
+<h4>Standard Error:</h4>
+<pre>#escape($stdErr)</pre>
+#end
+#if( !$log.exceptions.empty )
+<hr/>
+<h4>Internal Exception#if( $log.exceptions.size() > 1)s#end:</h4>
+#foreach( $exception in $log.exceptions)
+<pre>#escape($exception.message)</pre>
+#end
+#end
+#end
