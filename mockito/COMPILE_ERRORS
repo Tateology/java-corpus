@@ -1,0 +1,87 @@
+./src/org/mockito/internal/matchers/LocalizedMatcher.java:16: error: LocalizedMatcher is not abstract and does not override abstract method describeMismatch(Object,Description) in Matchervi 
+public class LocalizedMatcher implements Matcher, ContainsExtraTypeInformation, CapturesArguments, MatcherDecorator, Serializable {
+       ^
+./src/org/mockito/internal/creation/cglib/ClassImposterizer.java:45: error: <anonymous org.mockito.internal.creation.cglib.ClassImposterizer$2> is not abstract and does not override abstract method accept(Method,List<Method>) in CallbackFilter
+    private static final CallbackFilter IGNORE_BRIDGE_METHODS = new CallbackFilter() {
+                                                                                     ^
+./test/org/mockitoutil/ExtraMatchers.java:137: error: incompatible types: inferred type does not conform to equality constraint(s)
+        return CoreMatchers.is(type);
+                              ^
+    inferred: Object
+    equality constraints(s): Object,CAP#1
+  where CAP#1 is a fresh type-variable:
+    CAP#1 extends Object from capture of ?
+./test/org/mockito/internal/runners/RunnerFactoryTest.java:40: error: no suitable method found for assertThat(RunnerImpl,Matcher<JUnit44RunnerImpl>)
+        assertThat(runner, is(JUnit44RunnerImpl.class));
+        ^
+    method TestBase.<T#1>assertThat(T#1,Assertor<T#1>) is not applicable
+      (no instance(s) of type variable(s) T#2 exist so that Matcher<T#2> conforms to Assertor<T#1>)
+    method TestBase.<T#3>assertThat(T#3,Matcher<T#3>) is not applicable
+      (inference variable T#2 has incompatible bounds
+        equality constraints: T#3,JUnit44RunnerImpl
+        lower bounds: RunnerImpl)
+    method TestBase.<T#4>assertThat(String,T#4,Matcher<T#4>) is not applicable
+      (cannot infer type-variable(s) T#4
+        (actual and formal argument lists differ in length))
+  where T#1,T#2,T#3,T#4 are type-variables:
+    T#1 extends Object declared in method <T#1>assertThat(T#1,Assertor<T#1>)
+    T#2 extends Object declared in method <T#2>is(Class<T#2>)
+    T#3 extends Object declared in method <T#3>assertThat(T#3,Matcher<T#3>)
+    T#4 extends Object declared in method <T#4>assertThat(String,T#4,Matcher<T#4>)
+./test/org/mockito/internal/runners/RunnerFactoryTest.java:57: error: no suitable method found for assertThat(RunnerImpl,Matcher<JUnit45AndHigherRunnerImpl>)
+        assertThat(runner, is(JUnit45AndHigherRunnerImpl.class));
+        ^
+    method TestBase.<T#1>assertThat(T#1,Assertor<T#1>) is not applicable
+      (no instance(s) of type variable(s) T#2 exist so that Matcher<T#2> conforms to Assertor<T#1>)
+    method TestBase.<T#3>assertThat(T#3,Matcher<T#3>) is not applicable
+      (inference variable T#2 has incompatible bounds
+        equality constraints: T#3,JUnit45AndHigherRunnerImpl
+        lower bounds: RunnerImpl)
+    method TestBase.<T#4>assertThat(String,T#4,Matcher<T#4>) is not applicable
+      (cannot infer type-variable(s) T#4
+        (actual and formal argument lists differ in length))
+  where T#1,T#2,T#3,T#4 are type-variables:
+    T#1 extends Object declared in method <T#1>assertThat(T#1,Assertor<T#1>)
+    T#2 extends Object declared in method <T#2>is(Class<T#2>)
+    T#3 extends Object declared in method <T#3>assertThat(T#3,Matcher<T#3>)
+    T#4 extends Object declared in method <T#4>assertThat(String,T#4,Matcher<T#4>)
+./test/org/mockitousage/basicapi/MocksCreationTest.java:65: error: no suitable method found for assertThat(IMethods,Matcher<List>)
+        assertThat(mock, is(List.class));
+        ^
+    method TestBase.<T#1>assertThat(T#1,Assertor<T#1>) is not applicable
+      (no instance(s) of type variable(s) T#2 exist so that Matcher<T#2> conforms to Assertor<T#1>)
+    method TestBase.<T#3>assertThat(T#3,Matcher<T#3>) is not applicable
+      (inference variable T#2 has incompatible bounds
+        equality constraints: T#3,List
+        lower bounds: IMethods)
+    method TestBase.<T#4>assertThat(String,T#4,Matcher<T#4>) is not applicable
+      (cannot infer type-variable(s) T#4
+        (actual and formal argument lists differ in length))
+  where T#1,T#2,T#3,T#4 are type-variables:
+    T#1 extends Object declared in method <T#1>assertThat(T#1,Assertor<T#1>)
+    T#2 extends Object declared in method <T#2>is(Class<T#2>)
+    T#3 extends Object declared in method <T#3>assertThat(T#3,Matcher<T#3>)
+    T#4 extends Object declared in method <T#4>assertThat(String,T#4,Matcher<T#4>)
+./test/org/mockitousage/matchers/MatchersTest.java:256: error: reference to oneArg is ambiguous
+        when(mock.oneArg(anyObject())).thenReturn("9");
+                 ^
+  both method oneArg(Double) in IMethods and method oneArg(String) in IMethods match
+./test/org/mockitousage/matchers/MatchersTest.java:537: error: reference to simpleMethod is ambiguous
+        verify(mock).simpleMethod(same(null));
+                    ^
+  both method simpleMethod(String) in IMethods and method simpleMethod(Collection<?>) in IMethods match
+./test/org/mockitousage/matchers/MoreMatchersTest.java:34: error: reference to simpleMethod is ambiguous
+        verify(mock).simpleMethod(anyObject());
+                    ^
+  both method simpleMethod(String) in IMethods and method simpleMethod(Collection<?>) in IMethods match
+./test/org/mockitousage/matchers/AnyXMatchersAcceptNullsTest.java:28: error: reference to oneArg is ambiguous
+        when(mock.oneArg(any())).thenReturn("matched");
+                 ^
+  both method oneArg(Double) in IMethods and method oneArg(String) in IMethods match
+./test/org/mockitousage/matchers/AnyXMatchersAcceptNullsTest.java:35: error: reference to oneArg is ambiguous
+        when(mock.oneArg(anyObject())).thenReturn("matched");
+                 ^
+  both method oneArg(Double) in IMethods and method oneArg(String) in IMethods match
+./buildSrc/src/main/groovy/org/mockito/release/comparison/PublicationsComparatorTask.java:9: error: cannot access Factory
+public class PublicationsComparatorTask extends DefaultTask implements PublicationsComparator {
+       ^
