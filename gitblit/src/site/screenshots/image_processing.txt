@@ -1,0 +1,6 @@
+1. Install Firefox
+2. Install "Awesome Screenshot" add-on
+3. Set browser size to 1024x768
+4. Save "visible part" screenshots as png to screenshots folder
+
+Screenshot thumbnails are automatically generated during build script execution. 

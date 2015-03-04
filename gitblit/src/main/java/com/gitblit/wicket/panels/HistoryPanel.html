@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.3-strict.dtd"  
+      xml:lang="en"  
+      lang="en"> 
+
+<body>
+<wicket:panel>
+
+	<!-- commit header -->
+	<div wicket:id="commitHeader">[commit header]</div>
+
+	<!-- breadcrumbs -->
+	<div wicket:id="breadcrumbs">[breadcrumbs]</div>
+		
+	<table class="pretty">
+		<tbody>
+       		<tr wicket:id="commit">
+         		<td class="date"><span wicket:id="commitDate">[commit date]</span></td>
+         		<td class="icon"><img wicket:id="commitIcon" /></td>
+         		<td class="hidden-phone author"><span wicket:id="commitAuthor">[commit author]</span></td>
+         		<td class="message"><table class="nestedTable"><tr><td><span style="vertical-align:middle;" wicket:id="commitShortMessage">[commit short message]</span></td><td><div style="text-align:right;" wicket:id="commitRefs">[commit refs]</div></td></tr></table></td>
+         		<td class="hidden-phone hidden-tablet rightAlign"><span class="link" wicket:id="hashLabel">[hash label]</span><span wicket:id="hashLink">[hash link]</span></td>
+         		<td class="hidden-phone rightAlign">
+         			<span wicket:id="historyLinks">[history links]</span>
+				</td>
+       		</tr>
+    	</tbody>
+	</table>	
+	<div wicket:id="moreHistory">[more...]</div>
+	
+	<!--  tree links -->
+	<wicket:fragment wicket:id="treeLinks">
+		<span class="link">
+			<a wicket:id="commitdiff"><wicket:message key="gb.commitdiff"></wicket:message></a>
+		</span>
+	</wicket:fragment>
+	
+	<!-- blob links -->
+	<wicket:fragment wicket:id="blobLinks">
+		<span class="link">
+			<a wicket:id="commitdiff"><wicket:message key="gb.commitdiff"></wicket:message></a> | <a wicket:id="difftocurrent"><wicket:message key="gb.difftocurrent"></wicket:message></a>
+		</span>	
+	</wicket:fragment>
+	
+</wicket:panel>
+</body>
+</html>

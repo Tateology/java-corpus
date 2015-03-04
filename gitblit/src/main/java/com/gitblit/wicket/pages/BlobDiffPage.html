@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.3-strict.dtd"  
+      xml:lang="en"  
+      lang="en"> 
+
+<body>
+<wicket:extend>
+	
+	<!-- blob nav links -->	
+	<div class="page_nav2">
+		<a wicket:id="blameLink"><wicket:message key="gb.blame"></wicket:message></a> | <a wicket:id="historyLink"><wicket:message key="gb.history"></wicket:message></a> | <a wicket:id="patchLink"><wicket:message key="gb.patch"></wicket:message></a> | <a wicket:id="commitLink"><wicket:message key="gb.commit"></wicket:message></a> | <a wicket:id="commitDiffLink"><wicket:message key="gb.commitdiff"></wicket:message></a>
+	</div>	
+	
+	<!-- commit header -->
+	<div wicket:id="commitHeader">[commit header]</div>
+
+	<!-- breadcrumbs -->
+	<div wicket:id="breadcrumbs">[breadcrumbs]</div>
+		
+	<!--  diff content -->
+	<pre wicket:id="diffText">[diff text]</pre>
+	
+</wicket:extend>
+</body>
+</html>

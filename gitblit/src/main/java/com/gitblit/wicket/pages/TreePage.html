@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.3-strict.dtd"  
+      xml:lang="en"  
+      lang="en"> 
+
+<body>
+<wicket:extend>
+
+	<!-- blob nav links -->	
+	<div class="page_nav2">
+		<a wicket:id="historyLink"><wicket:message key="gb.history"></wicket:message></a> | <a wicket:id="headLink"><wicket:message key="gb.head"></wicket:message></a> | <span wicket:id="compressedLinks"></span>
+	</div>	
+	
+	<!-- commit header -->
+	<div wicket:id="commitHeader">[commit header]</div>
+
+	<!-- breadcrumbs -->
+	<div wicket:id="breadcrumbs">[breadcrumbs]</div>
+		
+	<!-- changed paths -->	
+	<table style="width:100%" class="pretty">
+		<tr wicket:id="changedPath">
+			<td class="hidden-phone icon"><img wicket:id="pathIcon" /></td>
+			<td><span wicket:id="pathName"></span></td>			
+			<td class="hidden-phone size"><span wicket:id="pathSize">[path size]</span></td>
+			<td class="hidden-phone mode"><span wicket:id="pathPermissions">[path permissions]</span></td>
+			<td class="treeLinks"><span wicket:id="pathLinks">[path links]</span></td>
+		</tr>
+	</table>
+
+	<!--  submodule links -->
+	<wicket:fragment wicket:id="submoduleLinks">
+		<span class="link">
+			<a wicket:id="view"><wicket:message key="gb.view"></wicket:message></a> | <span class="hidden-phone"><a wicket:id="tree"><wicket:message key="gb.tree"></wicket:message></a> | </span><a wicket:id="history"><wicket:message key="gb.history"></wicket:message></a> | <span wicket:id="compressedLinks"></span>
+		</span>
+	</wicket:fragment>
+
+	<!--  tree links -->
+	<wicket:fragment wicket:id="treeLinks">
+		<span class="link">
+			<span class="hidden-phone"><a wicket:id="tree"><wicket:message key="gb.tree"></wicket:message></a> | </span><a wicket:id="history"><wicket:message key="gb.history"></wicket:message></a> | <span wicket:id="compressedLinks"></span>
+		</span>
+	</wicket:fragment>
+	
+	<!-- blob links -->
+	<wicket:fragment wicket:id="blobLinks">
+		<span class="link">
+			<span class="hidden-phone"><a wicket:id="view"><wicket:message key="gb.view"></wicket:message></a> | <a wicket:id="raw"><wicket:message key="gb.raw"></wicket:message></a> | <a wicket:id="blame"><wicket:message key="gb.blame"></wicket:message></a> | </span> <a wicket:id="history"><wicket:message key="gb.history"></wicket:message></a>
+		</span>	
+	</wicket:fragment>
+	
+</wicket:extend>	
+</body>
+</html>

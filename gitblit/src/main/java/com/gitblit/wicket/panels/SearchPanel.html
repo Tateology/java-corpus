@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.3-strict.dtd"  
+      xml:lang="en"  
+      lang="en"> 
+
+<body>
+<wicket:panel>
+
+	<!-- header -->	
+	<div wicket:id="commitHeader">[search header]</div>
+
+	<!-- header -->	
+	<div style="margin-top:10px;font-weight:bold;" class="header"><wicket:message key="gb.search"></wicket:message>: <span wicket:id="searchString">[search string]</span> (<span wicket:id="searchType">[search type]</span>)</div>
+	<table class="pretty">
+		<tbody>
+       		<tr wicket:id="commit">
+         		<td class="date"><span wicket:id="commitDate">[commit date]</span></td>
+         		<td class="author"><span wicket:id="commitAuthor">[commit author]</span></td>
+         		<td class="icon"><img wicket:id="commitIcon" /></td>
+         		<td class="message"><table class="nestedTable"><tr><td><span style="vertical-align:middle;" wicket:id="commitShortMessage">[commit short message]</span></td><td><div style="text-align:right;" wicket:id="commitRefs">[commit refs]</div></td></tr></table></td>
+         		<td class="rightAlign">
+         			<span class="hidden-phone link">
+						<a wicket:id="commit"><wicket:message key="gb.commit"></wicket:message></a> | <a wicket:id="commitdiff"><wicket:message key="gb.commitdiff"></wicket:message></a> | <a wicket:id="tree"><wicket:message key="gb.tree"></wicket:message></a>
+					</span>
+				</td>
+       		</tr>
+    	</tbody>
+	</table>	
+	
+</wicket:panel>
+</body>
+</html>
