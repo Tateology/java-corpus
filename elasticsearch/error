@@ -1,0 +1,509 @@
+./src/main/java/org/elasticsearch/common/io/stream/StreamInput.java:23: error: cannot find symbol
+import org.apache.lucene.util.CharsRefBuilder;
+                             ^
+  symbol:   class CharsRefBuilder
+  location: package org.apache.lucene.util
+./src/main/java/org/elasticsearch/common/io/stream/StreamOutput.java:23: error: cannot find symbol
+import org.apache.lucene.util.BytesRefBuilder;
+                             ^
+  symbol:   class BytesRefBuilder
+  location: package org.apache.lucene.util
+./src/main/java/org/elasticsearch/common/io/stream/StreamInput.java:232: error: cannot find symbol
+    private final CharsRefBuilder spare = new CharsRefBuilder();
+                  ^
+  symbol:   class CharsRefBuilder
+  location: class StreamInput
+./src/main/java/org/elasticsearch/common/io/stream/StreamOutput.java:187: error: cannot find symbol
+    private final BytesRefBuilder spare = new BytesRefBuilder();
+                  ^
+  symbol:   class BytesRefBuilder
+  location: class StreamOutput
+./src/main/java/org/elasticsearch/common/xcontent/XContentString.java:22: error: package com.fasterxml.jackson.core.io does not exist
+import com.fasterxml.jackson.core.io.SerializedString;
+                                    ^
+./src/main/java/org/elasticsearch/common/xcontent/XContentString.java:27: error: cannot find symbol
+public class XContentString extends SerializedString {
+                                    ^
+  symbol: class SerializedString
+./src/main/java/org/elasticsearch/common/util/BigArray.java:22: error: cannot find symbol
+import org.apache.lucene.util.Accountable;
+                             ^
+  symbol:   class Accountable
+  location: package org.apache.lucene.util
+./src/main/java/org/elasticsearch/common/util/BigArray.java:26: error: cannot find symbol
+public interface BigArray extends Releasable, Accountable {
+                                              ^
+  symbol: class Accountable
+./src/main/java/org/elasticsearch/common/util/AbstractArray.java:22: error: cannot find symbol
+import org.apache.lucene.util.Accountable;
+                             ^
+  symbol:   class Accountable
+  location: package org.apache.lucene.util
+./src/main/java/org/elasticsearch/common/Strings.java:24: error: cannot find symbol
+import org.apache.lucene.util.BytesRefBuilder;
+                             ^
+  symbol:   class BytesRefBuilder
+  location: package org.apache.lucene.util
+./src/main/java/org/elasticsearch/common/util/AbstractArray.java:50: error: cannot find symbol
+    public Collection<Accountable> getChildResources() {
+                      ^
+  symbol:   class Accountable
+  location: class AbstractArray
+./src/main/java/org/elasticsearch/common/Strings.java:1017: error: cannot find symbol
+    public static byte[] toUTF8Bytes(CharSequence charSequence, BytesRefBuilder spare) {
+                                                                ^
+  symbol:   class BytesRefBuilder
+  location: class Strings
+./src/main/java/org/elasticsearch/index/mapper/DocumentMapper.java:28: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/DocumentMapper.java:30: error: cannot find symbol
+import org.apache.lucene.index.LeafReaderContext;
+                              ^
+  symbol:   class LeafReaderContext
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/DocumentMapper.java:32: error: cannot find symbol
+import org.apache.lucene.util.BitDocIdSet;
+                             ^
+  symbol:   class BitDocIdSet
+  location: package org.apache.lucene.util
+./src/main/java/org/elasticsearch/index/mapper/ParseContext.java:27: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/core/TypeParsers.java:22: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/internal/AllFieldMapper.java:25: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/core/AbstractFieldMapper.java:31: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/internal/UidFieldMapper.java:22: error: cannot find symbol
+import org.apache.lucene.document.BinaryDocValuesField;
+                                 ^
+  symbol:   class BinaryDocValuesField
+  location: package org.apache.lucene.document
+./src/main/java/org/elasticsearch/index/mapper/internal/UidFieldMapper.java:25: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/Uid.java:23: error: cannot find symbol
+import org.apache.lucene.util.BytesRefBuilder;
+                             ^
+  symbol:   class BytesRefBuilder
+  location: package org.apache.lucene.util
+./src/main/java/org/elasticsearch/index/mapper/internal/IndexFieldMapper.java:25: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/internal/TypeFieldMapper.java:24: error: cannot find symbol
+import org.apache.lucene.document.SortedSetDocValuesField;
+                                 ^
+  symbol:   class SortedSetDocValuesField
+  location: package org.apache.lucene.document
+./src/main/java/org/elasticsearch/index/mapper/internal/TypeFieldMapper.java:25: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/internal/SourceFieldMapper.java:26: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/internal/IdFieldMapper.java:24: error: cannot find symbol
+import org.apache.lucene.document.BinaryDocValuesField;
+                                 ^
+  symbol:   class BinaryDocValuesField
+  location: package org.apache.lucene.document
+./src/main/java/org/elasticsearch/index/mapper/internal/IdFieldMapper.java:27: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/internal/RoutingFieldMapper.java:25: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/internal/ParentFieldMapper.java:25: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/core/IntegerFieldMapper.java:26: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/core/IntegerFieldMapper.java:32: error: cannot find symbol
+import org.apache.lucene.util.BytesRefBuilder;
+                             ^
+  symbol:   class BytesRefBuilder
+  location: package org.apache.lucene.util
+./src/main/java/org/elasticsearch/index/mapper/core/NumberFieldMapper.java:31: error: cannot find symbol
+import org.apache.lucene.document.SortedNumericDocValuesField;
+                                 ^
+  symbol:   class SortedNumericDocValuesField
+  location: package org.apache.lucene.document
+./src/main/java/org/elasticsearch/index/mapper/core/NumberFieldMapper.java:32: error: cannot find symbol
+import org.apache.lucene.index.DocValuesType;
+                              ^
+  symbol:   class DocValuesType
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/core/NumberFieldMapper.java:33: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/internal/TimestampFieldMapper.java:24: error: cannot find symbol
+import org.apache.lucene.document.NumericDocValuesField;
+                                 ^
+  symbol:   class NumericDocValuesField
+  location: package org.apache.lucene.document
+./src/main/java/org/elasticsearch/index/mapper/internal/TimestampFieldMapper.java:25: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/core/DateFieldMapper.java:24: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/core/DateFieldMapper.java:31: error: cannot find symbol
+import org.apache.lucene.util.BytesRefBuilder;
+                             ^
+  symbol:   class BytesRefBuilder
+  location: package org.apache.lucene.util
+./src/main/java/org/elasticsearch/index/mapper/core/LongFieldMapper.java:26: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/core/LongFieldMapper.java:32: error: cannot find symbol
+import org.apache.lucene.util.BytesRefBuilder;
+                             ^
+  symbol:   class BytesRefBuilder
+  location: package org.apache.lucene.util
+./src/main/java/org/elasticsearch/index/mapper/internal/TTLFieldMapper.java:24: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/internal/BoostFieldMapper.java:24: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/internal/BoostFieldMapper.java:30: error: cannot find symbol
+import org.apache.lucene.util.BytesRefBuilder;
+                             ^
+  symbol:   class BytesRefBuilder
+  location: package org.apache.lucene.util
+./src/main/java/org/elasticsearch/index/cache/bitset/BitsetFilterCache.java:26: error: cannot find symbol
+import org.apache.lucene.index.LeafReader;
+                              ^
+  symbol:   class LeafReader
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/cache/bitset/BitsetFilterCache.java:27: error: cannot find symbol
+import org.apache.lucene.index.LeafReaderContext;
+                              ^
+  symbol:   class LeafReaderContext
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/cache/bitset/BitsetFilterCache.java:31: error: package org.apache.lucene.search.join does not exist
+import org.apache.lucene.search.join.BitDocIdSetFilter;
+                                    ^
+./src/main/java/org/elasticsearch/index/cache/bitset/BitsetFilterCache.java:32: error: cannot find symbol
+import org.apache.lucene.util.BitDocIdSet;
+                             ^
+  symbol:   class BitDocIdSet
+  location: package org.apache.lucene.util
+./src/main/java/org/elasticsearch/index/cache/bitset/BitsetFilterCache.java:33: error: cannot find symbol
+import org.apache.lucene.util.SparseFixedBitSet;
+                             ^
+  symbol:   class SparseFixedBitSet
+  location: package org.apache.lucene.util
+./src/main/java/org/elasticsearch/index/cache/bitset/BitsetFilterCache.java:73: error: package LeafReader does not exist
+public class BitsetFilterCache extends AbstractIndexComponent implements LeafReader.CoreClosedListener, RemovalListener<Object, Cache<Filter, BitsetFilterCache.Value>>, Closeable {
+                                                                                   ^
+./src/main/java/org/elasticsearch/index/mapper/DocumentMapper.java:542: error: cannot find symbol
+    public ObjectMapper findNestedObjectMapper(int nestedDocId, BitsetFilterCache cache, LeafReaderContext context) throws IOException {
+                                                                                         ^
+  symbol:   class LeafReaderContext
+  location: class DocumentMapper
+./src/main/java/org/elasticsearch/index/mapper/internal/VersionFieldMapper.java:24: error: cannot find symbol
+import org.apache.lucene.document.NumericDocValuesField;
+                                 ^
+  symbol:   class NumericDocValuesField
+  location: package org.apache.lucene.document
+./src/main/java/org/elasticsearch/index/mapper/internal/FieldNamesFieldMapper.java:26: error: cannot find symbol
+import org.apache.lucene.document.SortedSetDocValuesField;
+                                 ^
+  symbol:   class SortedSetDocValuesField
+  location: package org.apache.lucene.document
+./src/main/java/org/elasticsearch/index/mapper/internal/FieldNamesFieldMapper.java:27: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/core/BooleanFieldMapper.java:24: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/core/StringFieldMapper.java:25: error: cannot find symbol
+import org.apache.lucene.document.SortedSetDocValuesField;
+                                 ^
+  symbol:   class SortedSetDocValuesField
+  location: package org.apache.lucene.document
+./src/main/java/org/elasticsearch/index/mapper/core/StringFieldMapper.java:26: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/core/BinaryFieldMapper.java:26: error: cannot find symbol
+import org.apache.lucene.index.DocValuesType;
+                              ^
+  symbol:   class DocValuesType
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/core/BinaryFieldMapper.java:27: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/ip/IpFieldMapper.java:27: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/ip/IpFieldMapper.java:33: error: cannot find symbol
+import org.apache.lucene.util.BytesRefBuilder;
+                             ^
+  symbol:   class BytesRefBuilder
+  location: package org.apache.lucene.util
+./src/main/java/org/elasticsearch/index/mapper/core/ShortFieldMapper.java:26: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/core/ShortFieldMapper.java:32: error: cannot find symbol
+import org.apache.lucene.util.BytesRefBuilder;
+                             ^
+  symbol:   class BytesRefBuilder
+  location: package org.apache.lucene.util
+./src/main/java/org/elasticsearch/index/mapper/core/ByteFieldMapper.java:25: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/core/ByteFieldMapper.java:31: error: cannot find symbol
+import org.apache.lucene.util.BytesRefBuilder;
+                             ^
+  symbol:   class BytesRefBuilder
+  location: package org.apache.lucene.util
+./src/main/java/org/elasticsearch/index/mapper/core/TokenCountFieldMapper.java:26: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/core/FloatFieldMapper.java:28: error: cannot find symbol
+import org.apache.lucene.index.DocValuesType;
+                              ^
+  symbol:   class DocValuesType
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/core/FloatFieldMapper.java:29: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/core/FloatFieldMapper.java:35: error: cannot find symbol
+import org.apache.lucene.util.BytesRefBuilder;
+                             ^
+  symbol:   class BytesRefBuilder
+  location: package org.apache.lucene.util
+./src/main/java/org/elasticsearch/index/mapper/core/DoubleFieldMapper.java:28: error: cannot find symbol
+import org.apache.lucene.index.DocValuesType;
+                              ^
+  symbol:   class DocValuesType
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/core/DoubleFieldMapper.java:29: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/core/DoubleFieldMapper.java:35: error: cannot find symbol
+import org.apache.lucene.util.BytesRefBuilder;
+                             ^
+  symbol:   class BytesRefBuilder
+  location: package org.apache.lucene.util
+./src/main/java/org/elasticsearch/index/mapper/geo/GeoPointFieldMapper.java:28: error: cannot find symbol
+import org.apache.lucene.index.DocValuesType;
+                              ^
+  symbol:   class DocValuesType
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/geo/GeoPointFieldMapper.java:29: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/mapper/geo/GeoShapeFieldMapper.java:24: error: cannot find symbol
+import org.apache.lucene.index.IndexOptions;
+                              ^
+  symbol:   class IndexOptions
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/search/suggest/context/ContextMapping.java:28: error: cannot find symbol
+import org.apache.lucene.util.automaton.Automata;
+                                       ^
+  symbol:   class Automata
+  location: package org.apache.lucene.util.automaton
+./src/main/java/org/elasticsearch/search/suggest/context/ContextMapping.java:30: error: cannot find symbol
+import org.apache.lucene.util.automaton.Operations;
+                                       ^
+  symbol:   class Operations
+  location: package org.apache.lucene.util.automaton
+./src/main/java/org/elasticsearch/index/mapper/core/TypeParsers.java:349: error: cannot find symbol
+    private static IndexOptions nodeIndexOptionValue(final Object propNode) {
+                   ^
+  symbol:   class IndexOptions
+  location: class TypeParsers
+./src/main/java/org/elasticsearch/index/query/QueryParseContext.java:30: error: cannot find symbol
+import org.apache.lucene.search.FilterCachingPolicy;
+                               ^
+  symbol:   class FilterCachingPolicy
+  location: package org.apache.lucene.search
+./src/main/java/org/elasticsearch/index/query/QueryParseContext.java:32: error: package org.apache.lucene.search.join does not exist
+import org.apache.lucene.search.join.BitDocIdSetFilter;
+                                    ^
+./src/main/java/org/elasticsearch/index/analysis/NamedAnalyzer.java:23: error: cannot find symbol
+import org.apache.lucene.analysis.DelegatingAnalyzerWrapper;
+                                 ^
+  symbol:   class DelegatingAnalyzerWrapper
+  location: package org.apache.lucene.analysis
+./src/main/java/org/elasticsearch/index/analysis/NamedAnalyzer.java:29: error: cannot find symbol
+public class NamedAnalyzer extends DelegatingAnalyzerWrapper {
+                                   ^
+  symbol: class DelegatingAnalyzerWrapper
+./src/main/java/org/elasticsearch/index/mapper/core/AbstractFieldMapper.java:757: error: cannot find symbol
+    protected static String indexOptionToString(IndexOptions indexOption) {
+                                                ^
+  symbol:   class IndexOptions
+  location: class AbstractFieldMapper<T>
+  where T is a type-variable:
+    T extends Object declared in class AbstractFieldMapper
+./src/main/java/org/elasticsearch/index/analysis/FieldNameAnalyzer.java:23: error: cannot find symbol
+import org.apache.lucene.analysis.DelegatingAnalyzerWrapper;
+                                 ^
+  symbol:   class DelegatingAnalyzerWrapper
+  location: package org.apache.lucene.analysis
+./src/main/java/org/elasticsearch/index/analysis/FieldNameAnalyzer.java:32: error: cannot find symbol
+public final class FieldNameAnalyzer extends DelegatingAnalyzerWrapper {
+                                             ^
+  symbol: class DelegatingAnalyzerWrapper
+./src/main/java/org/elasticsearch/index/mapper/Uid.java:126: error: cannot find symbol
+    public static BytesRef createUidAsBytes(BytesRef type, BytesRef id, BytesRefBuilder spare) {
+                                                                        ^
+  symbol:   class BytesRefBuilder
+  location: class Uid
+./src/main/java/org/elasticsearch/index/fielddata/IndexNumericFieldData.java:25: error: cannot find symbol
+import org.apache.lucene.util.BytesRefBuilder;
+                             ^
+  symbol:   class BytesRefBuilder
+  location: package org.apache.lucene.util
+./src/main/java/org/elasticsearch/index/fielddata/IndexFieldData.java:25: error: package org.apache.lucene.search.join does not exist
+import org.apache.lucene.search.join.BitDocIdSetFilter;
+                                    ^
+./src/main/java/org/elasticsearch/index/fielddata/IndexFieldData.java:28: error: cannot find symbol
+import org.apache.lucene.util.BytesRefBuilder;
+                             ^
+  symbol:   class BytesRefBuilder
+  location: package org.apache.lucene.util
+./src/main/java/org/elasticsearch/index/fielddata/AtomicFieldData.java:22: error: cannot find symbol
+import org.apache.lucene.util.Accountable;
+                             ^
+  symbol:   class Accountable
+  location: package org.apache.lucene.util
+./src/main/java/org/elasticsearch/index/fielddata/AtomicFieldData.java:28: error: cannot find symbol
+public interface AtomicFieldData extends Accountable, Releasable {
+                                         ^
+  symbol: class Accountable
+./src/main/java/org/elasticsearch/index/fielddata/AtomicNumericFieldData.java:22: error: cannot find symbol
+import org.apache.lucene.index.SortedNumericDocValues;
+                              ^
+  symbol:   class SortedNumericDocValues
+  location: package org.apache.lucene.index
+./src/main/java/org/elasticsearch/index/shard/IndexShard.java:28: error: package org.apache.lucene.search.join does not exist
+import org.apache.lucene.search.join.BitDocIdSetFilter;
+                                    ^
+./src/main/java/org/elasticsearch/index/cache/bitset/BitsetFilterCache.java:105: error: cannot find symbol
+    public BitDocIdSetFilter getBitDocIdSetFilter(Filter filter) {
+           ^
+  symbol:   class BitDocIdSetFilter
+  location: class BitsetFilterCache
+./src/main/java/org/elasticsearch/index/cache/bitset/BitsetFilterCache.java:127: error: cannot find symbol
+    private BitDocIdSet getAndLoadIfNotPresent(final Filter filter, final LeafReaderContext context) throws IOException, ExecutionException {
+                                                                          ^
+  symbol:   class LeafReaderContext
+  location: class BitsetFilterCache
+./src/main/java/org/elasticsearch/index/cache/bitset/BitsetFilterCache.java:127: error: cannot find symbol
+    private BitDocIdSet getAndLoadIfNotPresent(final Filter filter, final LeafReaderContext context) throws IOException, ExecutionException {
+            ^
+  symbol:   class BitDocIdSet
+  location: class BitsetFilterCache
+./src/main/java/org/elasticsearch/index/cache/bitset/BitsetFilterCache.java:200: error: cannot find symbol
+        final BitDocIdSet bitset;
+              ^
+  symbol:   class BitDocIdSet
+  location: class Value
+./src/main/java/org/elasticsearch/index/cache/bitset/BitsetFilterCache.java:203: error: cannot find symbol
+        public Value(BitDocIdSet bitset, ShardId shardId) {
+                     ^
+  symbol:   class BitDocIdSet
+  location: class Value
+./src/main/java/org/elasticsearch/common/lucene/Lucene.java:37: error: cannot find symbol
+import org.apache.lucene.search.LeafCollector;
+                               ^
+  symbol:   class LeafCollector
+  location: package org.apache.lucene.search
+./src/main/java/org/elasticsearch/common/lucene/Lucene.java:41: error: cannot find symbol
+import org.apache.lucene.search.SimpleCollector;
+                               ^
+  symbol:   class SimpleCollector
+  location: package org.apache.lucene.search
+./src/main/java/jsr166e/Striped64.java:98: warning: Unsafe is internal proprietary API and may be removed in a future release
+        private static final sun.misc.Unsafe UNSAFE;
+                                     ^
+./src/main/java/jsr166e/Striped64.java:296: warning: Unsafe is internal proprietary API and may be removed in a future release
+    private static final sun.misc.Unsafe UNSAFE;
+                                 ^
+./src/main/java/jsr166e/Striped64.java:319: warning: Unsafe is internal proprietary API and may be removed in a future release
+    private static sun.misc.Unsafe getUnsafe() {
+                           ^
+./src/main/java/jsr166e/Striped64.java:321: warning: Unsafe is internal proprietary API and may be removed in a future release
+            return sun.misc.Unsafe.getUnsafe();
+                           ^
+./src/main/java/jsr166e/Striped64.java:325: warning: Unsafe is internal proprietary API and may be removed in a future release
+            (new java.security.PrivilegedExceptionAction<sun.misc.Unsafe>() {
+                                                                 ^
+./src/main/java/jsr166e/Striped64.java:326: warning: Unsafe is internal proprietary API and may be removed in a future release
+                public sun.misc.Unsafe run() throws Exception {
+                               ^
+./src/main/java/jsr166e/Striped64.java:327: warning: Unsafe is internal proprietary API and may be removed in a future release
+                    Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
+                                  ^
+./src/main/java/jsr166e/Striped64.java:327: warning: Unsafe is internal proprietary API and may be removed in a future release
+                    Class<sun.misc.Unsafe> k = sun.misc.Unsafe.class;
+                                                       ^
