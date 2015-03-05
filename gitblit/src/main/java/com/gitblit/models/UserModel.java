@@ -27,13 +27,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.gitblit.Constants;
 import com.gitblit.Constants.AccessPermission;
 import com.gitblit.Constants.AccessRestrictionType;
 import com.gitblit.Constants.AccountType;
 import com.gitblit.Constants.AuthorizationControl;
 import com.gitblit.Constants.PermissionType;
 import com.gitblit.Constants.RegistrantType;
-import com.gitblit.Constants.Unused;
 import com.gitblit.utils.ArrayUtils;
 import com.gitblit.utils.ModelUtils;
 import com.gitblit.utils.StringUtils;
@@ -67,6 +67,7 @@ public class UserModel implements Principal, Serializable, Comparable<UserModel>
 	public boolean canFork;
 	public boolean canCreate;
 	public boolean excludeFromFederation;
+	public boolean disabled;
 	// retained for backwards-compatibility with RPC clients
 	@Deprecated
 	public final Set<String> repositories = new HashSet<String>();
@@ -94,58 +95,9 @@ public class UserModel implements Principal, Serializable, Comparable<UserModel>
 	}
 
 	public boolean isLocalAccount() {
-		return accountType.isLocal();
-	}
-
-	/**
-	 * This method does not take into consideration Ownership where the
-	 * administrator has not explicitly granted access to the owner.
-	 *
-	 * @param repositoryName
-	 * @return
-	 */
-	@Deprecated
-	public boolean canAccessRepository(String repositoryName) {
-		return canAdmin() || repositories.contains(repositoryName.toLowerCase())
-				|| hasTeamAccess(repositoryName);
-	}
-
-	@Deprecated
-	@Unused
-	public boolean canAccessRepository(RepositoryModel repository) {
-		boolean isOwner = repository.isOwner(username);
-		boolean allowAuthenticated = isAuthenticated && AuthorizationControl.AUTHENTICATED.equals(repository.authorizationControl);
-		return canAdmin() || isOwner || repositories.contains(repository.name.toLowerCase())
-				|| hasTeamAccess(repository.name) || allowAuthenticated;
-	}
-
-	@Deprecated
-	@Unused
-	public boolean hasTeamAccess(String repositoryName) {
-		for (TeamModel team : teams) {
-			if (team.hasRepositoryPermission(repositoryName)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	@Deprecated
-	@Unused
-	public boolean hasRepository(String name) {
-		return hasRepositoryPermission(name);
-	}
-
-	@Deprecated
-	@Unused
-	public void addRepository(String name) {
-		addRepositoryPermission(name);
-	}
-
-	@Deprecated
-	@Unused
-	public void removeRepository(String name) {
-		removeRepositoryPermission(name);
+		return !Constants.EXTERNAL_ACCOUNT.equals(password)
+				|| accountType == null
+				|| accountType.isLocal();
 	}
 
 	/**
@@ -495,6 +447,31 @@ public class UserModel implements Principal, Serializable, Comparable<UserModel>
 		return canAdmin() || model.isUsersPersonalRepository(username) || model.isOwner(username);
 	}
 
+	public boolean canEdit(TicketModel ticket, RepositoryModel repository) {
+		 return isAuthenticated() &&
+				 (canPush(repository)
+				 || (ticket != null && username.equals(ticket.responsible))
+				 || (ticket != null && username.equals(ticket.createdBy)));
+	}
+
+	public boolean canAdmin(TicketModel ticket, RepositoryModel repository) {
+		 return isAuthenticated() &&
+				 (canPush(repository)
+				 || ticket != null && username.equals(ticket.responsible));
+	}
+
+	public boolean canReviewPatchset(RepositoryModel model) {
+		return isAuthenticated() && canClone(model);
+	}
+
+	public boolean canApprovePatchset(RepositoryModel model) {
+		return isAuthenticated() && canPush(model);
+	}
+
+	public boolean canVetoPatchset(RepositoryModel model) {
+		return isAuthenticated() && canPush(model);
+	}
+
 	/**
 	 * This returns true if the user has fork privileges or the user has fork
 	 * privileges because of a team membership.
@@ -566,7 +543,7 @@ public class UserModel implements Principal, Serializable, Comparable<UserModel>
 			// admins can create any repository
 			return true;
 		}
-		if (canCreate) {
+		if (canCreate()) {
 			String projectPath = StringUtils.getFirstPathElement(repository);
 			if (!StringUtils.isEmpty(projectPath) && projectPath.equalsIgnoreCase(getPersonalPath())) {
 				// personal repository
@@ -574,6 +551,20 @@ public class UserModel implements Principal, Serializable, Comparable<UserModel>
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Returns true if the user is allowed to administer the specified repository
+	 *
+	 * @param repo
+	 * @return true if the user can administer the repository
+	 */
+	public boolean canAdmin(RepositoryModel repo) {
+		return canAdmin() || repo.isOwner(username) || isMyPersonalRepository(repo.name);
+	}
+
+	public boolean isAuthenticated() {
+		return !UserModel.ANONYMOUS.equals(this) && isAuthenticated;
 	}
 
 	public boolean isTeamMember(String teamname) {
@@ -663,12 +654,6 @@ public class UserModel implements Principal, Serializable, Comparable<UserModel>
 			emailVerified = email.equalsIgnoreCase(emailAddress);
 		}
 		return nameVerified && emailVerified;
-	}
-
-	@Deprecated
-	public boolean hasBranchPermission(String repositoryName, String branch) {
-		// Default UserModel doesn't implement branch-level security. Other Realms (i.e. Gerrit) may override this method.
-		return hasRepositoryPermission(repositoryName) || hasTeamRepositoryPermission(repositoryName);
 	}
 
 	public boolean isMyPersonalRepository(String repository) {

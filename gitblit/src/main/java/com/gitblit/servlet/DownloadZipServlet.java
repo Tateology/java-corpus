@@ -20,10 +20,7 @@ import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.Date;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jgit.lib.Repository;
@@ -34,13 +31,14 @@ import org.slf4j.LoggerFactory;
 import com.gitblit.Constants;
 import com.gitblit.IStoredSettings;
 import com.gitblit.Keys;
-import com.gitblit.Keys.web;
+import com.gitblit.dagger.DaggerServlet;
 import com.gitblit.manager.IRepositoryManager;
-import com.gitblit.manager.IRuntimeManager;
 import com.gitblit.utils.CompressionUtils;
 import com.gitblit.utils.JGitUtils;
 import com.gitblit.utils.MarkdownUtils;
 import com.gitblit.utils.StringUtils;
+
+import dagger.ObjectGraph;
 
 /**
  * Streams out a zip file from the specified repository for any tree path at any
@@ -49,16 +47,15 @@ import com.gitblit.utils.StringUtils;
  * @author James Moger
  *
  */
-@Singleton
-public class DownloadZipServlet extends HttpServlet {
+public class DownloadZipServlet extends DaggerServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	private transient Logger logger = LoggerFactory.getLogger(DownloadZipServlet.class);
 
-	private final IStoredSettings settings;
+	private IStoredSettings settings;
 
-	private final IRepositoryManager repositoryManager;
+	private IRepositoryManager repositoryManager;
 
 	public static enum Format {
 		zip(".zip"), tar(".tar"), gz(".tar.gz"), xz(".tar.xz"), bzip2(".tar.bzip2");
@@ -79,14 +76,10 @@ public class DownloadZipServlet extends HttpServlet {
 		}
 	}
 
-	@Inject
-	public DownloadZipServlet(
-			IRuntimeManager runtimeManager,
-			IRepositoryManager repositoryManager) {
-
-		super();
-		this.settings = runtimeManager.getSettings();
-		this.repositoryManager = repositoryManager;
+	@Override
+	protected void inject(ObjectGraph dagger) {
+		this.settings = dagger.get(IStoredSettings.class);
+		this.repositoryManager = dagger.get(IRepositoryManager.class);
 	}
 
 	/**

@@ -31,6 +31,9 @@ import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.behavior.HeaderContributor;
@@ -41,24 +44,37 @@ import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.Fragment;
+import org.apache.wicket.markup.repeater.Item;
+import org.apache.wicket.markup.repeater.data.DataView;
+import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.protocol.http.WebRequest;
 import org.apache.wicket.protocol.http.WebResponse;
 
 import com.gitblit.Constants;
+import com.gitblit.Constants.AuthenticationType;
 import com.gitblit.Keys;
+import com.gitblit.extensions.NavLinkExtension;
+import com.gitblit.extensions.UserMenuExtension;
+import com.gitblit.models.Menu.ExternalLinkMenuItem;
+import com.gitblit.models.Menu.MenuDivider;
+import com.gitblit.models.Menu.MenuItem;
+import com.gitblit.models.Menu.PageLinkMenuItem;
+import com.gitblit.models.Menu.ParameterMenuItem;
+import com.gitblit.models.Menu.ToggleMenuItem;
+import com.gitblit.models.NavLink;
+import com.gitblit.models.NavLink.PageNavLink;
 import com.gitblit.models.RepositoryModel;
 import com.gitblit.models.TeamModel;
 import com.gitblit.models.UserModel;
 import com.gitblit.utils.ModelUtils;
 import com.gitblit.utils.StringUtils;
 import com.gitblit.wicket.GitBlitWebSession;
-import com.gitblit.wicket.PageRegistration;
-import com.gitblit.wicket.PageRegistration.DropDownMenuItem;
-import com.gitblit.wicket.PageRegistration.DropDownToggleItem;
 import com.gitblit.wicket.SessionlessForm;
 import com.gitblit.wicket.WicketUtils;
 import com.gitblit.wicket.panels.GravatarImage;
+import com.gitblit.wicket.panels.LinkPanel;
 import com.gitblit.wicket.panels.NavigationPanel;
 
 /**
@@ -134,6 +150,8 @@ public abstract class RootPage extends BasePage {
 		boolean authenticateView = app().settings().getBoolean(Keys.web.authenticateViewPages, false);
 		boolean authenticateAdmin = app().settings().getBoolean(Keys.web.authenticateAdminPages, true);
 		boolean allowAdmin = app().settings().getBoolean(Keys.web.allowAdministration, true);
+		boolean allowLucene = app().settings().getBoolean(Keys.web.allowLuceneIndexing, true);
+		boolean isLoggedIn = GitBlitWebSession.get().isLoggedIn();
 
 		if (authenticateAdmin) {
 			showAdmin = allowAdmin && GitBlitWebSession.get().canAdmin();
@@ -151,7 +169,7 @@ public abstract class RootPage extends BasePage {
 		}
 
 		if (authenticateView || authenticateAdmin) {
-			if (GitBlitWebSession.get().isLoggedIn()) {
+			if (isLoggedIn) {
 				UserMenu userFragment = new UserMenu("userPanel", "userMenuFragment", RootPage.this);
 				add(userFragment);
 			} else {
@@ -162,33 +180,38 @@ public abstract class RootPage extends BasePage {
 			add(new Label("userPanel").setVisible(false));
 		}
 
-		boolean showRegistrations = app().federation().canFederate()
-				&& app().settings().getBoolean(Keys.web.showFederationRegistrations, false);
-
 		// navigation links
-		List<PageRegistration> pages = new ArrayList<PageRegistration>();
-		if (!authenticateView || (authenticateView && GitBlitWebSession.get().isLoggedIn())) {
-			pages.add(new PageRegistration(GitBlitWebSession.get().isLoggedIn() ? "gb.myDashboard" : "gb.dashboard", MyDashboardPage.class,
+		List<NavLink> navLinks = new ArrayList<NavLink>();
+		if (!authenticateView || (authenticateView && isLoggedIn)) {
+			navLinks.add(new PageNavLink(isLoggedIn ? "gb.myDashboard" : "gb.dashboard", MyDashboardPage.class,
 					getRootPageParameters()));
-			pages.add(new PageRegistration("gb.repositories", RepositoriesPage.class,
+			if (isLoggedIn && app().tickets().isReady()) {
+				navLinks.add(new PageNavLink("gb.myTickets", MyTicketsPage.class));
+			}
+			navLinks.add(new PageNavLink("gb.repositories", RepositoriesPage.class,
 					getRootPageParameters()));
-			pages.add(new PageRegistration("gb.activity", ActivityPage.class, getRootPageParameters()));
-			if (app().settings().getBoolean(Keys.web.allowLuceneIndexing, true)) {
-				pages.add(new PageRegistration("gb.search", LuceneSearchPage.class));
-			}
-			if (showAdmin) {
-				pages.add(new PageRegistration("gb.users", UsersPage.class));
-			}
-			if (showAdmin || showRegistrations) {
-				pages.add(new PageRegistration("gb.federation", FederationPage.class));
+			navLinks.add(new PageNavLink("gb.activity", ActivityPage.class, getRootPageParameters()));
+			if (allowLucene) {
+				navLinks.add(new PageNavLink("gb.search", LuceneSearchPage.class));
 			}
 
-			if (!authenticateView || (authenticateView && GitBlitWebSession.get().isLoggedIn())) {
-				addDropDownMenus(pages);
+			if (!authenticateView || (authenticateView && isLoggedIn)) {
+				addDropDownMenus(navLinks);
+			}
+
+			UserModel user = UserModel.ANONYMOUS;
+			if (isLoggedIn) {
+				user = GitBlitWebSession.get().getUser();
+			}
+
+			// add nav link extensions
+			List<NavLinkExtension> extensions = app().plugins().getExtensions(NavLinkExtension.class);
+			for (NavLinkExtension ext : extensions) {
+				navLinks.addAll(ext.getNavLinks(user));
 			}
 		}
 
-		NavigationPanel navPanel = new NavigationPanel("navPanel", getRootNavPageClass(), pages);
+		NavigationPanel navPanel = new NavigationPanel("navPanel", getRootNavPageClass(), navLinks);
 		add(navPanel);
 
 		// display an error message cached from a redirect
@@ -243,28 +266,33 @@ public abstract class RootPage extends BasePage {
 
 	private void loginUser(UserModel user) {
 		if (user != null) {
+			HttpServletRequest request = ((WebRequest) getRequest()).getHttpServletRequest();
+			HttpServletResponse response = ((WebResponse) getResponse()).getHttpServletResponse();
+
 			// Set the user into the session
 			GitBlitWebSession session = GitBlitWebSession.get();
+
 			// issue 62: fix session fixation vulnerability
 			session.replaceSession();
 			session.setUser(user);
 
+			request = ((WebRequest) getRequest()).getHttpServletRequest();
+			response = ((WebResponse) getResponse()).getHttpServletResponse();
+			request.getSession().setAttribute(Constants.AUTHENTICATION_TYPE, AuthenticationType.CREDENTIALS);
+
 			// Set Cookie
-			if (app().settings().getBoolean(Keys.web.allowCookieAuthentication, false)) {
-				WebResponse response = (WebResponse) getRequestCycle().getResponse();
-				app().authentication().setCookie(response.getHttpServletResponse(), user);
-			}
+			app().authentication().setCookie(request, response, user);
 
 			if (!session.continueRequest()) {
 				PageParameters params = getPageParameters();
 				if (params == null) {
 					// redirect to this page
-					setResponsePage(getClass());
+					redirectTo(getClass());
 				} else {
 					// Strip username and password and redirect to this page
 					params.remove("username");
 					params.remove("password");
-					setResponsePage(getClass(), params);
+					redirectTo(getClass(), params);
 				}
 			}
 		}
@@ -280,13 +308,13 @@ public abstract class RootPage extends BasePage {
 		return repositoryModels;
 	}
 
-	protected void addDropDownMenus(List<PageRegistration> pages) {
+	protected void addDropDownMenus(List<NavLink> navLinks) {
 
 	}
 
-	protected List<DropDownMenuItem> getRepositoryFilterItems(PageParameters params) {
+	protected List<com.gitblit.models.Menu.MenuItem> getRepositoryFilterItems(PageParameters params) {
 		final UserModel user = GitBlitWebSession.get().getUser();
-		Set<DropDownMenuItem> filters = new LinkedHashSet<DropDownMenuItem>();
+		Set<MenuItem> filters = new LinkedHashSet<MenuItem>();
 		List<RepositoryModel> repositories = getRepositoryModels();
 
 		// accessible repositories by federation set
@@ -305,11 +333,11 @@ public abstract class RootPage extends BasePage {
 			List<String> sets = new ArrayList<String>(setMap.keySet());
 			Collections.sort(sets);
 			for (String set : sets) {
-				filters.add(new DropDownToggleItem(MessageFormat.format("{0} ({1})", set,
+				filters.add(new ToggleMenuItem(MessageFormat.format("{0} ({1})", set,
 						setMap.get(set).get()), "set", set, params));
 			}
 			// divider
-			filters.add(new DropDownMenuItem());
+			filters.add(new MenuDivider());
 		}
 
 		// user's team memberships
@@ -317,11 +345,11 @@ public abstract class RootPage extends BasePage {
 			List<TeamModel> teams = new ArrayList<TeamModel>(user.teams);
 			Collections.sort(teams);
 			for (TeamModel team : teams) {
-				filters.add(new DropDownToggleItem(MessageFormat.format("{0} ({1})", team.name,
+				filters.add(new ToggleMenuItem(MessageFormat.format("{0} ({1})", team.name,
 						team.repositories.size()), "team", team.name, params));
 			}
 			// divider
-			filters.add(new DropDownMenuItem());
+			filters.add(new MenuDivider());
 		}
 
 		// custom filters
@@ -332,18 +360,18 @@ public abstract class RootPage extends BasePage {
 			for (String expression : expressions) {
 				if (!StringUtils.isEmpty(expression)) {
 					addedExpression = true;
-					filters.add(new DropDownToggleItem(null, "x", expression, params));
+					filters.add(new ToggleMenuItem(null, "x", expression, params));
 				}
 			}
 			// if we added any custom expressions, add a divider
 			if (addedExpression) {
-				filters.add(new DropDownMenuItem());
+				filters.add(new MenuDivider());
 			}
 		}
-		return new ArrayList<DropDownMenuItem>(filters);
+		return new ArrayList<MenuItem>(filters);
 	}
 
-	protected List<DropDownMenuItem> getTimeFilterItems(PageParameters params) {
+	protected List<MenuItem> getTimeFilterItems(PageParameters params) {
 		// days back choices - additive parameters
 		int daysBack = app().settings().getInteger(Keys.web.activityDuration, 7);
 		int maxDaysBack = app().settings().getInteger(Keys.web.activityDurationMaximum, 30);
@@ -364,7 +392,7 @@ public abstract class RootPage extends BasePage {
 			clonedParams.put("db",  daysBack);
 		}
 
-		List<DropDownMenuItem> items = new ArrayList<DropDownMenuItem>();
+		List<MenuItem> items = new ArrayList<MenuItem>();
 		Set<Integer> choicesSet = new TreeSet<Integer>(app().settings().getIntegers(Keys.web.activityDurationChoices));
 		if (choicesSet.isEmpty()) {
 			 choicesSet.addAll(Arrays.asList(1, 3, 7, 14, 21, 28));
@@ -374,13 +402,13 @@ public abstract class RootPage extends BasePage {
 		String lastDaysPattern = getString("gb.lastNDays");
 		for (Integer db : choices) {
 			if (db == 1) {
-				items.add(new DropDownMenuItem(getString("gb.time.today"), "db", db.toString(), clonedParams));
+				items.add(new ParameterMenuItem(getString("gb.time.today"), "db", db.toString(), clonedParams));
 			} else {
 				String txt = MessageFormat.format(lastDaysPattern, db);
-				items.add(new DropDownMenuItem(txt, "db", db.toString(), clonedParams));
+				items.add(new ParameterMenuItem(txt, "db", db.toString(), clonedParams));
 			}
 		}
-		items.add(new DropDownMenuItem());
+		items.add(new MenuDivider());
 		return items;
 	}
 
@@ -569,32 +597,124 @@ public abstract class RootPage extends BasePage {
 		public UserMenu(String id, String markupId, MarkupContainer markupProvider) {
 			super(id, markupId, markupProvider);
 			setRenderBodyOnly(true);
+		}
+
+		@Override
+		protected void onInitialize() {
+			super.onInitialize();
 
 			GitBlitWebSession session = GitBlitWebSession.get();
 			UserModel user = session.getUser();
 			boolean editCredentials = app().authentication().supportsCredentialChanges(user);
-			boolean standardLogin = session.authenticationType.isStandard();
+			HttpServletRequest request = ((WebRequest) getRequest()).getHttpServletRequest();
+			AuthenticationType authenticationType = (AuthenticationType) request.getSession().getAttribute(Constants.AUTHENTICATION_TYPE);
+			boolean standardLogin = authenticationType.isStandard();
 
 			if (app().settings().getBoolean(Keys.web.allowGravatar, true)) {
-				add(new GravatarImage("username", user.getDisplayName(),
-						user.emailAddress, "navbarGravatar", 20, false, false));
+				add(new GravatarImage("username", user, "navbarGravatar", 20, false));
 			} else {
 				add(new Label("username", user.getDisplayName()));
 			}
 
-			add(new Label("displayName", user.getDisplayName()));
+			List<MenuItem> standardItems = new ArrayList<MenuItem>();
+			standardItems.add(new MenuDivider());
+			if (user.canAdmin() || user.canCreate()) {
+				standardItems.add(new PageLinkMenuItem("gb.newRepository", app().getNewRepositoryPage()));
+			}
+			standardItems.add(new PageLinkMenuItem("gb.myProfile", UserPage.class,
+					WicketUtils.newUsernameParameter(user.username)));
+			if (editCredentials) {
+				standardItems.add(new PageLinkMenuItem("gb.changePassword", ChangePasswordPage.class));
+			}
+			standardItems.add(new MenuDivider());
+			add(newSubmenu("standardMenu", user.getDisplayName(), standardItems));
 
-			add(new BookmarkablePageLink<Void>("newRepository",
-					EditRepositoryPage.class).setVisible(user.canAdmin() || user.canCreate()));
+			if (showAdmin) {
+				// admin menu
+				List<MenuItem> adminItems = new ArrayList<MenuItem>();
+				adminItems.add(new MenuDivider());
+				adminItems.add(new PageLinkMenuItem("gb.users", UsersPage.class));
+				adminItems.add(new PageLinkMenuItem("gb.teams", TeamsPage.class));
 
-			add(new BookmarkablePageLink<Void>("myProfile",
-					UserPage.class, WicketUtils.newUsernameParameter(user.username)));
+				boolean showRegistrations = app().federation().canFederate()
+						&& app().settings().getBoolean(Keys.web.showFederationRegistrations, false);
+				if (showRegistrations) {
+					adminItems.add(new PageLinkMenuItem("gb.federation", FederationPage.class));
+				}
+				adminItems.add(new MenuDivider());
 
-			add(new BookmarkablePageLink<Void>("changePassword",
-					ChangePasswordPage.class).setVisible(editCredentials));
+				add(newSubmenu("adminMenu", getString("gb.administration"), adminItems));
+			} else {
+				add(new Label("adminMenu").setVisible(false));
+			}
+
+			// plugin extension items
+			List<MenuItem> extensionItems = new ArrayList<MenuItem>();
+			List<UserMenuExtension> extensions = app().plugins().getExtensions(UserMenuExtension.class);
+			for (UserMenuExtension ext : extensions) {
+				List<MenuItem> items = ext.getMenuItems(user);
+				extensionItems.addAll(items);
+			}
+
+			if (extensionItems.isEmpty()) {
+				// no extension items
+				add(new Label("extensionsMenu").setVisible(false));
+			} else {
+				// found extension items
+				extensionItems.add(0, new MenuDivider());
+				add(newSubmenu("extensionsMenu", getString("gb.extensions"), extensionItems));
+				extensionItems.add(new MenuDivider());
+			}
 
 			add(new BookmarkablePageLink<Void>("logout",
 					LogoutPage.class).setVisible(standardLogin));
+		}
+
+		/**
+		 * Creates a submenu.  This is not actually submenu because we're using
+		 * an older Twitter Bootstrap which is pre-submenu.
+		 *
+		 * @param wicketId
+		 * @param submenuTitle
+		 * @param menuItems
+		 * @return a submenu fragment
+		 */
+		private Fragment newSubmenu(String wicketId, String submenuTitle, List<MenuItem> menuItems) {
+			Fragment submenu = new Fragment(wicketId, "submenuFragment", this);
+			submenu.add(new Label("submenuTitle", submenuTitle).setRenderBodyOnly(true));
+			ListDataProvider<MenuItem> menuItemsDp = new ListDataProvider<MenuItem>(menuItems);
+			DataView<MenuItem> submenuItems = new DataView<MenuItem>("submenuItem", menuItemsDp) {
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public void populateItem(final Item<MenuItem> menuItem) {
+					final MenuItem item = menuItem.getModelObject();
+					String name = item.toString();
+					try {
+						// try to lookup translation
+						name = getString(name);
+					} catch (Exception e) {
+					}
+					if (item instanceof PageLinkMenuItem) {
+						// link to another Wicket page
+						PageLinkMenuItem pageLink = (PageLinkMenuItem) item;
+						menuItem.add(new LinkPanel("submenuLink", null, null, name, pageLink.getPageClass(),
+								pageLink.getPageParameters(), false).setRenderBodyOnly(true));
+					} else if (item instanceof ExternalLinkMenuItem) {
+						// link to a specified href
+						ExternalLinkMenuItem extLink = (ExternalLinkMenuItem) item;
+						menuItem.add(new LinkPanel("submenuLink", null, name, extLink.getHref(),
+								extLink.openInNewWindow()).setRenderBodyOnly(true));
+					} else if (item instanceof MenuDivider) {
+						// divider
+						menuItem.add(new Label("submenuLink").setRenderBodyOnly(true));
+						WicketUtils.setCssClass(menuItem, "divider");
+					}
+				}
+			};
+			submenu.add(submenuItems);
+			submenu.setRenderBodyOnly(true);
+			return submenu;
 		}
 	}
 }

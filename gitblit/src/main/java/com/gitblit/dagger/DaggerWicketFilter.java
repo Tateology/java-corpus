@@ -15,40 +15,31 @@
  */
 package com.gitblit.dagger;
 
-import groovy.lang.Singleton;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-
-import org.apache.wicket.protocol.http.IWebApplicationFactory;
-import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.protocol.http.WicketFilter;
 
+import dagger.ObjectGraph;
+
 /**
- *
- * A Wicket filter that supports Dagger injection.
+ * Uses Dagger to manually inject dependencies into a Wicket filter.
+ * This class is useful for servlet containers that offer CDI and are
+ * confused by Dagger.
  *
  * @author James Moger
  *
  */
-@Singleton
-public class DaggerWicketFilter extends WicketFilter {
-
-	@Inject
-	Provider<WebApplication> webApplicationProvider;
-
-	@Inject
-	public DaggerWicketFilter() {
-		super();
-	}
+public abstract class DaggerWicketFilter extends WicketFilter {
 
 	@Override
-	protected IWebApplicationFactory getApplicationFactory() {
-		return new IWebApplicationFactory() {
-			@Override
-			public WebApplication createApplication(WicketFilter filter) {
-				return webApplicationProvider.get();
-			}
-		};
+	public final void init(FilterConfig filterConfig) throws ServletException {
+		ServletContext context = filterConfig.getServletContext();
+		ObjectGraph objectGraph = (ObjectGraph) context.getAttribute(DaggerContext.INJECTOR_NAME);
+		inject(objectGraph);
+		super.init(filterConfig);
 	}
+
+	protected abstract void inject(ObjectGraph dagger);
 }

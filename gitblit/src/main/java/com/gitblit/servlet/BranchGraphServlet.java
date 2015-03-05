@@ -36,13 +36,11 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.imageio.ImageIO;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revplot.AbstractPlotRenderer;
@@ -51,15 +49,18 @@ import org.eclipse.jgit.revplot.PlotCommitList;
 import org.eclipse.jgit.revplot.PlotLane;
 import org.eclipse.jgit.revplot.PlotWalk;
 import org.eclipse.jgit.revwalk.RevCommit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.gitblit.Constants;
 import com.gitblit.IStoredSettings;
 import com.gitblit.Keys;
-import com.gitblit.Keys.web;
+import com.gitblit.dagger.DaggerServlet;
 import com.gitblit.manager.IRepositoryManager;
-import com.gitblit.manager.IRuntimeManager;
 import com.gitblit.utils.JGitUtils;
 import com.gitblit.utils.StringUtils;
+
+import dagger.ObjectGraph;
 
 /**
  * Handles requests for branch graphs
@@ -67,8 +68,7 @@ import com.gitblit.utils.StringUtils;
  * @author James Moger
  *
  */
-@Singleton
-public class BranchGraphServlet extends HttpServlet {
+public class BranchGraphServlet extends DaggerServlet {
 
 	private static final long serialVersionUID = 1L;
 
@@ -79,24 +79,26 @@ public class BranchGraphServlet extends HttpServlet {
 
 	private static final int RIGHT_PAD = 2;
 
+	private final Logger log = LoggerFactory.getLogger(getClass());
+
 	private final Stroke[] strokeCache;
 
-	private final IStoredSettings settings;
+	private IStoredSettings settings;
 
-	private final IRepositoryManager repositoryManager;
+	private IRepositoryManager repositoryManager;
 
-	@Inject
-	public BranchGraphServlet(
-			IRuntimeManager runtimeManager,
-			IRepositoryManager repositoryManager) {
-
+	public BranchGraphServlet() {
 		super();
-		this.settings = runtimeManager.getSettings();
-		this.repositoryManager = repositoryManager;
-
 		strokeCache = new Stroke[4];
-		for (int i = 1; i < strokeCache.length; i++)
+		for (int i = 1; i < strokeCache.length; i++) {
 			strokeCache[i] = new BasicStroke(i);
+		}
+	}
+
+	@Override
+	protected void inject(ObjectGraph dagger) {
+		this.settings = dagger.get(IStoredSettings.class);
+		this.repositoryManager = dagger.get(IRepositoryManager.class);
 	}
 
 	/**
@@ -120,6 +122,9 @@ public class BranchGraphServlet extends HttpServlet {
 	@Override
 	protected long getLastModified(HttpServletRequest req) {
 		String repository = req.getParameter("r");
+		if (StringUtils.isEmpty(repository)) {
+			return 0;
+		}
 		String objectId = req.getParameter("h");
 		Repository r = null;
 		try {
@@ -127,8 +132,15 @@ public class BranchGraphServlet extends HttpServlet {
 			if (StringUtils.isEmpty(objectId)) {
 				objectId = JGitUtils.getHEADRef(r);
 			}
+			ObjectId id = r.resolve(objectId);
+			if (id == null) {
+				return 0;
+			}
 			RevCommit commit = JGitUtils.getCommit(r, objectId);
 			return JGitUtils.getCommitDate(commit).getTime();
+		} catch (Exception e) {
+			log.error("Failed to determine last modified", e);
+			return 0;
 		} finally {
 			if (r != null) {
 				r.close();
@@ -144,17 +156,33 @@ public class BranchGraphServlet extends HttpServlet {
 		PlotWalk rw = null;
 		try {
 			String repository = request.getParameter("r");
+			if (StringUtils.isEmpty(repository)) {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				response.getWriter().append("Bad request");
+				return;
+			}
 			String objectId = request.getParameter("h");
 			String length = request.getParameter("l");
 
 			r = repositoryManager.getRepository(repository);
+			if (r == null) {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				response.getWriter().append("Bad request");
+				return;
+			}
 
 			rw = new PlotWalk(r);
 			if (StringUtils.isEmpty(objectId)) {
 				objectId = JGitUtils.getHEADRef(r);
 			}
 
-			rw.markStart(rw.lookupCommit(r.resolve(objectId)));
+			ObjectId id = r.resolve(objectId);
+			if (id ==  null) {
+				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				response.getWriter().append("Bad request");
+				return;
+			}
+			rw.markStart(rw.lookupCommit(id));
 
 			// default to the items-per-page setting, unless specified
 			int maxCommits = settings.getInteger(Keys.web.itemsPerPage, 50);

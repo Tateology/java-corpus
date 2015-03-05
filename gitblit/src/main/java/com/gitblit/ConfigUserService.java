@@ -24,6 +24,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -36,6 +37,7 @@ import org.slf4j.LoggerFactory;
 
 import com.gitblit.Constants.AccessPermission;
 import com.gitblit.Constants.AccountType;
+import com.gitblit.Constants.Transport;
 import com.gitblit.manager.IRuntimeManager;
 import com.gitblit.models.TeamModel;
 import com.gitblit.models.UserModel;
@@ -96,7 +98,13 @@ public class ConfigUserService implements IUserService {
 
 	private static final String LOCALE = "locale";
 
+	private static final String EMAILONMYTICKETCHANGES = "emailMeOnMyTicketChanges";
+
+	private static final String TRANSPORT = "transport";
+
 	private static final String ACCOUNTTYPE = "accountType";
+
+	private static final String DISABLED = "disabled";
 
 	private final File realmFile;
 
@@ -133,7 +141,7 @@ public class ConfigUserService implements IUserService {
 	 * @return cookie value
 	 */
 	@Override
-	public String getCookie(UserModel model) {
+	public synchronized String getCookie(UserModel model) {
 		if (!StringUtils.isEmpty(model.cookie)) {
 			return model.cookie;
 		}
@@ -195,7 +203,7 @@ public class ConfigUserService implements IUserService {
 	 * @return true if update is successful
 	 */
 	@Override
-	public boolean updateUserModel(UserModel model) {
+	public synchronized boolean updateUserModel(UserModel model) {
 		return updateUserModel(model.username, model);
 	}
 
@@ -216,18 +224,22 @@ public class ConfigUserService implements IUserService {
 				// null check on "final" teams because JSON-sourced UserModel
 				// can have a null teams object
 				if (model.teams != null) {
+					Set<TeamModel> userTeams = new HashSet<TeamModel>();
 					for (TeamModel team : model.teams) {
 						TeamModel t = teams.get(team.name.toLowerCase());
 						if (t == null) {
 							// new team
-							team.addUser(model.username);
-							teams.put(team.name.toLowerCase(), team);
-						} else {
-							// do not clobber existing team definition
-							// maybe because this is a federated user
-							t.addUser(model.username);
+							t = team;
+							teams.put(team.name.toLowerCase(), t);
 						}
+						// do not clobber existing team definition
+						// maybe because this is a federated user
+						t.addUser(model.username);
+						userTeams.add(t);
 					}
+					// replace Team-Models in users by new ones.
+					model.teams.clear();
+					model.teams.addAll(userTeams);
 
 					// check for implicit team removal
 					if (originalUser != null) {
@@ -268,6 +280,9 @@ public class ConfigUserService implements IUserService {
 			}
 			read();
 			originalUser = users.remove(username.toLowerCase());
+			if (originalUser != null) {
+				cookies.remove(originalUser.cookie);
+			}
 			users.put(model.username.toLowerCase(), model);
 			// null check on "final" teams because JSON-sourced UserModel
 			// can have a null teams object
@@ -318,7 +333,7 @@ public class ConfigUserService implements IUserService {
 	 * @return true if successful
 	 */
 	@Override
-	public boolean deleteUserModel(UserModel model) {
+	public synchronized boolean deleteUserModel(UserModel model) {
 		return deleteUser(model.username);
 	}
 
@@ -365,7 +380,7 @@ public class ConfigUserService implements IUserService {
 	 * @since 0.8.0
 	 */
 	@Override
-	public List<String> getAllTeamNames() {
+	public synchronized List<String> getAllTeamNames() {
 		read();
 		List<String> list = new ArrayList<String>(teams.keySet());
 		Collections.sort(list);
@@ -440,7 +455,7 @@ public class ConfigUserService implements IUserService {
 	 * @since 0.8.0
 	 */
 	@Override
-	public boolean updateTeamModel(TeamModel model) {
+	public synchronized boolean updateTeamModel(TeamModel model) {
 		return updateTeamModel(model.name, model);
 	}
 
@@ -452,7 +467,7 @@ public class ConfigUserService implements IUserService {
 	 * @since 1.2.0
 	 */
 	@Override
-	public boolean updateTeamModels(Collection<TeamModel> models) {
+	public synchronized boolean updateTeamModels(Collection<TeamModel> models) {
 		try {
 			read();
 			for (TeamModel team : models) {
@@ -478,7 +493,7 @@ public class ConfigUserService implements IUserService {
 	 * @since 0.8.0
 	 */
 	@Override
-	public boolean updateTeamModel(String teamname, TeamModel model) {
+	public synchronized boolean updateTeamModel(String teamname, TeamModel model) {
 		TeamModel original = null;
 		try {
 			read();
@@ -507,7 +522,7 @@ public class ConfigUserService implements IUserService {
 	 * @since 0.8.0
 	 */
 	@Override
-	public boolean deleteTeamModel(TeamModel model) {
+	public synchronized boolean deleteTeamModel(TeamModel model) {
 		return deleteTeam(model.name);
 	}
 
@@ -519,7 +534,7 @@ public class ConfigUserService implements IUserService {
 	 * @since 0.8.0
 	 */
 	@Override
-	public boolean deleteTeam(String teamname) {
+	public synchronized boolean deleteTeam(String teamname) {
 		try {
 			// Read realm file
 			read();
@@ -538,7 +553,7 @@ public class ConfigUserService implements IUserService {
 	 * @return list of all usernames
 	 */
 	@Override
-	public List<String> getAllUsernames() {
+	public synchronized List<String> getAllUsernames() {
 		read();
 		List<String> list = new ArrayList<String>(users.keySet());
 		Collections.sort(list);
@@ -694,9 +709,25 @@ public class ConfigUserService implements IUserService {
 			if (!StringUtils.isEmpty(model.countryCode)) {
 				config.setString(USER, model.username, COUNTRYCODE, model.countryCode);
 			}
+			if (model.disabled) {
+				config.setBoolean(USER, model.username, DISABLED, true);
+			}
 			if (model.getPreferences() != null) {
-				if (!StringUtils.isEmpty(model.getPreferences().locale)) {
-					config.setString(USER, model.username, LOCALE, model.getPreferences().locale);
+				Locale locale = model.getPreferences().getLocale();
+				if (locale != null) {
+					String val;
+					if (StringUtils.isEmpty(locale.getCountry())) {
+						val = locale.getLanguage();
+					} else {
+						val = locale.getLanguage() + "_" + locale.getCountry();
+					}
+					config.setString(USER, model.username, LOCALE, val);
+				}
+
+				config.setBoolean(USER, model.username, EMAILONMYTICKETCHANGES, model.getPreferences().isEmailMeOnMyTicketChanges());
+
+				if (model.getPreferences().getTransport() != null) {
+					config.setString(USER, model.username, TRANSPORT, model.getPreferences().getTransport().name());
 				}
 			}
 
@@ -859,18 +890,23 @@ public class ConfigUserService implements IUserService {
 					user.emailAddress = config.getString(USER, username, EMAILADDRESS);
 					user.accountType = AccountType.fromString(config.getString(USER, username, ACCOUNTTYPE));
 					if (Constants.EXTERNAL_ACCOUNT.equals(user.password) && user.accountType.isLocal()) {
-						user.accountType = null;
+						user.accountType = AccountType.EXTERNAL;
 					}
+					user.disabled = config.getBoolean(USER, username, DISABLED, false);
 					user.organizationalUnit = config.getString(USER, username, ORGANIZATIONALUNIT);
 					user.organization = config.getString(USER, username, ORGANIZATION);
 					user.locality = config.getString(USER, username, LOCALITY);
 					user.stateProvince = config.getString(USER, username, STATEPROVINCE);
 					user.countryCode = config.getString(USER, username, COUNTRYCODE);
 					user.cookie = config.getString(USER, username, COOKIE);
-					user.getPreferences().locale = config.getString(USER, username, LOCALE);
 					if (StringUtils.isEmpty(user.cookie) && !StringUtils.isEmpty(user.password)) {
 						user.cookie = StringUtils.getSHA1(user.username + user.password);
 					}
+
+					// preferences
+					user.getPreferences().setLocale(config.getString(USER, username, LOCALE));
+					user.getPreferences().setEmailMeOnMyTicketChanges(config.getBoolean(USER, username, EMAILONMYTICKETCHANGES, true));
+					user.getPreferences().setTransport(Transport.fromString(config.getString(USER, username, TRANSPORT)));
 
 					// user roles
 					Set<String> roles = new HashSet<String>(Arrays.asList(config.getStringList(

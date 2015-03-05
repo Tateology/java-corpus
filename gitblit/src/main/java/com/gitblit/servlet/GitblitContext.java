@@ -23,15 +23,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletContext;
-import javax.servlet.annotation.WebListener;
+import javax.servlet.ServletContextEvent;
 
 import com.gitblit.Constants;
 import com.gitblit.DaggerModule;
@@ -39,38 +37,36 @@ import com.gitblit.FileSettings;
 import com.gitblit.IStoredSettings;
 import com.gitblit.Keys;
 import com.gitblit.WebXmlSettings;
-import com.gitblit.dagger.DaggerContextListener;
-import com.gitblit.git.GitServlet;
+import com.gitblit.dagger.DaggerContext;
+import com.gitblit.extensions.LifeCycleListener;
 import com.gitblit.manager.IAuthenticationManager;
 import com.gitblit.manager.IFederationManager;
 import com.gitblit.manager.IGitblit;
 import com.gitblit.manager.IManager;
 import com.gitblit.manager.INotificationManager;
+import com.gitblit.manager.IPluginManager;
 import com.gitblit.manager.IProjectManager;
 import com.gitblit.manager.IRepositoryManager;
 import com.gitblit.manager.IRuntimeManager;
 import com.gitblit.manager.IUserManager;
+import com.gitblit.transport.ssh.IPublicKeyManager;
 import com.gitblit.utils.ContainerUtils;
 import com.gitblit.utils.StringUtils;
-import com.gitblit.wicket.GitblitWicketFilter;
 
 import dagger.ObjectGraph;
 
 /**
  * This class is the main entry point for the entire webapp.  It is a singleton
  * created manually by Gitblit GO or dynamically by the WAR/Express servlet
- * container.  This class instantiates and starts all managers followed by
- * instantiating and registering all servlets and filters.
- *
- * Leveraging Servlet 3 and Dagger static dependency injection allows Gitblit to
- * be modular and completely code-driven rather then relying on the fragility of
- * a web.xml descriptor and the static & monolithic design previously used.
+ * container.  This class instantiates and starts all managers.  Servlets and
+ * filters are instantiated defined in web.xml and instantiated by the servlet
+ * container, but those servlets and filters use Dagger to manually inject their
+ * dependencies.
  *
  * @author James Moger
  *
  */
-@WebListener
-public class GitblitContext extends DaggerContextListener {
+public class GitblitContext extends DaggerContext {
 
 	private static GitblitContext gitblit;
 
@@ -84,9 +80,7 @@ public class GitblitContext extends DaggerContextListener {
 	 * Construct a Gitblit WAR/Express context.
 	 */
 	public GitblitContext() {
-		this.goSettings = null;
-		this.goBaseFolder = null;
-		gitblit = this;
+		this(null, null);
 	}
 
 	/**
@@ -126,10 +120,21 @@ public class GitblitContext extends DaggerContextListener {
 	}
 
 	/**
-	 * Prepare runtime settings and start all manager instances.
+	 * Configure Gitblit from the web.xml, if no configuration has already been
+	 * specified.
+	 *
+	 * @see ServletContextListener.contextInitialize(ServletContextEvent)
 	 */
 	@Override
-	protected void beforeServletInjection(ServletContext context) {
+	public final void contextInitialized(ServletContextEvent contextEvent) {
+		ServletContext context = contextEvent.getServletContext();
+		configureContext(context);
+	}
+
+	/**
+	 * Prepare runtime settings and start all manager instances.
+	 */
+	protected void configureContext(ServletContext context) {
 		ObjectGraph injector = getInjector(context);
 
 		// create the runtime settings object
@@ -145,7 +150,11 @@ public class GitblitContext extends DaggerContextListener {
 			String contextRealPath = context.getRealPath("/");
 			File contextFolder = (contextRealPath != null) ? new File(contextRealPath) : null;
 
-			if (!StringUtils.isEmpty(System.getenv("OPENSHIFT_DATA_DIR"))) {
+			// if the base folder dosen't match the default assume they don't want to use express,
+			// this allows for other containers to customise the basefolder per context.
+			String defaultBase = Constants.contextFolder$ + "/WEB-INF/data";
+			String base = getBaseFolderPath(defaultBase);
+			if (!StringUtils.isEmpty(System.getenv("OPENSHIFT_DATA_DIR")) && defaultBase.equals(base)) {
 				// RedHat OpenShift
 				baseFolder = configureExpress(context, webxmlSettings, contextFolder, runtimeSettings);
 			} else {
@@ -166,23 +175,75 @@ public class GitblitContext extends DaggerContextListener {
 		runtime.start();
 		managers.add(runtime);
 
+		// create the plugin manager instance but do not start it
+		loadManager(injector, IPluginManager.class);
+
 		// start all other managers
 		startManager(injector, INotificationManager.class);
 		startManager(injector, IUserManager.class);
 		startManager(injector, IAuthenticationManager.class);
+		startManager(injector, IPublicKeyManager.class);
 		startManager(injector, IRepositoryManager.class);
 		startManager(injector, IProjectManager.class);
 		startManager(injector, IFederationManager.class);
 		startManager(injector, IGitblit.class);
 
+		// start the plugin manager last so that plugins can depend on
+		// deterministic access to all other managers in their start() methods
+		startManager(injector, IPluginManager.class);
+
 		logger.info("");
 		logger.info("All managers started.");
 		logger.info("");
+
+		IPluginManager pluginManager = injector.get(IPluginManager.class);
+		for (LifeCycleListener listener : pluginManager.getExtensions(LifeCycleListener.class)) {
+			try {
+				listener.onStartup();
+			} catch (Throwable t) {
+				logger.error(null, t);
+			}
+		}
+	}
+
+	private String lookupBaseFolderFromJndi() {
+		try {
+			// try to lookup JNDI env-entry for the baseFolder
+			InitialContext ic = new InitialContext();
+			Context env = (Context) ic.lookup("java:comp/env");
+			return (String) env.lookup("baseFolder");
+		} catch (NamingException n) {
+			logger.error("Failed to get JNDI env-entry: " + n.getExplanation());
+		}
+		return null;
+	}
+
+	protected String getBaseFolderPath(String defaultBaseFolder) {
+		// try a system property or a JNDI property
+		String specifiedBaseFolder = System.getProperty("GITBLIT_HOME", lookupBaseFolderFromJndi());
+
+		if (!StringUtils.isEmpty(System.getenv("GITBLIT_HOME"))) {
+			// try an environment variable
+			specifiedBaseFolder = System.getenv("GITBLIT_HOME");
+		}
+
+		if (!StringUtils.isEmpty(specifiedBaseFolder)) {
+			// use specified base folder path
+			return specifiedBaseFolder;
+		}
+
+		// use default base folder path
+		return defaultBaseFolder;
+	}
+
+	protected <X extends IManager> X loadManager(ObjectGraph injector, Class<X> clazz) {
+		X x = injector.get(clazz);
+		return x;
 	}
 
 	protected <X extends IManager> X startManager(ObjectGraph injector, Class<X> clazz) {
+		X x = loadManager(injector, clazz);
 		logManager(clazz);
-		X x = injector.get(clazz);
 		x.start();
 		managers.add(x);
 		return x;
@@ -194,44 +255,22 @@ public class GitblitContext extends DaggerContextListener {
 	}
 
 	/**
-	 * Instantiate and inject all filters and servlets into the container using
-	 * the servlet 3 specification.
-	 */
-	@Override
-	protected void injectServlets(ServletContext context) {
-		// access restricted servlets
-		serve(context, Constants.R_PATH, GitServlet.class, GitFilter.class);
-		serve(context, Constants.GIT_PATH, GitServlet.class, GitFilter.class);
-		serve(context, Constants.PAGES, PagesServlet.class, PagesFilter.class);
-		serve(context, Constants.RPC_PATH, RpcServlet.class, RpcFilter.class);
-		serve(context, Constants.ZIP_PATH, DownloadZipServlet.class, DownloadZipFilter.class);
-		serve(context, Constants.SYNDICATION_PATH, SyndicationServlet.class, SyndicationFilter.class);
-
-		// servlets
-		serve(context, Constants.FEDERATION_PATH, FederationServlet.class);
-		serve(context, Constants.SPARKLESHARE_INVITE_PATH, SparkleShareInviteServlet.class);
-		serve(context, Constants.BRANCH_GRAPH_PATH, BranchGraphServlet.class);
-		file(context, "/robots.txt", RobotsTxtServlet.class);
-		file(context, "/logo.png", LogoServlet.class);
-
-		// optional force basic authentication
-		filter(context, "/*", EnforceAuthenticationFilter.class, null);
-
-		// Wicket
-		String toIgnore = StringUtils.flattenStrings(getRegisteredPaths(), ",");
-		Map<String, String> params = new HashMap<String, String>();
-		params.put(GitblitWicketFilter.FILTER_MAPPING_PARAM, "/*");
-		params.put(GitblitWicketFilter.IGNORE_PATHS_PARAM, toIgnore);
-		filter(context, "/*", GitblitWicketFilter.class, params);
-	}
-
-	/**
 	 * Gitblit is being shutdown either because the servlet container is
 	 * shutting down or because the servlet container is re-deploying Gitblit.
 	 */
 	@Override
 	protected void destroyContext(ServletContext context) {
 		logger.info("Gitblit context destroyed by servlet container.");
+
+		IPluginManager pluginManager = getManager(IPluginManager.class);
+		for (LifeCycleListener listener : pluginManager.getExtensions(LifeCycleListener.class)) {
+			try {
+				listener.onShutdown();
+			} catch (Throwable t) {
+				logger.error(null, t);
+			}
+		}
+
 		for (IManager manager : managers) {
 			logger.debug("stopping {}", manager.getClass().getSimpleName());
 			manager.stop();
@@ -284,9 +323,9 @@ public class GitblitContext extends DaggerContextListener {
 		logger.debug("configuring Gitblit WAR");
 		logger.info("WAR contextFolder is " + ((contextFolder != null) ? contextFolder.getAbsolutePath() : "<empty>"));
 
-		String path = webxmlSettings.getString(Constants.baseFolder, Constants.contextFolder$ + "/WEB-INF/data");
+		String webXmlPath = webxmlSettings.getString(Constants.baseFolder, Constants.contextFolder$ + "/WEB-INF/data");
 
-		if (path.contains(Constants.contextFolder$) && contextFolder == null) {
+		if (webXmlPath.contains(Constants.contextFolder$) && contextFolder == null) {
 			// warn about null contextFolder (issue-199)
 			logger.error("");
 			logger.error(MessageFormat.format("\"{0}\" depends on \"{1}\" but \"{2}\" is returning NULL for \"{1}\"!",
@@ -296,25 +335,15 @@ public class GitblitContext extends DaggerContextListener {
 			logger.error("");
 		}
 
-		try {
-			// try to lookup JNDI env-entry for the baseFolder
-			InitialContext ic = new InitialContext();
-			Context env = (Context) ic.lookup("java:comp/env");
-			String val = (String) env.lookup("baseFolder");
-			if (!StringUtils.isEmpty(val)) {
-				path = val;
-			}
-		} catch (NamingException n) {
-			logger.error("Failed to get JNDI env-entry: " + n.getExplanation());
-		}
+		String baseFolderPath = getBaseFolderPath(webXmlPath);
 
-		File base = com.gitblit.utils.FileUtils.resolveParameter(Constants.contextFolder$, contextFolder, path);
-		base.mkdirs();
+		File baseFolder = com.gitblit.utils.FileUtils.resolveParameter(Constants.contextFolder$, contextFolder, baseFolderPath);
+		baseFolder.mkdirs();
 
 		// try to extract the data folder resource to the baseFolder
-		File localSettings = new File(base, "gitblit.properties");
+		File localSettings = new File(baseFolder, "gitblit.properties");
 		if (!localSettings.exists()) {
-			extractResources(context, "/WEB-INF/data/", base);
+			extractResources(context, "/WEB-INF/data/", baseFolder);
 		}
 
 		// delegate all config to baseFolder/gitblit.properties file
@@ -326,7 +355,7 @@ public class GitblitContext extends DaggerContextListener {
 		// the target file for runtimeSettings is set to "localSettings".
 		runtimeSettings.merge(fileSettings);
 
-		return base;
+		return baseFolder;
 	}
 
 	/**
@@ -362,6 +391,22 @@ public class GitblitContext extends DaggerContextListener {
 					logger.error(MessageFormat.format(
 							"Failed to copy included Groovy scripts from {0} to {1}",
 							warScripts, localScripts));
+				}
+			}
+		}
+
+		// Copy the included gitignore files to the configured gitignore folder
+		String gitignorePath = webxmlSettings.getString(Keys.git.gitignoreFolder, "gitignore");
+		File localGitignores = com.gitblit.utils.FileUtils.resolveParameter(Constants.baseFolder$, base, gitignorePath);
+		if (!localGitignores.exists()) {
+			File warGitignores = new File(contextFolder, "/WEB-INF/data/gitignore");
+			if (!warGitignores.equals(localGitignores)) {
+				try {
+					com.gitblit.utils.FileUtils.copy(localGitignores, warGitignores.listFiles());
+				} catch (IOException e) {
+					logger.error(MessageFormat.format(
+							"Failed to copy included .gitignore files from {0} to {1}",
+							warGitignores, localGitignores));
 				}
 			}
 		}

@@ -26,6 +26,8 @@ import com.gitblit.manager.IRuntimeManager;
 import com.gitblit.manager.IUserManager;
 import com.gitblit.models.TeamModel;
 import com.gitblit.models.UserModel;
+import com.gitblit.utils.ArrayUtils;
+import com.gitblit.utils.StringUtils;
 
 public abstract class AuthenticationProvider {
 
@@ -68,6 +70,13 @@ public abstract class AuthenticationProvider {
 		return serviceName;
 	}
 
+	protected void setCookie(UserModel user, char [] password) {
+		// create a user cookie
+		if (StringUtils.isEmpty(user.cookie) && !ArrayUtils.isEmpty(password)) {
+			user.cookie = StringUtils.getSHA1(user.username + new String(password));
+		}
+	}
+
 	protected void updateUser(UserModel userModel) {
 		// TODO implement user model change detection
 		// account for new user and revised user
@@ -90,6 +99,8 @@ public abstract class AuthenticationProvider {
 	}
 
 	public abstract void setup();
+
+	public abstract void stop();
 
 	public abstract UserModel authenticate(String username, char[] password);
 
@@ -136,6 +147,11 @@ public abstract class AuthenticationProvider {
     	protected UsernamePasswordAuthenticationProvider(String serviceName) {
     		super(serviceName);
     	}
+
+    	@Override
+		public void stop() {
+
+		}
     }
 
     public static class NullProvider extends AuthenticationProvider {
@@ -146,6 +162,11 @@ public abstract class AuthenticationProvider {
 
 		@Override
 		public void setup() {
+
+		}
+
+		@Override
+		public void stop() {
 
 		}
 
@@ -161,22 +182,22 @@ public abstract class AuthenticationProvider {
 
 		@Override
 		public boolean supportsCredentialChanges() {
-			return false;
+			return true;
 		}
 
 		@Override
 		public boolean supportsDisplayNameChanges() {
-			return false;
+			return true;
 		}
 
 		@Override
 		public boolean supportsEmailAddressChanges() {
-			return false;
+			return true;
 		}
 
 		@Override
 		public boolean supportsTeamMembershipChanges() {
-			return false;
+			return true;
 		}
     }
 }

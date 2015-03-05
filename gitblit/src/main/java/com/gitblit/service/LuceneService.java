@@ -194,7 +194,7 @@ public class LuceneService implements Runnable {
 	 * Synchronously indexes a repository. This may build a complete index of a
 	 * repository or it may update an existing index.
 	 *
-	 * @param name
+	 * @param displayName
 	 *            the name of the repository
 	 * @param repository
 	 *            the repository object
@@ -437,7 +437,7 @@ public class LuceneService implements Runnable {
 					// skip non-annotated tags
 					continue;
 				}
-				if (!tags.containsKey(tag.getObjectId())) {
+				if (!tags.containsKey(tag.getObjectId().getName())) {
 					tags.put(tag.getReferencedObjectId().getName(), new ArrayList<String>());
 				}
 				tags.get(tag.getReferencedObjectId().getName()).add(tag.displayName);
@@ -476,8 +476,8 @@ public class LuceneService implements Runnable {
 						&& branch.equals(defaultBranch)) {
 					// indexing "default" branch
 					indexBranch = true;
-				} else if (branch.getName().startsWith(com.gitblit.Constants.R_GITBLIT)) {
-					// skip Gitblit internal branches
+				} else if (branch.getName().startsWith(com.gitblit.Constants.R_META)) {
+					// skip internal meta branches
 					indexBranch = false;
 				} else {
 					// normal explicit branch check
@@ -760,7 +760,7 @@ public class LuceneService implements Runnable {
 					// skip non-annotated tags
 					continue;
 				}
-				if (!tags.containsKey(tag.getObjectId())) {
+				if (!tags.containsKey(tag.getObjectId().getName())) {
 					tags.put(tag.getReferencedObjectId().getName(), new ArrayList<String>());
 				}
 				tags.get(tag.getReferencedObjectId().getName()).add(tag.displayName);
@@ -807,8 +807,8 @@ public class LuceneService implements Runnable {
 						&& branch.equals(defaultBranch)) {
 					// indexing "default" branch
 					indexBranch = true;
-				} else if (branch.getName().startsWith(com.gitblit.Constants.R_GITBLIT)) {
-					// ignore internal Gitblit branches
+				} else if (branch.getName().startsWith(com.gitblit.Constants.R_META)) {
+					// ignore internal meta branches
 					indexBranch = false;
 				} else {
 					// normal explicit branch check

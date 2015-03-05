@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ import org.eclipse.jgit.storage.file.FileBasedConfig;
 import org.eclipse.jgit.storage.file.WindowCacheConfig;
 import org.eclipse.jgit.util.FS;
 import org.eclipse.jgit.util.FileUtils;
+import org.eclipse.jgit.util.RawParseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,6 +68,7 @@ import com.gitblit.Constants.RegistrantType;
 import com.gitblit.GitBlitException;
 import com.gitblit.IStoredSettings;
 import com.gitblit.Keys;
+import com.gitblit.extensions.RepositoryLifeCycleListener;
 import com.gitblit.models.ForkModel;
 import com.gitblit.models.Metric;
 import com.gitblit.models.RefModel;
@@ -114,6 +117,8 @@ public class RepositoryManager implements IRepositoryManager {
 
 	private final IRuntimeManager runtimeManager;
 
+	private final IPluginManager pluginManager;
+
 	private final IUserManager userManager;
 
 	private final File repositoriesFolder;
@@ -126,10 +131,12 @@ public class RepositoryManager implements IRepositoryManager {
 
 	public RepositoryManager(
 			IRuntimeManager runtimeManager,
+			IPluginManager pluginManager,
 			IUserManager userManager) {
 
 		this.settings = runtimeManager.getSettings();
 		this.runtimeManager = runtimeManager;
+		this.pluginManager = pluginManager;
 		this.userManager = userManager;
 		this.repositoriesFolder = runtimeManager.getFileOrFolder(Keys.git.repositoriesFolder, "${baseFolder}/git");
 	}
@@ -169,6 +176,7 @@ public class RepositoryManager implements IRepositoryManager {
 		gcExecutor.close();
 		mirrorExecutor.close();
 
+		closeAll();
 		return this;
 	}
 
@@ -416,12 +424,14 @@ public class RepositoryManager implements IRepositoryManager {
 	@Override
 	public void addToCachedRepositoryList(RepositoryModel model) {
 		if (settings.getBoolean(Keys.git.cacheRepositoryList, true)) {
-			repositoryListCache.put(model.name.toLowerCase(), model);
+			String key = getRepositoryKey(model.name);
+			repositoryListCache.put(key, model);
 
 			// update the fork origin repository with this repository clone
 			if (!StringUtils.isEmpty(model.originRepository)) {
-				if (repositoryListCache.containsKey(model.originRepository)) {
-					RepositoryModel origin = repositoryListCache.get(model.originRepository);
+				String originKey = getRepositoryKey(model.originRepository);
+				if (repositoryListCache.containsKey(originKey)) {
+					RepositoryModel origin = repositoryListCache.get(originKey);
 					origin.addFork(model.name);
 				}
 			}
@@ -438,7 +448,8 @@ public class RepositoryManager implements IRepositoryManager {
 		if (StringUtils.isEmpty(name)) {
 			return null;
 		}
-		return repositoryListCache.remove(name.toLowerCase());
+		String key = getRepositoryKey(name);
+		return repositoryListCache.remove(key);
 	}
 
 	/**
@@ -449,6 +460,21 @@ public class RepositoryManager implements IRepositoryManager {
 	private void clearRepositoryMetadataCache(String repositoryName) {
 		repositorySizeCache.remove(repositoryName);
 		repositoryMetricsCache.remove(repositoryName);
+		CommitCache.instance().clear(repositoryName);
+	}
+
+	/**
+	 * Reset all caches for this repository.
+	 *
+	 * @param repositoryName
+	 * @since 1.5.1
+	 */
+	@Override
+	public void resetRepositoryCache(String repositoryName) {
+		removeFromCachedRepositoryList(repositoryName);
+		clearRepositoryMetadataCache(repositoryName);
+		// force a reload of the repository data (ticket-82, issue-433)
+		getRepositoryModel(repositoryName);
 	}
 
 	/**
@@ -461,6 +487,7 @@ public class RepositoryManager implements IRepositoryManager {
 		repositoryListCache.clear();
 		repositorySizeCache.clear();
 		repositoryMetricsCache.clear();
+		CommitCache.instance().clear();
 	}
 
 	/**
@@ -531,8 +558,9 @@ public class RepositoryManager implements IRepositoryManager {
 				// rebuild fork networks
 				for (RepositoryModel model : repositoryListCache.values()) {
 					if (!StringUtils.isEmpty(model.originRepository)) {
-						if (repositoryListCache.containsKey(model.originRepository)) {
-							RepositoryModel origin = repositoryListCache.get(model.originRepository);
+						String originKey = getRepositoryKey(model.originRepository);
+						if (repositoryListCache.containsKey(originKey)) {
+							RepositoryModel origin = repositoryListCache.get(originKey);
 							origin.addFork(model.name);
 						}
 					}
@@ -566,15 +594,13 @@ public class RepositoryManager implements IRepositoryManager {
 	/**
 	 * Returns the JGit repository for the specified name.
 	 *
-	 * @param repositoryName
+	 * @param name
 	 * @param logError
 	 * @return repository or null
 	 */
 	@Override
-	public Repository getRepository(String repositoryName, boolean logError) {
-		// Decode url-encoded repository name (issue-278)
-		// http://stackoverflow.com/questions/17183110
-		repositoryName = repositoryName.replace("%7E", "~").replace("%7e", "~");
+	public Repository getRepository(String name, boolean logError) {
+		String repositoryName = fixRepositoryName(name);
 
 		if (isCollectingGarbage(repositoryName)) {
 			logger.warn(MessageFormat.format("Rejecting request for {0}, busy collecting garbage!", repositoryName));
@@ -596,6 +622,27 @@ public class RepositoryManager implements IRepositoryManager {
 			}
 		}
 		return r;
+	}
+
+	/**
+	 * Returns the list of all repository models.
+	 *
+	 * @return list of all repository models
+	 */
+	@Override
+	public List<RepositoryModel> getRepositoryModels() {
+		long methodStart = System.currentTimeMillis();
+		List<String> list = getRepositoryList();
+		List<RepositoryModel> repositories = new ArrayList<RepositoryModel>();
+		for (String repo : list) {
+			RepositoryModel model = getRepositoryModel(repo);
+			if (model != null) {
+				repositories.add(model);
+			}
+		}
+		long duration = System.currentTimeMillis() - methodStart;
+		logger.info(MessageFormat.format("{0} repository models loaded in {1} msecs", duration));
+		return repositories;
 	}
 
 	/**
@@ -656,16 +703,15 @@ public class RepositoryManager implements IRepositoryManager {
 	 * Returns the repository model for the specified repository. This method
 	 * does not consider user access permissions.
 	 *
-	 * @param repositoryName
+	 * @param name
 	 * @return repository model or null
 	 */
 	@Override
-	public RepositoryModel getRepositoryModel(String repositoryName) {
-		// Decode url-encoded repository name (issue-278)
-		// http://stackoverflow.com/questions/17183110
-		repositoryName = repositoryName.replace("%7E", "~").replace("%7e", "~");
+	public RepositoryModel getRepositoryModel(String name) {
+		String repositoryName = fixRepositoryName(name);
 
-		if (!repositoryListCache.containsKey(repositoryName)) {
+		String repositoryKey = getRepositoryKey(repositoryName);
+		if (!repositoryListCache.containsKey(repositoryKey)) {
 			RepositoryModel model = loadRepositoryModel(repositoryName);
 			if (model == null) {
 				return null;
@@ -675,9 +721,9 @@ public class RepositoryManager implements IRepositoryManager {
 		}
 
 		// cached model
-		RepositoryModel model = repositoryListCache.get(repositoryName.toLowerCase());
+		RepositoryModel model = repositoryListCache.get(repositoryKey);
 
-		if (gcExecutor.isCollectingGarbage(model.name)) {
+		if (isCollectingGarbage(model.name)) {
 			// Gitblit is busy collecting garbage, use our cached model
 			RepositoryModel rm = DeepCopier.copy(model);
 			rm.isCollectingGarbage = true;
@@ -733,6 +779,52 @@ public class RepositoryManager implements IRepositoryManager {
 	}
 
 	/**
+	 * Replaces illegal character patterns in a repository name.
+	 *
+	 * @param repositoryName
+	 * @return a corrected name
+	 */
+	private String fixRepositoryName(String repositoryName) {
+		if (StringUtils.isEmpty(repositoryName)) {
+			return repositoryName;
+		}
+
+		// Decode url-encoded repository name (issue-278)
+		// http://stackoverflow.com/questions/17183110
+		String name  = repositoryName.replace("%7E", "~").replace("%7e", "~");
+		name = name.replace("%2F", "/").replace("%2f", "/");
+
+		if (name.charAt(name.length() - 1) == '/') {
+			name = name.substring(0, name.length() - 1);
+		}
+
+		// strip duplicate-slashes from requests for repositoryName (ticket-117, issue-454)
+		// specify first char as slash so we strip leading slashes
+		char lastChar = '/';
+		StringBuilder sb = new StringBuilder();
+		for (char c : name.toCharArray()) {
+			if (c == '/' && lastChar == c) {
+				continue;
+			}
+			sb.append(c);
+			lastChar = c;
+		}
+
+		return sb.toString();
+	}
+
+	/**
+	 * Returns the cache key for the repository name.
+	 *
+	 * @param repositoryName
+	 * @return the cache key for the repository
+	 */
+	private String getRepositoryKey(String repositoryName) {
+		String name = fixRepositoryName(repositoryName);
+		return StringUtils.stripDotGit(name).toLowerCase();
+	}
+
+	/**
 	 * Workaround JGit.  I need to access the raw config object directly in order
 	 * to see if the config is dirty so that I can reload a repository model.
 	 * If I use the stock JGit method to get the config it already reloads the
@@ -782,10 +874,11 @@ public class RepositoryManager implements IRepositoryManager {
 		model.projectPath = StringUtils.getFirstPathElement(repositoryName);
 
 		StoredConfig config = r.getConfig();
-		boolean hasOrigin = !StringUtils.isEmpty(config.getString("remote", "origin", "url"));
+		boolean hasOrigin = false;
 
 		if (config != null) {
 			// Initialize description from description file
+			hasOrigin = !StringUtils.isEmpty(config.getString("remote", "origin", "url"));
 			if (getConfig(config,"description", null) == null) {
 				File descFile = new File(r.getDirectory(), "description");
 				if (descFile.exists()) {
@@ -798,6 +891,10 @@ public class RepositoryManager implements IRepositoryManager {
 			model.description = getConfig(config, "description", "");
 			model.originRepository = getConfig(config, "originRepository", null);
 			model.addOwners(ArrayUtils.fromString(getConfig(config, "owner", "")));
+			model.acceptNewPatchsets = getConfig(config, "acceptNewPatchsets", true);
+			model.acceptNewTickets = getConfig(config, "acceptNewTickets", true);
+			model.requireApproval = getConfig(config, "requireApproval", settings.getBoolean(Keys.tickets.requireApproval, false));
+			model.mergeTo = getConfig(config, "mergeTo", null);
 			model.useIncrementalPushTags = getConfig(config, "useIncrementalPushTags", false);
 			model.incrementalPushTagPrefix = getConfig(config, "incrementalPushTagPrefix", null);
 			model.allowForks = getConfig(config, "allowForks", true);
@@ -848,6 +945,9 @@ public class RepositoryManager implements IRepositoryManager {
 			}
 		}
 		model.HEAD = JGitUtils.getHEADRef(r);
+		if (StringUtils.isEmpty(model.mergeTo)) {
+			model.mergeTo = model.HEAD;
+		}
 		model.availableRefs = JGitUtils.getAvailableHeadTargets(r);
 		model.sparkleshareId = JGitUtils.getSparkleshareId(r);
 		model.hasCommits = JGitUtils.hasCommits(r);
@@ -899,7 +999,8 @@ public class RepositoryManager implements IRepositoryManager {
 		if (!caseSensitiveCheck && settings.getBoolean(Keys.git.cacheRepositoryList, true)) {
 			// if we are caching use the cache to determine availability
 			// otherwise we end up adding a phantom repository to the cache
-			return repositoryListCache.containsKey(repositoryName.toLowerCase());
+			String key = getRepositoryKey(repositoryName);
+			return repositoryListCache.containsKey(key);
 		}
 		Repository r = getRepository(repositoryName, false);
 		if (r == null) {
@@ -932,26 +1033,31 @@ public class RepositoryManager implements IRepositoryManager {
 	 */
 	@Override
 	public String getFork(String username, String origin) {
+		if (StringUtils.isEmpty(origin)) {
+			return null;
+		}
 		String userProject = ModelUtils.getPersonalPath(username);
 		if (settings.getBoolean(Keys.git.cacheRepositoryList, true)) {
+			String originKey = getRepositoryKey(origin);
 			String userPath = userProject + "/";
 
 			// collect all origin nodes in fork network
 			Set<String> roots = new HashSet<String>();
-			roots.add(origin);
-			RepositoryModel originModel = repositoryListCache.get(origin);
+			roots.add(originKey);
+			RepositoryModel originModel = repositoryListCache.get(originKey);
 			while (originModel != null) {
 				if (!ArrayUtils.isEmpty(originModel.forks)) {
 					for (String fork : originModel.forks) {
 						if (!fork.startsWith(userPath)) {
-							roots.add(fork);
+							roots.add(fork.toLowerCase());
 						}
 					}
 				}
 
 				if (originModel.originRepository != null) {
-					roots.add(originModel.originRepository);
-					originModel = repositoryListCache.get(originModel.originRepository);
+					String ooKey = getRepositoryKey(originModel.originRepository);
+					roots.add(ooKey);
+					originModel = repositoryListCache.get(ooKey);
 				} else {
 					// break
 					originModel = null;
@@ -962,7 +1068,8 @@ public class RepositoryManager implements IRepositoryManager {
 				if (repository.startsWith(userPath)) {
 					RepositoryModel model = repositoryListCache.get(repository);
 					if (!StringUtils.isEmpty(model.originRepository)) {
-						if (roots.contains(model.originRepository)) {
+						String ooKey = getRepositoryKey(model.originRepository);
+						if (roots.contains(ooKey)) {
 							// user has a fork in this graph
 							return model.name;
 						}
@@ -979,7 +1086,7 @@ public class RepositoryManager implements IRepositoryManager {
 					settings.getStrings(Keys.git.searchExclusions));
 			for (String repository : repositories) {
 				RepositoryModel model = getRepositoryModel(userProject + "/" + repository);
-				if (model.originRepository.equalsIgnoreCase(origin)) {
+				if (model.originRepository != null && model.originRepository.equalsIgnoreCase(origin)) {
 					// user has a fork
 					return model.name;
 				}
@@ -1000,9 +1107,11 @@ public class RepositoryManager implements IRepositoryManager {
 	public ForkModel getForkNetwork(String repository) {
 		if (settings.getBoolean(Keys.git.cacheRepositoryList, true)) {
 			// find the root, cached
-			RepositoryModel model = repositoryListCache.get(repository.toLowerCase());
+			String key = getRepositoryKey(repository);
+			RepositoryModel model = repositoryListCache.get(key);
 			while (model.originRepository != null) {
-				model = repositoryListCache.get(model.originRepository);
+				String originKey = getRepositoryKey(model.originRepository);
+				model = repositoryListCache.get(originKey);
 			}
 			ForkModel root = getForkModelFromCache(model.name);
 			return root;
@@ -1018,7 +1127,8 @@ public class RepositoryManager implements IRepositoryManager {
 	}
 
 	private ForkModel getForkModelFromCache(String repository) {
-		RepositoryModel model = repositoryListCache.get(repository.toLowerCase());
+		String key = getRepositoryKey(repository);
+		RepositoryModel model = repositoryListCache.get(key);
 		if (model == null) {
 			return null;
 		}
@@ -1082,12 +1192,49 @@ public class RepositoryManager implements IRepositoryManager {
 	}
 
 	/**
+	 * Returns true if the repository is idle (not being accessed).
+	 *
+	 * @param repository
+	 * @return true if the repository is idle
+	 */
+	@Override
+	public boolean isIdle(Repository repository) {
+		try {
+			// Read the use count.
+			// An idle use count is 2:
+			// +1 for being in the cache
+			// +1 for the repository parameter in this method
+			Field useCnt = Repository.class.getDeclaredField("useCnt");
+			useCnt.setAccessible(true);
+			int useCount = ((AtomicInteger) useCnt.get(repository)).get();
+			return useCount == 2;
+		} catch (Exception e) {
+			logger.warn(MessageFormat
+					.format("Failed to reflectively determine use count for repository {0}",
+							repository.getDirectory().getPath()), e);
+		}
+		return false;
+	}
+
+	/**
+	 * Ensures that all cached repository are completely closed and their resources
+	 * are properly released.
+	 */
+	@Override
+	public void closeAll() {
+		for (String repository : getRepositoryList()) {
+			close(repository);
+		}
+	}
+
+	/**
 	 * Ensure that a cached repository is completely closed and its resources
 	 * are properly released.
 	 *
 	 * @param repositoryName
 	 */
-	private void closeRepository(String repositoryName) {
+	@Override
+	public void close(String repositoryName) {
 		Repository repository = getRepository(repositoryName);
 		if (repository == null) {
 			return;
@@ -1112,7 +1259,7 @@ public class RepositoryManager implements IRepositoryManager {
 							repositoryName), e);
 		}
 		if (uses > 0) {
-			logger.info(MessageFormat
+			logger.debug(MessageFormat
 					.format("{0}.useCnt={1}, calling close() {2} time(s) to close object and ref databases",
 							repositoryName, uses, uses));
 			for (int i = 0; i < uses; i++) {
@@ -1212,7 +1359,7 @@ public class RepositoryManager implements IRepositoryManager {
 	@Override
 	public void updateRepositoryModel(String repositoryName, RepositoryModel repository,
 			boolean isCreate) throws GitBlitException {
-		if (gcExecutor.isCollectingGarbage(repositoryName)) {
+		if (isCollectingGarbage(repositoryName)) {
 			throw new GitBlitException(MessageFormat.format("sorry, Gitblit is busy collecting garbage in {0}",
 					repositoryName));
 		}
@@ -1250,7 +1397,7 @@ public class RepositoryManager implements IRepositoryManager {
 							"Failed to rename ''{0}'' because ''{1}'' already exists.",
 							repositoryName, repository.name));
 				}
-				closeRepository(repositoryName);
+				close(repositoryName);
 				File folder = new File(repositoriesFolder, repositoryName);
 				File destFolder = new File(repositoriesFolder, repository.name);
 				if (destFolder.exists()) {
@@ -1296,7 +1443,8 @@ public class RepositoryManager implements IRepositoryManager {
 
 				// update this repository's origin's fork list
 				if (!StringUtils.isEmpty(repository.originRepository)) {
-					RepositoryModel origin = repositoryListCache.get(repository.originRepository);
+					String originKey = getRepositoryKey(repository.originRepository);
+					RepositoryModel origin = repositoryListCache.get(originKey);
 					if (origin != null && !ArrayUtils.isEmpty(origin.forks)) {
 						origin.forks.remove(repositoryName);
 						origin.forks.add(repository.name);
@@ -1350,6 +1498,16 @@ public class RepositoryManager implements IRepositoryManager {
 		removeFromCachedRepositoryList(repositoryName);
 		// model will actually be replaced on next load because config is stale
 		addToCachedRepositoryList(repository);
+
+		if (isCreate && pluginManager != null) {
+			for (RepositoryLifeCycleListener listener : pluginManager.getExtensions(RepositoryLifeCycleListener.class)) {
+				try {
+					listener.onCreation(repository);
+				} catch (Throwable t) {
+					logger.error(String.format("failed to call plugin onCreation %s", repositoryName), t);
+				}
+			}
+		}
 	}
 
 	/**
@@ -1366,6 +1524,18 @@ public class RepositoryManager implements IRepositoryManager {
 		config.setString(Constants.CONFIG_GITBLIT, null, "description", repository.description);
 		config.setString(Constants.CONFIG_GITBLIT, null, "originRepository", repository.originRepository);
 		config.setString(Constants.CONFIG_GITBLIT, null, "owner", ArrayUtils.toString(repository.owners));
+		config.setBoolean(Constants.CONFIG_GITBLIT, null, "acceptNewPatchsets", repository.acceptNewPatchsets);
+		config.setBoolean(Constants.CONFIG_GITBLIT, null, "acceptNewTickets", repository.acceptNewTickets);
+		if (settings.getBoolean(Keys.tickets.requireApproval, false) == repository.requireApproval) {
+			// use default
+			config.unset(Constants.CONFIG_GITBLIT, null, "requireApproval");
+		} else {
+			// override default
+			config.setBoolean(Constants.CONFIG_GITBLIT, null, "requireApproval", repository.requireApproval);
+		}
+		if (!StringUtils.isEmpty(repository.mergeTo)) {
+			config.setString(Constants.CONFIG_GITBLIT, null, "mergeTo", repository.mergeTo);
+		}
 		config.setBoolean(Constants.CONFIG_GITBLIT, null, "useIncrementalPushTags", repository.useIncrementalPushTags);
 		if (StringUtils.isEmpty(repository.incrementalPushTagPrefix) ||
 				repository.incrementalPushTagPrefix.equals(settings.getString(Keys.git.defaultIncrementalPushTagPrefix, "r"))) {
@@ -1454,6 +1624,17 @@ public class RepositoryManager implements IRepositoryManager {
 	}
 
 	/**
+	 * Returns true if the repository can be deleted.
+	 *
+	 * @return true if the repository can be deleted
+	 */
+	@Override
+	public boolean canDelete(RepositoryModel repository) {
+		return settings.getBoolean(Keys.web.allowDeletingNonEmptyRepositories, true)
+					|| !repository.hasCommits;
+	}
+
+	/**
 	 * Deletes the repository from the file system and removes the repository
 	 * permission from all repository users.
 	 *
@@ -1474,8 +1655,14 @@ public class RepositoryManager implements IRepositoryManager {
 	 */
 	@Override
 	public boolean deleteRepository(String repositoryName) {
+		RepositoryModel repository = getRepositoryModel(repositoryName);
+		if (!canDelete(repository)) {
+			logger.warn("Attempt to delete {} rejected!", repositoryName);
+			return false;
+		}
+
 		try {
-			closeRepository(repositoryName);
+			close(repositoryName);
 			// clear the repository cache
 			clearRepositoryMetadataCache(repositoryName);
 
@@ -1489,6 +1676,16 @@ public class RepositoryManager implements IRepositoryManager {
 				FileUtils.delete(folder, FileUtils.RECURSIVE | FileUtils.RETRY);
 				if (userManager.deleteRepositoryRole(repositoryName)) {
 					logger.info(MessageFormat.format("Repository \"{0}\" deleted", repositoryName));
+
+					if (pluginManager != null) {
+						for (RepositoryLifeCycleListener listener : pluginManager.getExtensions(RepositoryLifeCycleListener.class)) {
+							try {
+								listener.onDeletion(repository);
+							} catch (Throwable t) {
+								logger.error(String.format("failed to call plugin onDeletion %s", repositoryName), t);
+							}
+						}
+					}
 					return true;
 				}
 			}
@@ -1649,9 +1846,10 @@ public class RepositoryManager implements IRepositoryManager {
 
 	protected void configureLuceneIndexing() {
 		luceneExecutor = new LuceneService(settings, this);
-		int period = 2;
-		scheduledExecutor.scheduleAtFixedRate(luceneExecutor, 1, period,  TimeUnit.MINUTES);
-		logger.info("Lucene will process indexed branches every {} minutes.", period);
+		String frequency = settings.getString(Keys.web.luceneFrequency, "2 mins");
+		int mins = TimeUtils.convertFrequencyToMinutes(frequency, 2);
+		scheduledExecutor.scheduleAtFixedRate(luceneExecutor, 1, mins,  TimeUnit.MINUTES);
+		logger.info("Lucene will process indexed branches every {} minutes.", mins);
 	}
 
 	protected void configureGarbageCollector() {
@@ -1686,10 +1884,7 @@ public class RepositoryManager implements IRepositoryManager {
 	protected void configureMirrorExecutor() {
 		mirrorExecutor = new MirrorService(settings, this);
 		if (mirrorExecutor.isReady()) {
-			int mins = TimeUtils.convertFrequencyToMinutes(settings.getString(Keys.git.mirrorPeriod, "30 mins"));
-			if (mins < 5) {
-				mins = 5;
-			}
+			int mins = TimeUtils.convertFrequencyToMinutes(settings.getString(Keys.git.mirrorPeriod, "30 mins"), 5);
 			int delay = 1;
 			scheduledExecutor.scheduleAtFixedRate(mirrorExecutor, delay, mins,  TimeUnit.MINUTES);
 			logger.info("Mirror service will fetch updates every {} minutes.", mins);
@@ -1707,7 +1902,6 @@ public class RepositoryManager implements IRepositoryManager {
 		cfg.setPackedGitLimit(settings.getFilesize(Keys.git.packedGitLimit, cfg.getPackedGitLimit()));
 		cfg.setDeltaBaseCacheLimit(settings.getFilesize(Keys.git.deltaBaseCacheLimit, cfg.getDeltaBaseCacheLimit()));
 		cfg.setPackedGitOpenFiles(settings.getFilesize(Keys.git.packedGitOpenFiles, cfg.getPackedGitOpenFiles()));
-		cfg.setStreamFileThreshold(settings.getFilesize(Keys.git.streamFileThreshold, cfg.getStreamFileThreshold()));
 		cfg.setPackedGitMMAP(settings.getBoolean(Keys.git.packedGitMmap, cfg.isPackedGitMMAP()));
 
 		try {
@@ -1716,10 +1910,23 @@ public class RepositoryManager implements IRepositoryManager {
 			logger.debug(MessageFormat.format("{0} = {1,number,0}", Keys.git.packedGitLimit, cfg.getPackedGitLimit()));
 			logger.debug(MessageFormat.format("{0} = {1,number,0}", Keys.git.deltaBaseCacheLimit, cfg.getDeltaBaseCacheLimit()));
 			logger.debug(MessageFormat.format("{0} = {1,number,0}", Keys.git.packedGitOpenFiles, cfg.getPackedGitOpenFiles()));
-			logger.debug(MessageFormat.format("{0} = {1,number,0}", Keys.git.streamFileThreshold, cfg.getStreamFileThreshold()));
 			logger.debug(MessageFormat.format("{0} = {1}", Keys.git.packedGitMmap, cfg.isPackedGitMMAP()));
 		} catch (IllegalArgumentException e) {
 			logger.error("Failed to configure JGit parameters!", e);
+		}
+
+		try {
+			// issue-486/ticket-151: UTF-9 & UTF-18
+			// issue-560/ticket-237: 'UTF8'
+			Field field = RawParseUtils.class.getDeclaredField("encodingAliases");
+			field.setAccessible(true);
+			Map<String, Charset> encodingAliases = (Map<String, Charset>) field.get(null);
+			encodingAliases.put("'utf8'", RawParseUtils.UTF8_CHARSET);
+			encodingAliases.put("utf-9", RawParseUtils.UTF8_CHARSET);
+			encodingAliases.put("utf-18", RawParseUtils.UTF8_CHARSET);
+			logger.info("Alias 'UTF8', UTF-9 & UTF-18 encodings as UTF-8 in JGit");
+		} catch (Throwable t) {
+			logger.error("Failed to inject UTF-9 & UTF-18 encoding aliases into JGit", t);
 		}
 	}
 
@@ -1762,6 +1969,9 @@ public class RepositoryManager implements IRepositoryManager {
 	protected void confirmWriteAccess() {
 		if (runtimeManager.isServingRepositories()) {
 			try {
+				if (!getRepositoriesFolder().exists()) {
+					getRepositoriesFolder().mkdirs();
+				}
 				File file = File.createTempFile(".test-", ".txt", getRepositoriesFolder());
 				file.delete();
 			} catch (Exception e) {

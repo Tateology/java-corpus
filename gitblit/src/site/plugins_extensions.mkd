@@ -1,0 +1,386 @@
+## Extension Points
+
+Gitblit offers several extension points for enhancing and customizing it's runtime behavior.
+
+Each available extension point has a sample implementation in the [gitblit-cookbook-plugin (Maven project)](https://github.com/gitblit/gitblit-cookbook-plugin).
+
+**NOTE:**
+Gitblit does not yet offer a comprehensize dependency injection architecture.  This will be addressed in a subsequent release.  For now you may access all of Gitblit's core managers through a static singleton app context:
+
+```java
+import com.gitblit.extensions.GitblitPlugin;
+import com.gitblit.servlet.GitblitContext;
+import com.gitblit.manager.IRuntimeManager;
+import com.gitblit.manager.IUserManager;
+import com.gitblit.manager.IAuthenticationManager;
+import com.gitblit.manager.INotificationManager;
+import com.gitblit.manager.IRepositoryManager;
+import com.gitblit.manager.IProjectManager;
+import com.gitblit.manager.IFederationManager;
+import com.gitblit.manager.IPluginManager;
+import com.gitblit.manager.IGitblit;
+import ro.fortsoft.pf4j.Version;
+
+public class ExamplePlugin extends GitblitPlugin {
+
+    @Override
+    public void start() {
+        IRuntimeManager runtime = GitblitContext.getManager(IRuntimeManager.class);
+        IUserManager users = GitblitContext.getManager(IUserManager.class);
+        IAuthenticationManager auth = GitblitContext.getManager(IAuthenticationManager.class);
+        INotificationManager notifications = GitblitContext.getManager(INotificationManager.class);
+        IRepositoryManager repos = GitblitContext.getManager(IRepositoryManager.class);
+        IProjectManager projects = GitblitContext.getManager(IProjectManager.class);
+        IFederationManager federation = GitblitContext.getManager(IFederationManager.class);
+        IPluginManager plugins = GitblitContext.getManager(IPluginManager.class);
+        IGitblit gitblit = GitblitContext.getManager(IGitblit.class);
+    }
+
+    @Override
+    public void stop() {
+    }
+
+    @Override
+    public void onInstall() {
+    }
+
+    @Override
+    public void onUpgrade(Version oldVersion) {
+    }
+
+    @Override
+    public void onUninstall() {
+    }
+}
+
+/**
+ * You can also create Webapp plugins that register pages.
+ */
+public class ExampleWicketPlugin extends GitblitWicketPlugin {
+    @Override
+    public void start() {
+    }
+
+    @Override
+    public void stop() {
+    }
+
+    @Override
+    public void onInstall() {
+    }
+
+    @Override
+    public void onUpgrade(Version oldVersion) {
+    }
+
+    @Override
+    public void onUninstall() {
+    }
+
+    @Override
+    protected void init(GitblitWicketApp app) {
+        app.mount("/logo", LogoPage.class);
+        app.mount("/hello", HelloWorldPage.class);
+    }
+}
+```
+
+### SSH Dispatch Command
+
+*SINCE 1.5.0*
+
+You can provide your own custom SSH command hierarchies by subclassing the *DispatchCommand* class.
+
+```java
+import ro.fortsoft.pf4j.Extension;
+import org.kohsuke.args4j.Option;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.gitblit.transport.ssh.commands.CommandMetaData;
+import com.gitblit.transport.ssh.commands.DispatchCommand;
+import com.gitblit.transport.ssh.commands.UsageExample;
+
+@Extension
+@CommandMetaData(name = "mycommands", description = "Sample SSH dispatcher")
+public class MyDispatcher extends DispatchCommand {
+
+    @Override
+    protected void setup() {
+        // commands in this dispatcher
+        register(CommandA.class);
+        register(CommandB.class);
+
+        // nested dispatchers
+        register(SubDispatcher1.class);
+        register(SubDispatcher2.class);
+    }
+
+    @CommandMetaData(name = "commanda", aliases = { "ca" }, description = "description of command a")
+    @UsageExample(syntax = "${cmd} --myflag", description = "description of commanda with --myflag")
+    public static class CommandA extends SshCommand {
+
+        protected final Logger log = LoggerFactory.getLogger(getClass());
+
+        @Option(name = "--myflag", aliases = { "-m" }, usage = "enable myflag")
+        boolean myflag;
+
+        @Override
+        public void run() throws Failure {
+            if (myflag) {
+                log.info("Run with --myflag");
+            } else {
+                log.info("Run without --myflag");
+            }
+        }
+    }
+}
+```
+
+### Pre- and Post- Receive Hook
+
+*SINCE 1.5.0*
+
+You can provide your own custom pre and/or post receive hooks by subclassing the *ReceiveHook* class.
+
+```java
+import com.gitblit.extensions.ReceiveHook;
+import java.util.Collection;
+import org.eclipse.jgit.transport.ReceiveCommand;
+import ro.fortsoft.pf4j.Extension;
+
+@Extension
+public class MyReceiveHook extends ReceiveHook {
+
+    @Override
+    public void onPreReceive(GitblitReceivePack receivePack, Collection<ReceiveCommand> commands) {
+    }
+
+    @Override
+    public void onPostReceive(GitblitReceivePack receivePack, Collection<ReceiveCommand> commands) {
+    }
+}
+
+```
+
+### Patchset Hook
+
+*SINCE 1.5.0*
+
+You can provide your own custom patchset hook by subclassing the *PatchsetHook* class.
+
+```java
+import com.gitblit.extensions.PatchsetHook;
+import com.gitblit.models.TicketModel;
+import ro.fortsoft.pf4j.Extension;
+
+@Extension
+public class MyPatchsetHook extends PatchsetHook {
+
+    @Override
+    public void onNewPatchset(TicketModel ticket) {
+    }
+
+    @Override
+    public void onUpdatePatchset(TicketModel ticket) {
+    }
+
+    @Override
+    public void onMergePatchset(TicketModel ticket) {
+    }
+}
+```
+
+### Ticket Hook
+
+*SINCE 1.5.0*
+
+You can provide your own custom ticket hook by subclassing the *TicketHook* class.
+
+```java
+import com.gitblit.extensions.TicketHook;
+import com.gitblit.models.TicketModel;
+import com.gitblit.models.TicketModel.Change;
+import ro.fortsoft.pf4j.Extension;
+
+@Extension
+public class MyTicketHook extends TicketHook {
+
+    @Override
+    public void onNewTicket(TicketModel ticket) {
+    }
+
+    @Override
+    public void onUpdateTicket(TicketModel ticket, Change change) {
+    }
+}
+```
+
+### Request Filter
+
+*SINCE 1.6.0*
+
+You can provide your own custom request filter by subclassing the *HttpRequestFilter* class.
+
+```java
+import com.gitblit.extensions.HttpRequestFilter;
+import ro.fortsoft.pf4j.Extension;
+
+@Extension
+public class MyRequestFilter extends HttpRequestFilter {
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response,
+            FilterChain chain) throws IOException, ServletException {
+    }
+}
+```
+
+### User Menu Items
+
+*SINCE 1.6.0*
+
+You can provide your own user menu items by subclassing the *UserMenuExtension* class.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import ro.fortsoft.pf4j.Extension;
+import com.gitblit.extensions.UserMenuExtension;
+import com.gitblit.models.Menu.ExternalLinkMenuItem;
+import com.gitblit.models.Menu.MenuItem;
+import com.gitblit.models.UserModel;
+
+@Extension
+public class MyUserMenuContributor extends UserMenuExtension {
+
+    @Override
+    public List<MenuItem> getMenuItems(UserModel user) {
+        MenuItem item = new ExternalLinkMenuItem("Github", String.format("https://github.com/%s", user.username));
+        return Arrays.asList(item);
+    }
+}
+```
+
+### Navigation Links
+
+*SINCE 1.6.0*
+
+You can provide your own top-level navigation links by subclassing the *NavLinkExtension* class.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import ro.fortsoft.pf4j.Extension;
+import com.gitblit.extensions.NavLinkExtension;
+import com.gitblit.models.UserModel;
+
+@Extension
+public class MyNavLink extends NavLinkExtension {
+
+    @Override
+    public List<NavLink> getNavLinks(UserModel user) {
+        NavLink link = new ExternalLinkMenuItem("Github", String.format("https://github.com/%s", user.username));
+        return Arrays.asList(link);
+    }
+}
+```
+
+### Server Lifecycle Listener
+
+*SINCE 1.6.0*
+
+You can provide a lifecycle listener to be notified when Gitblit has completely started and just before Gitblit is gracefully terminated.
+
+```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ro.fortsoft.pf4j.Extension;
+import com.gitblit.extensions.LifeCycleListener;
+
+@Extension
+public class MyLifeCycleListener extends LifeCycleListener {
+
+    final Logger log = LoggerFactory.getLogger(getClass());
+    
+    @Override
+    public void onStartup() {
+    	log.info("Gitblit is Ready!!");
+    }
+
+    @Override
+    public void onShutdown() {
+    	log.info("Gitblit is Going Down!!");
+    }
+}
+```
+
+### Repository Lifecycle Listener
+
+*SINCE 1.6.0*
+
+You can provide a lifecycle listener to be notified when Gitblit has created or deleted a repository.
+
+```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ro.fortsoft.pf4j.Extension;
+import com.gitblit.extensions.RepositoryLifeCycleListener;
+import com.gitblit.models.RepositoryModel;
+
+@Extension
+public class MyRepoLifeCycleListener extends RepositoryLifeCycleListener {
+
+    final Logger log = LoggerFactory.getLogger(getClass());
+    
+    @Override
+    public void onCreation(RepositoryModel repo) {
+    	log.info("Gitblit created {}", repo);
+    }
+
+    @Override
+    public void onDeletion(RepositoryModel repo) {
+    	log.info("Gitblit deleted {}", repo);
+    }
+}
+```
+
+### User/Team Lifecycle Listener
+
+*SINCE 1.6.0*
+
+You can provide a lifecycle listener to be notified when Gitblit has created or deleted a user or a team.
+
+```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ro.fortsoft.pf4j.Extension;
+import com.gitblit.extensions.UserTeamLifeCycleListener;
+import com.gitblit.models.TeamModel;
+import com.gitblit.models.UserModel;
+
+@Extension
+public class MyUserTeamLifeCycleListener extends UserTeamLifeCycleListener {
+
+    final Logger log = LoggerFactory.getLogger(getClass());
+    
+    @Override
+    public void onCreation(UserModel user) {
+    	log.info("Gitblit created user {}", user);
+    }
+
+    @Override
+    public void onDeletion(UserModel user) {
+    	log.info("Gitblit deleted user {}", user);
+    }
+
+    @Override
+    public void onCreation(TeamModel team) {
+    	log.info("Gitblit created team {}", team);
+    }
+
+    @Override
+    public void onDeletion(TeamModel team) {
+    	log.info("Gitblit deleted team {}", team);
+    }
+}
+```

@@ -17,6 +17,7 @@ package com.gitblit.tests.mock;
 
 import java.io.File;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -27,6 +28,8 @@ import com.gitblit.manager.IRuntimeManager;
 import com.gitblit.models.ServerSettings;
 import com.gitblit.models.ServerStatus;
 import com.gitblit.models.SettingModel;
+import com.gitblit.utils.XssFilter;
+import com.gitblit.utils.XssFilter.AllowXssFilter;
 
 public class MockRuntimeManager implements IRuntimeManager {
 
@@ -71,7 +74,27 @@ public class MockRuntimeManager implements IRuntimeManager {
 	}
 
 	@Override
+	public Locale getLocale() {
+		return Locale.getDefault();
+	}
+
+	@Override
 	public boolean isServingRepositories() {
+		return true;
+	}
+
+	@Override
+	public boolean isServingHTTP() {
+		return true;
+	}
+
+	@Override
+	public boolean isServingGIT() {
+		return true;
+	}
+
+	@Override
+	public boolean isServingSSH() {
 		return true;
 	}
 
@@ -124,6 +147,11 @@ public class MockRuntimeManager implements IRuntimeManager {
 	@Override
 	public IStoredSettings getSettings() {
 		return settings;
+	}
+
+	@Override
+	public XssFilter getXssFilter() {
+		return new AllowXssFilter();
 	}
 
 	@Override

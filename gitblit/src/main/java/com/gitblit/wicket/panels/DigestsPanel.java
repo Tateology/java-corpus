@@ -19,7 +19,6 @@ import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -41,6 +40,7 @@ import com.gitblit.wicket.pages.CommitPage;
 import com.gitblit.wicket.pages.ComparePage;
 import com.gitblit.wicket.pages.SummaryPage;
 import com.gitblit.wicket.pages.TagPage;
+import com.gitblit.wicket.pages.TicketsPage;
 import com.gitblit.wicket.pages.TreePage;
 
 public class DigestsPanel extends BasePanel {
@@ -55,14 +55,6 @@ public class DigestsPanel extends BasePanel {
 		super(wicketId);
 		hasChanges = digests.size() > 0;
 
-		final int hashLen = app().settings().getInteger(Keys.web.shortCommitIdLength, 6);
-
-		String dateFormat = app().settings().getString(Keys.web.datestampLongFormat, "EEEE, MMMM d, yyyy");
-		final TimeZone timezone = getTimeZone();
-		final DateFormat df = new SimpleDateFormat(dateFormat);
-		df.setTimeZone(timezone);
-		final Calendar cal = Calendar.getInstance(timezone);
-
 		ListDataProvider<DailyLogEntry> dp = new ListDataProvider<DailyLogEntry>(digests);
 		DataView<DailyLogEntry> pushView = new DataView<DailyLogEntry>("change", dp) {
 			private static final long serialVersionUID = 1L;
@@ -70,10 +62,22 @@ public class DigestsPanel extends BasePanel {
 			@Override
 			public void populateItem(final Item<DailyLogEntry> logItem) {
 				final DailyLogEntry change = logItem.getModelObject();
+
+				String dateFormat = app().settings().getString(Keys.web.datestampLongFormat, "EEEE, MMMM d, yyyy");
+				TimeZone timezone = getTimeZone();
+				DateFormat df = new SimpleDateFormat(dateFormat);
+				df.setTimeZone(timezone);
+
 				String fullRefName = change.getChangedRefs().get(0);
 				String shortRefName = fullRefName;
+				String ticketId = "";
 				boolean isTag = false;
-				if (shortRefName.startsWith(Constants.R_HEADS)) {
+				boolean isTicket = false;
+				if (shortRefName.startsWith(Constants.R_TICKET)) {
+					ticketId = shortRefName = shortRefName.substring(Constants.R_TICKET.length());
+					shortRefName = MessageFormat.format(getString("gb.ticketN"), ticketId);
+					isTicket = true;
+				} else if (shortRefName.startsWith(Constants.R_HEADS)) {
 					shortRefName = shortRefName.substring(Constants.R_HEADS.length());
 				} else if (shortRefName.startsWith(Constants.R_TAGS)) {
 					shortRefName = shortRefName.substring(Constants.R_TAGS.length());
@@ -88,13 +92,6 @@ public class DigestsPanel extends BasePanel {
 				} else if (TimeUtils.isYesterday(pushDate, timezone)) {
 					fuzzydate = tu.yesterday();
 				} else {
-					// calculate a fuzzy time ago date
-                	cal.setTime(pushDate);
-                	cal.set(Calendar.HOUR_OF_DAY, 0);
-                	cal.set(Calendar.MINUTE, 0);
-                	cal.set(Calendar.SECOND, 0);
-                	cal.set(Calendar.MILLISECOND, 0);
-                	pushDate = cal.getTime();
 					fuzzydate = getTimeUtils().timeAgo(pushDate);
 				}
 				logItem.add(new Label("whenChanged", fuzzydate + ", " + df.format(pushDate)));
@@ -106,6 +103,8 @@ public class DigestsPanel extends BasePanel {
 
 				if (isTag) {
 					WicketUtils.setCssClass(changeIcon, "iconic-tag");
+				} else if (isTicket) {
+					WicketUtils.setCssClass(changeIcon, "fa fa-ticket");
 				} else {
 					WicketUtils.setCssClass(changeIcon, "iconic-loop");
 				}
@@ -168,6 +167,10 @@ public class DigestsPanel extends BasePanel {
 					// link to tag
 					logItem.add(new LinkPanel("refChanged", null, shortRefName,
 							TagPage.class, WicketUtils.newObjectParameter(change.repository, fullRefName)));
+				} else if (isTicket) {
+					// link to ticket
+					logItem.add(new LinkPanel("refChanged", null, shortRefName,
+							TicketsPage.class, WicketUtils.newObjectParameter(change.repository, ticketId)));
 				} else {
 					// link to tree
 					logItem.add(new LinkPanel("refChanged", null, shortRefName,
@@ -213,8 +216,7 @@ public class DigestsPanel extends BasePanel {
 						final RepositoryCommit commit = commitItem.getModelObject();
 
 						// author gravatar
-						commitItem.add(new GravatarImage("commitAuthor", commit.getAuthorIdent().getName(),
-								commit.getAuthorIdent().getEmailAddress(), null, 16, false, false));
+						commitItem.add(new GravatarImage("commitAuthor", commit.getAuthorIdent(), null, 16, false));
 
 						// merge icon
 						if (commit.getParentCount() > 1) {
@@ -240,6 +242,7 @@ public class DigestsPanel extends BasePanel {
 						commitItem.add(shortlog);
 
 						// commit hash link
+						int hashLen = app().settings().getInteger(Keys.web.shortCommitIdLength, 6);
 						LinkPanel commitHash = new LinkPanel("hashLink", null, commit.getName().substring(0, hashLen),
 								CommitPage.class, WicketUtils.newObjectParameter(
 										change.repository, commit.getName()));

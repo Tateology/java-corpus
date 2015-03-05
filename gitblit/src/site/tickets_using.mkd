@@ -1,0 +1,195 @@
+## Using Tickets
+
+*SINCE 1.4.0*
+
+### Creating Standard Tickets
+
+Standard tickets can be created using the web ui.  These ticket types include *Bug*, *Enhancement*, *task*, and *Question*.
+
+### Creating a Proposal Ticket
+
+Proposal tickets are created by pushing a **single commit** to the magic ref.  They can not be created from the web ui.
+
+*Why is there a single commit limitation for creating a Proposal Ticket?*
+
+Because the ticket which will be created for your commit will use your commit's message to define the Ticket's *title* and *description*.  After the ticket is created, you can add as many commits as you want to the ticket's branch.
+
+*Why would I create a proposal ticket?*
+
+Because you are too lazy to create a ticket in the web ui first.  The proposal ticket is a convenience mechanism.  It allows you to propose a change using Git, not your browser.
+
+*Who can create a proposal ticket?*
+
+Any authenticated user who can clone your repository.
+
+    git clone https://server/r/repo.git
+    cd repo
+    git checkout -b mytopic
+    ...add a single commit...
+    git push origin HEAD:refs/for/new
+    # read ticket id from server output
+    git branch -u origin/ticket/{id}
+
+### Creating the first Patchset for an Existing Ticket
+
+If you have an existing ticket that does **not** yet have a proposed patchset you can push using the ticket branch ref.
+
+*Who can create the first patchset for an existing ticket?*
+
+Any authenticated user who can clone your repository.
+
+    git clone https://server/r/repo.git
+    cd repo
+    git checkout -b ticket/{id}
+    ...add one or more commits...
+    git push -u origin ticket/{id}
+
+### Safely adding commits to a Patchset for an Existing Ticket
+
+*Who can add commits to an existing patchset?*
+
+1. The ticket author
+2. The initial patchset author
+3. The person set as *responsible*
+4. Any user with write (RW) permissions to the repository
+
+
+    git fetch && git checkout ticket/{id}
+    git pull --ff-only
+    ...add one or more commits...
+    git push
+
+### Checking-Out a Named Branch for an Existing Ticket with a Patchset
+
+If you prefer to name your local ticket branches rather than using the default integer ids, you can do this with a little more syntax.
+
+    git checkout -b my_fix --track origin/ticket/{id}
+
+This will create a local branch named *my_fix* which tracks the upstream ticket branch.
+
+### Rewriting a Patchset (amend, rebase, squash)
+
+*Who can rewrite a patchset?*
+
+See the above rules for who can add commits to a patchset. You do **not** need rewind (RW+) to the repository to push a non-fast-forward patchset.  Gitblit will detect the non-fast-forward update and create a new patchset ref.  This preserves the previous patchset.
+
+    git fetch && git checkout ticket/{id}
+    git pull --ff-only
+    ...amend, rebase, squash...
+    git push origin HEAD:refs/for/{id}
+
+OR if you have RW+ permissions, then you can push using *-f* flag.
+
+    git push -f
+
+### Updating your copy of a rewritten Patchset
+
+If a patchset has been rewritten you can no longer simply *pull* to update.  Let's assume your checkout **does not** have any unshared commits - i.e. it represents the previous patchset.  The simplest way to update your branch to the current patchset is to reset it using the `-B` checkout flag.
+
+    git fetch && git checkout -B ticket/{id}
+
+If you **do** have unshared commits then you'll could make a new temporary branch and then cherry-pick your changes onto the rewritten patchset.
+
+    git branch oldticket ticket/{id}
+    git fetch && git checkout -B ticket/{id}
+    git cherry-pick <commitid1> <commitid2>
+    git branch -D oldticket
+
+Git is a very flexible tool, there are no doubt several other strategies you could use to resolve this situation.  The above solution is just one way.
+
+### Ticket RefSpecs
+
+Gitblit supports two primary push ref specs: the magic ref and the patchset ref.
+
+#### to create a new proposal ticket
+
+| ref                  | description                                  |
+| :------------------- | :------------------------------------------- |
+| refs/for/new         | new proposal for the default branch          |
+| refs/for/default     | new proposal for the default branch          |
+| refs/for/{branch}    | new proposal for the specified branch        |
+
+#### to add a proposal patchset (first patchset) to an existing ticket
+
+| ref                  | description                                  |
+| :------------------- | :------------------------------------------- |
+| refs/for/{id}        | add new patchset to an existing ticket       |
+
+#### to add commits to an existing patchset
+
+| ref                          | description                          |
+| :--------------------------- | :----------------------------------- |
+| refs/heads/ticket/{id}       | fast-forward an existing patchset    |
+
+
+#### to rewrite a patchset (amend, rebase, squash)
+
+| magic ref            | description                                  |
+| :------------------- | :------------------------------------------- |
+| refs/for/{id}        | to rewrite a patchset                        |
+
+### Ticket RefSpec Tricks
+
+Gitblit supports setting some ticket fields from the push refspec.
+
+    refs/for/master%topic=bug/42,r=james,m=1.4.1,cc=dave,cc=mark
+
+| parameter | description                                                     |
+| :-------- | :-------------------------------------------------------------- |
+| t         | assign a *topic* to the ticket (matched against bugtraq config) |
+| r         | set the *responsible* user                                      |
+| m         | set the *milestone* for patchset integration                    |
+| cc        | add this account to the *watch* list (multiple ccs allowed)     |
+
+#### examples
+
+Create a new patchset for ticket *12*, add *james* and *mark* to the watch list, and set the topic to *JIRA-123* which will be regex-matched against the repository bugtraq configuration.
+
+    git push origin HEAD:refs/for/12%cc=james,cc=mark,t=JIRA-123
+
+Add some commits (fast-forward) to ticket *12*.  Set the milestone to *1.4.1*.
+
+    git push origin HEAD:refs/heads/ticket/12%m=1.4.1
+
+### Merging Patchsets
+
+The Gitblit web ui offers a merge button which will work for clean merges of a patchset to the integration branch.
+
+There are complicated merge scenarios for which it may be best to merge using your Git client.  There are several ways to do this, here is a safe merge strategy which pulls into a new branch and then fast-forwards your integration branch, assuming you were happy with the pull (merge).
+
+    git pull origin master
+    git checkout -b ticket-{id} master
+    git pull origin ticket/{id}
+    git checkout master
+    git merge ticket-{id}
+    git push origin master
+    git branch -d ticket-{id}
+
+### Closing Tickets on Push with a Completely New Patchset
+
+Gitblit will look for patchset references on pushes to normal branches.  If it finds a reference (like would be found in the previous merge instructions), the ticket is resolved as merged and everyone is notified.
+
+If you do not need to create a patchset for review, you can just push a commit to the integration branch that contains `fixes #1` or `closes #1` in the commit message.  Gitblit will identify the ticket, create a new patchset with that commit as the tip, and resolve the ticket as merged.  (And if the integration branch is not specified in the ticket - this is the case for a ticket without any existing patchsets - Gitblit will resolve the ticket as merged to the pushed branch).
+
+### Reopening Tickets with Patchsets
+
+Gitblit allows you to reopen a Ticket with a merged patchset.  Since Gitblit allows patchset rewrites and versions patchsets, this seems like a logical capability.  There is no need to create another ticket for a feature request or bug report if the merged commits did not actually resolve the ticket.
+
+This allows you to continue the discussion and create a new patchset that hopefully resolves the need.
+
+**NOTE:**  There is one caveat to this feature.  You can not push patchsets to a closed ticket; Gitblit will reject the push.  You must first reopen the ticket through the web ui before you may push your patchset update or new patchset.
+
+### Reviews
+
+Gitblit includes a very simple patchset scoring mechanism.  Gitblit is not  code-review system, but for those who have simple needs, this may suffice.
+
+- +2, approved: patchset can be merged
+- +1, looks good: someone else must approve for merge
+- -1, needs improvement: please do not merge
+- -2, vetoed: patchset may not be merged
+
+Only users with write (RW) permissions to the repository can give a +2 and -2 score.  All other users are allowed to score +/-1.  If the repository is configured to *require approval* then then +2 score has an important meaning.  The merge button will only be shown if there is at least one +2 score and no -2 scores.  If there is a -2 score, the merge is blocked by the web ui.  Users with RW permissions, however, can still manually merge and push the patchset to the integration branch; Gitblit does not enforce vetoed patchsets on push.
+
+#### Reviews and Updated or Rewritten Patchsets
+
+If the patchset is updated or rewritten, all former review scores are ignored; review scores apply to specific revisions of patchsets - they are not blanket approvals/disapprovals.

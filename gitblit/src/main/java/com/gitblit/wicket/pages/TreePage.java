@@ -20,17 +20,18 @@ import java.util.List;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
-import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.FileMode;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 
 import com.gitblit.models.PathModel;
 import com.gitblit.models.SubmoduleModel;
+import com.gitblit.servlet.RawServlet;
 import com.gitblit.utils.ByteFormat;
 import com.gitblit.utils.JGitUtils;
 import com.gitblit.wicket.CacheControl;
@@ -56,8 +57,6 @@ public class TreePage extends RepositoryPage {
 		// tree page links
 		add(new BookmarkablePageLink<Void>("historyLink", HistoryPage.class,
 				WicketUtils.newPathParameter(repositoryName, objectId, path)));
-		add(new BookmarkablePageLink<Void>("headLink", TreePage.class,
-				WicketUtils.newPathParameter(repositoryName, Constants.HEAD, path)));
 		add(new CompressedDownloadsPanel("compressedLinks", getRequest()
 				.getRelativePathPrefixToContextRoot(), repositoryName, objectId, path));
 
@@ -165,8 +164,8 @@ public class TreePage extends RepositoryPage {
 						links.add(new BookmarkablePageLink<Void>("view", BlobPage.class,
 								WicketUtils.newPathParameter(repositoryName, id,
 										path)));
-						links.add(new BookmarkablePageLink<Void>("raw", RawPage.class, WicketUtils
-								.newPathParameter(repositoryName, id, path)));
+						String rawUrl = RawServlet.asLink(getContextUrl(), repositoryName, id, path);
+						links.add(new ExternalLink("raw", rawUrl));
 						links.add(new BookmarkablePageLink<Void>("blame", BlamePage.class,
 								WicketUtils.newPathParameter(repositoryName, id,
 										path)));
@@ -187,4 +186,10 @@ public class TreePage extends RepositoryPage {
 	protected String getPageName() {
 		return getString("gb.tree");
 	}
+
+	@Override
+	protected boolean isCommitPage() {
+		return true;
+	}
+
 }

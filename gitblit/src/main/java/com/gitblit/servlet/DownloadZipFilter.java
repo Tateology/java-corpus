@@ -15,13 +15,7 @@
  */
 package com.gitblit.servlet;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import com.gitblit.Constants.AccessRestrictionType;
-import com.gitblit.manager.IRepositoryManager;
-import com.gitblit.manager.IRuntimeManager;
-import com.gitblit.manager.IAuthenticationManager;
 import com.gitblit.models.RepositoryModel;
 import com.gitblit.models.UserModel;
 
@@ -33,17 +27,7 @@ import com.gitblit.models.UserModel;
  * @author James Moger
  *
  */
-@Singleton
 public class DownloadZipFilter extends AccessRestrictionFilter {
-
-	@Inject
-	public DownloadZipFilter(
-			IRuntimeManager runtimeManager,
-			IAuthenticationManager authenticationManager,
-			IRepositoryManager repositoryManager) {
-
-		super(runtimeManager, authenticationManager, repositoryManager);
-	}
 
 	/**
 	 * Extract the repository name from the url.
@@ -54,11 +38,14 @@ public class DownloadZipFilter extends AccessRestrictionFilter {
 	@Override
 	protected String extractRepositoryName(String url) {
 		int a = url.indexOf("r=");
-		String repository = url.substring(a + 2);
-		if (repository.indexOf('&') > -1) {
-			repository = repository.substring(0, repository.indexOf('&'));
+		if (a > -1) {
+			String repository = url.substring(a + 2);
+			if (repository.indexOf('&') > -1) {
+				repository = repository.substring(0, repository.indexOf('&'));
+			}
+			return repository;
 		}
-		return repository;
+		return null;
 	}
 
 	/**

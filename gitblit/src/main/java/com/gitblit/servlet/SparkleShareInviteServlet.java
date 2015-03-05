@@ -16,25 +16,24 @@
 package com.gitblit.servlet;
 
 import java.io.IOException;
+import java.net.URL;
 import java.text.MessageFormat;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gitblit.Constants;
 import com.gitblit.IStoredSettings;
 import com.gitblit.Keys;
+import com.gitblit.dagger.DaggerServlet;
 import com.gitblit.manager.IAuthenticationManager;
 import com.gitblit.manager.IRepositoryManager;
-import com.gitblit.manager.IRuntimeManager;
 import com.gitblit.manager.IUserManager;
 import com.gitblit.models.RepositoryModel;
 import com.gitblit.models.UserModel;
 import com.gitblit.utils.StringUtils;
+
+import dagger.ObjectGraph;
 
 /**
  * Handles requests for Sparkleshare Invites
@@ -42,31 +41,24 @@ import com.gitblit.utils.StringUtils;
  * @author James Moger
  *
  */
-@Singleton
-public class SparkleShareInviteServlet extends HttpServlet {
+public class SparkleShareInviteServlet extends DaggerServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	private final IStoredSettings settings;
+	private IStoredSettings settings;
 
-	private final IUserManager userManager;
+	private IUserManager userManager;
 
-	private final IAuthenticationManager authenticationManager;
+	private IAuthenticationManager authenticationManager;
 
-	private final IRepositoryManager repositoryManager;
+	private IRepositoryManager repositoryManager;
 
-	@Inject
-	public SparkleShareInviteServlet(
-			IRuntimeManager runtimeManager,
-			IUserManager userManager,
-			IAuthenticationManager authenticationManager,
-			IRepositoryManager repositoryManager) {
-
-		super();
-		this.settings = runtimeManager.getSettings();
-		this.userManager = userManager;
-		this.authenticationManager = authenticationManager;
-		this.repositoryManager = repositoryManager;
+	@Override
+	protected void inject(ObjectGraph dagger) {
+		this.settings = dagger.get(IStoredSettings.class);
+		this.userManager = dagger.get(IUserManager.class);
+		this.authenticationManager = dagger.get(IAuthenticationManager.class);
+		this.repositoryManager = dagger.get(IRepositoryManager.class);
 	}
 
 	@Override
@@ -85,6 +77,12 @@ public class SparkleShareInviteServlet extends HttpServlet {
 			javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException,
 			java.io.IOException {
 
+		int sshPort = settings.getInteger(Keys.git.sshPort, 0);
+		if (sshPort == 0) {
+			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+			response.getWriter().append("SSH is not active on this server!");
+			return;
+		}
 		// extract repo name from request
 		String repoUrl = request.getPathInfo().substring(1);
 
@@ -93,25 +91,32 @@ public class SparkleShareInviteServlet extends HttpServlet {
 			repoUrl = repoUrl.substring(0, repoUrl.length() - 4);
 		}
 
-		String servletPath =  Constants.R_PATH;
-
-		int schemeIndex = repoUrl.indexOf("://") + 3;
-		String host = repoUrl.substring(0, repoUrl.indexOf('/', schemeIndex));
-		String path = repoUrl.substring(repoUrl.indexOf(servletPath) + servletPath.length());
 		String username = null;
+		String path;
 		int fetchIndex = repoUrl.indexOf('@');
 		if (fetchIndex > -1) {
-			username = repoUrl.substring(schemeIndex, fetchIndex);
+			username = repoUrl.substring(0, fetchIndex);
+			path = repoUrl.substring(fetchIndex + 1);
+		} else {
+			path = repoUrl;
 		}
+
+		String host = request.getServerName();
+		String url = settings.getString(Keys.web.canonicalUrl, "https://localhost:8443");
+		if (!StringUtils.isEmpty(url) && url.indexOf("localhost") == -1) {
+			host = new URL(url).getHost();
+		}
+
 		UserModel user;
 		if (StringUtils.isEmpty(username)) {
 			user = authenticationManager.authenticate(request);
 		} else {
 			user = userManager.getUserModel(username);
 		}
-		if (user == null) {
-			user = UserModel.ANONYMOUS;
-			username = "";
+		if (user == null || user.disabled) {
+			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+			response.getWriter().append("Access is not permitted!");
+			return;
 		}
 
 		// ensure that the requested repository exists
@@ -122,14 +127,20 @@ public class SparkleShareInviteServlet extends HttpServlet {
 			return;
 		}
 
+		if (!user.canRewindRef(model)) {
+			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+			response.getWriter().append(MessageFormat.format("{0} does not have RW+ permissions to \"{1}\"!", user.username, model.name));
+		}
+
 		StringBuilder sb = new StringBuilder();
 		sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 		sb.append("<sparkleshare><invite>\n");
-		sb.append(MessageFormat.format("<address>{0}</address>\n", host));
-		sb.append(MessageFormat.format("<remote_path>{0}{1}</remote_path>\n", servletPath, model.name));
-		if (settings.getInteger(Keys.fanout.port, 0) > 0) {
+		sb.append(MessageFormat.format("<address>ssh://{0}@{1}:{2,number,0}/</address>\n", user.username, host, sshPort));
+		sb.append(MessageFormat.format("<remote_path>/{0}</remote_path>\n", model.name));
+		int fanoutPort = settings.getInteger(Keys.fanout.port, 0);
+		if (fanoutPort > 0) {
 			// Gitblit is running it's own fanout service for pubsub notifications
-			sb.append(MessageFormat.format("<announcements_url>tcp://{0}:{1}</announcements_url>\n", request.getServerName(), settings.getString(Keys.fanout.port, "")));
+			sb.append(MessageFormat.format("<announcements_url>tcp://{0}:{1,number,0}</announcements_url>\n", request.getServerName(), fanoutPort));
 		}
 		sb.append("</invite></sparkleshare>\n");
 

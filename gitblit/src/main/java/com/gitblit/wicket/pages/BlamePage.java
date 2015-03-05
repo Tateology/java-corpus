@@ -35,7 +35,6 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
-import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.revwalk.RevCommit;
 
@@ -103,8 +102,6 @@ public class BlamePage extends RepositoryPage {
 				WicketUtils.newObjectParameter(repositoryName, objectId)));
 
 		// blame page links
-		add(new BookmarkablePageLink<Void>("headLink", BlamePage.class,
-				WicketUtils.newPathParameter(repositoryName, Constants.HEAD, blobPath)));
 		add(new BookmarkablePageLink<Void>("historyLink", HistoryPage.class,
 				WicketUtils.newPathParameter(repositoryName, objectId, blobPath)));
 
@@ -147,6 +144,9 @@ public class BlamePage extends RepositoryPage {
 		}
 
 		if (pathModel == null) {
+			final String notFound = MessageFormat.format("Blame page failed to find {0} in {1} @ {2}",
+					blobPath, repositoryName, objectId);
+			logger.error(notFound);
 			add(new Label("annotation").setVisible(false));
 			add(new Label("missingBlob", missingBlob(blobPath, commit)).setEscapeModelStrings(false));
 			return;
@@ -157,7 +157,7 @@ public class BlamePage extends RepositoryPage {
 		List<AnnotatedLine> lines = DiffUtils.blame(getRepository(), blobPath, objectId);
 		final Map<?, String> colorMap = initializeColors(activeBlameType, lines);
 		ListDataProvider<AnnotatedLine> blameDp = new ListDataProvider<AnnotatedLine>(lines);
-		DataView<AnnotatedLine> blameView = new DataView<AnnotatedLine>("blameView", blameDp) {
+		DataView<AnnotatedLine> blameView = new DataView<AnnotatedLine>("annotation", blameDp) {
 			private static final long serialVersionUID = 1L;
 			private String lastCommitId = "";
 			private boolean showInitials = true;
@@ -232,6 +232,11 @@ public class BlamePage extends RepositoryPage {
 	@Override
 	protected String getPageName() {
 		return getString("gb.blame");
+	}
+
+	@Override
+	protected boolean isCommitPage() {
+		return true;
 	}
 
 	@Override

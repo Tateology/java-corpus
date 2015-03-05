@@ -16,6 +16,7 @@
 package com.gitblit.manager;
 
 import java.io.IOException;
+import java.net.URI;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -37,13 +38,16 @@ import com.gitblit.Keys;
 import com.gitblit.fanout.FanoutNioService;
 import com.gitblit.fanout.FanoutService;
 import com.gitblit.fanout.FanoutSocketService;
-import com.gitblit.git.GitDaemon;
 import com.gitblit.models.FederationModel;
 import com.gitblit.models.RepositoryModel;
 import com.gitblit.models.UserModel;
 import com.gitblit.service.FederationPullService;
+import com.gitblit.transport.git.GitDaemon;
+import com.gitblit.transport.ssh.SshDaemon;
+import com.gitblit.utils.IdGenerator;
 import com.gitblit.utils.StringUtils;
 import com.gitblit.utils.TimeUtils;
+import com.gitblit.utils.WorkQueue;
 
 /**
  * Services manager manages long-running services/processes that either have no
@@ -63,13 +67,22 @@ public class ServicesManager implements IManager {
 
 	private final IGitblit gitblit;
 
+	private final IdGenerator idGenerator;
+
+	private final WorkQueue workQueue;
+
 	private FanoutService fanoutService;
 
 	private GitDaemon gitDaemon;
 
+	private SshDaemon sshDaemon;
+
 	public ServicesManager(IGitblit gitblit) {
 		this.settings = gitblit.getSettings();
 		this.gitblit = gitblit;
+		int defaultThreadPoolSize = settings.getInteger(Keys.execution.defaultThreadPoolSize, 1);
+		this.idGenerator = new IdGenerator();
+		this.workQueue = new WorkQueue(idGenerator, defaultThreadPoolSize);
 	}
 
 	@Override
@@ -77,6 +90,7 @@ public class ServicesManager implements IManager {
 		configureFederation();
 		configureFanout();
 		configureGitDaemon();
+		configureSshDaemon();
 
 		return this;
 	}
@@ -90,7 +104,29 @@ public class ServicesManager implements IManager {
 		if (gitDaemon != null) {
 			gitDaemon.stop();
 		}
+		if (sshDaemon != null) {
+			sshDaemon.stop();
+		}
+		workQueue.stop();
 		return this;
+	}
+
+	public boolean isServingRepositories() {
+		return isServingHTTP()
+				|| isServingGIT()
+				|| isServingSSH();
+	}
+
+	public boolean isServingHTTP() {
+		return settings.getBoolean(Keys.git.enableGitServlet, true);
+	}
+
+	public boolean isServingGIT() {
+		return gitDaemon != null && gitDaemon.isRunning();
+	}
+
+	public boolean isServingSSH() {
+		return sshDaemon != null && sshDaemon.isRunning();
 	}
 
 	protected void configureFederation() {
@@ -138,6 +174,20 @@ public class ServicesManager implements IManager {
 		}
 	}
 
+	protected void configureSshDaemon() {
+		int port = settings.getInteger(Keys.git.sshPort, 0);
+		String bindInterface = settings.getString(Keys.git.sshBindInterface, "localhost");
+		if (port > 0) {
+			try {
+				sshDaemon = new SshDaemon(gitblit, workQueue);
+				sshDaemon.start();
+			} catch (IOException e) {
+				sshDaemon = null;
+				logger.error(MessageFormat.format("Failed to start SSH daemon on {0}:{1,number,0}", bindInterface, port), e);
+			}
+		}
+	}
+
 	protected void configureFanout() {
 		// startup Fanout PubSub service
 		if (settings.getInteger(Keys.fanout.port, 0) > 0) {
@@ -177,8 +227,8 @@ public class ServicesManager implements IManager {
 				return null;
 			}
 			if (user.canClone(repository)) {
-				String servername = request.getServerName();
-				String url = gitDaemon.formatUrl(servername, repository.name);
+				String hostname = getHostname(request);
+				String url = gitDaemon.formatUrl(hostname, repository.name);
 				return url;
 			}
 		}
@@ -204,6 +254,50 @@ public class ServicesManager implements IManager {
 		return AccessPermission.NONE;
 	}
 
+	public String getSshDaemonUrl(HttpServletRequest request, UserModel user, RepositoryModel repository) {
+		if (user == null || UserModel.ANONYMOUS.equals(user)) {
+			// SSH always requires authentication - anonymous access prohibited
+			return null;
+		}
+		if (sshDaemon != null) {
+			String bindInterface = settings.getString(Keys.git.sshBindInterface, "localhost");
+			if (bindInterface.equals("localhost")
+					&& (!request.getServerName().equals("localhost") && !request.getServerName().equals("127.0.0.1"))) {
+				// ssh daemon is bound to localhost and the request is from elsewhere
+				return null;
+			}
+			if (user.canClone(repository)) {
+				String hostname = getHostname(request);
+				String url = sshDaemon.formatUrl(user.username, hostname, repository.name);
+				return url;
+			}
+		}
+		return null;
+	}
+
+
+	/**
+	 * Extract the hostname from the canonical url or return the
+	 * hostname from the servlet request.
+	 *
+	 * @param request
+	 * @return
+	 */
+	protected String getHostname(HttpServletRequest request) {
+		String hostname = request.getServerName();
+		String canonicalUrl = gitblit.getSettings().getString(Keys.web.canonicalUrl, null);
+		if (!StringUtils.isEmpty(canonicalUrl)) {
+			try {
+				URI uri = new URI(canonicalUrl);
+				String host = uri.getHost();
+				if (!StringUtils.isEmpty(host) && !"localhost".equals(host)) {
+					hostname = host;
+				}
+			} catch (Exception e) {
+			}
+		}
+		return hostname;
+	}
 
 	private class FederationPuller extends FederationPullService {
 
@@ -218,13 +312,12 @@ public class ServicesManager implements IManager {
 		@Override
 		public void reschedule(FederationModel registration) {
 			// schedule the next pull
-			int mins = TimeUtils.convertFrequencyToMinutes(registration.frequency);
+			int mins = TimeUtils.convertFrequencyToMinutes(registration.frequency, 5);
 			registration.nextPull = new Date(System.currentTimeMillis() + (mins * 60 * 1000L));
 			scheduledExecutor.schedule(new FederationPuller(registration), mins, TimeUnit.MINUTES);
 			logger.info(MessageFormat.format(
 					"Next pull of {0} @ {1} scheduled for {2,date,yyyy-MM-dd HH:mm}",
 					registration.name, registration.url, registration.nextPull));
 		}
-
 	}
 }

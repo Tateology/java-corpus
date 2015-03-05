@@ -203,7 +203,21 @@ public class RpcUtils {
 
 	}
 
-	/**
+    /**
+     * Create a fork of a repository.
+     *
+     * @param repository
+
+     * @return true if the action succeeded
+     * @throws IOException
+     */
+    public static boolean forkRepository(RepositoryModel repository, String serverUrl,
+                                        String account, char[] password) throws IOException {
+        return doAction(RpcRequest.FORK_REPOSITORY, repository.name, null, serverUrl, account, password);
+    }
+
+
+    /**
 	 * Send a revised version of the repository model to the Gitblit server.
 	 *
 	 * @param repository
@@ -249,6 +263,37 @@ public class RpcUtils {
 			char[] password) throws IOException {
 		return doAction(RpcRequest.CLEAR_REPOSITORY_CACHE, null, null, serverUrl, account,
 				password);
+	}
+
+	/**
+	 * Reindex all tickets on the Gitblit server.
+	 *
+	 * @param serverUrl
+	 * @param account
+	 * @param password
+	 * @return true if the action succeeded
+	 * @throws IOException
+	 */
+	public static boolean reindexTickets(String serverUrl, String account,
+			char[] password) throws IOException {
+		return doAction(RpcRequest.REINDEX_TICKETS, null, null, serverUrl, account,
+				password);
+	}
+
+	/**
+	 * Reindex tickets for the specified repository on the Gitblit server.
+	 *
+	 * @param serverUrl
+	 * @param repositoryName
+	 * @param account
+	 * @param password
+	 * @return true if the action succeeded
+	 * @throws IOException
+	 */
+	public static boolean reindexTickets(String serverUrl, String repositoryName,
+			String account, char[] password) throws IOException {
+		return doAction(RpcRequest.REINDEX_TICKETS, repositoryName, null, serverUrl,
+				account, password);
 	}
 
 	/**

@@ -35,6 +35,7 @@ import com.gitblit.Constants;
 import com.gitblit.models.GitNote;
 import com.gitblit.models.PathModel.PathChangeModel;
 import com.gitblit.models.SubmoduleModel;
+import com.gitblit.servlet.RawServlet;
 import com.gitblit.utils.JGitUtils;
 import com.gitblit.wicket.CacheControl;
 import com.gitblit.wicket.CacheControl.LastModified;
@@ -135,7 +136,7 @@ public class CommitPage extends RepositoryPage {
 				item.add(new GravatarImage("noteAuthorAvatar", entry.notesRef.getAuthorIdent()));
 				item.add(WicketUtils.createTimestampLabel("authorDate", entry.notesRef
 						.getAuthorIdent().getWhen(), getTimeZone(), getTimeUtils()));
-				item.add(new Label("noteContent", messageProcessor().processPlainCommitMessage(repositoryName,
+				item.add(new Label("noteContent", bugtraqProcessor().processPlainCommitMessage(getRepository(), repositoryName,
 						entry.content)).setEscapeModelStrings(false));
 			}
 		};
@@ -198,11 +199,11 @@ public class CommitPage extends RepositoryPage {
 									.newPathParameter(repositoryName, entry.commitId, path)));
 				}
 
-				
+
 				// quick links
 				if (entry.isSubmodule()) {
 					item.add(new ExternalLink("raw", "").setEnabled(false));
-					
+
 					// submodule
 					item.add(new BookmarkablePageLink<Void>("diff", BlobDiffPage.class, WicketUtils
 							.newPathParameter(repositoryName, entry.commitId, entry.path))
@@ -222,8 +223,8 @@ public class CommitPage extends RepositoryPage {
 					item.add(new BookmarkablePageLink<Void>("view", BlobPage.class, WicketUtils
 							.newPathParameter(repositoryName, entry.commitId, entry.path))
 							.setEnabled(!entry.changeType.equals(ChangeType.DELETE)));
-					item.add(new BookmarkablePageLink<Void>("raw", RawPage.class, WicketUtils
-							.newPathParameter(repositoryName, entry.commitId, entry.path))
+					String rawUrl = RawServlet.asLink(getContextUrl(), repositoryName, entry.commitId, entry.path);
+					item.add(new ExternalLink("raw", rawUrl)
 							.setEnabled(!entry.changeType.equals(ChangeType.DELETE)));
 					item.add(new BookmarkablePageLink<Void>("blame", BlamePage.class, WicketUtils
 							.newPathParameter(repositoryName, entry.commitId, entry.path))
@@ -244,6 +245,11 @@ public class CommitPage extends RepositoryPage {
 	@Override
 	protected String getPageName() {
 		return getString("gb.commit");
+	}
+
+	@Override
+	protected boolean isCommitPage() {
+		return true;
 	}
 
 	@Override

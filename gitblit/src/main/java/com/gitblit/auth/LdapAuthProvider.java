@@ -19,12 +19,14 @@ package com.gitblit.auth;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.GeneralSecurityException;
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicLong;
 
 import com.gitblit.Constants;
 import com.gitblit.Constants.AccountType;
@@ -32,6 +34,7 @@ import com.gitblit.Keys;
 import com.gitblit.auth.AuthenticationProvider.UsernamePasswordAuthenticationProvider;
 import com.gitblit.models.TeamModel;
 import com.gitblit.models.UserModel;
+import com.gitblit.service.LdapSyncService;
 import com.gitblit.utils.ArrayUtils;
 import com.gitblit.utils.StringUtils;
 import com.unboundid.ldap.sdk.Attribute;
@@ -57,101 +60,123 @@ import com.unboundid.util.ssl.TrustAllTrustManager;
  */
 public class LdapAuthProvider extends UsernamePasswordAuthenticationProvider {
 
-    private AtomicLong lastLdapUserSync = new AtomicLong(0L);
+	private final ScheduledExecutorService scheduledExecutorService;
 
 	public LdapAuthProvider() {
 		super("ldap");
+
+		scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
 	}
 
- 	private long getSynchronizationPeriod() {
-        final String cacheDuration = settings.getString(Keys.realm.ldap.ldapCachePeriod, "2 MINUTES");
+ 	private long getSynchronizationPeriodInMilliseconds() {
+ 		String period = settings.getString(Keys.realm.ldap.syncPeriod, null);
+ 		if (StringUtils.isEmpty(period)) {
+ 	 		period = settings.getString("realm.ldap.ldapCachePeriod", null);
+ 	 		if (StringUtils.isEmpty(period)) {
+ 	 			period = "5 MINUTES";
+ 	 		} else {
+ 	 			logger.warn("realm.ldap.ldapCachePeriod is obsolete!");
+ 	 			logger.warn(MessageFormat.format("Please set {0}={1} in gitblit.properties!", Keys.realm.ldap.syncPeriod, period));
+ 	 			settings.overrideSetting(Keys.realm.ldap.syncPeriod, period);
+ 	 		}
+ 		}
+
         try {
-            final String[] s = cacheDuration.split(" ", 2);
-            long duration = Long.parseLong(s[0]);
+            final String[] s = period.split(" ", 2);
+            long duration = Math.abs(Long.parseLong(s[0]));
             TimeUnit timeUnit = TimeUnit.valueOf(s[1]);
             return timeUnit.toMillis(duration);
         } catch (RuntimeException ex) {
-            throw new IllegalArgumentException(Keys.realm.ldap.ldapCachePeriod + " must have format '<long> <TimeUnit>' where <TimeUnit> is one of 'MILLISECONDS', 'SECONDS', 'MINUTES', 'HOURS', 'DAYS'");
+            throw new IllegalArgumentException(Keys.realm.ldap.syncPeriod + " must have format '<long> <TimeUnit>' where <TimeUnit> is one of 'MILLISECONDS', 'SECONDS', 'MINUTES', 'HOURS', 'DAYS'");
         }
     }
 
 	@Override
 	public void setup() {
-		synchronizeLdapUsers();
+		configureSyncService();
 	}
 
-	protected synchronized void synchronizeLdapUsers() {
-        final boolean enabled = settings.getBoolean(Keys.realm.ldap.synchronizeUsers.enable, false);
-        if (enabled) {
-            if (System.currentTimeMillis() > (lastLdapUserSync.get() + getSynchronizationPeriod())) {
-            	logger.info("Synchronizing with LDAP @ " + settings.getRequiredString(Keys.realm.ldap.server));
-                final boolean deleteRemovedLdapUsers = settings.getBoolean(Keys.realm.ldap.synchronizeUsers.removeDeleted, true);
-                LDAPConnection ldapConnection = getLdapConnection();
-                if (ldapConnection != null) {
-                    try {
-                        String accountBase = settings.getString(Keys.realm.ldap.accountBase, "");
-                        String uidAttribute = settings.getString(Keys.realm.ldap.uid, "uid");
-                        String accountPattern = settings.getString(Keys.realm.ldap.accountPattern, "(&(objectClass=person)(sAMAccountName=${username}))");
-                        accountPattern = StringUtils.replace(accountPattern, "${username}", "*");
+	@Override
+	public void stop() {
+		scheduledExecutorService.shutdownNow();
+	}
 
-                        SearchResult result = doSearch(ldapConnection, accountBase, accountPattern);
-                        if (result != null && result.getEntryCount() > 0) {
-                            final Map<String, UserModel> ldapUsers = new HashMap<String, UserModel>();
+	public synchronized void sync() {
+		final boolean enabled = settings.getBoolean(Keys.realm.ldap.synchronize, false);
+		if (enabled) {
+			logger.info("Synchronizing with LDAP @ " + settings.getRequiredString(Keys.realm.ldap.server));
+			final boolean deleteRemovedLdapUsers = settings.getBoolean(Keys.realm.ldap.removeDeletedUsers, true);
+			LDAPConnection ldapConnection = getLdapConnection();
+			if (ldapConnection != null) {
+				try {
+					String accountBase = settings.getString(Keys.realm.ldap.accountBase, "");
+					String uidAttribute = settings.getString(Keys.realm.ldap.uid, "uid");
+					String accountPattern = settings.getString(Keys.realm.ldap.accountPattern, "(&(objectClass=person)(sAMAccountName=${username}))");
+					accountPattern = StringUtils.replace(accountPattern, "${username}", "*");
 
-                            for (SearchResultEntry loggingInUser : result.getSearchEntries()) {
+					SearchResult result = doSearch(ldapConnection, accountBase, accountPattern);
+					if (result != null && result.getEntryCount() > 0) {
+						final Map<String, UserModel> ldapUsers = new HashMap<String, UserModel>();
 
-                                final String username = loggingInUser.getAttribute(uidAttribute).getValue();
-                                logger.debug("LDAP synchronizing: " + username);
+						for (SearchResultEntry loggingInUser : result.getSearchEntries()) {
+							Attribute uid = loggingInUser.getAttribute(uidAttribute);
+							if (uid == null) {
+								logger.error("Can not synchronize with LDAP, missing \"{}\" attribute", uidAttribute);
+								continue;
+							}
+							final String username = uid.getValue();
+							logger.debug("LDAP synchronizing: " + username);
 
-                                UserModel user = userManager.getUserModel(username);
-                                if (user == null) {
-                                    user = new UserModel(username);
-                                }
+							UserModel user = userManager.getUserModel(username);
+							if (user == null) {
+								user = new UserModel(username);
+							}
 
-                                if (!supportsTeamMembershipChanges()) {
-                                    getTeamsFromLdap(ldapConnection, username, loggingInUser, user);
-                                }
+							if (!supportsTeamMembershipChanges()) {
+								getTeamsFromLdap(ldapConnection, username, loggingInUser, user);
+							}
 
-                                // Get User Attributes
-                                setUserAttributes(user, loggingInUser);
+							// Get User Attributes
+							setUserAttributes(user, loggingInUser);
 
-                                // store in map
-                                ldapUsers.put(username.toLowerCase(), user);
-                            }
+							// store in map
+							ldapUsers.put(username.toLowerCase(), user);
+						}
 
-                            if (deleteRemovedLdapUsers) {
-                                logger.debug("detecting removed LDAP users...");
+						if (deleteRemovedLdapUsers) {
+							logger.debug("detecting removed LDAP users...");
 
-                                for (UserModel userModel : userManager.getAllUsers()) {
-                                    if (Constants.EXTERNAL_ACCOUNT.equals(userModel.password)) {
-                                        if (!ldapUsers.containsKey(userModel.username)) {
-                                            logger.info("deleting removed LDAP user " + userModel.username + " from user service");
-                                            userManager.deleteUser(userModel.username);
-                                        }
-                                    }
-                                }
-                            }
+							for (UserModel userModel : userManager.getAllUsers()) {
+								if (AccountType.LDAP == userModel.accountType) {
+									if (!ldapUsers.containsKey(userModel.username)) {
+										logger.info("deleting removed LDAP user " + userModel.username + " from user service");
+										userManager.deleteUser(userModel.username);
+									}
+								}
+							}
+						}
 
-                            userManager.updateUserModels(ldapUsers.values());
+						userManager.updateUserModels(ldapUsers.values());
 
-                            if (!supportsTeamMembershipChanges()) {
-                                final Map<String, TeamModel> userTeams = new HashMap<String, TeamModel>();
-                                for (UserModel user : ldapUsers.values()) {
-                                    for (TeamModel userTeam : user.teams) {
-                                        userTeams.put(userTeam.name, userTeam);
-                                    }
-                                }
-                                userManager.updateTeamModels(userTeams.values());
-                            }
-                        }
-                        lastLdapUserSync.set(System.currentTimeMillis());
-                    } finally {
-                        ldapConnection.close();
-                    }
-                }
-            }
-        }
-    }
+						if (!supportsTeamMembershipChanges()) {
+							final Map<String, TeamModel> userTeams = new HashMap<String, TeamModel>();
+							for (UserModel user : ldapUsers.values()) {
+								for (TeamModel userTeam : user.teams) {
+									userTeams.put(userTeam.name, userTeam);
+								}
+							}
+							userManager.updateTeamModels(userTeams.values());
+						}
+					}
+					if (!supportsTeamMembershipChanges()) {
+						getEmptyTeamsFromLdap(ldapConnection);
+					}
+				} finally {
+					ldapConnection.close();
+				}
+			}
+		}
+	}
 
 	private LDAPConnection getLdapConnection() {
 		try {
@@ -162,15 +187,20 @@ public class LdapAuthProvider extends UsernamePasswordAuthenticationProvider {
 			String bindUserName = settings.getString(Keys.realm.ldap.username, "");
 			String bindPassword = settings.getString(Keys.realm.ldap.password, "");
 
-
 			LDAPConnection conn;
 			if (ldapUrl.getScheme().equalsIgnoreCase("ldaps")) {
 				// SSL
 				SSLUtil sslUtil = new SSLUtil(new TrustAllTrustManager());
 				conn = new LDAPConnection(sslUtil.createSSLSocketFactory());
+				if (ldapPort == -1) {
+					ldapPort = 636;
+				}
 			} else if (ldapUrl.getScheme().equalsIgnoreCase("ldap") || ldapUrl.getScheme().equalsIgnoreCase("ldap+tls")) {
 				// no encryption or StartTLS
 				conn = new LDAPConnection();
+				 if (ldapPort == -1) {
+					 ldapPort = 389;
+				 }
 			} else {
 				logger.error("Unsupported LDAP URL scheme: " + ldapUrl.getScheme());
 				return null;
@@ -187,7 +217,11 @@ public class LdapAuthProvider extends UsernamePasswordAuthenticationProvider {
 				}
 			}
 
-			if (!StringUtils.isEmpty(bindUserName) || !StringUtils.isEmpty(bindPassword)) {
+			if (StringUtils.isEmpty(bindUserName) && StringUtils.isEmpty(bindPassword)) {
+				// anonymous bind
+				conn.bind(new SimpleBindRequest());
+			} else {
+				// authenticated bind
 				conn.bind(new SimpleBindRequest(bindUserName, bindPassword));
 			}
 
@@ -264,6 +298,20 @@ public class LdapAuthProvider extends UsernamePasswordAuthenticationProvider {
 		LDAPConnection ldapConnection = getLdapConnection();
 		if (ldapConnection != null) {
 			try {
+				boolean alreadyAuthenticated = false;
+
+				String bindPattern = settings.getString(Keys.realm.ldap.bindpattern, "");
+				if (!StringUtils.isEmpty(bindPattern)) {
+					try {
+						String bindUser = StringUtils.replace(bindPattern, "${username}", escapeLDAPSearchFilter(simpleUsername));
+						ldapConnection.bind(bindUser, new String(password));
+
+						alreadyAuthenticated = true;
+					} catch (LDAPException e) {
+						return null;
+					}
+				}
+
 				// Find the logging in user's DN
 				String accountBase = settings.getString(Keys.realm.ldap.accountBase, "");
 				String accountPattern = settings.getString(Keys.realm.ldap.accountPattern, "(&(objectClass=person)(sAMAccountName=${username}))");
@@ -274,22 +322,23 @@ public class LdapAuthProvider extends UsernamePasswordAuthenticationProvider {
 					SearchResultEntry loggingInUser = result.getSearchEntries().get(0);
 					String loggingInUserDN = loggingInUser.getDN();
 
-					if (isAuthenticated(ldapConnection, loggingInUserDN, new String(password))) {
+					if (alreadyAuthenticated || isAuthenticated(ldapConnection, loggingInUserDN, new String(password))) {
 						logger.debug("LDAP authenticated: " + username);
 
 						UserModel user = null;
 						synchronized (this) {
 							user = userManager.getUserModel(simpleUsername);
-							if (user == null)	// create user object for new authenticated user
+							if (user == null) {
+								// create user object for new authenticated user
 								user = new UserModel(simpleUsername);
-
-							// create a user cookie
-							if (StringUtils.isEmpty(user.cookie) && !ArrayUtils.isEmpty(password)) {
-								user.cookie = StringUtils.getSHA1(user.username + new String(password));
 							}
 
-							if (!supportsTeamMembershipChanges())
+							// create a user cookie
+							setCookie(user, password);
+
+							if (!supportsTeamMembershipChanges()) {
 								getTeamsFromLdap(ldapConnection, simpleUsername, loggingInUser, user);
+							}
 
 							// Get User Attributes
 							setUserAttributes(user, loggingInUser);
@@ -298,8 +347,9 @@ public class LdapAuthProvider extends UsernamePasswordAuthenticationProvider {
 							updateUser(user);
 
 							if (!supportsTeamMembershipChanges()) {
-								for (TeamModel userTeam : user.teams)
+								for (TeamModel userTeam : user.teams) {
 									updateTeam(userTeam);
+								}
 							}
 						}
 
@@ -328,12 +378,13 @@ public class LdapAuthProvider extends UsernamePasswordAuthenticationProvider {
 			if (!ArrayUtils.isEmpty(admins)) {
 				user.canAdmin = false;
 				for (String admin : admins) {
-					if (admin.startsWith("@")) { // Team
-						if (user.getTeam(admin.substring(1)) != null)
-							user.canAdmin = true;
-					} else
-						if (user.getName().equalsIgnoreCase(admin))
-							user.canAdmin = true;
+					if (admin.startsWith("@") && user.isTeamMember(admin.substring(1))) {
+						// admin team
+						user.canAdmin = true;
+					} else if (user.getName().equalsIgnoreCase(admin)) {
+						// admin user
+						user.canAdmin = true;
+					}
 				}
 			}
 		}
@@ -352,9 +403,9 @@ public class LdapAuthProvider extends UsernamePasswordAuthenticationProvider {
 		if (!StringUtils.isEmpty(displayName)) {
 			// Replace embedded ${} with attributes
 			if (displayName.contains("${")) {
-				for (Attribute userAttribute : userEntry.getAttributes())
+				for (Attribute userAttribute : userEntry.getAttributes()) {
 					displayName = StringUtils.replace(displayName, "${" + userAttribute.getName() + "}", userAttribute.getValue());
-
+				}
 				user.displayName = displayName;
 			} else {
 				Attribute attribute = userEntry.getAttribute(displayName);
@@ -368,14 +419,18 @@ public class LdapAuthProvider extends UsernamePasswordAuthenticationProvider {
 		String email = settings.getString(Keys.realm.ldap.email, "");
 		if (!StringUtils.isEmpty(email)) {
 			if (email.contains("${")) {
-				for (Attribute userAttribute : userEntry.getAttributes())
+				for (Attribute userAttribute : userEntry.getAttributes()) {
 					email = StringUtils.replace(email, "${" + userAttribute.getName() + "}", userAttribute.getValue());
-
+				}
 				user.emailAddress = email;
 			} else {
 				Attribute attribute = userEntry.getAttribute(email);
 				if (attribute != null && attribute.hasValue()) {
 					user.emailAddress = attribute.getValue();
+				} else {
+					// issue-456/ticket-134
+					// allow LDAP to delete an email address
+					user.emailAddress = null;
 				}
 			}
 		}
@@ -384,7 +439,9 @@ public class LdapAuthProvider extends UsernamePasswordAuthenticationProvider {
 	private void getTeamsFromLdap(LDAPConnection ldapConnection, String simpleUsername, SearchResultEntry loggingInUser, UserModel user) {
 		String loggingInUserDN = loggingInUser.getDN();
 
-		user.teams.clear();		// Clear the users team memberships - we're going to get them from LDAP
+		// Clear the users team memberships - we're going to get them from LDAP
+		user.teams.clear();
+
 		String groupBase = settings.getString(Keys.realm.ldap.groupBase, "");
 		String groupMemberPattern = settings.getString(Keys.realm.ldap.groupMemberPattern, "(&(objectClass=group)(member=${dn}))");
 
@@ -411,6 +468,29 @@ public class LdapAuthProvider extends UsernamePasswordAuthenticationProvider {
 				teamModel.addUser(user.getName());
 			}
 		}
+	}
+
+	private void getEmptyTeamsFromLdap(LDAPConnection ldapConnection) {
+		logger.info("Start fetching empty teams from ldap.");
+		String groupBase = settings.getString(Keys.realm.ldap.groupBase, "");
+		String groupMemberPattern = settings.getString(Keys.realm.ldap.groupEmptyMemberPattern, "(&(objectClass=group)(!(member=*)))");
+
+		SearchResult teamMembershipResult = doSearch(ldapConnection, groupBase, true, groupMemberPattern, null);
+		if (teamMembershipResult != null && teamMembershipResult.getEntryCount() > 0) {
+			for (int i = 0; i < teamMembershipResult.getEntryCount(); i++) {
+				SearchResultEntry teamEntry = teamMembershipResult.getSearchEntries().get(i);
+				if (!teamEntry.hasAttribute("member")) {
+					String teamName = teamEntry.getAttribute("cn").getValue();
+
+					TeamModel teamModel = userManager.getTeamModel(teamName);
+					if (teamModel == null) {
+						teamModel = createTeamFromLdap(teamEntry);
+						userManager.updateTeamModel(teamModel);
+					}
+				}
+			}
+		}
+		logger.info("Finished fetching empty teams from ldap.");
 	}
 
 	private TeamModel createTeamFromLdap(SearchResultEntry teamEntry) {
@@ -505,4 +585,17 @@ public class LdapAuthProvider extends UsernamePasswordAuthenticationProvider {
 		}
 		return sb.toString();
 	}
+
+	private void configureSyncService() {
+		LdapSyncService ldapSyncService = new LdapSyncService(settings, this);
+		if (ldapSyncService.isReady()) {
+			long ldapSyncPeriod = getSynchronizationPeriodInMilliseconds();
+			int delay = 1;
+			logger.info("Ldap sync service will update users and groups every {} minutes.", ldapSyncPeriod);
+			scheduledExecutorService.scheduleAtFixedRate(ldapSyncService, delay, ldapSyncPeriod,  TimeUnit.MILLISECONDS);
+		} else {
+			logger.info("Ldap sync service is disabled.");
+		}
+	}
+
 }

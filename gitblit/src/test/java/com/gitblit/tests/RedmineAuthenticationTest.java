@@ -8,10 +8,13 @@ import org.junit.Test;
 
 import com.gitblit.IStoredSettings;
 import com.gitblit.auth.RedmineAuthProvider;
+import com.gitblit.manager.AuthenticationManager;
 import com.gitblit.manager.RuntimeManager;
 import com.gitblit.manager.UserManager;
 import com.gitblit.models.UserModel;
 import com.gitblit.tests.mock.MemorySettings;
+import com.gitblit.utils.XssFilter;
+import com.gitblit.utils.XssFilter.AllowXssFilter;
 
 public class RedmineAuthenticationTest extends GitblitUnitTest {
 
@@ -19,17 +22,14 @@ public class RedmineAuthenticationTest extends GitblitUnitTest {
         + "\"last_login_on\":\"2012-09-06T23:59:26Z\",\"firstname\":\"baz\","
         + "\"id\":4,\"login\":\"RedmineUserId\",\"mail\":\"baz@example.com\"}}";
 
-    private static final String NOT_ADMIN_JSON = "{\"user\":{\"lastname\":\"foo\","
-        + "\"last_login_on\":\"2012-09-08T13:59:01Z\",\"created_on\":\"2009-03-17T14:25:50Z\","
-        + "\"mail\":\"baz@example.com\",\"id\":5,\"firstname\":\"baz\"}}";
-
     MemorySettings getSettings() {
     	return new MemorySettings(new HashMap<String, Object>());
     }
 
     RedmineAuthProvider newRedmineAuthentication(IStoredSettings settings) {
-    	RuntimeManager runtime = new RuntimeManager(settings, GitBlitSuite.BASEFOLDER).start();
-    	UserManager users = new UserManager(runtime).start();
+    	XssFilter xssFilter = new AllowXssFilter();
+    	RuntimeManager runtime = new RuntimeManager(settings, xssFilter, GitBlitSuite.BASEFOLDER).start();
+    	UserManager users = new UserManager(runtime, null).start();
     	RedmineAuthProvider redmine = new RedmineAuthProvider();
     	redmine.setup(runtime, users);
     	return redmine;
@@ -37,6 +37,18 @@ public class RedmineAuthenticationTest extends GitblitUnitTest {
 
     RedmineAuthProvider newRedmineAuthentication() {
     	return newRedmineAuthentication(getSettings());
+    }
+
+    AuthenticationManager newAuthenticationManager() {
+    	XssFilter xssFilter = new AllowXssFilter();
+    	RuntimeManager runtime = new RuntimeManager(getSettings(), xssFilter, GitBlitSuite.BASEFOLDER).start();
+    	UserManager users = new UserManager(runtime, null).start();
+    	RedmineAuthProvider redmine = new RedmineAuthProvider();
+    	redmine.setup(runtime, users);
+        redmine.setTestingCurrentUserAsJson(JSON);
+    	AuthenticationManager auth = new AuthenticationManager(runtime, users);
+    	auth.addAuthenticationProvider(redmine);
+    	return auth;
     }
 
     @Test
@@ -48,18 +60,15 @@ public class RedmineAuthenticationTest extends GitblitUnitTest {
         assertThat(userModel.getDisplayName(), is("baz foo"));
         assertThat(userModel.emailAddress, is("baz@example.com"));
         assertNotNull(userModel.cookie);
-        assertThat(userModel.canAdmin, is(true));
     }
 
     @Test
-    public void testAuthenticateNotAdminUser() throws Exception {
-    	RedmineAuthProvider redmine = newRedmineAuthentication();
-        redmine.setTestingCurrentUserAsJson(NOT_ADMIN_JSON);
-        UserModel userModel = redmine.authenticate("RedmineUserId", "RedmineAPIKey".toCharArray());
-        assertThat(userModel.getName(), is("redmineuserid"));
+    public void testAuthenticationManager() throws Exception {
+    	AuthenticationManager auth = newAuthenticationManager();
+        UserModel userModel = auth.authenticate("RedmineAdminId", "RedmineAPIKey".toCharArray());
+        assertThat(userModel.getName(), is("redmineadminid"));
         assertThat(userModel.getDisplayName(), is("baz foo"));
         assertThat(userModel.emailAddress, is("baz@example.com"));
         assertNotNull(userModel.cookie);
-        assertThat(userModel.canAdmin, is(false));
     }
 }

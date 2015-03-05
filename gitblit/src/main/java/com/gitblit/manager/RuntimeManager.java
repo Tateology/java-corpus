@@ -18,6 +18,7 @@ package com.gitblit.manager;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -31,12 +32,15 @@ import com.gitblit.models.ServerSettings;
 import com.gitblit.models.ServerStatus;
 import com.gitblit.models.SettingModel;
 import com.gitblit.utils.StringUtils;
+import com.gitblit.utils.XssFilter;
 
 public class RuntimeManager implements IRuntimeManager {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	private final IStoredSettings settings;
+
+	private final XssFilter xssFilter;
 
 	private final ServerStatus serverStatus;
 
@@ -46,14 +50,15 @@ public class RuntimeManager implements IRuntimeManager {
 
 	private TimeZone timezone;
 
-	public RuntimeManager(IStoredSettings settings) {
-		this(settings, null);
+	public RuntimeManager(IStoredSettings settings, XssFilter xssFilter) {
+		this(settings, xssFilter, null);
 	}
 
-	public RuntimeManager(IStoredSettings settings, File baseFolder) {
+	public RuntimeManager(IStoredSettings settings, XssFilter xssFilter, File baseFolder) {
 		this.settings = settings;
 		this.settingsModel = new ServerSettings();
 		this.serverStatus = new ServerStatus();
+		this.xssFilter = xssFilter;
 		this.baseFolder = baseFolder == null ? new File("") : baseFolder;
 	}
 
@@ -63,6 +68,8 @@ public class RuntimeManager implements IRuntimeManager {
 		logger.info("Settings    : " + settings.toString());
 		logTimezone("JVM timezone: ", TimeZone.getDefault());
 		logTimezone("App timezone: ", getTimezone());
+		logger.info("JVM locale  : " + Locale.getDefault());
+		logger.info("App locale  : " +  (getLocale() == null ? "<client>" : getLocale()));
 		return this;
 	}
 
@@ -116,7 +123,42 @@ public class RuntimeManager implements IRuntimeManager {
 	 */
 	@Override
 	public boolean isServingRepositories() {
-		return settings.getBoolean(Keys.git.enableGitServlet, true) || (settings.getInteger(Keys.git.daemonPort, 0) > 0);
+		return isServingHTTP()
+				|| isServingGIT()
+				|| isServingSSH();
+	}
+
+	/**
+	 * Determine if this Gitblit instance is actively serving git repositories
+	 * over the HTTP protocol.
+	 *
+	 * @return true if Gitblit is serving repositories over the HTTP protocol
+	 */
+	@Override
+	public boolean isServingHTTP() {
+		return settings.getBoolean(Keys.git.enableGitServlet, true);
+	}
+
+	/**
+	 * Determine if this Gitblit instance is actively serving git repositories
+	 * over the Git Daemon protocol.
+	 *
+	 * @return true if Gitblit is serving repositories over the Git Daemon protocol
+	 */
+	@Override
+	public boolean isServingGIT() {
+		return settings.getInteger(Keys.git.daemonPort, 0) > 0;
+	}
+
+	/**
+	 * Determine if this Gitblit instance is actively serving git repositories
+	 * over the SSH protocol.
+	 *
+	 * @return true if Gitblit is serving repositories over the SSH protocol
+	 */
+	@Override
+	public boolean isServingSSH() {
+		return settings.getInteger(Keys.git.sshPort, 0) > 0;
 	}
 
 	/**
@@ -142,6 +184,22 @@ public class RuntimeManager implements IRuntimeManager {
 		df.setTimeZone(zone);
 		String offset = df.format(new Date());
 		logger.info("{}{} ({})", new Object [] { type, zone.getID(), offset });
+	}
+
+	@Override
+	public Locale getLocale() {
+		String lc = settings.getString(Keys.web.forceDefaultLocale, null);
+		if (!StringUtils.isEmpty(lc)) {
+			int underscore = lc.indexOf('_');
+			if (underscore > 0) {
+				String lang = lc.substring(0, underscore);
+				String cc = lc.substring(underscore + 1);
+				return new Locale(lang, cc);
+			} else {
+				return new Locale(lc);
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -208,4 +266,15 @@ public class RuntimeManager implements IRuntimeManager {
 		serverStatus.heapFree = Runtime.getRuntime().freeMemory();
 		return serverStatus;
 	}
+
+	/**
+	 * Returns the XSS filter.
+	 *
+	 * @return the XSS filter
+	 */
+	@Override
+	public XssFilter getXssFilter() {
+		return xssFilter;
+	}
+
 }

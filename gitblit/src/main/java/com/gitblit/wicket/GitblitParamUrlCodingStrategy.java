@@ -15,18 +15,22 @@
  */
 package com.gitblit.wicket;
 
-import java.text.MessageFormat;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.wicket.IRequestTarget;
 import org.apache.wicket.Page;
-import org.apache.wicket.PageParameters;
+import org.apache.wicket.protocol.http.request.WebRequestCodingStrategy;
 import org.apache.wicket.request.RequestParameters;
 import org.apache.wicket.request.target.coding.MixedParamUrlCodingStrategy;
+import org.apache.wicket.util.string.AppendingStringBuffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.gitblit.IStoredSettings;
 import com.gitblit.Keys;
+import com.gitblit.utils.XssFilter;
 
 /**
  * Simple subclass of mixed parameter url coding strategy that works around the
@@ -40,9 +44,13 @@ import com.gitblit.Keys;
  */
 public class GitblitParamUrlCodingStrategy extends MixedParamUrlCodingStrategy {
 
+	private final String[] parameterNames;
+
 	private Logger logger = LoggerFactory.getLogger(GitblitParamUrlCodingStrategy.class);
 
 	private IStoredSettings settings;
+
+	private XssFilter xssFilter;
 
 	/**
 	 * Construct.
@@ -57,11 +65,14 @@ public class GitblitParamUrlCodingStrategy extends MixedParamUrlCodingStrategy {
 	 */
 	public <C extends Page> GitblitParamUrlCodingStrategy(
 			IStoredSettings settings,
+			XssFilter xssFilter,
 			String mountPath,
 			Class<C> bookmarkablePageClass, String[] parameterNames) {
 
 		super(mountPath, bookmarkablePageClass, parameterNames);
+		this.parameterNames = parameterNames;
 		this.settings = settings;
+		this.xssFilter = xssFilter;
 	}
 
 	/**
@@ -105,13 +116,106 @@ public class GitblitParamUrlCodingStrategy extends MixedParamUrlCodingStrategy {
 	 */
 	@Override
 	public IRequestTarget decode(RequestParameters requestParameters) {
-		final String parametersFragment = requestParameters.getPath().substring(
-				getMountPath().length());
-		logger.debug(MessageFormat
-				.format("REQ: {0} PARAMS {1}", getMountPath(), parametersFragment));
+		Map<String, Object> parameterMap = (Map<String, Object>) requestParameters.getParameters();
+		for (Map.Entry<String, Object> entry : parameterMap.entrySet()) {
+			String parameter = entry.getKey();
+			if (parameter.startsWith(WebRequestCodingStrategy.NAME_SPACE)) {
+				// ignore Wicket parameters
+				continue;
+			}
 
-		final PageParameters parameters = new PageParameters(decodeParameters(parametersFragment,
-				requestParameters.getParameters()));
+			// sanitize Gitblit request parameters
+			Object o = entry.getValue();
+			if (o instanceof String) {
+				String value = o.toString();
+				String safeValue = xssFilter.none(value);
+				if (!value.equals(safeValue)) {
+					logger.warn("XSS filter triggered on {} URL parameter: {}={}",
+							getMountPath(), parameter, value);
+					parameterMap.put(parameter, safeValue);
+				}
+			} else if (o instanceof String[]) {
+				String[] values = (String[]) o;
+				for (int i = 0; i < values.length; i++) {
+					String value = values[i].toString();
+					String safeValue = xssFilter.none(value);
+					if (!value.equals(safeValue)) {
+						logger.warn("XSS filter triggered on {} URL parameter: {}={}",
+								getMountPath(), parameter, value);
+						values[i] = safeValue;
+					}
+				}
+			}
+		}
+
 		return super.decode(requestParameters);
+	}
+
+	/**
+	 * @see org.apache.wicket.request.target.coding.AbstractRequestTargetUrlCodingStrategy#appendParameters(org.apache.wicket.util.string.AppendingStringBuffer,
+	 *      java.util.Map)
+	 */
+	@Override
+	protected void appendParameters(AppendingStringBuffer url, Map<String, ?> parameters)
+	{
+		if (!url.endsWith("/"))
+		{
+			url.append("/");
+		}
+
+		Set<String> parameterNamesToAdd = new HashSet<String>(parameters.keySet());
+
+		// Find index of last specified parameter
+		boolean foundParameter = false;
+		int lastSpecifiedParameter = parameterNames.length;
+		while (lastSpecifiedParameter != 0 && !foundParameter)
+		{
+			foundParameter = parameters.containsKey(parameterNames[--lastSpecifiedParameter]);
+		}
+
+		if (foundParameter)
+		{
+			for (int i = 0; i <= lastSpecifiedParameter; i++)
+			{
+				String parameterName = parameterNames[i];
+				final Object param = parameters.get(parameterName);
+				String value = param instanceof String[] ? ((String[])param)[0] : ((param == null)
+					? null : param.toString());
+				if (value == null)
+				{
+					value = "";
+				}
+				if (!url.endsWith("/"))
+				{
+					url.append("/");
+				}
+				url.append(urlEncodePathComponent(value));
+				parameterNamesToAdd.remove(parameterName);
+			}
+		}
+
+		if (!parameterNamesToAdd.isEmpty())
+		{
+			boolean first = true;
+			for (String parameterName : parameterNamesToAdd)
+			{
+				final Object param = parameters.get(parameterName);
+				if (param instanceof String[]) {
+					String [] values = (String[]) param;
+					for (String value : values) {
+						url.append(first ? '?' : '&');
+						url.append(urlEncodeQueryComponent(parameterName)).append("=").append(
+								urlEncodeQueryComponent(value));
+						first = false;
+					}
+				} else {
+					url.append(first ? '?' : '&');
+					String value = String.valueOf(param);
+					url.append(urlEncodeQueryComponent(parameterName)).append("=").append(
+						urlEncodeQueryComponent(value));
+				}
+				first = false;
+			}
+		}
 	}
 }

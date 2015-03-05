@@ -17,9 +17,11 @@ package com.gitblit.wicket.panels;
 
 import java.util.List;
 
+import org.apache.wicket.RequestCycle;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
@@ -29,13 +31,13 @@ import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.Repository;
 
 import com.gitblit.models.RefModel;
+import com.gitblit.servlet.RawServlet;
 import com.gitblit.utils.JGitUtils;
 import com.gitblit.utils.StringUtils;
 import com.gitblit.wicket.WicketUtils;
 import com.gitblit.wicket.pages.BlobPage;
 import com.gitblit.wicket.pages.CommitPage;
 import com.gitblit.wicket.pages.LogPage;
-import com.gitblit.wicket.pages.RawPage;
 import com.gitblit.wicket.pages.TagPage;
 import com.gitblit.wicket.pages.TagsPage;
 import com.gitblit.wicket.pages.TreePage;
@@ -96,9 +98,13 @@ public class TagsPanel extends BasePanel {
 				if (linkClass.equals(BlobPage.class)) {
 					// Blob Tag Object
 					item.add(WicketUtils.newImage("tagIcon", "file_16x16.png"));
-					item.add(new LinkPanel("tagDescription", "list", message, TagPage.class,
+					LinkPanel messageLink = new LinkPanel("tagDescription", "list", message, TagPage.class,
 							WicketUtils.newObjectParameter(repositoryName, entry.getObjectId()
-									.getName())));
+									.getName()));
+					if (!entry.getShortMessage().equals(message)) {
+						messageLink.setTooltip(entry.getShortMessage());
+					}
+					item.add(messageLink);
 
 					Fragment fragment = new Fragment("tagLinks", "blobLinks", this);
 					fragment.add(new BookmarkablePageLink<Void>("tag", TagPage.class, WicketUtils
@@ -109,18 +115,23 @@ public class TagsPanel extends BasePanel {
 							.newObjectParameter(repositoryName, entry.getReferencedObjectId()
 									.getName())));
 
-					fragment.add(new BookmarkablePageLink<Void>("raw", RawPage.class, WicketUtils
-							.newObjectParameter(repositoryName, entry.getReferencedObjectId()
-									.getName())));
+					String contextUrl = RequestCycle.get().getRequest().getRelativePathPrefixToContextRoot();
+					String rawUrl = RawServlet.asLink(contextUrl, repositoryName, entry.displayName,
+							entry.getReferencedObjectId().getName());
+					fragment.add(new ExternalLink("raw", rawUrl));
 					item.add(fragment);
 				} else {
 					// TODO Tree Tag Object
 					// Standard Tag Object
 					if (entry.isAnnotatedTag()) {
 						item.add(WicketUtils.newImage("tagIcon", "tag_16x16.png"));
-						item.add(new LinkPanel("tagDescription", "list", message, TagPage.class,
+						LinkPanel messageLink = new LinkPanel("tagDescription", "list", message, TagPage.class,
 								WicketUtils.newObjectParameter(repositoryName, entry.getObjectId()
-										.getName())));
+										.getName()));
+						if (!message.equals(entry.getShortMessage())) {
+							messageLink.setTooltip(entry.getShortMessage());
+						}
+						item.add(messageLink);
 
 						Fragment fragment = new Fragment("tagLinks", "annotatedLinks", this);
 						fragment.add(new BookmarkablePageLink<Void>("tag", TagPage.class,

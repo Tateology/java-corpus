@@ -21,10 +21,17 @@ import static org.pegdown.Extensions.SMARTYPANTS;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
+import java.text.MessageFormat;
 
 import org.apache.commons.io.IOUtils;
 import org.pegdown.LinkRenderer;
+import org.pegdown.ParsingTimeoutException;
 import org.pegdown.PegDownProcessor;
+import org.pegdown.ast.RootNode;
+
+import com.gitblit.IStoredSettings;
+import com.gitblit.Keys;
+import com.gitblit.wicket.MarkupProcessor.WorkaroundHtmlSerializer;
 
 /**
  * Utility methods for transforming raw markdown text to html.
@@ -68,9 +75,13 @@ public class MarkdownUtils {
 	 * @throws java.text.ParseException
 	 */
 	public static String transformMarkdown(String markdown, LinkRenderer linkRenderer) {
-		PegDownProcessor pd = new PegDownProcessor(ALL & ~SMARTYPANTS);
-		String html = pd.markdownToHtml(markdown, linkRenderer == null ? new LinkRenderer() : linkRenderer);
-		return html;
+		try {
+			PegDownProcessor pd = new PegDownProcessor(ALL & ~SMARTYPANTS);
+			RootNode astRoot = pd.parseMarkdown(markdown.toCharArray());
+			return new WorkaroundHtmlSerializer(linkRenderer == null ? new LinkRenderer() : linkRenderer).toHtml(astRoot);
+		} catch (ParsingTimeoutException e) {
+			return null;
+		}
 	}
 
 	/**
@@ -95,5 +106,50 @@ public class MarkdownUtils {
 				// IGNORE
 			}
 		}
+	}
+
+
+	/**
+	 * Transforms GFM (Github Flavored Markdown) to html.
+	 * Gitblit does not support the complete GFM specification.
+	 *
+	 * @param input
+	 * @param repositoryName
+	 * @return html
+	 */
+	public static String transformGFM(IStoredSettings settings, String input, String repositoryName) {
+		String text = input;
+
+		// strikethrough
+		text = text.replaceAll("~~(.*)~~", "<s>$1</s>");
+		text = text.replaceAll("\\{(?:-){2}(.*)(?:-){2}}", "<s>$1</s>");
+
+		// underline
+		text = text.replaceAll("\\{(?:\\+){2}(.*)(?:\\+){2}}", "<u>$1</u>");
+
+		// strikethrough, replacement
+		text = text.replaceAll("\\{~~(.*)~>(.*)~~}", "<s>$1</s><u>$2</u>");
+
+		// highlight
+		text = text.replaceAll("\\{==(.*)==}", "<span class='highlight'>$1</span>");
+
+		String canonicalUrl = settings.getString(Keys.web.canonicalUrl, "https://localhost:8443");
+
+		// emphasize and link mentions
+		String mentionReplacement = String.format(" **[@$1](%1s/user/$1)**", canonicalUrl);
+		text = text.replaceAll("\\s@([A-Za-z0-9-_]+)", mentionReplacement);
+
+		// link ticket refs
+		String ticketReplacement = MessageFormat.format("$1[#$2]({0}/tickets?r={1}&h=$2)$3", canonicalUrl, repositoryName);
+		text = text.replaceAll("([\\s,]+)#(\\d+)([\\s,:\\.\\n])", ticketReplacement);
+
+		// link commit shas
+		int shaLen = settings.getInteger(Keys.web.shortCommitIdLength, 6);
+		String commitPattern = MessageFormat.format("\\s([A-Fa-f0-9]'{'{0}'}')([A-Fa-f0-9]'{'{1}'}')", shaLen, 40 - shaLen);
+		String commitReplacement = String.format(" [`$1`](%1$s/commit?r=%2$s&h=$1$2)", canonicalUrl, repositoryName);
+		text = text.replaceAll(commitPattern, commitReplacement);
+
+		String html = transformMarkdown(text);
+		return html;
 	}
 }

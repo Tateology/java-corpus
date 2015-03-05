@@ -22,10 +22,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import javax.servlet.http.HttpServlet;
-
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -35,20 +31,22 @@ import org.slf4j.LoggerFactory;
 import com.gitblit.Constants;
 import com.gitblit.IStoredSettings;
 import com.gitblit.Keys;
+import com.gitblit.dagger.DaggerServlet;
 import com.gitblit.manager.IProjectManager;
 import com.gitblit.manager.IRepositoryManager;
-import com.gitblit.manager.IRuntimeManager;
 import com.gitblit.models.FeedEntryModel;
 import com.gitblit.models.ProjectModel;
 import com.gitblit.models.RefModel;
 import com.gitblit.models.RepositoryModel;
 import com.gitblit.models.UserModel;
 import com.gitblit.servlet.AuthenticationFilter.AuthenticatedRequest;
+import com.gitblit.utils.BugtraqProcessor;
 import com.gitblit.utils.HttpUtils;
 import com.gitblit.utils.JGitUtils;
-import com.gitblit.utils.MessageProcessor;
 import com.gitblit.utils.StringUtils;
 import com.gitblit.utils.SyndicationUtils;
+
+import dagger.ObjectGraph;
 
 /**
  * SyndicationServlet generates RSS 2.0 feeds and feed links.
@@ -58,29 +56,23 @@ import com.gitblit.utils.SyndicationUtils;
  * @author James Moger
  *
  */
-@Singleton
-public class SyndicationServlet extends HttpServlet {
+public class SyndicationServlet extends DaggerServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	private transient Logger logger = LoggerFactory.getLogger(SyndicationServlet.class);
 
-	private final IStoredSettings settings;
+	private IStoredSettings settings;
 
-	private final IRepositoryManager repositoryManager;
+	private IRepositoryManager repositoryManager;
 
-	private final IProjectManager projectManager;
+	private IProjectManager projectManager;
 
-	@Inject
-	public SyndicationServlet(
-			IRuntimeManager runtimeManager,
-			IRepositoryManager repositoryManager,
-			IProjectManager projectManager) {
-
-		super();
-		this.settings = runtimeManager.getSettings();
-		this.repositoryManager = repositoryManager;
-		this.projectManager = projectManager;
+	@Override
+	protected void inject(ObjectGraph dagger) {
+		this.settings = dagger.get(IStoredSettings.class);
+		this.repositoryManager = dagger.get(IRepositoryManager.class);
+		this.projectManager = dagger.get(IProjectManager.class);
 	}
 
 	/**
@@ -156,7 +148,7 @@ public class SyndicationServlet extends HttpServlet {
 
 		String servletUrl = request.getContextPath() + request.getServletPath();
 		String url = request.getRequestURI().substring(servletUrl.length());
-		if (url.charAt(0) == '/' && url.length() > 1) {
+		if (url.length() > 1 && url.charAt(0) == '/') {
 			url = url.substring(1);
 		}
 		String repositoryName = url;
@@ -171,6 +163,15 @@ public class SyndicationServlet extends HttpServlet {
 				searchType = type;
 			}
 		}
+
+		Constants.FeedObjectType objectType = Constants.FeedObjectType.COMMIT;
+		if (!StringUtils.isEmpty(request.getParameter("ot"))) {
+			Constants.FeedObjectType type = Constants.FeedObjectType.forName(request.getParameter("ot"));
+			if (type != null) {
+				objectType = type;
+			}
+		}
+
 		int length = settings.getInteger(Keys.web.syndicationEntries, 25);
 		if (StringUtils.isEmpty(objectId)) {
 			objectId = org.eclipse.jgit.lib.Constants.HEAD;
@@ -192,7 +193,7 @@ public class SyndicationServlet extends HttpServlet {
 		response.setContentType("application/rss+xml; charset=UTF-8");
 
 		boolean isProjectFeed = false;
-		String feedName = null;
+		String feedName = "Gitblit";
 		String feedTitle = null;
 		String feedDescription = null;
 
@@ -222,15 +223,11 @@ public class SyndicationServlet extends HttpServlet {
 
 
 		boolean mountParameters = settings.getBoolean(Keys.web.mountParameters, true);
-		String urlPattern;
-		if (mountParameters) {
-			// mounted parameters
-			urlPattern = "{0}/commit/{1}/{2}";
-		} else {
-			// parameterized parameters
-			urlPattern = "{0}/commit/?r={1}&h={2}";
+
+		String gitblitUrl = settings.getString(Keys.web.canonicalUrl, null);
+		if (StringUtils.isEmpty(gitblitUrl)) {
+			gitblitUrl = HttpUtils.getGitblitURL(request);
 		}
-		String gitblitUrl = HttpUtils.getGitblitURL(request);
 		char fsc = settings.getChar(Keys.web.forwardSlashCharacter, '/');
 
 		List<FeedEntryModel> entries = new ArrayList<FeedEntryModel>();
@@ -240,7 +237,7 @@ public class SyndicationServlet extends HttpServlet {
 			RepositoryModel model = repositoryManager.getRepositoryModel(name);
 
 			if (repository == null) {
-				if (model.isCollectingGarbage) {
+				if (model != null && model.isCollectingGarbage) {
 					logger.warn(MessageFormat.format("Temporarily excluding {0} from feed, busy collecting garbage", name));
 				}
 				continue;
@@ -252,47 +249,92 @@ public class SyndicationServlet extends HttpServlet {
 				feedDescription = model.description;
 			}
 
-			List<RevCommit> commits;
-			if (StringUtils.isEmpty(searchString)) {
-				// standard log/history lookup
-				commits = JGitUtils.getRevLog(repository, objectId, offset, length);
+			if (objectType == Constants.FeedObjectType.TAG) {
+
+				String urlPattern;
+				if (mountParameters) {
+					// mounted parameters
+					urlPattern = "{0}/tag/{1}/{2}";
+				} else {
+					// parameterized parameters
+					urlPattern = "{0}/tag/?r={1}&h={2}";
+				}
+
+				List<RefModel> tags = JGitUtils.getTags(repository, false, length, offset);
+
+				for (RefModel tag : tags) {
+					FeedEntryModel entry = new FeedEntryModel();
+					entry.title = tag.getName();
+					entry.author = tag.getAuthorIdent().getName();
+					entry.link = MessageFormat.format(urlPattern, gitblitUrl,
+							StringUtils.encodeURL(model.name.replace('/', fsc)), tag.getObjectId().getName());
+					entry.published = tag.getDate();
+					entry.contentType = "text/html";
+					entry.content = tag.getFullMessage();
+					entry.repository = model.name;
+					entry.branch = objectId;
+
+					entry.tags = new ArrayList<String>();
+
+					// add tag id and referenced commit id
+					entry.tags.add("tag:" + tag.getObjectId().getName());
+					entry.tags.add("commit:" + tag.getReferencedObjectId().getName());
+
+					entries.add(entry);
+				}
 			} else {
-				// repository search
-				commits = JGitUtils.searchRevlogs(repository, objectId, searchString, searchType,
-						offset, length);
-			}
-			Map<ObjectId, List<RefModel>> allRefs = JGitUtils.getAllRefs(repository, model.showRemoteBranches);
-			MessageProcessor processor = new MessageProcessor(settings);
 
-			// convert RevCommit to SyndicatedEntryModel
-			for (RevCommit commit : commits) {
-				FeedEntryModel entry = new FeedEntryModel();
-				entry.title = commit.getShortMessage();
-				entry.author = commit.getAuthorIdent().getName();
-				entry.link = MessageFormat.format(urlPattern, gitblitUrl,
-						StringUtils.encodeURL(model.name.replace('/', fsc)), commit.getName());
-				entry.published = commit.getCommitterIdent().getWhen();
-				entry.contentType = "text/html";
-				String message = processor.processCommitMessage(model, commit.getFullMessage());
-				entry.content = message;
-				entry.repository = model.name;
-				entry.branch = objectId;
-				entry.tags = new ArrayList<String>();
-
-				// add commit id and parent commit ids
-				entry.tags.add("commit:" + commit.getName());
-				for (RevCommit parent : commit.getParents()) {
-					entry.tags.add("parent:" + parent.getName());
+				String urlPattern;
+				if (mountParameters) {
+					// mounted parameters
+					urlPattern = "{0}/commit/{1}/{2}";
+				} else {
+					// parameterized parameters
+					urlPattern = "{0}/commit/?r={1}&h={2}";
 				}
 
-				// add refs to tabs list
-				List<RefModel> refs = allRefs.get(commit.getId());
-				if (refs != null && refs.size() > 0) {
-					for (RefModel ref : refs) {
-						entry.tags.add("ref:" + ref.getName());
+				List<RevCommit> commits;
+				if (StringUtils.isEmpty(searchString)) {
+					// standard log/history lookup
+					commits = JGitUtils.getRevLog(repository, objectId, offset, length);
+				} else {
+					// repository search
+					commits = JGitUtils.searchRevlogs(repository, objectId, searchString, searchType,
+							offset, length);
+				}
+				Map<ObjectId, List<RefModel>> allRefs = JGitUtils.getAllRefs(repository, model.showRemoteBranches);
+				BugtraqProcessor processor = new BugtraqProcessor(settings);
+
+				// convert RevCommit to SyndicatedEntryModel
+				for (RevCommit commit : commits) {
+					FeedEntryModel entry = new FeedEntryModel();
+					entry.title = commit.getShortMessage();
+					entry.author = commit.getAuthorIdent().getName();
+					entry.link = MessageFormat.format(urlPattern, gitblitUrl,
+							StringUtils.encodeURL(model.name.replace('/', fsc)), commit.getName());
+					entry.published = commit.getCommitterIdent().getWhen();
+					entry.contentType = "text/html";
+					String message = processor.processCommitMessage(repository, model, commit.getFullMessage());
+					entry.content = message;
+					entry.repository = model.name;
+					entry.branch = objectId;
+					entry.tags = new ArrayList<String>();
+
+					// add commit id and parent commit ids
+					entry.tags.add("commit:" + commit.getName());
+					for (RevCommit parent : commit.getParents()) {
+						entry.tags.add("parent:" + parent.getName());
 					}
+
+					// add refs to tabs list
+					List<RefModel> refs = allRefs.get(commit.getId());
+					if (refs != null && refs.size() > 0) {
+						for (RefModel ref : refs) {
+							entry.tags.add("ref:" + ref.getName());
+						}
+					}
+					entries.add(entry);
 				}
-				entries.add(entry);
 			}
 		}
 

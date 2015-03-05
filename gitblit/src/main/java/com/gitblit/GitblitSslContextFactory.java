@@ -47,33 +47,14 @@ public class GitblitSslContextFactory extends SslContextFactory {
 
 		this.caRevocationList = caRevocationList;
 
-		// disable renegotiation unless this is a patched JVM
-		boolean allowRenegotiation = false;
-		String v = System.getProperty("java.version");
-		if (v.startsWith("1.7")) {
-			allowRenegotiation = true;
-		} else if (v.startsWith("1.6")) {
-			// 1.6.0_22 was first release with RFC-5746 implemented fix.
-			if (v.indexOf('_') > -1) {
-				String b = v.substring(v.indexOf('_') + 1);
-				if (Integer.parseInt(b) >= 22) {
-					allowRenegotiation = true;
-				}
-			}
-		}
-		if (allowRenegotiation) {
-			logger.info("   allowing SSL renegotiation on Java " + v);
-			setAllowRenegotiate(allowRenegotiation);
-		}
-
-
 		if (!StringUtils.isEmpty(certAlias)) {
 			logger.info("   certificate alias = " + certAlias);
 			setCertAlias(certAlias);
 		}
 		setKeyStorePassword(storePassword);
-		setTrustStore(clientTrustStore.getAbsolutePath());
+		setTrustStorePath(clientTrustStore.getAbsolutePath());
 		setTrustStorePassword(storePassword);
+		addExcludeProtocols("SSLv3");
 
 		logger.info("   keyStorePath   = " + keyStore.getAbsolutePath());
 		logger.info("   trustStorePath = " + clientTrustStore.getAbsolutePath());

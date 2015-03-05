@@ -1,0 +1,111 @@
+
+## Using the SSH transport
+
+*SINCE 1.5.0*
+
+The SSH transport is a very exciting improvement to Gitblit.  Aside from offering a simple password-less, public key workflow the SSH transport also allows exposes a new approach to interacting with Gitblit: SSH commands.  The Gerrit and Android projects have to be thanked for providing great base SSH code that Gitblit has integrated.
+
+You may watch an Asciinema screencast of using the SSH transport and it's command infrastructure [here](https://asciinema.org/a/9342).
+
+### Cloning & Pushing
+
+By default, Gitblit serves the SSH transport on port 29418, which is the same as Gerrit.  Why was 29418 chosen?  It's likely because it resembles the IANA port assigned to the git protocol (9418).
+
+Gitblit will authenticate using username/password or public keys.
+
+    git clone ssh://<username>@<hostname>:29418/myrepository.git
+
+### Setting up your account to use public key authentication
+
+Public key authentication allows you to operate in a password-less workflow and to separate your web login credentials from your git credentials.  Setting up public key authentication is very simple.  If you are working on Windows you'll need to install [Git for Windows](http://git-scm.com/download/win).
+
+First you'll need to create an SSH key pair, if you don't already have one or if you want to generate a new, separate key.
+
+    ssh-keygen
+
+**NOTE:** It is important to note that *ssh-keygen* generates a public/private keypair (e.g. id_rsa and id_rsa.pub).  You want to upload the *public* key, which is denoted by the *.pub* file extension.
+
+#### Uploading your public key from the command-line
+
+Then you can upload your *public* key right from the command-line.
+
+    cat ~/.ssh/id_rsa.pub | ssh -l <username> -p 29418 <hostname> keys add
+    cat c:\<userfolder>\.ssh\id_rsa.pub | ssh -l <username> -p 29418 <hostname> keys add
+
+#### Uploading your public key through the browser
+
+1. Navigate to your *profile* page from the dropdown user menu.
+2. Click the *SSH Keys* tab and paste your public key into the *Add SSH Key* form.
+3. Click the *Save* button
+
+Once you ave uploaded your public key you should be able to execute the following command without a password prompt.
+
+    ssh -l <username> -p 29418 <hostname>
+
+### Setting up an SSH alias
+
+Typing the following command syntax all the time gets to be rather tedious.
+
+    ssh -l <username> -p 29418 <hostname>
+
+You can define an alias for your server which will reduce your command syntax to something like this.
+
+    ssh <alias>
+
+Create or modify your `~/.ssh/config` file and add a host entry.  If you are on Windows, you'll want to create or modify `<userfolder>\.ssh\config`, where *userfolder* is dependent on your version of Windows.  Most recently this is `c:\users\<userfolder>`.
+
+    Host <alias>
+        IdentityFile ~/.ssh/id_rsa
+        User <username>
+        Port 29418
+        HostName <hostname>
+
+### SSH Commands
+
+Gitblit supports SSH command plugins and provides several commands out-of-the-box.
+
+#### keys
+
+The *keys* command dispatcher allows you to manage your public ssh keys.  You can list keys, add keys, remove keys, and identify the key in-use for the active session.
+
+##### keys add
+
+Add an SSH public key to your account.  This command accepts a public key piped to stdin.
+
+    cat ~/.ssh/id_rsa.pub | ssh -l <username> -p 29418 <hostname> keys add
+
+##### keys list
+
+Show the SSH public keys you have added to your account.
+
+    ssh -l <username> -p 29418 <hostname> keys list
+
+##### keys remove
+
+Remove an SSH public key from your account.  This command accepts several input values, the most useful one is an index number which matches the index number displayed in the `list` command.
+
+    ssh -l <username> -p 29418 <hostname> keys remove 2
+
+You can also remove all your public keys from your account.
+
+    ssh -l <username> -p 29418 <hostname> keys remove ALL
+
+##### keys permission
+
+You may control the access permission for each SSH key.  This is more of a safety feature than a security measure.
+
+| Permission | Description                                     |
+| ---------- | ----------------------------------------------- |
+| V          | SSH key may not be used for clone/fetch or push |
+| R          | SSH key may be used to clone/fetch              |
+| RW         | SSH key may be used to clone/fetch and push     |
+
+### Mac OSX Fonts
+
+Many of Gitblit's SSH commands rely on ANSI border characters to provide a pretty presentation of data.  Unfortunately, the fonts provided by Apple - while very nice - don't work well with ANSI border characters.  The following public domain fixed-width, fixed-point, bitmapped fonts work very nicely.  I find the 6x12 font with a line spacing of ~0.8 to be quite acceptable.
+
+[6x12.dfont](6x12.dfont)
+[6x13.dfont](6x13.dfont)
+[7x13.dfont](7x13.dfont)
+[7x14.dfont](7x14.dfont)
+

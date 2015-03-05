@@ -17,10 +17,11 @@ package com.gitblit.wicket;
 
 import java.util.Date;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.wicket.protocol.http.IWebApplicationFactory;
+import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.protocol.http.WicketFilter;
 import org.apache.wicket.util.string.Strings;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -36,6 +37,8 @@ import com.gitblit.models.RepositoryModel;
 import com.gitblit.utils.JGitUtils;
 import com.gitblit.utils.StringUtils;
 
+import dagger.ObjectGraph;
+
 /**
  *
  * Customization of the WicketFilter to allow smart browser-side caching of
@@ -44,28 +47,35 @@ import com.gitblit.utils.StringUtils;
  * @author James Moger
  *
  */
-@Singleton
 public class GitblitWicketFilter extends DaggerWicketFilter {
 
-	private final IStoredSettings settings;
+	private IStoredSettings settings;
 
-	private final IRuntimeManager runtimeManager;
+	private IRuntimeManager runtimeManager;
 
-	private final IRepositoryManager repositoryManager;
+	private IRepositoryManager repositoryManager;
 
-	private final IProjectManager projectManager;
+	private IProjectManager projectManager;
 
-	@Inject
-	public GitblitWicketFilter(
-			IRuntimeManager runtimeManager,
-			IRepositoryManager repositoryManager,
-			IProjectManager projectManager) {
+	private GitBlitWebApp webapp;
 
-		super();
-		this.settings = runtimeManager.getSettings();
-		this.runtimeManager = runtimeManager;
-		this.repositoryManager = repositoryManager;
-		this.projectManager = projectManager;
+	@Override
+	protected void inject(ObjectGraph dagger) {
+		this.settings = dagger.get(IStoredSettings.class);
+		this.runtimeManager = dagger.get(IRuntimeManager.class);
+		this.repositoryManager = dagger.get(IRepositoryManager.class);
+		this.projectManager = dagger.get(IProjectManager.class);
+		this.webapp = dagger.get(GitBlitWebApp.class);
+	}
+
+	@Override
+	protected IWebApplicationFactory getApplicationFactory() {
+		return new IWebApplicationFactory() {
+			@Override
+			public WebApplication createApplication(WicketFilter filter) {
+				return webapp;
+			}
+		};
 	}
 
 	/**

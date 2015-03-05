@@ -31,6 +31,7 @@ import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 
 import com.gitblit.models.PathModel;
+import com.gitblit.servlet.RawServlet;
 import com.gitblit.utils.ByteFormat;
 import com.gitblit.utils.JGitUtils;
 import com.gitblit.utils.StringUtils;
@@ -48,19 +49,23 @@ public class DocsPage extends RepositoryPage {
 	public DocsPage(PageParameters params) {
 		super(params);
 
-		MarkupProcessor processor = new MarkupProcessor(app().settings());
+		String objectId = WicketUtils.getObject(params);
+
+		MarkupProcessor processor = new MarkupProcessor(app().settings(), app().xssFilter());
 
 		Repository r = getRepository();
-		RevCommit head = JGitUtils.getCommit(r, null);
+		RevCommit head = JGitUtils.getCommit(r, objectId);
 		final String commitId = getBestCommitId(head);
+
 		List<String> extensions = processor.getAllExtensions();
 		List<PathModel> paths = JGitUtils.getDocuments(r, extensions);
 
 		List<MarkupDocument> roots = processor.getRootDocs(r, repositoryName, commitId);
 		Fragment fragment = null;
 		if (roots.isEmpty()) {
-			// no identified root documents just show the standard document list
+			// no identified root documents
 			fragment = new Fragment("docs", "noIndexFragment", this);
+			setResponsePage(NoDocsPage.class, params);
 		} else {
 			// root documents, use tabbed ui of index/root and document list
 			fragment = new Fragment("docs", "tabsFragment", this);
@@ -102,8 +107,8 @@ public class DocsPage extends RepositoryPage {
 							WicketUtils.newPathParameter(repositoryName, commitId, doc.documentPath)));
 					item.add(new BookmarkablePageLink<Void>("historyLink", HistoryPage.class,
 							WicketUtils.newPathParameter(repositoryName, commitId, doc.documentPath)));
-					item.add(new BookmarkablePageLink<Void>("rawLink", RawPage.class, WicketUtils.newPathParameter(
-							repositoryName, commitId, doc.documentPath)));
+					String rawUrl = RawServlet.asLink(getContextUrl(), repositoryName, commitId, doc.documentPath);
+					item.add(new ExternalLink("rawLink", rawUrl));
 
 					// document content
 					String file = StringUtils.getLastPathElement(doc.documentPath);
@@ -125,7 +130,6 @@ public class DocsPage extends RepositoryPage {
 		}
 
 		// document list
-		final String id = getBestCommitId(head);
 		final ByteFormat byteFormat = new ByteFormat();
 		Fragment docs = new Fragment("documents", "documentsFragment", this);
 		ListDataProvider<PathModel> pathsDp = new ListDataProvider<PathModel>(paths);
@@ -138,18 +142,18 @@ public class DocsPage extends RepositoryPage {
 				PathModel entry = item.getModelObject();
 				item.add(WicketUtils.newImage("docIcon", "file_world_16x16.png"));
 				item.add(new Label("docSize", byteFormat.format(entry.size)));
-				item.add(new LinkPanel("docName", "list", entry.name, DocPage.class, WicketUtils
-						.newPathParameter(repositoryName, id, entry.path)));
+				item.add(new LinkPanel("docName", "list", StringUtils.stripFileExtension(entry.name),
+						DocPage.class, WicketUtils.newPathParameter(repositoryName, commitId, entry.path)));
 
 				// links
 				item.add(new BookmarkablePageLink<Void>("view", DocPage.class, WicketUtils
-						.newPathParameter(repositoryName, id, entry.path)));
-				item.add(new BookmarkablePageLink<Void>("raw", RawPage.class, WicketUtils
-						.newPathParameter(repositoryName, id, entry.path)));
+						.newPathParameter(repositoryName, commitId, entry.path)));
+				String rawUrl = RawServlet.asLink(getContextUrl(), repositoryName, commitId, entry.path);
+				item.add(new ExternalLink("raw", rawUrl));
 				item.add(new BookmarkablePageLink<Void>("blame", BlamePage.class, WicketUtils
-						.newPathParameter(repositoryName, id, entry.path)));
+						.newPathParameter(repositoryName, commitId, entry.path)));
 				item.add(new BookmarkablePageLink<Void>("history", HistoryPage.class, WicketUtils
-						.newPathParameter(repositoryName, id, entry.path)));
+						.newPathParameter(repositoryName, commitId, entry.path)));
 				WicketUtils.setAlternatingBackground(item, counter);
 				counter++;
 			}
@@ -163,4 +167,10 @@ public class DocsPage extends RepositoryPage {
 	protected String getPageName() {
 		return getString("gb.docs");
 	}
+
+	@Override
+	protected boolean isCommitPage() {
+		return true;
+	}
+
 }

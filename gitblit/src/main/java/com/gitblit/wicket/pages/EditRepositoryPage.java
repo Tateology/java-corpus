@@ -29,25 +29,27 @@ import java.util.Set;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormChoiceComponentUpdatingBehavior;
-import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.extensions.markup.html.form.palette.Palette;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.CheckBox;
+import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
-import org.apache.wicket.markup.html.form.RadioChoice;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.util.CollectionModel;
 import org.apache.wicket.model.util.ListModel;
+import org.eclipse.jgit.lib.Repository;
 
 import com.gitblit.Constants;
 import com.gitblit.Constants.AccessRestrictionType;
@@ -59,18 +61,29 @@ import com.gitblit.GitBlitException;
 import com.gitblit.Keys;
 import com.gitblit.models.RegistrantAccessPermission;
 import com.gitblit.models.RepositoryModel;
+import com.gitblit.models.UserChoice;
 import com.gitblit.models.UserModel;
 import com.gitblit.utils.ArrayUtils;
 import com.gitblit.utils.StringUtils;
 import com.gitblit.wicket.GitBlitWebSession;
 import com.gitblit.wicket.StringChoiceRenderer;
 import com.gitblit.wicket.WicketUtils;
+import com.gitblit.wicket.panels.AccessPolicyPanel;
+import com.gitblit.wicket.panels.BasePanel.JavascriptEventConfirmation;
+import com.gitblit.wicket.panels.BooleanOption;
 import com.gitblit.wicket.panels.BulletListPanel;
+import com.gitblit.wicket.panels.ChoiceOption;
 import com.gitblit.wicket.panels.RegistrantPermissionsPanel;
+import com.gitblit.wicket.panels.RepositoryNamePanel;
+import com.gitblit.wicket.panels.TextOption;
 
 public class EditRepositoryPage extends RootSubPage {
 
 	private final boolean isCreate;
+
+	RepositoryNamePanel namePanel;
+
+	AccessPolicyPanel accessPolicyPanel;
 
 	private boolean isAdmin;
 
@@ -172,10 +185,29 @@ public class EditRepositoryPage extends RootSubPage {
 				RegistrantType.TEAM, app().users().getAllTeamNames(), repositoryTeams, getAccessPermissions());
 
 		// owners palette
-		List<String> owners = new ArrayList<String>(repositoryModel.owners);
-		List<String> persons = app().users().getAllUsernames();
-		final Palette<String> ownersPalette = new Palette<String>("owners", new ListModel<String>(owners), new CollectionModel<String>(
-		      persons), new StringChoiceRenderer(), 12, true);
+		List<UserChoice> owners = new ArrayList<UserChoice>();
+		List<UserChoice> persons = new ArrayList<UserChoice>();
+		for (String owner : repositoryModel.owners) {
+			UserModel o = app().users().getUserModel(owner);
+			if (o != null) {
+				owners.add(new UserChoice(o.getDisplayName(), o.username, o.emailAddress));
+			} else {
+				UserChoice userChoice = new UserChoice(owner);
+				owners.add(userChoice);
+				persons.add(userChoice);
+			}
+		}
+
+		for (String person : app().users().getAllUsernames()) {
+			UserModel o = app().users().getUserModel(person);
+			if (o != null) {
+				persons.add(new UserChoice(o.getDisplayName(), o.username, o.emailAddress));
+			} else {
+				persons.add(new UserChoice(person));
+			}
+		}
+		final Palette<UserChoice> ownersPalette = new Palette<UserChoice>("owners", new ListModel<UserChoice>(owners), new CollectionModel<UserChoice>(
+		      persons), new ChoiceRenderer<UserChoice>(null, "userId"), 12, false);
 
 		// indexed local branches palette
 		List<String> allLocalBranches = new ArrayList<String>();
@@ -242,59 +274,8 @@ public class EditRepositoryPage extends RootSubPage {
 			@Override
 			protected void onSubmit() {
 				try {
-					// confirm a repository name was entered
-					if (repositoryModel.name == null && StringUtils.isEmpty(repositoryModel.name)) {
-						error(getString("gb.pleaseSetRepositoryName"));
+					if (!namePanel.updateModel(repositoryModel)) {
 						return;
-					}
-
-					// ensure name is trimmed
-					repositoryModel.name = repositoryModel.name.trim();
-
-					// automatically convert backslashes to forward slashes
-					repositoryModel.name = repositoryModel.name.replace('\\', '/');
-					// Automatically replace // with /
-					repositoryModel.name = repositoryModel.name.replace("//", "/");
-
-					// prohibit folder paths
-					if (repositoryModel.name.startsWith("/")) {
-						error(getString("gb.illegalLeadingSlash"));
-						return;
-					}
-					if (repositoryModel.name.startsWith("../")) {
-						error(getString("gb.illegalRelativeSlash"));
-						return;
-					}
-					if (repositoryModel.name.contains("/../")) {
-						error(getString("gb.illegalRelativeSlash"));
-						return;
-					}
-					if (repositoryModel.name.endsWith("/")) {
-						repositoryModel.name = repositoryModel.name.substring(0, repositoryModel.name.length() - 1);
-					}
-
-					// confirm valid characters in repository name
-					Character c = StringUtils.findInvalidCharacter(repositoryModel.name);
-					if (c != null) {
-						error(MessageFormat.format(getString("gb.illegalCharacterRepositoryName"),
-								c));
-						return;
-					}
-
-					if (user.canCreate() && !user.canAdmin() && allowEditName) {
-						// ensure repository name begins with the user's path
-						if (!repositoryModel.name.startsWith(user.getPersonalPath())) {
-							error(MessageFormat.format(getString("gb.illegalPersonalRepositoryLocation"),
-									user.getPersonalPath()));
-							return;
-						}
-
-						if (repositoryModel.name.equals(user.getPersonalPath())) {
-							// reset path prefix and show error
-							repositoryModel.name = user.getPersonalPath() + "/";
-							error(getString("gb.pleaseSetRepositoryName"));
-							return;
-						}
 					}
 
 					// confirm access restriction selection
@@ -320,7 +301,9 @@ public class EditRepositoryPage extends RootSubPage {
 
 					// set author metric exclusions
 					String ax = metricAuthorExclusions.getObject();
-					if (!StringUtils.isEmpty(ax)) {
+					if (StringUtils.isEmpty(ax)) {
+						repositoryModel.metricAuthorExclusions = new ArrayList<String>();
+					} else {
 						Set<String> list = new HashSet<String>();
 						for (String exclusion : StringUtils.getStringsFromValue(ax,  " ")) {
 							if (StringUtils.isEmpty(exclusion)) {
@@ -337,7 +320,9 @@ public class EditRepositoryPage extends RootSubPage {
 
 					// set mailing lists
 					String ml = mailingLists.getObject();
-					if (!StringUtils.isEmpty(ml)) {
+					if (StringUtils.isEmpty(ml)) {
+						repositoryModel.mailingLists = new ArrayList<String>();
+					} else {
 						Set<String> list = new HashSet<String>();
 						for (String address : ml.split("(,|\\s)")) {
 							if (StringUtils.isEmpty(address)) {
@@ -358,9 +343,9 @@ public class EditRepositoryPage extends RootSubPage {
 
 					// owners
 					repositoryModel.owners.clear();
-					Iterator<String> owners = ownersPalette.getSelectedChoices();
+					Iterator<UserChoice> owners = ownersPalette.getSelectedChoices();
 					while (owners.hasNext()) {
-						repositoryModel.addOwner(owners.next());
+						repositoryModel.addOwner(owners.next().getUserId());
 					}
 
 					// pre-receive scripts
@@ -392,86 +377,108 @@ public class EditRepositoryPage extends RootSubPage {
 					}
 
 					// save the repository
-					app().repositories().updateRepositoryModel(oldName, repositoryModel, isCreate);
+					app().gitblit().updateRepositoryModel(oldName, repositoryModel, isCreate);
 
 					// repository access permissions
 					if (repositoryModel.accessRestriction.exceeds(AccessRestrictionType.NONE)) {
-						app().repositories().setUserAccessPermissions(repositoryModel, repositoryUsers);
-						app().repositories().setTeamAccessPermissions(repositoryModel, repositoryTeams);
+						app().gitblit().setUserAccessPermissions(repositoryModel, repositoryUsers);
+						app().gitblit().setTeamAccessPermissions(repositoryModel, repositoryTeams);
 					}
 				} catch (GitBlitException e) {
 					error(e.getMessage());
 					return;
 				}
 				setRedirect(false);
-				setResponsePage(RepositoriesPage.class);
+				setResponsePage(SummaryPage.class, WicketUtils.newRepositoryParameter(repositoryModel.name));
 			}
 		};
+
+		// Determine available refs & branches
+		List<String> availableRefs = new ArrayList<String>();
+		List<String> availableBranches = new ArrayList<String>();
+		if (!ArrayUtils.isEmpty(repositoryModel.availableRefs)) {
+			for (String ref : repositoryModel.availableRefs) {
+				if (!ref.startsWith(Constants.R_TICKET)) {
+					availableRefs.add(ref);
+					if (ref.startsWith(Constants.R_HEADS)) {
+						availableBranches.add(Repository.shortenRefName(ref));
+					}
+				}
+			}
+		}
 
 		// do not let the browser pre-populate these fields
 		form.add(new SimpleAttributeModifier("autocomplete", "off"));
 
-		// field names reflective match RepositoryModel fields
-		form.add(new TextField<String>("name").setEnabled(allowEditName));
-		form.add(new TextField<String>("description"));
+
+		//
+		//
+		// GENERAL
+		//
+		namePanel = new RepositoryNamePanel("namePanel", repositoryModel);
+		namePanel.setEditable(allowEditName);
+		form.add(namePanel);
+
+		// XXX AccessPolicyPanel is defined later.
+
+		form.add(new ChoiceOption<String>("head",
+				getString("gb.headRef"),
+				getString("gb.headRefDescription"),
+				new PropertyModel<String>(repositoryModel, "HEAD"),
+				availableRefs));
+
+
+		//
+		// PERMISSIONS
+		//
 		form.add(ownersPalette);
-		form.add(new CheckBox("allowForks").setEnabled(app().settings().getBoolean(Keys.web.allowForking, true)));
-		DropDownChoice<AccessRestrictionType> accessRestriction = new DropDownChoice<AccessRestrictionType>("accessRestriction",
-				AccessRestrictionType.choices(app().settings().getBoolean(Keys.git.allowAnonymousPushes, false)), new AccessRestrictionRenderer());
-		form.add(accessRestriction);
-		form.add(new CheckBox("isFrozen"));
-		// TODO enable origin definition
-		form.add(new TextField<String>("origin").setEnabled(false/* isCreate */));
-
-		// allow relinking HEAD to a branch or tag other than master on edit repository
-		List<String> availableRefs = new ArrayList<String>();
-		if (!ArrayUtils.isEmpty(repositoryModel.availableRefs)) {
-			availableRefs.addAll(repositoryModel.availableRefs);
-		}
-		form.add(new DropDownChoice<String>("HEAD", availableRefs).setEnabled(availableRefs.size() > 0));
-
-		boolean gcEnabled = app().settings().getBoolean(Keys.git.enableGarbageCollection, false);
-		List<Integer> gcPeriods = Arrays.asList(1, 2, 3, 4, 5, 7, 10, 14 );
-		form.add(new DropDownChoice<Integer>("gcPeriod", gcPeriods, new GCPeriodRenderer()).setEnabled(gcEnabled));
-		form.add(new TextField<String>("gcThreshold").setEnabled(gcEnabled));
-
-		// federation strategies - remove ORIGIN choice if this repository has
-		// no origin.
-		List<FederationStrategy> federationStrategies = new ArrayList<FederationStrategy>(
-				Arrays.asList(FederationStrategy.values()));
-		if (StringUtils.isEmpty(repositoryModel.origin)) {
-			federationStrategies.remove(FederationStrategy.FEDERATE_ORIGIN);
-		}
-		form.add(new DropDownChoice<FederationStrategy>("federationStrategy", federationStrategies,
-				new FederationTypeRenderer()));
-		form.add(new CheckBox("useIncrementalPushTags"));
-		form.add(new CheckBox("showRemoteBranches"));
-		form.add(new CheckBox("skipSizeCalculation"));
-		form.add(new CheckBox("skipSummaryMetrics"));
-		List<Integer> maxActivityCommits  = Arrays.asList(-1, 0, 25, 50, 75, 100, 150, 200, 250, 500 );
-		form.add(new DropDownChoice<Integer>("maxActivityCommits", maxActivityCommits, new MaxActivityCommitsRenderer()));
-
-		metricAuthorExclusions = new Model<String>(ArrayUtils.isEmpty(repositoryModel.metricAuthorExclusions) ? ""
-				: StringUtils.flattenStrings(repositoryModel.metricAuthorExclusions, " "));
-		form.add(new TextField<String>("metricAuthorExclusions", metricAuthorExclusions));
-
-		mailingLists = new Model<String>(ArrayUtils.isEmpty(repositoryModel.mailingLists) ? ""
-				: StringUtils.flattenStrings(repositoryModel.mailingLists, " "));
-		form.add(new TextField<String>("mailingLists", mailingLists));
-		form.add(indexedBranchesPalette);
-
-		List<AuthorizationControl> acList = Arrays.asList(AuthorizationControl.values());
-		final RadioChoice<AuthorizationControl> authorizationControl = new RadioChoice<Constants.AuthorizationControl>(
-				"authorizationControl", acList, new AuthorizationControlRenderer());
-		form.add(authorizationControl);
-
-		final CheckBox verifyCommitter = new CheckBox("verifyCommitter");
-		verifyCommitter.setOutputMarkupId(true);
-		form.add(verifyCommitter);
-
 		form.add(usersPalette);
 		form.add(teamsPalette);
-		form.add(federationSetsPalette);
+
+		//
+		// TICKETS
+		//
+		form.add(new BooleanOption("acceptNewPatchsets",
+				getString("gb.acceptNewPatchsets"),
+				getString("gb.acceptNewPatchsetsDescription"),
+				new PropertyModel<Boolean>(repositoryModel, "acceptNewPatchsets")));
+
+		form.add(new BooleanOption("acceptNewTickets",
+				getString("gb.acceptNewTickets"),
+				getString("gb.acceptNewTicketsDescription"),
+				new PropertyModel<Boolean>(repositoryModel, "acceptNewPatchsets")));
+
+		form.add(new BooleanOption("requireApproval",
+				getString("gb.requireApproval"),
+				getString("gb.requireApprovalDescription"),
+				new PropertyModel<Boolean>(repositoryModel, "requireApproval")));
+
+		form.add(new ChoiceOption<String>("mergeTo",
+				getString("gb.mergeTo"),
+				getString("gb.mergeToDescription"),
+				new PropertyModel<String>(repositoryModel, "mergeTo"),
+				availableBranches));
+
+		//
+		// RECEIVE
+		//
+		form.add(new BooleanOption("isFrozen",
+				getString("gb.isFrozen"),
+				getString("gb.isFrozenDescription"),
+				new PropertyModel<Boolean>(repositoryModel, "isFrozen")));
+
+		form.add(new BooleanOption("incrementalPushTags",
+				getString("gb.enableIncrementalPushTags"),
+				getString("gb.useIncrementalPushTagsDescription"),
+				new PropertyModel<Boolean>(repositoryModel, "useIncrementalPushTags")));
+
+		final CheckBox verifyCommitter = new CheckBox("checkbox", new PropertyModel<Boolean>(repositoryModel, "verifyCommitter"));
+		verifyCommitter.setOutputMarkupId(true);
+		form.add(new BooleanOption("verifyCommitter",
+				getString("gb.verifyCommitter"),
+				getString("gb.verifyCommitterDescription") + "<br/>" + getString("gb.verifyCommitterNote"),
+				verifyCommitter).setIsHtmlDescription(true));
+
 		form.add(preReceivePalette);
 		form.add(new BulletListPanel("inheritedPreReceive", getString("gb.inherited"), app().repositories()
 				.getPreReceiveScriptsInherited(repositoryModel)));
@@ -483,17 +490,125 @@ public class EditRepositoryPage extends RootSubPage {
 		customFieldsSection.add(customFieldsListView);
 		form.add(customFieldsSection.setVisible(!app().settings().getString(Keys.groovy.customFields, "").isEmpty()));
 
+		//
+		// FEDERATION
+		//
+		List<FederationStrategy> federationStrategies = new ArrayList<FederationStrategy>(
+				Arrays.asList(FederationStrategy.values()));
+		// federation strategies - remove ORIGIN choice if this repository has no origin.
+		if (StringUtils.isEmpty(repositoryModel.origin)) {
+			federationStrategies.remove(FederationStrategy.FEDERATE_ORIGIN);
+		}
+
+		form.add(new ChoiceOption<FederationStrategy>("federationStrategy",
+				getString("gb.federationStrategy"),
+				getString("gb.federationStrategyDescription"),
+				new DropDownChoice<FederationStrategy>(
+						"choice",
+						new PropertyModel<FederationStrategy>(repositoryModel, "federationStrategy"),
+						federationStrategies,
+						new FederationTypeRenderer())));
+
+		form.add(federationSetsPalette);
+
+		//
+		// SEARCH
+		//
+		form.add(indexedBranchesPalette);
+
+		//
+		// GARBAGE COLLECTION
+		//
+		boolean gcEnabled = app().settings().getBoolean(Keys.git.enableGarbageCollection, false);
+		int defaultGcPeriod = app().settings().getInteger(Keys.git.defaultGarbageCollectionPeriod, 7);
+		if (repositoryModel.gcPeriod == 0) {
+			repositoryModel.gcPeriod = defaultGcPeriod;
+		}
+		List<Integer> gcPeriods = Arrays.asList(1, 2, 3, 4, 5, 7, 10, 14 );
+		form.add(new ChoiceOption<Integer>("gcPeriod",
+				getString("gb.gcPeriod"),
+				getString("gb.gcPeriodDescription"),
+				new DropDownChoice<Integer>("choice",
+						new PropertyModel<Integer>(repositoryModel, "gcPeriod"),
+						gcPeriods,
+						new GCPeriodRenderer())).setEnabled(gcEnabled));
+
+		form.add(new TextOption("gcThreshold",
+				getString("gb.gcThreshold"),
+				getString("gb.gcThresholdDescription"),
+				"span1",
+				new PropertyModel<String>(repositoryModel, "gcThreshold")).setEnabled(gcEnabled));
+
+		//
+		// MISCELLANEOUS
+		//
+
+		form.add(new TextOption("origin",
+				getString("gb.origin"),
+				getString("gb.originDescription"),
+				"span6",
+				new PropertyModel<String>(repositoryModel, "origin")).setEnabled(false));
+
+		form.add(new BooleanOption("showRemoteBranches",
+				getString("gb.showRemoteBranches"),
+				getString("gb.showRemoteBranchesDescription"),
+				new PropertyModel<Boolean>(repositoryModel, "showRemoteBranches")));
+
+		form.add(new BooleanOption("skipSizeCalculation",
+				getString("gb.skipSizeCalculation"),
+				getString("gb.skipSizeCalculationDescription"),
+				new PropertyModel<Boolean>(repositoryModel, "skipSizeCalculation")));
+
+		form.add(new BooleanOption("skipSummaryMetrics",
+				getString("gb.skipSummaryMetrics"),
+				getString("gb.skipSummaryMetricsDescription"),
+				new PropertyModel<Boolean>(repositoryModel, "skipSummaryMetrics")));
+
+		List<Integer> maxActivityCommits  = Arrays.asList(-1, 0, 25, 50, 75, 100, 150, 200, 250, 500);
+		form.add(new ChoiceOption<Integer>("maxActivityCommits",
+				getString("gb.maxActivityCommits"),
+				getString("gb.maxActivityCommitsDescription"),
+				new DropDownChoice<Integer>("choice",
+						new PropertyModel<Integer>(repositoryModel, "maxActivityCommits"),
+						maxActivityCommits,
+						new MaxActivityCommitsRenderer())));
+
+		List<CommitMessageRenderer> renderers = Arrays.asList(CommitMessageRenderer.values());
+		form.add(new ChoiceOption<CommitMessageRenderer>("commitMessageRenderer",
+				getString("gb.commitMessageRenderer"),
+				getString("gb.commitMessageRendererDescription"),
+				new DropDownChoice<CommitMessageRenderer>("choice",
+						new PropertyModel<CommitMessageRenderer>(repositoryModel, "commitMessageRenderer"),
+						renderers)));
+
+		metricAuthorExclusions = new Model<String>(ArrayUtils.isEmpty(repositoryModel.metricAuthorExclusions) ? ""
+				: StringUtils.flattenStrings(repositoryModel.metricAuthorExclusions, " "));
+
+		form.add(new TextOption("metricAuthorExclusions",
+				getString("gb.metricAuthorExclusions"),
+				getString("gb.metricAuthorExclusions"),
+				"span6",
+				metricAuthorExclusions));
+
+		mailingLists = new Model<String>(ArrayUtils.isEmpty(repositoryModel.mailingLists) ? ""
+				: StringUtils.flattenStrings(repositoryModel.mailingLists, " "));
+
+		form.add(new TextOption("mailingLists",
+				getString("gb.mailingLists"),
+				getString("gb.mailingLists"),
+				"span6",
+				mailingLists));
+
+
 		// initial enable/disable of permission controls
 		if (repositoryModel.accessRestriction.equals(AccessRestrictionType.NONE)) {
 			// anonymous everything, disable all controls
 			usersPalette.setEnabled(false);
 			teamsPalette.setEnabled(false);
-			authorizationControl.setEnabled(false);
 			verifyCommitter.setEnabled(false);
 		} else {
 			// authenticated something
 			// enable authorization controls
-			authorizationControl.setEnabled(true);
 			verifyCommitter.setEnabled(true);
 
 			boolean allowFineGrainedControls = repositoryModel.authorizationControl.equals(AuthorizationControl.NAMED);
@@ -501,15 +616,18 @@ public class EditRepositoryPage extends RootSubPage {
 			teamsPalette.setEnabled(allowFineGrainedControls);
 		}
 
-		accessRestriction.add(new AjaxFormComponentUpdatingBehavior("onchange") {
+		//
+		// ACCESS POLICY PANEL (GENERAL)
+		//
+		AjaxFormChoiceComponentUpdatingBehavior callback = new AjaxFormChoiceComponentUpdatingBehavior() {
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			protected void onUpdate(AjaxRequestTarget target) {
-				// enable/disable permissions panel based on access restriction
+				accessPolicyPanel.updateModel(repositoryModel);
+
 				boolean allowAuthorizationControl = repositoryModel.accessRestriction.exceeds(AccessRestrictionType.NONE);
-				authorizationControl.setEnabled(allowAuthorizationControl);
 				verifyCommitter.setEnabled(allowAuthorizationControl);
 
 				boolean allowFineGrainedControls = allowAuthorizationControl && repositoryModel.authorizationControl.equals(AuthorizationControl.NAMED);
@@ -520,52 +638,74 @@ public class EditRepositoryPage extends RootSubPage {
 					repositoryModel.authorizationControl = AuthorizationControl.NAMED;
 				}
 
-				target.addComponent(authorizationControl);
 				target.addComponent(verifyCommitter);
 				target.addComponent(usersPalette);
 				target.addComponent(teamsPalette);
 			}
-		});
+		};
 
-		authorizationControl.add(new AjaxFormChoiceComponentUpdatingBehavior() {
+		accessPolicyPanel = new AccessPolicyPanel("accessPolicyPanel", repositoryModel, callback);
+		form.add(accessPolicyPanel);
 
-			private static final long serialVersionUID = 1L;
 
-			@Override
-			protected void onUpdate(AjaxRequestTarget target) {
-				// enable/disable permissions panel based on access restriction
-				boolean allowAuthorizationControl = repositoryModel.accessRestriction.exceeds(AccessRestrictionType.NONE);
-				authorizationControl.setEnabled(allowAuthorizationControl);
-
-				boolean allowFineGrainedControls = allowAuthorizationControl && repositoryModel.authorizationControl.equals(AuthorizationControl.NAMED);
-				usersPalette.setEnabled(allowFineGrainedControls);
-				teamsPalette.setEnabled(allowFineGrainedControls);
-
-				if (allowFineGrainedControls) {
-					repositoryModel.authorizationControl = AuthorizationControl.NAMED;
-				}
-
-				target.addComponent(authorizationControl);
-				target.addComponent(usersPalette);
-				target.addComponent(teamsPalette);
-			}
-		});
-
-		List<CommitMessageRenderer> renderers = Arrays.asList(CommitMessageRenderer.values());
-		DropDownChoice<CommitMessageRenderer> messageRendererChoice = new DropDownChoice<CommitMessageRenderer>("commitMessageRenderer", renderers);
-		form.add(messageRendererChoice);
-
+		//
+		// FORM CONTROLS
+		//
 		form.add(new Button("save"));
 		Button cancel = new Button("cancel") {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void onSubmit() {
-				setResponsePage(RepositoriesPage.class);
+				if (isCreate) {
+					setResponsePage(RepositoriesPage.class);
+				} else {
+					setResponsePage(SummaryPage.class, WicketUtils.newRepositoryParameter(repositoryModel.name));
+				}
 			}
 		};
 		cancel.setDefaultFormProcessing(false);
 		form.add(cancel);
+
+		// the user can delete if deletions are allowed AND the user is an admin or the personal owner
+		// assigned ownership is not sufficient to allow deletion
+		boolean canDelete = !isCreate && app().repositories().canDelete(repositoryModel)
+				&& (user.canAdmin() || user.isMyPersonalRepository(repositoryModel.name));
+
+		Link<Void> delete = new Link<Void>("delete") {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void onClick() {
+				RepositoryModel latestModel = app().repositories().getRepositoryModel(repositoryModel.name);
+				boolean canDelete = app().repositories().canDelete(latestModel);
+				if (canDelete) {
+					if (app().gitblit().deleteRepositoryModel(latestModel)) {
+						info(MessageFormat.format(getString("gb.repositoryDeleted"), latestModel));
+						if (latestModel.isPersonalRepository()) {
+							// redirect to user's profile page
+							String prefix = app().settings().getString(Keys.git.userRepositoryPrefix, "~");
+							String username = latestModel.projectPath.substring(prefix.length());
+							setResponsePage(UserPage.class, WicketUtils.newUsernameParameter(username));
+						} else {
+							// redirect to server repositories page
+							setResponsePage(RepositoriesPage.class);
+						}
+					} else {
+						error(MessageFormat.format(getString("gb.repositoryDeleteFailed"), latestModel));
+					}
+				} else {
+					error(MessageFormat.format(getString("gb.repositoryDeleteFailed"), latestModel));
+				}
+			}
+		};
+
+		if (canDelete) {
+			delete.add(new JavascriptEventConfirmation("onclick", MessageFormat.format(
+				getString("gb.deleteRepository"), repositoryModel)));
+		}
+		form.add(delete.setVisible(canDelete));
 
 		add(form);
 	}
@@ -616,26 +756,6 @@ public class EditRepositoryPage extends RootSubPage {
 		}
 	}
 
-	private class AccessRestrictionRenderer implements IChoiceRenderer<AccessRestrictionType> {
-
-		private static final long serialVersionUID = 1L;
-
-		private final Map<AccessRestrictionType, String> map;
-
-		public AccessRestrictionRenderer() {
-			map = getAccessRestrictions();
-		}
-
-		@Override
-		public String getDisplayValue(AccessRestrictionType type) {
-			return map.get(type);
-		}
-
-		@Override
-		public String getIdValue(AccessRestrictionType type, int index) {
-			return Integer.toString(index);
-		}
-	}
 
 	private class FederationTypeRenderer implements IChoiceRenderer<FederationStrategy> {
 
@@ -654,27 +774,6 @@ public class EditRepositoryPage extends RootSubPage {
 
 		@Override
 		public String getIdValue(FederationStrategy type, int index) {
-			return Integer.toString(index);
-		}
-	}
-
-	private class AuthorizationControlRenderer implements IChoiceRenderer<AuthorizationControl> {
-
-		private static final long serialVersionUID = 1L;
-
-		private final Map<AuthorizationControl, String> map;
-
-		public AuthorizationControlRenderer() {
-			map = getAuthorizationControls();
-		}
-
-		@Override
-		public String getDisplayValue(AuthorizationControl type) {
-			return map.get(type);
-		}
-
-		@Override
-		public String getIdValue(AuthorizationControl type, int index) {
 			return Integer.toString(index);
 		}
 	}

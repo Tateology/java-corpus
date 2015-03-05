@@ -1,35 +1,486 @@
 #
 # ${project.version} release
 #
-r20: {
+r27: {
     title: ${project.name} ${project.version} released
     id: ${project.version}
     date: ${project.buildDate}
-    note: "The default access restriction has been elevated from NONE to PUSH and anonymous push access has been disabled."
+    note: ~
+    html: ~
+    text: ~
+    security: ~
+    fixes: ~
+    changes: ~
+    additions: ~
+    dependencyChanges: ~
+    contributors: ~
+}
+
+#
+# 1.6.2 release
+#
+r26: {
+    title: Gitblit 1.6.2 released
+    id: 1.6.2
+    date: 2014-10-28
+    note: ~
     html: ~
     text: ~
     security: ~
     fixes:
+    - Fix French translation (pr-224, ticket-210)
+    - Fix raw servlet trashing paths with spaces (ticket-211)
+    - Fix PluginManager not properly respecting --noverify (ticket-209)
+    changes: ~
+    additions: ~
+    dependencyChanges: ~
+    contributors:
+    - Pierre Templier
+    - Barry Roberts 
+    - Jan Šmucr
+}
+
+#
+# 1.6.1 release
+#
+r25: {
+    title: Gitblit 1.6.1 released
+    id: 1.6.1
+    date: 2014-10-20
+    note: ''
+          The next major release (v1.7.0) will focus on:
+          * ticket-75: making projects more useful including the concept of project ownership
+          
+          This improvement will require a NON-BACKWARDS-COMPATIBLE migration of repository ownership from the RpeositoryModel to the UserModel
+          
+          * ticket-55: facilitating usage of tickets & git-flow in the web ui
+          ''
+    html: ~
+    text: ''
+          Highlights:
+          
+          * Dependency updates
+          * Many bug fixes
+          * GITBLIT_HOME environment variable support
+          ''
+    security:
+    - Sanitize page parameters, form fields, and markup for XSS vulnerabilities (issue-496, ticket-164)
+    - Fix flash security risk (issue-498, ticket-165)
+    - Fix XRF vulnerability (issue-500, ticket-166)
+    - Prohibit new forks from inadvertently disclosing view-restricted contents (issue-495, ticket-167)
+    - Restrict Gitblit's cookie to the context path (issue-507, ticket-187)
+    fixes:
+    - Fix NPE when two repository names differ only in case (pr-204, ticket-108)
+    - Fix API documentation links (issue-449, ticket-111)
+    - Fix internal error when specifying a blob url without a path (ticket-113)
+    - Fix milestone queries for hyphentated names (ticket-115)
+    - Fix duplicate repositories on dashboards (issue-454, ticket-117)
+    - Fix lower-case project names in RepositoryNamePanel (issue-509, ticket-118)
+    - Fix ticket notifications not sent when author doesn't have an email address (issue-423, ticket-132)
+    - Fix regression in create-ticket-on-push & clarify reported explanation (ticket-135)
+    - Fix redirects after ajax form submissions with Tomcat (issue-455, ticket-136)
+    - Fix potential NPE in Raw servlet (ticket-137)
+    - Fix Raw link path generation that does not respect web.forwardSlashCharacter (ticket-139)
+    - Do not log query parameter passwords when Redmine authentication fails (pr-215, ticket-466)
+    - Fix NPE in RepositoryNamePanel for anonymous admins (issue-490, ticket-147)
+    - Fix repo creation with initial commit when the creator does not have an email address (issue-458, ticket-149)
+    - Fix Edit Repository page missing owners from owners list (issue-480, ticket-150)
+    - Fix NPEs when handling tickets with non-existent milestones (ticket-152)
+    - Quote all Lucene query args that have non-alphanumberic characters (issue-483, issue-469, ticket-153)
+    - Fix 0-length files from raw servlet when file does not exist (issue-489, ticket-154)
+    - Fix raw servlet failures with long project names (issue-478, ticket-163)
+    - New ticket responsible selections are missing users with RW access (issue-476, ticket-170)
+    - Fix NPE in TicketListPanel due to missing repository (issue-451, ticket-171)
+    - Fix MigrateTickets failure for view-restricted repositories (issue-475, ticket-173)
+    - Fix repository deletion bug where the Lucene ticket index was not purged (issue-468, ticket-174)
+    - Fix Jenkins post-receive script repository url (pr-219, ticket-175)
+    - Fix potential NPE in retrieving a ticket comment (issue-503, ticket-179)
+    - Fix bug in migrating tickets to the BranchTicketService (issue-474, ticket-183)
+    - Fix failure to clear/delete a ticket topic and description (issue-505, ticket-188)
+    - Fix cropped ticket status indicators (ticket-197)
+    - Fix bug in raw servlet extracting repository out of the path (pr-222, ticket-203)
+    - Improve relative path determiniation using Java 7 Paths (issue-511, ticket-204)
+    changes:
+    - Remove git.streamFileThreshold setting and documentation (ticket-119)    
+    - Update Korean translation (pr-206, ticket-120)
+    - Add additional documentation for web.canonicalUrl (pr-205, issue-453, ticket-121)
+    - Remove Wicket references from non-Wicket packages (ticket-129)
+    - LDAP user accounts now clear email address when unset in LDAP (issue-456, ticket-134)
+    - Update French translation (pr-210, ticket-140)
+    - Update authentication documentation (pr-213, ticket-142)
+    - Pretty print Perl modules (pr-216, ticket-144)
+    - Pretty print C/C++ headers (pr-207, ticket-145)
+    - Do not stamp raw servlet responses with cache-control headers (issue-489, ticket-148)
+    - Treat UTF-9 and UTF-18 (both fake encodings) as UTF-8 (issue-486, ticket-151)
+    - Allow Lucene indexing period to be configurable (ticket-161)
+    - Do not display stacktraces for bad requests in servlets (issue-497, ticket-169)
+    - Preserve branch ref in commits, tree, and docs navbar links (issue-501, ticket-176)
+    - Disable Edit User Page permission checkboxes if admin/fork/create permission is inherited (issue-196, ticket-177)
+    - Explicitly declare page subclasses that reference commits (issue-503, ticket-180)
+    - Explicitly attempt to register BouncyCastle as a JCE provider (ticket-194)
+    - Treat .ico and .jpeg files as images (pr-221, ticket-202)
+    additions:
+    - Add support for GITBLIT_HOME as a -D system property (pr-212, ticket-141, ticket-185)
+    - Add support for GITBLIT_HOME as an environment variable (ticket-193)
+    - Add install script for Fedora (pr-207, ticket-146)
+    - Add NO CHANGE REQUIRED ticket status (ticket-182)
+    dependencyChanges:
+    - JGit 3.5.1
+    - Jetty 9.2.3
+    - SSHD 0.12.0
+    contributors:
+    - Sascha Vogt
+    - Ron Smits
+    - Eric Fairon
+    - Johnny Hughes
+    - Revi
+    - Kyle Gottfried
+    - Berke Viktor
+    - David Ostrovsky
+    - Romain Gagnaire
+    - Koen Serry
+    - Anthony O.
+    - mereth
+    - Michael Legart
+    - Soeren Grunewald
+    - Simon Santoro
+    - fgeorges
+    - robindengen
+    - Robert M. Roberson Jr.
+    - 1988porsche944
+    - Steffen Gebert
+    - gibwar
+    - gato84b
+    - jakob@jboysen
+    - ThanksForAllTheFish
+    - Stephan Krull
+    - jliedy
+    - Michael Glauche
+}
+
+#
+# 1.6.0 release
+#
+r24: {
+    title: Gitblit 1.6.0 released
+    id: 1.6.0
+    date: 2014-06-16
+    note: ''
+          The next major release (v1.7.0) will focus on:
+          * ticket-75: making projects more useful including the concept of project ownership
+          
+          This improvement will require a NON-BACKWARDS-COMPATIBLE migration of repository ownership from the RpeositoryModel to the UserModel
+          
+          * ticket-55: facilitating usage of tickets & git-flow in the web ui
+          ''
+    html: ~
+    text: ''
+          Highlights:
+          
+          * My Tickets page
+          * User Preferences web ui
+          * SSH key management web ui
+          * Basic CRUD pages for ticket milestones
+          * Overhaul repository creation, editing, and empty repository pages
+          
+          If you are upgrading, you might consider copying the data/gitignore folder to your ${baseFolder} to allow selection & injection of a .gitignore when creating a repository.
+          
+          The OpenShift Express build has been dropped. You can deploy GO or WAR on Express so this build is no longer necessary.
+          ''
+    security: ~
+    fixes:
+    - Allow ticket responsible selection if anonymous push is enabled (issue-425, ticket-71)
+    - Fix failure to generate SSH server keys on ARM (issue-426, ticket-70)
+    - Fix flotr2 chart generation failure if a label contained a single-quote (ticket-77)
+    - Fix repository cache refresh after ref deletion/addition (issue-433, ticket-82)
+    - Fixed cache miss on repository model retrieval (pr-185, ticket-83)
+    - Fixed GitBlit static singleton reference in localclone.groovy (issue-436, ticket-84)
+    - Removed Ticket responsible team permission exclusion (ticket-87)
+    - Fixed SSH daemon thread exhaustion (ticket-89)
+    - Fixed Ticket responsible selections not considering the AUTHENTICATED authorization control (ticket-91)
+    - Fixed invalid generated SSH url for port 22 (issue-444, ticket-98)
+    - Fix cloning repositories with `+` in their names. (revert pr-136, issue-362, ticket-100)
+    - Fixed NPE in GitblitClient (ticket-102)
+    changes:
+    - Split the pages servlet into a raw servlet and a pages servlet. All raw links now use the raw servlet (issue-413, ticket-49)
+    - Drop deprecated --set-upstream syntax for -u (ticket-59)
+    - BARNUM: Prune deleted branches on fetch (git fetch -p) (ticket-60)
+    - BARNUM: Create ticket/N instead of topic/N for pt start N (ticket-61)
+    - Move repository deletion functions to the edit repository page AND allow deletion to be disabled (pr-180, ticket-67)
+    - Update the Korean translation (pr-184, ticket-69)
+    - Update the Dutch translation (pr-191)
+    - Overhaul the EmptyRepositoryPage (ticket-73)
+    - Overhauled the edit repository page (ticket-76)
+    - Process bugtraq links in the ticket description and comments (ticket-78)
+    - Exclude personal repositories from the repositories list, by default (issue-419, ticket-95)
+    additions:
+    - Add My Tickets page (issue-215, ticket-15)
+    - Added CRUD functionality for Ticket Milestones (ticket-17)
+    - Implemented Ticket migration tool to move between backends (ticket-19)
+    - Added extension points for top nav links, root-level pages, repository nav links, user menu links, and http request filters (ticket-23)
+    - Added an editor panel in the user profile page to manipulate preferences (issue-108, issue-424, ticket-64)
+    - Added an editor panel in the user profile page to manipulate public SSH keys (ticket-64)
+    - Add FORK_REPOSITORY RPC request type (issue-371, pr-161, ticket-65)
+    - Add object type (ot) parameter for RSS queries to retrieve tag details (pr-165, ticket-66)
+    - Add setting to allow STARTTLS without requiring SMTPS (pr-183)
+    - Simplified repository creation, offer simple README generation, and insertion of a pre-defined .gitignore file (ticket-76)
+    - Added an extension point for monitoring onStartup and onShutdown (ticket-79)
+    - Tag server-side merges when incremental push tags are enabled (issue-432, ticket-85)
+    - Add a user preference for the clone transport (ticket-90)
+    - Add setting to control default thread pool size for miscellaneous background tasks (ticket-92)
+    - Add Norwegian transation (pr-186)
+    - Add German translation (pr-192)
+    - Add Italian translation (pr-196)
+    dependencyChanges:
+    - Update to javax.mail 1.5.1 (issue-417, ticket-58)
+    contributors:
+    - James Moger
+    - David Ostrovsky
+    - Manisha Gayathri
+    - Gerard Smyth
+    - Christian Buisson
+    - Berke Viktor
+    - Marcus Hunger
+    - Matthias Cullmann
+    - Emmeran Seehuber
+    - Sascha Vogt
+    - Carsten Lenz
+    - Matthias Sohn
+    - Leif Jantzen
+    - Stardrad Yin
+    - Jeroen Baten
+    - Dongsu Kim
+    - Karanbir Singh
+    - Tamás Papp
+    - GianMaria Romanato
+    settings:
+    - { name: 'web.allowDeletingNonEmptyRepositories', defaultValue: 'true' }
+    - { name: 'web.includePersonalRepositories', defaultValue: 'false' }
+    - { name: 'mail.starttls', defaultValue: 'false' }
+    - { name: 'execution.defaultThreadPoolSize', defaultValue: '1' }
+    - { name: 'git.gitignoreFolder', defaultValue: '${baseFolder}/gitignore' }
+}
+
+#
+# 1.5.1 release
+#
+r23: {
+    title: Gitblit 1.5.1 released
+    id: 1.5.1
+    date: 2014-05-07
+    note: ~
+    html: ~
+    text: ~
+    security: ~
+    fixes:
+    - Fix subdirectory links in pages servlet (issue-411)
+    - Fix subdirectory navigation in pages servlet (issue-412)
+    - Fix bug in adding invalid or empty SSH keys (ticket-50)
+    - Fix forcing default locale to en or LANG_CC for web ui (ticket-51)
+    - Fix inconsistency with repository ownership permission checking (ticket-52)
+    - Prevent submission from New|Edit ticket page with empty titles (ticket-53)
+    - Ensure the repository model ref list is refreshed on ref creation or deletion (ticket-54)
+    - Fix case-sensitivity error in determining fork network (issue-420, ticket-62)
+    - Fix transport determination for SSH urls served on port 22 (issue-421, ticket-63)
+    changes:
+    - improve French translation (pr-176)
+    - simplify current plugin release detection and ignore the currentRelease registry field
+    - split pages servlet into two servlets (issue-413)
+    additions: ~
+    dependencyChanges:
+    - update to Apache MINA/SSHD 0.11.0 (issue-410)
+    - added Apache Tiki 1.5 (issue-413)
+    contributors:
+    - James Moger
+    - Julien Kirch
+    - Ralph Hoffman
+    - Olivier Rouits
+    - Owen Nelson
+    - Alexander Zabluda
+    - Philipp Beckmann
+    - Jakob Boysen
+}
+
+#
+# 1.5.0 release
+#
+r22: {
+    title: Gitblit 1.5.0 released
+    id: 1.5.0
+    date: 2014-04-17
+    note: Gitblit now requires Java 7 for build & runtime.
+    html: ~
+    text: ''
+          MAJOR Release.
+
+          * Integrated SSH daemon based on Apache Mina/SSHD and Gerrit
+          * Basic plugin management framework and plugin registry, limited extension points
+          * Replace GoogleCharts with a self-hosted copy of the flotr2 charting library
+          * Move to Java 7, some dependencies require this
+          * Move to Jetty 9, dropped AJP feature because it was removed upstream
+          ''
+    security: ~
+    fixes:
+    - Repository mailing lists could not be reset from the Edit Repository page (issue-399)
+    - Fix intermittent NPE in determining commit date in RefModel (issue-401)
+    - Fix closing ticket on push by parsing commit messages for closes|fixes (issue-404)
+    - Fix diffstat display for a ticket with a pending submodule change (issue-407)
+    - Ensure the Lucene ticket index is updated on repository deletion.
+    - Fixed failure to properly determine hasTicket in RedisTicketService
+    - Fixed handling of pushing ticket branch deletions
+    changes:
+    - Switch from GoogleCharts to self-hosted flotr2 charts (issue-283, ticket-43, pr-166)
+    - Specify the --dailyLogFile option for the Ubuntu and CentOS service scripts (issue-348)
+    - Improve logging for missing LDAP uid attribute when synchronizing (issue-394)
+    - The ticket close-on-push commit message regular expression is now configurable by a setting (issue-404)
+    - Redirect to summary page on edit repository (issue-405)
+    - Option to allow LDAP users to directly authenticate without performing LDAP searches (pr-162)
+    - Replace JCommander with args4j to be consistent with other tools (ticket-28)
+    - Sort repository urls by descending permissions and by transport security within equal permissions
+    - Move to Java 7 & updated to Jetty 9.1.4
+    - dropped AJP support because it has been removed from upstream Jetty
+    - dropped settings: server.useNio, server.ajpPort, server.ajpBindInterface
+    - dropped GO parameters: --ajpPort, --useNio
+    additions:
+    - Added an SSH daemon with public key authentication (issue-369, ticket-6)
+    - Added beginnings of a plugin framework for extending Gitblit (issue-381, ticket-23)
+    - Added a French translation (pr-163)
+    - Added a setting to control what transports may be used for pushes
+    - Expose JGit 3.x receive pack settings (issue-408)
+    dependencyChanges:
+    - Java 7
+    - Jetty 9.1.4
+    - args4j 2.0.26
+    - JGit 3.3.1
+    - Mina SSHD 0.10.1
+    - pf4j 0.8.0
+    - SLF4J 1.7.5
+    contributors:
+    - James Moger
+    - David Ostrovsky
+    - Johann Ollivier-Lapeyre
+    - Jeremie Brebec
+    - Tim Ryan
+    - Decebal Suiu
+    - Eric Myrhe
+    - Kevin Walter
+    settings:
+    - { name: 'realm.ldap.bindpattern', defaultValue: ' ' }
+    - { name: 'tickets.closeOnPushCommitMessageRegex', defaultValue: '(?:fixes|closes)[\\s-]+#?(\\d+)' }
+    - { name: 'git.acceptedPushTransports', defaultValue: ' ' }
+    - { name: 'git.checkReceivedObjects', defaultValue: 'true' }
+    - { name: 'git.checkReferencedObjectsAreReachable', defaultValue: 'true' }
+    - { name: 'git.maxObjectSizeLimit', defaultValue: '0' }
+    - { name: 'git.maxPackSizeLimit', defaultValue: '-1' }
+    - { name: 'git.sshPort', defaultValue: '29418' }
+    - { name: 'git.sshBindInterface', defaultValue: ' ' }
+    - { name: 'git.sshKeysManager', defaultValue: 'com.gitblit.transport.ssh.FileKeyManager' }
+    - { name: 'git.sshKeysFolder', defaultValue: '${baseFolder}/ssh' }
+    - { name: 'git.sshBackend', defaultValue: 'NIO2' }
+    - { name: 'git.sshCommandStartThreads', defaultValue: '2' }
+    - { name: 'plugins.folder', defaultValue: '${baseFolder}/plugins' }
+    - { name: 'plugins.registry', defaultValue: 'http://plugins.gitblit.com/plugins.json' }
+}
+
+#
+# 1.4.1 release
+#
+r21: {
+    title: Gitblit 1.4.1 released
+    id: 1.4.1
+    date: 2014-03-18
+    note: "The default access restriction has been elevated from NONE to PUSH and anonymous push access has been disabled by default."
+    html: ~
+    text: ''
+          !! IMPORTANT BUG FIX FOR EXTERNAL AUTHENTICATION (1.4.1) !!
+          
+          This is a MAJOR release (1.4.0).
+          
+          The entire core has been refactored to be more modular.  Authentication providers have all been refactored to be simpler.  Both of these were precursor requirements for landing the Tickets feature -- issue tracker & branch-based pull requests.
+          
+          Markup rendering has been improved and expanded to several additional formats.  A repository mirroring service  has been added to allow you to automatically track public repositories.  Commit pages now indicate diffstat information and many bug fixes and smaller features have been introduced.
+          
+          The groundwork has also been laid for SSH support which will be in the focal point for the next major release (ticket-6).
+          
+          Due to the enormity of these changes, please make a backup copy of users.conf before updating.''
+    security:
+    - Fix major authentication security hole when using external authentication providers (issue-387, ticket-35)
+    fixes:
+    - Fixed incorrect branch ref in Ticket page for symlinks (issue-383, ticket-32)
+    - Fix NPE in FileTicketService (issue-386, ticket-34)
+    - Watch list push parameters were now always honored (ticket-30)
+    - Watch list push parameters were not always validated (ticket-29)
+    - Truncated tag messages in the tag panel did not have proper tooltips (ticket-31)
+    - Fix merging GO runtime settings with command-line override settings (ticket-33)
+    - Fix ticket page IOBE on Ticket page when Gitblit is not serving repositories (ticket-27)
+    - Exclude ticket branches when forking a repository (ticket-26)
+    - Workaround pegdown bug and improve relative image path processing (ticket-24)
+    - Disable Ticket review functions in read-only repositories (mirror, frozen, etc)
+    - Fix incorrect git fetch instructions in Ticket email notifications
+    - Fix Ticket email notification recipients to include repository owners
+    - Fix Ticket propose instructions to branch from origin/{integrationBranch}
+    changes:
+    - Add closed status for milestones and abandoned status for tickets (ticket-25)
+    additions: ~
+    dependencyChanges: ~
+    contributors:
+    - James Moger
+    - David Ostrovsky
+    - Liyu Wang
+}
+
+#
+# 1.4.0 release
+#
+r20: {
+    title: Gitblit 1.4.0 released
+    id: 1.4.0
+    date: 2014-03-09
+    note: "The default access restriction has been elevated from NONE to PUSH and anonymous push access has been disabled by default."
+    html: ~
+    text: ''
+          This is a MAJOR release.
+          
+          The entire core has been refactored to be more modular.  Authentication providers have all been refactored to be simpler.  Both of these were precursor requirements for landing the Tickets feature -- issue tracker & branch-based pull requests.
+          
+          Markup rendering has been improved and expanded to several additional formats.  A repository mirroring service  has been added to allow you to automatically track public repositories.  Commit pages now indicate diffstat information and many bug fixes and smaller features have been introduced.
+          
+          The groundwork has also been laid for SSH support which will be in the focal point for the next major release (ticket-6).
+          
+          Due to the enormity of these changes, please make a backup copy of users.conf before updating.''
+    security:
+	- issue-361: Cookies were not reset on administrative password change of a user account. This allowed accounts with changed passwords to continue authenticating. Cookies are now reset on password changes, they are validated on each page request, AND they will now expire 7 days after generation.
+    fixes:
+	- Fixed incorrect tagger attribution in the dashboard (issue-276)
 	- Fixed support for implied SSH urls in web.otherUrls (issue-311)
+	- Fixed injection of unnecessary explicit CLONE permissions for a fork when users or teams already had implied regex permissions (issue-320)
 	- Bind LDAP connection after establishing TLS initialization (issue-343)
 	- Fixed NPE when attempting to add a permission without a registrant (issue-344)
 	- Invalidate all cached repository data on "clear cache" (issue-346)
+	- Fix chart failures when an apostrophe is in a user display name (issue-350, pr-128)
+	- Fix exception in create repository when not selecting a garbage collection period (issue-366)
+	- Stop setting admin permission based on undocumented Redmine REST API behavior (issue-368)
+	- Fix compage page failure when a submodule is changed in the commit range (issue-375)
+	- Fix support url decoding with non-ascii characters (pr-136)
 	- Fix potential NPE on removing uncached repository from cache
 	- Ignore the default contents of .git/description file
 	- Fix error on generating activity page when there is no activity
 	- Fix raw page content type of binaries when running behind a reverse proxy
+	- Fix author search links from compare pages
     changes:
-	- Gitblit now rejects pushes to mirror repositories (issue-5)
+	- Gitblit now rejects pushes to identified mirror repositories (issue-5)
 	- Personal repository prefix (~) is now configurable (issue-265)
 	- Refactored user services and separated authentication into providers (issue-281)
 	- Reversed line links in blob view (issue-309)
 	- Dashboard and Activity pages now obey the web.generateActivityGraph setting (issue-310)
 	- Do not log passwords on failed authentication attempts (issue-316)
+	- LDAP synchronization is now scheduled rather than on-demand (issue-336)
+	- Show displayname and username in palettes (issue-364)
 	- Updated default binary and Lucene ignore extensions
 	- Change the WAR baseFolder context parameter to a JNDI env-entry to improve enterprise deployments
 	- Removed internal Gitblit ref exclusions in the upload pack
 	- Removed "show readme" setting in favor of automatic detection
-	- README files are not shown on the summary page by default, this can be changed with web.summaryShowReadme
+	- README files are not shown on the summary page by default, this can be restored with web.summaryShowReadme
 	- Support plain text, markdown, confluence, mediawiki, textile, tracwiki, or twiki "readme" files
 	- Determine best commit id (e.g. "master") for the tree and docs pages and use that in links
 	- By default GO will now bind to all interfaces for both http and https connectors.  This simplifies setup for first-time users.	
@@ -38,39 +489,74 @@ r20: {
 	- Retrieve LDAP groups with dereferencing aliases (pr-122)
 	- Revised committer verification to require a matching displayname or account name AND the email address
 	- Serve repositories on both /r and /git, displaying /r because it is shorter
+	- Eliminate HEAD from the blob, blame, and tree pages. That assumed a resource was available in HEAD and it may not be.
+	- Eliminate Gravatar profile linking.
+	- Moved Gitblit reflog from refs/gitblit/reflog to refs/meta/gitblit/reflog
+	- Updated Spanish translation
+	- Updated Simplified Chinese translation
+	- Updated Dutch translation
+	- Updated Korean translation
     additions:
 	- Added color modes for the blame page (issue-2)
-	- Added an optional MirrorExecutor which will periodically fetch ref updates from source repositories for mirrors (issue-5).  Repositories must be manually cloned using native git and "--mirror".
+	- Added an optional MirrorService which will periodically fetch ref updates from source repositories for mirrors (issue-5).  Repositories must be manually cloned using native git and "--mirror".
 	- Added branch graph image servlet based on EGit's branch graph renderer (issue-194)
 	- Added option to render Markdown commit messages (issue-203)
+	- Added Ticket tracker and Patchset collaboration feature (issue-215) 
 	- Added setting to control creating a repository as --shared on Unix servers (issue-263)
 	- Set Link: <url>; rel="canonical" http header for SEO (issue-304)
 	- Added raw links to the commit, commitdiff, and compare pages (issue-319)
 	- Support intradocument linking in Markdown content using [[WikiLinks]] syntax (issue-324)
-	- Added filesystem write permission check (issue-345) 
+	- Support Markdown image links relative to the repository root (issue-324)
+	- Added filesystem write permission check (issue-345)
+	- Added GO launch parameter for redirecting logging to a rolling, daily log file (issue-348)
+	- Added settings to Windows authentication provider to permit/prohibit BUILTIN\Administrators from being Gitblit Admins (issue-354)
+	- Added canonical url setting for email notifications and web display
 	- Support rendering confluence, mediawiki, textile, tracwiki, and twiki markup documents
 	- Added setting to globally disable anonymous pushes in the receive pack
 	- Added a normalized diffstat display to the commit, commitdiff, and compare pages
 	- Added GO setting to automatically redirect all http requests to the secure https connector
 	- Automatically display common repository root documents as tabs on the docs page
+	- Support bugtraq configuration in collaboration with Syntevo,  the regex.* config keys are now DEPRECATED
+	- Added FishEye hook script (pr-137)
+	- Added Redmine Fetch hook script (issue-359)
+	- Added Subgit hook contributed by TMate Software
+	- Added function to retain a user account but prohibit authentication. This is an alternative to deleting a user account.
+	- Added setting to hide the top-level navigation header to facilitate embedding Gitblit in something else.
+	- Added RPC request to reindex tickets
     dependencyChanges:
 	- updated to Jetty 8.1.13
-	- updated to JGit 3.1.0
+	- updated to JGit 3.3.0
 	- updated to Lucene 4.6.0
-	- replaced MarkdownPapers with pegdown 1.4.1
+	- updated to BouncyCastle 1.49
+	- replaced MarkdownPapers with pegdown 1.4.2
+	- added Dagger 1.1.0
 	- added Eclipse WikiText libraries for processing confluence, mediawiki, textile, tracwiki, and twiki
+	- added FontAwesome 4.0.3
+	- added Jedis 2.3.1
     settings:
     - { name: 'git.createRepositoriesShared', defaultValue: 'false' }
     - { name: 'git.allowAnonymousPushes', defaultValue: 'false' }
-	- { name: 'git.enableMirroring', defaultValue: 'false' }
 	- { name: 'git.defaultAccessRestriction', defaultValue: 'PUSH' }
+	- { name: 'git.enableMirroring', defaultValue: 'false' }
 	- { name: 'git.mirrorPeriod', defaultValue: '30 mins' }
+	- { name: 'git.userRepositoryPrefix', defaultValue: '~' }
 	- { name: 'realm.authenticationProviders', defaultValue: ' ' }
+	- { name: 'realm.ldap.groupEmptyMemberPattern', defaultValue: '(&(objectClass=group)(!(member=*)))' }
+	- { name: 'realm.ldap.synchronize', defaultValue: 'false' }
+	- { name: 'realm.ldap.syncPeriod', defaultValue: '5 MINUTES' }
+	- { name: 'realm.ldap.removeDeletedUsers', defaultValue: 'true' }
+	- { name: 'realm.windows.permitBuiltInAdministrators', defaultValue: 'true' }
+	- { name: 'web.canonicalUrl', defaultValue: ' ' }
 	- { name: 'web.commitMessageRenderer', defaultValue: 'plain' }
 	- { name: 'web.documents', defaultValue: 'readme home index changelog contributing submitting_patches copying license notice authors' }
+	- { name: 'web.hideHeader', defaultValue: 'false' }
 	- { name: 'web.showBranchGraph', defaultValue: 'true' }
 	- { name: 'web.summaryShowReadme', defaultValue: 'false' }
 	- { name: 'server.redirectToHttpsPort', defaultValue: 'false' }
+	- { name: 'tickets.service', defaultValue: ' ' }
+	- { name: 'tickets.acceptNewTickets', defaultValue: 'true' }
+	- { name: 'tickets.acceptNewPatchsets', defaultValue: 'true' }
+	- { name: 'tickets.requireApproval', defaultValue: 'false' }
     contributors:
 	- James Moger
 	- Robin Rosenberg
@@ -84,6 +570,31 @@ r20: {
 	- fpeters.fae
 	- David Ostrovsky
 	- Alex Lewis
+	- Marc Strapetz
+	- Benjamin Asbach
+	- Alfred Schmid
+	- Gareth Collins
+	- Martijn van der Kleijn
+	- Berke Viktor
+	- Vitaly Litvak
+	- Matthias Cullman
+	- Eduardo Guervós Narvaez
+	- Stardrad Yin
+	- Markus Foempe
+	- Nasrollah Kavian
+	- M. Holmquist
+	- Stephan Krull
+	- Duncan Jauncey
+	- Rhys Evans
+	- Michael Wowro
+	- I. Tagliani
+	- Rick Sladkey
+	- Matthias Cullman
+	- Johann Fischer
+	- Tamás Papp
+	- Liyu Wang
+	- Jeroen Baten
+	- Dongsu, KIM
 }
 
 #
@@ -1063,6 +1574,6 @@ r1: {
 	- James Moger
 }
 
-snapshot: &r20
-release: &r19
-releases: &r[1..19]
+snapshot: &r27
+release: &r26
+releases: &r[1..26]

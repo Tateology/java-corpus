@@ -22,12 +22,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import org.apache.wicket.RequestCycle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,11 +47,11 @@ import com.gitblit.auth.SalesforceAuthProvider;
 import com.gitblit.auth.WindowsAuthProvider;
 import com.gitblit.models.TeamModel;
 import com.gitblit.models.UserModel;
+import com.gitblit.transport.ssh.SshKey;
 import com.gitblit.utils.Base64;
 import com.gitblit.utils.HttpUtils;
 import com.gitblit.utils.StringUtils;
 import com.gitblit.utils.X509Utils.X509Metadata;
-import com.gitblit.wicket.GitBlitWebSession;
 
 /**
  * The authentication manager handles user login & logout.
@@ -149,7 +150,18 @@ public class AuthenticationManager implements IAuthenticationManager {
 
 	@Override
 	public AuthenticationManager stop() {
+		for (AuthenticationProvider provider : authenticationProviders) {
+			try {
+				provider.stop();
+			} catch (Exception e) {
+				logger.error("Failed to stop " + provider.getClass().getSimpleName(), e);
+			}
+		}
 		return this;
+	}
+
+	public void addAuthenticationProvider(AuthenticationProvider prov) {
+		authenticationProviders.add(prov);
 	}
 
 	/**
@@ -187,10 +199,10 @@ public class AuthenticationManager implements IAuthenticationManager {
 					UserModel user = userManager.getUserModel(username);
 					if (user != null) {
 						// existing user
-						flagWicketSession(AuthenticationType.CONTAINER);
+						flagSession(httpRequest, AuthenticationType.CONTAINER);
 						logger.debug(MessageFormat.format("{0} authenticated by servlet container principal from {1}",
 								user.username, httpRequest.getRemoteAddr()));
-						return user;
+						return validateAuthentication(user, AuthenticationType.CONTAINER);
 					} else if (settings.getBoolean(Keys.realm.container.autoCreateAccounts, false)
 							&& !internalAccount) {
 						// auto-create user from an authenticated container principal
@@ -199,10 +211,10 @@ public class AuthenticationManager implements IAuthenticationManager {
 						user.password = Constants.EXTERNAL_ACCOUNT;
 						user.accountType = AccountType.CONTAINER;
 						userManager.updateUserModel(user);
-						flagWicketSession(AuthenticationType.CONTAINER);
+						flagSession(httpRequest, AuthenticationType.CONTAINER);
 						logger.debug(MessageFormat.format("{0} authenticated and created by servlet container principal from {1}",
 								user.username, httpRequest.getRemoteAddr()));
-						return user;
+						return validateAuthentication(user, AuthenticationType.CONTAINER);
 					} else if (!internalAccount) {
 						logger.warn(MessageFormat.format("Failed to find UserModel for {0}, attempted servlet container authentication from {1}",
 								principal.getName(), httpRequest.getRemoteAddr()));
@@ -220,10 +232,10 @@ public class AuthenticationManager implements IAuthenticationManager {
 			UserModel user = userManager.getUserModel(model.username);
 			X509Metadata metadata = HttpUtils.getCertificateMetadata(httpRequest);
 			if (user != null) {
-				flagWicketSession(AuthenticationType.CERTIFICATE);
+				flagSession(httpRequest, AuthenticationType.CERTIFICATE);
 				logger.debug(MessageFormat.format("{0} authenticated by client certificate {1} from {2}",
 						user.username, metadata.serialNumber, httpRequest.getRemoteAddr()));
-				return user;
+				return validateAuthentication(user, AuthenticationType.CERTIFICATE);
 			} else {
 				logger.warn(MessageFormat.format("Failed to find UserModel for {0}, attempted client certificate ({1}) authentication from {2}",
 						model.username, metadata.serialNumber, httpRequest.getRemoteAddr()));
@@ -235,13 +247,18 @@ public class AuthenticationManager implements IAuthenticationManager {
 			return null;
 		}
 
+		UserModel user = null;
+
 		// try to authenticate by cookie
-		UserModel user = authenticate(httpRequest.getCookies());
-		if (user != null) {
-			flagWicketSession(AuthenticationType.COOKIE);
-			logger.debug(MessageFormat.format("{0} authenticated by cookie from {1}",
+		String cookie = getCookie(httpRequest);
+		if (!StringUtils.isEmpty(cookie)) {
+			user = userManager.getUserModel(cookie.toCharArray());
+			if (user != null) {
+				flagSession(httpRequest, AuthenticationType.COOKIE);
+				logger.debug(MessageFormat.format("{0} authenticated by cookie from {1}",
 					user.username, httpRequest.getRemoteAddr()));
-			return user;
+				return validateAuthentication(user, AuthenticationType.COOKIE);
+			}
 		}
 
 		// try to authenticate by BASIC
@@ -259,10 +276,10 @@ public class AuthenticationManager implements IAuthenticationManager {
 				char[] password = values[1].toCharArray();
 				user = authenticate(username, password);
 				if (user != null) {
-					flagWicketSession(AuthenticationType.CREDENTIALS);
+					flagSession(httpRequest, AuthenticationType.CREDENTIALS);
 					logger.debug(MessageFormat.format("{0} authenticated by BASIC request header from {1}",
 							user.username, httpRequest.getRemoteAddr()));
-					return user;
+					return validateAuthentication(user, AuthenticationType.CREDENTIALS);
 				} else {
 					logger.warn(MessageFormat.format("Failed login attempt for {0}, invalid credentials from {1}",
 							username, httpRequest.getRemoteAddr()));
@@ -273,32 +290,59 @@ public class AuthenticationManager implements IAuthenticationManager {
 	}
 
 	/**
-	 * Authenticate a user based on their cookie.
+	 * Authenticate a user based on a public key.
 	 *
-	 * @param cookies
+	 * This implementation assumes that the authentication has already take place
+	 * (e.g. SSHDaemon) and that this is a validation/verification of the user.
+	 *
+	 * @param username
+	 * @param key
 	 * @return a user object or null
 	 */
-	protected UserModel authenticate(Cookie[] cookies) {
-		if (settings.getBoolean(Keys.web.allowCookieAuthentication, true)) {
-			if (cookies != null && cookies.length > 0) {
-				for (Cookie cookie : cookies) {
-					if (cookie.getName().equals(Constants.NAME)) {
-						String value = cookie.getValue();
-						return userManager.getUserModel(value.toCharArray());
-					}
+	@Override
+	public UserModel authenticate(String username, SshKey key) {
+		if (username != null) {
+			if (!StringUtils.isEmpty(username)) {
+				UserModel user = userManager.getUserModel(username);
+				if (user != null) {
+					// existing user
+					logger.debug(MessageFormat.format("{0} authenticated by {1} public key",
+							user.username, key.getAlgorithm()));
+					return validateAuthentication(user, AuthenticationType.PUBLIC_KEY);
 				}
+				logger.warn(MessageFormat.format("Failed to find UserModel for {0} during public key authentication",
+							username));
 			}
+		} else {
+			logger.warn("Empty user passed to AuthenticationManager.authenticate!");
 		}
 		return null;
 	}
 
-	protected void flagWicketSession(AuthenticationType authenticationType) {
-		RequestCycle requestCycle = RequestCycle.get();
-		if (requestCycle != null) {
-			// flag the Wicket session, if this is a Wicket request
-			GitBlitWebSession session = GitBlitWebSession.get();
-			session.authenticationType = authenticationType;
+
+	/**
+	 * This method allows the authentication manager to reject authentication
+	 * attempts.  It is called after the username/secret have been verified to
+	 * ensure that the authentication technique has been logged.
+	 *
+	 * @param user
+	 * @return
+	 */
+	protected UserModel validateAuthentication(UserModel user, AuthenticationType type) {
+		if (user == null) {
+			return null;
 		}
+		if (user.disabled) {
+			// user has been disabled
+			logger.warn("Rejected {} authentication attempt by disabled account \"{}\"",
+					type, user.username);
+			return null;
+		}
+		return user;
+	}
+
+	protected void flagSession(HttpServletRequest httpRequest, AuthenticationType authenticationType) {
+		httpRequest.getSession().setAttribute(Constants.AUTHENTICATION_TYPE, authenticationType);
 	}
 
 	/**
@@ -323,44 +367,78 @@ public class AuthenticationManager implements IAuthenticationManager {
 			return null;
 		}
 
-		// try local authentication
 		UserModel user = userManager.getUserModel(usernameDecoded);
-		if (user != null) {
-			UserModel returnedUser = null;
-			if (user.password.startsWith(StringUtils.MD5_TYPE)) {
-				// password digest
-				String md5 = StringUtils.MD5_TYPE + StringUtils.getMD5(new String(password));
-				if (user.password.equalsIgnoreCase(md5)) {
-					returnedUser = user;
-				}
-			} else if (user.password.startsWith(StringUtils.COMBINED_MD5_TYPE)) {
-				// username+password digest
-				String md5 = StringUtils.COMBINED_MD5_TYPE
-						+ StringUtils.getMD5(username.toLowerCase() + new String(password));
-				if (user.password.equalsIgnoreCase(md5)) {
-					returnedUser = user;
-				}
-			} else if (user.password.equals(new String(password))) {
-				// plain-text password
-				returnedUser = user;
-			}
-			return returnedUser;
+
+		// try local authentication
+		if (user != null && user.isLocalAccount()) {
+			return authenticateLocal(user, password);
 		}
 
 		// try registered external authentication providers
-		if (user == null) {
-			for (AuthenticationProvider provider : authenticationProviders) {
-				if (provider instanceof UsernamePasswordAuthenticationProvider) {
-					user = provider.authenticate(usernameDecoded, password);
-					if (user != null) {
-						// user authenticated
-						user.accountType = provider.getAccountType();
-						return user;
+		for (AuthenticationProvider provider : authenticationProviders) {
+			if (provider instanceof UsernamePasswordAuthenticationProvider) {
+				UserModel returnedUser = provider.authenticate(usernameDecoded, password);
+				if (returnedUser != null) {
+					// user authenticated
+					returnedUser.accountType = provider.getAccountType();
+					return validateAuthentication(returnedUser, AuthenticationType.CREDENTIALS);
+				}
+			}
+		}
+
+		// could not authenticate locally or with a provider
+		return null;
+	}
+
+	/**
+	 * Returns a UserModel if local authentication succeeds.
+	 *
+	 * @param user
+	 * @param password
+	 * @return a UserModel if local authentication succeeds, null otherwise
+	 */
+	protected UserModel authenticateLocal(UserModel user, char [] password) {
+		UserModel returnedUser = null;
+		if (user.password.startsWith(StringUtils.MD5_TYPE)) {
+			// password digest
+			String md5 = StringUtils.MD5_TYPE + StringUtils.getMD5(new String(password));
+			if (user.password.equalsIgnoreCase(md5)) {
+				returnedUser = user;
+			}
+		} else if (user.password.startsWith(StringUtils.COMBINED_MD5_TYPE)) {
+			// username+password digest
+			String md5 = StringUtils.COMBINED_MD5_TYPE
+					+ StringUtils.getMD5(user.username.toLowerCase() + new String(password));
+			if (user.password.equalsIgnoreCase(md5)) {
+				returnedUser = user;
+			}
+		} else if (user.password.equals(new String(password))) {
+			// plain-text password
+			returnedUser = user;
+		}
+		return validateAuthentication(returnedUser, AuthenticationType.CREDENTIALS);
+	}
+
+	/**
+	 * Returns the Gitlbit cookie in the request.
+	 *
+	 * @param request
+	 * @return the Gitblit cookie for the request or null if not found
+	 */
+	@Override
+	public String getCookie(HttpServletRequest request) {
+		if (settings.getBoolean(Keys.web.allowCookieAuthentication, true)) {
+			Cookie[] cookies = request.getCookies();
+			if (cookies != null && cookies.length > 0) {
+				for (Cookie cookie : cookies) {
+					if (cookie.getName().equals(Constants.NAME)) {
+						String value = cookie.getValue();
+						return value;
 					}
 				}
 			}
 		}
-		return user;
+		return null;
 	}
 
 	/**
@@ -370,10 +448,24 @@ public class AuthenticationManager implements IAuthenticationManager {
 	 * @param user
 	 */
 	@Override
+	@Deprecated
 	public void setCookie(HttpServletResponse response, UserModel user) {
+		setCookie(null, response, user);
+	}
+
+	/**
+	 * Sets a cookie for the specified user.
+	 *
+	 * @param request
+	 * @param response
+	 * @param user
+	 */
+	@Override
+	public void setCookie(HttpServletRequest request, HttpServletResponse response, UserModel user) {
 		if (settings.getBoolean(Keys.web.allowCookieAuthentication, true)) {
-			GitBlitWebSession session = GitBlitWebSession.get();
-			boolean standardLogin = session.authenticationType.isStandard();
+			HttpSession session = request.getSession();
+			AuthenticationType authenticationType = (AuthenticationType) session.getAttribute(Constants.AUTHENTICATION_TYPE);
+			boolean standardLogin = authenticationType.isStandard();
 
 			if (standardLogin) {
 				Cookie userCookie;
@@ -389,10 +481,17 @@ public class AuthenticationManager implements IAuthenticationManager {
 					} else {
 						// create real cookie
 						userCookie = new Cookie(Constants.NAME, cookie);
-						userCookie.setMaxAge(Integer.MAX_VALUE);
+						// expire the cookie in 7 days
+						userCookie.setMaxAge((int) TimeUnit.DAYS.toSeconds(7));
 					}
 				}
-				userCookie.setPath("/");
+				String path = "/";
+				if (request != null) {
+					if (!StringUtils.isEmpty(request.getContextPath())) {
+						path = request.getContextPath();
+					}
+				}
+				userCookie.setPath(path);
 				response.addCookie(userCookie);
 			}
 		}
@@ -401,11 +500,25 @@ public class AuthenticationManager implements IAuthenticationManager {
 	/**
 	 * Logout a user.
 	 *
+	 * @param response
 	 * @param user
 	 */
 	@Override
+	@Deprecated
 	public void logout(HttpServletResponse response, UserModel user) {
-		setCookie(response,  null);
+		setCookie(null, response,  null);
+	}
+
+	/**
+	 * Logout a user.
+	 *
+	 * @param request
+	 * @param response
+	 * @param user
+	 */
+	@Override
+	public void logout(HttpServletRequest request, HttpServletResponse response, UserModel user) {
+		setCookie(request, response,  null);
 	}
 
 	/**

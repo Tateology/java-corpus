@@ -15,6 +15,8 @@
  */
 package com.gitblit.wicket.pages;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,6 +33,7 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.wicket.Application;
 import org.apache.wicket.Page;
 import org.apache.wicket.PageParameters;
@@ -42,6 +45,7 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.protocol.http.RequestUtils;
 import org.apache.wicket.protocol.http.WebResponse;
 import org.apache.wicket.protocol.http.servlet.ServletWebRequest;
+import org.apache.wicket.request.target.basic.RedirectRequestTarget;
 import org.apache.wicket.util.time.Duration;
 import org.apache.wicket.util.time.Time;
 import org.slf4j.Logger;
@@ -65,26 +69,38 @@ import com.gitblit.wicket.WicketUtils;
 
 public abstract class BasePage extends SessionPage {
 
-	private final Logger logger;
+	private transient Logger logger;
 
 	private transient TimeUtils timeUtils;
 
 	public BasePage() {
 		super();
-		logger = LoggerFactory.getLogger(getClass());
 		customizeHeader();
 	}
 
 	public BasePage(PageParameters params) {
 		super(params);
-		logger = LoggerFactory.getLogger(getClass());
 		customizeHeader();
+	}
+
+	protected Logger logger() {
+		if (logger == null) {
+			logger = LoggerFactory.getLogger(getClass());
+		}
+		return logger;
 	}
 
 	private void customizeHeader() {
 		if (app().settings().getBoolean(Keys.web.useResponsiveLayout, true)) {
 			add(CSSPackageResource.getHeaderContribution("bootstrap/css/bootstrap-responsive.css"));
 		}
+		if (app().settings().getBoolean(Keys.web.hideHeader, false)) {
+			add(CSSPackageResource.getHeaderContribution("hideheader.css"));
+		}
+	}
+
+	protected String getContextUrl() {
+		return getRequest().getRelativePathPrefixToContextRoot();
 	}
 
 	protected String getCanonicalUrl() {
@@ -95,6 +111,15 @@ public abstract class BasePage extends SessionPage {
 		String relativeUrl = urlFor(clazz, params).toString();
 		String canonicalUrl = RequestUtils.toAbsolutePath(relativeUrl);
 		return canonicalUrl;
+	}
+
+	protected void redirectTo(Class<? extends BasePage> pageClass) {
+		redirectTo(pageClass, null);
+	}
+
+	protected void redirectTo(Class<? extends BasePage> pageClass, PageParameters parameters) {
+		String absoluteUrl = getCanonicalUrl(pageClass, parameters);
+		getRequestCycle().setRequestTarget(new RedirectRequestTarget(absoluteUrl));
 	}
 
 	protected String getLanguageCode() {
@@ -151,6 +176,9 @@ public abstract class BasePage extends SessionPage {
 			// use default Wicket caching behavior
 			super.setHeaders(response);
 		}
+
+		// XRF vulnerability. issue-500 / ticket-166
+		response.setHeader("X-Frame-Options", "SAMEORIGIN");
 	}
 
 	/**
@@ -171,7 +199,7 @@ public abstract class BasePage extends SessionPage {
 			case NONE:
 				break;
 			default:
-				logger.warn(getClass().getSimpleName() + ": unhandled LastModified type " + cacheControl.value());
+				logger().warn(getClass().getSimpleName() + ": unhandled LastModified type " + cacheControl.value());
 				break;
 			}
 		}
@@ -200,16 +228,20 @@ public abstract class BasePage extends SessionPage {
 		response.setDateHeader("Expires", System.currentTimeMillis() + Duration.minutes(expires).getMilliseconds());
 	}
 
-	protected void setupPage(String repositoryName, String pageName) {
+	protected String getPageTitle(String repositoryName) {
 		String siteName = app().settings().getString(Keys.web.siteName, Constants.NAME);
 		if (StringUtils.isEmpty(siteName)) {
 			siteName = Constants.NAME;
 		}
 		if (repositoryName != null && repositoryName.trim().length() > 0) {
-			add(new Label("title", repositoryName + " - " + siteName));
+			return repositoryName + " - " + siteName;
 		} else {
-			add(new Label("title", siteName));
+			return siteName;
 		}
+	}
+
+	protected void setupPage(String repositoryName, String pageName) {
+		add(new Label("title", getPageTitle(repositoryName)));
 
 		String rootLinkUrl = app().settings().getString(Keys.web.rootLink, urlFor(GitBlitWebApp.get().getHomePage(), null).toString());
 		ExternalLink rootLink = new ExternalLink("rootLink", rootLinkUrl);
@@ -411,7 +443,7 @@ public abstract class BasePage extends SessionPage {
 	}
 
 	public void warn(String message, Throwable t) {
-		logger.warn(message, t);
+		logger().warn(message, t);
 	}
 
 	public void error(String message, boolean redirect) {
@@ -428,9 +460,9 @@ public abstract class BasePage extends SessionPage {
 
 	public void error(String message, Throwable t, Class<? extends Page> toPage, PageParameters params) {
 		if (t == null) {
-			logger.error(message  + " for " + GitBlitWebSession.get().getUsername());
+			logger().error(message  + " for " + GitBlitWebSession.get().getUsername());
 		} else {
-			logger.error(message  + " for " + GitBlitWebSession.get().getUsername(), t);
+			logger().error(message  + " for " + GitBlitWebSession.get().getUsername(), t);
 		}
 		if (toPage != null) {
 			GitBlitWebSession.get().cacheErrorMessage(message);
@@ -443,7 +475,7 @@ public abstract class BasePage extends SessionPage {
 	}
 
 	public void authenticationError(String message) {
-		logger.error(getRequest().getURL() + " for " + GitBlitWebSession.get().getUsername());
+		logger().error(getRequest().getURL() + " for " + GitBlitWebSession.get().getUsername());
 		if (!GitBlitWebSession.get().isLoggedIn()) {
 			// cache the request if we have not authenticated.
 			// the request will continue after authentication.
@@ -451,4 +483,27 @@ public abstract class BasePage extends SessionPage {
 		}
 		error(message, true);
 	}
+
+	protected String readResource(String resource) {
+		StringBuilder sb = new StringBuilder();
+		InputStream is = null;
+		try {
+			is = getClass().getResourceAsStream(resource);
+			List<String> lines = IOUtils.readLines(is);
+			for (String line : lines) {
+				sb.append(line).append('\n');
+			}
+		} catch (IOException e) {
+
+		} finally {
+			if (is != null) {
+				try {
+					is.close();
+				} catch (IOException e) {
+				}
+			}
+		}
+		return sb.toString();
+	}
+
 }

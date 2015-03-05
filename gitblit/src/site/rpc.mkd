@@ -14,22 +14,13 @@ The Gitblit JSON RPC mechanism, like the Gitblit JGit servlet, syndication/feed 
 
 ### Gitblit Manager
 
-[Gitblit Manager](http://code.google.com/p/gitblit/downloads/detail?name=%MANAGER%) is an example Java/Swing application that allows remote management (repository and user objects) and administration (server settings) of a Gitblit server.
+The Gitblit Manager is an example Java/Swing application that allows remote management (repository and user objects) and administration (server settings) of a Gitblit server.
   
 This application uses a combination of RSS feeds and the JSON RPC interface, both of which are part of the [Gitblit API](http://code.google.com/p/gitblit/downloads/detail?name=%API%) library, to present live information from a Gitblit server.  Some JSON RPC methods from the utility class `com.gitblit.utils.RpcUtils` are not currently used by the Gitblit Manager.
 
 **NOTE:**  
 Gitblit Manager stores your login credentials **INSECURELY** in homedir/.gitblit/config.
 
-### Eclipse/EGit "Import from Gitblit" Feature (Planning)
-
-One obvious goal of a Gitblit RPC mechanism would be to have an Eclipse/EGit Feature that allows authentication and enumeration of Gitblit repositories from the Eclipse *Import...* menu.  Batch cloning would be supported and delegated to EGit.
-
-This particular project should not be difficult as the only external dependency for `com.gitblit.utils.RpcUtils` is [google-gson](http://google-gson.googlecode.com) which is already a dependency of the EGit/GitHub Mylyn feature.
-
-One proposal from the EGit team is to define a common JSON RPC method for enumeration of repositories which can be implemented by Git hosts.  The EGit team would then implement the UI and the client-side enumeration code.  This idea was raised as part of this [feature request for EGit](https://bugs.eclipse.org/bugs/show_bug.cgi?id=361251).
-
-Currently this project is in the planning stage.
 
 ## RSS Query Interface
 
@@ -41,6 +32,7 @@ The Gitblit API includes methods for retrieving and interpreting RSS feeds.  The
 <tr><th>url parameter</th><th>default</th><th>description</th></tr>
 <tr><td colspan='3'><b>standard query</b></td></tr>
 <tr><td><em>repository</em></td><td><em>required</em></td><td>repository name is part of the url (see examples below)</td></tr>
+<tr><td>ot=</td><td><em>optional</em><br/>default: COMMIT</td><td>object type to return in results. COMMIT or TAG</td></tr>
 <tr><td>h=</td><td><em>optional</em><br/>default: HEAD</td><td>starting branch, ref, or commit id</td></tr>
 <tr><td>l=</td><td><em>optional</em><br/>default: web.syndicationEntries</td><td>maximum return count</td></tr>
 <tr><td>pg=</td><td><em>optional</em><br/>default: 0</td><td>page number for paging<br/>(offset into history = pagenumber*maximum return count)</td></tr>
@@ -66,8 +58,10 @@ The Gitblit API includes methods for retrieving and interpreting RSS feeds.  The
 <tr><td>Gitblit v0.8.0</td><td>2</td></tr>
 <tr><td>Gitblit v0.9.0 - v1.0.0</td><td>3</td></tr>
 <tr><td>Gitblit v1.1.0</td><td>4</td></tr>
-<tr><td>Gitblit v1.2.0+</td><td>5</td></tr>
-<tr><td>Gitblit v1.3.1+</td><td>6</td></tr>
+<tr><td>Gitblit v1.2.0</td><td>5</td></tr>
+<tr><td>Gitblit v1.3.1</td><td>6</td></tr>
+<tr><td>Gitblit v1.4.0</td><td>7</td></tr>
+<tr><td>Gitblit v1.6.0</td><td>8</td></tr>
 </tbody>
 </table>
 
@@ -89,6 +83,7 @@ Use *SET_REPOSITORY_TEAM_PERMISSIONS* instead.
 <tr><td>LIST_BRANCHES</td><td>-</td><td>-</td><td>1</td><td>-</td><td>Map&lt;String, List&lt;String&gt;&gt;</td></tr>
 <tr><td>LIST_SETTINGS</td><td>-</td><td><em>-</em></td><td>1</td><td>-</td><td>ServerSettings (basic keys)</td></tr>
 <tr><td>GET_USER</td><td>user name</td><td>-</td><td>6</td><td>-</td><td>UserModel</td></tr>
+<tr><td>FORK_REPOSITORY</td><td>repository name</td><td><em>-</em></td><td>8</td><td>-</td><td>-</td></tr>
 <tr><td colspan='6'><em>web.enableRpcManagement=true</em></td></tr>
 <tr><td>CREATE_REPOSITORY</td><td>repository name</td><td><em>admin</em></td><td>1</td><td>RepositoryModel</td><td>-</td></tr>
 <tr><td>EDIT_REPOSITORY</td><td>repository name</td><td><em>admin</em></td><td>1</td><td>RepositoryModel</td><td>-</td></tr>
@@ -111,6 +106,7 @@ Use *SET_REPOSITORY_TEAM_PERMISSIONS* instead.
 <tr><td>SET_REPOSITORY_TEAM_PERMISSIONS</td><td>repository name</td><td><em>admin</em></td><td>5</td><td>List&lt;String&gt;</td><td>-</td></tr>
 <tr><td>LIST_SETTINGS</td><td>-</td><td><em>admin</em></td><td>1</td><td>-</td><td>ServerSettings (management keys)</td></tr>
 <tr><td>CLEAR_REPOSITORY_CACHE</td><td>-</td><td><em>-</em></td><td>4</td><td>-</td><td>-</td></tr>
+<tr><td>REINDEX_TICKETS</td><td>repository name</td><td><em>-</em></td><td>7</td><td>-</td><td>-</td></tr>
 <tr><td colspan='6'><em>web.enableRpcAdministration=true</em></td></tr>
 <tr><td>LIST_FEDERATION_REGISTRATIONS</td><td>-</td><td><em>admin</em></td><td>1</td><td>-</td><td>List&lt;FederationModel&gt;</td></tr>
 <tr><td>LIST_FEDERATION_RESULTS</td><td>-</td><td><em>admin</em></td><td>1</td><td>-</td><td>List&lt;FederationModel&gt;</td></tr>

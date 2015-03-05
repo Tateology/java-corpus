@@ -85,6 +85,10 @@ public class RepositoryModel implements Serializable, Comparable<RepositoryModel
 	public int maxActivityCommits;
 	public List<String> metricAuthorExclusions;
 	public CommitMessageRenderer commitMessageRenderer;
+	public boolean acceptNewPatchsets;
+	public boolean acceptNewTickets;
+	public boolean requireApproval;
+	public String mergeTo;
 
 	public transient boolean isCollectingGarbage;
 	public Date lastGC;
@@ -105,6 +109,8 @@ public class RepositoryModel implements Serializable, Comparable<RepositoryModel
 		this.projectPath = StringUtils.getFirstPathElement(name);
 		this.owners = new ArrayList<String>();
 		this.isBare = true;
+		this.acceptNewTickets = true;
+		this.acceptNewPatchsets = true;
 
 		addOwner(owner);
 	}
@@ -140,6 +146,10 @@ public class RepositoryModel implements Serializable, Comparable<RepositoryModel
 		displayName = null;
 	}
 
+	public String getRID() {
+		return StringUtils.getSHA1(name);
+	}
+
 	@Override
 	public int hashCode() {
 		return name.hashCode();
@@ -172,9 +182,9 @@ public class RepositoryModel implements Serializable, Comparable<RepositoryModel
 
 	public boolean isOwner(String username) {
 		if (StringUtils.isEmpty(username) || ArrayUtils.isEmpty(owners)) {
-			return false;
+			return isUsersPersonalRepository(username);
 		}
-		return owners.contains(username.toLowerCase());
+		return owners.contains(username.toLowerCase()) || isUsersPersonalRepository(username);
 	}
 
 	public boolean isPersonalRepository() {
@@ -209,6 +219,8 @@ public class RepositoryModel implements Serializable, Comparable<RepositoryModel
 		clone.federationStrategy = federationStrategy;
 		clone.showRemoteBranches = false;
 		clone.allowForks = false;
+		clone.acceptNewPatchsets = false;
+		clone.acceptNewTickets = false;
 		clone.skipSizeCalculation = skipSizeCalculation;
 		clone.skipSummaryMetrics = skipSummaryMetrics;
 		clone.sparkleshareId = sparkleshareId;

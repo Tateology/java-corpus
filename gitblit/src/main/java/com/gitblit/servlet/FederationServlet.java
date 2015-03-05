@@ -25,8 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.servlet.http.HttpServletResponse;
 
 import com.gitblit.Constants.FederationRequest;
@@ -34,7 +32,6 @@ import com.gitblit.IStoredSettings;
 import com.gitblit.Keys;
 import com.gitblit.manager.IFederationManager;
 import com.gitblit.manager.IRepositoryManager;
-import com.gitblit.manager.IRuntimeManager;
 import com.gitblit.manager.IUserManager;
 import com.gitblit.models.FederationModel;
 import com.gitblit.models.FederationProposal;
@@ -46,37 +43,32 @@ import com.gitblit.utils.HttpUtils;
 import com.gitblit.utils.StringUtils;
 import com.gitblit.utils.TimeUtils;
 
+import dagger.ObjectGraph;
+
 /**
  * Handles federation requests.
  *
  * @author James Moger
  *
  */
-@Singleton
 public class FederationServlet extends JsonServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	private final IStoredSettings settings;
+	private IStoredSettings settings;
 
-	private final IUserManager userManager;
+	private IUserManager userManager;
 
-	private final IRepositoryManager repositoryManager;
+	private IRepositoryManager repositoryManager;
 
-	private final IFederationManager federationManager;
+	private IFederationManager federationManager;
 
-	@Inject
-	public FederationServlet(
-			IRuntimeManager runtimeManager,
-			IUserManager userManager,
-			IRepositoryManager repositoryManager,
-			IFederationManager federationManager) {
-
-		super();
-		this.settings = runtimeManager.getSettings();
-		this.userManager = userManager;
-		this.repositoryManager = repositoryManager;
-		this.federationManager = federationManager;
+	@Override
+	protected void inject(ObjectGraph dagger) {
+		this.settings = dagger.get(IStoredSettings.class);
+		this.userManager = dagger.get(IUserManager.class);
+		this.repositoryManager = dagger.get(IRepositoryManager.class);
+		this.federationManager = dagger.get(IFederationManager.class);
 	}
 
 	/**
@@ -146,8 +138,11 @@ public class FederationServlet extends JsonServlet {
 				return;
 			}
 
-			String url = HttpUtils.getGitblitURL(request);
-			federationManager.submitFederationProposal(proposal, url);
+			String gitblitUrl = settings.getString(Keys.web.canonicalUrl, null);
+			if (StringUtils.isEmpty(gitblitUrl)) {
+				gitblitUrl = HttpUtils.getGitblitURL(request);
+			}
+			federationManager.submitFederationProposal(proposal, gitblitUrl);
 			logger.info(MessageFormat.format(
 					"Submitted {0} federation proposal to pull {1} repositories from {2}",
 					proposal.tokenType.name(), proposal.repositories.size(), proposal.url));
@@ -169,7 +164,7 @@ public class FederationServlet extends JsonServlet {
 
 			// setup the last and netx pull dates
 			results.lastPull = new Date();
-			int mins = TimeUtils.convertFrequencyToMinutes(results.frequency);
+			int mins = TimeUtils.convertFrequencyToMinutes(results.frequency, 5);
 			results.nextPull = new Date(System.currentTimeMillis() + (mins * 60 * 1000L));
 
 			// acknowledge the receipt of status
@@ -193,7 +188,10 @@ public class FederationServlet extends JsonServlet {
 
 		Object result = null;
 		if (FederationRequest.PULL_REPOSITORIES.equals(reqType)) {
-			String gitblitUrl = HttpUtils.getGitblitURL(request);
+			String gitblitUrl = settings.getString(Keys.web.canonicalUrl, null);
+			if (StringUtils.isEmpty(gitblitUrl)) {
+				gitblitUrl = HttpUtils.getGitblitURL(request);
+			}
 			result = federationManager.getRepositories(gitblitUrl, token);
 		} else {
 			if (FederationRequest.PULL_SETTINGS.equals(reqType)) {

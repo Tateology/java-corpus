@@ -15,6 +15,7 @@
  */
 package com.gitblit.wicket.panels;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -45,6 +46,7 @@ import com.gitblit.models.PathModel.PathChangeModel;
 import com.gitblit.models.RefModel;
 import com.gitblit.models.SubmoduleModel;
 import com.gitblit.utils.JGitUtils;
+import com.gitblit.utils.MarkdownUtils;
 import com.gitblit.utils.StringUtils;
 import com.gitblit.wicket.WicketUtils;
 import com.gitblit.wicket.pages.BlobDiffPage;
@@ -71,39 +73,51 @@ public class HistoryPanel extends BasePanel {
 		}
 
 		RevCommit commit = JGitUtils.getCommit(r, objectId);
-		List<PathChangeModel> paths = JGitUtils.getFilesInCommit(r, commit);
-
-		Map<String, SubmoduleModel> submodules = new HashMap<String, SubmoduleModel>();
-		for (SubmoduleModel model : JGitUtils.getSubmodules(r, commit.getTree())) {
-			submodules.put(model.path, model);
-		}
-
 		PathModel matchingPath = null;
-		for (PathModel p : paths) {
-			if (p.path.equals(path)) {
-				matchingPath = p;
-				break;
+		Map<String, SubmoduleModel> submodules = new HashMap<String, SubmoduleModel>();
+
+		if (commit == null) {
+			// commit missing
+			String msg = MessageFormat.format("Failed to find history of **{0}** *{1}*",
+					path, objectId);
+			logger().error(msg + " " + repositoryName);
+			add(new Label("commitHeader", MarkdownUtils.transformMarkdown(msg)).setEscapeModelStrings(false));
+			add(new Label("breadcrumbs"));
+		} else {
+			// commit found
+			List<PathChangeModel> paths = JGitUtils.getFilesInCommit(r, commit);
+			add(new CommitHeaderPanel("commitHeader", repositoryName, commit));
+			add(new PathBreadcrumbsPanel("breadcrumbs", repositoryName, path, objectId));
+			for (SubmoduleModel model : JGitUtils.getSubmodules(r, commit.getTree())) {
+				submodules.put(model.path, model);
 			}
-		}
-		if (matchingPath == null) {
-			// path not in commit
-			// manually locate path in tree
-			TreeWalk tw = new TreeWalk(r);
-			tw.reset();
-			tw.setRecursive(true);
-			try {
-				tw.addTree(commit.getTree());
-				tw.setFilter(PathFilterGroup.createFromStrings(Collections.singleton(path)));
-				while (tw.next()) {
-					if (tw.getPathString().equals(path)) {
-						matchingPath = new PathChangeModel(tw.getPathString(), tw.getPathString(), 0, tw
-							.getRawMode(0), tw.getObjectId(0).getName(), commit.getId().getName(),
-							ChangeType.MODIFY);
-					}
+
+			for (PathModel p : paths) {
+				if (p.path.equals(path)) {
+					matchingPath = p;
+					break;
 				}
-			} catch (Exception e) {
-			} finally {
-				tw.release();
+			}
+			if (matchingPath == null) {
+				// path not in commit
+				// manually locate path in tree
+				TreeWalk tw = new TreeWalk(r);
+				tw.reset();
+				tw.setRecursive(true);
+				try {
+					tw.addTree(commit.getTree());
+					tw.setFilter(PathFilterGroup.createFromStrings(Collections.singleton(path)));
+					while (tw.next()) {
+						if (tw.getPathString().equals(path)) {
+							matchingPath = new PathChangeModel(tw.getPathString(), tw.getPathString(), 0, tw
+								.getRawMode(0), tw.getObjectId(0).getName(), commit.getId().getName(),
+								ChangeType.MODIFY);
+						}
+					}
+				} catch (Exception e) {
+				} finally {
+					tw.release();
+				}
 			}
 		}
 
@@ -137,11 +151,6 @@ public class HistoryPanel extends BasePanel {
 		// works unless commits.size() represents the exact end.
 		hasMore = commits.size() >= itemsPerPage;
 
-		add(new CommitHeaderPanel("commitHeader", repositoryName, commit));
-
-		// breadcrumbs
-		add(new PathBreadcrumbsPanel("breadcrumbs", repositoryName, path, objectId));
-
 		final int hashLen = app().settings().getInteger(Keys.web.shortCommitIdLength, 6);
 		ListDataProvider<RevCommit> dp = new ListDataProvider<RevCommit>(commits);
 		DataView<RevCommit> logView = new DataView<RevCommit>("commit", dp) {
@@ -159,7 +168,7 @@ public class HistoryPanel extends BasePanel {
 				String author = entry.getAuthorIdent().getName();
 				LinkPanel authorLink = new LinkPanel("commitAuthor", "list", author,
 						GitSearchPage.class,
-						WicketUtils.newSearchParameter(repositoryName, objectId,
+						WicketUtils.newSearchParameter(repositoryName, null,
 								author, Constants.SearchType.AUTHOR));
 				setPersonSearchTooltip(authorLink, author, Constants.SearchType.AUTHOR);
 				item.add(authorLink);

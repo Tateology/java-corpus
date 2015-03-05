@@ -15,6 +15,8 @@
  */
 package com.gitblit.wicket;
 
+import static org.pegdown.FastEncoder.encode;
+
 import java.io.Serializable;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
@@ -22,6 +24,7 @@ import java.net.URLEncoder;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,19 +42,27 @@ import org.eclipse.mylyn.wikitext.mediawiki.core.MediaWikiLanguage;
 import org.eclipse.mylyn.wikitext.textile.core.TextileLanguage;
 import org.eclipse.mylyn.wikitext.tracwiki.core.TracWikiLanguage;
 import org.eclipse.mylyn.wikitext.twiki.core.TWikiLanguage;
+import org.pegdown.DefaultVerbatimSerializer;
 import org.pegdown.LinkRenderer;
+import org.pegdown.ToHtmlSerializer;
+import org.pegdown.VerbatimSerializer;
+import org.pegdown.ast.ExpImageNode;
+import org.pegdown.ast.RefImageNode;
 import org.pegdown.ast.WikiLinkNode;
+import org.pegdown.plugins.ToHtmlSerializerPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.gitblit.IStoredSettings;
 import com.gitblit.Keys;
 import com.gitblit.models.PathModel;
+import com.gitblit.servlet.RawServlet;
 import com.gitblit.utils.JGitUtils;
 import com.gitblit.utils.MarkdownUtils;
 import com.gitblit.utils.StringUtils;
+import com.gitblit.utils.XssFilter;
 import com.gitblit.wicket.pages.DocPage;
-import com.gitblit.wicket.pages.RawPage;
+import com.google.common.base.Joiner;
 
 /**
  * Processes markup content and generates html with repository-relative page and
@@ -70,11 +81,9 @@ public class MarkupProcessor {
 
 	private final IStoredSettings settings;
 
-	public MarkupProcessor(IStoredSettings settings) {
-		this.settings = settings;
-	}
+	private final XssFilter xssFilter;
 
-	public List<String> getMarkupExtensions() {
+	public static List<String> getMarkupExtensions(IStoredSettings settings) {
 		List<String> list = new ArrayList<String>();
 		list.addAll(settings.getStrings(Keys.web.confluenceExtensions));
 		list.addAll(settings.getStrings(Keys.web.markdownExtensions));
@@ -85,8 +94,17 @@ public class MarkupProcessor {
 		return list;
 	}
 
+	public MarkupProcessor(IStoredSettings settings, XssFilter xssFilter) {
+		this.settings = settings;
+		this.xssFilter = xssFilter;
+	}
+
+	public List<String> getMarkupExtensions() {
+		return getMarkupExtensions(settings);
+	}
+
 	public List<String> getAllExtensions() {
-		List<String> list = getMarkupExtensions();
+		List<String> list = getMarkupExtensions(settings);
 		list.add("txt");
 		list.add("TXT");
 		return list;
@@ -250,7 +268,8 @@ public class MarkupProcessor {
 				if (imagePath.indexOf("://") == -1) {
 					// relative image
 					String path = doc.getRelativePath(imagePath);
-					url = getWicketUrl(RawPage.class, repositoryName, commitId, path);
+					String contextUrl = RequestCycle.get().getRequest().getRelativePathPrefixToContextRoot();
+					url = RawServlet.asLink(contextUrl, repositoryName, commitId, path);
 				} else {
 					// absolute image
 					url = imagePath;
@@ -284,7 +303,11 @@ public class MarkupProcessor {
 		MarkupParser parser = new MarkupParser(lang);
 		parser.setBuilder(builder);
 		parser.parse(doc.markup);
-		doc.html = writer.toString();
+
+		final String content = writer.toString();
+		final String safeContent = xssFilter.relaxed(content);
+
+		doc.html = safeContent;
 	}
 
 	/**
@@ -296,6 +319,36 @@ public class MarkupProcessor {
 	 */
 	private void parse(final MarkupDocument doc, final String repositoryName, final String commitId) {
 		LinkRenderer renderer = new LinkRenderer() {
+
+			@Override
+			public Rendering render(ExpImageNode node, String text) {
+				if (node.url.indexOf("://") == -1) {
+					// repository-relative image link
+					String path = doc.getRelativePath(node.url);
+					String contextUrl = RequestCycle.get().getRequest().getRelativePathPrefixToContextRoot();
+					String url = RawServlet.asLink(contextUrl, repositoryName, commitId, path);
+					return new Rendering(url, text);
+				}
+				// absolute image link
+				return new Rendering(node.url, text);
+			}
+
+			@Override
+			public Rendering render(RefImageNode node, String url, String title, String alt) {
+				Rendering rendering;
+				if (url.indexOf("://") == -1) {
+					// repository-relative image link
+					String path = doc.getRelativePath(url);
+					String contextUrl = RequestCycle.get().getRequest().getRelativePathPrefixToContextRoot();
+					String wurl = RawServlet.asLink(contextUrl, repositoryName, commitId, path);
+					rendering = new Rendering(wurl, alt);
+				} else {
+					// absolute image link
+					rendering = new Rendering(url, alt);
+				}
+				return StringUtils.isEmpty(title) ? rendering : rendering.withAttribute("title", encode(title));
+			}
+
 			@Override
 			public Rendering render(WikiLinkNode node) {
 				String path = doc.getRelativePath(node.getText());
@@ -304,7 +357,11 @@ public class MarkupProcessor {
 				return new Rendering(url, name);
 			}
 		};
-		doc.html = MarkdownUtils.transformMarkdown(doc.markup, renderer);
+
+		final String content = MarkdownUtils.transformMarkdown(doc.markup, renderer);
+		final String safeContent = xssFilter.relaxed(content);
+
+		doc.html = safeContent;
 	}
 
 	private String getWicketUrl(Class<? extends Page> pageClass, final String repositoryName, final String commitId, final String document) {
@@ -358,7 +415,59 @@ public class MarkupProcessor {
 		}
 
 		String getRelativePath(String ref) {
-			return ref.charAt(0) == '/' ? ref.substring(1) : (getCurrentPath() + ref);
+			if (ref.charAt(0) == '/') {
+				// absolute path in repository
+				return ref.substring(1);
+			} else {
+				// resolve relative repository path
+				String cp = getCurrentPath();
+				if (StringUtils.isEmpty(cp)) {
+					return ref;
+				}
+				// this is a simple relative path resolver
+				List<String> currPathStrings = new ArrayList<String>(Arrays.asList(cp.split("/")));
+				String file = ref;
+				while (file.startsWith("../")) {
+					// strip ../ from the file reference
+					// drop the last path element
+					file = file.substring(3);
+					currPathStrings.remove(currPathStrings.size() - 1);
+				}
+				currPathStrings.add(file);
+				String path = Joiner.on("/").join(currPathStrings);
+				return path;
+			}
 		}
+	}
+
+	/**
+	 * This class implements a workaround for a bug reported in issue-379.
+	 * The bug was introduced by my own pegdown pull request #115.
+	 *
+	 * @author James Moger
+	 *
+	 */
+	public static class WorkaroundHtmlSerializer extends ToHtmlSerializer {
+
+		 public WorkaroundHtmlSerializer(final LinkRenderer linkRenderer) {
+			 super(linkRenderer,
+					 Collections.<String, VerbatimSerializer>singletonMap(VerbatimSerializer.DEFAULT, DefaultVerbatimSerializer.INSTANCE),
+					 Collections.<ToHtmlSerializerPlugin>emptyList());
+		    }
+	    private void printAttribute(String name, String value) {
+	        printer.print(' ').print(name).print('=').print('"').print(value).print('"');
+	    }
+
+	    /* Reimplement print image tag to eliminate a trailing double-quote */
+		@Override
+	    protected void printImageTag(LinkRenderer.Rendering rendering) {
+	        printer.print("<img");
+	        printAttribute("src", rendering.href);
+	        printAttribute("alt", rendering.text);
+	        for (LinkRenderer.Attribute attr : rendering.attributes) {
+	            printAttribute(attr.name, attr.value);
+	        }
+	        printer.print("/>");
+	    }
 	}
 }

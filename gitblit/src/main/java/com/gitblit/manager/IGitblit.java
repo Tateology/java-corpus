@@ -26,9 +26,12 @@ import com.gitblit.models.RepositoryModel;
 import com.gitblit.models.RepositoryUrl;
 import com.gitblit.models.TeamModel;
 import com.gitblit.models.UserModel;
+import com.gitblit.tickets.ITicketService;
+import com.gitblit.transport.ssh.IPublicKeyManager;
 
 public interface IGitblit extends IManager,
 									IRuntimeManager,
+									IPluginManager,
 									INotificationManager,
 									IUserManager,
 									IAuthenticationManager,
@@ -43,6 +46,7 @@ public interface IGitblit extends IManager,
 	 * @param user
 	 * @param repository
 	 * @return a list of repository urls
+	 * @since 1.4.0
 	 */
 	List<RepositoryUrl> getRepositoryUrls(HttpServletRequest request, UserModel user, RepositoryModel repository);
 
@@ -52,6 +56,7 @@ public interface IGitblit extends IManager,
 	 * @param user
 	 * @param isCreate
 	 * @throws GitBlitException
+	 * @since 1.4.0
 	 */
 	void addUser(UserModel user) throws GitBlitException;
 
@@ -62,6 +67,7 @@ public interface IGitblit extends IManager,
 	 * @param username
 	 * @param user
 	 * @throws GitBlitException
+	 * @since 1.4.0
 	 */
 	void reviseUser(String username, UserModel user) throws GitBlitException;
 
@@ -70,6 +76,7 @@ public interface IGitblit extends IManager,
 	 *
 	 * @param team
 	 * @param isCreate
+	 * @since 1.4.0
 	 */
 	void addTeam(TeamModel team) throws GitBlitException;
 
@@ -78,6 +85,7 @@ public interface IGitblit extends IManager,
 	 *
 	 * @param teamname
 	 * @param team
+	 * @since 1.4.0
 	 */
 	void reviseTeam(String teamname, TeamModel team) throws GitBlitException;
 
@@ -90,6 +98,7 @@ public interface IGitblit extends IManager,
 	 * @param user
 	 * @return the repository model of the fork, if successful
 	 * @throws GitBlitException
+	 * @since 1.4.0
 	 */
 	RepositoryModel fork(RepositoryModel repository, UserModel user) throws GitBlitException;
 
@@ -98,7 +107,24 @@ public interface IGitblit extends IManager,
 	 * repository url panel;
 	 *
 	 * @return a collection of client applications
+	 * @since 1.4.0
 	 */
 	Collection<GitClientApplication> getClientApplications();
+
+	/**
+	 * Returns the ticket service.
+	 *
+	 * @return a ticket service
+	 * @since 1.4.0
+	 */
+	ITicketService getTicketService();
+
+	/**
+	 * Returns the SSH public key manager.
+	 *
+	 * @return the SSH public key manager
+	 * @since 1.5.0
+	 */
+	IPublicKeyManager getPublicKeyManager();
 
 }

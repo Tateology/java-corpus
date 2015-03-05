@@ -20,6 +20,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.InetAddress;
@@ -33,32 +34,29 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 
-import org.eclipse.jetty.ajp.Ajp13SocketConnector;
+import org.apache.log4j.PropertyConfigurator;
 import org.eclipse.jetty.security.ConstraintMapping;
 import org.eclipse.jetty.security.ConstraintSecurityHandler;
-import org.eclipse.jetty.server.Connector;
+import org.eclipse.jetty.server.HttpConfiguration;
+import org.eclipse.jetty.server.HttpConnectionFactory;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.bio.SocketConnector;
-import org.eclipse.jetty.server.nio.SelectChannelConnector;
+import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.session.HashSessionManager;
-import org.eclipse.jetty.server.ssl.SslConnector;
-import org.eclipse.jetty.server.ssl.SslSelectChannelConnector;
-import org.eclipse.jetty.server.ssl.SslSocketConnector;
 import org.eclipse.jetty.util.security.Constraint;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.eclipse.jgit.storage.file.FileBasedConfig;
 import org.eclipse.jgit.util.FS;
 import org.eclipse.jgit.util.FileUtils;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.CmdLineParser;
+import org.kohsuke.args4j.Option;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.beust.jcommander.JCommander;
-import com.beust.jcommander.Parameter;
-import com.beust.jcommander.ParameterException;
-import com.beust.jcommander.Parameters;
 import com.gitblit.authority.GitblitAuthority;
 import com.gitblit.authority.NewCertificateConfig;
 import com.gitblit.servlet.GitblitContext;
@@ -93,7 +91,7 @@ public class GitBlitServer {
 		// filter out the baseFolder parameter
 		List<String> filtered = new ArrayList<String>();
 		String folder = "data";
-		for (int i = 0; i< args.length; i++) {
+		for (int i = 0; i < args.length; i++) {
 			String arg = args[i];
 			if (arg.equals("--baseFolder")) {
 				if (i + 1 == args.length) {
@@ -110,14 +108,14 @@ public class GitBlitServer {
 
 		Params.baseFolder = folder;
 		Params params = new Params();
-		JCommander jc = new JCommander(params);
+		CmdLineParser parser = new CmdLineParser(params);
 		try {
-			jc.parse(filtered.toArray(new String[filtered.size()]));
+			parser.parseArgument(filtered);
 			if (params.help) {
-				server.usage(jc, null);
+				server.usage(parser, null);
 			}
-		} catch (ParameterException t) {
-			server.usage(jc, t);
+		} catch (CmdLineException t) {
+			server.usage(parser, t);
 		}
 
 		if (params.stop) {
@@ -130,10 +128,10 @@ public class GitBlitServer {
 	/**
 	 * Display the command line usage of Gitblit GO.
 	 *
-	 * @param jc
+	 * @param parser
 	 * @param t
 	 */
-	protected final void usage(JCommander jc, ParameterException t) {
+	protected final void usage(CmdLineParser parser, CmdLineException t) {
 		System.out.println(Constants.BORDER);
 		System.out.println(Constants.getGitBlitVersion());
 		System.out.println(Constants.BORDER);
@@ -142,12 +140,21 @@ public class GitBlitServer {
 			System.out.println(t.getMessage());
 			System.out.println();
 		}
-		if (jc != null) {
-			jc.usage();
+		if (parser != null) {
+			parser.printUsage(System.out);
 			System.out
 					.println("\nExample:\n  java -server -Xmx1024M -jar gitblit.jar --repositoriesFolder c:\\git --httpPort 80 --httpsPort 443");
 		}
 		System.exit(0);
+	}
+
+	protected File getBaseFolder(Params params) {
+		String path = System.getProperty("GITBLIT_HOME", Params.baseFolder);
+		if (!StringUtils.isEmpty(System.getenv("GITBLIT_HOME"))) {
+			path = System.getenv("GITBLIT_HOME");
+		}
+
+		return new File(path).getAbsoluteFile();
 	}
 
 	/**
@@ -172,13 +179,43 @@ public class GitBlitServer {
 	 * Start Gitblit GO.
 	 */
 	protected final void start(Params params) {
-		final File baseFolder = new File(Params.baseFolder).getAbsoluteFile();
+		final File baseFolder = getBaseFolder(params);
 		FileSettings settings = params.FILESETTINGS;
 		if (!StringUtils.isEmpty(params.settingsfile)) {
 			if (new File(params.settingsfile).exists()) {
 				settings = new FileSettings(params.settingsfile);
 			}
 		}
+
+		if (params.dailyLogFile) {
+			// Configure log4j for daily log file generation
+			InputStream is = null;
+			try {
+				is = getClass().getResourceAsStream("/log4j.properties");
+				Properties loggingProperties = new Properties();
+				loggingProperties.load(is);
+
+				loggingProperties.put("log4j.appender.R.File", new File(baseFolder, "logs/gitblit.log").getAbsolutePath());
+				loggingProperties.put("log4j.rootCategory", "INFO, R");
+
+				if (settings.getBoolean(Keys.web.debugMode, false)) {
+					loggingProperties.put("log4j.logger.com.gitblit", "DEBUG");
+				}
+
+				PropertyConfigurator.configure(loggingProperties);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (is != null) {
+						is.close();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
 		logger = LoggerFactory.getLogger(GitBlitServer.class);
 		logger.info(Constants.BORDER);
 		logger.info("            _____  _  _    _      _  _  _");
@@ -203,30 +240,14 @@ public class GitBlitServer {
 		String osversion = System.getProperty("os.version");
 		logger.info("Running on " + osname + " (" + osversion + ")");
 
-		List<Connector> connectors = new ArrayList<Connector>();
-
-		// conditionally configure the http connector
-		if (params.port > 0) {
-			Connector httpConnector = createConnector(params.useNIO, params.port, settings.getInteger(Keys.server.threadPoolSize, 50));
-			String bindInterface = settings.getString(Keys.server.httpBindInterface, null);
-			if (!StringUtils.isEmpty(bindInterface)) {
-				logger.warn(MessageFormat.format("Binding connector on port {0,number,0} to {1}",
-						params.port, bindInterface));
-				httpConnector.setHost(bindInterface);
-			}
-			if (params.port < 1024 && !isWindows()) {
-				logger.warn("Gitblit needs to run with ROOT permissions for ports < 1024!");
-			}
-			if (params.port > 0 && params.securePort > 0 && settings.getBoolean(Keys.server.redirectToHttpsPort, true)) {
-				// redirect HTTP requests to HTTPS
-				if (httpConnector instanceof SelectChannelConnector) {
-					((SelectChannelConnector) httpConnector).setConfidentialPort(params.securePort);
-				} else {
-					((SocketConnector) httpConnector).setConfidentialPort(params.securePort);
-				}
-			}
-			connectors.add(httpConnector);
+		QueuedThreadPool threadPool = new QueuedThreadPool();
+		int maxThreads = settings.getInteger(Keys.server.threadPoolSize, 50);
+		if (maxThreads > 0) {
+			threadPool.setMaxThreads(maxThreads);
 		}
+
+		Server server = new Server(threadPool);
+		server.setStopAtShutdown(true);
 
 		// conditionally configure the https connector
 		if (params.securePort > 0) {
@@ -273,38 +294,70 @@ public class GitBlitServer {
 			});
 
 			if (serverKeyStore.exists()) {
-				Connector secureConnector = createSSLConnector(params.alias, serverKeyStore, serverTrustStore, params.storePassword,
-						caRevocationList, params.useNIO, params.securePort, settings.getInteger(Keys.server.threadPoolSize, 50), params.requireClientCertificates);
+				/*
+				 * HTTPS
+				 */
+				logger.info("Setting up HTTPS transport on port " + params.securePort);
+				GitblitSslContextFactory factory = new GitblitSslContextFactory(params.alias,
+						serverKeyStore, serverTrustStore, params.storePassword, caRevocationList);
+				if (params.requireClientCertificates) {
+					factory.setNeedClientAuth(true);
+				} else {
+					factory.setWantClientAuth(true);
+				}
+
+				ServerConnector connector = new ServerConnector(server, factory);
+				connector.setSoLingerTime(-1);
+				connector.setIdleTimeout(30000);
+				connector.setPort(params.securePort);
 				String bindInterface = settings.getString(Keys.server.httpsBindInterface, null);
 				if (!StringUtils.isEmpty(bindInterface)) {
 					logger.warn(MessageFormat.format(
-							"Binding ssl connector on port {0,number,0} to {1}", params.securePort,
+							"Binding HTTPS transport on port {0,number,0} to {1}", params.securePort,
 							bindInterface));
-					secureConnector.setHost(bindInterface);
+					connector.setHost(bindInterface);
 				}
 				if (params.securePort < 1024 && !isWindows()) {
 					logger.warn("Gitblit needs to run with ROOT permissions for ports < 1024!");
 				}
-				connectors.add(secureConnector);
+
+				server.addConnector(connector);
 			} else {
 				logger.warn("Failed to find or load Keystore?");
-				logger.warn("SSL connector DISABLED.");
+				logger.warn("HTTPS transport DISABLED.");
 			}
 		}
 
-		// conditionally configure the ajp connector
-		if (params.ajpPort > 0) {
-			Connector ajpConnector = createAJPConnector(params.ajpPort);
-			String bindInterface = settings.getString(Keys.server.ajpBindInterface, null);
-			if (!StringUtils.isEmpty(bindInterface)) {
-				logger.warn(MessageFormat.format("Binding connector on port {0,number,0} to {1}",
-						params.ajpPort, bindInterface));
-				ajpConnector.setHost(bindInterface);
+		// conditionally configure the http transport
+		if (params.port > 0) {
+			/*
+			 * HTTP
+			 */
+			logger.info("Setting up HTTP transport on port " + params.port);
+
+			HttpConfiguration httpConfig = new HttpConfiguration();
+			if (params.port > 0 && params.securePort > 0 && settings.getBoolean(Keys.server.redirectToHttpsPort, true)) {
+				httpConfig.setSecureScheme("https");
+				httpConfig.setSecurePort(params.securePort);
 			}
-			if (params.ajpPort < 1024 && !isWindows()) {
+	        httpConfig.setSendServerVersion(false);
+	        httpConfig.setSendDateHeader(false);
+
+			ServerConnector connector = new ServerConnector(server, new HttpConnectionFactory(httpConfig));
+			connector.setSoLingerTime(-1);
+			connector.setIdleTimeout(30000);
+			connector.setPort(params.port);
+			String bindInterface = settings.getString(Keys.server.httpBindInterface, null);
+			if (!StringUtils.isEmpty(bindInterface)) {
+				logger.warn(MessageFormat.format("Binding HTTP transport on port {0,number,0} to {1}",
+						params.port, bindInterface));
+				connector.setHost(bindInterface);
+			}
+			if (params.port < 1024 && !isWindows()) {
 				logger.warn("Gitblit needs to run with ROOT permissions for ports < 1024!");
 			}
-			connectors.add(ajpConnector);
+
+			server.addConnector(connector);
 		}
 
 		// tempDir is where the embedded Gitblit web application is expanded and
@@ -320,10 +373,6 @@ public class GitBlitServer {
 		if (!tempDir.mkdirs()) {
 			logger.warn("Failed to create temp dir " + tempDir.getAbsolutePath());
 		}
-
-		Server server = new Server();
-		server.setStopAtShutdown(true);
-		server.setConnectors(connectors.toArray(new Connector[connectors.size()]));
 
 		// Get the execution path of this class
 		// We use this to set the WAR path.
@@ -355,6 +404,7 @@ public class GitBlitServer {
 		settings.overrideSetting(Keys.realm.userService, params.userService);
 		settings.overrideSetting(Keys.git.repositoriesFolder, params.repositoriesFolder);
 		settings.overrideSetting(Keys.git.daemonPort, params.gitPort);
+		settings.overrideSetting(Keys.git.sshPort, params.sshPort);
 
 		// Start up an in-memory LDAP server, if configured
 		try {
@@ -435,104 +485,6 @@ public class GitBlitServer {
 	}
 
 	/**
-	 * Creates an http connector.
-	 *
-	 * @param useNIO
-	 * @param port
-	 * @param threadPoolSize
-	 * @return an http connector
-	 */
-	private Connector createConnector(boolean useNIO, int port, int threadPoolSize) {
-		Connector connector;
-		if (useNIO) {
-			logger.info("Setting up NIO SelectChannelConnector on port " + port);
-			SelectChannelConnector nioconn = new SelectChannelConnector();
-			nioconn.setSoLingerTime(-1);
-			if (threadPoolSize > 0) {
-				nioconn.setThreadPool(new QueuedThreadPool(threadPoolSize));
-			}
-			connector = nioconn;
-		} else {
-			logger.info("Setting up SocketConnector on port " + port);
-			SocketConnector sockconn = new SocketConnector();
-			if (threadPoolSize > 0) {
-				sockconn.setThreadPool(new QueuedThreadPool(threadPoolSize));
-			}
-			connector = sockconn;
-		}
-
-		connector.setPort(port);
-		connector.setMaxIdleTime(30000);
-		return connector;
-	}
-
-	/**
-	 * Creates an https connector.
-	 *
-	 * SSL renegotiation will be enabled if the JVM is 1.6.0_22 or later.
-	 * oracle.com/technetwork/java/javase/documentation/tlsreadme2-176330.html
-	 *
-	 * @param certAlias
-	 * @param keyStore
-	 * @param clientTrustStore
-	 * @param storePassword
-	 * @param caRevocationList
-	 * @param useNIO
-	 * @param port
-	 * @param threadPoolSize
-	 * @param requireClientCertificates
-	 * @return an https connector
-	 */
-	private Connector createSSLConnector(String certAlias, File keyStore, File clientTrustStore,
-			String storePassword, File caRevocationList, boolean useNIO,  int port, int threadPoolSize,
-			boolean requireClientCertificates) {
-		GitblitSslContextFactory factory = new GitblitSslContextFactory(certAlias,
-				keyStore, clientTrustStore, storePassword, caRevocationList);
-		SslConnector connector;
-		if (useNIO) {
-			logger.info("Setting up NIO SslSelectChannelConnector on port " + port);
-			SslSelectChannelConnector ssl = new SslSelectChannelConnector(factory);
-			ssl.setSoLingerTime(-1);
-			if (requireClientCertificates) {
-				factory.setNeedClientAuth(true);
-			} else {
-				factory.setWantClientAuth(true);
-			}
-			if (threadPoolSize > 0) {
-				ssl.setThreadPool(new QueuedThreadPool(threadPoolSize));
-			}
-			connector = ssl;
-		} else {
-			logger.info("Setting up NIO SslSocketConnector on port " + port);
-			SslSocketConnector ssl = new SslSocketConnector(factory);
-			if (threadPoolSize > 0) {
-				ssl.setThreadPool(new QueuedThreadPool(threadPoolSize));
-			}
-			connector = ssl;
-		}
-		connector.setPort(port);
-		connector.setMaxIdleTime(30000);
-
-		return connector;
-	}
-
-	/**
-	 * Creates an ajp connector.
-	 *
-	 * @param port
-	 * @return an ajp connector
-	 */
-	private Connector createAJPConnector(int port) {
-		logger.info("Setting up AJP Connector on port " + port);
-		Ajp13SocketConnector ajp = new Ajp13SocketConnector();
-		ajp.setPort(port);
-		if (port < 1024 && !isWindows()) {
-			logger.warn("Gitblit needs to run with ROOT permissions for ports < 1024!");
-		}
-		return ajp;
-	}
-
-	/**
 	 * Tests to see if the operating system is Windows.
 	 *
 	 * @return true if this is a windows machine
@@ -593,9 +545,8 @@ public class GitBlitServer {
 	}
 
 	/**
-	 * JCommander Parameters class for GitBlitServer.
+	 * Parameters class for GitBlitServer.
 	 */
-	@Parameters(separators = " ")
 	public static class Params {
 
 		public static String baseFolder;
@@ -605,66 +556,66 @@ public class GitBlitServer {
 		/*
 		 * Server parameters
 		 */
-		@Parameter(names = { "-h", "--help" }, description = "Show this help")
+		@Option(name = "--help", aliases = { "-h"}, usage = "Show this help")
 		public Boolean help = false;
 
-		@Parameter(names = { "--stop" }, description = "Stop Server")
+		@Option(name = "--stop", usage = "Stop Server")
 		public Boolean stop = false;
 
-		@Parameter(names = { "--tempFolder" }, description = "Folder for server to extract built-in webapp")
+		@Option(name = "--tempFolder", usage = "Folder for server to extract built-in webapp", metaVar="PATH")
 		public String temp = FILESETTINGS.getString(Keys.server.tempFolder, "temp");
+
+		@Option(name = "--dailyLogFile", usage = "Log to a rolling daily log file INSTEAD of stdout.")
+		public Boolean dailyLogFile = false;
 
 		/*
 		 * GIT Servlet Parameters
 		 */
-		@Parameter(names = { "--repositoriesFolder" }, description = "Git Repositories Folder")
+		@Option(name = "--repositoriesFolder", usage = "Git Repositories Folder", metaVar="PATH")
 		public String repositoriesFolder = FILESETTINGS.getString(Keys.git.repositoriesFolder,
 				"git");
 
 		/*
 		 * Authentication Parameters
 		 */
-		@Parameter(names = { "--userService" }, description = "Authentication and Authorization Service (filename or fully qualified classname)")
+		@Option(name = "--userService", usage = "Authentication and Authorization Service (filename or fully qualified classname)")
 		public String userService = FILESETTINGS.getString(Keys.realm.userService,
 				"users.conf");
 
 		/*
 		 * JETTY Parameters
 		 */
-		@Parameter(names = { "--useNio" }, description = "Use NIO Connector else use Socket Connector.")
-		public Boolean useNIO = FILESETTINGS.getBoolean(Keys.server.useNio, true);
-
-		@Parameter(names = "--httpPort", description = "HTTP port for to serve. (port <= 0 will disable this connector)")
+		@Option(name = "--httpPort", usage = "HTTP port for to serve. (port <= 0 will disable this connector)", metaVar="PORT")
 		public Integer port = FILESETTINGS.getInteger(Keys.server.httpPort, 0);
 
-		@Parameter(names = "--httpsPort", description = "HTTPS port to serve.  (port <= 0 will disable this connector)")
+		@Option(name = "--httpsPort", usage = "HTTPS port to serve.  (port <= 0 will disable this connector)", metaVar="PORT")
 		public Integer securePort = FILESETTINGS.getInteger(Keys.server.httpsPort, 8443);
 
-		@Parameter(names = "--ajpPort", description = "AJP port to serve.  (port <= 0 will disable this connector)")
-		public Integer ajpPort = FILESETTINGS.getInteger(Keys.server.ajpPort, 0);
-
-		@Parameter(names = "--gitPort", description = "Git Daemon port to serve.  (port <= 0 will disable this connector)")
+		@Option(name = "--gitPort", usage = "Git Daemon port to serve.  (port <= 0 will disable this connector)", metaVar="PORT")
 		public Integer gitPort = FILESETTINGS.getInteger(Keys.git.daemonPort, 9418);
 
-		@Parameter(names = "--alias", description = "Alias of SSL certificate in keystore for serving https.")
+        @Option(name = "--sshPort", usage = "Git SSH port to serve.  (port <= 0 will disable this connector)", metaVar = "PORT")
+        public Integer sshPort = FILESETTINGS.getInteger(Keys.git.sshPort, 29418);
+
+		@Option(name = "--alias", usage = "Alias of SSL certificate in keystore for serving https.", metaVar="ALIAS")
 		public String alias = FILESETTINGS.getString(Keys.server.certificateAlias, "");
 
-		@Parameter(names = "--storePassword", description = "Password for SSL (https) keystore.")
+		@Option(name = "--storePassword", usage = "Password for SSL (https) keystore.", metaVar="PASSWORD")
 		public String storePassword = FILESETTINGS.getString(Keys.server.storePassword, "");
 
-		@Parameter(names = "--shutdownPort", description = "Port for Shutdown Monitor to listen on. (port <= 0 will disable this monitor)")
+		@Option(name = "--shutdownPort", usage = "Port for Shutdown Monitor to listen on. (port <= 0 will disable this monitor)", metaVar="PORT")
 		public Integer shutdownPort = FILESETTINGS.getInteger(Keys.server.shutdownPort, 8081);
 
-		@Parameter(names = "--requireClientCertificates", description = "Require client X509 certificates for https connections.")
+		@Option(name = "--requireClientCertificates", usage = "Require client X509 certificates for https connections.")
 		public Boolean requireClientCertificates = FILESETTINGS.getBoolean(Keys.server.requireClientCertificates, false);
 
 		/*
 		 * Setting overrides
 		 */
-		@Parameter(names = { "--settings" }, description = "Path to alternative settings")
+		@Option(name = "--settings", usage = "Path to alternative settings", metaVar="FILE")
 		public String settingsfile;
 
-		@Parameter(names = { "--ldapLdifFile" }, description = "Path to LDIF file.  This will cause an in-memory LDAP server to be started according to gitblit settings")
+		@Option(name = "--ldapLdifFile", usage = "Path to LDIF file.  This will cause an in-memory LDAP server to be started according to gitblit settings", metaVar="FILE")
 		public String ldapLdifFile;
 
 	}

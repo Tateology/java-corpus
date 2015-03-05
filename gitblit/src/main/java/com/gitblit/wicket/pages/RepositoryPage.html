@@ -17,7 +17,7 @@
 								<form class="form-search" style="margin: 0px;" wicket:id="searchForm">
 									<div class="input-append">
 										<select class="span2" style="border-radius: 4px;" wicket:id="searchType"/>
-										<input type="text" class="search-query" style="width: 170px;border-radius: 14px 0 0 14px; padding-left: 14px;" id="searchBox" wicket:id="searchBox" value=""/>
+										<input type="text" class="input-medium search-query" style="border-radius: 14px 0 0 14px; padding-left: 14px;" id="searchBox" wicket:id="searchBox" value=""/>
 										<button class="btn" style="border-radius: 0 14px 14px 0px;margin-left:-5px;" type="submit"><i class="icon-search"></i></button>
 									</div>
 								</form>
@@ -38,6 +38,7 @@
 					<div>
 						<div class="hidden-phone btn-group pull-right" style="margin-top:5px;">
 							<!-- future spot for other repo buttons -->
+							<a class="btn" wicket:id="newTicketLink"></a>
 							<a class="btn" wicket:id="starLink"></a>
 							<a class="btn" wicket:id="unstarLink"></a>
 							<a class="btn" wicket:id="myForkLink"><img style="border:0px;vertical-align:middle;" src="fork-black_16x16.png"></img> <wicket:message key="gb.myFork"></wicket:message></a>

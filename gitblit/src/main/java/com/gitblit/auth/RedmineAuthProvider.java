@@ -19,14 +19,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 
-import org.apache.wicket.util.io.IOUtils;
+import org.apache.commons.io.IOUtils;
 
 import com.gitblit.Constants;
 import com.gitblit.Constants.AccountType;
 import com.gitblit.Keys;
 import com.gitblit.auth.AuthenticationProvider.UsernamePasswordAuthenticationProvider;
 import com.gitblit.models.UserModel;
-import com.gitblit.utils.ArrayUtils;
 import com.gitblit.utils.ConnectionUtils;
 import com.gitblit.utils.StringUtils;
 import com.google.gson.Gson;
@@ -122,24 +121,19 @@ public class RedmineAuthProvider extends UsernamePasswordAuthenticationProvider 
         }
 
         UserModel user = userManager.getUserModel(username);
-        if (user == null)	// create user object for new authenticated user
+        if (user == null) {
+        	// create user object for new authenticated user
         	user = new UserModel(username.toLowerCase());
+        }
 
         // create a user cookie
-        if (StringUtils.isEmpty(user.cookie) && !ArrayUtils.isEmpty(password)) {
-        	user.cookie = StringUtils.getSHA1(user.username + new String(password));
-        }
+        setCookie(user, password);
 
         // update user attributes from Redmine
         user.accountType = getAccountType();
         user.displayName = current.user.firstname + " " + current.user.lastname;
         user.emailAddress = current.user.mail;
         user.password = Constants.EXTERNAL_ACCOUNT;
-        if (!StringUtils.isEmpty(current.user.login)) {
-        	// only admin users can get login name
-        	// evidently this is an undocumented behavior of Redmine
-        	user.canAdmin = true;
-        }
 
         // TODO consider Redmine group mapping for team membership
         // http://www.redmine.org/projects/redmine/wiki/Rest_Users
@@ -159,15 +153,16 @@ public class RedmineAuthProvider extends UsernamePasswordAuthenticationProvider 
         if (!url.endsWith("/")) {
         	url = url.concat("/");
         }
+        String apiUrl = url + "users/current.json";
+        
         HttpURLConnection http;
         if (username == null) {
         	// apikey authentication
         	String apiKey = String.valueOf(password);
-        	String apiUrl = url + "users/current.json?key=" + apiKey;
         	http = (HttpURLConnection) ConnectionUtils.openConnection(apiUrl, null, null);
+            http.addRequestProperty("X-Redmine-API-Key", apiKey);
         } else {
         	// username/password BASIC authentication
-        	String apiUrl = url + "users/current.json";
         	http = (HttpURLConnection) ConnectionUtils.openConnection(apiUrl, username, password);
         }
         http.setRequestMethod("GET");

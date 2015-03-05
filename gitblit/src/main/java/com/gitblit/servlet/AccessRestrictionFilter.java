@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.text.MessageFormat;
 
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -27,10 +28,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gitblit.manager.IRepositoryManager;
 import com.gitblit.manager.IRuntimeManager;
-import com.gitblit.manager.IAuthenticationManager;
 import com.gitblit.models.RepositoryModel;
 import com.gitblit.models.UserModel;
 import com.gitblit.utils.StringUtils;
+
+import dagger.ObjectGraph;
 
 /**
  * The AccessRestrictionFilter is an AuthenticationFilter that confirms that the
@@ -48,17 +50,15 @@ import com.gitblit.utils.StringUtils;
  */
 public abstract class AccessRestrictionFilter extends AuthenticationFilter {
 
-	protected final IRuntimeManager runtimeManager;
+	protected IRuntimeManager runtimeManager;
 
-	protected final IRepositoryManager repositoryManager;
+	protected IRepositoryManager repositoryManager;
 
-	protected AccessRestrictionFilter(
-			IRuntimeManager runtimeManager,
-			IAuthenticationManager authenticationManager,
-			IRepositoryManager repositoryManager) {
-		super(authenticationManager);
-		this.runtimeManager = runtimeManager;
-		this.repositoryManager = repositoryManager;
+	@Override
+	protected void inject(ObjectGraph dagger, FilterConfig filterConfig) {
+		super.inject(dagger, filterConfig);
+		this.runtimeManager = dagger.get(IRuntimeManager.class);
+		this.repositoryManager = dagger.get(IRepositoryManager.class);
 	}
 
 	/**
@@ -141,6 +141,10 @@ public abstract class AccessRestrictionFilter extends AuthenticationFilter {
 
 		String fullUrl = getFullUrl(httpRequest);
 		String repository = extractRepositoryName(fullUrl);
+		if (StringUtils.isEmpty(repository)) {
+			httpResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			return;
+		}
 
 		if (repositoryManager.isCollectingGarbage(repository)) {
 			logger.info(MessageFormat.format("ARF: Rejecting request for {0}, busy collecting garbage!", repository));

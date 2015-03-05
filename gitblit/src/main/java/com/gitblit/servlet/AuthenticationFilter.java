@@ -21,7 +21,6 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -36,10 +35,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.gitblit.Constants;
+import com.gitblit.dagger.DaggerFilter;
 import com.gitblit.manager.IAuthenticationManager;
 import com.gitblit.models.UserModel;
 import com.gitblit.utils.DeepCopier;
 import com.gitblit.utils.StringUtils;
+
+import dagger.ObjectGraph;
 
 /**
  * The AuthenticationFilter is a servlet filter that preprocesses requests that
@@ -50,7 +52,7 @@ import com.gitblit.utils.StringUtils;
  * @author James Moger
  *
  */
-public abstract class AuthenticationFilter implements Filter {
+public abstract class AuthenticationFilter extends DaggerFilter {
 
 	protected static final String CHALLENGE = "Basic realm=\"" + Constants.NAME + "\"";
 
@@ -58,10 +60,11 @@ public abstract class AuthenticationFilter implements Filter {
 
 	protected transient Logger logger = LoggerFactory.getLogger(getClass());
 
-	protected final IAuthenticationManager authenticationManager;
+	protected IAuthenticationManager authenticationManager;
 
-	protected AuthenticationFilter(IAuthenticationManager authenticationManager) {
-		this.authenticationManager = authenticationManager;
+	@Override
+	protected void inject(ObjectGraph dagger, FilterConfig filterConfig) {
+		this.authenticationManager = dagger.get(IAuthenticationManager.class);
 	}
 
 	/**
@@ -138,20 +141,6 @@ public abstract class AuthenticationFilter implements Filter {
 	}
 
 	/**
-	 * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
-	 */
-	@Override
-	public void init(final FilterConfig config) throws ServletException {
-	}
-
-	/**
-	 * @see javax.servlet.Filter#destroy()
-	 */
-	@Override
-	public void destroy() {
-	}
-
-	/**
 	 * Wraps a standard HttpServletRequest and overrides user principal methods.
 	 */
 	public static class AuthenticatedRequest extends HttpServletRequestWrapper {
@@ -184,7 +173,7 @@ public abstract class AuthenticationFilter implements Filter {
 			// Gitblit does not currently use actual roles in the traditional
 			// servlet container sense.  That is the reason this is marked
 			// deprecated, but I may want to revisit this.
-			return user.canAccessRepository(role);
+			return user.hasRepositoryPermission(role);
 		}
 
 		@Override

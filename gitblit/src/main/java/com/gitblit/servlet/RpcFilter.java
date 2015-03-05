@@ -18,9 +18,8 @@ package com.gitblit.servlet;
 import java.io.IOException;
 import java.text.MessageFormat;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -31,8 +30,9 @@ import com.gitblit.Constants.RpcRequest;
 import com.gitblit.IStoredSettings;
 import com.gitblit.Keys;
 import com.gitblit.manager.IRuntimeManager;
-import com.gitblit.manager.IAuthenticationManager;
 import com.gitblit.models.UserModel;
+
+import dagger.ObjectGraph;
 
 /**
  * The RpcFilter is a servlet filter that secures the RpcServlet.
@@ -47,21 +47,17 @@ import com.gitblit.models.UserModel;
  * @author James Moger
  *
  */
-@Singleton
 public class RpcFilter extends AuthenticationFilter {
 
-	private final IStoredSettings settings;
+	private IStoredSettings settings;
 
-	private final IRuntimeManager runtimeManager;
+	private IRuntimeManager runtimeManager;
 
-	@Inject
-	public RpcFilter(
-			IRuntimeManager runtimeManager,
-			IAuthenticationManager authenticationManager) {
-
-		super(authenticationManager);
-		this.settings = runtimeManager.getSettings();
-		this.runtimeManager = runtimeManager;
+	@Override
+	protected void inject(ObjectGraph dagger, FilterConfig filterConfig) {
+		super.inject(dagger, filterConfig);
+		this.settings = dagger.get(IStoredSettings.class);
+		this.runtimeManager = dagger.get(IRuntimeManager.class);
 	}
 
 	/**

@@ -5,10 +5,9 @@
 2. The server itself is configured through a simple text file.
 Open `data/gitblit.properties` in your favorite text editor and make sure to review and set:
     - *server.httpPort* and *server.httpsPort*
-    - *server.storePassword*
+    - *server.storePassword* (do not enter *#* characters)
     **https** is strongly recommended because passwords are insecurely transmitted form your browser/git client using Basic authentication!
     - *git.packedGitLimit* (set larger than the size of your largest repository)
-    - *git.streamFileThreshold* (set larger than the size of your largest committed file)
 3. Execute `authority.cmd` or `java -cp gitblit.jar com.gitblit.authority.Launcher --baseFolder data` from a command-line
 **NOTE:** The Authority is a Swing GUI application.  Use of this tool is not required as Gitblit GO will startup and create SSL certificates itself, BUT use of this tool allows you to control the identification metadata used in the generated certificates.  Skipping this step will result in certificates with default metadata.
     1. fill out the fields in the *new certificate defaults* dialog
@@ -27,6 +26,10 @@ By default, Gitblit GO stores all data (users, settings, repositories, etc) in t
 
 If you are deploying Gitblit to a *nix platform, you might consider moving the data folder out of the GO installation folder and then creating a symlink named "data" that points to your moved folder.
 
+#### Specifying baseFolder via GITBLIT_HOME
+
+You can specify `GITBLIT_HOME` either as an environment variable or as a `-DGITBLIT_HOME` JVM system property.
+
 ### Creating your own Self-Signed SSL Certificate
 Gitblit GO (and Gitblit Certificate Authority) automatically generates a Certificate Authority (CA) certificate and an ssl certificate signed by this CA certificate that is bound to *localhost*.
 
@@ -38,6 +41,8 @@ The EGit failure message is something like:
 	Reason: https:/myserver.com/git/myrepo.git: cannot open git-upload-pack
 
 If you want to serve your repositories to another machine over https then you will want to generate a new certificate for the hostname or ip address you are serving from.
+
+**NOTE:** The Gitblit Authority is a GUI tool and will require X11 forwarding on headless UNIX boxes.
 
 1. `authority.cmd` or `java -jar authority.jar --baseFolder data`
 2. Click the *new ssl certificate* button (red rosette in the toolbar in upper left of window)
@@ -117,13 +122,14 @@ Command-Line parameters override the values in `gitblit.properties` at runtime.
     --baseFolder           The default base folder for all relative file reference settings
     --repositoriesFolder   Git Repositories Folder
     --userService          Authentication and Authorization Service (filename or fully qualified classname)
-    --useNio               Use NIO Connector else use Socket Connector.
     --httpPort             HTTP port for to serve. (port <= 0 will disable this connector)
     --httpsPort            HTTPS port to serve.  (port <= 0 will disable this connector)
-    --ajpPort              AJP port to serve.  (port <= 0 will disable this connector)
+    --sshPort              SSH Daemon port to serve.  (port <= 0 will disable this daemon)
+    --gitPort              Git Daemon port to serve.  (port <= 0 will disable this daemon)
     --alias                Alias in keystore of SSL cert to use for https serving
     --storePassword        Password for SSL (https) keystore.
     --shutdownPort         Port for Shutdown Monitor to listen on. (port <= 0 will disable this monitor)
+	--dailyLogFile         Redirect logging to a rolling, daily log file instead of stdout
     --tempFolder           Folder for server to extract built-in webapp
     
 **Example**
@@ -135,6 +141,6 @@ Command-Line parameters override the values in `gitblit.properties` at runtime.
 You can override Gitblit GO's default Log4j configuration with a command-line parameter to the JVM.
 
     java -Dlog4j.configuration=file:///home/james/log4j.properties -jar gitblit.jar <optional_gitblit_args>
-    
-For reference, here is [Gitblit's default Log4j configuration](https://github.com/gitblit/gitblit/blob/master/src/log4j.properties).  It includes some file appenders that are disabled by default. 
+
+You can not use override the default log4j configuration *AND* specify the `--dailyLogFile` parameter.  For reference, here is [Gitblit's default Log4j configuration](https://github.com/gitblit/gitblit/blob/master/src/log4j.properties).  It includes some file appenders that are disabled by default. 
 

@@ -14,7 +14,7 @@ import javax.inject.Provider;
  * instance provision of types served by {@code @Provides} methods.
  */
 public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModule> {
-  private static final String[] INJECTS = { "members/com.gitblit.IStoredSettings", "com.gitblit.manager.IRuntimeManager", "com.gitblit.manager.INotificationManager", "com.gitblit.manager.IUserManager", "com.gitblit.manager.IAuthenticationManager", "com.gitblit.manager.IRepositoryManager", "com.gitblit.manager.IProjectManager", "com.gitblit.manager.IFederationManager", "com.gitblit.manager.IGitblit", "members/com.gitblit.git.GitServlet", "members/com.gitblit.servlet.GitFilter", "members/com.gitblit.servlet.PagesServlet", "members/com.gitblit.servlet.PagesFilter", "members/com.gitblit.servlet.RpcServlet", "members/com.gitblit.servlet.RpcFilter", "members/com.gitblit.servlet.DownloadZipServlet", "members/com.gitblit.servlet.DownloadZipFilter", "members/com.gitblit.servlet.SyndicationServlet", "members/com.gitblit.servlet.SyndicationFilter", "members/com.gitblit.servlet.FederationServlet", "members/com.gitblit.servlet.SparkleShareInviteServlet", "members/com.gitblit.servlet.BranchGraphServlet", "members/com.gitblit.servlet.RobotsTxtServlet", "members/com.gitblit.servlet.LogoServlet", "members/com.gitblit.servlet.EnforceAuthenticationFilter", "members/com.gitblit.wicket.GitblitWicketFilter", };
+  private static final String[] INJECTS = { "members/com.gitblit.IStoredSettings", "com.gitblit.utils.XssFilter", "com.gitblit.manager.IRuntimeManager", "com.gitblit.manager.IPluginManager", "com.gitblit.manager.INotificationManager", "com.gitblit.manager.IUserManager", "com.gitblit.manager.IAuthenticationManager", "members/com.gitblit.transport.ssh.IPublicKeyManager", "com.gitblit.manager.IRepositoryManager", "com.gitblit.manager.IProjectManager", "com.gitblit.manager.IFederationManager", "com.gitblit.manager.IGitblit", "members/com.gitblit.wicket.GitBlitWebApp", };
   private static final Class<?>[] STATIC_INJECTIONS = { };
   private static final Class<?>[] INCLUDES = { };
 
@@ -34,15 +34,18 @@ public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModul
   @Override
   public void getBindings(Map<String, Binding<?>> map) {
     map.put("com.gitblit.IStoredSettings", new ProvideSettingsProvidesAdapter(module));
+    map.put("com.gitblit.utils.XssFilter", new ProvideXssFilterProvidesAdapter(module));
     map.put("com.gitblit.manager.IRuntimeManager", new ProvideRuntimeManagerProvidesAdapter(module));
+    map.put("com.gitblit.manager.IPluginManager", new ProvidePluginManagerProvidesAdapter(module));
     map.put("com.gitblit.manager.INotificationManager", new ProvideNotificationManagerProvidesAdapter(module));
     map.put("com.gitblit.manager.IUserManager", new ProvideUserManagerProvidesAdapter(module));
     map.put("com.gitblit.manager.IAuthenticationManager", new ProvideAuthenticationManagerProvidesAdapter(module));
+    map.put("com.gitblit.transport.ssh.IPublicKeyManager", new ProvidePublicKeyManagerProvidesAdapter(module));
     map.put("com.gitblit.manager.IRepositoryManager", new ProvideRepositoryManagerProvidesAdapter(module));
     map.put("com.gitblit.manager.IProjectManager", new ProvideProjectManagerProvidesAdapter(module));
     map.put("com.gitblit.manager.IFederationManager", new ProvideFederationManagerProvidesAdapter(module));
     map.put("com.gitblit.manager.IGitblit", new ProvideGitblitProvidesAdapter(module));
-    map.put("org.apache.wicket.protocol.http.WebApplication", new ProvideWebApplicationProvidesAdapter(module));
+    map.put("com.gitblit.wicket.GitBlitWebApp", new ProvideWebApplicationProvidesAdapter(module));
   }
 
   /**
@@ -73,6 +76,33 @@ public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModul
   }
 
   /**
+   * A {@code Binder<com.gitblit.utils.XssFilter>} implementation which satisfies
+   * Dagger's infrastructure requirements including:
+   * 
+   * Being a {@code Provider<com.gitblit.utils.XssFilter>} and handling creation and
+   * preparation of object instances.
+   */
+  public static final class ProvideXssFilterProvidesAdapter extends Binding<com.gitblit.utils.XssFilter>
+      implements Provider<com.gitblit.utils.XssFilter> {
+    private final DaggerModule module;
+
+    public ProvideXssFilterProvidesAdapter(DaggerModule module) {
+      super("com.gitblit.utils.XssFilter", null, IS_SINGLETON, "com.gitblit.DaggerModule.provideXssFilter()");
+      this.module = module;
+      setLibrary(true);
+    }
+
+    /**
+     * Returns the fully provisioned instance satisfying the contract for
+     * {@code Provider<com.gitblit.utils.XssFilter>}.
+     */
+    @Override
+    public com.gitblit.utils.XssFilter get() {
+      return module.provideXssFilter();
+    }
+  }
+
+  /**
    * A {@code Binder<com.gitblit.manager.IRuntimeManager>} implementation which satisfies
    * Dagger's infrastructure requirements including:
    * 
@@ -86,6 +116,7 @@ public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModul
       implements Provider<com.gitblit.manager.IRuntimeManager> {
     private final DaggerModule module;
     private Binding<IStoredSettings> settings;
+    private Binding<com.gitblit.utils.XssFilter> xssFilter;
 
     public ProvideRuntimeManagerProvidesAdapter(DaggerModule module) {
       super("com.gitblit.manager.IRuntimeManager", null, IS_SINGLETON, "com.gitblit.DaggerModule.provideRuntimeManager()");
@@ -101,6 +132,7 @@ public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModul
     @SuppressWarnings("unchecked")
     public void attach(Linker linker) {
       settings = (Binding<IStoredSettings>) linker.requestBinding("com.gitblit.IStoredSettings", DaggerModule.class, getClass().getClassLoader());
+      xssFilter = (Binding<com.gitblit.utils.XssFilter>) linker.requestBinding("com.gitblit.utils.XssFilter", DaggerModule.class, getClass().getClassLoader());
     }
 
     /**
@@ -110,6 +142,7 @@ public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModul
     @Override
     public void getDependencies(Set<Binding<?>> getBindings, Set<Binding<?>> injectMembersBindings) {
       getBindings.add(settings);
+      getBindings.add(xssFilter);
     }
 
     /**
@@ -118,7 +151,57 @@ public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModul
      */
     @Override
     public com.gitblit.manager.IRuntimeManager get() {
-      return module.provideRuntimeManager(settings.get());
+      return module.provideRuntimeManager(settings.get(), xssFilter.get());
+    }
+  }
+
+  /**
+   * A {@code Binder<com.gitblit.manager.IPluginManager>} implementation which satisfies
+   * Dagger's infrastructure requirements including:
+   * 
+   * Owning the dependency links between {@code com.gitblit.manager.IPluginManager} and its
+   * dependencies.
+   * 
+   * Being a {@code Provider<com.gitblit.manager.IPluginManager>} and handling creation and
+   * preparation of object instances.
+   */
+  public static final class ProvidePluginManagerProvidesAdapter extends Binding<com.gitblit.manager.IPluginManager>
+      implements Provider<com.gitblit.manager.IPluginManager> {
+    private final DaggerModule module;
+    private Binding<com.gitblit.manager.IRuntimeManager> runtimeManager;
+
+    public ProvidePluginManagerProvidesAdapter(DaggerModule module) {
+      super("com.gitblit.manager.IPluginManager", null, IS_SINGLETON, "com.gitblit.DaggerModule.providePluginManager()");
+      this.module = module;
+      setLibrary(true);
+    }
+
+    /**
+     * Used internally to link bindings/providers together at run time
+     * according to their dependency graph.
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public void attach(Linker linker) {
+      runtimeManager = (Binding<com.gitblit.manager.IRuntimeManager>) linker.requestBinding("com.gitblit.manager.IRuntimeManager", DaggerModule.class, getClass().getClassLoader());
+    }
+
+    /**
+     * Used internally obtain dependency information, such as for cyclical
+     * graph detection.
+     */
+    @Override
+    public void getDependencies(Set<Binding<?>> getBindings, Set<Binding<?>> injectMembersBindings) {
+      getBindings.add(runtimeManager);
+    }
+
+    /**
+     * Returns the fully provisioned instance satisfying the contract for
+     * {@code Provider<com.gitblit.manager.IPluginManager>}.
+     */
+    @Override
+    public com.gitblit.manager.IPluginManager get() {
+      return module.providePluginManager(runtimeManager.get());
     }
   }
 
@@ -186,6 +269,7 @@ public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModul
       implements Provider<com.gitblit.manager.IUserManager> {
     private final DaggerModule module;
     private Binding<com.gitblit.manager.IRuntimeManager> runtimeManager;
+    private Binding<com.gitblit.manager.IPluginManager> pluginManager;
 
     public ProvideUserManagerProvidesAdapter(DaggerModule module) {
       super("com.gitblit.manager.IUserManager", null, IS_SINGLETON, "com.gitblit.DaggerModule.provideUserManager()");
@@ -201,6 +285,7 @@ public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModul
     @SuppressWarnings("unchecked")
     public void attach(Linker linker) {
       runtimeManager = (Binding<com.gitblit.manager.IRuntimeManager>) linker.requestBinding("com.gitblit.manager.IRuntimeManager", DaggerModule.class, getClass().getClassLoader());
+      pluginManager = (Binding<com.gitblit.manager.IPluginManager>) linker.requestBinding("com.gitblit.manager.IPluginManager", DaggerModule.class, getClass().getClassLoader());
     }
 
     /**
@@ -210,6 +295,7 @@ public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModul
     @Override
     public void getDependencies(Set<Binding<?>> getBindings, Set<Binding<?>> injectMembersBindings) {
       getBindings.add(runtimeManager);
+      getBindings.add(pluginManager);
     }
 
     /**
@@ -218,7 +304,7 @@ public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModul
      */
     @Override
     public com.gitblit.manager.IUserManager get() {
-      return module.provideUserManager(runtimeManager.get());
+      return module.provideUserManager(runtimeManager.get(), pluginManager.get());
     }
   }
 
@@ -276,6 +362,59 @@ public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModul
   }
 
   /**
+   * A {@code Binder<com.gitblit.transport.ssh.IPublicKeyManager>} implementation which satisfies
+   * Dagger's infrastructure requirements including:
+   * 
+   * Owning the dependency links between {@code com.gitblit.transport.ssh.IPublicKeyManager} and its
+   * dependencies.
+   * 
+   * Being a {@code Provider<com.gitblit.transport.ssh.IPublicKeyManager>} and handling creation and
+   * preparation of object instances.
+   */
+  public static final class ProvidePublicKeyManagerProvidesAdapter extends Binding<com.gitblit.transport.ssh.IPublicKeyManager>
+      implements Provider<com.gitblit.transport.ssh.IPublicKeyManager> {
+    private final DaggerModule module;
+    private Binding<IStoredSettings> settings;
+    private Binding<com.gitblit.manager.IRuntimeManager> runtimeManager;
+
+    public ProvidePublicKeyManagerProvidesAdapter(DaggerModule module) {
+      super("com.gitblit.transport.ssh.IPublicKeyManager", null, IS_SINGLETON, "com.gitblit.DaggerModule.providePublicKeyManager()");
+      this.module = module;
+      setLibrary(true);
+    }
+
+    /**
+     * Used internally to link bindings/providers together at run time
+     * according to their dependency graph.
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public void attach(Linker linker) {
+      settings = (Binding<IStoredSettings>) linker.requestBinding("com.gitblit.IStoredSettings", DaggerModule.class, getClass().getClassLoader());
+      runtimeManager = (Binding<com.gitblit.manager.IRuntimeManager>) linker.requestBinding("com.gitblit.manager.IRuntimeManager", DaggerModule.class, getClass().getClassLoader());
+    }
+
+    /**
+     * Used internally obtain dependency information, such as for cyclical
+     * graph detection.
+     */
+    @Override
+    public void getDependencies(Set<Binding<?>> getBindings, Set<Binding<?>> injectMembersBindings) {
+      getBindings.add(settings);
+      getBindings.add(runtimeManager);
+    }
+
+    /**
+     * Returns the fully provisioned instance satisfying the contract for
+     * {@code Provider<com.gitblit.transport.ssh.IPublicKeyManager>}.
+     */
+    @Override
+    public com.gitblit.transport.ssh.IPublicKeyManager get() {
+      return module.providePublicKeyManager(settings.get(), runtimeManager.get());
+    }
+  }
+
+  /**
    * A {@code Binder<com.gitblit.manager.IRepositoryManager>} implementation which satisfies
    * Dagger's infrastructure requirements including:
    * 
@@ -289,6 +428,7 @@ public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModul
       implements Provider<com.gitblit.manager.IRepositoryManager> {
     private final DaggerModule module;
     private Binding<com.gitblit.manager.IRuntimeManager> runtimeManager;
+    private Binding<com.gitblit.manager.IPluginManager> pluginManager;
     private Binding<com.gitblit.manager.IUserManager> userManager;
 
     public ProvideRepositoryManagerProvidesAdapter(DaggerModule module) {
@@ -305,6 +445,7 @@ public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModul
     @SuppressWarnings("unchecked")
     public void attach(Linker linker) {
       runtimeManager = (Binding<com.gitblit.manager.IRuntimeManager>) linker.requestBinding("com.gitblit.manager.IRuntimeManager", DaggerModule.class, getClass().getClassLoader());
+      pluginManager = (Binding<com.gitblit.manager.IPluginManager>) linker.requestBinding("com.gitblit.manager.IPluginManager", DaggerModule.class, getClass().getClassLoader());
       userManager = (Binding<com.gitblit.manager.IUserManager>) linker.requestBinding("com.gitblit.manager.IUserManager", DaggerModule.class, getClass().getClassLoader());
     }
 
@@ -315,6 +456,7 @@ public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModul
     @Override
     public void getDependencies(Set<Binding<?>> getBindings, Set<Binding<?>> injectMembersBindings) {
       getBindings.add(runtimeManager);
+      getBindings.add(pluginManager);
       getBindings.add(userManager);
     }
 
@@ -324,7 +466,7 @@ public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModul
      */
     @Override
     public com.gitblit.manager.IRepositoryManager get() {
-      return module.provideRepositoryManager(runtimeManager.get(), userManager.get());
+      return module.provideRepositoryManager(runtimeManager.get(), pluginManager.get(), userManager.get());
     }
   }
 
@@ -454,9 +596,11 @@ public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModul
       implements Provider<com.gitblit.manager.IGitblit> {
     private final DaggerModule module;
     private Binding<com.gitblit.manager.IRuntimeManager> runtimeManager;
+    private Binding<com.gitblit.manager.IPluginManager> pluginManager;
     private Binding<com.gitblit.manager.INotificationManager> notificationManager;
     private Binding<com.gitblit.manager.IUserManager> userManager;
     private Binding<com.gitblit.manager.IAuthenticationManager> authenticationManager;
+    private Binding<com.gitblit.transport.ssh.IPublicKeyManager> publicKeyManager;
     private Binding<com.gitblit.manager.IRepositoryManager> repositoryManager;
     private Binding<com.gitblit.manager.IProjectManager> projectManager;
     private Binding<com.gitblit.manager.IFederationManager> federationManager;
@@ -475,9 +619,11 @@ public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModul
     @SuppressWarnings("unchecked")
     public void attach(Linker linker) {
       runtimeManager = (Binding<com.gitblit.manager.IRuntimeManager>) linker.requestBinding("com.gitblit.manager.IRuntimeManager", DaggerModule.class, getClass().getClassLoader());
+      pluginManager = (Binding<com.gitblit.manager.IPluginManager>) linker.requestBinding("com.gitblit.manager.IPluginManager", DaggerModule.class, getClass().getClassLoader());
       notificationManager = (Binding<com.gitblit.manager.INotificationManager>) linker.requestBinding("com.gitblit.manager.INotificationManager", DaggerModule.class, getClass().getClassLoader());
       userManager = (Binding<com.gitblit.manager.IUserManager>) linker.requestBinding("com.gitblit.manager.IUserManager", DaggerModule.class, getClass().getClassLoader());
       authenticationManager = (Binding<com.gitblit.manager.IAuthenticationManager>) linker.requestBinding("com.gitblit.manager.IAuthenticationManager", DaggerModule.class, getClass().getClassLoader());
+      publicKeyManager = (Binding<com.gitblit.transport.ssh.IPublicKeyManager>) linker.requestBinding("com.gitblit.transport.ssh.IPublicKeyManager", DaggerModule.class, getClass().getClassLoader());
       repositoryManager = (Binding<com.gitblit.manager.IRepositoryManager>) linker.requestBinding("com.gitblit.manager.IRepositoryManager", DaggerModule.class, getClass().getClassLoader());
       projectManager = (Binding<com.gitblit.manager.IProjectManager>) linker.requestBinding("com.gitblit.manager.IProjectManager", DaggerModule.class, getClass().getClassLoader());
       federationManager = (Binding<com.gitblit.manager.IFederationManager>) linker.requestBinding("com.gitblit.manager.IFederationManager", DaggerModule.class, getClass().getClassLoader());
@@ -490,9 +636,11 @@ public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModul
     @Override
     public void getDependencies(Set<Binding<?>> getBindings, Set<Binding<?>> injectMembersBindings) {
       getBindings.add(runtimeManager);
+      getBindings.add(pluginManager);
       getBindings.add(notificationManager);
       getBindings.add(userManager);
       getBindings.add(authenticationManager);
+      getBindings.add(publicKeyManager);
       getBindings.add(repositoryManager);
       getBindings.add(projectManager);
       getBindings.add(federationManager);
@@ -504,34 +652,36 @@ public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModul
      */
     @Override
     public com.gitblit.manager.IGitblit get() {
-      return module.provideGitblit(runtimeManager.get(), notificationManager.get(), userManager.get(), authenticationManager.get(), repositoryManager.get(), projectManager.get(), federationManager.get());
+      return module.provideGitblit(runtimeManager.get(), pluginManager.get(), notificationManager.get(), userManager.get(), authenticationManager.get(), publicKeyManager.get(), repositoryManager.get(), projectManager.get(), federationManager.get());
     }
   }
 
   /**
-   * A {@code Binder<org.apache.wicket.protocol.http.WebApplication>} implementation which satisfies
+   * A {@code Binder<com.gitblit.wicket.GitBlitWebApp>} implementation which satisfies
    * Dagger's infrastructure requirements including:
    * 
-   * Owning the dependency links between {@code org.apache.wicket.protocol.http.WebApplication} and its
+   * Owning the dependency links between {@code com.gitblit.wicket.GitBlitWebApp} and its
    * dependencies.
    * 
-   * Being a {@code Provider<org.apache.wicket.protocol.http.WebApplication>} and handling creation and
+   * Being a {@code Provider<com.gitblit.wicket.GitBlitWebApp>} and handling creation and
    * preparation of object instances.
    */
-  public static final class ProvideWebApplicationProvidesAdapter extends Binding<org.apache.wicket.protocol.http.WebApplication>
-      implements Provider<org.apache.wicket.protocol.http.WebApplication> {
+  public static final class ProvideWebApplicationProvidesAdapter extends Binding<com.gitblit.wicket.GitBlitWebApp>
+      implements Provider<com.gitblit.wicket.GitBlitWebApp> {
     private final DaggerModule module;
     private Binding<com.gitblit.manager.IRuntimeManager> runtimeManager;
+    private Binding<com.gitblit.manager.IPluginManager> pluginManager;
     private Binding<com.gitblit.manager.INotificationManager> notificationManager;
     private Binding<com.gitblit.manager.IUserManager> userManager;
     private Binding<com.gitblit.manager.IAuthenticationManager> authenticationManager;
+    private Binding<com.gitblit.transport.ssh.IPublicKeyManager> publicKeyManager;
     private Binding<com.gitblit.manager.IRepositoryManager> repositoryManager;
     private Binding<com.gitblit.manager.IProjectManager> projectManager;
     private Binding<com.gitblit.manager.IFederationManager> federationManager;
     private Binding<com.gitblit.manager.IGitblit> gitblit;
 
     public ProvideWebApplicationProvidesAdapter(DaggerModule module) {
-      super("org.apache.wicket.protocol.http.WebApplication", null, IS_SINGLETON, "com.gitblit.DaggerModule.provideWebApplication()");
+      super("com.gitblit.wicket.GitBlitWebApp", null, IS_SINGLETON, "com.gitblit.DaggerModule.provideWebApplication()");
       this.module = module;
       setLibrary(true);
     }
@@ -544,9 +694,11 @@ public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModul
     @SuppressWarnings("unchecked")
     public void attach(Linker linker) {
       runtimeManager = (Binding<com.gitblit.manager.IRuntimeManager>) linker.requestBinding("com.gitblit.manager.IRuntimeManager", DaggerModule.class, getClass().getClassLoader());
+      pluginManager = (Binding<com.gitblit.manager.IPluginManager>) linker.requestBinding("com.gitblit.manager.IPluginManager", DaggerModule.class, getClass().getClassLoader());
       notificationManager = (Binding<com.gitblit.manager.INotificationManager>) linker.requestBinding("com.gitblit.manager.INotificationManager", DaggerModule.class, getClass().getClassLoader());
       userManager = (Binding<com.gitblit.manager.IUserManager>) linker.requestBinding("com.gitblit.manager.IUserManager", DaggerModule.class, getClass().getClassLoader());
       authenticationManager = (Binding<com.gitblit.manager.IAuthenticationManager>) linker.requestBinding("com.gitblit.manager.IAuthenticationManager", DaggerModule.class, getClass().getClassLoader());
+      publicKeyManager = (Binding<com.gitblit.transport.ssh.IPublicKeyManager>) linker.requestBinding("com.gitblit.transport.ssh.IPublicKeyManager", DaggerModule.class, getClass().getClassLoader());
       repositoryManager = (Binding<com.gitblit.manager.IRepositoryManager>) linker.requestBinding("com.gitblit.manager.IRepositoryManager", DaggerModule.class, getClass().getClassLoader());
       projectManager = (Binding<com.gitblit.manager.IProjectManager>) linker.requestBinding("com.gitblit.manager.IProjectManager", DaggerModule.class, getClass().getClassLoader());
       federationManager = (Binding<com.gitblit.manager.IFederationManager>) linker.requestBinding("com.gitblit.manager.IFederationManager", DaggerModule.class, getClass().getClassLoader());
@@ -560,9 +712,11 @@ public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModul
     @Override
     public void getDependencies(Set<Binding<?>> getBindings, Set<Binding<?>> injectMembersBindings) {
       getBindings.add(runtimeManager);
+      getBindings.add(pluginManager);
       getBindings.add(notificationManager);
       getBindings.add(userManager);
       getBindings.add(authenticationManager);
+      getBindings.add(publicKeyManager);
       getBindings.add(repositoryManager);
       getBindings.add(projectManager);
       getBindings.add(federationManager);
@@ -571,11 +725,11 @@ public final class DaggerModule$$ModuleAdapter extends ModuleAdapter<DaggerModul
 
     /**
      * Returns the fully provisioned instance satisfying the contract for
-     * {@code Provider<org.apache.wicket.protocol.http.WebApplication>}.
+     * {@code Provider<com.gitblit.wicket.GitBlitWebApp>}.
      */
     @Override
-    public org.apache.wicket.protocol.http.WebApplication get() {
-      return module.provideWebApplication(runtimeManager.get(), notificationManager.get(), userManager.get(), authenticationManager.get(), repositoryManager.get(), projectManager.get(), federationManager.get(), gitblit.get());
+    public com.gitblit.wicket.GitBlitWebApp get() {
+      return module.provideWebApplication(runtimeManager.get(), pluginManager.get(), notificationManager.get(), userManager.get(), authenticationManager.get(), publicKeyManager.get(), repositoryManager.get(), projectManager.get(), federationManager.get(), gitblit.get());
     }
   }
 }
