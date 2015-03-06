@@ -1,0 +1,28 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<!-- ATTENTION: Do not modify this file directly,
+     modify the source file
+         data/strings/FreeColMessages_gl.properties
+     instead. -->
+<langpack>
+    <str id="FreeCol" txt="FreeCol" />
+    <str id="FreeCol.description" txt="A aplicación e os ficheiros de datos do FreeCol." />
+    <str id="GameManual" txt="Manual do xogo" />
+    <str id="GameManual.description" txt="Este paquete contén o manual oficial do xogo (dispoñible só en inglés)." />
+    <str id="SourceCode" txt="Código fonte" />
+    <str id="SourceCode.description" txt="O código fonte utilizado para a construción desta distribución. Estes ficheiros están destinados aos desenvolvedores e non dan ningunha funcionalidade adicional ao xogo." />
+    <str id="Music" txt="Música" />
+    <str id="Music.description" txt="A música do xogo." />
+    <str id="SoundEffects" txt="Efectos de son" />
+    <str id="SoundEffects.description" txt="Os efectos de son do xogo." />
+    <str id="MovieClips" txt="Vídeos" />
+    <str id="MovieClips.description" txt="Este paquete contén os vídeos que se reproducirán en diversas ocasións especiais durante o xogo." />
+    <str id="MovieClips.description2" txt="Este paquete contén os vídeos que se reproducirán en diversas ocasións especiais durante o xogo. Ao activares este paquete, instalaranse os vídeos no teu ordenador. A alternativa é reproducir os vídeos directamente desde o CD/DVD do xogo." />
+    <str id="Location.Web" txt="Os ficheiros non están incluídos neste programa de instalación e descargaranse automaticamente desde a páxina do FreeCol se activas este paquete." />
+    <str id="FreeColLanguage" txt="Por favor, escolle a lingua que se usará durante o xogo:" />
+    <str id="FreeColLanguage.autodetect" txt="Detectar automaticamente ao iniciar o xogo" />
+    <str id="FreeColLanguage.description" txt="Podes cambiar esta configuración cando queiras mediante o menú de preferencias do xogo." />
+    <str id="UserFiles" txt="Por favor, escolle a localización para as configuracións específicas de usuario e as partidas gardadas:" />
+    <str id="UserFiles.home" txt="O directorio principal do usuario" />
+    <str id="UserFiles.freecol" txt="O directorio de aplicacións do FreeCol (só para a instalación dun único usuario)" />
+    <str id="UserFiles.other" txt="Especifica un directorio personalizado" />
+</langpack>

@@ -1,0 +1,28 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<!-- ATTENTION: Do not modify this file directly,
+     modify the source file
+         data/strings/FreeColMessages_ja.properties
+     instead. -->
+<langpack>
+    <str id="FreeCol" txt="FreeCol" />
+    <str id="FreeCol.description" txt="FreeCol本体とデータファイルです。" />
+    <str id="GameManual" txt="ゲームマニュアル" />
+    <str id="GameManual.description" txt="このパックには公式のゲームマニュアルが入っています。(普通は英語のみ)" />
+    <str id="SourceCode" txt="ソースコード" />
+    <str id="SourceCode.description" txt="この配布物を作成するために使用するソースコードです。これらのファイルは開発者のためのものであり、ゲーム自体には必要ありません。" />
+    <str id="Music" txt="音楽" />
+    <str id="Music.description" txt="ゲーム中の音楽です。" />
+    <str id="SoundEffects" txt="効果音" />
+    <str id="SoundEffects.description" txt="ゲーム中の効果音です。" />
+    <str id="MovieClips" txt="ムービークリップ" />
+    <str id="MovieClips.description" txt="このパックにはゲーム中の特殊イベント発生の際に再生される動画が入っています。" />
+    <str id="MovieClips.description2" txt="このパックにはゲーム中の特殊イベント発生の際に再生される動画が入っています。このパックを入れるとコンピュータにムービークリップをインストールします。インストールしなければ、ゲームCD/DVDから直接ムービークリップを再生します。" />
+    <str id="Location.Web" txt="このオプションを有効にしておくと、インストーラーにファイルが含まれていない場合はFreeColのサイトから自動的にダウンロードします。" />
+    <str id="FreeColLanguage" txt="ゲーム中に使用する言語を選んでください:" />
+    <str id="FreeColLanguage.autodetect" txt="ゲーム起動時に自動検出" />
+    <str id="FreeColLanguage.description" txt="ゲーム中の環境設定メニューを選ぶことで、後で設定を変更することができます。" />
+    <str id="UserFiles" txt="ユーザー設定とゲーム保存場所を選んでください:" />
+    <str id="UserFiles.home" txt="ユーザーのホームディレクトリ" />
+    <str id="UserFiles.freecol" txt="FreeCol本体のディレクトリ (シングルユーザーのための設定のみ)" />
+    <str id="UserFiles.other" txt="カスタムディレクトリの指定" />
+</langpack>

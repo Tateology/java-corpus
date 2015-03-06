@@ -1,0 +1,28 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<!-- ATTENTION: Do not modify this file directly,
+     modify the source file
+         data/strings/FreeColMessages_nl_BE.properties
+     instead. -->
+<langpack>
+    <str id="FreeCol" txt="FreeCol" />
+    <str id="FreeCol.description" txt="De toepassing FreeCol en gegevensbestanden." />
+    <str id="GameManual" txt="Spel handleiding" />
+    <str id="GameManual.description" txt="Dit pakket bevat de officiële spelhandleiding (enkel beschikbaar in het Engels)." />
+    <str id="SourceCode" txt="Broncode" />
+    <str id="SourceCode.description" txt="De broncode gebruikt voor het samenstellen van deze distributie. Deze bestanden zijn bedoeld voor ontwikkelaars en bieden geen bijkomende functionaliteit voor het spel." />
+    <str id="Music" txt="Muziek" />
+    <str id="Music.description" txt="De muziek van het spel." />
+    <str id="SoundEffects" txt="Geluidseffecten" />
+    <str id="SoundEffects.description" txt="De geluidseffecten van het spel." />
+    <str id="MovieClips" txt="Filmpjes" />
+    <str id="MovieClips.description" txt="Dit pakket bevat de filmpjes die bij speciale gebeurtenissen in het spel gespeeld worden." />
+    <str id="MovieClips.description2" txt="Dit pakket bevat filmpjes die gespeeld worden bij speciale gebeurtenissen in het spel. Door dit pakket te selecteren worden alle filmpjes op je computer geïnstalleerd. Het alternatief is de filmpjes rechtstreeks vanaf de spel CD/DVD af te spelen." />
+    <str id="Location.Web" txt="De bestanden maken geen deel uit van dit installatieprogramma en zullen automatisch gedownloaded worden van de FreeCol website als u dit pakket selecteert." />
+    <str id="FreeColLanguage" txt="Kies de taal die in het spel gebruikt zal worden ." />
+    <str id="FreeColLanguage.autodetect" txt="Automatisch selecteren bij opstarten van het spel" />
+    <str id="FreeColLanguage.description" txt="Je kan deze instelling later wijzigen via het menu Instellingen in het spel." />
+    <str id="UserFiles" txt="Kies de locatie voor gebruikers-afhankelijke instellingen en bewaarde spellen." />
+    <str id="UserFiles.home" txt="De thuismap van de gebruiker" />
+    <str id="UserFiles.freecol" txt="De Freecol applicatiemap (enkel voor solo-spel installatie)" />
+    <str id="UserFiles.other" txt="Geef een eigen map op" />
+</langpack>

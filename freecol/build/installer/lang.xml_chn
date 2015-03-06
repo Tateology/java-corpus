@@ -1,0 +1,28 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<!-- ATTENTION: Do not modify this file directly,
+     modify the source file
+         data/strings/FreeColMessages_zh_CN.properties
+     instead. -->
+<langpack>
+    <str id="FreeCol" txt="FreeCol" />
+    <str id="FreeCol.description" txt="FreeCol应用程序及数据文件。" />
+    <str id="GameManual" txt="游戏手册" />
+    <str id="GameManual.description" txt="本文件包包含官方游戏手册(英文版)。" />
+    <str id="SourceCode" txt="源代码" />
+    <str id="SourceCode.description" txt="本源代码被用来生成本版本游戏。这些文件是为开发者准备的且不会额外增加游戏功能。" />
+    <str id="Music" txt="音乐" />
+    <str id="Music.description" txt="游戏音乐。" />
+    <str id="SoundEffects" txt="音效" />
+    <str id="SoundEffects.description" txt="游戏音效。" />
+    <str id="MovieClips" txt="电影片断" />
+    <str id="MovieClips.description" txt="本文件包包含游戏中特殊事件发生时播放的电影片断。" />
+    <str id="MovieClips.description2" txt="本文件包包含游戏中特殊事件发生时播放的电影片断。安装本文件包将把电影片断文件安装到电脑中。其它观看片断的方法是直接从游戏CD/DVD中播放。" />
+    <str id="Location.Web" txt="这些文件并未被包括在本安装程序中。如果你确认要安装该文件包的话，它们将会被自动从FreeCol站点上下载下来。" />
+    <str id="FreeColLanguage" txt="请选择游戏使用的语言：" />
+    <str id="FreeColLanguage.autodetect" txt="游戏启动时自动侦测" />
+    <str id="FreeColLanguage.description" txt="你以后可以使用游戏中的参数设置菜单来更改设置。" />
+    <str id="UserFiles" txt="请选择用户自定义设置及游戏存档的位置：" />
+    <str id="UserFiles.home" txt="用户主目录" />
+    <str id="UserFiles.freecol" txt="FreeCol应用程序目录(只被用于单一用户安装)" />
+    <str id="UserFiles.other" txt="用户自定义目录" />
+</langpack>

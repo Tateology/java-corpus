@@ -1,0 +1,1 @@
+javac -encoding ISO-8859-1 -cp ./FreeCol.jar:./build/jars/jarbundler.jar:./build/jars/standalone-compiler.jar:./build/jars/jsmoothgen-ant.jar:./jars/commons-cli-1.1.jar:./jars/jorbis-0.0.15.jar:./jars/miglayout-core-4.2.jar:./jars/miglayout-swing-4.2.jar:./jars/jogg-0.0.7.jar:./jars/cortado-0.6.0.jar:./test/lib/junit.jar @COMPILE_ARGS

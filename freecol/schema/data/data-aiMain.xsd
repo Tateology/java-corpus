@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	   elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:documentation>
+
+      Copyright (C) 2002-2014  The FreeCol Team
+
+      This file is part of FreeCol.
+
+      FreeCol is free software: you can redistribute it and/or modify
+      it under the terms of the GNU General Public License as published by
+      the Free Software Foundation, either version 2 of the License, or
+      (at your option) any later version.
+
+      FreeCol is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+      GNU General Public License for more details.
+
+      You should have received a copy of the GNU General Public License
+      along with FreeCol. If not, see http://www.gnu.org/licenses
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:include schemaLocation="data-goods.xsd"/>
+
+  <xs:include schemaLocation="data-common.xsd">
+    <xs:annotation>
+      <xs:documentation>
+	Include common data model type definitions.
+      </xs:documentation>
+    </xs:annotation>
+  </xs:include>
+
+  <xs:element name="aiMain">
+
+    <xs:annotation>
+      <xs:documentation>
+        Data used by the AI.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="aiUnit">
+          <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="1">
+              <xs:element name="buildColonyMission" >
+                <xs:complexType>
+                  <xs:attribute name="unit" type="UnitId" use="required" />
+                  <xs:attribute name="doNotGiveUp" type="xs:boolean" use="required" />
+                  <xs:attribute name="colonyBuilt" type="xs:boolean" use="required" />
+                  <xs:attribute name="target" type="LocationId" use="optional" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="cashInTreasureTrainMission" type="SimpleMissionType" />
+              <xs:element name="defendSettlementMission">
+                <xs:complexType>
+                  <xs:attribute name="unit" type="UnitId" use="required" />
+                  <xs:attribute name="settlement" type="SettlementId" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="idleAtColonyMission" type="SimpleMissionType" />
+              <xs:element name="indianBringGiftMission">
+                <xs:complexType>
+                  <xs:attribute name="unit" type="UnitId" use="required" />
+                  <xs:attribute name="target" type="LocationId" use="optional" />
+                  <xs:attribute name="giftDelivered" type="xs:boolean" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="indianDemandMission">
+                <xs:complexType>
+                  <xs:attribute name="unit" type="UnitId" use="required" />
+                  <xs:attribute name="target" type="LocationId" use="optional" />
+                  <xs:attribute name="completed" type="xs:boolean" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="pioneeringMission">
+                <xs:complexType>
+                  <xs:attribute name="unit" type="UnitId" use="required" />
+                  <xs:attribute name="tileImprovementPlan" type="TileImprovementPlanId" use="optional" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="privateerMission">
+                <xs:complexType>
+                  <xs:attribute name="unit" type="UnitId" use="required" />
+                  <xs:attribute name="state" type="PrivateerState" use="optional" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="scoutingMission" type="SimpleMissionType" />
+              <xs:element name="transportMission">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="transportable">
+                      <xs:complexType>
+                        <xs:attribute name="id" type="TransportableId" use="required"/>
+                        <!-- @compat 0.10.7 -->
+                        <xs:attribute name="ID" type="TransportableId" use="optional"/>
+                        <!-- end @compat -->
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="unit" type="UnitId" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="unitSeekAndDestroyMission">
+                <xs:complexType>
+                  <xs:attribute name="unit" type="UnitId" use="required" />
+                  <xs:attribute name="target" type="LocationId" use="optional" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="unitWanderHostileMission" type="SimpleMissionType" />
+              <xs:element name="unitWanderMission" type="SimpleMissionType" />
+              <xs:element name="wishRealizationMission">
+                <xs:complexType>
+                  <xs:attribute name="unit" type="UnitId" use="required" />
+                  <xs:attribute name="wish" type="WishId" use="optional" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="workInsideColonyMission">
+                <xs:complexType>
+                  <xs:attribute name="unit" type="UnitId" use="required" />
+                  <xs:attribute name="colony" type="ColonyId" use="optional" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="tileImprovementPlanMission">
+                <xs:complexType>
+                  <xs:attribute name="unit" type="UnitId" use="required" />
+                  <xs:attribute name="tileImprovementPlan" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:choice>
+            <xs:attribute name="id" type="UnitId" use="required"/>
+            <!-- @compat 0.10.7 -->
+            <xs:attribute name="ID" type="UnitId" use="optional"/>
+            <!-- end @compat -->
+            <xs:attribute name="transport" type="UnitId" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="aiColony">
+          <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+              <xs:element name="aiGoodsListElement">
+                <xs:complexType>
+                  <xs:attribute name="id" type="xs:string" use="required"/>
+                  <!-- @compat 0.10.7 -->
+                  <xs:attribute name="ID" type="xs:string" use="optional" />
+                  <!-- end @compat -->
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="tileimprovementplanListElement">
+                <xs:complexType>
+                  <xs:attribute name="id" type="xs:string" use="required"/>
+                  <!-- @compat 0.10.7 -->
+                  <xs:attribute name="ID" type="xs:string" use="optional" />
+                  <!-- end @compat -->
+                </xs:complexType>
+              </xs:element>
+            </xs:choice>
+            <xs:attribute name="id" type="ColonyId" use="required"/>
+            <!-- @compat 0.10.7 -->
+            <xs:attribute name="ID" type="ColonyId" use="optional"/>
+            <!-- end @compat -->
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="aiPlayer">
+          <xs:complexType>
+            <xs:attribute name="id" type="PlayerId" use="required"/>
+            <!-- @compat 0.10.7 -->
+            <xs:attribute name="ID" type="PlayerId" use="optional"/>
+            <!-- end @compat -->
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="workerWish">
+          <xs:complexType>
+            <xs:attribute name="id" type="xs:string" use="required"/>
+            <!-- @compat 0.10.7 -->
+            <xs:attribute name="ID" type="xs:string" use="optional"/>
+            <!-- end @compat -->
+            <xs:attribute name="destination" type="xs:string" />
+            <xs:attribute name="transportable" type="TransportableId" />
+            <xs:attribute name="value" type="xs:int" />
+            <xs:attribute name="unitType" type="UnitTypeId" />
+            <xs:attribute name="expertNeeded" type="xs:boolean" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="GoodsWish">
+          <xs:complexType>
+            <xs:attribute name="id" type="xs:string" use="required"/>
+            <!-- @compat 0.10.7 -->
+            <xs:attribute name="ID" type="xs:string" use="optional"/>
+            <!-- end @compat -->
+            <xs:attribute name="destination" type="xs:string" />
+            <xs:attribute name="transportable" type="TransportableId" />
+            <xs:attribute name="value" type="xs:int" />
+            <xs:attribute name="goodsType" type="GoodsTypeId" />
+            <xs:attribute name="expertNeeded" type="xs:boolean" />
+            <xs:attribute name="amountRequested" type="xs:int" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="aiGoods">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="goods" />
+            </xs:sequence>
+            <xs:attribute name="id" type="GoodsId" use="required"/>
+            <!-- @compat 0.10.7 -->
+            <xs:attribute name="ID" type="GoodsId" use="optional"/>
+            <!-- end @compat -->
+            <xs:attribute name="destination" type="xs:string" />
+            <xs:attribute name="transport" type="UnitId" />
+            <xs:attribute name="transportPriority" type="xs:int" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tileimprovementplan">
+          <xs:complexType>
+            <xs:attribute name="id" type="xs:string" use="required"/>
+            <!-- @compat 0.10.7 -->
+            <xs:attribute name="ID" type="xs:string" use="optional"/>
+            <!-- end @compat -->
+            <xs:attribute name="type" type="TileImprovementTypeId" />
+            <xs:attribute name="value" type="xs:int" />
+            <xs:attribute name="target" type="TileId" />
+            <xs:attribute name="pioneer" type="UnitId" />
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+
+      <xs:attribute name="nextId" type="xs:int" use="required" />
+      <!-- @compat 0.10.7 -->
+      <xs:attribute name="nextID" type="xs:int" use="optional" />
+      <!-- end @compat -->
+    </xs:complexType>
+
+  </xs:element>
+
+  <xs:complexType name="SimpleMissionType">
+    <xs:attribute name="unit" type="UnitId" />
+  </xs:complexType>
+
+  <xs:simpleType name="PrivateerState">
+    <xs:restriction base="xs:NMTOKEN">
+      <xs:enumeration value="HUNTING" />
+      <xs:enumeration value="TRANSPORTING" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

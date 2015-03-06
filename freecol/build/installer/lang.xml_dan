@@ -1,0 +1,28 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<!-- ATTENTION: Do not modify this file directly,
+     modify the source file
+         data/strings/FreeColMessages_da.properties
+     instead. -->
+<langpack>
+    <str id="FreeCol" txt="FreeCol" />
+    <str id="FreeCol.description" txt="FreeCol-programmet og datafiler." />
+    <str id="GameManual" txt="Spilmanual" />
+    <str id="GameManual.description" txt="Denne pakke indeholder den officielle spilmanual (kun tilgængelig på engelsk)." />
+    <str id="SourceCode" txt="Kildetekst" />
+    <str id="SourceCode.description" txt="Kildeteksten bruges til at lave distributionen. Disse er beregnet for udviklere og giver ikke nogen yderlig funktionalitet i spillet." />
+    <str id="Music" txt="Musik" />
+    <str id="Music.description" txt="Spillets musik." />
+    <str id="SoundEffects" txt="Lydeffekter" />
+    <str id="SoundEffects.description" txt="Spillets lydeffekter." />
+    <str id="MovieClips" txt="Filmklip" />
+    <str id="MovieClips.description" txt="Denne pakke indeholder film klip, som afspilles ved særlige begivenheder i spillet." />
+    <str id="MovieClips.description2" txt="Denne pakke indeholder film klip som afspilles ved særlige begivenheder i spillet. Tilvælges denne pakke vil installerer film klip på din computer. Alternativt er at afspille film klip direkte fra spil CD/DVD." />
+    <str id="Location.Web" txt="Disse filer er ikke inkluderet i denne installation og vil automatisk blive hentet fra FreeCols hjemmesiden, hvis du vælger denne pakke." />
+    <str id="FreeColLanguage" txt="Vælg det sprog som skal bruges i spillet:" />
+    <str id="FreeColLanguage.autodetect" txt="Beslut automatisk når spillet starter" />
+    <str id="FreeColLanguage.description" txt="Du kan ændre denne indstilling ved at bruge præferencer i spillet." />
+    <str id="UserFiles" txt="Vælg venligst stedet til bruger specifikke indstillinger og gemte spil:" />
+    <str id="UserFiles.home" txt="Brugerens hjemmemappe" />
+    <str id="UserFiles.freecol" txt="Programmappen for FreeCol (kun for enkelt brugerinstallation)" />
+    <str id="UserFiles.other" txt="Angiv et valgfrit bibliotek" />
+</langpack>

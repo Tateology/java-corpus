@@ -1,0 +1,54 @@
+h1, .name {
+    text-align: center;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 2px solid #D8BFD8;
+    padding: 5px;
+    text-align: center;
+}
+
+th {
+    background-color: #D8BFD8;
+}
+
+caption {
+    padding-bottom: 5px;
+    text-align: justify;
+}
+
+.left {
+    text-align: left;
+}
+
+.center {
+    text-align: center;
+}
+
+.abstract {
+    background-color: grey;
+}
+
+div.veryHigh {
+    background-color: green;
+}
+
+div.high {
+    background-color: #90EE90;
+}
+
+div.low {
+    background-color: lightgrey;
+}
+
+div.veryLow {
+    background-color: grey;
+}
+
+.expert {
+    background-color: lightgrey;
+}

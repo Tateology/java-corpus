@@ -1,0 +1,28 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<!-- ATTENTION: Do not modify this file directly,
+     modify the source file
+         data/strings/FreeColMessages_uk.properties
+     instead. -->
+<langpack>
+    <str id="FreeCol" txt="FreeCol" />
+    <str id="FreeCol.description" txt="Програма FreeCol і файли даних." />
+    <str id="GameManual" txt="Посібник по грі" />
+    <str id="GameManual.description" txt="Цей пакет містить офіційне керівництво по грі (тільки англійською мовою)." />
+    <str id="SourceCode" txt="Джерельний код" />
+    <str id="SourceCode.description" txt="Початковий код, використаний для створення цього дистрибутива. Ці файли призначені для розробників і не дають додаткових можливостей в грі." />
+    <str id="Music" txt="Музика" />
+    <str id="Music.description" txt="Музика з гри." />
+    <str id="SoundEffects" txt="Звукові ефекти" />
+    <str id="SoundEffects.description" txt="Звукові ефекти з гри" />
+    <str id="MovieClips" txt="Відеокліпи" />
+    <str id="MovieClips.description" txt="Цей пакет містить відеокліпи, які демонструються в окремих випадках в грі." />
+    <str id="MovieClips.description2" txt="Цей пакет містить відеокліпи, які демонструються в окремих випадках в грі. Включення цього пакету викличе встановлення відеокліпів на ваш комп'ютер. Також можливе програвання відеокліпів з диску CD/DVD, який містить гру." />
+    <str id="Location.Web" txt="Ці файли не включені в цю програму установки і будуть автоматично завантажені з сайту FreeCol, якщо ви відмітите цей пакет." />
+    <str id="FreeColLanguage" txt="Будь-ласка, виберіть мову, якою будете користуватись у грі:" />
+    <str id="FreeColLanguage.autodetect" txt="Автовизначення при запуску гри" />
+    <str id="FreeColLanguage.description" txt="Пізніше ви зможете змінити цю настройку за допомогою меню «Настройки» в грі." />
+    <str id="UserFiles" txt="Будь-ласка, виберіть знаходження користувацьких налаштувань і збережених ігор:" />
+    <str id="UserFiles.home" txt="Домашній каталог користувача" />
+    <str id="UserFiles.freecol" txt="Каталог програми FreeCol (тільки для однокористувацької установки)" />
+    <str id="UserFiles.other" txt="Вкажіть свій каталог" />
+</langpack>

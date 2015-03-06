@@ -1,0 +1,28 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<!-- ATTENTION: Do not modify this file directly,
+     modify the source file
+         data/strings/FreeColMessages_ms.properties
+     instead. -->
+<langpack>
+    <str id="FreeCol" txt="FreeCol" />
+    <str id="FreeCol.description" txt="Aplikasi dan fail-fail data FreeCol." />
+    <str id="GameManual" txt="Manual Permainan" />
+    <str id="GameManual.description" txt="Pek ini mengandungi manual permainan rasmi (hanya dalam bahasa Inggeris)." />
+    <str id="SourceCode" txt="Kod Sumber" />
+    <str id="SourceCode.description" txt="Kod sumber yang digunakan untuk membina edaran ini. Fail-fail ini dimaksudkan untuk pihak pembangunan dan tidak menambah kefungsian pada permainan." />
+    <str id="Music" txt="Muzik" />
+    <str id="Music.description" txt="Muzik dalam permainan." />
+    <str id="SoundEffects" txt="Kesan Bunyi" />
+    <str id="SoundEffects.description" txt="Kesan bunyi dalam permainan." />
+    <str id="MovieClips" txt="Sedutan Filem" />
+    <str id="MovieClips.description" txt="Pek ini mengandungi sedutan filem yang dimainkan pada perisitwa-peristiwa istimewa dalam permainan." />
+    <str id="MovieClips.description2" txt="Pek ini mengandungi sedutan filem yang dimainkan pada perisitwa-peristiwa istimewa dalam permainan. Jika pek ini dihidupkan, ia akan memasang sedutan filem tersebut ke dalam komputer anda. Anda juga boleh memainkan sedutan-sedutan ini terus dari CD/DVD permainan." />
+    <str id="Location.Web" txt="Fail-fail ini tidak termasuk dalam pemasang ini, sebaliknya ia akan dimuat turun secara automatik dari tapak web FreeCol jika anda menghidupkan pek ini." />
+    <str id="FreeColLanguage" txt="Sila pilih bahasa yang ingin digunakan dalam permainan:" />
+    <str id="FreeColLanguage.autodetect" txt="Autokesan apabila permainan dimulakan" />
+    <str id="FreeColLanguage.description" txt="Anda boleh menukar tetapan ini kemudian dengan menggunakan menu Keutamaan dalam permainan." />
+    <str id="UserFiles" txt="Sila pilih lokasi untuk tetapan tentuan pengguna dan simpanan permainan:" />
+    <str id="UserFiles.home" txt="Direktori utama pengguna" />
+    <str id="UserFiles.freecol" txt="Direktori aplikasi FreeCol (untuk tetapan pengguna tunggal sahaja)" />
+    <str id="UserFiles.other" txt="Tentukan direktori yang tersuai" />
+</langpack>

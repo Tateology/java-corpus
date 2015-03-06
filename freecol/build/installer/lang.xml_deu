@@ -1,0 +1,28 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<!-- ATTENTION: Do not modify this file directly,
+     modify the source file
+         data/strings/FreeColMessages_de.properties
+     instead. -->
+<langpack>
+    <str id="FreeCol" txt="FreeCol" />
+    <str id="FreeCol.description" txt="FreeCol-Anwendung und Daten." />
+    <str id="GameManual" txt="Spielhandbuch" />
+    <str id="GameManual.description" txt="Dieses Paket enthält das offizielle Spielhandbuch (derzeit nur in Englisch verfügbar)." />
+    <str id="SourceCode" txt="Quellcode" />
+    <str id="SourceCode.description" txt="Der Quellcode wird zum Kompilieren der Anwendung benötigt. Diese Dateien sind nur für Entwickler interessant und bieten keine weitere Spielfunktionalität." />
+    <str id="Music" txt="Musik" />
+    <str id="Music.description" txt="Die Hintergrundmusik im Spiel." />
+    <str id="SoundEffects" txt="Toneffekte" />
+    <str id="SoundEffects.description" txt="Die Toneffekte im Spiel." />
+    <str id="MovieClips" txt="Filme" />
+    <str id="MovieClips.description" txt="Dieses Paket enthält Filme, die zu speziellen Ereignissen im Spiel abgespielt werden." />
+    <str id="MovieClips.description2" txt="Dieses Paket enthält Filme, die zu speziellen Ereignissen im Spiel abgespielt werden. Durch Aktivieren dieses Pakets werden die Filme auf Ihrem Computer installiert. Alternativ werden die Filme direkt von der Spiel-CD/DVD abgespielt." />
+    <str id="Location.Web" txt="Diese Dateien sind nicht im Installationspaket enthalten und werden automatisch von der FreeCol-Webseite heruntergeladen, wenn Sie dieses Paket aktivieren." />
+    <str id="FreeColLanguage" txt="Bitte wählen Sie die Sprache, die im Spiel benutzt werden soll:" />
+    <str id="FreeColLanguage.autodetect" txt="Automatisch bei Spielstart" />
+    <str id="FreeColLanguage.description" txt="Sie können diese Einstellung später im Einstellungsmenü im Spiel ändern." />
+    <str id="UserFiles" txt="Bitte wählen Sie den Speicherort für benutzerspezifische Einstellungen und Spielstände:" />
+    <str id="UserFiles.home" txt="Heimverzeichnis des Benutzers" />
+    <str id="UserFiles.freecol" txt="FreeCol-Verzeichnis (nur für Einzelplatz-Installation)" />
+    <str id="UserFiles.other" txt="Anderes Verzeichnis angeben …" />
+</langpack>

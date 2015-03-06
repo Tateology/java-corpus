@@ -1,0 +1,28 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<!-- ATTENTION: Do not modify this file directly,
+     modify the source file
+         data/strings/FreeColMessages_ca.properties
+     instead. -->
+<langpack>
+    <str id="FreeCol" txt="FreeCol" />
+    <str id="FreeCol.description" txt="L'aplicació FreeCol i fitxers de dades." />
+    <str id="GameManual" txt="Manual del joc" />
+    <str id="GameManual.description" txt="Aquest paquet conté el manual del joc oficial (disponible només en anglès)." />
+    <str id="SourceCode" txt="Codi font" />
+    <str id="SourceCode.description" txt="El codi font utilitzat per a la construcció d'aquesta distribució. Aquests arxius estan destinats als desenvolupadors i no donen una funcionalitat addicional per al joc." />
+    <str id="Music" txt="Música" />
+    <str id="Music.description" txt="La música del joc." />
+    <str id="SoundEffects" txt="Efectes de So" />
+    <str id="SoundEffects.description" txt="Els efectes de so en el joc." />
+    <str id="MovieClips" txt="Clips de peŀlícula" />
+    <str id="MovieClips.description" txt="Aquest paquet conté els clips de peŀlícula que es reproduiran en ocasions especials durant el joc." />
+    <str id="MovieClips.description2" txt="Aquest paquet conté els clips de peŀlícula que es reproduiran en ocasions especials durant el joc. A l'habilitar aquest paquet s'instaŀlaran els clips de peŀlícula a l'ordinador. L'alternativa és reproduir-los directament des del CD/DVD del joc." />
+    <str id="Location.Web" txt="Els fitxers no estan inclosos en aquest instaŀlador i seran automàticament descarregats del lloc web de FreeCol si habilita aquest paquet." />
+    <str id="FreeColLanguage" txt="Si us plau, seleccioneu l'idioma que s'usarà durant el joc:" />
+    <str id="FreeColLanguage.autodetect" txt="Detectar automàticament en iniciar el joc" />
+    <str id="FreeColLanguage.description" txt="Més tard, podeu canviar aquesta configuració mitjançant el menú de Preferències del joc." />
+    <str id="UserFiles" txt="Si us plau, seleccioneu la ubicació per a la configuració específica de l'usuari i les partides guardades:" />
+    <str id="UserFiles.home" txt="Directori principal de l'usuari" />
+    <str id="UserFiles.freecol" txt="El directori de l'aplicació FreeCol (només per a la configuració d'un únic usuari)" />
+    <str id="UserFiles.other" txt="Especifiqui un directori personalitzat" />
+</langpack>

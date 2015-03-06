@@ -1,0 +1,28 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<!-- ATTENTION: Do not modify this file directly,
+     modify the source file
+         data/strings/FreeColMessages_fi.properties
+     instead. -->
+<langpack>
+    <str id="FreeCol" txt="FreeCol" />
+    <str id="FreeCol.description" txt="FreeCol-sovellus ja datatiedostot." />
+    <str id="GameManual" txt="Käsikirja" />
+    <str id="GameManual.description" txt="Tämä paketti sisältää virallisen peliohjeen (saatavilla vain englanniksi)." />
+    <str id="SourceCode" txt="Lähdekoodi" />
+    <str id="SourceCode.description" txt="Lähdekoodi, josta tämä versio on käännetty. Lähdekoodi on tarkoitettu kehittäjille eikä se tuo lisäominaisuuksia peliin." />
+    <str id="Music" txt="Musiikki" />
+    <str id="Music.description" txt="Pelissä käytetty musiikki." />
+    <str id="SoundEffects" txt="Äänitehosteet" />
+    <str id="SoundEffects.description" txt="Pelissä käytetyt äänitehosteet." />
+    <str id="MovieClips" txt="Videoleikkeet" />
+    <str id="MovieClips.description" txt="Tämä paketti sisältää videoleikkeet, joita näytetään erityisten tapahtumien yhteydessä pelin aikana." />
+    <str id="MovieClips.description2" txt="This pack contains movie clips to be played on special occasions in the game. Enabling this pack will install the movie clips on your computer. The alternative is playing the movie clips directly from the game CD/DVD." />
+    <str id="Location.Web" txt="Tiedostot eivät sisälly tähän asennusohjelmaan, mutta ne ladataan automaattisesti verkosta, jos otat tämän paketin käyttöön." />
+    <str id="FreeColLanguage" txt="Valitse pelin kieli:" />
+    <str id="FreeColLanguage.autodetect" txt="Tunnista automaattisesti" />
+    <str id="FreeColLanguage.description" txt="Voit vaihtaa tätä asetusta myöhemmin asetuksista." />
+    <str id="UserFiles" txt="Valitse käyttäjäkohtaisten asetusten ja tiedostojen sijainti:" />
+    <str id="UserFiles.home" txt="Käyttäjän kotikansio" />
+    <str id="UserFiles.freecol" txt="FreeCol-sovelluksen hakemisto (vain yhden käyttäjän asennukseen)" />
+    <str id="UserFiles.other" txt="Määritä toinen hakemisto" />
+</langpack>

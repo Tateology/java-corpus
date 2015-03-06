@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	   elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:documentation>
+      
+      Copyright (C) 2002-2014  The FreeCol Team
+
+      This file is part of FreeCol.
+
+      FreeCol is free software: you can redistribute it and/or modify
+      it under the terms of the GNU General Public License as published by
+      the Free Software Foundation, either version 2 of the License, or
+      (at your option) any later version.
+
+      FreeCol is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+      GNU General Public License for more details.
+
+      You should have received a copy of the GNU General Public License
+      along with FreeCol. If not, see http://www.gnu.org/licenses
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:include schemaLocation="data-common.xsd" />
+
+  <xs:element name="lostCityRumour">
+    <xs:annotation>
+      <xs:documentation>
+        Represents a LostCityRumour.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="id" type="LostCityRumourId" use="required"/>
+      <!-- @compat 0.10.x -->
+      <xs:attribute name="ID" type="LostCityRumourId" use="optional"/>
+      <!-- end @compat -->
+      <xs:attribute name="tile" type="TileId" use="required"/>
+      <xs:attribute name="type" type="LostCityRumourType" use="optional"/>
+      <xs:attribute name="name" type="xs:string" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="LostCityRumourType">
+    <xs:restriction base="xs:NMTOKEN">
+      <xs:enumeration value="NO_SUCH_RUMOUR" />
+      <xs:enumeration value="BURIAL_GROUND" />
+      <xs:enumeration value="EXPEDITION_VANISHES" /> 
+      <xs:enumeration value="NOTHING" />
+      <xs:enumeration value="LEARN" />
+      <xs:enumeration value="TRIBAL_CHIEF" />
+      <xs:enumeration value="COLONIST" />
+      <xs:enumeration value="TREASURE" />
+      <xs:enumeration value="FOUNTAIN_OF_YOUTH" />
+      <xs:enumeration value="MOUNDS" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

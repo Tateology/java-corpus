@@ -1,0 +1,28 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<!-- ATTENTION: Do not modify this file directly,
+     modify the source file
+         data/strings/FreeColMessages_hu.properties
+     instead. -->
+<langpack>
+    <str id="FreeCol" txt="FreeCol" />
+    <str id="FreeCol.description" txt="A FreeCol program- és adatfájljai." />
+    <str id="GameManual" txt="A játék útmutatója" />
+    <str id="GameManual.description" txt="Ez a csomag tartalmazza a játék hivatalos útmutatóját (angol nyelven)" />
+    <str id="SourceCode" txt="Forráskód" />
+    <str id="SourceCode.description" txt="Ezt a forráskódot használtuk a kiadás elkészítésekor. Ezeket a fájlokat fejlesztőknek szántuk, nem adnak új funkcionalitást a játékhoz." />
+    <str id="Music" txt="Zene" />
+    <str id="Music.description" txt="A játékban található zenék." />
+    <str id="SoundEffects" txt="Hangeffektek" />
+    <str id="SoundEffects.description" txt="A játékban található hangeffektek." />
+    <str id="MovieClips" txt="Videók" />
+    <str id="MovieClips.description" txt="Ez a csomag olyan videóklipeket tartalmaz, melyeket különleges események esetén játszódnak le a játékban." />
+    <str id="MovieClips.description2" txt="Ez a csomag olyan videóklipeket tartalmaz, melyeket különleges események esetén játszódnak le a játékban. A csomag engedélyezésével a videóklipek a számítógépedre települnek. A másik lehetőség, hogy a videóklipek közvetlenül a játék CD-jéről vagy DVD-jéről játszódnak le." />
+    <str id="Location.Web" txt="A fájlok nem részei a telepítőnek, ha engedélyezed a csomagot, automatikusan letöltődnek a FreeCol weboldaláról." />
+    <str id="FreeColLanguage" txt="Válaszd ki a játékon belül használandó nyelvet:" />
+    <str id="FreeColLanguage.autodetect" txt="Automatikus észlelés a játék indításakor" />
+    <str id="FreeColLanguage.description" txt="Később megváltoztathatod ezt a beállítást a játék Beállítások menüjében." />
+    <str id="UserFiles" txt="Válaszd ki a felhasználó-specifikus beállítások és mentett játékállások helyét:" />
+    <str id="UserFiles.home" txt="A felhasználó home könyvtára" />
+    <str id="UserFiles.freecol" txt="A FreeCol-alkalmazás könyvtára (csak egyfelhasználós telepítés esetén)" />
+    <str id="UserFiles.other" txt="Egyedi könyvtár megadása" />
+</langpack>

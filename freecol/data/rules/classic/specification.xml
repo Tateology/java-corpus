@@ -1,0 +1,3743 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    *  Copyright (C) 2002-2014  The FreeCol Team
+    *
+    *  This file is part of FreeCol.
+    *
+    *  FreeCol is free software: you can redistribute it and/or modify
+    *  it under the terms of the GNU General Public License as published by
+    *  the Free Software Foundation, either version 2 of the License, or
+    *  (at your option) any later version.
+    *
+    *  FreeCol is distributed in the hope that it will be useful,
+    *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+    *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    *  GNU General Public License for more details.
+    *
+    *  You should have received a copy of the GNU General Public License
+    *  along with FreeCol.  If not, see <http://www.gnu.org/licenses/>.
+
+    In case of incompatible changes, please update version number and
+    XSD schema for validation.
+-->
+<freecol-specification id="classic" version="0.86">
+
+  <!-- Modifiers that are not attached to other game object
+       types. They may be modified, but MUST NOT be removed. -->
+  <modifiers>
+    <modifier id="model.modifier.smallMovementPenalty"
+              source="model.source.movementPenalty"
+              value="-33" type="percentage" index="50"/>
+    <modifier id="model.modifier.bigMovementPenalty"
+              source="model.source.movementPenalty"
+              value="-66" type="percentage" index="50"/>
+    <modifier id="model.modifier.artilleryInTheOpen"
+              source="model.source.artilleryInTheOpen"
+              value="-75" type="percentage" index="50"/>
+    <modifier id="model.modifier.attackBonus"
+              source="model.source.attackBonus"
+              value="50" type="percentage" index="50"/>
+    <modifier id="model.modifier.fortified"
+              source="model.source.fortified"
+              value="50" type="percentage" index="50"/>
+    <modifier id="model.modifier.artilleryAgainstRaid"
+              source="model.source.artilleryAgainstRaid"
+              value="100" type="percentage" index="50"/>
+    <modifier id="model.modifier.amphibiousAttack"
+              source="model.source.amphibiousAttack"
+              value="-75" type="percentage" index="50"/>
+    <!-- Modifiers with an increment are really templates to be instantiated
+         with the specific start/end years they apply to. -->
+    <modifier id="model.modifier.colonyGoodsParty"
+              source="model.source.colonyGoodsParty"
+              value="50" type="percentage" duration="25"
+              increment="-2" incrementType="additive" index="90"/>
+    <modifier id="model.goods.food" value="0" type="additive"/>
+    <!-- Ship trade penalty modifiers are instantiated on the fly from the
+         corresponding option and the sense of application. -->
+    <modifier id="model.modifier.shipTradePenalty"
+              source="model.source.shipTradePenalty"
+              value="0" type="percentage" />
+  </modifiers>
+
+  <events>
+    <event id="model.event.declareIndependence" scoreValue="100">
+      <limit id="model.limit.independence.rebels" operator="GE">
+        <leftHandSide scopeLevel="PLAYER" method-name="getSoL" />
+        <rightHandSide value="50" />
+      </limit>
+      <limit id="model.limit.independence.coastalColonies" operator="GT">
+        <leftHandSide operandType="SETTLEMENTS" scopeLevel="PLAYER"
+                      method-name="isConnectedPort" method-value="true" />
+        <rightHandSide value="0" />
+      </limit>
+      <limit id="model.limit.independence.year" operator="LE">
+        <leftHandSide operandType="YEAR" scopeLevel="GAME"/>
+        <rightHandSide operandType="OPTION" scopeLevel="GAME"
+                       type="model.option.lastColonialYear"/>
+      </limit>
+      <ability id="model.ability.independenceDeclared" />
+      <ability id="model.ability.independentNation" />
+    </event>
+    <event id="model.event.spanishSuccession">
+      <limit id="model.limit.spanishSuccession.year" operator="GE">
+        <leftHandSide scopeLevel="GAME" operandType="YEAR"/>
+        <rightHandSide value="1600"/>
+      </limit>
+      <limit id="model.limit.spanishSuccession.weakestPlayer" operator="LT">
+        <leftHandSide scopeLevel="PLAYER" method-name="getSoL" />
+        <rightHandSide value="50" />
+      </limit>
+      <limit id="model.limit.spanishSuccession.strongestPlayer" operator="GT">
+        <leftHandSide scopeLevel="PLAYER" method-name="getSoL" />
+        <rightHandSide value="50" />
+      </limit>
+    </event>
+  </events>
+
+  <goods-types>
+    <goods-type id="model.goods.food" is-farmed="true"
+                ignore-limit="true" is-food="true"
+                production-weight="5.0">
+      <market initial-amount="10000" initial-price="1" price-difference="7" />
+    </goods-type>
+    <goods-type id="model.goods.grain" is-farmed="true" storable="false"
+                stored-as="model.goods.food" is-food="true"
+                production-weight="5.0" />
+    <goods-type id="model.goods.fish" is-farmed="true" storable="false"
+                stored-as="model.goods.food" is-food="true"
+                production-weight="5.0" />
+    <!--
+        <goods-type id="model.goods.meat" is-farmed="true" storable="false"
+        stored-as="model.goods.food" is-food="true" />
+    -->
+    <goods-type id="model.goods.sugar" is-farmed="true"
+                new-world-goods="true" production-weight="2.5">
+      <market initial-amount="1500"  initial-price="2"  price-difference="4" />
+    </goods-type>
+    <goods-type id="model.goods.tobacco" is-farmed="true"
+                new-world-goods="true" production-weight="2.5">
+      <market initial-amount="1500"  initial-price="2"  price-difference="4" />
+    </goods-type>
+    <goods-type id="model.goods.cotton" is-farmed="true"
+                new-world-goods="true" production-weight="2.5">
+      <market initial-amount="1500"  initial-price="2"  price-difference="4" />
+    </goods-type>
+    <goods-type id="model.goods.furs" is-farmed="true"
+                new-world-goods="true" production-weight="2.5">
+      <market initial-amount="1500"  initial-price="2"  price-difference="4" />
+    </goods-type>
+    <goods-type id="model.goods.lumber" is-farmed="true"
+                production-weight="4.0"
+                low-production-threshold="6" zero-production-factor="0.0">
+      <market initial-amount="3000"  initial-price="1"  price-difference="5" />
+    </goods-type>
+    <goods-type id="model.goods.ore" is-farmed="true"
+                production-weight="3.0"
+                low-production-threshold="4" zero-production-factor="0.5">
+      <market initial-amount="2000"  initial-price="4"  price-difference="3" />
+    </goods-type>
+    <goods-type id="model.goods.silver" is-farmed="true"
+                production-weight="3.0">
+      <market initial-amount="500"   initial-price="16" price-difference="2" />
+    </goods-type>
+    <goods-type id="model.goods.horses" is-farmed="false" is-military="true"
+                breeding-number="2" made-from="model.goods.food">
+      <market initial-amount="1000"  initial-price="1"  price-difference="2" />
+    </goods-type>
+    <goods-type id="model.goods.rum" is-farmed="false"
+                made-from="model.goods.sugar">
+      <market initial-amount="1000"  initial-price="10" price-difference="2" />
+    </goods-type>
+    <goods-type id="model.goods.cigars" is-farmed="false"
+                made-from="model.goods.tobacco">
+      <market initial-amount="1000"  initial-price="10" price-difference="2" />
+    </goods-type>
+    <goods-type id="model.goods.cloth" is-farmed="false"
+                made-from="model.goods.cotton">
+      <market initial-amount="1000"  initial-price="10" price-difference="2" />
+    </goods-type>
+    <goods-type id="model.goods.coats" is-farmed="false"
+                made-from="model.goods.furs">
+      <market initial-amount="1000"  initial-price="10" price-difference="2" />
+    </goods-type>
+    <goods-type id="model.goods.tradeGoods" is-farmed="false"
+                trade-goods="true">
+      <market initial-amount="3000"  initial-price="1"  price-difference="2" />
+    </goods-type>
+    <goods-type id="model.goods.tools" is-farmed="false"
+                made-from="model.goods.ore">
+      <market initial-amount="1000"   initial-price="1"  price-difference="2" />
+    </goods-type>
+    <goods-type id="model.goods.muskets" is-farmed="false" is-military="true"
+                made-from="model.goods.tools">
+      <market initial-amount="1000"   initial-price="1"  price-difference="2" />
+    </goods-type>
+    <goods-type id="model.goods.bells" is-farmed="false"
+                ignore-limit="true" storable="false">
+      <modifier id="model.modifier.liberty" type="multiplicative" value="1" />
+    </goods-type>
+    <goods-type id="model.goods.crosses" is-farmed="false"
+                ignore-limit="true" storable="false">
+      <modifier id="model.modifier.immigration" type="multiplicative" value="1" />
+    </goods-type>
+    <goods-type id="model.goods.hammers" is-farmed="false"
+                made-from="model.goods.lumber"
+                ignore-limit="true" storable="false" price="20"/>
+  </goods-types>
+
+  <resource-types>
+    <resource-type id="model.resource.game">
+      <modifier id="model.goods.grain" index="10"
+                type="additive" value="2"/>
+      <modifier id="model.goods.grain" index="10"
+                type="additive" value="2">
+        <scope type="model.unit.expertFarmer" matchesNull="false"/>
+      </modifier>
+      <modifier id="model.goods.furs" index="10"
+                type="additive" value="2"/>
+    </resource-type>
+    <resource-type id="model.resource.minerals"
+                   minimum-value="40" maximum-value="400">
+      <modifier id="model.goods.ore" index="10"
+                type="additive" value="3"/>
+      <!-- Col1 had silver here, although it was undocmented in the
+           Colonizopedia -->
+      <modifier id="model.goods.silver" index="10"
+                type="additive" value="1"/>
+    </resource-type>
+    <resource-type id="model.resource.ore"
+                   minimum-value="200" maximum-value="4000">
+      <modifier id="model.goods.ore" index="10"
+                type="additive" value="2"/>
+    </resource-type>
+    <resource-type id="model.resource.silver"
+                   minimum-value="80" maximum-value="800">
+      <modifier id="model.goods.silver" index="10"
+                type="additive" value="2"/>
+    </resource-type>
+    <resource-type id="model.resource.lumber">
+      <modifier id="model.goods.lumber" index="10"
+                type="additive" value="4"/>
+    </resource-type>
+    <resource-type id="model.resource.furs">
+      <modifier id="model.goods.furs" index="10"
+                type="additive" value="3"/>
+    </resource-type>
+    <resource-type id="model.resource.tobacco">
+      <modifier id="model.goods.tobacco" index="10"
+                type="multiplicative" value="2"/>
+    </resource-type>
+    <resource-type id="model.resource.sugar">
+      <modifier id="model.goods.sugar" index="10"
+                type="multiplicative" value="2"/>
+    </resource-type>
+    <resource-type id="model.resource.cotton">
+      <modifier id="model.goods.cotton" index="10"
+                type="multiplicative" value="2"/>
+    </resource-type>
+    <resource-type id="model.resource.oasis">
+      <modifier id="model.goods.grain" index="10"
+                type="additive" value="2"/>
+      <modifier id="model.goods.grain" index="10"
+                type="additive" value="2">
+        <scope type="model.unit.expertFarmer" matchesNull="false"/>
+      </modifier>
+    </resource-type>
+    <resource-type id="model.resource.grain">
+      <modifier id="model.goods.grain" index="10"
+                type="additive" value="2"/>
+      <modifier id="model.goods.grain" index="10"
+                type="additive" value="2">
+        <scope type="model.unit.expertFarmer" matchesNull="false"/>
+      </modifier>
+    </resource-type>
+    <resource-type id="model.resource.fish">
+      <modifier id="model.goods.fish" index="10"
+                type="additive" value="3"/>
+      <modifier id="model.goods.fish" index="10"
+                type="additive" value="3">
+        <scope type="model.unit.expertFisherman" matchesNull="false"/>
+      </modifier>
+    </resource-type>
+  </resource-types>
+
+  <!-- Structure for tile-types
+       Notes:
+       Parent options: ref, name, basic-move-cost, basic-work-turns
+       Children:
+       - gen
+         - humidityMin, humidityMax,
+           - humidity is a percentage of water vapor saturation (0 is
+             absolute dryness, 100 is total saturation)
+         - temperatureMin, temperatureMax,
+           - temperature in degrees Celsius (from -20 to +40; 0 being the
+             water freezing point)
+         - altitudeMin, altitudeMax,
+           - altitude (values of -3 to 3)
+             - land (values 1 to 3), less negative numbers have a higher
+               chance of appearing near shore
+             - water (values -3 to -1), more negative numbers have a
+               higher chance of appearing further from shore
+         - latitudeMin, latitudeMax
+           - undefined (default = "0,0")
+       - production if any must have the following structure:
+         <production [unattended="<boolean>"] [productionLevel="<level>"]>
+           [<input goods-type="model.goods.goodname" value="X"/>]*
+           [<output goods-type="model.goods.goodname" value="X"/>]+
+         </production>
+       - resource if any must have the following structure:
+         <resource type="model.resource.resourcename" probability="X"/>
+         where X is a relative probability, not necessarily a percentage value
+  -->
+  <tile-types>
+    <tile-type id="model.tile.plains"
+               basic-move-cost="3" basic-work-turns="3">
+      <gen humidityMin="0" humidityMax="60"
+           temperatureMin="0" temperatureMax="15"
+           altitudeMin="1" altitudeMax="2"/>
+      <production unattended="true">
+        <output goods-type="model.goods.grain" value="5"/>
+        <output goods-type="model.goods.cotton" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.grain" value="5"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.cotton" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.ore" value="1"/>
+      </production>
+      <resource type="model.resource.grain" probability="100"/>
+      <disaster id="model.disaster.tornado" probability="100"/>
+    </tile-type>
+    <tile-type id="model.tile.grassland"
+               basic-move-cost="3" basic-work-turns="3">
+      <gen humidityMin="25" humidityMax="70"
+           temperatureMin="10" temperatureMax="25"
+           altitudeMin="1" altitudeMax="1"/>
+      <production unattended="true">
+        <output goods-type="model.goods.grain" value="3"/>
+        <output goods-type="model.goods.tobacco" value="3"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.grain" value="3"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.tobacco" value="3"/>
+      </production>
+      <resource type="model.resource.tobacco" probability="100"/>
+    </tile-type>
+    <tile-type id="model.tile.prairie"
+               basic-move-cost="3" basic-work-turns="3">
+      <gen humidityMin="20" humidityMax="50"
+           temperatureMin="15" temperatureMax="30"
+           altitudeMin="1" altitudeMax="1"/>
+      <production unattended="true">
+        <output goods-type="model.goods.grain" value="3"/>
+        <output goods-type="model.goods.cotton" value="3"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.grain" value="3"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.cotton" value="3"/>
+      </production>
+      <resource type="model.resource.cotton" probability="100"/>
+      <disaster id="model.disaster.tornado" probability="100"/>
+    </tile-type>
+    <tile-type id="model.tile.savannah"
+               basic-move-cost="3" basic-work-turns="3">
+      <gen humidityMin="25" humidityMax="70"
+           temperatureMin="30" temperatureMax="40"
+           altitudeMin="1" altitudeMax="1"/>
+      <production unattended="true">
+        <output goods-type="model.goods.grain" value="4"/>
+        <output goods-type="model.goods.sugar" value="3"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.grain" value="4"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.sugar" value="3"/>
+      </production>
+      <resource type="model.resource.sugar" probability="100"/>
+    </tile-type>
+    <tile-type id="model.tile.marsh"
+               basic-move-cost="6" basic-work-turns="5">
+      <gen humidityMin="50" humidityMax="100"
+           temperatureMin="5" temperatureMax="15"
+           altitudeMin="2" altitudeMax="2"/>
+      <modifier id="model.modifier.defence"
+                type="percentage" value="25" index="50"/>
+      <production unattended="true">
+        <output goods-type="model.goods.grain" value="3"/>
+        <output goods-type="model.goods.tobacco" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.grain" value="3"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.tobacco" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.ore" value="2"/>
+      </production>
+      <production> <!-- Minerals! -->
+        <output goods-type="model.goods.silver" value="0"/>
+      </production>
+      <resource type="model.resource.minerals" probability="100"/>
+      <disaster id="model.disaster.disease" probability="100"/>
+    </tile-type>
+    <tile-type id="model.tile.swamp"
+               basic-move-cost="6" basic-work-turns="7">
+      <gen humidityMin="50" humidityMax="100"
+           temperatureMin="10" temperatureMax="40"
+           altitudeMin="1" altitudeMax="1"/>
+      <modifier id="model.modifier.defence"
+                type="percentage" value="25" index="50"/>
+      <production unattended="true">
+        <output goods-type="model.goods.grain" value="3"/>
+        <output goods-type="model.goods.sugar" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.grain" value="3"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.sugar" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.ore" value="2"/>
+      </production>
+      <production> <!-- Minerals! -->
+        <output goods-type="model.goods.silver" value="0"/>
+      </production>
+      <resource type="model.resource.minerals" probability="100"/>
+      <disaster id="model.disaster.disease" probability="50"/>
+      <disaster id="model.disaster.flood" probability="50"/>
+    </tile-type>
+    <tile-type id="model.tile.desert"
+               basic-move-cost="3" basic-work-turns="3">
+      <gen humidityMin="0" humidityMax="25"
+           temperatureMin="10" temperatureMax="40"
+           altitudeMin="1" altitudeMax="2"/>
+      <production unattended="true" productionLevel="veryHigh">
+        <output goods-type="model.goods.grain" value="3"/>
+        <output goods-type="model.goods.cotton" value="1"/>
+      </production>
+      <production unattended="true" productionLevel="veryLow">
+        <output goods-type="model.goods.grain" value="1"/>
+        <output goods-type="model.goods.cotton" value="1"/>
+      </production>
+      <production unattended="true">
+        <output goods-type="model.goods.grain" value="2"/>
+        <output goods-type="model.goods.cotton" value="1"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.grain" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.cotton" value="1"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.ore" value="2"/>
+      </production>
+      <resource type="model.resource.oasis" probability="100"/>
+      <disaster id="model.disaster.sandstorm" probability="50"/>
+      <disaster id="model.disaster.drought" probability="50"/>
+    </tile-type>
+    <tile-type id="model.tile.tundra"
+               basic-move-cost="3" basic-work-turns="4">
+      <gen humidityMin="0" humidityMax="100"
+           temperatureMin="-5" temperatureMax="5"
+           altitudeMin="1" altitudeMax="3"/>
+      <production unattended="true">
+        <output goods-type="model.goods.grain" value="3"/>
+        <output goods-type="model.goods.ore" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.grain" value="3"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.ore" value="2"/>
+      </production>
+      <production> <!-- Minerals! -->
+        <output goods-type="model.goods.silver" value="0"/>
+      </production>
+      <!-- Col1 had minerals here, even if not mentioned in the
+           Colonizopedia. -->
+      <resource type="model.resource.minerals" probability="100"/>
+      <disaster id="model.disaster.blizzard" probability="100"/>
+    </tile-type>
+    <tile-type id="model.tile.mixedForest"
+               basic-move-cost="6" basic-work-turns="4" is-forest="true">
+      <gen humidityMin="0" humidityMax="60"
+           temperatureMin="0" temperatureMax="15"
+           altitudeMin="1" altitudeMax="2"/>
+      <modifier id="model.modifier.defence"
+                type="percentage" value="50" index="50"/>
+      <production unattended="true">
+        <output goods-type="model.goods.grain" value="3"/>
+        <output goods-type="model.goods.furs" value="3"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.grain" value="3"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.cotton" value="1"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.furs" value="3"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.lumber" value="6"/>
+      </production>
+      <resource type="model.resource.furs" probability="50"/>
+      <resource type="model.resource.lumber" probability="50"/>
+      <ability id="model.ability.ambushTerrain" value="true"/>
+    </tile-type>
+    <tile-type id="model.tile.coniferForest"
+               basic-move-cost="6" basic-work-turns="4" is-forest="true">
+      <gen humidityMin="25" humidityMax="70"
+           temperatureMin="10" temperatureMax="25"
+           altitudeMin="1" altitudeMax="1"/>
+      <modifier id="model.modifier.defence"
+                type="percentage" value="50" index="50"/>
+      <production unattended="true">
+        <output goods-type="model.goods.grain" value="2"/>
+        <output goods-type="model.goods.furs" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.grain" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.tobacco" value="1"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.furs" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.lumber" value="6"/>
+      </production>
+      <resource type="model.resource.lumber" probability="100"/>
+      <ability id="model.ability.ambushTerrain" value="true"/>
+    </tile-type>
+    <tile-type id="model.tile.broadleafForest"
+               basic-move-cost="6" basic-work-turns="4" is-forest="true">
+      <gen humidityMin="20" humidityMax="50"
+           temperatureMin="15" temperatureMax="30"
+           altitudeMin="1" altitudeMax="1"/>
+      <modifier id="model.modifier.defence"
+                type="percentage" value="50" index="50"/>
+      <production unattended="true">
+        <output goods-type="model.goods.grain" value="2"/>
+        <output goods-type="model.goods.furs" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.grain" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.cotton" value="1"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.furs" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.lumber" value="4"/>
+      </production>
+      <resource type="model.resource.game" probability="100"/>
+      <ability id="model.ability.ambushTerrain" value="true"/>
+    </tile-type>
+    <tile-type id="model.tile.tropicalForest"
+               basic-move-cost="6" basic-work-turns="6" is-forest="true">
+      <gen humidityMin="25" humidityMax="70"
+           temperatureMin="30" temperatureMax="40"
+           altitudeMin="1" altitudeMax="1"/>
+      <modifier id="model.modifier.defence"
+                type="percentage" value="50" index="50"/>
+      <production unattended="true">
+        <output goods-type="model.goods.grain" value="3"/>
+        <output goods-type="model.goods.furs" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.grain" value="3"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.sugar" value="1"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.furs" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.lumber" value="4"/>
+      </production>
+      <resource type="model.resource.lumber" probability="100"/>
+      <disaster id="model.disaster.hurricane" probability="100"/>
+      <ability id="model.ability.ambushTerrain" value="true"/>
+    </tile-type>
+    <tile-type id="model.tile.wetlandForest"
+               basic-move-cost="9" basic-work-turns="6" is-forest="true">
+      <gen humidityMin="50" humidityMax="100"
+           temperatureMin="5" temperatureMax="15"
+           altitudeMin="2" altitudeMax="2"/>
+      <modifier id="model.modifier.defence"
+                type="percentage" value="50" index="50"/>
+      <production unattended="true">
+        <output goods-type="model.goods.grain" value="2"/>
+        <output goods-type="model.goods.furs" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.grain" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.tobacco" value="1"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.furs" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.lumber" value="4"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.ore" value="1"/>
+      </production>
+      <production> <!-- Minerals! -->
+        <output goods-type="model.goods.silver" value="0"/>
+      </production>
+      <resource type="model.resource.minerals" probability="100"/>
+      <ability id="model.ability.ambushTerrain" value="true"/>
+    </tile-type>
+    <tile-type id="model.tile.rainForest"
+               basic-move-cost="9" basic-work-turns="7" is-forest="true">
+      <gen humidityMin="50" humidityMax="100"
+           temperatureMin="10" temperatureMax="40"
+           altitudeMin="1" altitudeMax="1"/>
+      <modifier id="model.modifier.defence"
+                type="percentage" value="75" index="50"/>
+      <production unattended="true">
+        <output goods-type="model.goods.grain" value="2"/>
+        <output goods-type="model.goods.furs" value="1"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.grain" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.sugar" value="1"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.furs" value="1"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.lumber" value="4"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.ore" value="1"/>
+      </production>
+      <production> <!-- Minerals! -->
+        <output goods-type="model.goods.silver" value="0"/>
+      </production>
+      <resource type="model.resource.minerals" probability="100"/>
+      <disaster id="model.disaster.disease" probability="100"/>
+      <ability id="model.ability.ambushTerrain" value="true"/>
+    </tile-type>
+    <tile-type id="model.tile.scrubForest"
+               basic-move-cost="3" basic-work-turns="4" is-forest="true">
+      <gen humidityMin="0" humidityMax="25"
+           temperatureMin="10" temperatureMax="40"
+           altitudeMin="1" altitudeMax="2"/>
+      <modifier id="model.modifier.defence"
+                type="percentage" value="50" index="50"/>
+      <production unattended="true" productionLevel="veryHigh">
+        <output goods-type="model.goods.grain" value="3"/>
+        <output goods-type="model.goods.furs" value="2"/>
+      </production>
+      <production unattended="true" productionLevel="veryLow">
+        <output goods-type="model.goods.grain" value="1"/>
+        <output goods-type="model.goods.furs" value="2"/>
+      </production>
+      <production unattended="true">
+        <output goods-type="model.goods.grain" value="2"/>
+        <output goods-type="model.goods.furs" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.grain" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.cotton" value="1"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.furs" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.lumber" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.ore" value="1"/>
+      </production>
+      <resource type="model.resource.oasis" probability="100"/>
+      <disaster id="model.disaster.brushfire" probability="50"/>
+      <disaster id="model.disaster.drought" probability="50"/>
+      <ability id="model.ability.ambushTerrain" value="true"/>
+    </tile-type>
+    <tile-type id="model.tile.borealForest"
+               basic-move-cost="6" basic-work-turns="4" is-forest="true">
+      <gen humidityMin="0" humidityMax="100"
+           temperatureMin="-5" temperatureMax="5"
+           altitudeMin="1" altitudeMax="3"/>
+      <modifier id="model.modifier.defence"
+                type="percentage" value="50" index="50"/>
+      <production unattended="true">
+        <output goods-type="model.goods.grain" value="2"/>
+        <output goods-type="model.goods.furs" value="3"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.grain" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.furs" value="3"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.lumber" value="4"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.ore" value="1"/>
+      </production>
+      <resource type="model.resource.game" probability="100"/>
+      <ability id="model.ability.ambushTerrain" value="true"/>
+    </tile-type>
+    <tile-type id="model.tile.hills"
+               basic-move-cost="6" basic-work-turns="4" is-elevation="true">
+      <gen humidityMin="0" humidityMax="100"
+           temperatureMin="-20" temperatureMax="40"
+           altitudeMin="2" altitudeMax="3"/>
+      <modifier id="model.modifier.defence"
+                type="percentage" value="100" index="50"/>
+      <production unattended="true">
+        <output goods-type="model.goods.grain" value="2"/>
+        <output goods-type="model.goods.ore" value="4"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.grain" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.ore" value="4"/>
+      </production>
+      <resource type="model.resource.ore" probability="100"/>
+      <disaster id="model.disaster.earthquake" probability="50"/>
+      <disaster id="model.disaster.landslide" probability="50"/>
+      <ability id="model.ability.ambushTerrain" value="true"/>
+    </tile-type>
+    <tile-type id="model.tile.mountains"
+               basic-move-cost="9" basic-work-turns="7"
+               is-elevation="true" can-settle="false">
+      <gen humidityMin="0" humidityMax="100"
+           temperatureMin="-20" temperatureMax="40"
+           altitudeMin="3" altitudeMax="3"/>
+      <modifier id="model.modifier.defence"
+                type="percentage" value="150" index="50"/>
+      <production>
+        <output goods-type="model.goods.ore" value="4"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.silver" value="1"/>
+      </production>
+      <resource type="model.resource.silver" probability="100"/>
+      <disaster id="model.disaster.earthquake" probability="50"/>
+      <disaster id="model.disaster.landslide" probability="50"/>
+      <ability id="model.ability.ambushTerrain" value="true"/>
+    </tile-type>
+    <tile-type id="model.tile.arctic"
+               basic-move-cost="6" basic-work-turns="4">
+      <gen humidityMin="0" humidityMax="100"
+           temperatureMin="-20" temperatureMax="0"
+           altitudeMin="1" altitudeMax="3"/>
+      <production unattended="true" productionLevel="veryHigh">
+        <output goods-type="model.goods.grain" value="2"/>
+      </production>
+      <production unattended="true" productionLevel="high">
+        <output goods-type="model.goods.grain" value="1"/>
+      </production>
+      <disaster id="model.disaster.blizzard" probability="100"/>
+    </tile-type>
+    <tile-type id="model.tile.ocean"
+               basic-move-cost="3" basic-work-turns="4" is-water="true"
+               can-settle="false" is-connected="true">
+      <gen humidityMin="0" humidityMax="100"
+           temperatureMin="-20" temperatureMax="40"
+           altitudeMin="-2" altitudeMax="-1"/>
+      <production>
+        <output goods-type="model.goods.fish" value="2"/>
+      </production>
+      <resource type="model.resource.fish" probability="100"/>
+      <disaster id="model.disaster.stormsurge" probability="100"/>
+    </tile-type>
+    <tile-type id="model.tile.lake"
+               basic-move-cost="3" basic-work-turns="4" is-water="true"
+               can-settle="false" is-connected="false">
+      <gen humidityMin="0" humidityMax="100"
+           temperatureMin="-20" temperatureMax="40"
+           altitudeMin="-2" altitudeMax="-1"/>
+      <production>
+        <output goods-type="model.goods.fish" value="2"/>
+      </production>
+      <resource type="model.resource.fish" probability="100"/>
+      <disaster id="model.disaster.flood" probability="100"/>
+    </tile-type>
+    <tile-type id="model.tile.highSeas"
+               basic-move-cost="3" basic-work-turns="4" is-water="true"
+               can-settle="false" is-connected="true">
+      <gen humidityMin="0" humidityMax="100"
+           temperatureMin="-20" temperatureMax="40"
+           altitudeMin="-3" altitudeMax="-2"/>
+      <production>
+        <output goods-type="model.goods.fish" value="2"/>
+      </production>
+      <ability id="model.ability.moveToEurope"/>
+    </tile-type>
+    <tile-type id="model.tile.greatRiver"
+               basic-move-cost="3" basic-work-turns="4" is-water="true"
+               can-settle="false">
+      <gen humidityMin="0" humidityMax="100"
+           temperatureMin="-20" temperatureMax="40"
+           altitudeMin="-3" altitudeMax="-2" />
+      <production>
+        <output goods-type="model.goods.fish" value="2"/>
+      </production>
+      <resource type="model.resource.fish" probability="100"/>
+      <disaster id="model.disaster.flood" probability="100"/>
+    </tile-type>
+  </tile-types>
+
+  <disasters>
+    <disaster id="model.disaster.common" abstract="true" effects="SEVERAL"
+              natural="true">
+      <effect id="model.disaster.effect.lossOfMoney" probability="10"/>
+      <effect id="model.disaster.effect.lossOfGoods" probability="10"/>
+      <effect id="model.disaster.effect.lossOfTileProduction" probability="10">
+        <modifier id="model.goods.grain" type="percentage" value="-50" duration="3" temporary="true"/>
+        <modifier id="model.goods.sugar" type="percentage" value="-50" duration="3" temporary="true"/>
+        <modifier id="model.goods.tobacco" type="percentage" value="-50" duration="3" temporary="true"/>
+        <modifier id="model.goods.cotton" type="percentage" value="-50" duration="3" temporary="true"/>
+        <modifier id="model.goods.furs" type="percentage" value="-50" duration="3" temporary="true"/>
+        <modifier id="model.goods.lumber" type="percentage" value="-50" duration="3" temporary="true"/>
+        <modifier id="model.goods.ore" type="percentage" value="-50" duration="3" temporary="true"/>
+        <modifier id="model.goods.silver" type="percentage" value="-50" duration="3" temporary="true"/>
+      </effect>
+      <effect id="model.disaster.effect.lossOfBuildingProduction" probability="10">
+        <modifier id="model.goods.rum" type="percentage" value="-50" duration="3" temporary="true"/>
+        <modifier id="model.goods.cigars" type="percentage" value="-50" duration="3" temporary="true"/>
+        <modifier id="model.goods.cloth" type="percentage" value="-50" duration="3" temporary="true"/>
+        <modifier id="model.goods.coats" type="percentage" value="-50" duration="3" temporary="true"/>
+        <modifier id="model.goods.tools" type="percentage" value="-50" duration="3" temporary="true"/>
+        <modifier id="model.goods.muskets" type="percentage" value="-50" duration="3" temporary="true"/>
+        <modifier id="model.goods.bells" type="percentage" value="-50" duration="3" temporary="true"/>
+        <modifier id="model.goods.hammers" type="percentage" value="-50" duration="3" temporary="true"/>
+        <modifier id="model.goods.crosses" type="percentage" value="-50" duration="3" temporary="true"/>
+      </effect>
+      <effect id="model.disaster.effect.lossOfBuilding" probability="10"/>
+      <effect id="model.disaster.effect.damagedUnit" probability="5">
+        <scope ability-id="model.ability.navalUnit"/>
+      </effect>
+      <effect id="model.disaster.effect.lossOfUnit" probability="5">
+        <scope ability-id="model.ability.person"/>
+      </effect>
+    </disaster>
+    <disaster id="model.disaster.blizzard" extends="model.disaster.common" />
+    <disaster id="model.disaster.brushfire" extends="model.disaster.common" />
+    <disaster id="model.disaster.disease" extends="model.disaster.common" />
+    <disaster id="model.disaster.drought" extends="model.disaster.common" />
+    <disaster id="model.disaster.earthquake" extends="model.disaster.common" />
+    <disaster id="model.disaster.flood" extends="model.disaster.common" />
+    <disaster id="model.disaster.hurricane" extends="model.disaster.common" />
+    <disaster id="model.disaster.landslide" extends="model.disaster.common" />
+    <disaster id="model.disaster.sandstorm" extends="model.disaster.common" />
+    <disaster id="model.disaster.stormsurge" extends="model.disaster.common" />
+    <disaster id="model.disaster.tornado" extends="model.disaster.common" />
+    <disaster id="model.disaster.indianRaid" effects="ONE" natural="false">
+      <effect id="model.disaster.effect.lossOfMoney" probability="30"/>
+      <effect id="model.disaster.effect.lossOfGoods" probability="50"/>
+      <effect id="model.disaster.effect.lossOfBuilding" probability="10"/>
+      <effect id="model.disaster.effect.damagedUnit" probability="5">
+        <scope ability-id="model.ability.navalUnit"/>
+      </effect>
+      <effect id="model.disaster.effect.lossOfUnit" probability="5">
+        <scope ability-id="model.ability.person"/>
+      </effect>
+    </disaster>
+    <disaster id="model.disaster.conquest" natural="false" effects="ALL">
+      <effect id="model.disaster.effect.lossOfMoney"/>
+      <effect id="model.disaster.effect.damagedUnit">
+        <scope ability-id="model.ability.navalUnit"/>
+      </effect>
+    </disaster>
+    <disaster id="model.disaster.bankruptcy" natural="false" effects="ALL">
+      <effect id="model.disaster.effect.lossOfBuildingProduction">
+        <modifier id="model.goods.rum" type="percentage" value="-50" temporary="true"/>
+        <modifier id="model.goods.cigars" type="percentage" value="-50" temporary="true"/>
+        <modifier id="model.goods.cloth" type="percentage" value="-50" temporary="true"/>
+        <modifier id="model.goods.coats" type="percentage" value="-50" temporary="true"/>
+        <modifier id="model.goods.tools" type="percentage" value="-50" temporary="true"/>
+        <modifier id="model.goods.muskets" type="percentage" value="-50" temporary="true"/>
+        <modifier id="model.goods.bells" type="percentage" value="-50" temporary="true"/>
+        <modifier id="model.goods.hammers" type="percentage" value="-50" temporary="true"/>
+        <modifier id="model.goods.crosses" type="percentage" value="-50" temporary="true"/>
+      </effect>
+    </disaster>
+  </disasters>
+
+  <roles>
+    <role id="model.role.default"/>
+
+    <role id="model.role.scout"
+          expertUnit="model.unit.seasonedScout">
+      <required-ability id="model.ability.canBeEquipped" value="true"/>
+      <required-ability id="model.ability.native" value="false"/>
+      <required-ability id="model.ability.refUnit" value="false"/>
+      <required-goods id="model.goods.horses" value="50"/>
+
+      <ability id="model.ability.armed" value="true"/>
+      <ability id="model.ability.canBeCaptured" value="false"/>
+      <ability id="model.ability.captureUnits" value="true"/>
+      <ability id="model.ability.demandTribute" value="true"/>
+      <ability id="model.ability.disposeOnCombatLoss" value="true"/>
+      <ability id="model.ability.mounted" value="true"/>
+      <ability id="model.ability.negotiate" value="true"/>
+      <ability id="model.ability.speakWithChief" value="true"/>
+      <ability id="model.ability.spyOnColony" value="true"/>
+      <modifier id="model.modifier.defence"
+                type="additive" value="1" index="30"/>
+      <modifier id="model.modifier.offence"
+                type="additive" value="1" index="30"/>
+      <modifier id="model.modifier.lineOfSightBonus"
+                type="additive" value="1"/>
+      <modifier id="model.modifier.movementBonus"
+                type="additive" value="9"/>
+    </role>
+
+    <role id="model.role.soldier"
+          expertUnit="model.unit.veteranSoldier">
+      <required-ability id="model.ability.canBeEquipped" value="true"/>
+      <required-ability id="model.ability.native" value="false"/>
+      <required-ability id="model.ability.refUnit" value="false"/>
+      <required-goods id="model.goods.muskets" value="50"/>
+
+      <ability id="model.ability.armed" value="true"/>
+      <ability id="model.ability.canBeCaptured" value="false"/>
+      <ability id="model.ability.captureUnits" value="true"/>
+      <ability id="model.ability.demandTribute" value="true"/>
+      <modifier id="model.modifier.defence"
+                type="additive" value="1" index="30"/>
+      <modifier id="model.modifier.offence"
+                type="additive" value="2" index="30"/>
+    </role>
+
+    <role id="model.role.dragoon" downgrade="model.role.soldier"
+          expertUnit="model.unit.veteranSoldier">
+      <required-ability id="model.ability.canBeEquipped" value="true"/>
+      <required-ability id="model.ability.native" value="false"/>
+      <required-ability id="model.ability.refUnit" value="false"/>
+      <required-goods id="model.goods.muskets" value="50"/>
+      <required-goods id="model.goods.horses" value="50"/>
+
+      <ability id="model.ability.armed" value="true"/>
+      <ability id="model.ability.canBeCaptured" value="false"/>
+      <ability id="model.ability.captureUnits" value="true"/>
+      <ability id="model.ability.demandTribue" value="true"/>
+      <ability id="model.ability.mounted" value="true"/>
+      <modifier id="model.modifier.defence"
+                type="additive" value="2" index="30"/>
+      <modifier id="model.modifier.offence"
+                type="additive" value="3" index="30"/>
+      <modifier id="model.modifier.movementBonus"
+                type="additive" value="9"/>
+    </role>
+
+    <role id="model.role.pioneer"
+          expertUnit="model.unit.hardyPioneer" maximumCount="5">
+      <required-ability id="model.ability.canBeEquipped" value="true"/>
+      <required-ability id="model.ability.native" value="false"/>
+      <required-ability id="model.ability.refUnit" value="false"/>
+      <required-goods id="model.goods.tools" value="20"/>
+
+      <ability id="model.ability.disposeOnCombatLoss" value="true"/>
+      <ability id="model.ability.improveTerrain" value="true"/>
+    </role>
+
+    <role id="model.role.missionary"
+          expertUnit="model.unit.jesuitMissionary">
+      <required-ability id="model.ability.canBeEquipped" value="true"/>
+      <required-ability id="model.ability.dressMissionary" value="true"/>
+      <required-ability id="model.ability.native" value="false"/>
+      <required-ability id="model.ability.refUnit" value="false"/>
+
+      <ability id="model.ability.denounceHeresy" value="true"/>
+      <ability id="model.ability.establishMission" value="true"/>
+      <ability id="model.ability.inciteNatives" value="true"/>
+      <modifier id="model.modifier.missionaryTradeBonus" type="percentage" value="10"/>
+      <modifier id="model.modifier.movementBonus" type="additive" value="3"/>
+    </role>
+
+    <role id="model.role.infantry"
+          expertUnit="model.unit.kingsRegular">
+      <required-ability id="model.ability.canBeEquipped" value="true"/>
+      <required-ability id="model.ability.native" value="false"/>
+      <required-ability id="model.ability.refUnit" value="true"/>
+      <required-ability id="model.ability.royalExpeditionaryForce" value="true"/>
+      <required-goods id="model.goods.muskets" value="50"/>
+
+      <ability id="model.ability.armed" value="true"/>
+      <ability id="model.ability.captureUnits" value="true"/>
+      <ability id="model.ability.demandTribute" value="true"/>
+      <ability id="model.ability.disposeOnCombatLoss" value="true"/>
+      <modifier id="model.modifier.defence"
+                type="additive" value="1" index="30"/>
+      <modifier id="model.modifier.offence"
+                type="additive" value="2" index="30"/>
+    </role>
+
+    <role id="model.role.cavalry" downgrade="model.role.infantry"
+          expertUnit="model.unit.kingsRegular">
+      <required-ability id="model.ability.canBeEquipped" value="true"/>
+      <required-ability id="model.ability.native" value="false"/>
+      <required-ability id="model.ability.refUnit" value="true"/>
+      <required-ability id="model.ability.royalExpeditionaryForce" value="true"/>
+      <required-goods id="model.goods.muskets" value="50"/>
+      <required-goods id="model.goods.horses" value="50"/>
+
+      <ability id="model.ability.armed" value="true"/>
+      <ability id="model.ability.captureUnits" value="true"/>
+      <ability id="model.ability.demandTribute" value="true"/>
+      <ability id="model.ability.mounted" value="true"/>
+      <modifier id="model.modifier.defence"
+                type="additive" value="2" index="30"/>
+      <modifier id="model.modifier.offence"
+                type="additive" value="3" index="30"/>
+      <modifier id="model.modifier.movementBonus"
+                type="additive" value="9"/>
+    </role>
+
+    <role id="model.role.mountedBrave">
+      <required-ability id="model.ability.canBeEquipped" value="true"/>
+      <required-ability id="model.ability.native" value="true"/>
+      <required-ability id="model.ability.refUnit" value="false"/>
+      <required-goods id="model.goods.horses" value="25"/>
+
+      <ability id="model.ability.disposeOnCombatLoss" value="true"/>
+      <ability id="model.ability.mounted" value="true"/>
+      <modifier id="model.modifier.defence"
+                type="additive" value="1" index="30"/>
+      <modifier id="model.modifier.offence"
+                type="additive" value="1" index="30"/>
+      <modifier id="model.modifier.movementBonus"
+                type="additive" value="9"/>
+      <role-change from="model.role.default" capture="model.role.scout"/>
+      <role-change from="model.role.default" capture="model.role.dragoon"/>
+      <role-change from="model.role.default" capture="model.role.cavalry"/>
+    </role>
+
+    <role id="model.role.armedBrave">
+      <required-ability id="model.ability.canBeEquipped" value="true"/>
+      <required-ability id="model.ability.native" value="true"/>
+      <required-ability id="model.ability.refUnit" value="false"/>
+      <required-goods id="model.goods.muskets" value="25"/>
+
+      <ability id="model.ability.armed" value="true"/>
+      <ability id="model.ability.disposeOnCombatLoss" value="true"/>
+      <modifier id="model.modifier.defence"
+                type="additive" value="1" index="30"/>
+      <modifier id="model.modifier.offence"
+                type="additive" value="2" index="30"/>
+      <role-change from="model.role.default" capture="model.role.soldier"/>
+      <role-change from="model.role.default" capture="model.role.infantry"/>
+    </role>
+
+    <role id="model.role.nativeDragoon" downgrade="model.role.armedBrave">
+      <required-ability id="model.ability.canBeEquipped" value="true"/>
+      <required-ability id="model.ability.native" value="true"/>
+      <required-ability id="model.ability.refUnit" value="false"/>
+      <required-goods id="model.goods.muskets" value="25"/>
+      <required-goods id="model.goods.horses" value="25"/>
+
+      <ability id="model.ability.armed" value="true"/>
+      <ability id="model.ability.mounted" value="true"/>
+      <modifier id="model.modifier.defence"
+                type="additive" value="2" index="30"/>
+      <modifier id="model.modifier.offence"
+                type="additive" value="3" index="30"/>
+      <modifier id="model.modifier.movementBonus"
+                type="additive" value="9"/>
+      <role-change from="model.role.mountedBrave" capture="model.role.soldier"/>
+      <role-change from="model.role.mountedBrave" capture="model.role.infantry"/>
+      <role-change from="model.role.armedBrave" capture="model.role.scout"/>
+      <role-change from="model.role.armedBrave" capture="model.role.dragoon"/>
+      <role-change from="model.role.armedBrave" capture="model.role.cavalry"/>
+    </role>
+  </roles>
+
+  <equipment-types>
+    <equipment-type id="model.equipment.horses" combat-loss-priority="20"
+                    role="model.role.scout">
+      <required-ability id="model.ability.canBeEquipped" value="true"/>
+      <required-ability id="model.ability.native" value="false"/>
+      <required-goods id="model.goods.horses" value="50"/>
+      <compatible-equipment id="model.equipment.muskets"/>
+      <capture-equipment id="model.equipment.indian.horses" by-indians="true"/>
+    </equipment-type>
+    <equipment-type id="model.equipment.muskets" combat-loss-priority="10"
+                    role="model.role.soldier">
+      <required-ability id="model.ability.canBeEquipped" value="true"/>
+      <required-ability id="model.ability.native" value="false"/>
+      <required-goods id="model.goods.muskets" value="50"/>
+      <compatible-equipment id="model.equipment.horses"/>
+      <capture-equipment id="model.equipment.indian.muskets" by-indians="true"/>
+    </equipment-type>
+    <equipment-type id="model.equipment.tools" maximum-count="5"
+                    role="model.role.pioneer">
+      <required-ability id="model.ability.canBeEquipped" value="true"/>
+      <required-ability id="model.ability.native" value="false"/>
+      <required-goods id="model.goods.tools" value="20"/>
+    </equipment-type>
+    <equipment-type id="model.equipment.missionary"
+                    role="model.role.missionary">
+      <required-ability id="model.ability.canBeEquipped" value="true"/>
+      <required-ability id="model.ability.dressMissionary" value="true"/>
+    </equipment-type>
+    <equipment-type id="model.equipment.indian.horses" combat-loss-priority="20"
+                    role="model.role.mountedBrave">
+      <required-ability id="model.ability.canBeEquipped" value="true"/>
+      <required-ability id="model.ability.native" value="true"/>
+      <required-goods id="model.goods.horses" value="25"/>
+      <compatible-equipment id="model.equipment.indian.muskets"/>
+      <capture-equipment id="model.equipment.horses" by-indians="false"/>
+    </equipment-type>
+    <equipment-type id="model.equipment.indian.muskets" combat-loss-priority="10"
+                    role="model.role.armedBrave">
+      <required-ability id="model.ability.canBeEquipped" value="true"/>
+      <required-ability id="model.ability.native" value="true"/>
+      <required-goods id="model.goods.muskets" value="25"/>
+      <compatible-equipment id="model.equipment.indian.horses"/>
+      <capture-equipment id="model.equipment.muskets" by-indians="false"/>
+    </equipment-type>
+  </equipment-types>
+
+  <!--
+      Parent options: name, add-work-turns, natural, type, required-improvement,
+      required-role, expended-amount, deliver-goods-type, deliver-amount
+      - natural="true" means that this improvement cannot be built,
+        but may be present on its own
+      - required-role/expended-amount are the 'cost' of building this
+        improvement in terms of Unit.roleCount
+      Children: worker, type, tiles, tile, effect, change
+      - deliver goods/amount are the instant reward that will be given
+        to the nearby colony (eg. lumber from deforestation)
+      - worker child options: id
+      - type child options: id, magnitude
+      - id is a string identifier, there must be a "river" and a
+        "road" id among the tileimprovement-types
+      - to get the movement-bonus, must travel from a similar 'id' to this id
+      - magnitude is a number to decide overwriting,
+      a similar id tileimprovement will be replaced with one with a higher magnitude
+      tiles child options: all-land-tiles, all-forest-tiles, all-water-tiles
+      - putting all-water-tiles="false" is redundant, but serves as a reminder
+      - putting all-land-tiles="true" all-forest-tiles="false" will
+        result in all non-forested land tiles.
+      tile child options: id
+      change child options: from, to
+      zIndex: tile improvements will be layered according to their z-index
+        tile overlays (e.g. hills) have a zIndex of 100, forests of 200,
+        resources of 400, lost city rumours of 500
+  -->
+  <tileimprovement-types>
+    <tileimprovement-type id="model.improvement.river" natural="true"
+                          add-work-turns="0" magnitude="1"
+                          movement-cost="1" zIndex="150">
+      <scope method-name="isWater" method-value="false"/>
+      <scope type="model.tile.arctic" matchNegated="true"/>
+      <scope type="model.tile.hills" matchNegated="true"/>
+      <scope type="model.tile.mountains" matchNegated="true"/>
+      <disaster id="model.disaster.flood"/>
+      <modifier id="model.goods.grain" index="50"
+                type="additive" value="1"/>
+      <modifier id="model.goods.sugar"  index="50"
+                type="additive" value="1"/>
+      <modifier id="model.goods.tobacco"  index="50"
+                type="additive" value="1"/>
+      <modifier id="model.goods.cotton" index="50"
+                type="additive" value="1"/>
+      <modifier id="model.goods.furs" index="50"
+                 type="additive" value="2"/>
+      <modifier id="model.goods.lumber" index="50"
+                 type="additive" value="2"/>
+      <modifier id="model.goods.ore" index="50"
+                 type="additive" value="1"/>
+      <modifier id="model.goods.silver" index="50"
+                 type="additive" value="1"/>
+    </tileimprovement-type>
+    <tileimprovement-type id="model.improvement.road"
+                          add-work-turns="0" magnitude="1"
+                          required-role="model.role.pioneer" expended-amount="1"
+                          movement-cost="1" zIndex="350">
+      <scope method-name="isWater" method-value="false" />
+      <modifier id="model.goods.furs" index="50"
+                type="additive" value="2"/>
+      <modifier id="model.goods.lumber" index="50"
+                type="additive" value="2"/>
+      <modifier id="model.goods.ore" index="50"
+                type="additive" value="1"/>
+      <modifier id="model.goods.silver" index="50"
+                type="additive" value="1"/>
+    </tileimprovement-type>
+    <tileimprovement-type id="model.improvement.plow"
+                          add-work-turns="2" magnitude="1"
+                          required-role="model.role.pioneer" expended-amount="1"
+                          zIndex="120">
+      <scope method-name="isWater" method-value="false" />
+      <scope method-name="isForested" method-value="false" />
+      <scope type="model.tile.arctic" matchNegated="true" />
+      <scope type="model.tile.hills" matchNegated="true" />
+      <scope type="model.tile.mountains" matchNegated="true" />
+      <modifier id="model.goods.grain" index="50"
+                type="additive" value="1"/>
+      <modifier id="model.goods.sugar" index="50"
+                type="additive" value="1"/>
+      <modifier id="model.goods.tobacco" index="50"
+                type="additive" value="1"/>
+      <modifier id="model.goods.cotton" index="50"
+                type="additive" value="1"/>
+    </tileimprovement-type>
+    <tileimprovement-type id="model.improvement.clearForest"
+                          add-work-turns="2" magnitude="1"
+                          required-role="model.role.pioneer" expended-amount="1"
+                          exposeResourcePercent="5">
+      <scope method-name="isForested" method-value="true" />
+      <change from="model.tile.mixedForest"     to="model.tile.plains">
+        <production goods-type="model.goods.lumber" value="20" />
+      </change>
+      <change from="model.tile.coniferForest"   to="model.tile.grassland">
+        <production goods-type="model.goods.lumber" value="20" />
+      </change>
+      <change from="model.tile.broadleafForest" to="model.tile.prairie">
+        <production goods-type="model.goods.lumber" value="20" />
+      </change>
+      <change from="model.tile.tropicalForest"  to="model.tile.savannah">
+        <production goods-type="model.goods.lumber" value="20" />
+      </change>
+      <change from="model.tile.wetlandForest"   to="model.tile.marsh">
+        <production goods-type="model.goods.lumber" value="20" />
+      </change>
+      <change from="model.tile.rainForest"      to="model.tile.swamp">
+        <production goods-type="model.goods.lumber" value="20" />
+      </change>
+      <change from="model.tile.scrubForest"     to="model.tile.desert">
+        <production goods-type="model.goods.lumber" value="10" />
+      </change>
+      <change from="model.tile.borealForest"    to="model.tile.tundra">
+        <production goods-type="model.goods.lumber" value="20" />
+      </change>
+    </tileimprovement-type>
+    <tileimprovement-type id="model.improvement.fishBonusLand" natural="true"
+                          zIndex="250">
+      <scope method-name="isWater" method-value="true" />
+      <scope type="model.tile.highSeas" matchNegated="true" />
+      <modifier id="model.goods.fish" index="50"
+                type="additive" value="2"/>
+    </tileimprovement-type>
+    <tileimprovement-type id="model.improvement.fishBonusRiver" natural="true"
+                          zIndex="250">
+      <scope method-name="isWater" method-value="true" />
+      <scope type="model.tile.highSeas" matchNegated="true" />
+      <modifier id="model.goods.fish" index="50"
+                type="additive" value="1"/>
+    </tileimprovement-type>
+  </tileimprovement-types>
+
+  <unit-types>
+    <!-- ATTENTION: skillTaught can NOT be inherited because it defaults to the unit type itself! -->
+    <unit-type id="colonist" abstract="true" 
+               offence="0" defence="1" movement="3" lineOfSight="1">
+      <ability id="model.ability.person" value="true"/>
+      <ability id="model.ability.foundColony" value="true"/>
+      <ability id="model.ability.canBeEquipped" value="true"/>
+      <ability id="model.ability.canBeCaptured" value="true"/>
+      <modifier id="model.modifier.conversionSkill" type="additive" value="6"/>
+      <modifier id="model.modifier.conversionAlarmRate" type="percentage" value="2"/>
+      <downgrade unit="model.unit.undead" undead="100"/>
+      <downgrade unit="model.unit.freeColonist" clearSkill="100"/>
+      <consumes id="model.goods.food" value="2" />
+      <consumes id="model.goods.bells" value="1" />
+    </unit-type>
+    <unit-type id="model.unit.freeColonist" extends="colonist" scoreValue="3" skill="0"
+               recruitProbability="20" maximumExperience="200">
+      <ability id="model.ability.bornInColony" value="true"/>
+      <ability id="model.ability.foundInLostCity" value="true"/>
+      <required-goods id="model.goods.food" value="200"/>
+      <downgrade unit="model.unit.freeColonist" delete="true" />
+      <upgrade unit="model.unit.expertFarmer" turnsToLearn="4" learnFromNatives="100" learnFromExperience="4"/>
+      <upgrade unit="model.unit.expertFisherman" turnsToLearn="4" learnFromNatives="100" learnFromExperience="4"/>
+      <upgrade unit="model.unit.expertFurTrapper" turnsToLearn="4" learnFromNatives="100" learnFromExperience="4"/>
+      <upgrade unit="model.unit.expertSilverMiner" turnsToLearn="4" learnFromNatives="100" learnFromExperience="4"/>
+      <upgrade unit="model.unit.expertLumberJack" turnsToLearn="4" learnFromNatives="100" learnFromExperience="4"/>
+      <upgrade unit="model.unit.expertOreMiner" turnsToLearn="4" learnFromNatives="100" learnFromExperience="4"/>
+      <upgrade unit="model.unit.masterSugarPlanter" turnsToLearn="6" learnFromNatives="100" learnFromExperience="4"/>
+      <upgrade unit="model.unit.masterCottonPlanter" turnsToLearn="6" learnFromNatives="100" learnFromExperience="4"/>
+      <upgrade unit="model.unit.masterTobaccoPlanter" turnsToLearn="6" learnFromNatives="100" learnFromExperience="4"/>
+      <upgrade unit="model.unit.firebrandPreacher" turnsToLearn="8"/>
+      <upgrade unit="model.unit.elderStatesman" turnsToLearn="8"/>
+      <upgrade unit="model.unit.masterCarpenter" turnsToLearn="4"/>
+      <upgrade unit="model.unit.masterDistiller" turnsToLearn="6"/>
+      <upgrade unit="model.unit.masterWeaver" turnsToLearn="6" learnFromNatives="100"/>
+      <upgrade unit="model.unit.masterTobacconist" turnsToLearn="6"/>
+      <upgrade unit="model.unit.masterFurTrader" turnsToLearn="6" learnFromNatives="100"/>
+      <upgrade unit="model.unit.masterBlacksmith" turnsToLearn="6"/>
+      <upgrade unit="model.unit.masterGunsmith" turnsToLearn="6"/>
+      <upgrade unit="model.unit.seasonedScout" turnsToLearn="4" learnFromNatives="100" learnInLostCity="100"/>
+      <upgrade unit="model.unit.hardyPioneer" turnsToLearn="4"/>
+      <upgrade unit="model.unit.veteranSoldier" turnsToLearn="6" promotion="100"/>
+      <upgrade unit="model.unit.jesuitMissionary" turnsToLearn="8"/>
+    </unit-type>
+    <unit-type id="model.unit.expertFarmer" extends="colonist" price="1100"
+               skill="1" expert-production="model.goods.grain"
+               recruitProbability="1" scoreValue="4">
+      <modifier id="model.goods.grain" index="30"
+                type="additive" value="3"/>
+    </unit-type>
+    <unit-type id="model.unit.expertFisherman" extends="colonist" price="1000"
+               skill="1" expert-production="model.goods.fish"
+               recruitProbability="1" scoreValue="4">
+      <modifier id="model.goods.fish" index="30"
+                type="additive" value="3"/>
+    </unit-type>
+    <unit-type id="model.unit.expertFurTrapper" extends="colonist"
+               skill="1" expert-production="model.goods.furs"
+               scoreValue="4" >
+      <modifier id="model.goods.furs" index="30"
+                type="multiplicative" value="2"/>
+    </unit-type>
+    <unit-type id="model.unit.expertSilverMiner" extends="colonist" price="900"
+               skill="1" expert-production="model.goods.silver"
+               recruitProbability="1" scoreValue="4">
+      <modifier id="model.goods.silver" index="30"
+                type="multiplicative" value="2"/>
+    </unit-type>
+    <unit-type id="model.unit.expertLumberJack" extends="colonist" price="700"
+               skill="1" expert-production="model.goods.lumber"
+               recruitProbability="1" scoreValue="4">
+      <modifier id="model.goods.lumber" index="30"
+                type="multiplicative" value="2"/>
+    </unit-type>
+    <unit-type id="model.unit.expertOreMiner" extends="colonist" price="600"
+               skill="1" expert-production="model.goods.ore"
+               recruitProbability="1" scoreValue="4">
+      <modifier id="model.goods.ore" index="30"
+                type="multiplicative" value="2"/>
+    </unit-type>
+    <unit-type id="model.unit.masterSugarPlanter" extends="colonist"
+               skill="2" expert-production="model.goods.sugar"
+               scoreValue="5" >
+      <modifier id="model.goods.sugar" index="30"
+                type="multiplicative" value="2"/>
+    </unit-type>
+    <unit-type id="model.unit.masterCottonPlanter" extends="colonist"
+               skill="2" expert-production="model.goods.cotton"
+               scoreValue="5" >
+      <modifier id="model.goods.cotton" index="30"
+                type="multiplicative" value="2"/>
+    </unit-type>
+    <unit-type id="model.unit.masterTobaccoPlanter" extends="colonist"
+               skill="2" expert-production="model.goods.tobacco"
+               scoreValue="5" >
+      <modifier id="model.goods.tobacco" index="30"
+                type="multiplicative" value="2"/>
+    </unit-type>
+    <unit-type id="model.unit.firebrandPreacher" extends="colonist" price="1500"
+               skill="3" expert-production="model.goods.crosses"
+               recruitProbability="1" scoreValue="6">
+      <modifier id="model.goods.crosses" index="30"
+                type="multiplicative" value="2"/>
+    </unit-type>
+    <unit-type id="model.unit.elderStatesman" extends="colonist" price="1900"
+               skill="3" expert-production="model.goods.bells"
+               recruitProbability="1" scoreValue="6">
+      <modifier id="model.goods.bells" index="30"
+                type="multiplicative" value="2"/>
+    </unit-type>
+    <unit-type id="model.unit.masterCarpenter" extends="colonist" price="1000"
+               skill="1" expert-production="model.goods.hammers"
+               recruitProbability="1" scoreValue="4">
+      <modifier id="model.goods.hammers" index="30"
+                type="multiplicative" value="2"/>
+    </unit-type>
+    <unit-type id="model.unit.masterDistiller" extends="colonist" price="1100"
+               skill="2" expert-production="model.goods.rum"
+               recruitProbability="1" scoreValue="5">
+      <modifier id="model.goods.rum" index="30"
+                type="multiplicative" value="2"/>
+    </unit-type>
+    <unit-type id="model.unit.masterWeaver" extends="colonist" price="1300"
+               skill="2" expert-production="model.goods.cloth"
+               recruitProbability="1" scoreValue="5">
+      <modifier id="model.goods.cloth" index="30"
+                type="multiplicative" value="2"/>
+    </unit-type>
+    <unit-type id="model.unit.masterTobacconist" extends="colonist" price="1200"
+               skill="2" expert-production="model.goods.cigars"
+               recruitProbability="1" scoreValue="5">
+      <modifier id="model.goods.cigars" index="30"
+                type="multiplicative" value="2"/>
+    </unit-type>
+    <unit-type id="model.unit.masterFurTrader" extends="colonist" price="950"
+               skill="2" expert-production="model.goods.coats"
+               recruitProbability="1" scoreValue="5">
+      <modifier id="model.goods.coats" index="30"
+                type="multiplicative" value="2"/>
+    </unit-type>
+    <unit-type id="model.unit.masterBlacksmith" extends="colonist" price="1050"
+               skill="2" expert-production="model.goods.tools"
+               recruitProbability="1" scoreValue="5">
+      <modifier id="model.goods.tools" index="30"
+                type="multiplicative" value="2"/>
+    </unit-type>
+    <unit-type id="model.unit.masterGunsmith" extends="colonist" price="850"
+               skill="2" expert-production="model.goods.muskets"
+               recruitProbability="1" scoreValue="5">
+      <modifier id="model.goods.muskets" index="30"
+                type="multiplicative" value="2"/>
+    </unit-type>
+    <unit-type id="model.unit.seasonedScout" extends="colonist"
+               skill="1"
+               recruitProbability="1" scoreValue="4">
+      <default-role id="model.role.scout"/>
+      <ability id="model.ability.expertScout" value="true"/>
+      <modifier id="model.modifier.exploreLostCityRumour"
+                type="percentage" value="10"/>
+    </unit-type>
+    <unit-type id="model.unit.hardyPioneer" extends="colonist" price="1200"
+               skill="1"
+               recruitProbability="1" scoreValue="4">
+      <default-role id="model.role.pioneer"/>
+      <ability id="model.ability.expertPioneer" value="true"/>
+    </unit-type>
+    <unit-type id="model.unit.veteranSoldier" extends="colonist" price="2000"
+               skill="2"
+               recruitProbability="1" scoreValue="5">
+      <default-role id="model.role.soldier"/>
+      <ability id="model.ability.mercenaryUnit" value="true"/>
+      <ability id="model.ability.expertSoldier" value="true"/>
+      <ability id="model.ability.supportUnit" value="true"/>
+      <modifier id="model.modifier.offence" index="40"
+                type="percentage" value="50"/>
+      <modifier id="model.modifier.defence"
+                type="percentage" value="50" index="40"/>
+      <upgrade unit="model.unit.colonialRegular" promotion="100" independence="100"/>
+      <downgrade unit="model.unit.freeColonist" capture="100" clearSkill="100"/>
+    </unit-type>
+    <unit-type id="model.unit.jesuitMissionary" extends="colonist" price="1400"
+               skill="3"
+               recruitProbability="1" scoreValue="5">
+      <default-role id="model.role.missionary"/>
+      <downgrade unit="model.unit.freeColonist" capture="100" clearSkill="100"/>
+      <ability id="model.ability.expertMissionary" value="true"/>
+      <modifier id="model.modifier.missionaryTradeBonus" type="percentage" value="10"/>
+    </unit-type>
+    <unit-type id="model.unit.indenturedServant" extends="colonist"
+               skill="-1"
+               recruitProbability="20" scoreValue="2">
+      <downgrade unit="model.unit.freeColonist" delete="true"/>
+      <upgrade unit="model.unit.freeColonist" turnsToLearn="4" promotion="100"/>
+      <upgrade unit="model.unit.expertFarmer" learnFromNatives="100" learnInSchool="0"/>
+      <upgrade unit="model.unit.expertFisherman" learnFromNatives="100" learnInSchool="0"/>
+      <upgrade unit="model.unit.expertFurTrapper" learnFromNatives="100" learnInSchool="0"/>
+      <upgrade unit="model.unit.expertSilverMiner" learnFromNatives="100" learnInSchool="0"/>
+      <upgrade unit="model.unit.expertLumberJack" learnFromNatives="100" learnInSchool="0"/>
+      <upgrade unit="model.unit.expertOreMiner" learnFromNatives="100" learnInSchool="0"/>
+      <upgrade unit="model.unit.masterSugarPlanter" learnFromNatives="100" learnInSchool="0"/>
+      <upgrade unit="model.unit.masterCottonPlanter" learnFromNatives="100" learnInSchool="0"/>
+      <upgrade unit="model.unit.masterTobaccoPlanter" learnFromNatives="100" learnInSchool="0"/>
+      <upgrade unit="model.unit.seasonedScout" learnFromNatives="100" learnInLostCity="100" learnInSchool="0"/>
+      <modifier id="model.goods.rum" index="30"
+                type="additive" value="-1"/>
+      <modifier id="model.goods.cigars" index="30"
+                type="additive" value="-1"/>
+      <modifier id="model.goods.cloth" index="30"
+                type="additive" value="-1"/>
+      <modifier id="model.goods.coats" index="30"
+                type="additive" value="-1"/>
+      <modifier id="model.goods.muskets" index="30"
+                type="additive" value="-1"/>
+      <modifier id="model.goods.bells" index="30"
+                type="additive" value="-1"/>
+      <modifier id="model.goods.crosses" index="30"
+                type="additive" value="-1"/>
+      <modifier id="model.goods.hammers" index="30"
+                type="additive" value="-1"/>
+      <modifier id="model.goods.tools" index="30"
+                type="additive" value="-1"/>
+    </unit-type>
+    <unit-type id="model.unit.pettyCriminal" extends="colonist"
+               skill="-2"
+               recruitProbability="20" scoreValue="1">
+      <downgrade unit="model.unit.freeColonist" delete="true" />
+      <upgrade unit="model.unit.indenturedServant" turnsToLearn="4" promotion="100"/>
+      <upgrade unit="model.unit.seasonedScout" learnInLostCity="100" learnInSchool="0"/>
+      <modifier id="model.goods.rum" index="30"
+                type="additive" value="-2"/>
+      <modifier id="model.goods.cigars" index="30"
+                type="additive" value="-2"/>
+      <modifier id="model.goods.cloth" index="30"
+                type="additive" value="-2"/>
+      <modifier id="model.goods.coats" index="30"
+                type="additive" value="-2"/>
+      <modifier id="model.goods.muskets" index="30"
+                type="additive" value="-2"/>
+      <modifier id="model.goods.bells" index="30"
+                type="additive" value="-2"/>
+      <modifier id="model.goods.crosses" index="30"
+                type="additive" value="-2"/>
+      <modifier id="model.goods.hammers" index="30"
+                type="additive" value="-2"/>
+      <modifier id="model.goods.tools" index="30"
+                type="additive" value="-2"/>
+    </unit-type>
+    <unit-type id="model.unit.indianConvert" 
+               skill="0"
+               offence="0" defence="1" movement="3" lineOfSight="1"
+               maximumAttrition="10" scoreValue="3">
+      <consumes id="model.goods.food" value="2"/>
+      <consumes id="model.goods.bells" value="1"/>
+      <downgrade unit="model.unit.freeColonist" delete="true"/>
+      <upgrade unit="model.unit.freeColonist" learnInSchool="0"/>
+      <ability id="model.ability.person" value="true"/>
+      <ability id="model.ability.foundColony" value="false"/>
+      <modifier id="model.goods.grain" index="30"
+                type="additive" value="1"/>
+      <modifier id="model.goods.sugar" index="30"
+                type="additive" value="1"/>
+      <modifier id="model.goods.tobacco" index="30"
+                type="additive" value="1"/>
+      <modifier id="model.goods.cotton" index="30"
+                type="additive" value="1"/>
+      <modifier id="model.goods.furs" index="30"
+                type="additive" value="1"/>
+      <modifier id="model.goods.fish" index="30"
+                type="additive" value="1"/>
+      <modifier id="model.goods.rum" index="30"
+                type="additive" value="-2"/>
+      <modifier id="model.goods.cigars" index="30"
+                type="additive" value="-2"/>
+      <modifier id="model.goods.cloth" index="30"
+                type="additive" value="-2"/>
+      <modifier id="model.goods.coats" index="30"
+                type="additive" value="-2"/>
+      <modifier id="model.goods.muskets" index="30"
+                type="additive" value="-2"/>
+      <modifier id="model.goods.bells" index="30"
+                type="additive" value="-2"/>
+      <modifier id="model.goods.crosses" index="30"
+                type="additive" value="-2"/>
+      <modifier id="model.goods.hammers" index="30"
+                type="additive" value="-2"/>
+      <modifier id="model.goods.tools" index="30"
+                type="additive" value="-2"/>
+    </unit-type>
+    <unit-type id="model.unit.brave"
+               offence="1" defence="1" movement="3" lineOfSight="1" space="1">
+      <required-ability id="model.ability.native"/>
+      <consumes id="model.goods.food" value="2"/>
+      <consumes id="model.goods.rum" value="1"/>
+      <consumes id="model.goods.tradeGoods" value="1"/>
+      <consumes id="model.goods.ore" value="1"/>
+      <consumes id="model.goods.silver" value="1"/>
+      <consumes id="model.goods.cigars" value="1"/>
+      <consumes id="model.goods.coats" value="1"/>
+      <consumes id="model.goods.cloth" value="1"/>
+      <upgrade unit="model.unit.indianConvert" conversion="100">
+        <scope method-name="isEuropean" method-value="true" />
+      </upgrade>
+      <ability id="model.ability.person" value="true"/>
+      <ability id="model.ability.carryGoods" value="true"/>
+      <ability id="model.ability.bornInIndianSettlement" value="true"/>
+      <ability id="model.ability.pillageUnprotectedColony" value="true"/>
+      <ability id="model.ability.disposeOnCombatLoss" value="true"/>
+      <ability id="model.ability.captureUnits" value="false"/>
+      <ability id="model.ability.captureEquipment" value="true"/>
+      <ability id="model.ability.canBeEquipped" value="true"/>
+      <ability id="model.ability.foundColony" value="true"/>
+    </unit-type>
+    <unit-type id="model.unit.colonialRegular" extends="colonist"
+               skillTaught="model.unit.veteranSoldier" skill="3">
+      <downgrade unit="model.unit.veteranSoldier" demotion="100" capture="100" clearSkill="100"/>
+      <required-ability id="model.ability.independenceDeclared"/>
+      <ability id="model.ability.demoteOnAllEquipLost" value="true"/>
+      <ability id="model.ability.canBeEquipped" value="true"/>
+      <ability id="model.ability.expertSoldier" value="true"/>
+      <modifier id="model.modifier.offence"
+                type="additive" value="3" index="20"/>
+      <modifier id="model.modifier.defence"
+                type="additive" value="3" index="20"/>
+    </unit-type>
+    <unit-type id="model.unit.kingsRegular" extends="colonist" skill="4">
+      <required-ability id="model.ability.royalExpeditionaryForce"/>
+      <ability id="model.ability.refUnit" value="true"/>
+      <ability id="model.ability.disposeOnAllEquipLost" value="true"/>
+      <ability id="model.ability.expertSoldier" value="true"/>
+      <modifier id="model.modifier.offence"
+                type="additive" value="4" index="20"/>
+      <modifier id="model.modifier.defence"
+                type="additive" value="4" index="20"/>
+    </unit-type>
+    <unit-type id="ship" abstract="true">
+      <ability id="model.ability.navalUnit" value="true"/>
+      <ability id="model.ability.carryGoods" value="true"/>
+      <ability id="model.ability.carryUnits" value="true"/>
+      <ability id="model.ability.evadeAttack" value="true"/>
+      <ability id="model.ability.foundColony" value="false"/>
+      <modifier id="model.modifier.tradeVolumePenalty"
+                value="-75" type="percentage"/>
+    </unit-type>
+    <unit-type id="model.unit.caravel" extends="ship" price="1000"
+               offence="0" defence="2" movement="12"
+               lineOfSight="1" space="2" spaceTaken="24" hitPoints="6"
+               scoreValue="3">
+      <required-goods id="model.goods.hammers" value="128"/>
+      <required-goods id="model.goods.tools" value="40"/>
+    </unit-type>
+    <unit-type id="model.unit.frigate" extends="ship" price="5000"
+               offence="16" defence="16" movement="18"
+               lineOfSight="2" space="4" spaceTaken="32" hitPoints="6"
+               scoreValue="6">
+      <required-goods id="model.goods.hammers" value="512"/>
+      <required-goods id="model.goods.tools" value="200"/>
+      <ability id="model.ability.captureGoods" value="true"/>
+      <ability id="model.ability.supportUnit" value="true"/>
+    </unit-type>
+    <unit-type id="model.unit.galleon" extends="ship" price="3000"
+               offence="0" defence="10" movement="18"
+               lineOfSight="2" space="6" spaceTaken="64" hitPoints="6"
+               scoreValue="5">
+      <required-goods id="model.goods.hammers" value="320"/>
+      <required-goods id="model.goods.tools" value="100"/>
+    </unit-type>
+    <unit-type id="model.unit.manOWar" extends="ship"
+               offence="24" defence="24" movement="18"
+               lineOfSight="2" space="6" spaceTaken="64" hitPoints="6"
+               scoreValue="8">
+      <required-goods id="model.goods.hammers" value="1024"/>
+      <required-goods id="model.goods.tools" value="300"/>
+      <required-ability id="model.ability.independentNation"/>
+      <ability id="model.ability.refUnit" value="true"/>
+      <ability id="model.ability.captureGoods" value="true"/>
+    </unit-type>
+    <unit-type id="model.unit.merchantman" extends="ship" price="2000"
+               offence="0" defence="6" movement="15"
+               lineOfSight="1" space="4" spaceTaken="32" hitPoints="6"
+               scoreValue="4">
+      <required-goods id="model.goods.hammers" value="192"/>
+      <required-goods id="model.goods.tools" value="80"/>
+    </unit-type>
+    <unit-type id="model.unit.privateer" extends="ship" price="2000"
+               offence="8" defence="8" movement="24"
+               lineOfSight="2" space="2" spaceTaken="24" hitPoints="6"
+               scoreValue="4">
+      <required-goods id="model.goods.hammers" value="256"/>
+      <required-goods id="model.goods.tools" value="120"/>
+      <ability id="model.ability.captureGoods" value="true"/>
+      <ability id="model.ability.piracy" value="true"/>
+    </unit-type>
+    <unit-type id="wagon" abstract="true" lineOfSight="1">
+      <ability id="model.ability.foundColony" value="false"/>
+    </unit-type>
+    <unit-type id="model.unit.artillery" extends="wagon" price="500"
+               offence="7" defence="5" movement="3"
+               scoreValue="2">
+      <required-goods id="model.goods.hammers" value="192"/>
+      <required-goods id="model.goods.tools" value="40"/>
+      <downgrade unit="model.unit.damagedArtillery" demotion="100"/>
+      <ability id="model.ability.refUnit" value="true"/>
+      <ability id="model.ability.captureUnits" value="true"/>
+      <ability id="model.ability.mercenaryUnit" value="true"/>
+      <ability id="model.ability.supportUnit" value="true"/>
+      <ability id="model.ability.bombard" value="true"/>
+    </unit-type>
+    <unit-type id="model.unit.damagedArtillery" extends="wagon"
+               offence="5" defence="3" movement="3"
+               scoreValue="1">
+      <ability id="model.ability.captureUnits" value="true"/>
+      <ability id="model.ability.bombard" value="true"/>
+    </unit-type>
+    <unit-type id="model.unit.treasureTrain" extends="wagon"
+               offence="0" defence="0" movement="3"
+               scoreValue="1" spaceTaken="6">
+      <ability id="model.ability.carryTreasure" value="true"/>
+      <ability id="model.ability.canBeCaptured" value="true"/>
+    </unit-type>
+    <unit-type id="model.unit.wagonTrain" extends="wagon"
+               offence="0" defence="1" movement="6"
+               scoreValue="1" spaceTaken="12" space="2">
+      <required-goods id="model.goods.hammers" value="40"/>
+      <limit id="model.limit.wagonTrains" operator="LT">
+        <leftHandSide operandType="UNITS" scopeLevel="PLAYER" />
+        <rightHandSide operandType="SETTLEMENTS" scopeLevel="PLAYER" />
+      </limit>
+      <ability id="model.ability.carryGoods" value="true"/>
+      <ability id="model.ability.canBeCaptured" value="true"/>
+    </unit-type>
+    <!--
+        <unit-type id="model.unit.milkmaid" extends="colonist"
+        expert-production="model.goods.grain" />
+    -->
+    <unit-type id="model.unit.revenger"
+               offence="666" defence="666" movement="18" lineOfSight="3">
+      <required-ability id="model.ability.undead"/>
+      <ability id="model.ability.undead" value="true"/>
+      <ability id="model.ability.multipleAttacks" value="true"/>
+    </unit-type>
+    <unit-type id="model.unit.flyingDutchman" extends="ship"
+               offence="666" defence="666" movement="36" lineOfSight="3"
+               space="6" hitPoints="6">
+      <required-ability id="model.ability.undead"/>
+      <ability id="model.ability.captureGoods" value="true"/>
+      <ability id="model.ability.undead" value="true"/>
+    </unit-type>
+    <unit-type id="model.unit.undead" extends="colonist"
+               offence="18" defence="4">
+      <required-ability id="model.ability.undead"/>
+      <ability id="model.ability.undead" value="true"/>
+    </unit-type>
+  </unit-types>
+
+  <!--
+      The priority value determines the order in which consumers are
+      granted access to goods.  Units have a priority of 1000,
+      buildings have a default priority of 800, the colony's build
+      queue has a priority of 500, and the colony's population queue
+      has a priority of 300.  Consumers with a higher priority are
+      served first.
+  -->
+  <building-types>
+    <building-type id="model.building.townHall">
+      <production unattended="true">
+        <output goods-type="model.goods.bells" value="1"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.bells" value="3"/>
+      </production>
+    </building-type>
+    <building-type id="model.building.carpenterHouse">
+      <production>
+        <input goods-type="model.goods.lumber" value="3"/>
+        <output goods-type="model.goods.hammers" value="3"/>
+      </production>
+      <ability id="model.ability.build" value="true">
+        <scope type="model.unit.wagonTrain"/>
+      </ability>
+    </building-type>
+    <building-type id="model.building.lumberMill"
+                   extends="model.building.carpenterHouse"
+                   upgradesFrom="model.building.carpenterHouse"
+                   required-population="3" upkeep="10">
+      <production>
+        <input goods-type="model.goods.lumber" value="6"/>
+        <output goods-type="model.goods.hammers" value="6"/>
+      </production>
+      <required-goods id="model.goods.hammers" value="52"/>
+      <modifier id="model.modifier.tileTypeChangeProduction"
+                value="3" type="multiplicative">
+        <scope type="model.goods.lumber"/>
+      </modifier>
+    </building-type>
+    <building-type id="model.building.blacksmithHouse">
+      <production>
+        <input goods-type="model.goods.ore" value="3"/>
+        <output goods-type="model.goods.tools" value="3"/>
+      </production>
+    </building-type>
+    <building-type id="model.building.blacksmithShop"
+                   extends="model.building.blacksmithHouse"
+                   upgradesFrom="model.building.blacksmithHouse"
+                   upkeep="5">
+      <production>
+        <input goods-type="model.goods.ore" value="6"/>
+        <output goods-type="model.goods.tools" value="6"/>
+      </production>
+      <required-goods id="model.goods.hammers" value="64"/>
+      <required-goods id="model.goods.tools" value="20"/>
+    </building-type>
+    <building-type id="model.building.ironWorks"
+                   extends="model.building.blacksmithShop"
+                   upgradesFrom="model.building.blacksmithShop"
+                   required-population="8" upkeep="15">
+      <production>
+        <input goods-type="model.goods.ore" value="6"/>
+        <output goods-type="model.goods.tools" value="9"/>
+      </production>
+      <required-goods id="model.goods.hammers" value="240"/>
+      <required-goods id="model.goods.tools" value="100"/>
+      <required-ability id="model.ability.buildFactory"/>
+      <ability id="model.ability.expertsUseConnections" value="true"/>
+    </building-type>
+    <building-type id="model.building.tobacconistHouse">
+      <production>
+        <input goods-type="model.goods.tobacco" value="3"/>
+        <output goods-type="model.goods.cigars" value="3"/>
+      </production>
+    </building-type>
+    <building-type id="model.building.tobacconistShop"
+                   extends="model.building.tobacconistHouse"
+                   upgradesFrom="model.building.tobacconistHouse"
+                   upkeep="5">
+      <production>
+        <input goods-type="model.goods.tobacco" value="6"/>
+        <output goods-type="model.goods.cigars" value="6"/>
+      </production>
+      <required-goods id="model.goods.hammers" value="64"/>
+      <required-goods id="model.goods.tools" value="20"/>
+    </building-type>
+    <building-type id="model.building.cigarFactory"
+                   extends="model.building.tobacconistShop"
+                   upgradesFrom="model.building.tobacconistShop"
+                   required-population="8" upkeep="15">
+      <production>
+        <input goods-type="model.goods.tobacco" value="6"/>
+        <output goods-type="model.goods.cigars" value="9"/>
+      </production>
+      <required-goods id="model.goods.hammers" value="160"/>
+      <required-goods id="model.goods.tools" value="100"/>
+      <required-ability id="model.ability.buildFactory"/>
+      <ability id="model.ability.expertsUseConnections" value="true"/>
+    </building-type>
+    <building-type id="model.building.weaverHouse">
+      <production>
+        <input goods-type="model.goods.cotton" value="3"/>
+        <output goods-type="model.goods.cloth" value="3"/>
+      </production>
+    </building-type>
+    <building-type id="model.building.weaverShop"
+                   extends="model.building.weaverHouse"
+                   upgradesFrom="model.building.weaverHouse"
+                   upkeep="5">
+      <production>
+        <input goods-type="model.goods.cotton" value="6"/>
+        <output goods-type="model.goods.cloth" value="6"/>
+      </production>
+      <required-goods id="model.goods.hammers" value="64"/>
+      <required-goods id="model.goods.tools" value="20"/>
+    </building-type>
+    <building-type id="model.building.textileMill"
+                   extends="model.building.weaverShop"
+                   upgradesFrom="model.building.weaverShop"
+                   required-population="8" upkeep="15">
+      <production>
+        <input goods-type="model.goods.cotton" value="6"/>
+        <output goods-type="model.goods.cloth" value="9"/>
+      </production>
+      <required-goods id="model.goods.hammers" value="160"/>
+      <required-goods id="model.goods.tools" value="100"/>
+      <required-ability id="model.ability.buildFactory"/>
+      <ability id="model.ability.expertsUseConnections" value="true"/>
+    </building-type>
+    <building-type id="model.building.distillerHouse">
+      <production>
+        <input goods-type="model.goods.sugar" value="3"/>
+        <output goods-type="model.goods.rum" value="3"/>
+      </production>
+    </building-type>
+    <building-type id="model.building.rumDistillery"
+                   extends="model.building.distillerHouse"
+                   upgradesFrom="model.building.distillerHouse"
+                   upkeep="5">
+      <production>
+        <input goods-type="model.goods.sugar" value="6"/>
+        <output goods-type="model.goods.rum" value="6"/>
+      </production>
+      <required-goods id="model.goods.hammers" value="64"/>
+      <required-goods id="model.goods.tools" value="20"/>
+    </building-type>
+    <building-type id="model.building.rumFactory"
+                   extends="model.building.rumDistillery"
+                   upgradesFrom="model.building.rumDistillery"
+                   required-population="8" upkeep="15">
+      <production>
+        <input goods-type="model.goods.sugar" value="6"/>
+        <output goods-type="model.goods.rum" value="9"/>
+      </production>
+      <required-goods id="model.goods.hammers" value="160"/>
+      <required-goods id="model.goods.tools" value="100"/>
+      <required-ability id="model.ability.buildFactory"/>
+      <ability id="model.ability.expertsUseConnections" value="true"/>
+    </building-type>
+    <building-type id="model.building.furTraderHouse">
+      <production>
+        <input goods-type="model.goods.furs" value="3"/>
+        <output goods-type="model.goods.coats" value="3"/>
+      </production>
+    </building-type>
+    <building-type id="model.building.furTradingPost"
+                   extends="model.building.furTraderHouse"
+                   upgradesFrom="model.building.furTraderHouse"
+                   upkeep="5">
+      <production>
+        <input goods-type="model.goods.furs" value="6"/>
+        <output goods-type="model.goods.coats" value="6"/>
+      </production>
+      <required-goods id="model.goods.hammers" value="56"/>
+      <required-goods id="model.goods.tools" value="20"/>
+    </building-type>
+    <building-type id="model.building.furFactory"
+                   extends="model.building.furTradingPost"
+                   upgradesFrom="model.building.furTradingPost"
+                   required-population="6" upkeep="15">
+      <production>
+        <input goods-type="model.goods.furs" value="6"/>
+        <output goods-type="model.goods.coats" value="9"/>
+      </production>
+      <required-goods id="model.goods.hammers" value="160"/>
+      <required-goods id="model.goods.tools" value="100"/>
+      <required-ability id="model.ability.buildFactory"/>
+      <ability id="model.ability.expertsUseConnections" value="true"/>
+    </building-type>
+    <building-type id="model.building.schoolhouse"
+                   workplaces="1" minSkill="1" maxSkill="1"
+                   required-population="4" upkeep="5">
+      <required-goods id="model.goods.hammers" value="64"/>
+      <ability id="model.ability.teach" value="true"/>
+    </building-type>
+    <building-type id="model.building.college"
+                   extends="model.building.schoolhouse"
+                   workplaces="2" maxSkill="2"
+                   upgradesFrom="model.building.schoolhouse"
+                   required-population="8" upkeep="10">
+      <required-goods id="model.goods.hammers" value="160"/>
+      <required-goods id="model.goods.tools" value="50"/>
+    </building-type>
+    <building-type id="model.building.university"
+                   extends="model.building.college"
+                   workplaces="3" maxSkill="4"
+                   upgradesFrom="model.building.college"
+                   required-population="10" upkeep="15">
+      <required-goods id="model.goods.hammers" value="200"/>
+      <required-goods id="model.goods.tools" value="100"/>
+    </building-type>
+    <building-type id="model.building.armory"
+                   priority="400" upkeep="5">
+      <production>
+        <input goods-type="model.goods.tools" value="3"/>
+        <output goods-type="model.goods.muskets" value="3"/>
+      </production>
+      <!-- priority should be less than the colony's build queue -->
+      <required-goods id="model.goods.hammers" value="52"/>
+      <ability id="model.ability.build" value="true">
+        <scope type="model.unit.artillery"/>
+      </ability>
+    </building-type>
+    <building-type id="model.building.magazine"
+                   extends="model.building.armory"
+                   upgradesFrom="model.building.armory"
+                   required-population="8" upkeep="10">
+      <production>
+        <input goods-type="model.goods.tools" value="6"/>
+        <output goods-type="model.goods.muskets" value="6"/>
+      </production>
+      <required-goods id="model.goods.hammers" value="120"/>
+      <required-goods id="model.goods.tools" value="50"/>
+    </building-type>
+    <building-type id="model.building.arsenal"
+                   extends="model.building.magazine"
+                   upgradesFrom="model.building.magazine"
+                   upkeep="15">
+      <production>
+        <input goods-type="model.goods.tools" value="9"/>
+        <output goods-type="model.goods.muskets" value="9"/>
+      </production>
+      <required-goods id="model.goods.hammers" value="240"/>
+      <required-goods id="model.goods.tools" value="100"/>
+      <required-ability id="model.ability.buildFactory"/>
+      <ability id="model.ability.expertsUseConnections" value="true"/>
+    </building-type>
+    <building-type id="model.building.chapel" workplaces="0">
+      <production unattended="true">
+        <output goods-type="model.goods.crosses" value="1"/>
+      </production>
+    </building-type>
+    <building-type id="model.building.church"
+                   extends="model.building.chapel"
+                   upgradesFrom="model.building.chapel"
+                   workplaces="3"
+                   required-population="3" upkeep="5">
+      <production unattended="true">
+        <output goods-type="model.goods.crosses" value="2"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.crosses" value="3"/>
+      </production>
+      <required-goods id="model.goods.hammers" value="64"/>
+      <ability id="model.ability.dressMissionary" value="true"/>
+    </building-type>
+    <building-type id="model.building.cathedral"
+                   extends="model.building.church"
+                   upgradesFrom="model.building.church"
+                   required-population="8" upkeep="15">
+      <production unattended="true">
+        <output goods-type="model.goods.crosses" value="3"/>
+      </production>
+      <production>
+        <output goods-type="model.goods.crosses" value="6"/>
+      </production>
+      <required-goods id="model.goods.hammers" value="176"/>
+      <required-goods id="model.goods.tools" value="100"/>
+    </building-type>
+    <building-type id="model.building.stockade"
+                   workplaces="0" required-population="3">
+      <required-goods id="model.goods.hammers" value="64"/>
+      <modifier id="model.modifier.defence"
+                type="percentage" value="100" index="50"/>
+      <modifier id="model.modifier.minimumColonySize"
+                type="additive" value="3"/>
+      <!-- FIXME: abilties to prevent the effects of Indian raids. -->
+    </building-type>
+    <building-type id="model.building.fort"
+                   extends="model.building.stockade"
+                   upgradesFrom="model.building.stockade"
+                   upkeep="10">
+      <required-goods id="model.goods.hammers" value="120"/>
+      <required-goods id="model.goods.tools" value="100"/>
+      <modifier id="model.modifier.defence" delete="true" />
+      <modifier id="model.modifier.defence"
+                type="percentage" value="150" index="50"/>
+      <ability id="model.ability.bombardShips" value="true"/>
+    </building-type>
+    <building-type id="model.building.fortress"
+                   extends="model.building.fort"
+                   upgradesFrom="model.building.fort"
+                   required-population="8" upkeep="15">
+      <required-goods id="model.goods.hammers" value="320"/>
+      <required-goods id="model.goods.tools" value="200"/>
+      <modifier id="model.modifier.defence" delete="true" />
+      <modifier id="model.modifier.defence"
+                type="percentage" value="200" index="50"/>
+    </building-type>
+    <building-type id="model.building.depot"
+                   workplaces="0" priority="750">
+      <modifier id="model.modifier.warehouseStorage"
+                type="additive" value="100"/>
+    </building-type>
+    <building-type id="model.building.warehouse"
+                   extends="model.building.depot"
+                   upgradesFrom="model.building.depot"
+                   upkeep="5">
+      <required-goods id="model.goods.hammers" value="80"/>
+      <modifier id="model.modifier.warehouseStorage"
+                type="additive" value="100"/>
+    </building-type>
+    <building-type id="model.building.warehouseExpansion"
+                   extends="model.building.warehouse"
+                   upgradesFrom="model.building.warehouse"
+                   upkeep="5">
+      <required-goods id="model.goods.hammers" value="80"/>
+      <required-goods id="model.goods.tools" value="20"/>
+      <modifier id="model.modifier.warehouseStorage"
+                type="additive" value="100"/>
+    </building-type>
+    <building-type id="model.building.country"
+                   workplaces="0" priority="700">
+      <production unattended="true">
+        <input goods-type="model.goods.food" value="1"/>
+        <output goods-type="model.goods.horses" value="1"/>
+      </production>
+      <ability id="model.ability.autoProduction"/>
+      <ability id="model.ability.avoidExcessProduction"/>
+      <modifier id="model.modifier.breedingDivisor" index="60"
+                type="additive" value="50"/>
+      <modifier id="model.modifier.breedingFactor" index="60"
+                type="additive" value="2"/>
+      <modifier id="model.goods.horses" index="60"
+                type="multiplicative" value="1.0"/>
+      <modifier id="model.modifier.consumeOnlySurplusProduction" index="60"
+                type="multiplicative" value="0.5" />
+    </building-type>
+    <building-type id="model.building.stables"
+                   extends="model.building.country"
+                   upgradesFrom="model.building.country"
+                   upkeep="5">
+      <production unattended="true">
+        <input goods-type="model.goods.food" value="1"/>
+        <output goods-type="model.goods.horses" value="1"/>
+      </production>
+      <required-goods id="model.goods.hammers" value="64"/>
+      <modifier id="model.modifier.breedingDivisor" index="60"
+                type="multiplicative" value="0.5" />
+    </building-type>
+    <building-type id="model.building.docks"
+                   workplaces="0"
+                   upkeep="5">
+      <required-ability id="model.ability.hasPort" value="true" />
+      <required-goods id="model.goods.hammers" value="52"/>
+      <ability id="model.ability.produceInWater" value="true"/>
+    </building-type>
+    <building-type id="model.building.drydock"
+                   extends="model.building.docks"
+                   upgradesFrom="model.building.docks"
+                   required-population="4" upkeep="10">
+      <required-goods id="model.goods.hammers" value="80"/>
+      <required-goods id="model.goods.tools" value="50"/>
+      <ability id="model.ability.repairUnits" value="true">
+        <scope ability-id="model.ability.navalUnit"/>
+      </ability>
+    </building-type>
+    <building-type id="model.building.shipyard"
+                   extends="model.building.drydock"
+                   upgradesFrom="model.building.drydock"
+                   required-population="8" upkeep="15">
+      <required-goods id="model.goods.hammers" value="240"/>
+      <required-goods id="model.goods.tools" value="100"/>
+      <ability id="model.ability.build" value="true">
+        <scope ability-id="model.ability.navalUnit"/>
+      </ability>
+    </building-type>
+    <building-type id="model.building.printingPress"
+                   workplaces="0"
+                   upkeep="5">
+      <required-goods id="model.goods.hammers" value="52"/>
+      <required-goods id="model.goods.tools" value="20"/>
+      <modifier id="model.goods.bells" index="70"
+                type="percentage" value="50">
+        <scope ability-id="model.ability.person" matchNegated="true"/>
+      </modifier>
+    </building-type>
+    <building-type id="model.building.newspaper"
+                   extends="model.building.printingPress"
+                   upgradesFrom="model.building.printingPress"
+                   required-population="4" upkeep="10">
+      <required-goods id="model.goods.hammers" value="120"/>
+      <required-goods id="model.goods.tools" value="50"/>
+      <modifier id="model.goods.bells" delete="true" />
+      <modifier id="model.goods.bells" index="70"
+                type="percentage" value="100">
+        <scope ability-id="model.ability.person" matchNegated="true"/>
+      </modifier>
+    </building-type>
+    <building-type id="model.building.customHouse"
+                   workplaces="0"
+                   upkeep="15">
+      <required-goods id="model.goods.hammers" value="160"/>
+      <required-goods id="model.goods.tools" value="50"/>
+      <required-ability id="model.ability.buildCustomHouse"/>
+      <ability id="model.ability.export" value="true"/>
+      <ability id="model.ability.coastalOnly" value="false"/>
+    </building-type>
+  </building-types>
+
+  <!-- By default, all founding fathers should be available to all
+       players. Founding fathers can be restricted to certain
+       nations by adding these nations explicitly, like this:
+       <scope method-name="getNationID" method-value="model.nation.spanish"/> or
+       <scope method-name="getNationType" method-value="model.nationType.trade"/>
+       A founding fathers with these settings would only be available
+       to the Spanish nation and nations with the Trade advantage. -->
+  <founding-fathers>
+    <founding-father id="model.foundingFather.adamSmith" type="trade"
+                     weight1="2" weight2="8" weight3="6">
+      <ability id="model.ability.buildFactory" value="true"/>
+    </founding-father>
+    <founding-father id="model.foundingFather.jacobFugger" type="trade"
+                     weight1="0" weight2="5" weight3="8">
+      <event id="model.event.boycottsLifted"/>
+    </founding-father>
+    <founding-father id="model.foundingFather.peterMinuit" type="trade"
+                     weight1="9" weight2="1" weight3="1">
+      <!-- Player saves 100% percent, i.e. pays nothing. -->
+      <modifier id="model.modifier.landPaymentModifier"
+                type="percentage" value="-100"/>
+    </founding-father>
+    <founding-father id="model.foundingFather.peterStuyvesant" type="trade"
+                     weight1="2" weight2="4" weight3="8">
+      <ability id="model.ability.buildCustomHouse" value="true"/>
+    </founding-father>
+    <founding-father id="model.foundingFather.janDeWitt" type="trade"
+                     weight1="2" weight2="6" weight3="10">
+      <ability id="model.ability.tradeWithForeignColonies" value="true"/>
+      <ability id="model.ability.customHouseTradesWithForeignCountries" value="true"/>
+      <ability id="model.ability.betterForeignAffairsReport" value="true"/>
+    </founding-father>
+    <founding-father id="model.foundingFather.ferdinandMagellan" type="exploration"
+                     weight1="2" weight2="10" weight3="10">
+      <modifier id="model.modifier.movementBonus"
+                type="additive" value="3">
+        <scope ability-id="model.ability.navalUnit" ability-value="true"/>
+      </modifier>
+      <modifier id="model.modifier.sailHighSeas"
+                type="additive" value="-1">
+        <scope ability-id="model.ability.navalUnit" ability-value="true"/>
+      </modifier>
+      <event id="model.event.movementChange"/>
+    </founding-father>
+    <founding-father id="model.foundingFather.franciscoDeCoronado" type="exploration"
+                     weight1="3" weight2="5" weight3="7">
+      <ability id="model.ability.seeAllColonies" value="true"/>
+      <event id="model.event.seeAllColonies"/>
+    </founding-father>
+    <founding-father id="model.foundingFather.hernandoDeSoto" type="exploration"
+                     weight1="5" weight2="10" weight3="5">
+      <modifier id="model.modifier.lineOfSightBonus"
+                type="additive" value="1">
+        <scope ability-id="model.ability.navalUnit" ability-value="false"/>
+      </modifier>
+      <ability id="model.ability.rumoursAlwaysPositive" value="true"/>
+    </founding-father>
+    <founding-father id="model.foundingFather.henryHudson" type="exploration"
+                     weight1="10" weight2="1" weight3="1">
+      <modifier id="model.goods.furs" index="40"
+                type="percentage" value="100">
+        <scope ability-id="model.ability.person" matchNegated="false"/>
+      </modifier>
+    </founding-father>
+    <founding-father id="model.foundingFather.laSalle" type="exploration"
+                     weight1="7" weight2="5" weight3="3">
+      <event id="model.event.freeBuilding" value="model.building.stockade"/>
+      <modifier id="model.modifier.buildingPriceBonus"
+                type="percentage" value="-100">
+        <scope type="model.building.stockade"/>
+      </modifier>
+    </founding-father>
+    <founding-father id="model.foundingFather.hernanCortes" type="military"
+                     weight1="6" weight2="5" weight3="1">
+      <ability id="model.ability.plunderNatives"/>
+      <modifier id="model.modifier.treasureTransportFee"
+                type="percentage" value="-100"/>
+    </founding-father>
+    <founding-father id="model.foundingFather.georgeWashington" type="military"
+                     weight1="0" weight2="4" weight3="10">
+      <ability id="model.ability.automaticPromotion" value="true"/>
+    </founding-father>
+    <founding-father id="model.foundingFather.paulRevere" type="military"
+                     weight1="10" weight2="2" weight3="1">
+      <ability id="model.ability.automaticEquipment" value="true">
+        <scope type="model.role.soldier"/>
+      </ability>
+    </founding-father>
+    <founding-father id="model.foundingFather.francisDrake" type="military"
+                     weight1="4" weight2="8" weight3="6">
+      <modifier id="model.modifier.offence" index="50"
+                type="percentage" value="50">
+        <scope type="model.unit.privateer"/>
+      </modifier>
+      <modifier id="model.modifier.defence"
+                type="percentage" value="50" index="50">
+        <scope type="model.unit.privateer"/>
+      </modifier>
+    </founding-father>
+    <founding-father id="model.foundingFather.johnPaulJones" type="military"
+                     weight1="0" weight2="6" weight3="7">
+      <unit id="model.unit.frigate"/>
+    </founding-father>
+    <founding-father id="model.foundingFather.thomasJefferson" type="political"
+                     weight1="4" weight2="5" weight3="6">
+      <modifier id="model.goods.bells" index="40"
+                type="percentage" value="50">
+        <scope ability-id="model.ability.person" matchNegated="true"/>
+      </modifier>
+    </founding-father>
+    <founding-father id="model.foundingFather.pocahontas" type="political"
+                     weight1="7" weight2="5" weight3="3">
+      <modifier id="model.modifier.nativeAlarmModifier"
+                type="percentage" value="-50"/>
+      <event id="model.event.resetNativeAlarm"/>
+    </founding-father>
+    <founding-father id="model.foundingFather.thomasPaine" type="political"
+                     weight1="1" weight2="2" weight3="8">
+      <ability id="model.ability.addTaxToBells" value="true"/>
+      <!-- The value of the modifier is intentionally zero.  This
+           modifier is used as a template and the value in the copy is
+           set to the current tax. -->
+      <modifier id="model.goods.bells" index="40"
+                type="percentage" value="0">
+        <scope ability-id="model.ability.person" matchNegated="true"/>
+      </modifier>
+    </founding-father>
+    <founding-father id="model.foundingFather.simonBolivar" type="political"
+                     weight1="0" weight2="4" weight3="6">
+      <modifier id="model.modifier.SoL" type="additive" value="20"/>
+    </founding-father>
+    <founding-father id="model.foundingFather.benjaminFranklin" type="political"
+                     weight1="5" weight2="5" weight3="5">
+      <ability id="model.ability.ignoreEuropeanWars" value="true"/>
+      <ability id="model.ability.alwaysOfferedPeace" value="true"/>
+      <modifier id="model.modifier.peaceTreaty"
+                type="percentage" value="50"/>
+    </founding-father>
+    <founding-father id="model.foundingFather.williamBrewster" type="religious"
+                     weight1="7" weight2="4" weight3="1">
+      <ability id="model.ability.selectRecruit" value="true"/>
+      <ability id="model.ability.canRecruitUnit" value="false">
+        <scope type="model.unit.indenturedServant"/>
+        <scope type="model.unit.pettyCriminal"/>
+      </ability>
+      <event id="model.event.newRecruits"/>
+    </founding-father>
+    <founding-father id="model.foundingFather.williamPenn" type="religious"
+                     weight1="8" weight2="5" weight3="2">
+      <modifier id="model.goods.crosses" index="40"
+                type="percentage" value="50">
+        <scope ability-id="model.ability.person" matchNegated="true"/>
+      </modifier>
+    </founding-father>
+    <founding-father id="model.foundingFather.fatherJeanDeBrebeuf" type="religious"
+                     weight1="6" weight2="6" weight3="1">
+      <ability id="model.ability.expertMissionary" value="true">
+        <scope ability-id="model.ability.establishMission"/>
+      </ability>
+    </founding-father>
+    <founding-father id="model.foundingFather.juanDeSepulveda" type="religious"
+                     weight1="3" weight2="8" weight3="3">
+      <modifier id="model.modifier.nativeConvertBonus"
+                type="percentage" value="20"/>
+    </founding-father>
+    <founding-father id="model.foundingFather.bartolomeDeLasCasas" type="religious"
+                     weight1="0" weight2="5" weight3="10">
+      <upgrade from-id="model.unit.indianConvert" to-id="model.unit.freeColonist"/>
+    </founding-father>
+  </founding-fathers>
+
+  <european-nation-types>
+    <!-- default nation for multi-player games -->
+    <european-nation-type id="model.nationType.default">
+      <unit id="pioneer" type="model.unit.freeColonist"
+            role="model.role.pioneer"/>
+      <unit id="soldier" type="model.unit.freeColonist"
+            role="model.role.soldier"/>
+      <unit id="soldier" type="model.unit.veteranSoldier"
+            role="model.role.soldier" expert-starting-units="true"/>
+      <unit id="ship" type="model.unit.caravel"/>
+      <settlement id="model.settlement.colony" capital="false"
+                  claimableRadius="1" visibleRadius="2">
+        <ability id="model.ability.consumeAllOrNothing" value="true"/>
+        <modifier id="model.modifier.defence"
+                  type="percentage" value="50" index="50"/>
+      </settlement>
+      <ability id="model.ability.canRecruitUnit" value="true"/>
+      <ability id="model.ability.electFoundingFather" value="true"/>
+      <ability id="model.ability.foundsColonies" value="true"/>
+    </european-nation-type>
+    <!-- default REF nation -->
+    <european-nation-type id="model.nationType.ref" ref="true">
+      <settlement id="model.settlement.colony" capital="false"
+                  claimableRadius="1" visibleRadius="2">
+        <modifier id="model.modifier.defence"
+                  type="percentage" value="50" index="50"/>
+      </settlement>
+      <ability id="model.ability.ambushPenalty" value="true"/>
+      <ability id="model.ability.royalExpeditionaryForce" value="true"/>
+      <ability id="model.ability.independentNation" value="true"/>
+      <modifier id="model.modifier.bombardBonus"
+                type="percentage" value="50" index="50"/>
+    </european-nation-type>
+    <!-- this was the Dutch player -->
+    <european-nation-type id="model.nationType.trade"
+                          extends="model.nationType.default">
+      <unit id="ship" type="model.unit.merchantman"/>
+      <modifier id="model.modifier.tradeBonus"
+                type="percentage" value="-50"/>
+    </european-nation-type>
+    <!-- this was the French player -->
+    <european-nation-type id="model.nationType.cooperation"
+                          extends="model.nationType.default">
+      <unit id="pioneer" type="model.unit.hardyPioneer"
+            role="model.role.pioneer"/>
+      <modifier id="model.modifier.nativeAlarmModifier"
+                type="percentage" value="-50"/>
+    </european-nation-type>
+    <!-- this was the English player -->
+    <european-nation-type id="model.nationType.immigration"
+                          extends="model.nationType.default">
+      <modifier id="model.modifier.religiousUnrestBonus"
+                type="percentage" value="-33"/>
+    </european-nation-type>
+    <!-- this was the Spanish player -->
+    <european-nation-type id="model.nationType.conquest"
+                          extends="model.nationType.default">
+      <unit id="soldier" type="model.unit.veteranSoldier"
+            role="model.role.soldier" mounted="true"/>
+      <modifier id="model.modifier.nativeConvertBonus"
+                type="percentage" value="200"/>
+      <modifier id="model.modifier.offenceAgainst"
+                type="percentage" value="50" index="50">
+        <scope method-name="isIndian" method-value="true"/>
+      </modifier>
+    </european-nation-type>
+  </european-nation-types>
+
+  <indian-nation-types>
+    <indian-nation-type id="default" abstract="true">
+      <ability id="model.ability.ambushBonus" value="true"/>
+      <ability id="model.ability.foundsColonies" value="false"/>
+      <ability id="model.ability.automaticEquipment" value="true">
+        <scope type="model.role.nativeDragoon"/>
+        <scope type="model.role.armedBrave"/>
+      </ability>
+      <ability id="model.ability.native"/>
+    </indian-nation-type>
+    <indian-nation-type id="camp" abstract="true" extends="default">
+      <settlement id="model.settlement.camp" capital="false"
+                  claimableRadius="1" extraClaimableRadius="2"
+                  minimumSize="4" maximumSize="6"
+                  minimumGrowth="1" maximumGrowth="8"
+                  tradeBonus="1" convertThreshold="100">
+        <plunder probability="20" minimum="2" maximum="3" factor="100">
+          <scope ability-id="model.ability.plunderNatives" ability-value="false"/>
+        </plunder>
+        <plunder probability="100" minimum="3" maximum="6" factor="100">
+          <scope ability-id="model.ability.plunderNatives" ability-value="true"/>
+        </plunder>
+        <gifts probability="100" minimum="2" maximum="3" factor="100" />
+        <modifier id="model.modifier.defence"
+                  type="percentage" value="50" index="50"/>
+      </settlement>
+      <settlement id="model.settlement.camp.capital" capital="true"
+                  claimableRadius="2" extraClaimableRadius="2"
+                  minimumSize="6" maximumSize="8"
+                  minimumGrowth="2" maximumGrowth="10"
+                  tradeBonus="2" convertThreshold="100">
+        <plunder probability="100" minimum="2" maximum="4" factor="200">
+          <scope ability-id="model.ability.plunderNatives" ability-value="false"/>
+        </plunder>
+        <plunder probability="100" minimum="2" maximum="4" factor="300">
+          <scope ability-id="model.ability.plunderNatives" ability-value="true"/>
+        </plunder>
+        <gifts probability="100" minimum="3" maximum="6" factor="200" />
+        <modifier id="model.modifier.defence"
+                  type="percentage" value="100" index="50"/>
+      </settlement>
+    </indian-nation-type>
+    <indian-nation-type id="village" abstract="true" extends="default">
+      <settlement id="model.settlement.village" capital="false"
+                  claimableRadius="1" extraClaimableRadius="2"
+                  minimumSize="6" maximumSize="8"
+                  minimumGrowth="1" maximumGrowth="8"
+                  tradeBonus="2" convertThreshold="100">
+        <plunder probability="50" minimum="3" maximum="8" factor="100">
+          <scope ability-id="model.ability.plunderNatives" ability-value="false"/>
+        </plunder>
+        <plunder probability="100" minimum="4" maximum="12" factor="100">
+          <scope ability-id="model.ability.plunderNatives" ability-value="true"/>
+        </plunder>
+        <gifts probability="100" minimum="3" maximum="6" factor="100" />
+        <modifier id="model.modifier.defence"
+                  type="percentage" value="50" index="50"/>
+      </settlement>
+      <settlement id="model.settlement.village.capital" capital="true"
+                  claimableRadius="2" extraClaimableRadius="2"
+                  minimumSize="8" maximumSize="10"
+                  minimumGrowth="2" maximumGrowth="10"
+                  tradeBonus="3" convertThreshold="100">
+        <plunder probability="100" minimum="3" maximum="8" factor="200">
+          <scope ability-id="model.ability.plunderNatives" ability-value="false"/>
+        </plunder>
+        <plunder probability="100" minimum="3" maximum="8" factor="300">
+          <scope ability-id="model.ability.plunderNatives" ability-value="true"/>
+        </plunder>
+        <gifts probability="100" minimum="4" maximum="8" factor="200" />
+        <modifier id="model.modifier.defence"
+                  type="percentage" value="100" index="50"/>
+      </settlement>
+    </indian-nation-type>
+    <indian-nation-type id="model.nationType.apache" extends="camp" number-of-settlements="average"
+                        aggression="high">
+      <skill id="model.unit.masterCottonPlanter" probability="20"/>
+      <skill id="model.unit.expertFarmer" probability="10"/>
+      <skill id="model.unit.masterSugarPlanter" probability="3"/>
+      <skill id="model.unit.masterTobaccoPlanter" probability="3"/>
+      <region id="model.region.west" />
+    </indian-nation-type>
+    <indian-nation-type id="model.nationType.sioux" extends="camp" number-of-settlements="average"
+                        aggression="average">
+      <skill id="model.unit.masterTobaccoPlanter" probability="20"/>
+      <skill id="model.unit.expertFurTrapper" probability="10"/>
+      <skill id="model.unit.seasonedScout" probability="10"/>
+      <skill id="model.unit.expertFarmer" probability="3"/>
+      <region id="model.region.northWest" />
+    </indian-nation-type>
+    <indian-nation-type id="model.nationType.tupi" extends="camp" number-of-settlements="low"
+                        aggression="high">
+      <skill id="model.unit.masterSugarPlanter" probability="20"/>
+      <skill id="model.unit.seasonedScout" probability="10"/>
+      <skill id="model.unit.masterCottonPlanter" probability="10"/>
+      <skill id="model.unit.expertFurTrapper" probability="3"/>
+      <skill id="model.unit.masterTobaccoPlanter" probability="3"/>
+      <region id="model.region.southEast" />
+    </indian-nation-type>
+    <indian-nation-type id="model.nationType.arawak" extends="village" number-of-settlements="low"
+                        aggression="low">
+      <skill id="model.unit.masterSugarPlanter" probability="20"/>
+      <skill id="model.unit.expertFisherman" probability="10"/>
+      <skill id="model.unit.masterFurTrader" probability="3"/>
+      <region id="model.region.east" />
+    </indian-nation-type>
+    <indian-nation-type id="model.nationType.cherokee" extends="village" number-of-settlements="average"
+                        aggression="low">
+      <skill id="model.unit.masterCottonPlanter" probability="20"/>
+      <skill id="model.unit.expertFisherman" probability="10"/>
+      <skill id="model.unit.expertOreMiner" probability="10"/>
+      <skill id="model.unit.seasonedScout" probability="10"/>
+      <skill id="model.unit.masterTobaccoPlanter" probability="3"/>
+      <skill id="model.unit.expertFarmer" probability="3"/>
+      <skill id="model.unit.masterFurTrader" probability="3"/>
+      <region id="model.region.northEast" />
+    </indian-nation-type>
+    <indian-nation-type id="model.nationType.iroquois" extends="village" number-of-settlements="average"
+                        aggression="average">
+      <skill id="model.unit.expertFurTrapper" probability="20"/>
+      <skill id="model.unit.expertFarmer" probability="10"/>
+      <skill id="model.unit.seasonedScout" probability="10"/>
+      <skill id="model.unit.masterCottonPlanter" probability="3"/>
+      <skill id="model.unit.masterTobaccoPlanter" probability="3"/>
+      <skill id="model.unit.expertFisherman" probability="3"/>
+      <skill id="model.unit.expertOreMiner" probability="3"/>
+      <skill id="model.unit.masterFurTrader" probability="3"/>
+      <region id="model.region.north" />
+    </indian-nation-type>
+    <indian-nation-type id="city" abstract="true" extends="default" number-of-settlements="high">
+      <skill id="model.unit.expertSilverMiner" probability="20"/>
+      <skill id="model.unit.expertFarmer" probability="10"/>
+      <skill id="model.unit.expertFisherman" probability="10"/>
+      <skill id="model.unit.masterWeaver" probability="3"/>
+    </indian-nation-type>
+    <indian-nation-type id="model.nationType.inca" extends="city"
+                        aggression="low">
+      <skill id="model.unit.expertOreMiner" probability="10"/>
+      <region id="model.region.southWest" />
+      <region id="model.region.south" />
+      <settlement id="model.settlement.inca" capital="false"
+                  claimableRadius="2" extraClaimableRadius="2"
+                  minimumSize="8" maximumSize="12"
+                  minimumGrowth="3" maximumGrowth="12"
+                  tradeBonus="3" convertThreshold="100">
+        <plunder probability="100" minimum="2" maximum="6" factor="2100">
+          <scope ability-id="model.ability.plunderNatives" ability-value="false"/>
+        </plunder>
+        <plunder probability="100" minimum="2" maximum="6" factor="3100">
+          <scope ability-id="model.ability.plunderNatives" ability-value="true"/>
+        </plunder>
+        <gifts probability="100" minimum="3" maximum="6" factor="200" />
+        <modifier id="model.modifier.defence"
+                  type="percentage" value="100" index="50"/>
+      </settlement>
+      <settlement id="model.settlement.inca.capital" capital="true"
+                  claimableRadius="3" extraClaimableRadius="3"
+                  minimumSize="10" maximumSize="12"
+                  minimumGrowth="4" maximumGrowth="14"
+                  tradeBonus="4" convertThreshold="100">
+        <plunder probability="100" minimum="2" maximum="6" factor="3000">
+          <scope ability-id="model.ability.plunderNatives" ability-value="false"/>
+        </plunder>
+        <plunder probability="100" minimum="3" maximum="8" factor="4000">
+          <scope ability-id="model.ability.plunderNatives" ability-value="true"/>
+        </plunder>
+        <gifts probability="100" minimum="4" maximum="8" factor="300" />
+        <modifier id="model.modifier.defence"
+                  type="percentage" value="200" index="50"/>
+      </settlement>
+    </indian-nation-type>
+    <indian-nation-type id="model.nationType.aztec" extends="city"
+                        aggression="high">
+      <skill id="model.unit.masterSugarPlanter" probability="3"/>
+      <skill id="model.unit.expertOreMiner" probability="3"/>
+      <region id="model.region.center" />
+      <region id="model.region.east" />
+      <settlement id="model.settlement.aztec" capital="false"
+                  claimableRadius="2" extraClaimableRadius="2"
+                  minimumSize="8" maximumSize="12"
+                  minimumGrowth="3" maximumGrowth="12"
+                  tradeBonus="3" convertThreshold="100">
+        <plunder probability="100" minimum="5" maximum="9" factor="1000">
+          <scope ability-id="model.ability.plunderNatives" ability-value="false"/>
+        </plunder>
+        <plunder probability="100" minimum="11" maximum="15" factor="1000">
+          <scope ability-id="model.ability.plunderNatives" ability-value="true"/>
+        </plunder>
+        <gifts probability="100" minimum="4" maximum="8" factor="200" />
+        <modifier id="model.modifier.defence"
+                  type="percentage" value="100" index="50"/>
+      </settlement>
+      <settlement id="model.settlement.aztec.capital" capital="true"
+                  claimableRadius="3" extraClaimableRadius="3"
+                  minimumSize="10" maximumSize="12"
+                  minimumGrowth="4" maximumGrowth="14"
+                  tradeBonus="4" convertThreshold="100">
+        <plunder probability="100" minimum="7" maximum="12" factor="1000">
+          <scope ability-id="model.ability.plunderNatives" ability-value="false"/>
+        </plunder>
+        <plunder probability="100" minimum="16" maximum="19" factor="1000">
+          <scope ability-id="model.ability.plunderNatives" ability-value="true"/>
+        </plunder>
+        <gifts probability="100" minimum="5" maximum="10" factor="300" />
+        <modifier id="model.modifier.defence"
+                  type="percentage" value="200" index="50"/>
+      </settlement>
+    </indian-nation-type>
+  </indian-nation-types>
+
+  <nations>
+    <nation id="model.nation.unknownEnemy" color="0x000000"
+            nation-type="model.nationType.default" selectable="false"/>
+
+    <nation id="model.nation.dutch" color="0xff9d3c"
+            nation-type="model.nationType.trade" selectable="true"
+            preferredLatitude="-40" ref="model.nation.dutchREF"/>
+    <nation id="model.nation.french" color="0x0000ff"
+            nation-type="model.nationType.cooperation" selectable="true"
+            preferredLatitude="-53" ref="model.nation.frenchREF"/>
+    <nation id="model.nation.english" color="0xff0000"
+            nation-type="model.nationType.immigration" selectable="true"
+            preferredLatitude="-37" ref="model.nation.englishREF"/>
+    <nation id="model.nation.spanish" color="0xffff00"
+            nation-type="model.nationType.conquest" selectable="true"
+            preferredLatitude="-19" ref="model.nation.spanishREF"/>
+    <nation id="model.nation.inca" color="0xf4f0c4"
+            nation-type="model.nationType.inca"/>
+    <nation id="model.nation.aztec" color="0xc4a020"
+            nation-type="model.nationType.aztec"/>
+    <nation id="model.nation.arawak" color="0x6888c0"
+            nation-type="model.nationType.arawak"/>
+    <nation id="model.nation.cherokee" color="0x6c3c18"
+            nation-type="model.nationType.cherokee"/>
+    <nation id="model.nation.iroquois" color="0x74a44c"
+            nation-type="model.nationType.iroquois"/>
+    <nation id="model.nation.sioux" color="0xc0ac84"
+            nation-type="model.nationType.sioux"/>
+    <nation id="model.nation.apache" color="0x900000"
+            nation-type="model.nationType.apache"/>
+    <nation id="model.nation.tupi" color="0x045c04"
+            nation-type="model.nationType.tupi"/>
+    <nation id="model.nation.dutchREF" color="0xcc5500"
+            nation-type="model.nationType.ref"/>
+    <nation id="model.nation.frenchREF" color="0x6050dc"
+            nation-type="model.nationType.ref"/>
+    <nation id="model.nation.englishREF" color="0xde3163"
+            nation-type="model.nationType.ref"/>
+    <nation id="model.nation.spanishREF" color="0xffdf00"
+            nation-type="model.nationType.ref"/>
+  </nations>
+
+  <options>
+    <optionGroup id="difficultyLevels" recursive="false">
+      <optionGroup id="model.difficulty.veryEasy" editable="false">
+        <optionGroup id="model.difficulty.immigration" editable="false">
+          <integerOption id="model.option.crossesIncrement" value="2"/>
+          <integerOption id="model.option.recruitPriceIncrease" value="20"/>
+          <integerOption id="model.option.lowerCapIncrease" value="0"/>
+          <integerOption id="model.option.priceIncrease.artillery" value="100"/>
+          <booleanOption id="model.option.priceIncreasePerType" value="true"/>
+          <booleanOption id="model.option.expertStartingUnits" value="true" />
+          <unitListOption id="model.option.immigrants">
+            <unitOption id="model.option.immigrants.1">
+              <unitType value="model.unit.masterCarpenter"/>
+              <role value="model.role.default" />
+              <number value="1"/>
+            </unitOption>
+            <unitOption id="model.option.immigrants.2">
+              <unitType value="model.unit.expertFarmer"/>
+              <role value="model.role.default" />
+              <number value="1"/>
+            </unitOption>
+            <unitOption id="model.option.immigrants.3">
+              <unitType value="model.unit.seasonedScout"/>
+              <role value="model.role.default" />
+              <number value="1"/>
+            </unitOption>
+            <unitOption id="model.option.immigrants.4">
+              <unitType value="model.unit.jesuitMissionary"/>
+              <role value="model.role.missionary" />
+              <number value="1"/>
+            </unitOption>
+          </unitListOption>
+        </optionGroup>
+        <optionGroup id="model.difficulty.natives" editable="false">
+          <integerOption id="model.option.landPriceFactor" value="40"/>
+          <integerOption id="model.option.nativeConvertProbability" value="50"/>
+          <integerOption id="model.option.burnProbability" value="2"/>
+          <integerOption id="model.option.nativeDemands" value="0"/>
+          <integerOption id="model.option.rumourDifficulty" value="0"/>
+          <integerOption id="model.option.shipTradePenalty" value="-20"/>
+          <integerOption id="model.option.destroySettlementScore" value="-2"/>
+          <stringOption  id="model.option.buildOnNativeLand" value="model.option.buildOnNativeLand.always" />
+          <rangeOption id="model.option.settlementNumber" defaultValue="10" localizedLabels="true">
+            <rangeValue label="verySmall" value="10"/>
+            <rangeValue label="small" value="8"/>
+            <rangeValue label="medium" value="7"/>
+            <rangeValue label="large" value="6"/>
+            <rangeValue label="veryLarge" value="5"/>
+          </rangeOption>
+        </optionGroup>
+        <optionGroup id="model.difficulty.monarch" editable="false">
+          <integerOption id="model.option.monarchMeddling" value="0"/>
+          <integerOption id="model.option.taxAdjustment" value="0"/>
+          <integerOption id="model.option.mercenaryPrice" value="50"/>
+          <integerOption id="model.option.maximumTax" value="50"/>
+          <integerOption id="model.option.monarchSupport" value="4"/>
+          <integerOption id="model.option.treasureTransportFee" value="50"/>
+          <integerOption id="model.option.interventionBells" value="2000" />
+          <integerOption id="model.option.interventionTurns" value="50" />
+          <unitListOption id="model.option.refSize">
+            <unitOption id="model.option.refSize.soldiers">
+              <unitType value="model.unit.kingsRegular" />
+              <role value="model.role.infantry" />
+              <number value="15" />
+            </unitOption>
+            <unitOption id="model.option.refSize.dragoons">
+              <unitType value="model.unit.kingsRegular" />
+              <role value="model.role.cavalry" />
+              <number value="5" />
+            </unitOption>
+            <unitOption id="model.option.refSize.artillery">
+              <unitType value="model.unit.artillery" />
+              <role value="model.role.default" />
+              <number value="2" />
+            </unitOption>
+            <unitOption id="model.option.refSize.menOfWar">
+              <unitType value="model.unit.manOWar" />
+              <role value="model.role.default" />
+              <number value="2" />
+            </unitOption>
+          </unitListOption>
+          <unitListOption id="model.option.interventionForce">
+            <unitOption id="model.option.interventionForce.regulars">
+              <unitType value="model.unit.colonialRegular" />
+              <role value="model.role.soldier" />
+              <number value="4" />
+            </unitOption>
+            <unitOption id="model.option.interventionForce.dragoons">
+              <unitType value="model.unit.colonialRegular" />
+              <role value="model.role.dragoon" />
+              <number value="2" />
+            </unitOption>
+            <unitOption id="model.option.interventionForce.artillery">
+              <unitType value="model.unit.artillery" />
+              <role value="model.role.default" />
+              <number value="4" />
+            </unitOption>
+            <unitOption id="model.option.interventionForce.menOfWar">
+              <unitType value="model.unit.manOWar" />
+              <role value="model.role.default" />
+              <number value="3" />
+            </unitOption>
+          </unitListOption>
+          <unitListOption id="model.option.mercenaryForce">
+            <unitOption id="model.option.mercenaryForce.regulars">
+              <unitType value="model.unit.veteranSoldier" />
+              <role value="model.role.soldier" />
+              <number value="3" />
+            </unitOption>
+            <unitOption id="model.option.mercenaryForce.dragoons">
+              <unitType value="model.unit.veteranSoldier" />
+              <role value="model.role.dragoon" />
+              <number value="3" />
+            </unitOption>
+            <unitOption id="model.option.mercenaryForce.artillery">
+              <unitType value="model.unit.artillery" />
+              <role value="model.role.default" />
+              <number value="3" />
+            </unitOption>
+            <unitOption id="model.option.mercenaryForce.menOfWar">
+              <unitType value="model.unit.manOWar" />
+              <role value="model.role.default" />
+              <number value="2" />
+            </unitOption>
+          </unitListOption>
+        </optionGroup>
+        <optionGroup id="model.difficulty.government" editable="false">
+          <integerOption id="model.option.badGovernmentLimit" value="8"/>
+          <integerOption id="model.option.veryBadGovernmentLimit" value="12"/>
+          <integerOption id="model.option.goodGovernmentLimit" value="50"/>
+          <integerOption id="model.option.veryGoodGovernmentLimit" value="100"/>
+        </optionGroup>
+        <optionGroup id="model.difficulty.other">
+          <integerOption id="model.option.startingMoney" value="1000"/>
+          <integerOption id="model.option.foundingFatherFactor" value="24"/>
+          <integerOption id="model.option.arrearsFactor" value="300"/>
+          <integerOption id="model.option.unitsThatUseNoBells" value="2"/>
+          <stringOption  id="model.option.tileProduction" value="veryHigh" />
+          <percentageOption id="model.option.badRumour" value="11" />
+          <percentageOption id="model.option.goodRumour" value="75" />
+        </optionGroup>
+        <optionGroup id="model.difficulty.cheat" editable="false">
+          <integerOption id="model.option.liftBoycottCheat" value="1"/>
+          <integerOption id="model.option.equipScoutCheat" value="1"/>
+          <integerOption id="model.option.equipPioneerCheat" value="1"/>
+          <integerOption id="model.option.landUnitCheat" value="1"/>
+          <integerOption id="model.option.offensiveLandUnitCheat" value="0"/>
+          <integerOption id="model.option.offensiveNavalUnitCheat" value="1"/>
+          <integerOption id="model.option.transportNavalUnitCheat" value="1"/>
+        </optionGroup>
+      </optionGroup>
+
+      <optionGroup id="model.difficulty.easy" editable="false">
+        <optionGroup id="model.difficulty.immigration" editable="false">
+          <integerOption id="model.option.crossesIncrement" value="2"/>
+          <integerOption id="model.option.recruitPriceIncrease" value="30"/>
+          <integerOption id="model.option.lowerCapIncrease" value="0"/>
+          <integerOption id="model.option.priceIncrease.artillery" value="100"/>
+          <booleanOption id="model.option.priceIncreasePerType" value="true"/>
+          <booleanOption id="model.option.expertStartingUnits" value="true" />
+          <unitListOption  id="model.option.immigrants">
+            <unitOption id="model.option.immigrants.1">
+              <unitType value="model.unit.masterCarpenter"/>
+              <role value="model.role.default" />
+              <number value="1"/>
+            </unitOption>
+            <unitOption id="model.option.immigrants.2">
+              <unitType value="model.unit.expertFarmer"/>
+              <role value="model.role.default" />
+              <number value="1"/>
+            </unitOption>
+          </unitListOption>
+        </optionGroup>
+        <optionGroup id="model.difficulty.natives" editable="false">
+          <integerOption id="model.option.landPriceFactor" value="50"/>
+          <integerOption id="model.option.nativeConvertProbability" value="40"/>
+          <integerOption id="model.option.burnProbability" value="4"/>
+          <integerOption id="model.option.nativeDemands" value="1"/>
+          <integerOption id="model.option.rumourDifficulty" value="1"/>
+          <integerOption id="model.option.shipTradePenalty" value="-25"/>
+          <integerOption id="model.option.destroySettlementScore" value="-3"/>
+          <stringOption  id="model.option.buildOnNativeLand" value="model.option.buildOnNativeLand.first" />
+          <rangeOption id="model.option.settlementNumber" defaultValue="8" localizedLabels="true">
+            <rangeValue label="verySmall" value="10"/>
+            <rangeValue label="small" value="8"/>
+            <rangeValue label="medium" value="7"/>
+            <rangeValue label="large" value="6"/>
+            <rangeValue label="veryLarge" value="5"/>
+          </rangeOption>
+        </optionGroup>
+        <optionGroup id="model.difficulty.monarch" editable="false">
+          <integerOption id="model.option.monarchMeddling" value="1"/>
+          <integerOption id="model.option.taxAdjustment" value="1"/>
+          <integerOption id="model.option.mercenaryPrice" value="60"/>
+          <integerOption id="model.option.maximumTax" value="60"/>
+          <integerOption id="model.option.monarchSupport" value="3"/>
+          <integerOption id="model.option.treasureTransportFee" value="55"/>
+          <integerOption id="model.option.interventionBells" value="3500" />
+          <integerOption id="model.option.interventionTurns" value="51" />
+          <unitListOption id="model.option.refSize">
+            <unitOption id="model.option.refSize.soldiers">
+              <unitType value="model.unit.kingsRegular" />
+              <role value="model.role.infantry" />
+              <number value="23" />
+            </unitOption>
+            <unitOption id="model.option.refSize.dragoons">
+              <unitType value="model.unit.kingsRegular" />
+              <role value="model.role.cavalry" />
+              <number value="10" />
+            </unitOption>
+            <unitOption id="model.option.refSize.artillery">
+              <unitType value="model.unit.artillery" />
+              <role value="model.role.default" />
+              <number value="8" />
+            </unitOption>
+            <unitOption id="model.option.refSize.menOfWar">
+              <unitType value="model.unit.manOWar" />
+              <role value="model.role.default" />
+              <number value="5" />
+            </unitOption>
+          </unitListOption>
+          <unitListOption id="model.option.interventionForce">
+            <unitOption id="model.option.interventionForce.regulars">
+              <unitType value="model.unit.colonialRegular" />
+              <role value="model.role.soldier" />
+              <number value="3" />
+            </unitOption>
+            <unitOption id="model.option.interventionForce.dragoons">
+              <unitType value="model.unit.colonialRegular" />
+              <role value="model.role.dragoon" />
+              <number value="2" />
+            </unitOption>
+            <unitOption id="model.option.interventionForce.artillery">
+              <unitType value="model.unit.artillery" />
+              <role value="model.role.default" />
+              <number value="2" />
+            </unitOption>
+            <unitOption id="model.option.interventionForce.menOfWar">
+              <unitType value="model.unit.manOWar" />
+              <role value="model.role.default" />
+              <number value="2" />
+            </unitOption>
+          </unitListOption>
+          <unitListOption id="model.option.mercenaryForce">
+            <unitOption id="model.option.mercenaryForce.regulars">
+              <unitType value="model.unit.veteranSoldier" />
+              <role value="model.role.soldier" />
+              <number value="3" />
+            </unitOption>
+            <unitOption id="model.option.mercenaryForce.dragoons">
+              <unitType value="model.unit.veteranSoldier" />
+              <role value="model.role.dragoon" />
+              <number value="3" />
+            </unitOption>
+            <unitOption id="model.option.mercenaryForce.artillery">
+              <unitType value="model.unit.artillery" />
+              <role value="model.role.default" />
+              <number value="3" />
+            </unitOption>
+            <unitOption id="model.option.mercenaryForce.menOfWar">
+              <unitType value="model.unit.manOWar" />
+              <role value="model.role.default" />
+              <number value="2" />
+            </unitOption>
+          </unitListOption>
+        </optionGroup>
+        <optionGroup id="model.difficulty.government" editable="false">
+          <integerOption id="model.option.badGovernmentLimit" value="7"/>
+          <integerOption id="model.option.veryBadGovernmentLimit" value="11"/>
+          <integerOption id="model.option.goodGovernmentLimit" value="50"/>
+          <integerOption id="model.option.veryGoodGovernmentLimit" value="100"/>
+        </optionGroup>
+        <optionGroup id="model.difficulty.other" editable="false">
+          <integerOption id="model.option.startingMoney" value="300"/>
+          <integerOption id="model.option.foundingFatherFactor" value="32"/>
+          <integerOption id="model.option.arrearsFactor" value="400"/>
+          <integerOption id="model.option.unitsThatUseNoBells" value="2"/>
+          <stringOption  id="model.option.tileProduction" value="high" />
+          <percentageOption id="model.option.badRumour" value="17" />
+          <percentageOption id="model.option.goodRumour" value="62" />
+        </optionGroup>
+        <optionGroup id="model.difficulty.cheat" editable="false">
+          <integerOption id="model.option.liftBoycottCheat" value="5"/>
+          <integerOption id="model.option.equipScoutCheat" value="5"/>
+          <integerOption id="model.option.equipPioneerCheat" value="5"/>
+          <integerOption id="model.option.landUnitCheat" value="5"/>
+          <integerOption id="model.option.offensiveLandUnitCheat" value="2"/>
+          <integerOption id="model.option.offensiveNavalUnitCheat" value="5"/>
+          <integerOption id="model.option.transportNavalUnitCheat" value="5"/>
+        </optionGroup>
+      </optionGroup>
+
+      <optionGroup id="model.difficulty.medium" editable="false">
+        <optionGroup id="model.difficulty.immigration" editable="false">
+          <integerOption id="model.option.crossesIncrement" value="2"/>
+          <integerOption id="model.option.recruitPriceIncrease" value="30"/>
+          <integerOption id="model.option.lowerCapIncrease" value="0"/>
+          <integerOption id="model.option.priceIncrease.artillery" value="100"/>
+          <booleanOption id="model.option.priceIncreasePerType" value="true"/>
+          <booleanOption id="model.option.expertStartingUnits" value="false" />
+          <unitListOption  id="model.option.immigrants">
+            <unitOption id="model.option.immigrants.1">
+              <unitType value="model.unit.masterCarpenter"/>
+              <role value="model.role.default" />
+              <number value="1"/>
+            </unitOption>
+          </unitListOption>
+        </optionGroup>
+        <optionGroup id="model.difficulty.natives" editable="false">
+          <integerOption id="model.option.landPriceFactor" value="60"/>
+          <integerOption id="model.option.nativeConvertProbability" value="30"/>
+          <integerOption id="model.option.burnProbability" value="6"/>
+          <integerOption id="model.option.nativeDemands" value="2"/>
+          <integerOption id="model.option.rumourDifficulty" value="2"/>
+          <integerOption id="model.option.shipTradePenalty" value="-30"/>
+          <integerOption id="model.option.destroySettlementScore" value="-4"/>
+          <stringOption  id="model.option.buildOnNativeLand" value="model.option.buildOnNativeLand.firstAndUncontacted" />
+          <rangeOption id="model.option.settlementNumber" defaultValue="7" localizedLabels="true">
+            <rangeValue label="verySmall" value="10"/>
+            <rangeValue label="small" value="8"/>
+            <rangeValue label="medium" value="7"/>
+            <rangeValue label="large" value="6"/>
+            <rangeValue label="veryLarge" value="5"/>
+          </rangeOption>
+        </optionGroup>
+        <optionGroup id="model.difficulty.monarch" editable="false">
+          <integerOption id="model.option.monarchMeddling" value="2"/>
+          <integerOption id="model.option.taxAdjustment" value="2"/>
+          <integerOption id="model.option.mercenaryPrice" value="65"/>
+          <integerOption id="model.option.maximumTax" value="65"/>
+          <integerOption id="model.option.monarchSupport" value="2"/>
+          <integerOption id="model.option.treasureTransportFee" value="60"/>
+          <integerOption id="model.option.interventionBells" value="5000" />
+          <integerOption id="model.option.interventionTurns" value="52" />
+          <unitListOption id="model.option.refSize">
+            <unitOption id="model.option.refSize.soldiers">
+              <unitType value="model.unit.kingsRegular" />
+              <role value="model.role.infantry" />
+              <number value="31" />
+            </unitOption>
+            <unitOption id="model.option.refSize.dragoons">
+              <unitType value="model.unit.kingsRegular" />
+              <role value="model.role.cavalry" />
+              <number value="15" />
+            </unitOption>
+            <unitOption id="model.option.refSize.artillery">
+              <unitType value="model.unit.artillery" />
+              <role value="model.role.default" />
+              <number value="14" />
+            </unitOption>
+            <unitOption id="model.option.refSize.menOfWar">
+              <unitType value="model.unit.manOWar" />
+              <role value="model.role.default" />
+              <number value="8" />
+            </unitOption>
+          </unitListOption>
+          <unitListOption id="model.option.interventionForce">
+            <unitOption id="model.option.interventionForce.regulars">
+              <unitType value="model.unit.colonialRegular" />
+              <role value="model.role.soldier" />
+              <number value="2" />
+            </unitOption>
+            <unitOption id="model.option.interventionForce.dragoons">
+              <unitType value="model.unit.colonialRegular" />
+              <role value="model.role.dragoon" />
+              <number value="2" />
+            </unitOption>
+            <unitOption id="model.option.interventionForce.artillery">
+              <unitType value="model.unit.artillery" />
+              <role value="model.role.default" />
+              <number value="2" />
+            </unitOption>
+            <unitOption id="model.option.interventionForce.menOfWar">
+              <unitType value="model.unit.manOWar" />
+              <role value="model.role.default" />
+              <number value="2" />
+            </unitOption>
+          </unitListOption>
+          <unitListOption id="model.option.mercenaryForce">
+            <unitOption id="model.option.mercenaryForce.regulars">
+              <unitType value="model.unit.veteranSoldier" />
+              <role value="model.role.soldier" />
+              <number value="3" />
+            </unitOption>
+            <unitOption id="model.option.mercenaryForce.dragoons">
+              <unitType value="model.unit.veteranSoldier" />
+              <role value="model.role.dragoon" />
+              <number value="3" />
+            </unitOption>
+            <unitOption id="model.option.mercenaryForce.artillery">
+              <unitType value="model.unit.artillery" />
+              <role value="model.role.default" />
+              <number value="3" />
+            </unitOption>
+            <unitOption id="model.option.mercenaryForce.menOfWar">
+              <unitType value="model.unit.manOWar" />
+              <role value="model.role.default" />
+              <number value="2" />
+            </unitOption>
+          </unitListOption>
+        </optionGroup>
+        <optionGroup id="model.difficulty.government" editable="false">
+          <integerOption id="model.option.badGovernmentLimit" value="6"/>
+          <integerOption id="model.option.veryBadGovernmentLimit" value="10"/>
+          <integerOption id="model.option.goodGovernmentLimit" value="50"/>
+          <integerOption id="model.option.veryGoodGovernmentLimit" value="100"/>
+        </optionGroup>
+        <optionGroup id="model.difficulty.other" editable="false">
+          <integerOption id="model.option.startingMoney" value="0"/>
+          <integerOption id="model.option.foundingFatherFactor" value="40"/>
+          <integerOption id="model.option.arrearsFactor" value="500"/>
+          <integerOption id="model.option.unitsThatUseNoBells" value="2"/>
+          <stringOption  id="model.option.tileProduction" value="medium" />
+          <percentageOption id="model.option.badRumour" value="23"/>
+          <percentageOption id="model.option.goodRumour" value="48"/>
+        </optionGroup>
+        <optionGroup id="model.difficulty.cheat" editable="false">
+          <integerOption id="model.option.liftBoycottCheat" value="10"/>
+          <integerOption id="model.option.equipScoutCheat" value="10"/>
+          <integerOption id="model.option.equipPioneerCheat" value="10"/>
+          <integerOption id="model.option.landUnitCheat" value="10"/>
+          <integerOption id="model.option.offensiveLandUnitCheat" value="4"/>
+          <integerOption id="model.option.offensiveNavalUnitCheat" value="10"/>
+          <integerOption id="model.option.transportNavalUnitCheat" value="10"/>
+        </optionGroup>
+      </optionGroup>
+
+      <optionGroup id="model.difficulty.hard" editable="false">
+        <optionGroup id="model.difficulty.immigration" editable="false">
+          <integerOption id="model.option.crossesIncrement" value="2"/>
+          <integerOption id="model.option.recruitPriceIncrease" value="30"/>
+          <integerOption id="model.option.lowerCapIncrease" value="0"/>
+          <integerOption id="model.option.priceIncrease.artillery" value="100"/>
+          <booleanOption id="model.option.priceIncreasePerType" value="true"/>
+          <booleanOption id="model.option.expertStartingUnits" value="false" />
+        </optionGroup>
+        <optionGroup id="model.difficulty.natives" editable="false">
+          <integerOption id="model.option.landPriceFactor" value="70"/>
+          <integerOption id="model.option.nativeConvertProbability" value="20"/>
+          <integerOption id="model.option.burnProbability" value="8"/>
+          <integerOption id="model.option.nativeDemands" value="3"/>
+          <integerOption id="model.option.rumourDifficulty" value="3"/>
+          <integerOption id="model.option.shipTradePenalty" value="-35"/>
+          <integerOption id="model.option.destroySettlementScore" value="-5"/>
+          <stringOption  id="model.option.buildOnNativeLand" value="model.option.buildOnNativeLand.never" />
+          <rangeOption id="model.option.settlementNumber" defaultValue="6" localizedLabels="true">
+            <rangeValue label="verySmall" value="10"/>
+            <rangeValue label="small" value="8"/>
+            <rangeValue label="medium" value="7"/>
+            <rangeValue label="large" value="6"/>
+            <rangeValue label="veryLarge" value="5"/>
+          </rangeOption>
+        </optionGroup>
+        <optionGroup id="model.difficulty.monarch" editable="false">
+          <integerOption id="model.option.monarchMeddling" value="3"/>
+          <integerOption id="model.option.taxAdjustment" value="3"/>
+          <integerOption id="model.option.mercenaryPrice" value="70"/>
+          <integerOption id="model.option.maximumTax" value="70"/>
+          <integerOption id="model.option.monarchSupport" value="1"/>
+          <integerOption id="model.option.treasureTransportFee" value="65"/>
+          <integerOption id="model.option.interventionBells" value="6500" />
+          <integerOption id="model.option.interventionTurns" value="53" />
+          <unitListOption id="model.option.refSize">
+            <unitOption id="model.option.refSize.soldiers">
+              <unitType value="model.unit.kingsRegular" />
+              <role value="model.role.infantry" />
+              <number value="39" />
+            </unitOption>
+            <unitOption id="model.option.refSize.dragoons">
+              <unitType value="model.unit.kingsRegular" />
+              <role value="model.role.cavalry" />
+              <number value="20" />
+            </unitOption>
+            <unitOption id="model.option.refSize.artillery">
+              <unitType value="model.unit.artillery" />
+              <role value="model.role.default" />
+              <number value="20" />
+            </unitOption>
+            <unitOption id="model.option.refSize.menOfWar">
+              <unitType value="model.unit.manOWar" />
+              <role value="model.role.default" />
+              <number value="11" />
+            </unitOption>
+          </unitListOption>
+          <unitListOption id="model.option.interventionForce">
+            <unitOption id="model.option.interventionForce.regulars">
+              <unitType value="model.unit.colonialRegular" />
+              <role value="model.role.soldier" />
+              <number value="2" />
+            </unitOption>
+            <unitOption id="model.option.interventionForce.dragoons">
+              <unitType value="model.unit.colonialRegular" />
+              <role value="model.role.dragoon" />
+              <number value="1" />
+            </unitOption>
+            <unitOption id="model.option.interventionForce.artillery">
+              <unitType value="model.unit.artillery" />
+              <role value="model.role.default" />
+              <number value="2" />
+            </unitOption>
+            <unitOption id="model.option.interventionForce.menOfWar">
+              <unitType value="model.unit.manOWar" />
+              <role value="model.role.default" />
+              <number value="2" />
+            </unitOption>
+          </unitListOption>
+          <unitListOption id="model.option.mercenaryForce">
+            <unitOption id="model.option.mercenaryForce.regulars">
+              <unitType value="model.unit.veteranSoldier" />
+              <role value="model.role.soldier" />
+              <number value="3" />
+            </unitOption>
+            <unitOption id="model.option.mercenaryForce.dragoons">
+              <unitType value="model.unit.veteranSoldier" />
+              <role value="model.role.dragoon" />
+              <number value="3" />
+            </unitOption>
+            <unitOption id="model.option.mercenaryForce.artillery">
+              <unitType value="model.unit.artillery" />
+              <role value="model.role.default" />
+              <number value="3" />
+            </unitOption>
+            <unitOption id="model.option.mercenaryForce.menOfWar">
+              <unitType value="model.unit.manOWar" />
+              <role value="model.role.default" />
+              <number value="2" />
+            </unitOption>
+          </unitListOption>
+        </optionGroup>
+        <optionGroup id="model.difficulty.government" editable="false">
+          <integerOption id="model.option.badGovernmentLimit" value="5"/>
+          <integerOption id="model.option.veryBadGovernmentLimit" value="9"/>
+          <integerOption id="model.option.goodGovernmentLimit" value="50"/>
+          <integerOption id="model.option.veryGoodGovernmentLimit" value="100"/>
+        </optionGroup>
+        <optionGroup id="model.difficulty.other" editable="false">
+          <integerOption id="model.option.startingMoney" value="0"/>
+          <integerOption id="model.option.foundingFatherFactor" value="48"/>
+          <integerOption id="model.option.arrearsFactor" value="600"/>
+          <integerOption id="model.option.unitsThatUseNoBells" value="2"/>
+          <stringOption  id="model.option.tileProduction" value="low" />
+          <percentageOption id="model.option.badRumour" value="30"/>
+          <percentageOption id="model.option.goodRumour" value="33"/>
+        </optionGroup>
+        <optionGroup id="model.difficulty.cheat" editable="false">
+          <integerOption id="model.option.liftBoycottCheat" value="15"/>
+          <integerOption id="model.option.equipScoutCheat" value="15"/>
+          <integerOption id="model.option.equipPioneerCheat" value="15"/>
+          <integerOption id="model.option.landUnitCheat" value="15"/>
+          <integerOption id="model.option.offensiveLandUnitCheat" value="7"/>
+          <integerOption id="model.option.offensiveNavalUnitCheat" value="15"/>
+          <integerOption id="model.option.transportNavalUnitCheat" value="15"/>
+        </optionGroup>
+      </optionGroup>
+
+      <optionGroup id="model.difficulty.veryHard" editable="false">
+        <optionGroup id="model.difficulty.immigration" editable="false">
+          <integerOption id="model.option.crossesIncrement" value="2"/>
+          <integerOption id="model.option.recruitPriceIncrease" value="30"/>
+          <integerOption id="model.option.lowerCapIncrease" value="0"/>
+          <integerOption id="model.option.priceIncrease.artillery" value="100"/>
+          <booleanOption id="model.option.priceIncreasePerType" value="true"/>
+          <booleanOption id="model.option.expertStartingUnits" value="false" />
+        </optionGroup>
+        <optionGroup id="model.difficulty.natives" editable="false">
+          <integerOption id="model.option.landPriceFactor" value="80"/>
+          <integerOption id="model.option.nativeConvertProbability" value="10"/>
+          <integerOption id="model.option.burnProbability" value="10"/>
+          <integerOption id="model.option.nativeDemands" value="4"/>
+          <integerOption id="model.option.rumourDifficulty" value="4"/>
+          <integerOption id="model.option.shipTradePenalty" value="-40"/>
+          <integerOption id="model.option.destroySettlementScore" value="-6"/>
+          <stringOption  id="model.option.buildOnNativeLand" value="model.option.buildOnNativeLand.never" />
+          <rangeOption id="model.option.settlementNumber" defaultValue="5" localizedLabels="true">
+            <rangeValue label="verySmall" value="10"/>
+            <rangeValue label="small" value="8"/>
+            <rangeValue label="medium" value="7"/>
+            <rangeValue label="large" value="6"/>
+            <rangeValue label="veryLarge" value="5"/>
+          </rangeOption>
+        </optionGroup>
+        <optionGroup id="model.difficulty.monarch" editable="false">
+          <integerOption id="model.option.monarchMeddling" value="4"/>
+          <integerOption id="model.option.taxAdjustment" value="4"/>
+          <integerOption id="model.option.mercenaryPrice" value="75"/>
+          <integerOption id="model.option.maximumTax" value="75"/>
+          <integerOption id="model.option.monarchSupport" value="0"/>
+          <integerOption id="model.option.treasureTransportFee" value="70"/>
+          <integerOption id="model.option.interventionBells" value="8000" />
+          <integerOption id="model.option.interventionTurns" value="54" />
+          <unitListOption id="model.option.refSize">
+            <unitOption id="model.option.refSize.soldiers">
+              <unitType value="model.unit.kingsRegular" />
+              <role value="model.role.infantry" />
+              <number value="47" />
+            </unitOption>
+            <unitOption id="model.option.refSize.dragoons">
+              <unitType value="model.unit.kingsRegular" />
+              <role value="model.role.cavalry" />
+              <number value="25" />
+            </unitOption>
+            <unitOption id="model.option.refSize.artillery">
+              <unitType value="model.unit.artillery" />
+              <role value="model.role.default" />
+              <number value="26" />
+            </unitOption>
+            <unitOption id="model.option.refSize.menOfWar">
+              <unitType value="model.unit.manOWar" />
+              <role value="model.role.default" />
+              <number value="14" />
+            </unitOption>
+          </unitListOption>
+          <unitListOption id="model.option.interventionForce">
+            <unitOption id="model.option.interventionForce.regulars">
+              <unitType value="model.unit.colonialRegular" />
+              <role value="model.role.soldier" />
+              <number value="2" />
+            </unitOption>
+            <unitOption id="model.option.interventionForce.dragoons">
+              <unitType value="model.unit.colonialRegular" />
+              <role value="model.role.dragoon" />
+              <number value="1" />
+            </unitOption>
+            <unitOption id="model.option.interventionForce.artillery">
+              <unitType value="model.unit.artillery" />
+              <role value="model.role.default" />
+              <number value="2" />
+            </unitOption>
+            <unitOption id="model.option.interventionForce.menOfWar">
+              <unitType value="model.unit.manOWar" />
+              <role value="model.role.default" />
+              <number value="2" />
+            </unitOption>
+          </unitListOption>
+          <unitListOption id="model.option.mercenaryForce">
+            <unitOption id="model.option.mercenaryForce.regulars">
+              <unitType value="model.unit.veteranSoldier" />
+              <role value="model.role.soldier" />
+              <number value="3" />
+            </unitOption>
+            <unitOption id="model.option.mercenaryForce.dragoons">
+              <unitType value="model.unit.veteranSoldier" />
+              <role value="model.role.dragoon" />
+              <number value="3" />
+            </unitOption>
+            <unitOption id="model.option.mercenaryForce.artillery">
+              <unitType value="model.unit.artillery" />
+              <role value="model.role.default" />
+              <number value="3" />
+            </unitOption>
+            <unitOption id="model.option.mercenaryForce.menOfWar">
+              <unitType value="model.unit.manOWar" />
+              <role value="model.role.default" />
+              <number value="2" />
+            </unitOption>
+          </unitListOption>
+        </optionGroup>
+        <optionGroup id="model.difficulty.government" editable="false">
+          <integerOption id="model.option.badGovernmentLimit" value="4"/>
+          <integerOption id="model.option.veryBadGovernmentLimit" value="8"/>
+          <integerOption id="model.option.goodGovernmentLimit" value="50"/>
+          <integerOption id="model.option.veryGoodGovernmentLimit" value="100"/>
+        </optionGroup>
+        <optionGroup id="model.difficulty.other" editable="false">
+          <integerOption id="model.option.startingMoney" value="0"/>
+          <integerOption id="model.option.foundingFatherFactor" value="56"/>
+          <integerOption id="model.option.arrearsFactor" value="700"/>
+          <integerOption id="model.option.unitsThatUseNoBells" value="2"/>
+          <stringOption  id="model.option.tileProduction" value="veryLow" />
+          <percentageOption id="model.option.badRumour" value="37"/>
+          <percentageOption id="model.option.goodRumour" value="17"/>
+        </optionGroup>
+        <optionGroup id="model.difficulty.cheat" editable="false">
+          <integerOption id="model.option.liftBoycottCheat" value="20"/>
+          <integerOption id="model.option.equipScoutCheat" value="20"/>
+          <integerOption id="model.option.equipPioneerCheat" value="20"/>
+          <integerOption id="model.option.landUnitCheat" value="20"/>
+          <integerOption id="model.option.offensiveLandUnitCheat" value="10"/>
+          <integerOption id="model.option.offensiveNavalUnitCheat" value="20"/>
+          <integerOption id="model.option.transportNavalUnitCheat" value="20"/>
+        </optionGroup>
+      </optionGroup>
+
+      <optionGroup id="model.difficulty.custom">
+        <optionGroup id="model.difficulty.immigration">
+          <integerOption id="model.option.crossesIncrement" defaultValue="2"/>
+          <integerOption id="model.option.recruitPriceIncrease" value="30" minimumValue="0" maximumValue="100"/>
+          <integerOption id="model.option.lowerCapIncrease" value="0" minimumValue="0" maximumValue="100"/>
+          <integerOption id="model.option.priceIncrease.artillery" value="100" minimumValue="0" maximumValue="1000"/>
+          <booleanOption id="model.option.priceIncreasePerType" value="true"/>
+          <booleanOption id="model.option.expertStartingUnits" value="false" />
+          <unitListOption  id="model.option.immigrants" maximumNumber="3">
+            <template>
+              <unitOption id="model.option.immigrants.template">
+                <unitType value="model.unit.freeColonist" generate="IMMIGRANTS" />
+                <role value="model.role.default" >
+                  <choice value="model.role.default" />
+                </role>
+                <number value="1" minimumValue="1" maximumValue="1" />
+              </unitOption>
+            </template>
+          </unitListOption>
+        </optionGroup>
+        <optionGroup id="model.difficulty.natives">
+          <integerOption id="model.option.landPriceFactor" value="80" minimumValue="0" maximumValue="100"/>
+          <integerOption id="model.option.nativeConvertProbability" value="10" minimumValue="0" maximumValue="100"/>
+          <integerOption id="model.option.burnProbability" value="10" minimumValue="0" maximumValue="100"/>
+          <integerOption id="model.option.nativeDemands" value="4" minimumValue="0" maximumValue="5"/>
+          <integerOption id="model.option.rumourDifficulty" value="4" minimumValue="0" maximumValue="4"/>
+          <integerOption id="model.option.shipTradePenalty" value="-40" minimumValue="-100" maximumValue="0"/>
+          <integerOption id="model.option.destroySettlementScore" value="-6" minimumValue="-10" maximumValue="0"/>
+          <!-- Whether a player can build a colony on native land without
+               having to buy/steal the land first. -->
+          <stringOption  id="model.option.buildOnNativeLand"
+                         value="model.option.buildOnNativeLand.never">
+            <choice value="model.option.buildOnNativeLand.always" />
+            <choice value="model.option.buildOnNativeLand.first" />
+            <choice value="model.option.buildOnNativeLand.firstAndUncontacted" />
+            <choice value="model.option.buildOnNativeLand.never" />
+          </stringOption>
+          <rangeOption id="model.option.settlementNumber" defaultValue="5" localizedLabels="true">
+            <rangeValue label="verySmall" value="10"/>
+            <rangeValue label="small" value="8"/>
+            <rangeValue label="medium" value="7"/>
+            <rangeValue label="large" value="6"/>
+            <rangeValue label="veryLarge" value="5"/>
+          </rangeOption>
+        </optionGroup>
+        <optionGroup id="model.difficulty.monarch">
+          <integerOption id="model.option.monarchMeddling" value="4" minimumValue="0" maximumValue="10"/>
+          <integerOption id="model.option.taxAdjustment" value="4" minimumValue="0" maximumValue="5"/>
+          <integerOption id="model.option.mercenaryPrice" value="75" minimumValue="10" maximumValue="100"/>
+          <integerOption id="model.option.maximumTax" value="75" minimumValue="50" maximumValue="100"/>
+          <integerOption id="model.option.monarchSupport" value="0" minimumValue="0" maximumValue="4"/>
+          <integerOption id="model.option.treasureTransportFee" value="70" minimumValue="0" maximumValue="100"/>
+          <integerOption id="model.option.interventionBells" value="8000" minimumValue="0" maximumValue="100000" />
+          <integerOption id="model.option.interventionTurns" value="54" minimumValue="20" maximumValue="100" />
+          <unitListOption id="model.option.refSize">
+            <template>
+              <unitOption id="model.option.refSize.template">
+                <unitType value="model.unit.kingsRegular" generate="UNITS" />
+                <role value="model.role.infantry">
+                  <choice value="model.role.infantry" />
+                  <choice value="model.role.cavalry" />
+                </role>
+                <number value="20" minimumValue="0" maximumValue="999" />
+              </unitOption>
+            </template>
+            <unitOption id="model.option.refSize.soldiers">
+              <unitType value="model.unit.kingsRegular" generate="UNITS" />
+              <role value="model.role.infantry">
+                <choice value="model.role.infantry" />
+                <choice value="model.role.cavalry" />
+              </role>
+              <number value="60" minimumValue="0" maximumValue="999" />
+            </unitOption>
+            <unitOption id="model.option.refSize.dragoons">
+              <unitType value="model.unit.kingsRegular" generate="UNITS" />
+              <role value="model.role.cavalry" >
+                <choice value="model.role.infantry" />
+                <choice value="model.role.cavalry" />
+              </role>
+              <number value="30" minimumValue="0" maximumValue="999" />
+            </unitOption>
+            <unitOption id="model.option.refSize.artillery">
+              <unitType value="model.unit.artillery" generate="UNITS" />
+              <role value="model.role.default" />
+              <number value="30" minimumValue="0" maximumValue="999" />
+            </unitOption>
+            <unitOption id="model.option.refSize.menOfWar">
+              <unitType value="model.unit.manOWar" generate="UNITS" />
+              <role value="model.role.default" />
+              <number value="20" minimumValue="0" maximumValue="999" />
+            </unitOption>
+          </unitListOption>
+          <unitListOption id="model.option.interventionForce">
+            <unitOption id="model.option.interventionForce.regulars">
+              <unitType value="model.unit.colonialRegular" generate="UNITS" />
+              <role value="model.role.soldier" />
+              <number value="2" minimumValue="0" maximumValue="999" />
+            </unitOption>
+            <unitOption id="model.option.interventionForce.dragoons">
+              <unitType value="model.unit.colonialRegular" generate="UNITS" />
+              <role value="model.role.dragoon" />
+              <number value="1" minimumValue="0" maximumValue="999" />
+            </unitOption>
+            <unitOption id="model.option.interventionForce.artillery">
+              <unitType value="model.unit.artillery" generate="UNITS" />
+              <role value="model.role.default" />
+              <number value="2" minimumValue="0" maximumValue="999" />
+            </unitOption>
+            <unitOption id="model.option.interventionForce.menOfWar">
+              <unitType value="model.unit.manOWar" generate="UNITS" />
+              <role value="model.role.default" />
+              <number value="2" minimumValue="0" maximumValue="999" />
+            </unitOption>
+          </unitListOption>
+          <unitListOption id="model.option.mercenaryForce">
+            <unitOption id="model.option.mercenaryForce.regulars">
+              <unitType value="model.unit.veteranSoldier" />
+              <role value="model.role.soldier" />
+              <number value="3" />
+            </unitOption>
+            <unitOption id="model.option.mercenaryForce.dragoons">
+              <unitType value="model.unit.veteranSoldier" />
+              <role value="model.role.dragoon" />
+              <number value="3" />
+            </unitOption>
+            <unitOption id="model.option.mercenaryForce.artillery">
+              <unitType value="model.unit.artillery" />
+              <role value="model.role.default" />
+              <number value="3" />
+            </unitOption>
+            <unitOption id="model.option.mercenaryForce.menOfWar">
+              <unitType value="model.unit.manOWar" />
+              <role value="model.role.default" />
+              <number value="2" />
+            </unitOption>
+          </unitListOption>
+        </optionGroup>
+        <optionGroup id="model.difficulty.government">
+          <integerOption id="model.option.badGovernmentLimit" value="4" minimumValue="0" maximumValue="100"/>
+          <integerOption id="model.option.veryBadGovernmentLimit" value="8" minimumValue="0" maximumValue="100"/>
+          <!-- these limits are intentionally higher than 100 %, so they can be effectively disabled -->
+          <integerOption id="model.option.goodGovernmentLimit" value="50" minimumValue="0" maximumValue="150"/>
+          <integerOption id="model.option.veryGoodGovernmentLimit" value="100" minimumValue="0" maximumValue="150"/>
+        </optionGroup>
+        <optionGroup id="model.difficulty.other">
+          <integerOption id="model.option.startingMoney" value="0" minimumValue="0" maximumValue="100000"/>
+          <integerOption id="model.option.foundingFatherFactor" value="56" minimumValue="0" maximumValue="100"/>
+          <integerOption id="model.option.arrearsFactor" value="700" minimumValue="100" maximumValue="1000"/>
+          <integerOption id="model.option.unitsThatUseNoBells" value="2" minimumValue="0" maximumValue="20"/>
+          <stringOption id="model.option.tileProduction" value="veryLow">
+            <choice value="veryLow" />
+            <choice value="low" />
+            <choice value="medium" />
+            <choice value="high" />
+            <choice value="veryHigh" />
+          </stringOption>
+          <percentageOption id="model.option.badRumour" value="37"/>
+          <percentageOption id="model.option.goodRumour" value="17"/>
+        </optionGroup>
+        <optionGroup id="model.difficulty.cheat">
+          <integerOption id="model.option.liftBoycottCheat" value="20"/>
+          <integerOption id="model.option.equipScoutCheat" value="20"/>
+          <integerOption id="model.option.equipPioneerCheat" value="20"/>
+          <integerOption id="model.option.landUnitCheat" value="20"/>
+          <integerOption id="model.option.offensiveLandUnitCheat" value="10"/>
+          <integerOption id="model.option.offensiveNavalUnitCheat" value="20"/>
+          <integerOption id="model.option.transportNavalUnitCheat" value="20"/>
+        </optionGroup>
+      </optionGroup>
+    </optionGroup>
+
+    <optionGroup id="gameOptions">
+      <optionGroup id="gameOptions.map">
+        <!-- The number of turns it takes to sail between Europe and
+             the New World -->
+        <integerOption id="model.option.turnsToSail"
+                       defaultValue="3" minimumValue="1" maximumValue="10"/>
+        <!-- Relax settlement limits -->
+        <integerOption id="model.option.settlementLimitModifier"
+                       defaultValue="0"/>
+        <!-- Enables/disables fog of war -->
+        <booleanOption id="model.option.fogOfWar"
+                       defaultValue="true"/>
+        <!-- Whether to award exploration points or not -->
+        <booleanOption id="model.option.explorationPoints"
+                       defaultValue="false"/>
+        <!-- Whether amphibious moves are allowed. -->
+        <booleanOption id="model.option.amphibiousMoves"
+                       defaultValue="false"/>
+        <!-- Allow trading with empty units. -->
+        <booleanOption id="model.option.emptyTraders"
+                       defaultValue="false"/>
+        <!-- Whether all interactions with a native settlement contact the
+             chief and thus consume the scouting bonus -->
+        <booleanOption id="model.option.settlementActionsContactChief"
+                       defaultValue="false"/>
+        <!-- Missionaries grant visibility and enhance trade and training -->
+        <booleanOption id="model.option.enhancedMissionaries"
+                       defaultValue="false"/>
+        <!-- Per turn probability that a peaceful native settlement
+             with a surplus will decide to offer some of it as a gift. -->
+        <percentageOption id="model.option.giftProbability"
+                          defaultValue="5"/>
+        <!-- Per turn probability that an angry native settlement will
+             decide to demand tribute from an annoying European
+             settlement. -->
+        <percentageOption id="model.option.demandProbability"
+                          defaultValue="10" />
+        <!-- Founding father recruitment continues after declaring
+             independence -->
+        <booleanOption id="model.option.continueFoundingFatherRecruitment"
+                       defaultValue="false"/>
+        <!-- Does the REF "teleport" to its first target or does it
+             sail in? -->
+        <booleanOption id="model.option.teleportREF"
+                       defaultValue="true"/>
+        <!-- Types of starting positions -->
+        <selectOption id="model.option.startingPositions"
+                      defaultValue="0" localizedLabels="true">
+          <selectValue label="model.option.startingPositions.classic"
+                       value="0"/>
+          <selectValue label="model.option.startingPositions.random"
+                       value="1"/>
+          <selectValue label="model.option.startingPositions.historical"
+                       value="2"/>
+        </selectOption>
+        <!-- Initial immigration target. -->
+        <integerOption id="model.option.initialImmigration"
+                       defaultValue="15" minimumValue="0" maximumValue="99"/>
+        <!-- Per turn probability that an angry AI will continue to
+             honour a recent peace treaty -->
+        <percentageOption id="model.option.peaceProbability"
+                          defaultValue="90"/>
+        <!-- Per turn immigration penalty for units in Europe. -->
+        <integerOption id="model.option.europeanUnitImmigrationPenalty"
+                       defaultValue="-4" minimumValue="-100" maximumValue="0"/>
+        <!-- Per turn player immigration bonus. -->
+        <integerOption id="model.option.playerImmigrationBonus"
+                       defaultValue="2" minimumValue="0" />
+        <!-- New recruits in Europe are equipped. -->
+        <booleanOption id="model.option.equipEuropeanRecruits"
+                       defaultValue="true"/>
+      </optionGroup>
+      <optionGroup id="gameOptions.colony">
+        <!-- Is colony bell accumulation capped when 100% rebels achieved? -->
+        <booleanOption id="model.option.bellAccumulationCapped"
+                       defaultValue="true"/>
+        <!-- Capture units under repair when a colony is captured? -->
+        <booleanOption id="model.option.captureUnitsUnderRepair"
+                       defaultValue="false"/>
+        <!-- Does the Customs House sell boycotted goods? -->
+        <booleanOption id="model.option.customIgnoreBoycott"
+                       defaultValue="true"/>
+        <!-- Customs houses can only be constructed in coastal colonies? -->
+        <booleanOption id="model.option.customsOnCoast"
+                       defaultValue="false"/>
+        <!-- Whether experts have connections, producing without raw
+             materials in factories -->
+        <booleanOption id="model.option.expertsHaveConnections"
+                       defaultValue="true"/>
+        <!-- Can colonies be founded during the war of independence? -->
+        <booleanOption id="model.option.foundColonyDuringRebellion"
+                       defaultValue="false"/>
+        <!-- Can colony buildings be completed quickly by paying for the
+             missing goods? -->
+        <booleanOption id="model.option.payForBuilding"
+                       defaultValue="true"/>
+        <!-- Overflow hammer and cross production is preserved? -->
+        <booleanOption id="model.option.saveProductionOverflow"
+                       defaultValue="true"/>
+        <!-- Clear the hammers count if production is changed. -->
+        <booleanOption id="model.option.clearHammersOnConstructionSwitch"
+                       defaultValue="false" />
+        <!-- Whether to educate the least skilled unit first -->
+        <booleanOption id="model.option.allowStudentSelection"
+                       defaultValue="false"/>
+        <!-- Enable upkeep requirement on buildings. -->
+        <booleanOption id="model.option.enableUpkeep"
+                       defaultValue="false"/>
+        <!-- Toggle special production rules for secondary goods. -->
+        <booleanOption id="model.option.onlyNaturalImprovements"
+                       defaultValue="true" />
+        <!-- Enable natural disasters striking colonies. -->
+        <percentageOption id="model.option.naturalDisasters"
+                          defaultValue="0"/>
+      </optionGroup>
+      <optionGroup id="gameOptions.victoryConditions">
+        <!-- Victory condition: Should the player who first defeats
+             the Royal Expeditionary Force win the game? -->
+        <booleanOption id="model.option.victoryDefeatREF"
+                       defaultValue="true"/>
+        <!-- Victory condition: Should a player who first defeats all
+             other european players win the game? -->
+        <booleanOption id="model.option.victoryDefeatEuropeans"
+                       defaultValue="true"/>
+        <!-- Victory condition: Should a player who first defeats all
+             other human players win the game? -->
+        <booleanOption id="model.option.victoryDefeatHumans"
+                       defaultValue="false"/>
+      </optionGroup>
+      <optionGroup id="gameOptions.years">
+        <!-- The very first year of the game. -->
+        <integerOption id="model.option.startingYear"
+                       value="1492" minimumValue="1492" maximumValue="1900" />
+        <!-- The first year in which there are two turns. -->
+        <integerOption id="model.option.seasonYear"
+                       value="1600" minimumValue="1492" maximumValue="1900" />
+        <!-- The year in which owning a colony becomes mandatory. -->
+        <integerOption id="model.option.mandatoryColonyYear"
+                       value="1600" minimumValue="1492" maximumValue="1900" />
+        <!-- The very last year of the game. -->
+        <integerOption id="model.option.lastYear"
+                       value="1850" minimumValue="1492" maximumValue="1900" />
+        <!-- The last year of the game for a colonial player. -->
+        <integerOption id="model.option.lastColonialYear"
+                       value="1800" minimumValue="1492" maximumValue="1900" />
+      </optionGroup>
+    </optionGroup>
+
+    <optionGroup id="mapGeneratorOptions">
+      <optionGroup id="mapGeneratorOptions.import" >
+        <!-- Option for setting a file to be imported (map etc). -->
+        <fileOption id="model.option.importFile"/>
+        <!-- Option for using the terrain imported from a file. -->
+        <booleanOption id="model.option.importTerrain" defaultValue="true"/>
+        <!-- Option for using the bonuses imported from a file. -->
+        <booleanOption id="model.option.importBonuses" defaultValue="false"/>
+        <!-- Option for using the lost city rumours imported from a file. -->
+        <booleanOption id="model.option.importRumours" defaultValue="false"/>
+        <!-- Option for using the settlements imported from a file. -->
+        <booleanOption id="model.option.importSettlements" defaultValue="false"/>
+      </optionGroup>
+      <optionGroup id="mapGeneratorOptions.landGenerator" >
+        <!-- Options for setting the size of the map -->
+        <integerOption id="model.option.mapWidth"
+                       value="40" minimumValue="20" maximumValue="200"/>
+        <integerOption id="model.option.mapHeight"
+                       value="100" minimumValue="20" maximumValue="200"/>
+        <!-- Option for setting the land mass of the map -->
+        <integerOption id="model.option.landMass"
+                       value="25" minimumValue="15" maximumValue="50"/>
+        <!-- Option for setting the type of land generator to be used -->
+        <selectOption id="model.option.landGeneratorType"
+                      defaultValue="0" localizedLabels="true">
+          <selectValue label="model.option.landGeneratorType.classic"
+                       value="0"/>
+          <selectValue label="model.option.landGeneratorType.continent"
+                       value="1"/>
+          <selectValue label="model.option.landGeneratorType.archipelago"
+                       value="2"/>
+          <selectValue label="model.option.landGeneratorType.islands"
+                       value="3"/>
+        </selectOption>
+        <!-- Preferred distance to the edge of the map -->
+        <integerOption id="model.option.preferredDistanceToEdge"
+                       defaultValue="5" minimumValue="1" maximumValue="10"/>
+        <!-- Maximum distance to the edge of the map -->
+        <integerOption id="model.option.maximumDistanceToEdge"
+                       defaultValue="10" minimumValue="5" maximumValue="20"/>
+        <!-- Preferred distance from land to high seas -->
+        <integerOption id="model.option.distanceToHighSea"
+                       defaultValue="4" minimumValue="3" maximumValue="10"/>
+      </optionGroup>
+      <optionGroup id="mapGeneratorOptions.terrainGenerator" >
+        <!-- Minimum latitude -->
+        <integerOption id="model.option.minimumLatitude"
+                       defaultValue="-90" minimumValue="-90" maximumValue="90"/>
+        <!-- Maximum latitude -->
+        <integerOption id="model.option.maximumLatitude"
+                       defaultValue="90" minimumValue="-90" maximumValue="90"/>
+        <!-- Option for setting the number of rivers on the map
+             The value indicates the number of land tile per river tile -->
+        <rangeOption id="model.option.riverNumber"
+                     defaultValue="10" localizedLabels="true">
+          <rangeValue label="verySmall" value="20"/>
+          <rangeValue label="small" value="10"/>
+          <rangeValue label="medium" value="9"/>
+          <rangeValue label="large" value="8"/>
+          <rangeValue label="veryLarge" value="7"/>
+        </rangeOption>
+        <!-- Option for setting the number of mountains on the map
+             The value indicates the number of land tile per mountain tile -->
+        <rangeOption id="model.option.mountainNumber"
+                     defaultValue="10" localizedLabels="true">
+          <rangeValue label="verySmall" value="20"/>
+          <rangeValue label="small" value="10"/>
+          <rangeValue label="medium" value="9"/>
+          <rangeValue label="large" value="8"/>
+          <rangeValue label="veryLarge" value="7"/>
+        </rangeOption>
+        <!-- Option for setting the number of rumours on the map The
+             value indicates the number of land tile per rumour tile -->
+        <rangeOption id="model.option.rumourNumber"
+                     defaultValue="35" localizedLabels="true">
+          <rangeValue label="verySmall" value="50"/>
+          <rangeValue label="small" value="35"/>
+          <rangeValue label="medium" value="30"/>
+          <rangeValue label="large" value="25"/>
+          <rangeValue label="veryLarge" value="20"/>
+        </rangeOption>
+        <!-- Option for setting the percentage of forests on the map -->
+        <rangeOption id="model.option.forestNumber"
+                     defaultValue="50" localizedLabels="true">
+          <rangeValue label="verySmall" value="10"/>
+          <rangeValue label="small" value="30"/>
+          <rangeValue label="medium" value="50"/>
+          <rangeValue label="large" value="70"/>
+          <rangeValue label="veryLarge" value="90"/>
+        </rangeOption>
+        <!-- Option for setting the percentage of bonus tiles on the map -->
+        <rangeOption id="model.option.bonusNumber"
+                     defaultValue="10" localizedLabels="true">
+          <rangeValue label="verySmall" value="5"/>
+          <rangeValue label="small" value="10"/>
+          <rangeValue label="medium" value="13"/>
+          <rangeValue label="large" value="17"/>
+          <rangeValue label="veryLarge" value="20"/>
+        </rangeOption>
+        <!-- Option for setting the humidity of the map -->
+        <rangeOption id="model.option.humidity"
+                     defaultValue="40" localizedLabels="true">
+          <rangeValue label="veryDry" value="25"/>
+          <rangeValue label="dry" value="35"/>
+          <rangeValue label="normal" value="40"/>
+          <rangeValue label="wet" value="55"/>
+          <rangeValue label="veryWet" value="60"/>
+        </rangeOption>
+        <!-- Option for setting the temperature of the map -->
+        <rangeOption id="model.option.temperature"
+                     defaultValue="2" localizedLabels="true">
+          <rangeValue label="cold" value="0"/>
+          <rangeValue label="chilly" value="1"/>
+          <rangeValue label="temperate" value="2"/>
+          <rangeValue label="warm" value="3"/>
+          <rangeValue label="hot" value="4"/>
+        </rangeOption>
+      </optionGroup>
+    </optionGroup>
+  </options>
+</freecol-specification>

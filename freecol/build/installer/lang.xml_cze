@@ -1,0 +1,28 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<!-- ATTENTION: Do not modify this file directly,
+     modify the source file
+         data/strings/FreeColMessages_cs_CZ.properties
+     instead. -->
+<langpack>
+    <str id="FreeCol" txt="FreeCol" />
+    <str id="FreeCol.description" txt="FreeCol aplikace a datové soubory." />
+    <str id="GameManual" txt="Herní manuál" />
+    <str id="GameManual.description" txt="Tento balík obsahuje oficiální herní manuál (k dispozici jen v angličtině)." />
+    <str id="SourceCode" txt="Zdrojový kód" />
+    <str id="SourceCode.description" txt="Zdrojový kód použitý pro kompilaci této distribuci. Tyto soubory jsou určeny vývojářům a hře nepřidávají další funkcionalitu." />
+    <str id="Music" txt="Hudba" />
+    <str id="Music.description" txt="In-game hudba." />
+    <str id="SoundEffects" txt="Zvukové efekty" />
+    <str id="SoundEffects.description" txt="In-game zvukové efekty." />
+    <str id="MovieClips" txt="Filmové klipy" />
+    <str id="MovieClips.description" txt="Tento balík obsahuje filmové klipy, které jsou ve hře přehrávány při zvláštních příležitostech." />
+    <str id="MovieClips.description2" txt="Tento balík obsahuje filmové klipy, které jsou ve hře přehrávány při zvláštních příležitostech. Povolení tohoto balíku nainstaluje filmové klipy na váš počítač. Alternativou je přehrávat filmové klipy přímo z herního CD/DVD." />
+    <str id="Location.Web" txt="V tomto instalátoru nejsou zahrnuty soubory. Povolením tohoto balíku budou automaticky staženy s FreeCol webové stránky." />
+    <str id="FreeColLanguage" txt="Prosím zvolte jazyk, který má být použit ve hře:" />
+    <str id="FreeColLanguage.autodetect" txt="Automaticky zjistit při spuštění hry." />
+    <str id="FreeColLanguage.description" txt="Později lze toto nastavení změnit v menu Nastavení ve hře." />
+    <str id="UserFiles" txt="Prosím zvolte umístění pro uživatelská nastavení a uložené pozice:" />
+    <str id="UserFiles.home" txt="Uživatelův domovský adresář" />
+    <str id="UserFiles.freecol" txt="Adresář aplikace FreeCol (jen pro jednouživatelské instalace)" />
+    <str id="UserFiles.other" txt="Určit vlastní adresář" />
+</langpack>

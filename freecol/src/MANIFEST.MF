@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.9.2
+Created-By: FreeCol Team
+Main-Class: net.sf.freecol.FreeCol
+Product-Name: FreeCol
+Package-Title: FreeCol
+Package-Version: 6b10521
+Package-Vendor: FreeCol Team
+Class-Path: jars/miglayout-swing-4.2.jar jars/miglayout-core-4.2.jar j
+ ars/commons-cli-1.1.jar jars/cortado-0.6.0.jar jars/jogg-0.0.7.jar ja
+ rs/jorbis-0.0.15.jar
+

@@ -1,0 +1,1115 @@
+\documentclass[12pt]{book}
+\usepackage[T1]{fontenc}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{index}
+\usepackage[colorlinks=true,hyperindex=true]{hyperref}
+\makeindex
+
+\begin{document}
+\author{\href{http://www.freecol.org/team-and-credits.html}{The FreeCol Team}}
+\title{FreeCol Documentation\\Developer Guide for Version v0.10.7}
+\maketitle{}
+
+\tableofcontents
+\newpage
+
+
+\hypertarget{How to become a FreeCol developer}
+            {\chapter{How to become a FreeCol developer}}
+
+
+\hypertarget{The goal of our project}{\section{The goal of our project}}
+
+We are aiming towards making a clone of the old computer
+classic "Sid Meier's Colonization".
+
+New features should in general not be added before we reach
+FreeCol 1.0.0, unless they are implemented as optional features
+using the class "GameOptions".
+
+(Note that if you add a game option, add a default value setting in
+FreeColServer.fixGameOptions so that use of the option does not break
+old games.  The same applies to client-options,
+in ClientOptions.fixClientOptions.)
+
+The big exception to this rule is the our client-server model that
+will allow players from all over the world to compete in a game
+of FreeCol.
+
+Read more \href{http://www.freecol.org/about.html}{here}.
+
+
+\hypertarget{SourceForge project site}{\section{SourceForge project site}}
+
+You should visit and get familiar with our project site at
+\href{https://sourceforge.net/projects/freecol/}{SourceForge}.
+
+This site contains trackers for bugs and features requests,
+a task manager and lots of other important services.
+
+We expect developers to use this site regularly when making
+changes to the codebase.
+
+
+\hypertarget{How to get tasks}{\section{How to get tasks}}
+
+You may find available tasks in the bug and feature request trackers
+--- just grab any task you are planning to do (in the immediate
+future) by posting a comment telling that you intend to do this task.
+Please create a new bug report/feature request for tasks that are not
+listed here (and before you start working on them).  Please remember
+to post a comment when you are done, or if you are unable to complete
+the work.
+
+Major changes to the code should be discussed on the developer's
+mailing list before they are implemented.  This is to ensure that your
+work will not be in vain if somebody else knows a better way of doing
+it.
+% [Currently moot, we have no working roadmap] 
+% It is also a good idea to discuss changes that is not directly
+% related to the next release on our
+% \href{http://www.freecol.org/index.php?section=18}{roadmap}.
+
+
+\hypertarget{How to use the trackers}{\section{How to use the trackers}}
+
+If you are a full developer (i.e. with write privileges), this is how
+a bug tracker item should be updated while you are working:
+
+\begin{enumerate}
+\item Assign yourself to the tracker item before you start working on it.
+
+\item Please verify that no duplicate entry has been posted.
+
+\begin{itemize}
+\item If you can find a duplicate and the bug has \emph{not} been
+  fixed, please set its status to ``Closed-Duplicate'', its milestone
+  to ``Unspecified'', and post a comment with the ID of the other
+  tracker item (add a comment to the other tracker item as well).
+
+\item If you can find a duplicate and the bug has been fixed, use the
+  ``Closed-out-of-date'' status to close the tracker item.
+\end{itemize}
+
+\item Set the item's status to ``Open-Needs-Info'' if you require
+  input from the person originally submitting the item.
+
+\item Set the item's status to ``Open-WWC1D'' if the fix requires
+  determining what Col1 did (``What Would Col1 Do?'').
+
+\item If you are unable to complete the item: assign it back to
+  ``None'' and make a comment describing any problems relevant for
+  another developer.  The milestone of open bugs should be ``Current''.
+
+\item If you successfully commit a fix for a bug, set the milestone to
+  ``Fixed-trunk'', the status to ``Closed'' if you are certain of the
+  fix, or ``Pending-Fixed'' if there is some uncertainty and/or
+  further comment is welcome.  Please also write a comment telling
+  that the work is done, and it is helpful to refer to any commit/s
+  where relevant changes occurred.
+\end{enumerate}
+
+
+This is how a feature request item should be updated while you are
+working:\emph{(Needs updating since the sourceforge migration)}
+
+\begin{enumerate}
+\item Assign yourself to the tracker item before you start working on it.
+
+\item Please verify that no duplicate entry has been posted.
+
+\begin{itemize}
+\item If you can find a duplicate and the feature has NOT been
+  implemented: Please use the group "Duplicated", set the status to
+  "Closed" and post a comment with the ID of the other tracker item
+  (add a comment to the other tracker item as well).
+
+\item If you can find a duplicate and the feature has been
+  implemented: Use the group "Out of date" and close the tracker item.
+\end{itemize}
+
+\item Set the item's status to pending if you require input from the person
+   originally submitting the item.
+
+\item Set the group to "Accepted" if you decide that this feature
+   request should be added before the next release (please discuss on
+   the mailing list if there are any reasons not to include this
+   feature).
+
+\item If you are unable to complete the item (or you think someone else
+   should be implementing it): Assign it to "None" and make a comment
+   describing any issues relevant for another developer.
+
+\item After you have completed the work: Set the group to "Added"
+   and the status to "Closed". Please also write a comment telling that
+   the work is done.
+\end{enumerate}
+
+You can use any suitable canned response instead of writing a comment.
+
+
+\hypertarget{Mailing lists}{\section{Mailing lists}}
+
+Our primary means of communication is the developers mailing list:
+freecol-developers@lists.sourceforge.net
+
+You can (and should) subscribe to this list
+\href{http://lists.sourceforge.net/lists/listinfo/freecol-developers}{here}.
+
+
+\hypertarget{Git}{\section{Git}}
+
+Git is the tool we are using to manage the changes within our source
+code tree.  This system makes it possible for all developers to have
+their own full copy of the project, and supports synchronization
+between the central version of the code (`the repository') and the
+local copies.  Git also makes it possible to undo changes that were
+previously committed to the repository.
+
+\href{http://www.freecol.org/documentation/git.html}{This page}
+describes how you can start using Git and get a working copy of the
+code (without commit privileges).
+
+You can use \verb+git pull+ for updating an existing working
+copy.  Changes can only be applied by those who have write-access, so
+you may need to either send the changes to the developer mailing list
+or use the patch tracking system.
+
+
+\hypertarget{Compiling the code}{\section{Compiling the code}}
+
+We use the \textit{Apache Ant} build system for compiling the
+game. You can get a copy of this program
+\href{http://ant.apache.org}{here}. After it has been installed, you
+simply type \verb+ant+ in the top directory of your "working copy" in
+order to compile the game.  The file \verb+FreeCol.jar+ will then be
+generated, and you can start the game simply by writing:
+
+\verb+java -Xmx256M -jar FreeCol.jar+
+
+
+\hypertarget{Using an IDE}{\section{Using an IDE}}
+
+Most FreeCol developers don't seem to use an IDE, so there is no
+``official'' setup available. However, in the config folder, you can
+find contributed configuration files for both Netbeans and Eclipse.
+The following information has also been contributed by players that do
+use an IDE.
+
+\hypertarget{Using Eclipse}{\subsection{Using Eclipse (thanks to ``nobody'')}}
+
+\emph{This section is out of date since we migrated from svn to git.
+Leaving as-is for now in the hope the procedure is similar.}
+
+Since I'm quite a fan of the Eclipse IDE, I thought I would share my
+experience with building FreeCol in Eclipse on the Windows platform.
+
+I assume that you have installed JDK, Eclipse and SVN (both Eclipse
+plug-in and stand alone client). Make sure that your path environment
+variable contains both the JDK and SVN client directories.
+
+First, add a new repository location in Eclipse in the SVN
+Repositories view, for the
+\href{https://svn.freecol.org/svnroot/freecol/freecol/}{FreeCol
+  repository}. Leave all the other settings unchanged and click
+Finish.
+
+Select either 'trunk' or the branch you want to build, right-click on
+it and select 'Find/Check out as...'
+
+In the Check Out dialog, make sure the option 'Check out as a project
+configured using the New Project Wizard' is selected, and click
+Finish.
+
+Select 'Java Project' in the 'Java' category, and click Next. Name
+your project (FreeCol is an obvious choice). Leave all the other
+options as is, and click Finish.
+
+Eclipse starts to copy all the files from the repository. Depending on
+the server and your connection, this may take from 1-10 minutes. Get a
+cup of coffee or a glass of cold milk while you wait.
+
+After downloading has finished, you should see your new project in the
+Project Explorer. Right-click on the project and select 'Configure
+Build Path...' from the 'Build Path' sub-menu.
+
+First off, let's make sure that Eclipse has detected the source file
+folder 'src'. Select the 'Source' tab, and make sure there is an entry
+with the name [project name]/src. If not, add it. Don't close the
+window, as we need to make other changes here.
+
+Next, we have to add the external jar files to the project, so Eclipse
+can properly verify the code. Select the 'Libraries' tab, and click
+the 'Add JARs...' button. Browse to the 'jars' subfolder in the
+FreeCol project, and select all the jar-files by holding down the
+CTRL-key. Click OK, and OK again.
+
+Eclipse should now be able to properly build the project without any
+errors. If not, fix it. However, we don't actually want Eclipse to do
+this, since we instead want to use the Ant build file from the
+repository.
+
+Right-click on the project, and select 'Properties...' all the way at
+the bottom of the menu. Select 'Builders' in the menu to the left. You
+should now see one entry in the list, named 'Java Builder'. This is
+the default, built-in java builder in Eclipse. Click 'New...' to
+create our Ant builder instead. Select 'Ant Builder' from the list and
+click OK.
+
+In the configuration dialog, click the 'Browse Workspace...' button
+the 'Buildfile' section. Click on the FreeCol project, and select
+'build.xml' from the list on the right. Click OK. Click OK again, and
+the Ant builder is created. You can keep both builders active at the
+same time, but if you want to save processing power, you can uncheck
+the 'Java Builder'. Eclipse will warn you about doing this, but don't
+be alarmed, you can always turn it on again.
+
+Click OK. If you have activated Automatic building in Eclipse, Ant
+should start building the project right away. Possible errors could
+be, that Ant cannot access either the java compiler or a stand-alone
+svn client. In either of these cases, make sure you added the right
+directories to your path environment variable.
+
+If the build went succesfull; congratulations. Open the project folder
+in the file system, and you will see 'FreeCol.jar' in the root
+folder. Since this is an executable jar file, you can double click it
+and launch the game right away. Enjoy.
+
+
+\hypertarget{Using Netbeans}{\subsection{Using Netbeans (thanks to ``xsainnz'')}}
+
+\begin{itemize}
+\item In Netbeans, Select File > New Project
+\item New Project Window
+\begin{itemize}
+\item Select Java Category, Java Free-Form Project
+\end{itemize}
+\item Name and Location Panel
+\begin{itemize}
+\item In the Location box, browse to where ever you put the source (.../freecol/)
+\item It should auto detect the build file location, project name and folder
+\end{itemize}
+\item Build and Run Actions Panel
+\begin{itemize}
+\item Leave the settings as they are
+\end{itemize}
+\item Source Package Folders Panel
+\begin{itemize}
+\item Add the 'src' folder as Source packages and 'tests' as Test packages
+\end{itemize}
+\item Java Sources Panel
+\begin{itemize}
+\item Click 'Add JAR/Folder,
+\item browse into the jars folder
+\item select all of the jars
+\item click open.
+\end{itemize}
+\item Click Finish
+\end{itemize}
+
+\hypertarget{Code documentation}{\section{Code documentation}}
+
+Our primary code documentation is the Javadoc generated
+documentation. You can convert this documentation to HTML by
+typing \verb+ant javadoc+. The directory "javadoc" will then be
+created and you can start watching the documentation by opening
+"index.html" from that directory.
+
+There is also some additional documentation
+\href{http://www.freecol.org/documentation/}{here}.
+
+
+\hypertarget{Quality of code}{\section{Quality of code}}
+
+First of all, your code will be read and modified by several
+different developers.  Therefore it is important to create a
+block of JavaDoc documentation with all methods/classes/packages
+you implement.
+
+You should also spend more time thinking about the overall
+structure than when you are working alone.
+
+Please read the \href{http://java.sun.com/docs/codeconv/}{Java Code
+  Conventions}.  This will only take about 15 minutes and will really
+help you write beautiful code.
+
+And one more thing.  Please configure your editor in such a way
+that code indentations result in the insertion of 4 spaces, and avoid
+using tabs.
+
+
+\hypertarget{How to build a FreeCol release}{\chapter{How to build a FreeCol release}}
+
+\begin{itemize}
+
+\item Make sure that all relevant changes have been committed to the
+  branch you are about to release.  If you plan to upload the JavaDoc
+  (see below) make sure that \verb+ant javadoc+ is not finding errors
+  before branching.
+
+\item Merge translations from trunk if the release is not made from
+  trunk, with \verb+ant merge-translations+.  Skip this step if the
+  localization files are essentially the same as the ones in trunk (we
+  try to ensure this).  Make sure they are up to date, however.
+
+\item Lately we release from the git master and continue to work from
+  there, so there is no urgent need to create a special release branch.
+
+\item Change the \verb+FREECOL_VERSION+ constant in FreeCol.java to
+  match the release version.
+
+\item Likewise, change the value of the \verb+fcversion+ macro in
+  doc/FreeCol.tex to the release version.
+
+\item Start a clean compile, run all tests and verify the
+  specification(s). You can do that by calling \verb+ant prepare-commit+.
+ 
+\item Commit the changes.
+
+\item Call \verb+ant dist+ in order to build all packages. You will be
+  prompted for the version of this release. Alternatively, you can
+  specify the version on the command line, by saying something like
+\begin{verbatim}ant -Dfreecol.version=0.9.0-alpha2 dist
+\end{verbatim}
+  instead (replace 0.9.0-alpha2 with the correct version, of
+  course). It might be necessary to increase the memory available for
+  ant, for example by setting the environment variable
+  \verb|ANT_OPTS="-Xms256m -Xmx256m"|.  Errors in language packs
+  only apply to the installer and need not delay the overall release.
+
+\item Install one of the generated packages and verify that you can play
+  normally for at least five turns. Other good tests include loading a
+  saved game and running the game in debug mode for a hundred turns or
+  so. It might also be a good idea to compile the game from one of the
+  source packages.
+
+\item Upload the packages to \verb+sftp://frs.sourceforge.net/+ and ensure that
+  all packages get uploaded. You can use a script similar to this:
+
+\begin{verbatim}
+#!/bin/sh
+
+FREECOL_VERSION=0.9.0-alpha2
+PREFIX=freecol-$FREECOL_VERSION
+USERNAME=myUserName
+
+cd dist
+
+sftp $USERNAME,freecol@frs.sourceforge.net <<FILE
+cd /home/frs/project/f/fr/freecol/freecol
+mkdir $PREFIX
+cd $PREFIX
+put $PREFIX-installer.exe
+put $PREFIX-installer.jar
+put $PREFIX-mac.tar.bz2
+put $PREFIX-src.zip
+put $PREFIX.zip
+exit
+FILE
+\end{verbatim}
+
+\item Compile the feature list for the news announcement (use the
+  tracker and/or run the previous version for comparison).  Include
+  information on savegame compatibility with previous versions on all
+  messages.
+
+\item The \texttt{freecol.org} website is in transition to a new
+  format.  For now, you will need to edit the \texttt{index.html},
+  \texttt{news/index.html} and \texttt{download.html} files by hand.
+
+%\item Update the release number in the "Version"-mambot at
+%  \texttt{http://www.freecol.org/administrator} > Mambots > Site Mambots > Version.
+%
+%\item Publish/unpublish "Download Unstable Version" in the main menu
+%  (Front Page Manager).  This page should only be displayed if the
+%  unstable version is the latest release.
+%
+%\item Copy the previous release announcement (Content > All Content
+%  Items), rename and update the copy for the current release, and
+%  publish it to the website.  Retain the download button but fix the
+%  version number on its label.
+%
+%\item Remove the download button from the previous release news item.
+
+\item Post release messages on our mailing lists: developers,
+  translators and users.  Beware that you may have to be subscribed to
+  some lists to be able to post.The addresses are:
+  \texttt{freecol-{developers,translators,users}@lists.sourceforge.net}
+
+\item Post a release message to the FreeCol
+  \href{https://sourceforge.net/p/freecol/discussion/141200/}{forum}.
+
+\item Post a news item on the FreeCol project \href{https://sourceforge.net/p/freecol/news/}{news} page on sourceforge.
+
+
+\end{itemize}
+
+The following items can be omitted for unstable releases:
+
+\begin{itemize}
+
+\item Go to the bug tracker and create a new milestone (``Edit
+  Milestones'') called ``Fixed\_\emph{release}''
+  (e.g. ``Fixed\_0.10.2'').  Select the ``Fixed\_trunk'' group and do
+  a mass edit (the pencil icon in the top right of the bug tracker
+  list) and move all bugs to the new milestone.
+
+\item Do the corresponding action in other ticket categories that
+  have distinct release milestones.
+
+\item Regenerate the documentation (with \verb+ant manual+) and
+  JavaDoc (with \verb+ant javadoc+) and update JavaDoc and User
+  Documentation on \href{freecol.org}{freecol.org}. You can do that
+  with a script like this:
+
+\begin{verbatim}
+#!/bin/sh
+
+USERNAME=myUserName
+
+cd doc
+
+{
+    echo cd /home/project-web/freecol/htdocs
+    echo put FreeCol.pdf docs/
+    echo put FreeCol.html docs/
+    echo put images/* docs/images
+    find javadoc/ -printf "put %p %p\n"
+} | sftp $USERNAME,freecol@web.sf.net
+
+
+\end{verbatim}
+
+Note that generating FreeCol.html requires \verb+htlatex+
+to be installed.
+
+%\item Create news items at \href{Linuxgames.com}{Linuxgames.com},
+%  \href{linux-gamers.com}{linux-gamers.com} and
+%  \href{happypenguin.org}{happypenguin.org}.
+
+\end{itemize}
+
+
+\hypertarget{Missing features}{\chapter{Missing features}}
+
+We know that FreeCol does not yet emulate all features of the original
+game. In particular, the initial contact with other nations differs
+considerably from that in the original game. At some point, we will
+fix this, as far AI players are concerned. In a multi-player game,
+however, European nations played by other humans will never behave
+like the AI nations in the original game.
+
+Other missing features include the intervention force. You can report
+any missing feature as a bug.
+
+Since we do not have access to the source code of the original game,
+we can only guess at the algorithms used to calculate production,
+combat results, bells required to elect a founding father and so
+on. In some cases, players have reverse-engineered the algorithm. If
+you know of some calcuation in FreeCol that differs from that of the
+original game, please tell us about it.
+
+We know that the calculation of the player's score differs from that
+of Colonization, and we will fix that issue.
+
+We also know that the calculation of production differs, but we lack
+the necessary data to fix the issue. If you have further information,
+please contribute by telling us about your conclusions.
+
+
+\hypertarget{Colonization production reports}
+            {\section{Colonization production reports}}
+
+
+All production numbers are given for colonists and experts for the
+production of the goods (col/ex). When adding to the list, please give
+all relevant data, particularly the difficulty level, production bonus
+of the colony and all relevant founding fathers.
+
+\begin{itemize}
+
+\item Difficulty: viceroy, colony production bonus: 0
+
+\begin{tabular}{lr@{ / }r}
+Food production:\\
+
+Hills: & 2 & 4\\
+Conifer forest: & 2 & 4\\
+Broadleaf forest: & 2 & 4\\
+\bigskip
+Plains / minor river / plowed: & 7 & 9\\
+
+
+Lumber production:\\
+
+Conifer forest: & 6 & 12\\
+Broadleaf forest: & 4 & 8\\
+Conifer forest / road: & 8 & 14\\
+\end{tabular}
+
+
+\item Difficulty viceroy, colony production bonus: 1
+
+\begin{tabular}{lr@{ / }r}
+Food production:\\
+
+Hills: & 3 & 6\\
+Conifer forest: & 3 & 6\\
+Broadleaf forest: & 3 & 6\\
+\bigskip
+Plains / minor river / plowed: & 8 & 11\\
+
+Lumber production:\\
+
+Conifer forest: & 8 & 16\\
+Broadleaf forest: & 6 & 12\\
+Conifer forest / road: & 10 & 18\\
+\end{tabular}
+
+\end{itemize}
+
+
+
+\hypertarget{Changing the Rules}{\chapter{Changing the Rules}}
+
+We would like to make FreeCol configurable, so that the game engine
+becomes capable of emulating many similar games. For this purpose,
+we have made many of the game's features configurable.
+
+At some point in the future, we will probably add a special rule set
+editor, but at the moment, your only option is to edit the file
+specification.xml directly. This file defines the abilities of units,
+founding fathers, buildings, terrain types, goods and equipment, for
+example. You can find this file in the \textit{data/freecol} directory.
+
+This is still work in progress, however, and the schema for the rule
+set certain to change again in the future. If you wish to develop your
+own rule set, you will have to monitor FreeCol development closely.
+
+This having been said, we are particularly interested in hearing about
+problems caused by your changes to the rule set. Some dialogs might be
+unable to display more types of goods than are currently defined, for
+example. Or other dialogs might not recognize your new Minuteman unit
+as an armed unit. Please help us improve FreeCol by telling us about
+such problems.
+
+If you have a working rule set that adds a new flavour to the game, we
+will gladly distribute it along with our default rule set. If you have
+ideas that can not currently be implemented, we will probably try to
+remove these limitations.
+
+If you try to modify the rule set, you are strongly encouraged to
+check whether the result is still valid. You can do this by validating
+the result with the command \verb$ant validate$.
+
+
+\hypertarget{Modifiers and Abilities}{\section{Modifiers and Abilities}}
+
+Most of the objects defined by the rule set can be customized via
+modifiers and abilities.  Abilities are boolean values (``true'' or
+``false''). If the value is not explicitly stated, it defaults to
+true. If an ability is not present, it defaults to false. Modifiers
+define a bonus or penalty to be applied to a numeric value, such as
+the number of goods produced by a unit. The modifier may be an
+additive, multiplicative or a percentage modifier. Modifiers default
+to ``identity'', which means they have no effect.
+
+The code also checks that all abilities and modifiers it uses are
+defined by the specification. Therefore, you must define all of them,
+even if you do not use them. You can do this by setting their value to
+the default value, e.g. ``false'' in the case of an ability, or ``0''
+in the case of an additive modifier.
+
+\newcommand{\ability}[1]{\index{#1}\index{Ability!#1}\hypertarget{#1}{\vspace{1em}\noindent\textbf{#1}}}
+\newcommand{\modifier}[1]{\index{#1}\index{Modifier!#1}\hypertarget{#1}{\vspace{1em}\noindent\textbf{#1}}}
+\newcommand{\affectsPlayer}{\\\textit{Affects: Player\\Provided by:
+    Nation, Nation Type, Founding Father}}
+\newcommand{\affectsUnit}{\\\textit{Affects: Unit\\Provided by:
+    Nation, Nation Type, Founding Father, Unit Type, Equipment Type}}
+\newcommand{\affectsBuilding}{\\\textit{Affects: Building\\Provided by:
+    Building Type}}
+\newcommand{\affectsColony}{\\\textit{Affects: Colony\\Provided by:
+    Map}}
+\newcommand{\affectsColonyTwo}{\\\textit{Affects: Colony\\Provided by:
+    Building Type, Nation, Nation Type, Founding Father}}
+\newcommand{\affectsTile}{\\\textit{Affects: Tile\\Provided by:
+    Tile Type}}
+
+
+\ability{model.ability.addTaxToBells}
+\affectsPlayer
+
+The player adds the current tax rate as a bonus to bells
+production. The bonus is modified every time the tax increases or
+decreases.
+
+\ability{model.ability.alwaysOfferedPeace}
+\affectsPlayer
+
+The player is always offered peace in negotiations with AI players.
+
+\ability{model.ability.ambushBonus}
+\affectsUnit
+
+The unit is granted an ambush bonus equal to the terrain's defence value.
+
+\ability{model.ability.ambushPenalty}
+\affectsUnit
+
+The unit suffers an ambush penalty equal to the terrain's defence value.
+
+\ability{model.ability.autoProduction}
+\affectsBuilding
+
+The building needs no units to produce goods, and will never produce
+more goods than can be stored in the colony.
+
+\ability{model.ability.automaticEquipment}
+\affectsUnit
+
+The unit automatically picks up equipment if attacked.
+
+\ability{model.ability.automaticPromotion}
+\affectsUnit
+
+A unit that can be promoted will always be promoted when successful in
+battle.
+
+\ability{model.ability.betterForeignAffairsReport}
+\affectsPlayer
+
+The player is provided with more information about foreign powers.
+
+\ability{model.ability.bombard}
+\affectsUnit
+
+The unit is able to bombard other units.
+
+\ability{model.ability.bombardShips}
+\affectsBuilding
+
+The building has the ability to bombard enemy ships on adjacent tiles.
+
+\ability{model.ability.bornInColony}
+\affectsUnit
+
+The unit can be born in a colony, provided that enough food is available.
+
+\ability{model.ability.bornInIndianSettlement}
+\affectsUnit
+
+The unit can be born in an Indian settlement, provided that enough food is available.
+
+\ability{model.ability.build}
+\affectsBuilding
+
+The building can build units or equipment.
+
+\ability{model.ability.buildCustomHouse}
+\affectsPlayer
+
+The player can build custom houses.
+
+\ability{model.ability.buildFactory}
+\affectsPlayer
+
+The player can build factories.
+
+\ability{model.ability.canBeCaptured}
+\affectsUnit
+
+The unit can be captured. Land units that can not be captured are
+destroyed, naval units that can not be captured are either sunk or
+damaged.
+
+\ability{model.ability.canBeEquipped}
+\affectsUnit
+
+The unit can be equipped.
+
+\ability{model.ability.canNotRecruitUnit}
+\affectsPlayer
+
+The player can not recruit specified units.
+
+\ability{model.ability.captureEquipment}
+\affectsUnit
+
+The unit can capture equipment from another unit.
+
+\ability{model.ability.captureGoods}
+\affectsUnit
+
+The unit can capture goods from another unit.
+
+\ability{model.ability.captureUnits}
+\affectsUnit
+
+The unit can capture enemy units.
+
+\ability{model.ability.carryGoods}
+\affectsUnit
+
+The unit can transport goods.
+
+\ability{model.ability.carryTreasure}
+\affectsUnit
+
+The unit can transport treasures, not treasure trains.
+
+\ability{model.ability.carryUnits}
+\affectsUnit
+
+The unit can transport other units.
+
+\ability{model.ability.convert}
+\affectsUnit
+
+The unit is a native convert.
+
+\ability{model.ability.dressMissionary}
+\affectsBuilding
+
+The building can commission missionaries.
+
+\ability{model.ability.electFoundingFather}
+\affectsPlayer
+
+The player can elect Founding Fathers.
+
+\ability{model.ability.expertMissionary}
+\affectsUnit
+
+The unit is an expert missionary, but not necessarily commissioned.
+
+\ability{model.ability.expertPioneer}
+\affectsUnit
+
+The unit is an expert pioneer, but not necessarily equipped with tools.
+
+\ability{model.ability.expertScout}
+\affectsUnit
+
+The unit is an expert scout, but not necessarily equipped with horses.
+
+\ability{model.ability.expertSoldier}
+\affectsUnit
+
+The unit is an expert soldier, but not necessarily equipped with muskets.
+
+\ability{model.ability.expertsUseConnections}
+\affectsPlayer
+
+Experts working in factories can produce a small amount of goods even
+if the raw materials are not available in the colony.
+
+\ability{model.ability.export}
+\affectsBuilding
+
+The building can export goods to Europe directly.
+
+\ability{model.ability.foundColony}
+\affectsUnit
+
+The unit can found new colonies.
+
+\ability{model.ability.foundInLostCity}
+\affectsUnit
+
+The unit may be generated as the result of exploring a Lost City Rumour.
+
+\ability{model.ability.hasPort}
+\affectsColony
+
+The colony has access to at least one water tile. This ability can not
+be set by the specification, but it can be used as a required ability.
+
+\ability{model.ability.ignoreEuropeanWars}
+\affectsPlayer
+
+The player will not be affected by the Monarch's declarations of war.
+
+\ability{model.ability.improveTerrain}
+\affectsUnit
+
+The unit is able to improve terrain.
+
+\ability{model.ability.independenceDeclared}
+\affectsPlayer
+
+The player has declared independence.
+
+\ability{model.ability.mercenaryUnit}
+\affectsUnit
+
+The unit may be offered as a mercenary unit.
+
+\ability{model.ability.missionary}
+\affectsUnit
+
+The unit is able to establish missions and incite unrest in native
+settlements.
+
+\ability{model.ability.moveToEurope}
+\affectsTile
+
+Units on the tile are able to move to Europe.
+
+\ability{model.ability.multipleAttacks}
+\affectsUnit
+
+The unit can attack more than once.
+
+\ability{model.ability.native}
+\affectsUnit
+
+The unit is a native unit.
+
+\ability{model.ability.navalUnit}
+\affectsUnit
+
+The unit is a naval unit.
+
+\ability{model.ability.pillageUnprotectedColony}
+\affectsUnit
+
+The unit is able to steal goods from and destroy buildings in an
+unprotected colony.
+
+\ability{model.ability.piracy}
+\affectsUnit
+
+The unit is a privateer.
+
+\ability{model.ability.produceInWater}
+\affectsBuilding
+
+The building enables units to produce on water tiles.
+
+\ability{model.ability.refUnit}
+\affectsUnit
+
+The unit can be part of the Royal Expeditionary Force.
+
+\ability{model.ability.repairUnits}
+\affectsBuilding
+
+The building can repair units.
+
+\ability{model.ability.royalExpeditionaryForce}
+\affectsPlayer
+
+The player is a Royal Expeditionary Force.
+
+\ability{model.ability.rumoursAlwaysPositive}
+\affectsPlayer
+
+The player will always get positive results from exploring Lost City
+Rumours.
+
+\ability{model.ability.scoutForeignColony}
+\affectsUnit
+
+The unit can scout out foreign colonies.
+
+\ability{model.ability.scoutIndianSettlement}
+\affectsUnit
+
+The unit can scout out native settlements.
+
+\ability{model.ability.selectRecruit}
+\affectsPlayer
+
+The player can select a unit to recruit in Europe. This also applies
+to units generated as a result of finding a Fountain of Youth.
+
+\ability{model.ability.teach}
+\affectsBuilding
+
+The building enables experts to teach other units. However, the
+building may place limits on the experience level of teachers.
+
+\ability{model.ability.tradeWithForeignColonies}
+\affectsPlayer
+
+The player may trade goods in foreign colonies.
+
+\ability{model.ability.undead}
+\affectsUnit
+
+The unit is an undead unit (used only in revenge mode).
+
+
+
+
+
+\modifier{model.modifier.bombardBonus}
+\affectsPlayer
+
+The player's units are granted a bombard bonus when attacking.
+
+\modifier{model.modifier.buildingPriceBonus}
+\affectsPlayer
+
+The player can build or buy buildings at a reduced price.
+
+\modifier{model.modifier.defence}
+\affectsUnit
+
+The unit has a defence bonus or penalty.
+
+\modifier{model.modifier.immigration}
+\textit{Affects: Player\\Provided by: Goods Type}
+
+Goods of this type contribute to the player's immigration points.
+
+\modifier{model.modifier.landPaymentModifier}
+\affectsPlayer
+
+The player can buy Indian land at a reduced price.
+
+\modifier{model.modifier.liberty}
+\textit{Affects: Player\\Provided by: Goods Type}
+
+Goods of this type contribute to the colony's and the owning player's
+liberty points.
+
+\modifier{model.modifier.lineOfSightBonus}
+\affectsUnit
+
+The unit has an increased line of sight.
+
+\modifier{model.modifier.minimumColonySize}
+\affectsColonyTwo
+
+The population of the colony can not be voluntarily reduced below this
+number. The modifier does not in any way affect a population reduction
+due to starvation or other events.
+
+\modifier{model.modifier.movementBonus}
+\affectsUnit
+
+The unit has an increased movement range.
+
+\modifier{model.modifier.nativeAlarmModifier}
+\affectsPlayer
+
+The player generates less native alarm.
+
+\modifier{model.modifier.nativeConvertBonus}
+\affectsPlayer
+
+The player has a greater chance of converting natives.
+
+\modifier{model.modifier.nativeTreasureModifier}
+\affectsPlayer
+
+The player generates greater treasures when destroying native settlements.
+
+\modifier{model.modifier.offence}
+\affectsUnit
+
+The unit has an offence bonus or penalty.
+
+\modifier{model.modifier.religiousUnrestBonus}
+\affectsPlayer
+
+The player generates greater religious unrest in Europe.
+
+\modifier{model.modifier.sailHighSeas}
+\affectsUnit
+
+The unit's travel time between Europe and the New World is reduced.
+
+\modifier{model.modifier.tradeBonus}
+\affectsPlayer
+
+Prices in the player's market remain stable for longer.
+
+\modifier{model.modifier.treasureTransportFee}
+\affectsPlayer
+
+The player pays a smaller fee for transporting treasures to Europe.
+
+\modifier{model.modifier.warehouseStorage}
+\affectsBuilding
+
+The building increases the capacity of the warehouse.
+
+\hypertarget{Mods}{\chapter{Mods}}
+
+FreeCol packages a number of simple modifications to the FreeCol rules
+and resources, generally known as \emph{mods}.  The standard mods live
+in \texttt{.../data/mods}.  Users can add their own mods to a
+\texttt{mods} directory under their main data directory.
+
+A mod consists of a directory that includes at minimum a file
+\texttt{mod.xml}, a file \texttt{FreeColMessages.properties}, and
+other files that implement the required changes.  \texttt{mod.xml}
+simply contains: \texttt{<mod id="}\emph{identifier}\texttt{" />}
+where the identifier is some unique name (distinct from other existing
+mods).  The \texttt{FreeColMessages.properties} file should contain at
+minimum entries for \texttt{mod.}\emph{identifier}\texttt{.name} 
+and \texttt{mod.}\emph{identifier}\texttt{.shortDescription}, so that
+the mod selection dialog can display the mod correctly.  The messages
+file should also contain other messages needed by the mod.
+
+Many mods define extra resources.  If so, a
+\texttt{resources.properties} file will be needed, and similarly files
+for the resources involved.  For example, the ``example'' mod defines
+a ``milkmaid'' unit, which needs an image, so the example mod
+directory contains an image file for the milkmaid, and a reference to
+this file in \texttt{resources.properties}.
+
+Most mods change the specification.  This is done in a
+\texttt{specification.xml} file.  This file is in the same general
+format as the existing freecol rule sets, but does not attempt to
+provide a comprehensive set.  The first non-comment line should be:
+\texttt{<freecol-specification id="}\emph{identifier}\texttt{">}.
+Note that mods typically do not specify which ruleset they extend.
+
+When modifying a specification, expect additional elements you provide
+to be applied additively, but attributes of an existing element are
+cleared unless a special \texttt{preserve="true"} attribute is
+present.  If you need to delete or redefine an element, respecify it
+in context with just its \texttt{id} and \texttt{delete="true"}
+attributes.  So for example, in the freecol ruleset we need to remove
+the \texttt{model.modifier.minimumColonySize} modifier from the
+stockade building, which is done as follows:
+
+\begin{verbatim}
+    <building-type id="model.building.stockade" preserve="true">
+      <modifier id="model.modifier.minimumColonySize" delete="true" />
+    </building-type>
+\end{verbatim}
+
+Note that not all elements take a \texttt{delete} tag yet.  You may
+need to read or modify the source to be certain a mod will work.
+
+
+\hypertarget{Resources}{\chapter{Resources}}
+
+Various links pointing to more or less reliable information about the
+original Colonization game:
+
+\begin{itemize}
+\item \href{http://strategywiki.org/wiki/Sid_Meier%27s_Colonization}
+  {Strategy Wiki}
+\item \href{http://www.colonization.biz/}{The Unofficial Microprose
+  Colonization Home Page}
+\item \href{http://dledgard0.tripod.com/FAQs/play_col_at_viceroy.htm}
+  {Play Colonization at Viceroy level}
+\item \href{http://www.colonizationfans.com/}{Colonization Fan Page}
+\item \href{http://www.ibiblio.org/GameBytes/issue21/misc/colstrat.html}
+  {Bill Cranston's Strategy guide}
+\item \href{http://civilization.wikia.com/wiki/Colonization_tips}
+  {Tomasz Wegrzanowski' Strategy Guide}, contains very valuable
+  material on the number of bells required to elect a Founding Father,
+  among other things
+\end{itemize}
+
+
+\printindex
+
+\end{document}
