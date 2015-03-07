@@ -1,0 +1,618 @@
+[INFO] Scanning for projects...
+Downloading: https://repo.maven.apache.org/maven2/com/simpligility/maven/plugins/android-maven-plugin/4.1.1/android-maven-plugin-4.1.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/simpligility/maven/plugins/android-maven-plugin/4.1.1/android-maven-plugin-4.1.1.pom (28 KB at 59.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/simpligility/maven/progressive-organization-pom/2.3.0/progressive-organization-pom-2.3.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/simpligility/maven/progressive-organization-pom/2.3.0/progressive-organization-pom-2.3.0.pom (29 KB at 200.7 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/common/24.0.1/common-24.0.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/common/24.0.1/common-24.0.1.pom (2 KB at 13.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/dvlib/24.0.1/dvlib-24.0.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/dvlib/24.0.1/dvlib-24.0.1.pom (2 KB at 13.2 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/sdk-common/24.0.1/sdk-common-24.0.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/sdk-common/24.0.1/sdk-common-24.0.1.pom (2 KB at 15.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/sdklib/24.0.1/sdklib-24.0.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/sdklib/24.0.1/sdklib-24.0.1.pom (2 KB at 21.2 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/layoutlib/layoutlib-api/24.0.1/layoutlib-api-24.0.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/layoutlib/layoutlib-api/24.0.1/layoutlib-api-24.0.1.pom (2 KB at 15.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/net/sf/kxml/kxml2/2.3.0/kxml2-2.3.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/net/sf/kxml/kxml2/2.3.0/kxml2-2.3.0.pom (2 KB at 15.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.8.1/commons-compress-1.8.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.8.1/commons-compress-1.8.1.pom (12 KB at 115.1 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpclient/4.1.1/httpclient-4.1.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpclient/4.1.1/httpclient-4.1.1.pom (6 KB at 63.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcomponents-client/4.1.1/httpcomponents-client-4.1.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcomponents-client/4.1.1/httpcomponents-client-4.1.1.pom (12 KB at 117.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/project/4.1.1/project-4.1.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/project/4.1.1/project-4.1.1.pom (17 KB at 170.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcore/4.1/httpcore-4.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcore/4.1/httpcore-4.1.pom (9 KB at 86.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcomponents-core/4.1/httpcomponents-core-4.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcomponents-core/4.1/httpcomponents-core-4.1.pom (9 KB at 92.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.4/commons-codec-1.4.pom
+Downloaded: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.4/commons-codec-1.4.pom (0 B at 0.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpmime/4.1/httpmime-4.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpmime/4.1/httpmime-4.1.pom (6 KB at 53.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcomponents-client/4.1/httpcomponents-client-4.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcomponents-client/4.1/httpcomponents-client-4.1.pom (12 KB at 113.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/build/builder-test-api/1.0.1/builder-test-api-1.0.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/build/builder-test-api/1.0.1/builder-test-api-1.0.1.pom (2 KB at 12.2 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/ddms/ddmlib/24.0.1/ddmlib-24.0.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/ddms/ddmlib/24.0.1/ddmlib-24.0.1.pom (2 KB at 15.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/build/builder/1.0.1/builder-1.0.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/build/builder/1.0.1/builder-1.0.1.pom (3 KB at 29.7 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/build/builder-model/1.0.1/builder-model-1.0.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/build/builder-model/1.0.1/builder-model-1.0.1.pom (2 KB at 13.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/build/manifest-merger/24.0.1/manifest-merger-24.0.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/build/manifest-merger/24.0.1/manifest-merger-24.0.1.pom (2 KB at 18.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/squareup/javawriter/2.5.0/javawriter-2.5.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/squareup/javawriter/2.5.0/javawriter-2.5.0.pom (3 KB at 29.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/bouncycastle/bcpkix-jdk15on/1.48/bcpkix-jdk15on-1.48.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/bouncycastle/bcpkix-jdk15on/1.48/bcpkix-jdk15on-1.48.pom (2 KB at 14.2 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk15on/1.48/bcprov-jdk15on-1.48.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk15on/1.48/bcprov-jdk15on-1.48.pom (2 KB at 11.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint/24.0.1/lint-24.0.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint/24.0.1/lint-24.0.1.pom (2 KB at 15.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint-checks/24.0.1/lint-checks-24.0.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint-checks/24.0.1/lint-checks-24.0.1.pom (2 KB at 7.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint-api/24.0.1/lint-api-24.0.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint-api/24.0.1/lint-api-24.0.1.pom (2 KB at 20.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/external/lombok/lombok-ast/0.2.2/lombok-ast-0.2.2.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/external/lombok/lombok-ast/0.2.2/lombok-ast-0.2.2.pom (3 KB at 21.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/google/guava/guava/15.0/guava-15.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/google/guava/guava/15.0/guava-15.0.pom (7 KB at 65.7 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/google/guava/guava-parent/15.0/guava-parent-15.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/google/guava/guava-parent/15.0/guava-parent-15.0.pom (8 KB at 75.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/4.0/asm-tree-4.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/4.0/asm-tree-4.0.pom (3 KB at 21.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-parent/4.0/asm-parent-4.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-parent/4.0/asm-parent-4.0.pom (6 KB at 56.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-analysis/4.0/asm-analysis-4.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-analysis/4.0/asm-analysis-4.0.pom (3 KB at 22.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/eclipse/jdt/core/compiler/ecj/4.2.2/ecj-4.2.2.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/eclipse/jdt/core/compiler/ecj/4.2.2/ecj-4.2.2.pom (2 KB at 15.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-compat/3.0.4/maven-compat-3.0.4.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-compat/3.0.4/maven-compat-3.0.4.pom (4 KB at 37.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven/3.0.4/maven-3.0.4.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven/3.0.4/maven-3.0.4.pom (22 KB at 150.1 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/3.0.4/maven-model-3.0.4.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/3.0.4/maven-model-3.0.4.pom (4 KB at 39.1 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-model-builder/3.0.4/maven-model-builder-3.0.4.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-model-builder/3.0.4/maven-model-builder-3.0.4.pom (3 KB at 25.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.14/plexus-interpolation-1.14.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.14/plexus-interpolation-1.14.pom (0 B at 0.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/3.0.4/maven-settings-3.0.4.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/3.0.4/maven-settings-3.0.4.pom (2 KB at 19.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/3.0.4/maven-artifact-3.0.4.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/3.0.4/maven-artifact-3.0.4.pom (2 KB at 16.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-core/3.0.4/maven-core-3.0.4.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-core/3.0.4/maven-core-3.0.4.pom (7 KB at 65.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings-builder/3.0.4/maven-settings-builder-3.0.4.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings-builder/3.0.4/maven-settings-builder-3.0.4.pom (3 KB at 23.7 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/3.0.4/maven-repository-metadata-3.0.4.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/3.0.4/maven-repository-metadata-3.0.4.pom (2 KB at 19.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-api/3.0.4/maven-plugin-api-3.0.4.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-api/3.0.4/maven-plugin-api-3.0.4.pom (3 KB at 27.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-inject-plexus/2.3.0/sisu-inject-plexus-2.3.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-inject-plexus/2.3.0/sisu-inject-plexus-2.3.0.pom (6 KB at 55.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/sonatype/sisu/inject/guice-plexus/2.3.0/guice-plexus-2.3.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/sisu/inject/guice-plexus/2.3.0/guice-plexus-2.3.0.pom (4 KB at 39.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/sonatype/sisu/inject/guice-bean/2.3.0/guice-bean-2.3.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/sisu/inject/guice-bean/2.3.0/guice-bean-2.3.0.pom (3 KB at 31.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/sonatype/sisu/inject/containers/2.3.0/containers-2.3.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/sisu/inject/containers/2.3.0/containers-2.3.0.pom (2 KB at 12.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-inject/2.3.0/sisu-inject-2.3.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-inject/2.3.0/sisu-inject-2.3.0.pom (4 KB at 34.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-parent/2.3.0/sisu-parent-2.3.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-parent/2.3.0/sisu-parent-2.3.0.pom (11 KB at 107.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-inject-bean/2.3.0/sisu-inject-bean-2.3.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-inject-bean/2.3.0/sisu-inject-bean-2.3.0.pom (7 KB at 37.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-guava/0.9.9/sisu-guava-0.9.9.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-guava/0.9.9/sisu-guava-0.9.9.pom (2 KB at 10.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/sonatype/sisu/inject/guava-parent/0.9.9/guava-parent-0.9.9.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/sisu/inject/guava-parent/0.9.9/guava-parent-0.9.9.pom (11 KB at 113.1 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-aether-provider/3.0.4/maven-aether-provider-3.0.4.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-aether-provider/3.0.4/maven-aether-provider-3.0.4.pom (3 KB at 28.1 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/sonatype/aether/aether-api/1.13.1/aether-api-1.13.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/aether/aether-api/1.13.1/aether-api-1.13.1.pom (2 KB at 14.2 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/sonatype/aether/aether/1.13.1/aether-1.13.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/aether/aether/1.13.1/aether-1.13.1.pom (10 KB at 92.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/sonatype/aether/aether-spi/1.13.1/aether-spi-1.13.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/aether/aether-spi/1.13.1/aether-spi-1.13.1.pom (2 KB at 15.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/sonatype/aether/aether-util/1.13.1/aether-util-1.13.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/aether/aether-util/1.13.1/aether-util-1.13.1.pom (2 KB at 18.1 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/sonatype/aether/aether-impl/1.13.1/aether-impl-1.13.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/aether/aether-impl/1.13.1/aether-impl-1.13.1.pom (3 KB at 26.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-provider-api/2.2/wagon-provider-api-2.2.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-provider-api/2.2/wagon-provider-api-2.2.pom (2 KB at 18.1 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon/2.2/wagon-2.2.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon/2.2/wagon-2.2.pom (16 KB at 116.1 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/2.3/plexus-archiver-2.3.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/2.3/plexus-archiver-2.3.pom (4 KB at 35.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.3/plexus-components-1.3.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.3/plexus-components-1.3.pom (3 KB at 32.1 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/2.0.6/plexus-io-2.0.6.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/2.0.6/plexus-io-2.0.6.pom (3 KB at 23.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.2/plexus-components-1.2.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-components/1.2/plexus-components-1.2.pom (3 KB at 32.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/emma/emma/2.0.5312/emma-2.0.5312.pom
+Downloaded: https://repo.maven.apache.org/maven2/emma/emma/2.0.5312/emma-2.0.5312.pom (165 B at 1.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/commons-jxpath/commons-jxpath/1.3/commons-jxpath-1.3.pom
+Downloaded: https://repo.maven.apache.org/maven2/commons-jxpath/commons-jxpath/1.3/commons-jxpath-1.3.pom (9 KB at 95.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/github/rtyley/android-screenshot-paparazzo/1.9/android-screenshot-paparazzo-1.9.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/github/rtyley/android-screenshot-paparazzo/1.9/android-screenshot-paparazzo-1.9.pom (2 KB at 16.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/github/rtyley/android-screenshot-parent/1.9/android-screenshot-parent-1.9.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/github/rtyley/android-screenshot-parent/1.9/android-screenshot-parent-1.9.pom (3 KB at 25.2 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/madgag/animated-gif-lib/1.0/animated-gif-lib-1.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/madgag/animated-gif-lib/1.0/animated-gif-lib-1.0.pom (3 KB at 23.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/github/rtyley/android-screenshot-celebrity/1.9/android-screenshot-celebrity-1.9.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/github/rtyley/android-screenshot-celebrity/1.9/android-screenshot-celebrity-1.9.pom (812 B at 8.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-dependency-tree/2.2/maven-dependency-tree-2.2.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-dependency-tree/2.2/maven-dependency-tree-2.2.pom (8 KB at 74.7 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-components/20/maven-shared-components-20.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-components/20/maven-shared-components-20.pom (5 KB at 53.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/google/apis/google-api-services-androidpublisher/v2-rev13-1.19.0/google-api-services-androidpublisher-v2-rev13-1.19.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/google/apis/google-api-services-androidpublisher/v2-rev13-1.19.0/google-api-services-androidpublisher-v2-rev13-1.19.0.pom (3 KB at 24.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/google/api-client/google-api-client/1.19.0/google-api-client-1.19.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/google/api-client/google-api-client/1.19.0/google-api-client-1.19.0.pom (5 KB at 48.2 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/google/api-client/google-api-client-parent/1.19.0/google-api-client-parent-1.19.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/google/api-client/google-api-client-parent/1.19.0/google-api-client-parent-1.19.0.pom (25 KB at 108.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/google/oauth-client/google-oauth-client/1.19.0/google-oauth-client-1.19.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/google/oauth-client/google-oauth-client/1.19.0/google-oauth-client-1.19.0.pom (3 KB at 30.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/google/oauth-client/google-oauth-client-parent/1.19.0/google-oauth-client-parent-1.19.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/google/oauth-client/google-oauth-client-parent/1.19.0/google-oauth-client-parent-1.19.0.pom (22 KB at 151.7 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/google/http-client/google-http-client/1.19.0/google-http-client-1.19.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/google/http-client/google-http-client/1.19.0/google-http-client-1.19.0.pom (6 KB at 52.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/google/http-client/google-http-client-parent/1.19.0/google-http-client-parent-1.19.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/google/http-client/google-http-client-parent/1.19.0/google-http-client-parent-1.19.0.pom (23 KB at 164.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpclient/4.0.1/httpclient-4.0.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpclient/4.0.1/httpclient-4.0.1.pom (7 KB at 69.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcomponents-client/4.0.1/httpcomponents-client-4.0.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcomponents-client/4.0.1/httpcomponents-client-4.0.1.pom (9 KB at 93.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/project/4.0/project-4.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/project/4.0/project-4.0.pom (13 KB at 133.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcore/4.0.1/httpcore-4.0.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcore/4.0.1/httpcore-4.0.1.pom (5 KB at 50.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcomponents-core/4.0.1/httpcomponents-core-4.0.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcomponents-core/4.0.1/httpcomponents-core-4.0.1.pom (10 KB at 96.1 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.3/commons-codec-1.3.pom
+Downloaded: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.3/commons-codec-1.3.pom (6 KB at 63.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/google/http-client/google-http-client-jackson2/1.19.0/google-http-client-jackson2-1.19.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/google/http-client/google-http-client-jackson2/1.19.0/google-http-client-jackson2-1.19.0.pom (3 KB at 29.2 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-core/2.1.3/jackson-core-2.1.3.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-core/2.1.3/jackson-core-2.1.3.pom (6 KB at 59.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/fasterxml/oss-parent/4/oss-parent-4.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/fasterxml/oss-parent/4/oss-parent-4.pom (18 KB at 187.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/google/guava/guava-jdk5/13.0/guava-jdk5-13.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/google/guava/guava-jdk5/13.0/guava-jdk5-13.0.pom (6 KB at 57.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/google/guava/guava-parent-jdk5/13.0/guava-parent-jdk5-13.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/google/guava/guava-parent-jdk5/13.0/guava-parent-jdk5-13.0.pom (3 KB at 27.2 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/simpligility/maven/plugins/android-maven-plugin/4.1.1/android-maven-plugin-4.1.1.jar
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/common/24.0.1/common-24.0.1.jar
+Downloading: https://repo.maven.apache.org/maven2/com/google/guava/guava/17.0/guava-17.0.jar
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/sdk-common/24.0.1/sdk-common-24.0.1.jar
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/dvlib/24.0.1/dvlib-24.0.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/common/24.0.1/common-24.0.1.jar (87 KB at 380.7 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/build/builder-test-api/1.0.1/builder-test-api-1.0.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/dvlib/24.0.1/dvlib-24.0.1.jar (24 KB at 98.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/sdklib/24.0.1/sdklib-24.0.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/build/builder-test-api/1.0.1/builder-test-api-1.0.1.jar (4 KB at 12.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.8.1/commons-compress-1.8.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/sdk-common/24.0.1/sdk-common-24.0.1.jar (304 KB at 609.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpclient/4.1.1/httpclient-4.1.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/simpligility/maven/plugins/android-maven-plugin/4.1.1/android-maven-plugin-4.1.1.jar (483 KB at 773.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcore/4.1/httpcore-4.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.8.1/commons-compress-1.8.1.jar (357 KB at 504.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.4/commons-codec-1.4.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpclient/4.1.1/httpclient-4.1.1.jar (343 KB at 445.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpmime/4.1/httpmime-4.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcore/4.1/httpcore-4.1.jar (177 KB at 224.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/build/builder/1.0.1/builder-1.0.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.4/commons-codec-1.4.jar (0 B at 0.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/build/builder-model/1.0.1/builder-model-1.0.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpmime/4.1/httpmime-4.1.jar (27 KB at 30.1 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/squareup/javawriter/2.5.0/javawriter-2.5.0.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/build/builder-model/1.0.1/builder-model-1.0.1.jar (18 KB at 19.7 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/bouncycastle/bcpkix-jdk15on/1.48/bcpkix-jdk15on-1.48.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/build/builder/1.0.1/builder-1.0.1.jar (211 KB at 221.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk15on/1.48/bcprov-jdk15on-1.48.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/squareup/javawriter/2.5.0/javawriter-2.5.0.jar (13 KB at 13.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/build/manifest-merger/24.0.1/manifest-merger-24.0.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/sdklib/24.0.1/sdklib-24.0.1.jar (710 KB at 732.2 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/net/sf/kxml/kxml2/2.3.0/kxml2-2.3.0.jar
+Downloaded: https://repo.maven.apache.org/maven2/net/sf/kxml/kxml2/2.3.0/kxml2-2.3.0.jar (43 KB at 39.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/ddms/ddmlib/24.0.1/ddmlib-24.0.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/build/manifest-merger/24.0.1/manifest-merger-24.0.1.jar (176 KB at 155.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/layoutlib/layoutlib-api/24.0.1/layoutlib-api-24.0.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/google/guava/guava/17.0/guava-17.0.jar (2191 KB at 1901.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint/24.0.1/lint-24.0.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/bouncycastle/bcpkix-jdk15on/1.48/bcpkix-jdk15on-1.48.jar (572 KB at 466.1 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/eclipse/jdt/core/compiler/ecj/4.2.2/ecj-4.2.2.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/layoutlib/layoutlib-api/24.0.1/layoutlib-api-24.0.1.jar (80 KB at 63.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint-api/24.0.1/lint-api-24.0.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint/24.0.1/lint-24.0.1.jar (102 KB at 80.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/external/lombok/lombok-ast/0.2.2/lombok-ast-0.2.2.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/ddms/ddmlib/24.0.1/ddmlib-24.0.1.jar (282 KB at 219.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/4.0/asm-tree-4.0.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/4.0/asm-tree-4.0.jar (22 KB at 15.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint-checks/24.0.1/lint-checks-24.0.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint-api/24.0.1/lint-api-24.0.1.jar (173 KB at 122.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-analysis/4.0/asm-analysis-4.0.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-analysis/4.0/asm-analysis-4.0.jar (20 KB at 12.7 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/sonatype/aether/aether-util/1.13.1/aether-util-1.13.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/external/lombok/lombok-ast/0.2.2/lombok-ast-0.2.2.jar (701 KB at 433.7 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.14/plexus-interpolation-1.14.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/aether/aether-util/1.13.1/aether-util-1.13.1.jar (127 KB at 76.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-inject-bean/2.3.0/sisu-inject-bean-2.3.0.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/android/tools/lint/lint-checks/24.0.1/lint-checks-24.0.1.jar (579 KB at 345.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-guava/0.9.9/sisu-guava-0.9.9.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk15on/1.48/bcprov-jdk15on-1.48.jar (2264 KB at 1336.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/emma/emma/2.0.5312/emma-2.0.5312.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.14/plexus-interpolation-1.14.jar (0 B at 0.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/2.3/plexus-archiver-2.3.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/2.3/plexus-archiver-2.3.jar (183 KB at 98.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/2.0.6/plexus-io-2.0.6.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-inject-bean/2.3.0/sisu-inject-bean-2.3.0.jar (283 KB at 152.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/commons-jxpath/commons-jxpath/1.3/commons-jxpath-1.3.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/eclipse/jdt/core/compiler/ecj/4.2.2/ecj-4.2.2.jar (1760 KB at 940.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/github/rtyley/android-screenshot-paparazzo/1.9/android-screenshot-paparazzo-1.9.jar
+Downloaded: https://repo.maven.apache.org/maven2/emma/emma/2.0.5312/emma-2.0.5312.jar (419 KB at 217.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/madgag/animated-gif-lib/1.0/animated-gif-lib-1.0.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/2.0.6/plexus-io-2.0.6.jar (57 KB at 28.7 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/github/rtyley/android-screenshot-celebrity/1.9/android-screenshot-celebrity-1.9.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/github/rtyley/android-screenshot-paparazzo/1.9/android-screenshot-paparazzo-1.9.jar (15 KB at 7.2 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-dependency-tree/2.2/maven-dependency-tree-2.2.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/madgag/animated-gif-lib/1.0/animated-gif-lib-1.0.jar (20 KB at 9.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/google/apis/google-api-services-androidpublisher/v2-rev13-1.19.0/google-api-services-androidpublisher-v2-rev13-1.19.0.jar
+Downloaded: https://repo.maven.apache.org/maven2/commons-jxpath/commons-jxpath/1.3/commons-jxpath-1.3.jar (293 KB at 142.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/google/api-client/google-api-client/1.19.0/google-api-client-1.19.0.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/github/rtyley/android-screenshot-celebrity/1.9/android-screenshot-celebrity-1.9.jar (4 KB at 1.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/google/oauth-client/google-oauth-client/1.19.0/google-oauth-client-1.19.0.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-dependency-tree/2.2/maven-dependency-tree-2.2.jar (63 KB at 29.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/google/http-client/google-http-client/1.19.0/google-http-client-1.19.0.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/google/apis/google-api-services-androidpublisher/v2-rev13-1.19.0/google-api-services-androidpublisher-v2-rev13-1.19.0.jar (134 KB at 62.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/google/http-client/google-http-client-jackson2/1.19.0/google-http-client-jackson2-1.19.0.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/google/oauth-client/google-oauth-client/1.19.0/google-oauth-client-1.19.0.jar (60 KB at 27.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-core/2.1.3/jackson-core-2.1.3.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/sonatype/sisu/sisu-guava/0.9.9/sisu-guava-0.9.9.jar (1473 KB at 667.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/google/guava/guava-jdk5/13.0/guava-jdk5-13.0.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/google/api-client/google-api-client/1.19.0/google-api-client-1.19.0.jar (185 KB at 83.5 KB/sec)
+Downloaded: https://repo.maven.apache.org/maven2/com/google/http-client/google-http-client/1.19.0/google-http-client-1.19.0.jar (266 KB at 118.1 KB/sec)
+Downloaded: https://repo.maven.apache.org/maven2/com/google/http-client/google-http-client-jackson2/1.19.0/google-http-client-jackson2-1.19.0.jar (7 KB at 2.9 KB/sec)
+Downloaded: https://repo.maven.apache.org/maven2/com/fasterxml/jackson/core/jackson-core/2.1.3/jackson-core-2.1.3.jar (202 KB at 88.0 KB/sec)
+Downloaded: https://repo.maven.apache.org/maven2/com/google/guava/guava-jdk5/13.0/guava-jdk5-13.0.jar (1750 KB at 658.2 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/google/android/android/4.1.1.4/android-4.1.1.4.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/google/android/android/4.1.1.4/android-4.1.1.4.pom (3 KB at 30.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/khronos/opengl-api/gl1.1-android-2.1_r1/opengl-api-gl1.1-android-2.1_r1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/khronos/opengl-api/gl1.1-android-2.1_r1/opengl-api-gl1.1-android-2.1_r1.pom (2 KB at 16.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/xerces/xmlParserAPIs/2.6.2/xmlParserAPIs-2.6.2.pom
+Downloaded: https://repo.maven.apache.org/maven2/xerces/xmlParserAPIs/2.6.2/xmlParserAPIs-2.6.2.pom (153 B at 1.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/xpp3/xpp3/1.1.4c/xpp3-1.1.4c.pom
+Downloaded: https://repo.maven.apache.org/maven2/xpp3/xpp3/1.1.4c/xpp3-1.1.4c.pom (3 KB at 20.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/json/json/20080701/json-20080701.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/json/json/20080701/json-20080701.pom (2 KB at 13.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/google/android/support-v4/r7/support-v4-r7.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/google/android/support-v4/r7/support-v4-r7.pom (4 KB at 38.2 KB/sec)
+Downloading: https://oss.sonatype.org/content/repositories/snapshots/com/squareup/picasso/picasso/2.5.1-SNAPSHOT/maven-metadata.xml
+Downloaded: https://oss.sonatype.org/content/repositories/snapshots/com/squareup/picasso/picasso/2.5.1-SNAPSHOT/maven-metadata.xml (2 KB at 1.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/squareup/okhttp/okhttp/2.1.0/okhttp-2.1.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/squareup/okhttp/okhttp/2.1.0/okhttp-2.1.0.pom (2 KB at 15.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/squareup/okhttp/parent/2.1.0/parent-2.1.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/squareup/okhttp/parent/2.1.0/parent-2.1.0.pom (9 KB at 91.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/squareup/okio/okio/1.0.1/okio-1.0.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/squareup/okio/okio/1.0.1/okio-1.0.1.pom (812 B at 8.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/squareup/okio/okio-parent/1.0.1/okio-parent-1.0.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/squareup/okio/okio-parent/1.0.1/okio-parent-1.0.1.pom (4 KB at 35.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/google/android/android/4.1.1.4/android-4.1.1.4.jar
+Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpclient/4.0.1/httpclient-4.0.1.jar
+Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcore/4.0.1/httpcore-4.0.1.jar
+Downloading: https://repo.maven.apache.org/maven2/org/khronos/opengl-api/gl1.1-android-2.1_r1/opengl-api-gl1.1-android-2.1_r1.jar
+Downloading: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.3/commons-codec-1.3.jar
+Downloaded: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.3/commons-codec-1.3.jar (46 KB at 411.1 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/xerces/xmlParserAPIs/2.6.2/xmlParserAPIs-2.6.2.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcore/4.0.1/httpcore-4.0.1.jar (169 KB at 1089.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/xpp3/xpp3/1.1.4c/xpp3-1.1.4c.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/khronos/opengl-api/gl1.1-android-2.1_r1/opengl-api-gl1.1-android-2.1_r1.jar (19 KB at 93.1 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/json/json/20080701/json-20080701.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpclient/4.0.1/httpclient-4.0.1.jar (285 KB at 1379.7 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/google/android/support-v4/r7/support-v4-r7.jar
+Downloaded: https://repo.maven.apache.org/maven2/xerces/xmlParserAPIs/2.6.2/xmlParserAPIs-2.6.2.jar (122 KB at 529.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/squareup/okhttp/okhttp/2.1.0/okhttp-2.1.0.jar
+Downloaded: https://repo.maven.apache.org/maven2/xpp3/xpp3/1.1.4c/xpp3-1.1.4c.jar (118 KB at 412.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/squareup/okio/okio/1.0.1/okio-1.0.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/json/json/20080701/json-20080701.jar (37 KB at 100.0 KB/sec)
+Downloaded: https://repo.maven.apache.org/maven2/com/squareup/okio/okio/1.0.1/okio-1.0.1.jar (52 KB at 133.6 KB/sec)
+Downloaded: https://repo.maven.apache.org/maven2/com/google/android/support-v4/r7/support-v4-r7.jar (265 KB at 673.8 KB/sec)
+Downloaded: https://repo.maven.apache.org/maven2/com/squareup/okhttp/okhttp/2.1.0/okhttp-2.1.0.jar (272 KB at 662.3 KB/sec)
+Downloaded: https://repo.maven.apache.org/maven2/com/google/android/android/4.1.1.4/android-4.1.1.4.jar (12645 KB at 4709.2 KB/sec)
+Downloading: https://oss.sonatype.org/content/repositories/snapshots/com/squareup/picasso/picasso/2.5.1-SNAPSHOT/picasso-2.5.1-20150216.081522-5.jar
+Downloaded: https://oss.sonatype.org/content/repositories/snapshots/com/squareup/picasso/picasso/2.5.1-SNAPSHOT/picasso-2.5.1-20150216.081522-5.jar (117 KB at 231.1 KB/sec)
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] Picasso (Parent)
+[INFO] Picasso
+[INFO] Picasso Pollexor Transformer
+[INFO] Picasso Sample
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Picasso (Parent) 2.5.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ picasso-parent ---
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Picasso 2.5.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/3.0/maven-compiler-plugin-3.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/3.0/maven-compiler-plugin-3.0.pom (10 KB at 101.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/3.0/maven-compiler-plugin-3.0.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/3.0/maven-compiler-plugin-3.0.jar (41 KB at 396.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/easytesting/fest-assert-core/2.0M10/fest-assert-core-2.0M10.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/easytesting/fest-assert-core/2.0M10/fest-assert-core-2.0M10.pom (3 KB at 22.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/easytesting/fest/1.0.15/fest-1.0.15.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/easytesting/fest/1.0.15/fest-1.0.15.pom (8 KB at 81.1 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/easytesting/fest-util/1.2.5/fest-util-1.2.5.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/easytesting/fest-util/1.2.5/fest-util-1.2.5.pom (2 KB at 17.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/squareup/fest-android/1.0.6/fest-android-1.0.6.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/squareup/fest-android/1.0.6/fest-android-1.0.6.pom (4 KB at 32.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/robolectric/robolectric/2.2/robolectric-2.2.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/robolectric/robolectric/2.2/robolectric-2.2.pom (11 KB at 116.7 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/objenesis/objenesis/1.3/objenesis-1.3.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/objenesis/objenesis/1.3/objenesis-1.3.pom (3 KB at 27.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/objenesis/objenesis-parent/1.3/objenesis-parent-1.3.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/objenesis/objenesis-parent/1.3/objenesis-parent-1.3.pom (14 KB at 142.2 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/xerial/sqlite-jdbc/3.7.2/sqlite-jdbc-3.7.2.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/xerial/sqlite-jdbc/3.7.2/sqlite-jdbc-3.7.2.pom (4 KB at 36.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/xerial/xerial-project/1.1/xerial-project-1.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/xerial/xerial-project/1.1/xerial-project-1.1.pom (8 KB at 80.7 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/xerial/xerial/3/xerial-3.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/xerial/xerial/3/xerial-3.pom (6 KB at 56.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/4.1/asm-tree-4.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/4.1/asm-tree-4.1.pom (3 KB at 22.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-util/4.1/asm-util-4.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-util/4.1/asm-util-4.1.pom (3 KB at 22.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-analysis/4.1/asm-analysis-4.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-analysis/4.1/asm-analysis-4.1.pom (3 KB at 22.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpclient/4.0.3/httpclient-4.0.3.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpclient/4.0.3/httpclient-4.0.3.pom (8 KB at 76.2 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcomponents-client/4.0.3/httpcomponents-client-4.0.3.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpcomponents-client/4.0.3/httpcomponents-client-4.0.3.pom (9 KB at 93.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/project/4.1/project-4.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/project/4.1/project-4.1.pom (16 KB at 168.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/ximpleware/vtd-xml/2.11/vtd-xml-2.11.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/ximpleware/vtd-xml/2.11/vtd-xml-2.11.pom (2 KB at 14.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/easytesting/fest-reflect/1.4.1/fest-reflect-1.4.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/easytesting/fest-reflect/1.4.1/fest-reflect-1.4.1.pom (3 KB at 22.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-ant-tasks/2.1.3/maven-ant-tasks-2.1.3.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-ant-tasks/2.1.3/maven-ant-tasks-2.1.3.pom (13 KB at 135.2 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/ant/ant/1.8.0/ant-1.8.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/ant/ant/1.8.0/ant-1.8.0.pom (10 KB at 101.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/ant/ant-parent/1.8.0/ant-parent-1.8.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/ant/ant-parent/1.8.0/ant-parent-1.8.0.pom (5 KB at 45.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/ant/ant-launcher/1.8.0/ant-launcher-1.8.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/ant/ant-launcher/1.8.0/ant-launcher-1.8.0.pom (3 KB at 25.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-provider-api/1.0-beta-6/wagon-provider-api-1.0-beta-6.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-provider-api/1.0-beta-6/wagon-provider-api-1.0-beta-6.pom (2 KB at 18.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon/1.0-beta-6/wagon-1.0-beta-6.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon/1.0-beta-6/wagon-1.0-beta-6.pom (13 KB at 126.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-file/1.0-beta-6/wagon-file-1.0-beta-6.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-file/1.0-beta-6/wagon-file-1.0-beta-6.pom (2 KB at 15.2 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-providers/1.0-beta-6/wagon-providers-1.0-beta-6.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-providers/1.0-beta-6/wagon-providers-1.0-beta-6.pom (3 KB at 22.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-http-lightweight/1.0-beta-6/wagon-http-lightweight-1.0-beta-6.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-http-lightweight/1.0-beta-6/wagon-http-lightweight-1.0-beta-6.pom (2 KB at 19.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-http-shared/1.0-beta-6/wagon-http-shared-1.0-beta-6.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-http-shared/1.0-beta-6/wagon-http-shared-1.0-beta-6.pom (3 KB at 22.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/nekohtml/xercesMinimal/1.9.6.2/xercesMinimal-1.9.6.2.pom
+Downloaded: https://repo.maven.apache.org/maven2/nekohtml/xercesMinimal/1.9.6.2/xercesMinimal-1.9.6.2.pom (390 B at 4.2 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/nekohtml/nekohtml/1.9.6.2/nekohtml-1.9.6.2.pom
+Downloaded: https://repo.maven.apache.org/maven2/nekohtml/nekohtml/1.9.6.2/nekohtml-1.9.6.2.pom (704 B at 7.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/mockito/mockito-core/1.9.5/mockito-core-1.9.5.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/mockito/mockito-core/1.9.5/mockito-core-1.9.5.pom (2 KB at 13.2 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/squareup/okhttp/mockwebserver/2.1.0/mockwebserver-2.1.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/squareup/okhttp/mockwebserver/2.1.0/mockwebserver-2.1.0.pom (2 KB at 15.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk15on/1.50/bcprov-jdk15on-1.50.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk15on/1.50/bcprov-jdk15on-1.50.pom (2 KB at 12.2 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/intellij/annotations/9.0.4/annotations-9.0.4.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/intellij/annotations/9.0.4/annotations-9.0.4.pom (2 KB at 12.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/easytesting/fest-assert-core/2.0M10/fest-assert-core-2.0M10.jar
+Downloading: https://repo.maven.apache.org/maven2/org/easytesting/fest-util/1.2.5/fest-util-1.2.5.jar
+Downloading: https://repo.maven.apache.org/maven2/com/squareup/fest-android/1.0.6/fest-android-1.0.6.jar
+Downloading: https://repo.maven.apache.org/maven2/org/robolectric/robolectric/2.2/robolectric-2.2.jar
+Downloading: https://repo.maven.apache.org/maven2/org/objenesis/objenesis/1.3/objenesis-1.3.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/easytesting/fest-util/1.2.5/fest-util-1.2.5.jar (32 KB at 228.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/xerial/sqlite-jdbc/3.7.2/sqlite-jdbc-3.7.2.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/easytesting/fest-assert-core/2.0M10/fest-assert-core-2.0M10.jar (262 KB at 1719.1 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/4.1/asm-tree-4.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-tree/4.1/asm-tree-4.1.jar (22 KB at 88.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-util/4.1/asm-util-4.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/objenesis/objenesis/1.3/objenesis-1.3.jar (40 KB at 147.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-analysis/4.1/asm-analysis-4.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-util/4.1/asm-util-4.1.jar (37 KB at 106.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpclient/4.0.3/httpclient-4.0.3.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/ow2/asm/asm-analysis/4.1/asm-analysis-4.1.jar (20 KB at 52.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/ximpleware/vtd-xml/2.11/vtd-xml-2.11.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/httpcomponents/httpclient/4.0.3/httpclient-4.0.3.jar (287 KB at 541.7 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/easytesting/fest-reflect/1.4.1/fest-reflect-1.4.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/squareup/fest-android/1.0.6/fest-android-1.0.6.jar (334 KB at 613.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-ant-tasks/2.1.3/maven-ant-tasks-2.1.3.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/easytesting/fest-reflect/1.4.1/fest-reflect-1.4.1.jar (45 KB at 70.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/ant/ant/1.8.0/ant-1.8.0.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/robolectric/robolectric/2.2/robolectric-2.2.jar (817 KB at 1107.7 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/ant/ant-launcher/1.8.0/ant-launcher-1.8.0.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/ant/ant-launcher/1.8.0/ant-launcher-1.8.0.jar (12 KB at 14.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/classworlds/classworlds/1.1-alpha-2/classworlds-1.1-alpha-2.jar
+Downloaded: https://repo.maven.apache.org/maven2/classworlds/classworlds/1.1-alpha-2/classworlds-1.1-alpha-2.jar (37 KB at 39.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-container-default/1.0-alpha-9-stable-1/plexus-container-default-1.0-alpha-9-stable-1.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/ximpleware/vtd-xml/2.11/vtd-xml-2.11.jar (623 KB at 663.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.5.15/plexus-utils-1.5.15.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-container-default/1.0-alpha-9-stable-1/plexus-container-default-1.0-alpha-9-stable-1.jar (190 KB at 173.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.11/plexus-interpolation-1.11.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-ant-tasks/2.1.3/maven-ant-tasks-2.1.3.jar (1286 KB at 1170.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/2.2.1/maven-artifact-2.2.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/1.5.15/plexus-utils-1.5.15.jar (223 KB at 199.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact-manager/2.2.1/maven-artifact-manager-2.2.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/ant/ant/1.8.0/ant-1.8.0.jar (1471 KB at 1312.1 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/2.2.1/maven-repository-metadata-2.2.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.11/plexus-interpolation-1.11.jar (50 KB at 41.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/2.2.1/maven-model-2.2.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact/2.2.1/maven-artifact-2.2.1.jar (79 KB at 65.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-project/2.2.1/maven-project-2.2.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-repository-metadata/2.2.1/maven-repository-metadata-2.2.1.jar (26 KB at 20.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-profile/2.2.1/maven-profile-2.2.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-artifact-manager/2.2.1/maven-artifact-manager-2.2.1.jar (66 KB at 54.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-registry/2.2.1/maven-plugin-registry-2.2.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/xerial/sqlite-jdbc/3.7.2/sqlite-jdbc-3.7.2.jar (3127 KB at 2391.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-error-diagnostics/2.2.1/maven-error-diagnostics-2.2.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-plugin-registry/2.2.1/maven-plugin-registry-2.2.1.jar (30 KB at 21.9 KB/sec)
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-model/2.2.1/maven-model-2.2.1.jar (86 KB at 64.7 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/2.2.1/maven-settings-2.2.1.jar
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-file/1.0-beta-6/wagon-file-1.0-beta-6.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-profile/2.2.1/maven-profile-2.2.1.jar (35 KB at 26.1 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-http-lightweight/1.0-beta-6/wagon-http-lightweight-1.0-beta-6.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-project/2.2.1/maven-project-2.2.1.jar (153 KB at 114.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-http-shared/1.0-beta-6/wagon-http-shared-1.0-beta-6.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-error-diagnostics/2.2.1/maven-error-diagnostics-2.2.1.jar (13 KB at 9.1 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/nekohtml/xercesMinimal/1.9.6.2/xercesMinimal-1.9.6.2.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-http-lightweight/1.0-beta-6/wagon-http-lightweight-1.0-beta-6.jar (15 KB at 10.2 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/nekohtml/nekohtml/1.9.6.2/nekohtml-1.9.6.2.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-file/1.0-beta-6/wagon-file-1.0-beta-6.jar (11 KB at 7.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-provider-api/1.0-beta-6/wagon-provider-api-1.0-beta-6.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-settings/2.2.1/maven-settings-2.2.1.jar (48 KB at 33.6 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/mockito/mockito-core/1.9.5/mockito-core-1.9.5.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-http-shared/1.0-beta-6/wagon-http-shared-1.0-beta-6.jar (25 KB at 17.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/squareup/okhttp/mockwebserver/2.1.0/mockwebserver-2.1.0.jar
+Downloaded: https://repo.maven.apache.org/maven2/nekohtml/xercesMinimal/1.9.6.2/xercesMinimal-1.9.6.2.jar (39 KB at 25.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk15on/1.50/bcprov-jdk15on-1.50.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-provider-api/1.0-beta-6/wagon-provider-api-1.0-beta-6.jar (52 KB at 34.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/intellij/annotations/9.0.4/annotations-9.0.4.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/squareup/okhttp/mockwebserver/2.1.0/mockwebserver-2.1.0.jar (39 KB at 25.4 KB/sec)
+Downloaded: https://repo.maven.apache.org/maven2/nekohtml/nekohtml/1.9.6.2/nekohtml-1.9.6.2.jar (110 KB at 70.7 KB/sec)
+Downloaded: https://repo.maven.apache.org/maven2/com/intellij/annotations/9.0.4/annotations-9.0.4.jar (10 KB at 6.0 KB/sec)
+Downloaded: https://repo.maven.apache.org/maven2/org/mockito/mockito-core/1.9.5/mockito-core-1.9.5.jar (1465 KB at 736.5 KB/sec)
+Downloaded: https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk15on/1.50/bcprov-jdk15on-1.50.jar (2669 KB at 1166.4 KB/sec)
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ picasso ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ picasso ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/ben/code/shapes/java-corpus/picasso/picasso/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.0:compile (default-compile) @ picasso ---
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-incremental/1.0/maven-shared-incremental-1.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-incremental/1.0/maven-shared-incremental-1.0.pom (5 KB at 50.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-api/2.0/plexus-compiler-api-2.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-api/2.0/plexus-compiler-api-2.0.pom (865 B at 9.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler/2.0/plexus-compiler-2.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler/2.0/plexus-compiler-2.0.pom (4 KB at 38.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-manager/2.0/plexus-compiler-manager-2.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-manager/2.0/plexus-compiler-manager-2.0.pom (690 B at 7.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-javac/2.0/plexus-compiler-javac-2.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-javac/2.0/plexus-compiler-javac-2.0.pom (769 B at 8.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compilers/2.0/plexus-compilers-2.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compilers/2.0/plexus-compilers-2.0.pom (2 KB at 13.3 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-incremental/1.0/maven-shared-incremental-1.0.jar
+Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-api/2.0/plexus-compiler-api-2.0.jar
+Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-manager/2.0/plexus-compiler-manager-2.0.jar
+Downloading: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-javac/2.0/plexus-compiler-javac-2.0.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-manager/2.0/plexus-compiler-manager-2.0.jar (5 KB at 47.9 KB/sec)
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-incremental/1.0/maven-shared-incremental-1.0.jar (13 KB at 124.4 KB/sec)
+Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-javac/2.0/plexus-compiler-javac-2.0.jar (19 KB at 190.1 KB/sec)
+Downloaded: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-api/2.0/plexus-compiler-api-2.0.jar (25 KB at 249.0 KB/sec)
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 36 source files to /home/ben/code/shapes/java-corpus/picasso/picasso/target/classes
+[WARNING] /home/ben/code/shapes/java-corpus/picasso/picasso/src/main/java/com/squareup/picasso/NetworkRequestHandler.java: /home/ben/code/shapes/java-corpus/picasso/picasso/src/main/java/com/squareup/picasso/NetworkRequestHandler.java uses or overrides a deprecated API.
+[WARNING] /home/ben/code/shapes/java-corpus/picasso/picasso/src/main/java/com/squareup/picasso/NetworkRequestHandler.java: Recompile with -Xlint:deprecation for details.
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Picasso Pollexor Transformer 2.5.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+Downloading: https://repo.maven.apache.org/maven2/com/squareup/pollexor/2.0.0/pollexor-2.0.0.pom
+Downloaded: https://repo.maven.apache.org/maven2/com/squareup/pollexor/2.0.0/pollexor-2.0.0.pom (3 KB at 30.9 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/com/squareup/pollexor/2.0.0/pollexor-2.0.0.jar
+Downloaded: https://repo.maven.apache.org/maven2/com/squareup/pollexor/2.0.0/pollexor-2.0.0.jar (15 KB at 116.0 KB/sec)
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ picasso-pollexor ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ picasso-pollexor ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/ben/code/shapes/java-corpus/picasso/picasso-pollexor/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.0:compile (default-compile) @ picasso-pollexor ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to /home/ben/code/shapes/java-corpus/picasso/picasso-pollexor/target/classes
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Picasso Sample 2.5.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/maven-metadata.xml
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/maven-metadata.xml (617 B at 6.5 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/2.5/maven-jar-plugin-2.5.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/2.5/maven-jar-plugin-2.5.pom (8 KB at 75.8 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/2.5/maven-jar-plugin-2.5.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/2.5/maven-jar-plugin-2.5.jar (25 KB at 250.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-surefire-plugin/maven-metadata.xml
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-surefire-plugin/maven-metadata.xml (2 KB at 15.4 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-surefire-plugin/2.18.1/maven-surefire-plugin-2.18.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-surefire-plugin/2.18.1/maven-surefire-plugin-2.18.1.pom (6 KB at 60.7 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire/2.18.1/surefire-2.18.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire/2.18.1/surefire-2.18.1.pom (17 KB at 170.7 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-surefire-plugin/2.18.1/maven-surefire-plugin-2.18.1.jar
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-surefire-plugin/2.18.1/maven-surefire-plugin-2.18.1.jar (37 KB at 368.9 KB/sec)
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.0:enforce (enforce-maven) @ picasso-sample ---
+[INFO] 
+[INFO] --- android-maven-plugin:4.1.1:generate-sources (default-generate-sources) @ picasso-sample ---
+[INFO] Manifest copied from /home/ben/code/shapes/java-corpus/picasso/picasso-sample/src/main/AndroidManifest.xml to /home/ben/code/shapes/java-corpus/picasso/picasso-sample/target/AndroidManifest.xml
+[INFO] Extracting libs
+[INFO] Generating R file for com.squareup.picasso:picasso-sample:apk:2.5.1-SNAPSHOT
+[ERROR] Error when generating sources.
+org.apache.maven.plugin.MojoExecutionException: No Android SDK path could be found. You may configure it in the plugin configuration section in the pom file using <sdk><path>...</path></sdk> or <properties><android.sdk.path>...</android.sdk.path></properties> or on command-line using -Dandroid.sdk.path=... or by setting environment variable ANDROID_HOME
+	at com.jayway.maven.plugins.android.AbstractAndroidMojo.getAndroidHomeOrThrow(AbstractAndroidMojo.java:1160)
+	at com.jayway.maven.plugins.android.AbstractAndroidMojo.getAndroidSdk(AbstractAndroidMojo.java:1118)
+	at com.jayway.maven.plugins.android.phase01generatesources.GenerateSourcesMojo.generateR(GenerateSourcesMojo.java:860)
+	at com.jayway.maven.plugins.android.phase01generatesources.GenerateSourcesMojo.execute(GenerateSourcesMojo.java:326)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:132)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:208)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:153)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:145)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:116)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:80)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:51)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:120)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:355)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:155)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:584)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:216)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:160)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:289)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:229)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:415)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:356)
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] Picasso (Parent) ................................... SUCCESS [  0.107 s]
+[INFO] Picasso ............................................ SUCCESS [  7.150 s]
+[INFO] Picasso Pollexor Transformer ....................... SUCCESS [  0.246 s]
+[INFO] Picasso Sample ..................................... FAILURE [  0.966 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 26.464 s
+[INFO] Finished at: 2015-03-07T12:21:14-05:00
+[INFO] Final Memory: 29M/145M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal com.simpligility.maven.plugins:android-maven-plugin:4.1.1:generate-sources (default-generate-sources) on project picasso-sample: No Android SDK path could be found. You may configure it in the plugin configuration section in the pom file using <sdk><path>...</path></sdk> or <properties><android.sdk.path>...</android.sdk.path></properties> or on command-line using -Dandroid.sdk.path=... or by setting environment variable ANDROID_HOME -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+[ERROR] 
+[ERROR] After correcting the problems, you can resume the build with the command
+[ERROR]   mvn <goals> -rf :picasso-sample
