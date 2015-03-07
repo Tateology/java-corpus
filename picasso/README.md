@@ -1,5 +1,5 @@
-URL: 
-Accessed:
+URL: https://github.com/square/picasso
+Accessed: 2015-03-07
 Compiled with: 8
 SLOC: 8301
 Notes: Removed picasso-sample folder; it didn't build with Maven.
