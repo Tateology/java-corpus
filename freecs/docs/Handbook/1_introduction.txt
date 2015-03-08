@@ -1,0 +1,22 @@
+1.) What is freecs and what are the goals
+	
+	FreeCS is an OpenSource-WebChat. Webchats are chat-systems depending on HTTP as
+	transportation-layer and HTML as the representation-language. Every normal webpage
+	displayed in your browser does the same.
+	
+	One difference is the way the message-frame will be displayed, because it doesn't
+	get loaded fully enabling it to display the new messages you recieve from other
+	users or send by your selve. (Enabling it to get a web-chat at all...)
+	
+	FreeCS does let you configure the representation for nearly every little part a user
+	will see. Messages and their appearence and all pages a user may get from the server.
+	This customized templates will be transfered to it's users by using it's own built
+	in http-server. (you may also serve gif's and jpeg's in a limited way)
+
+	The FreeCS-Project was manely lounched to enable all users of a big community to
+	chat with each other (This is also the reason why java-NIO was the best choice
+	for this purpose). But the second but equivalently importent goal was to gain full
+	controle over layout and integration-ability into an existing community.
+	
+	Coming down to our leading rule:
+	Serve for as many users as possible in an as flexible way as possible :)

@@ -1,0 +1,128 @@
+<html>
+<head><title>Change-Log for FreeCS</title></head>
+<body><font face="Verdana, Arial, Helvetica">
+<p><b>- 18.07.2004</b>
+<ul>
+<li>some changes within db-configuration</li>
+<li>totaly rework of threading and reduction of resource-hungryness</li>
+<li><b>message.set</b>-placeholders have changed due to a cleanup on message-handling-code</li>
+<li>grouppolicies may be used to affect the behavior of groups (see the folder called /grouppolicies)</li>
+<li>interface for group-plugins (making it possible to attach anyting to a group and interact with the users inside of this group (BETA))<br>
+(plugins get specified inside of grouppolicies)</li>
+<li>many many little things (this list is by far not complete)</li>
+</ul></p>
+<p><b>- 04.11.2003</b>
+<ul>
+<li>disabled /td for su's within startgroups</li>
+<li>/ban, /uban and /wban may now be used on other groups than the current group</li>
+<li>open-group-counter doesn't include empty startgroups anymore</li>
+</ul></p>
+<p><b>- 03.11.2003</b>
+<ul>
+<li>Superusers are now allowed to ban users from start-groups</li>
+<li>fixed commands which may operate on more than one user to depend on vip-state if they are used on more than one user</li>
+<li>added two new templates:<ul><li>login_group_locked.html: displayed if this startgroup is locked</li><li>login_group_banned.html: displayed if the joingin user is on this group's banlist</li></ul></li>
+<li>added new message-templates:<ul>
+   <li>message.wban: lists all banned users of the current group</li>
+   <li>error.wban.noRight: user has no right to list bans for this group</li>
+   <li>error.ban.mass.noRight, error.i.mass.noRight, error.rsu.mass.noRight, error.uban.mass.noRight, error.su.mass.noRight: the user doesn't have to right to use this command on more than one user</li>
+   </ul></li>
+<li>added new command "/wban" listing all users which are on the current group's banlist</li>
+<li>the maximum number of superusers per startgroup also affect vip's now.</li>
+<li>added sanity-check for chattime (if sessiontime is lower than 0 || chattime is lower than 0 we log an error, but do not update the chattime)</li>
+<li>german templateset contained english text (fixed)</li>
+<li>fixed bug causing friendslist not to be retrieved from the db</li>
+</ul></p>
+<p><b>- 30.10.2003</b>
+<ul>
+<li>fixed bug causing users to be not logged out after timeout</li>
+<li>fixed bug causing userlist outside of the chat to be broken</li>
+<li>keep track of users currently logging in to avoid duplicate logins when users login and klick on reload because of db-delay</li>
+<li>su-users do not anymore have the right to ban users from start-groups</li>
+<li>/col may only be called outside of start-groups and outside of moderated-groups</li>
+<li>added config-property to deffine the maximum number of su-users within starting-groups (= su-users may oly give su to other users if there are less su-users than deffined with the property "maxSuPerStartgroup". Default is 5)</li>
+<li>fixed the behavior of /uban. The user must not anymore be present within this group and doesn't have to be logged in (just check if this username is on the banlist of this group)</li>
+<li>friends are now only added to this users friendslist, if they are valid (only alphanumeric characters incl. german umlauts)</li>
+</ul></p>
+<p><b>- 29.10.2003</b>
+<ul>
+<li>added two new messagetemplates constant.defaultColor (used if no usercolor is present) and constant.emptyAwayMessage containing a string telling, that there is no away-message</li>
+<li>if a request fails, the evaluation-process is now also interrupted</li>
+<li>added listing with all available commands</li>
+<li>some internal changes</li>
+</ul></p>
+<p><b>- 23.10.2003</b>
+<ul>
+<li>responses are written in a seperate task</li>
+<li>user-agent will be logged within the TRAFFIC-log</li>
+<li>if localhost doesn't match host-headerfiled, the configurationvariable "server" will also be matched</li>
+</ul></p>
+<p><b>- 21.10.2003</b>
+<ul>
+<li>fixed bug causing a deadlock (totaly overworked synchronization)</li>
+<li>added @ to entitydecoder</li>
+<li>fixed bug in logwriter</li>
+<li>some code-cleanup</li>
+<li>users are checked only once for timeout etc.</li>
+<li>removed/changed loglevel of some debug-messages</li>
+</ul></p>
+<p><b>- 17.10.2003</b>
+<ul>
+<li>Keep-Alive-connections do now have a timeout of 5 seconds and will be closed if no traffic occures in this amount of time</li>
+<li>Reworked workdispatching-system</li>
+<li>fixed usage-disply for reader-queue-usage on the /state - page</li>
+</ul></p>
+<p><b>- 16.10.2003</b>
+<ul>
+<li>SU-Users may also ban other users from starting-groups</li>
+<li>fixed bug concerning ban-list (was checking if userobject is present when uname.toLowerCase should be checked)</li>
+<li>only touch users once per check-loop</li>
+</ul></p>
+<p><b>- 15.10.2003</b>
+<ul>
+<li>re-added /rig-command (was missing since the rework of the command-evaluation-code)</li>
+<li>changed the default-values for userTimeout and userAwayTimeout (90000 millis and 180000 millis)</li>
+<li>fixed active-user-count</li>
+</ul></p>
+<p><b>- 14.10.2003</b>
+<ul>
+<li>added example-table-createstatement for MySql making it easier to connect the chat to a database</li>
+<li>fixed bug causing users not to be logged out (if they login and did never recieve the /MESSAGES-frame)</li>
+<li>fixed bug causing awaymessage to be not displayable on returning from away-state</li>
+<li>fixed corrupted message-template</li>
+<li>accidently copied moderation-message.set-file over the default-message.set-file. Corrected this.</li>
+</ul></p>
+<p><b>- 12.10.2003</b>
+<ul>
+<li>away-message-text is now stored for the moment this user returns from away-state</li>
+<li>evaluating variables within arguments for a variable is now possible (e.g. §sender prefix="&lt;font color=@sendercolor@>" suffix="</font">)</li>
+<li>"/vip txt" may only be called by vip's, but "/vip" may be called by everybody (lists the online vip's)</li>
+<li>added message-templates "error.m.vip.noRight" and "message.fl.entry"</li>
+<li>Fixed Bug causing friendslist not to be displayed</li>
+</ul></p>
+<p><b>- 11.10.2003</b>
+<ul>
+<li>Reworked thread-synchronization, should avoid freezed threads</li>
+</ul></p>
+<p><b>- 05.10.2003</b>
+<ul>
+<li>Added possibility to log each log-message-type into a seperate logfile or any combination of log-message-types into a logfile.</li>
+</ul></p>
+<p><b>- 04.10.2003</b>
+<ul>
+<li>The users permission-value may not be 0. This will be automatically corrected to the standard-
+permission of ROLE_USER. For all userrights & roles have a look at <a href="http://cvs.sourceforge.net/viewcvs.py/freecs/freecs/src/freecs/interfaces/IUserRights.java">this</a></li>
+<li>If a user ignores a user who has invited this user before, we do no longer remove the invitytion state</li>
+<li>It is possible to deffine the prefix and suffix for usernames of special users (Moderator, VIP, Su, punished)</li>
+<li>Moderation of deffined rooms is now possible. (Introducing a new user-right (MAY_MODERATE) and moderated 
+Groups + the command /ack, have a look at the moderation-templateset)</li>
+</ul></p>
+<p><b>- 01.10.2003</b>
+<ul>
+<li>added possibility to display a list of online users + the number of online users and the number of open rooms from outside the chat</li>
+<li>the internal work-distribution has been reworked</li>
+</ul></p>
+</body>
+</html>
+
+

@@ -1,0 +1,68 @@
+<html>
+<head>
+<script language=JavaScript>
+<!-- JavaScript Code
+function clear_line(formular) {
+   formular.message.value="";
+   formular.message.focus();
+   formular.message.select();
+}
+
+function clear_input(formular) {
+   if (!formular.message.value || formular.message.value.length < 1)
+       return (false);
+   formular.submit();
+   clear_line(formular);
+   return (false);
+}
+
+function sel_change(obj) {
+  var indx, str;
+  indx = obj.selectedIndex;
+  str=obj.options[indx].value;
+  document.f.message.value = str;
+  document.f.message.focus();
+}
+
+// JavaScript Ende -->
+</script>
+<style type="text/css">
+    body     { font-family: verdana, arial, helvetica, sans-serif; color: #FFFFFF; background-color: #000000;}
+</style>
+</head>
+<body link="#66CCFF" alink="#000000" vlink="#006699">
+<table width="640" border="0" cellpadding="4" cellspacing="0" bgcolor="#CCCCCC">
+<tr>
+<td width="118" align="center" nowrap><img src="static/colorbar.gif" alt="Colorbar" align=left width="108" height="18" usemap="#spectrum" border="0" />
+    <map name="spectrum">
+        <area shape="rect" coords="90,0,108,18" href="<% SELVE %>/SEND?message=/col+009900" target=dummy>
+        <area shape="rect" coords="72,0,90,18" href="<% SELVE %>/SEND?message=/col+CC0000" target=dummy>
+        <area shape="rect" coords="54,0,72,18" href="<% SELVE %>/SEND?message=/col+FF9933" target=dummy>
+        <area shape="rect" coords="36,0,54,18" href="<% SELVE %>/SEND?message=/col+669999" target=dummy>
+        <area shape="rect" coords="18,0,36,18" href="<% SELVE %>/SEND?message=/col+FF00FF" target=dummy>
+        <area shape="rect" coords="0,0,18,18" href="<% SELVE %>/SEND?message=/col+0000CC" target=dummy>
+    </map></td>
+
+<td><form name="f" method=get action="<% SELVE %>/SEND" onSubmit="JavaScript:return clear_input(this);" target=dummy>
+<input type=text name="message" size=40>
+</td>
+<td nowrap><select name="sel" onChange="sel_change(this)">
+        <option value="">chat</option>
+        <option value="/s ">shout</option>
+        <option value="/me ">act</option>
+        <option value="/j ">open/change room</option>
+        <option value="/a ">accept invitation</option>
+        <option value="/sepa ">open room and lock it</option>
+</select></td>
+<td><a href="http://sourceforge.net" target=_blank><img src="http://sourceforge.net/sflogo.php?group_id=90211&type=3" 
+        width="125" height="37" border="0" alt="SourceForge.net Logo" /></a></td>
+</tr>
+</table>
+</form>
+<script language="JavaScript">
+<!--
+clear_line(document.f);
+//-->
+</script>
+</body>
+</html>

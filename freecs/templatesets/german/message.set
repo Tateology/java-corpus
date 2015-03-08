@@ -1,0 +1,300 @@
+error.ack.groupNotModerated         = <i>Dieser Raum ist nicht moderiert.</i>
+error.ack.noArg                     = <i>Es wurden keine Argumente angegeben.</i>
+error.ack.noMessage                 = <i>Es wurde keine Message angeben.</i>
+error.ack.userNotInGroup            = <i><b>§param§ ist nicht im Raum.</i><b>
+error.away.confirm                  = <form action="/CMDCONFIRM" name="cmd" onclick="this.submit()" method="get" target="dummy"><span>Willst du flüstern?</span><input name="confirm" type="radio" value="false" /><br /><span>Willst du dich abmelden?</span><input name="confirm" type="radio" value="true" /><input name="param" type="hidden" value="§param§"  /><input name="cmd" type="hidden" value="away"  /></form><img src="../static/iconWarn.gif" /><i>Wenn du flüstern willst, ist es einfacher mit <strong>/m away text</strong></i> 
+error.bgcol.notAllowedCode          = <i>Die Hintergrundfarbe (<b>§param§</b>) ist keine erlaubte Farbe</i>
+error.group.notExisting             = <i><b>Der Raum §param§ existiert nicht.</i></b>
+error.a.noLongerValid               = <i>Die Einladung von §user.linkedname§ in den Raum §targetGroup§ ist nicht mehr gültig.</i>
+error.me.noArg                      = <i>Was willst du denn tun?</i>
+error.ban.noArg                     = <i>Wen willst Du verbannen verbannen?</i>
+error.ban.noRight                   = <i>Du darfst niemanden verbannen.</i>
+error.ban.alreadyBaned              = §user.linkedname§ <i>ist bereits aus dem Raum <b>§targetGroup§</b> verbannt.</i>
+error.uban.noArg                    = <i>Wen willst Du entbannen?</i>
+error.uban.noRight                  = <i>Du darfst niemanden entbannen.</i>
+error.col.startingGroup             = <i>Du kannst deine Farbe nicht innerhalb eines Startraumes ändern.</i><br /><b>Bitte wechsle in einen anderen Raum </b><i>(z.B. <a href="/SEND?message=/j+colorchange" target=dummy>/j colorchange</a>).</i>
+error.col.noRight                   = <i>Du hast nicht das Recht in diesem Raum die Farbe zu wechseln.</i>
+error.col.wrongCode                 = <i>§param§ ist leider kein gültiger HTML-Farbcode!<br><small>(Format: [00-FF][00-FF][00-FF] wobei die einzelnen seqmente die Farben Rot, Grün und Blau darstellen)</small></i>
+error.col.lockedColor               = <i>§param§ ist eine gesperrte Farbe.</i>
+error.col.tooOften                  = <i>Du hast die Farbe zu schnell hintereinander gewechselt.<br>Es müssen mindestens §param§ sekunden zwischen jedem Farbwechsel vergangen sein.</i>
+error.td.noArg                      = <i>Es wurde kein Argument angegeben. Verwendung: [Würfelanzahl] [Anzahl der Augen pro Würfel]</i>
+error.td.noRight                    = <i>Du hast nicht das Recht hier zu würfeln.</i>
+error.td.wrong                      = <i>Die Argumente waren falsch. Verwendung: [Würfelanzahl] [Anzahl der Augen pro Würfel]</i>
+error.td.toomany                    = <i>Das waren entweder zu viele Würfel oder eine zu hohe Augenzahl.</i>
+error.ig.noArg                      = <i>Ignore wurde ohne argument aufgerufen.</i>
+error.i.noRight                     = <i>Du hast nicht das Recht User in diesen Raum einzuladen.</i>
+error.i.noArg                       = <i>Invite wurde ohne Argument aufgerufen.</i>
+error.i.alreadyInvited              = <i>Du hast <b>§user.linkedname§</b> bereits eingeladen.</i>
+error.i.alreadyHere                 = §user.linkedname§ <i>befindet sich bereits in diesem Raum.</i>
+error.ia.all.noRight                = <i>Du hast nicht das Recht dazu alle chatter einzuladen!</i>
+error.ia.noRight                    = <i>Du hast nicht das Recht alle Chatter aus dem Raum einzuladen!</i>
+error.ia.inviteStartGroup           = <i>Es ist nicht erlaubt alle User aus einem Hauptraum einzuladen.</i>
+error.j.noArg                       = <i>Es wurde kein Raumnamen eingegeben</i>.
+error.j.alreadyHere                 = <i>Du befindest dich bereits im Raum §targetGroup§.</i>
+error.j.banned                      = <i>Du bist aus <b>§targetGroup§</b> verbannt worden und kanst den Raum deshalb nicht betreten.</i>
+error.j.noRightToOpen               = <i>Du hast nicht das Recht <b>§param§</b> zu eröffnen.</i>
+error.j.closed                      = <i><b>§targetGroup§ </b>ist abgesperrt.</i>
+error.j.noRight                     = <i>Du bist nicht berechtigt den Raum zu wechseln.</i>
+error.j.joinunreg                   = <i>Unregistrierte dürfen den Raum <b>§param§ </b> nicht betreten!</i>
+error.j.membershiplocked            = <i>Den Raum  <b>§param§ </b>können nur Mitglieder der entsprechenden Gruppe betreten!</i>
+error.j.reserved                    = <i>Der Raum  <b>§param§ </b>ist reserviert!</i>
+error.jclosed.noRight               = <i>Du bist nicht berechtigt geschlossene Räume zu betreten.</i>
+error.jclosed.groupNotExisting      = <i><b>§param§ existiert nicht.</i></b>
+error.ju.alreadyHere                = <i>Du befindest dich bereits im gleichen Raum wie §user.linkedname§.</i>
+error.ju.noArg                      = <i>Du hast keinen Nick angegeben.</i>
+error.j.confirm                     = <form action="/CMDCONFIRM" name="cmd" onclick="this.submit()" method="get" target="dummy"><span>Willst du flüstern?</span><input name="confirm" type="radio" value="false" /><br /><span>Willst du den Raum wechseln?</span><input name="confirm" type="radio" value="true" /><input name="param" type="hidden" value="§param§"  /><input name="cmd" type="hidden" value="j"  /></form><i>Wenn du flüstern willst es einfacher mit <strong>/m j text</strong></i> 
+error.ju.confirm                    = <form action="/CMDCONFIRM" name="cmd" onclick="this.submit()" method="get" target="dummy"><span>Willst du flüstern?</span><input name="confirm" type="radio" value="false" /><br /><span>Willst du den Raum wechseln?</span><input name="confirm" type="radio" value="true" /><input name="param" type="hidden" value="§param§"  /><input name="cmd" type="hidden" value="ju"  /></form><i>Wenn du flüstern willst es einfacher mit <strong>/m ju text</strong></i> 
+error.jclosed.confirm               = <form action="/CMDCONFIRM" name="cmd" onclick="this.submit()" method="get" target="dummy"><span>Willst du flüstern?</span><input name="confirm" type="radio" value="false" /><br /><span>Willst du den Raum wechseln?</span><input name="confirm" type="radio" value="true" /><input name="param" type="hidden" value="§param§"  /><input name="cmd" type="hidden" value="jclosed"  /></form><i>Wenn du flüstern willst es einfacher mit <strong>/m jclosed text</strong></i> 
+error.j.confirm                     = <form action="/CMDCONFIRM" name="cmd" onclick="this.submit()" method="get" target="dummy"><span>Willst du flüstern?</span><input name="confirm" type="radio" value="false" /><br /><span>Willst du den Raum wechseln?</span><input name="confirm" type="radio" value="true" /><input name="param" type="hidden" value="§param§"  /><input name="cmd" type="hidden" value="j"  /></form><img src="../static/iconWarn.gif" /><i>Wenn du flüstern willst, ist es einfacher mit <strong>/m j text</strong></i> 
+error.ju.confirm                    = <form action="/CMDCONFIRM" name="cmd" onclick="this.submit()" method="get" target="dummy"><span>Willst du flüstern?</span><input name="confirm" type="radio" value="false" /><br /><span>Willst du den Raum wechseln?</span><input name="confirm" type="radio" value="true" /><input name="param" type="hidden" value="§param§"  /><input name="cmd" type="hidden" value="ju"  /></form><img src="../static/iconWarn.gif" /><i>Wenn du flüstern willst, ist es einfacher mit <strong>/m ju text</strong></i> 
+error.jclosed.confirm               = <form action="/CMDCONFIRM" name="cmd" onclick="this.submit()" method="get" target="dummy"><span>Willst du flüstern?</span><input name="confirm" type="radio" value="false" /><br /><span>Willst du den Raum wechseln?</span><input name="confirm" type="radio" value="true" /><input name="param" type="hidden" value="§param§"  /><input name="cmd" type="hidden" value="jclosed"  /></form><img src="../static/iconWarn.gif" /><i>Wenn du flüstern willst, ist es einfacher mit <strong>/m jclosed text</strong></i> 
+error.k.noRight                     = <i>Du hast nicht die Berechtigung §user.linkedname suffix=" zu kicken" ifEmpty="jemanden zu kicken"§.rc.rightAssigned                    = <i>Du hast §user.name§ §param touppercase§-Rechte verliehen.</i>
+error.k.noGroupRight                = <i>Du hast nicht die Berechtigung §user.linkedname ifempty="jemanden"§ in den Raum §param§ zu kicken.rc.rightAssigned                    = <i>Du hast §user.name§ §param touppercase§-Rechte verliehen.</i>
+error.kh.noRight                    = <i>Du hast nicht das Recht §user.linkedname suffix=" hard zu kicken" ifEmpty="jemanden hard zu kicken"§</i>
+error.kc.noroom                     = <i>Es wurde kein Raumname angegeben. Eingabe mit /kc nick:raumname </i>
+error.fl.nofriends                  = <i>Du hast keine Freunde auf deiner Visitenkarte eingetragen.</i>
+error.f.noFriendOnline              = <i>Derzeit ist keiner deiner Freunde online.</i>
+error.flock.noRight                 = <i>Du darfst diesen Befehl nicht ausführen.</i>
+error.flock.noArg                   = <i>Name oder Farbcode fehlen.</i>
+error.flock.noUser                  = <i>Es wurde kein Name angegeben.</i>
+error.wban.noRight                  = <i>Du hast nicht das Recht die Ban-Liste einzusehen.</i>
+error.wban.nobodyBanned             = <i>Es befindet sich niemand auf der Ban-Liste von §targetGroup§.</i>
+error.m.vip.noRight                 = <i>Du hast nicht das Recht an alle VIP's eine nachricht zu schicken.</i>
+error.vip.noVipOnline               = <i><b>Im Moment sind keine VIP's online.</i></b>
+error.l.noRight                     = <i>Du darfst den Raum §targetGroup§ nicht abzusperren.</i>
+error.ul.noRight                    = <i>Du hast nicht das Recht den Raum §targetGroup§ aufzusperren.</i>
+error.m.noArg                       = <i>Flüsternachricht an niemanden?</i>
+error.m.noMessage                   = <i>Was willst du </i>§user.linkedname§ <i>flüstern?</i>
+error.m.cantHearYou                 = §user.linkedname§ <i>kann derzeit nicht angeflüstert werden.</i>
+error.gag.noRight                   = <i>Du hast nicht das Recht</i> §user.linkedname§ <i>zu knebeln.</i>                                                                                                                                    
+error.gag.noArg                     = <i>Du hast keinen Nick angegeben.</i>                                                                                                                                                                 
+error.gag.protected                 = <i>Du hast nicht das Recht </i>§user.linkedname§ <i>zu knebeln.</i>                                                                                                                                   
+error.aq.noArg                      = <i>Was willst du wen Fragen?</i>                                                                                                                                                               
+error.raq.noRight                   = <i>Du darfst nicht den Fragencounter zurücksetzen.</i> 
+error.rc.noArg			            = <i>Es fehlen Angaben der Befehl kann nicht ausgeführt werden</i>
+error.rc.userNotFound               = <i>§param§ ist nicht im chat!</i>
+error.rc.rightNotFound              = <i>Das Recht §param§ gibt es nicht!</i><br><i>Eingabemöglichkeiten : /rc nick =user =vip =asshole +/- moderator +/- guest</i>
+error.rc.notRight		            = <i>Du kannst §user.name§ keine §param§rechte verleihen</i>
+error.rig.noArg                     = <i>Du hast keinen Nicknamen eingegeben.</i>                                                                                                                                         
+error.rig.noIgnoredUser             = <i>Du ignorierst derzeit niemanden!</i>
+error.rsu.noArg                     = <i>Du hast keinen Nicknamen eingegeben.</i>                                                                                                                                               
+error.rsu.noRight                   = <i>Du hast nicht das Recht </i>§user.linkedname§ <i>die SU-Rechte zu entziehen.</i>                                                                                                                   
+error.su.noArg                      = <i>Du hast keinen Nicknamen eingegeben.</i>                                                                                                                                                       
+error.su.noRight                    = <i>Du hast nicht das Recht §user.linkedname suffix="" ifEmpty="jemanden"§ SU-Rechte zu verleihen.</i>                                                                                                                                         
+error.su.tooManyForStartgroup       = <i>Es gibt bereits §param§ Superuser in §targetGroup§.</i>                                                                                                                                     
+error.sepa.l.noRight                = <i>Du darfst den Raum §targetGroup§ nicht abzusperren.</i>
+error.sepa.noArg                    = <i>Es wurde kein Raumnamen eingegeben.</i>                                                                                                                                                      
+error.sepa.noRight                  = <i>Du hast nicht das Recht den Raum <b>§param§</b> zu eröffnen.</i>                                                                                                                                                         
+error.sepa.alreadyExists            = <i><b>§targetGroup§ </b>existiert bereits.</i>                                                                                                                                                        
+error.sepa.alreadyHere              = <i>Du befindest dich bereits in §targetGroup§.</i>
+error.sepa.confirm                  = <form action="/CMDCONFIRM" name="cmd" onclick="this.submit()" method="get" target="dummy"><span>Willst du flüstern?</span><input name="confirm" type="radio" value="false" /><br /><span>Willst du einen Raum eröffnen?</span><input name="confirm" type="radio" value="true" /><input name="param" type="hidden" value="§param§"  /><input name="cmd" type="hidden" value="sepa"  /></form><img src="../static/iconWarn.gif" /><i>Wenn du flüstern willst,ist es einfacher mit <strong>/m sepa text</strong></i> 
+error.q.confirm                     = <form action="/CMDCONFIRM" name="cmd" onclick="this.submit()" method="get" target="dummy"><span>Willst du flüstern?</span><input name="confirm" type="radio" value="false" /><br /><span>Willst du den Chat verlassen?</span><input name="confirm" type="radio" value="true" /><input name="param" type="hidden" value="§param§"  /><input name="cmd" type="hidden" value="q"  /></form><img src="../static/iconWarn.gif" /><i>Wenn du flüstern willst, ist es einfacher mit <strong>/m q text</strong></i> 
+error.t.noRight                     = <i>Du hast nicht das Recht das Thema in <b>§targetGroup§</b> zu setzen.</i>                                                                                                                           
+error.s.noArg                       = <I>Was willst du schreien?</i>                                                                                                                                                              
+error.ip.noArg                      = <i>Wessen IP willst du auslesen?</i>      
+error.ip.noProxyUser                = <i>Derzeit verwendet kein Chatter einen anonymen Proxyserver!</i> 
+error.w.nobodyHere                  = <I><b>Es befindet sich niemand in §targetGroup§.</i></b>                                                                                                                                              
+error.th.noArg                      = <I>Es wurde kein Text eingeben.</i>                                                                                                                                                           
+error.sys.noArg                     = <i>Es wurde kein Argument angegeben.</i>                                                                                                                                                       
+error.user.punished                 = <i>Du wurdest geknebelt, weshalb du nur Flüstern kannst. Ausserdem kannst du in Starträume wechseln, nicht jedoch in andere Räume.</i>
+error.user.notOnServer.singular     = <i><b>§param§ ist nicht da.</i></b>
+error.user.notOnServer.plural       = <i><b>§firstusers§ und §lastuser§ sind nicht da.</i></b>
+error.uban.notOnList.singular       = §user.linkedname§<i>§param§ ist nicht auf der Banliste.</i>
+error.uban.notOnList.plural         = §firstusers§ <i>und</i> §lastuser§ <i>sind nicht auf der Banliste.</i>
+error.rgag.noArg                    = <i>Wen willst du entkneblen?</i>
+error.rgag.noRight                  = <i>Du hast nicht das Recht </i>§user.linkedname§<i> zu entknebeln.</i>
+error.noRight.noSuVipAdmin          = <i>Du bist kein <b>SU</b>,<b>VIP</b> oder <b>Admin</b>.</i>
+error.noRight.noVipAdmin            = <i>Du bist kein <b>VIP</b> oder <b>Admin</b>.</i>
+error.noRight.noAdmin               = <i>Du bist kein <b>Admin</b>.</i>
+error.noRight.noModAdmin            = <i>Du bist kein <b>Moderator</b> oder <b>Admin</b>.</i>
+error.noRight.noMod                 = <i>Du bist kein <b>Moderator</b>.</i>
+error.noRight.isAdmin               = <i><b>Admin</b>'s können nicht gekickt und geknebelt werden.</i> 
+error.noRight.isVip                 = <i><b>VIP</b>'s können nicht gekickt und geknebelt werden.</i> 
+error.noRight.isSuForbiddenMembership = §user.linkedname§ <i>darf keine SU-Rechte bekommen.</i>
+error.noRight.deactivated           = <i><b>Dieser Befehl ist deaktiviert!</i></b>
+error.mass.noRight.noVipAdmin       = <i>Die Massenbefehle dürfen nur <b>VIP</b>'s und <b>Admin</b>'s ausführen</b></i>
+error.moderated.timelock            = <i>Du darfst in §param§ Sekunden deine nächste Frage stellen.<br>Frage wiederholen: <a href="#" onClick="parent.dummy.location.href='/SEND?message=§message§'">§message§</a></i>
+error.fun.commandnotfound           = <i>Diesen Funbefehl gibt es nicht.</i>
+error.fun.noArg                     = <i>Es wurden keine Parameter angegeben!</i>
+
+message.send                        = <font color="§sender.color§">(</font>§sender.linkedname§<font color="§sender.color§">)</font> <font color="§sender.color§">§message§</font>
+message.send.moderated              = [§sender.linkedname§] <a href="#" onClick="parent.dummy.location.href='/SEND?message=/ack §sender.name§ §message§';parent.input.focus();">§message§</a>&nbsp;<button style="width: 112px;" width="25px" onClick="parent.dummy.location.href='/SEND?message=/aq [§sender.name§]: §message§';parent.input.focus();"/>Frage weiterleiten</button>
+message.send.moderated.personal     = <i>Die Nachricht wurde an den Moderator gesendet.</i>
+
+message.a                           = <i>§sender§ hat deine Einladung angenommen.</i>
+message.a.personal                  = §sender.linkedname§ hat die Einladung angenommen und geht in den Raum §targetgroup§.
+message.ack                         = <i>Message: <b>§message§</b> wurde von </i>§sender.linkedname§ <i>freigegeben.</i>
+message.aq                          = <b><font color="§sender.color§">Frage Nr.§group.questioncounter§ von  </b>§sender.linkedname§<b>: §message§</font></b>
+message.raq                         = §sender.linkedname§ <i>hat den Fragencounter zurückgesetzt</i>
+message.away.on                     = §sender.linkedname§ <i><font color="#§sender.color§">meldet sich kurz ab.</i> §sender.awaymessage prefix=" (" suffix=")"§</font>
+message.away.off                    = §sender.linkedname§ <i><font color="#§sender.color§">meldet sich zurück.</i> §sender.awaymessage prefix=" (" suffix=")"§</font>
+message.away.whisper.singular       = <i>Du wurdest <b>§param§</b> mal von §user.linkedname§ angeflüstert.</i>
+message.away.whisper.plural         = <i>Du wurdest <b>§param§</b> mal angeflüstert von §firstusers§ und §lastuser§.</i>
+message.away.friendnotification.singular = §user.linkedname§ <i>hat inzwischen den Chat betreten.</i>
+message.away.friendnotification.plural = §firstusers§ <i>und</i> §lastuser§ <i>haben inzwischen den Chat betreten.</i>
+message.col                         = §sender.linkedname§ <i><font color="#§sender.color§">hat die Farbe gwechselt</font>.</i>
+message.bgcol.listAllowedCode       = <i>Folgende Hintergrundfarben wurden freigegeben (§param§).</i>
+message.c                           = <script language="JavaScript">clear ();</script>If you can read this message your browser doesn't support javascript. Pleas hit reload to clear your message-screen.<br><br></body></html>
+message.flock.singular               = §user.linkedname§ <i><font color="#§user.color§">hat von §sender§ etwas Unterstützung bekommen.</font>§reason prefix=" (" suffix=")"§</i>.
+message.flock.plural                 = §firstusers§<i><font color="#§user.color§"> und </font></i>§lastuser§  <i><font color="#§user.color§">haben von §sender§ etwas Unterstützung bekommen.</font>§reason prefix=" (" suffix=")"§</i>.
+message.flock.confirm.plural         = Du hast bei §firstusers§ und §lastuser§ den Befehl /flock angewendet.
+message.flock.confirm.singular       = Du hast bei §user.linkedname§ den Befehl /flock angewendet.
+message.flock.personal               = §sender.linkedname§ <i> hat dich etwas unterstützt(/me, /col oder /away).</i>
+message.me                          = <b><font color="#§sender.color§">> </font></b>§sender.linkedname§ <b><font color="#§sender.color§">§message§</font></b>
+message.ban.personal                = §sender.linkedname§ hat §user.linkedname§ aus dem Raum <b>§targetGroup§</b> verbannt.
+message.ban.plural                  = §sender.linkedname§ hat §firstusers§ und §lastuser§ aus dem Raum <b>§targetGroup§</b> verbannt.
+message.ban.singular                = §sender.linkedname§ hat §user.linkedname§ aus dem Raum <b>§targetGroup§</b> verbannt.
+message.ban.confirm.plural          = Du hast §firstusers§ und §lastuser§ aus dem Raum <b>§targetGroup§</b> verbannt.
+message.ban.confirm.singular        = Du hast §user.linkedname§ aus dem Raum <b>§targetGroup§</b> verbannt.
+message.uban.personal               = §sender.linkedname§ hat §user.linkedname§ entbannt.<br><b>Du kannst den Raum §targetGroup§ wieder betreten.</b>
+message.uban.plural                 = §sender.linkedname§ hat §firstusers§ und §lastuser§ entbannt.
+message.uban.singular               = §sender.linkedname§ hat §user.linkedname§ entbannt.
+message.uban.confirm.plural         = <i>Du hast §firstusers§ und §lastuser§ vom Raum <b>§targetGroup§</b> entbannt.</i>
+message.uban.confirm.singular       = <i>Du hast §user.linked§ vom Raum §targetGroup§ entbannt.</i>
+message.td                          = §sender.linkedname§ has rolled the dies: <font color="§sender.color§">§throw suffix="<br>"§§result§§total prefix="<br>total number of points: "§</font>
+message.ig.plural                   = <i>Du inorierst §firstusers§ und  §lastuser§.</i>
+message.ig.singular                 = <i>Du ignorierst §user.linkedname§.</i>
+message.i.personal                  = <i>Du bist von §sender.linkedname§ in den Raum '§targetGroup§' eingeladen worden!</i><br><b>Gib <a href="/SEND?message=/a" target=dummy>/a</a> ein, wenn Du die Einladung annehmen willst.</b>
+message.i.plural                    = <i>Du hast §firstusers§ und §lastuser§ eingeladen</i>.
+message.i.singular                  = <i>Du hast §user.linkedname§ eingeladen</i>.
+message.ia.all                      = §sender.linkedname§ hat alle Leute im Chat eingeladen.
+message.ia.group                    = §sender.linkedname§ hat alle Leute im Raum <b>§sourceGroup§</b> eingeladen.
+message.ip                          = §user.linkedname§ connection-status:<br><b>PeerIP:</b>§user.peerip§§user.peername prefix=" - "§§user.clientip prefix="<br><b>ClientIP:</b>"§§user.clientname prefix=" - "§§user.forwardchain prefix="<br><b>Forward-Chain:</b>"§
+message.ip.anoproxy                 = §user.linkedname§ (§user.group§) PeerIP:</b>§user.peerip§§user.peername prefix=" - "§§user.clientip prefix="<br><b>ClientIP:</b>"§§user.clientname prefix=" - "§§user.forwardchain prefix="<br><b>Forward-Chain:</b>"§
+message.j.created                   = §sender.linkedname§ geht in den Raum (<b>§targetGroup§</b>).
+message.j                           = §sender.linkedname§ geht in den Raum (<b>§targetGroup§</b>)
+message.jclosed                     = §sender.linkedname§ geht in den abgesperrten Raum (<b>§targetGroup§</b>).
+message.k.destination.singular      = §user.linkedname§ <i>landet im exil!</i>
+message.k.confirm.singular          = §sender.linkedname§ <i>wirft </i>§user.linkedname§ <i>aus dem Raum!</i> §reason prefix=" (" suffix=")"§
+message.k.singular                  = §sender.linkedname§ <i>wirft </i>§user.linkedname§ <i>aus dem Raum!</i> §reason prefix=" (" suffix=")"§
+message.k.destination.plural        = §firstusers§ and §lastuser§ landen im exil.
+message.k.confirm.plural            = §sender.linkedname§ wirft §firstusers§ und §lastuser§ aus dem Raum! §reason prefix=" (" suffix=")"§ 
+message.k.plural                    = §sender.linkedname§ hat §firstusers§ und §lastuser§ aus dem Raum geworfen §reason prefix=" (" suffix=")"§
+message.k.personal                  = <i>§user.linkedname§ landet im exil!</i>
+message.kh.singular                 = §sender.linkedname§ wirft §user.linkedname§ aus dem Chat!§reason prefix=" (" suffix=")"§.
+message.kh.confirm.singular         = Du hast §user.linkedname§ hardgekickt.
+message.kh.plural                   = §sender.linkedname§ wirft §firstusers§ und §lastuser§ aus dem Chat!§reason prefix=" (" suffix=")"§.
+message.kh.confirm.plural           = Du hast §firstusers§ und §lastuser§ hardgekickt.
+message.kh.personal                 = <script language="JavaScript">kicked ();</script>If you can read this message your browser doesn't support javascript.<br><br><b><big>You have just been kicked by §sender.linkedname§!</big></b><br><br></body></html>
+message.kh.godinfo                  = <b><i>Admininfo: </b></i>§sender.linkedname§ wollte dich hardkicken.
+message.kc.personal                 = <i>Du wurdest von §sender.linkedname§ in den Raum (<b>§targetGroup§</b>) verwiesen.</i>
+message.kc.destination.singular     = §user.linkedname§ wurde in diesen raum verwiesen.
+message.kc.confirm.singular         = Du hast §user.linkedname§ in den Raum (<b>§targetGroup§</b>) gekickt.
+message.kc.singular                 = §sender.linkedname§ hat §user.linkedname§ in den Raum (<b>§targetGroup§</b>) verwiesen.
+message.kc.destination.plural       = §firstusers§ <i>und</i> §lastuser§ <i>wurden in diesen Raum verwiesen.</i>
+message.kc.confirm.plural           = Du hast §firstusers§ und §lastuser§ in den Raum (<b>§targetGroup§.</b>) verwiesen.
+message.kc.plural                   = §sender.linkedname§ hat §firstusers§ und §lastuser§ in den Raum (<b>§targetGroup§</b>) verwiesen.
+message.kc.godinfo                  = <b><i>Admininfo: </b></i>§sender.linkedname§ wollte dich in den Raum (<b>§param§</b>) verweisen
+message.f.headline                  = <b><i>Es sind folgende Freunde anwesend:</b></i>
+message.f.isOnline                  = * <font color="§friend.color§">§friend§</font> befindet sich im Raum <b>§friend.group§</b>.
+message.f.joined                    = <font color="§friend.color§">[§friend§] hat sich gerade eingelogt und befindet sich im Raum §friend.group§</font>
+message.f                           = * §user.linkedname§ ist im Raum §user.group§.
+message.f.count                     = Es sind §param§ Freunde online.
+message.fonly.true                  = <i><img src="../static/iconWarn.gif" /> Es werden nur noch Meldungen von Freunden angezeigt sofern du dich in einem <strong>privaten</strong> Raum befindest!</i>
+message.fonly.false                  = <i>Es werden wieder alle Meldungen angezeig.t</i>
+message.m.vip                       = §sender.linkedname§ -> VIPS: §message§
+message.m.vip.confirm               = <b><i>Du flüsterst zu allen VIPs: §message§</b></i>
+message.mcall                       = §user.linkedname§ <i><b> flüstert zur Gruppe (§param§): §message§</i></b>
+message.mcall.history               = History-->§user.linkedname§ <i><b> flüstert zur Gruppe (§param§): §message§</i></b>
+message.mycol                       = <i>Dein color-code ist "<font color="#§sender.color§">§sender.color§</font>".</i>
+message.m.notification              = <font style="color:#33CC33">--> §param§. </font>§sender.linkedname§<i><b> flüstert Dir zu: §message§</i></b>
+message.m                           = §sender.linkedname§<i><b> flüstert Dir zu: §message§</i></b>
+message.m.away                      = §user.linkedname§ <i>hat sich abgemeldet.</i> §user.awaymessage prefix=" (" suffix=")"§<br><i><b>Du flüsterst zu </i></b>§user.linkedname§: <i><b>§message§</i></b>
+message.m.confirm                   = <b><i>Flüster zu </i></b><font color="§user.color§">§user§</font><b><i>: §message§</i></B>
+message.vip.singular                = §user.linkedname§ ist online in §user.group§
+message.vip.plural                  = §firstusers§ und §lastuser§ sind derzeit im Chat .
+message.l                           = §sender.linkedname§ <i>hat abgesperrt.</i>
+message.ul                          = §sender.linkedname§ <i>hat aufgesperrt.</i>
+message.gag.singular                = §sender.linkedname§ hat §user.linkedname§ einen Knebel verpasst.§reason prefix=" (" suffix=")"§
+message.gag.plural                  = §sender.linkedname§ hat §firstusers§ und §lastuser§ einen Knebel verpasst.§reason prefix=" (" suffix=")"§.
+message.gag.confirm.singular        = Du hast §user.linkedname§ geknebelt.
+message.gag.confirm.plural          = Du hast §firstusers§ and §lastuser§ geknebelt.
+message.gag.personal                = Du wurdest von §sender.linkedname§ geknebelt.
+message.q                           = <script language="JavaScript">quit ();</script>You have been logged out.<br><br></body></html>
+rc.rightAssigned                    = <i>Du hast §user.name§ §param touppercase§-Rechte verliehen.</i>
+rc.rightRevoked                     = <i>Du hast §user.name§ die §param touppercase§-Rechte entzogen.</i>
+rc.newAssignedRight                 = §user.linkedname§ <b><i>hat von </i></b>§sender.linkedname§ <b><i>§param touppercase§-Rechte verliehen bekommen.</i></b>
+rc.newRevokedRight 		    = §sender.linkedname§ <b><i>hat </b></i>§user.linkedname§ <b><i>die §param touppercase§-Rechte entzogen.</b></i>
+rc.rightsReset                      = <i>Du hast die Rechte von §user.name§ zurückgesetzt</i>
+rc.newResetRight                    = §sender.linkedname§<i><b> hat die Rechte von </i></b>§user.linkedname§ <i><b>zurückgesetzt</b></i>
+message.rig.singular                = §user.linkedname§§param§ wird nicht mehr ignoriert.
+message.rig.plural                  = §firstusers§ udd §lastuser§ werden nicht mehr ignoriert.
+message.rsu.personal                 = §sender.linkedname§ hat dir die Superuser-Rechte entzogen.
+message.rsu.singular                 = §sender.linkedname§ <b><i>hat </b></i>§user.linkedname§ <b><i>die Superuser-Rechte entzogen.</b></i>
+message.rsu.plural                   = §sender.linkedname§ <b><i>hat </b></i>§firstusers§ <b><i>und </b></i>§lastuser§ <b><i>die Superuser-Rechte entzogen.</b></i>
+message.rsu.confirm.singular         = Du hast §user.linkedname§ die Superuser-Rechte entzogen.
+message.rsu.confirm.plural           = Du hast §firstusers§ und §lastuser§ die Superuser-Rechte entzogen.
+message.rgag.personal                = Du wurdest von §sender.linkedname§ entknebelt.
+message.rgag.confirm.singular        = Du hast §user.linkedname§ entknebelt.
+message.rgag.confirm.plural          = Du hast §firstusers§ and §lastuser§ entknebelt.
+message.rgag.singular                = §sender.linkedname§ hat §user.linkedname§ vom Knebel befreit.§reason prefix=" (" suffix=")"§
+message.rgag.plural                  = §sender.linkedname§ hat §firstusers§ und §lastuser§ vom Knebel befreit.§reason prefix=" (" suffix=")"§.
+message.su.personal                 = §sender.linkedname§ hat dir Superuser-Rechte verliehen.
+message.su.singular                 = §user.linkedname§ <b><i>hat von </i></b>§sender.linkedname§ <b><i>Superuser-Rechte verliehen bekommen.</i></b>
+message.su.plural                   = §firstusers§ <b><i>und</b></i> §lastuser§ <b><i>haben von </b></i>§sender.linkedname§ <b><i>Superuser-Rechte verliehen bekommen.</b></i>
+message.su.confirm.singular         = Du hast§user.linkedname§ Superuser-Rechte verliehen.
+message.su.confirm.plural           = Du hast §firstusers§ und §lastuser§ Superuser-Rechte verliehen.
+message.sepa                        = §sender.linkedname§ geht in den Raum (<b>§targetGroup§</b>) und sperrt ab.
+message.sepa.confirm                = §sender.linkedname§ hat sich in den Raum <B><I>§targetgroup§</I></B> zurückgezogen.<br><B>Mit /i kannst Du weitere Chatter einladen </B>
+message.s                           = §sender.linkedname§ <font color="§sender.color§">schreit: §message touppercase§</font>
+message.server.shutdown             = <script language="JavaScript">serverQuit ();</script><b><big>The server has been shut down.</body></html>
+message.softClose                   = <script language="JavaScript">quit ();</script>Eine weitere Verbindung mit /MESSAGES wurde f&uuml;r diese Session ge&ouml;ffnet.<br><br></body></html>
+message.sys                         = <big><b>Nachricht vom Systemadministrator : §message§</b></big>
+message.time                        = aktuelle Uhrzeit: §time format="HH:mm"§
+message.t                           = §sender.linkedname§ hat ein neues Thema vergeben: "§targetGroup.theme§".
+message.t.removed                   = §sender.linkedname§ hat das alte Thema (§param§) gelöscht.
+message.th                          = §sender.linkedname§.oO(§message§)
+message.fl.headline                 = <b>Du hast folgende Freunde eingetragen:</b>
+message.fl.entry.offline            = §param§ ist nicht im Chat
+message.fl.entry.online             = §user.linkedname§ ist im Raum §targetGroup§
+message.fl.count                    = Du hast §param§ Freude in deiner Liste eingetragen.
+message.user.detail                 = <br>(§user.linkedname§§user.awaymessage prefix="<font color=cc6600>(Away: " suffix=")</font>" ifEmpty=" <font color=cc6600>(ist Abgemeldet)</font>"§) befindet sich im Raum <b>§user.group§</b><br>- online seit §user.sessionstart.hour suffix=":"§§user.sessionstart.minute§<br>- §user.idletime§ Sekunden still §user.title prefix="<br>- "§ §user.reg.text prefix="<br>- "§ §user.info prefix="<br>- Info:"§ §user.chattime prefix="<br>- Gesamte Chatzeit:" §<br><br>
+message.user.short                  = §user.linkedname§§user.awaymessage prefix=" <font color=cc6600>(Away: " suffix=")</font>" ifEmpty=" <font color=cc6600>(ist Abgemeldet)</font>"§
+message.user.short.seperator        = , §
+message.user.overview               = (§user.linkedname§§user.awaymessage prefix=" <font color=cc6600>(Away: " suffix=")</font>" ifEmpty=" <font color=cc6600>(ist Abgemeldet)</font>"§) chattet seit §user.sessionstart.hour suffix=":"§§user.sessionstart.minute§ (§user.idletime§ Sekunden still)§user.title prefix="  " suffix=" "§<br>
+message.user.flooded                = <I>§user.linkedname§ wurde wegen flooden gekickt.</i>
+message.user.tooled                 = <I>§user.linkedname§ wurde vom Chat gekickt.</i>
+message.user.leaving.group          = §sender.linkedname§ geht in den Raum §targetGroup§.
+message.user.join.group             = §sender.linkedname§ kommt aus dem Raum <b>§sourcegroup§</b> herein.
+message.user.join.closedGroup       = §sender.title suffix=" "§§sender.linkedname§ betritt den abgesperrten Raum.
+message.user.join.server            = §sender.linkedname§ betritt den Chat.
+message.user.join.server.personal   = <br>§sender.linkedname§ betritt den Chat.<br><br><b>Hallo §sender§!<br>Wilkommen im Chat.</b><br>
+message.user.vip                    = <b>Der Chat heißt §user§ herzlich willkommen.<br>Du genießt VIP-Rechte.</b><br>
+message.user.leaving.server         = §sender.linkedname§ verläßt den Chat.§reason prefix=" <i>(" suffix=")</i>"§
+message.user.leaving.server.kicked  = §sender.linkedname§ verläßt den Chat.§reason prefix=" Reason: "§
+message.wban                        = <i><b>Die Folgenen Chatter sind verbannt:</b><br></i>§result§
+message.wc.headline                 = <i><b>Derzeit sind folgende Chatter online:</b></i>
+message.wc.underline                = Derzeit sind <b>§param§</b> Chatter online in <b>§reason§</b> Räumen.</i>
+message.woff.deactivated            = <i>Du hast die Flüsterfunktion deaktiviert und kannst deshalb nicht angeflüstert werden aber selber auch nicht flüstern!</i>
+message.woff.activated              = <i>Du hast die Flüsterfunktion aktiviert</i>
+
+list.users                          = <B>[§sourceGroup.islocked§§sourceGroup.isopen§§sourceGroup§</font></b>§sourceGroup.theme prefix=": - " ifEmpty=""§<b>]</b>§sourceGroup.Opener prefix="<br><img title='opener' src='../static/schluessel.gif'> <i>" suffix="</i>"§ §sourceGroup.themecreator prefix="(" suffix=")"§ §userlist§<br>~ <b>§sourceGroup.usersingroupcount§ User</b>
+
+status.showtime                     = false
+status.showtime.timeformat          = §time format="HH:mm" prefix="[" suffix="] "§
+
+#constant.addBreak                  = <br>
+constant.userListItem               = §user.linkedname§
+constant.defaultColor               = 000000
+constant.defaultBgcolor              = ffffff
+#constant.allowedBgcolor              = ffffff,e6e6dc
+constant.customtitle.prefix          = <b>
+constant.customtitle.suffix          = </b>
+constant.title.seperator            = <b> & </b>
+constant.title.moderator            = <b>Moderator</b>
+constant.title.guest                = <b>Gast</b>
+constant.title.god                  = <b>Admin</b>
+constant.title.vip                  = <b>VIP</b>
+constant.title.su                   = <b>SU</b>
+constant.reg.text                   = Registrierter Benutzer
+constant.linkedName                 = <a href="http://somewhere.net/§user.name toLowerCase§" target="_blank"><font color="#§user.color§">§user§</font></a>
+#### use option fadecolor
+#constant.linkedName                 = <a href="http://somewhere.net/§user.name toLowerCase§" target="_blank">§user§</a>
+
+
+constant.title.seperator           = <b><font color="red"> & </font></b>
+constant.title.membership.admin     = <b>Chatadmin</b>
+
+constant.lockedGroup                = <font color="#990000">
+constant.openGroup                  = <font color="#009900">
+

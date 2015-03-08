@@ -1,0 +1,67 @@
+2.) Downloading / Installing
+
+	2.1) Downloading FreeCS
+		
+		FreeCS may be downloaded as binary-package and source-package.
+		To download the latest package go to http://freecs.sourceforge.net
+		
+		Due to limited time of our meatware it would also be a good idea to get in
+		touch with CVS. Although i would suggest to join the CVS-Mailing-list to
+		see, what happens and decied if it is good to update, or not.
+		
+	2.2) Installation
+		
+		Save the directories contained in the distribution you selected at your desired
+		destination.
+		
+		2.2.1) Source distribution
+			
+			The sourcedistribution doesn't contain the compiled classes. You will need
+			a Java SDK (version must be >= 1.4) to compile the sourcefiles.
+			The package you downloaded contains a 'build' folder. This is the place
+			where you will find the Ant buildenvironement. (http://ant.apache.org/)
+
+
+			Win32:
+			Set the correct JAVA_HOME envireonment-variable and execute
+			> build.bat jar
+			
+			Linux/Unix:
+			Edit build.sh to correct the location of your Java homedirectory.
+			> build.sh jar
+			
+			This will compile the sources to class-files and jar's them into one jar-file,
+			which will be found inside the lib/ folder. freecs-DATE.jar will be the name.
+			
+		2.2.2) Binary distribution
+		
+			The binary distribution already contains the jar-file. You will only have to
+			lounch freeCS.
+			
+			Win32:
+			doubleclick freecs.bat
+			
+			Linux/Unix:
+			change to your freecs-directory and type (on RedHat compatible systems)
+			freecs.sh start
+			
+			If you are using another Distribution, i would be glad if you could contribute
+			a startscript for your distribution.
+			
+		2.2.3) Installing as service
+		
+			At the moment there is only a RedHat-startscript available. All people
+			should feel very encuraged to suply their startscripts and solutions for
+			starting as a service for their desired platform. 
+
+			Linux/Unix:
+			At the moment there is a RedHat compatible startscript available.
+			Link the freecs.sh into your /etc/init.d/ folder
+			
+			ln -s /etc/init.d/freecs /your/freecs/folder/freecs.sh
+			
+			and type
+			
+			chkconfig --add freecs
+			(this will automatically start and stop the service when changing runlevels
+			 (rebooting, halting, starting ...))

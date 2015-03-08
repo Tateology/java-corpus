@@ -1,0 +1,55 @@
+1.) Be sure to get the right JDBC-Driver from your database-vendor. 
+    (In case of MySql, you can find this one @ 
+    http://www.mysql.com/downloads/api-jdbc-stable.html)
+
+2.) Copy the downloaded .jar, which contains the driver, into 
+    /lib/ext of your FreeCS-Folder. 
+
+3.) Configure
+    For win32:
+      Open freecs.bat, which is located in the root of your 
+      freecs-folder. Add the JDBC-driver to the classpath by 
+      changing the following line: 
+
+java -classpath lib\freecs.jar freecs.Server
+
+      into 
+
+java -classpath lib\freecs.jar;lib\ext\your-jdbc-driver.jar freecs.Server
+
+      and save it.
+
+    For linux:
+      Open freecs.sh which is located in the root of your 
+      freecs-folder. Add the JDBC-driver to the classpath by 
+      changing the following lines: 
+
+# if sql-authentication is used, you will have to insert
+# the path to your jdbc-driver here
+# JARS=$JARS:$FREECS_HOME/lib/ext/mysql.jar
+
+      into 
+
+# if sql-authentication is used, you will have to insert
+# the path to your jdbc-driver here
+JARS=$JARS:$FREECS_HOME/lib/ext/your-jdbc-driver.jar
+
+      and save it.
+      
+4.) Open up the config/config.cfg-file and change the following 
+    lines: 
+# which class to use for authentication
+# and the config-file for this authentication-method
+# authenticationClass=freecs.auth.SQLAuthenticator
+# authenticationConfig=./config/auth.properties
+
+    into 
+
+# which class to use for authentication
+# and the config-file for this authentication-method
+authenticationClass=freecs.auth.SQLAuthenticator
+authenticationConfig=./config/auth.properties
+
+5.) Open the file identified by authenticationConfig (in our 
+    case: config/auth.properties) and change all properties to 
+    reflect your environment.

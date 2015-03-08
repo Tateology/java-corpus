@@ -1,0 +1,50 @@
+.) Basic structur:
+The Layout for the chat-pages is done within the templatesets-folder 
+contained in your FreeCS-folder. Every subfolder of this folder 
+represents one whole templateset. The default-folder holds the 
+templateset which will be used if the client doesn't request another 
+one. (clients may specify their templateset by either giving an URL-
+argument or a POST-argument in the following form: 
+templateset=[foldername])
+
+.) Components inside templateset-folders:
+Each templateset-folder contains the following files: 
+ATENTION: All of these files may be changed on the fly and will be 
+          reloaded by the server automatically. 
+
+- bye.html
+  This is the page which will be displayed when the user loggs out 
+  or gets logged out. 
+- frameset.html
+  This is the frameset containing at least the input-frame, a dummy-
+  frame and the output frame. 
+- header.html
+  This is optional but may be used for logout or custom things 
+- input.html
+  This is the input-frame containing a text-input-box which submits 
+  the user's messages and commands to the server. 
+- login_failed.html
+  Displayed when the user gave a wrong password or the user is not in 
+  the database 
+- login_missing.html
+  Displayed when the user gave no username 
+- not_found.html
+  Displayed when the requested location was not found 
+- start.html
+  This file contains the HTML-Form with the username and password-
+  field + the group/room to join + the templateset to use 
+- techerror.html
+  Displayed when a technical error occured (e.g. unable to connect 
+  to database... view logfile for details) 
+- too_many_users.html
+  Displayed if there are too many users logged in. 
+- user_banned.html
+  Displayed if a user was hardkicked from the server 
+- user_present.html
+  Displayed if ther is already a user with the same name logged in 
+- welcome.html
+  This file starts the output-frame. It contains the initial welcome 
+  to the user just logged in. 
+- message.set
+  This file contains every message in form of a template. Each message can 
+  be configured individually insied this file 

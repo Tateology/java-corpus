@@ -1,0 +1,252 @@
+error.group.notExisting             = The group §param§ doesn't exist.
+error.user.notOnServer.singular     = The user §param§ doesn't exist.
+error.user.notOnServer.plural       = The users §firstusers§ and §lastuser§ have not been found on this server.
+error.a.noLongerValid               = The invitation of §user.linkedname§ to the group §targetGroup§ is no longer valid.
+error.me.noArg                      = /me was called without argument.
+error.ban.noArg                     = /ban was called without argument.
+error.ban.noRight                   = You aren't allowed to ban a user.
+error.ban.mass.noRight              = You aren't allowed to ban more than one user.
+error.ban.alreadyBaned              = §user.linkedname§ is already banned.
+error.uban.noArg                    = /uban was called without argument.
+error.uban.noRight                  = You aren't allowed to unban a user.
+error.uban.mass.noRight             = You aren't allowed to unban more than one user.
+error.col.startingGroup             = Color-Changes within starting-groups isn't allowed.<br>Please go to another group to change your color. (<a href="/SEND?message=/j+colchange" TARGET="DUMMY">/j colchange</a>)
+error.col.noRight                   = You aren't allowed to change your color within the group §targetGroup§.
+error.col.wrongCode                 = §param§ isn't a valid HTML-Colorcode. Please correct your argument.
+error.col.lockedColor               = §param§ is a locked color. Please choose another one.
+error.col.tooOften                  = You have changed your color too fast. There must be at least §param§ seconds between color-changes.
+error.td.noArg                      = /td was called without argument.
+error.td.noRight                    = You aren't allowed to role the dies§targetGroup prefix=" within "§.
+error.td.wrong                      = This wasn't the correct syntax for /td. Usage: /td [dies][d + eyes per die]
+error.td.toomany                    = You have choosen too many dies or eyes per die.
+error.ig.noArg                      = /ig was called without argument.
+error.i.noRight                     = You aren't allowed to invite people into §targetGroup§.
+error.i.noArg                       = /i was called without argument.
+error.i.mass.noRight                = You aren't allowed to invite more than one person.
+error.i.alreadyInvited              = §user.linkedname§ has already been invited by you.
+error.ia.all.noRight                = You aren't allowed to invite all users on this chatserver.
+error.ia.noRight                    = You aren't allowed to invite whole groups.
+error.ia.inviteStartGroup           = You aren't allowed to invite all users of a starting-group.
+error.j.noArg                       = /j was called without argument.
+error.j.alreadyHere                 = You are already inside §targetGroup§.
+error.j.banned                      = You are banned from entering §targetGroup§.
+error.j.noRightToOpen               = You aren't allowed to create §param§.
+error.j.closed                      = §targetGroup§ is locked.
+error.j.noRight                     = You aren't allowed to join another group.
+error.jclosed.noRight               = You aren't allowed to join a locked group.
+error.jclosed.groupNotExisting      = The group §param§ doesn't exist.
+error.ju.alreadyHere                = You are already within §targetGroup§ where §user.linkedname§ is present.
+error.ju.noArg                      = /ju was called without argument.
+error.k.noRight                     = You aren't allowed to kick.
+error.k.mass.noRight                = You aren't allowed to kick more than one user.
+error.k.noGroupRight                = You aren't allowed to kick someone into §targetGroup§.
+error.kh.noRight                    = You aren't allowed to kick someone hard.
+error.kh.mass.noRight               = You aren't allowet to kick more than one user hard.
+error.fl.nofriends                  = You do not have a friendslist.
+error.f.noFriendOnline              = There are no friends online at the moment.
+error.wban.noRight                  = You do not have the right to view the banlist of §targetGroup§.
+error.wban.nobodyBanned             = There is nobody on the banlist for §targetGroup§.
+error.m.vip.noRight                 = You aren't allowed to send a message to all vip's.
+error.vip.noVipOnline               = There is no VIP online at the moment.
+error.l.noRight                     = You aren't allowed to lock §targetGroup§.
+error.ul.noRight                    = You aren't allowed to unlock §targetGroup§.
+error.m.noArg                       = /m was called without argument.
+error.m.noMessage                   = /m to §param§ was called without message.
+error.gag.noRight                   = You aren't allowed to punish.
+error.gag.noArg                     = /gag was called without argument.
+error.gag.mass.noRight              = You aren't allowed to punish more than one user.
+error.gag.protected                 = §user.linkedname§ is protected from punishment.
+error.aq.noArg                      = /aq was called without argument.
+error.rig.noArg                     = /rig was called without argument.
+error.rsu.noArg                     = /rsu was called without argument.
+error.rsu.noRight                   = You aren't allowed to take su-rights from a user.
+error.rsu.mass.noRight              = You aren't allowed to take su-rights from more than one user.
+error.su.noArg                      = /su was called without argument.
+error.su.noRight                    = You aren't allowed to give su-rights to a user.
+error.su.mass.noRight               = You aren't allowed to give su-rights to more than one user.
+error.su.tooManyForStartgroup       = There are already §param§ su-users within §targetGroup§.
+error.sepa.noArg                    = /sepa was called without argument.
+error.sepa.noRight                  = You aren't allowed to open a separe.
+error.sepa.exists                   = §targetGroup§ already exists.
+error.t.noRight                     = You aren't allowed to set the theme for §targetGroup§.
+error.s.noArg                       = /s was called without argument.
+error.ip.noRight                    = You aren't allowed to show the ip of §user.linkedname§
+error.ip.noArg                      = /ip was called without argument.
+error.w.nobodyHere                  = There is noone inside §targetGroup§ except you.
+error.th.noArg                      = /th was called without argument.
+error.sys.noRight                   = You aren't allowed to send a system-message.
+error.sys.noArg                     = /sys was called without argument.
+error.user.punished                 = You are punished and only able to whisper and join into a starting-group.
+# error.ack.groupNotModerated         = 
+# error.ack.noArg                     = 
+# error.ack.noMessage                 = 
+# error.ack.noRight                   = You aren't allowed to
+# error.ack.userNotInGroup            = 
+error.i.alreadyHere                 = §user.linkedname§ is already within §targetGroup§.
+error.rgag.mass.noRight             = You aren't allowed to remove the punishment from more than one user.
+error.rgag.noArg                    = /rgag was called without argument.
+error.rgag.noRight                  = You aren't allowed to remove the punishment from a user.
+error.sepa.alreadyHere              = You are already within §targetGroup§.
+error.fun.commandnotfound           = not found
+error.fun.noArg                     = no Arg
+
+message.send                        = [§sender.linkedname§] §message§
+message.a                           = §sender§ has followed your invitation.
+message.a.personal	                = You follow the invitation to §targetGroup§.
+message.away.on                     = §sender§ is away.§sender.awaymessage prefix=" (" suffix=")"§
+message.away.off                    = §sender§ has just returned.§sender.awaymessage prefix=" (" suffix=")"§
+message.col                         = §sender§ has changed colors to "<font color="#§sender.color§">§sender.color§</font>".
+message.c                           = <script language="JavaScript">clear ();</script>If you can read this message your browser doesn't support javascript. Pleas hit reload to clear your message-screen.<br><br></body></html>
+message.me                          = §sender.linkedname§ §message§
+message.ban.personal                = You have been banned from joining §targetGroup§ by §sender.linkedname§.
+message.ban.plural                  = §sender.linkedname§ has just banned §firstusers§ and §lastuser§ from joining §targetGroup§.
+message.ban.singular                = §sender.linkedname§ has just banned §user.linkedname§ from joining §targetGroup§.
+message.ban.confirm.plural          = You have just banned §firstusers§ and §lastuser§ from joining §targetGroup§.
+message.ban.confirm.singular        = You have just banned §user.linkedname§ from joining §targetGroup§.
+message.uban.personal               = You hava been unbanned by §sender.linkedname§ and are now able to join §targetGroup§.
+message.uban.plural                 = §sender.linkedname§ has just unbanned §firstusers§ and §lastuser§ from joining §targetGroup§.
+message.uban.singular               = §sender.linkedname§ has just unbanned §user.linkedname§ from joining §targetGroup§.
+message.uban.confirm.plural         = You have just unbanned §firstusers§ and §lastuser§ from joining §targetGroup§.
+message.uban.confirm.singular       = You have just unbanned §user.linkedname§ from joining §targetGroup§.
+message.td                          = §sender.linkedname§ has rolled the dies: <font color="§sender.color§">§throw suffix="<br>"§§result§§total prefix="<br>total number of points: "§</font>
+message.ig.plural                   = You have just added §firstusers§ and §lastuser§ to your ignore-list.
+message.ig.singular                 = You have just added §user.linkedname§ to your ignore-list.
+message.i                           = You have been invited by §sender.linkedname§ into §targetGroup§.
+message.i.plural                    = §sender.linkedname§ has just invited §firstusers§ and §lastuser§.
+message.i.singular                  = §sender.linkedname§ has just invited §user.linkedname§.
+message.ia.all                      = §sender.linkedname§ has just invited every user on this server.
+message.ia.group                    = §sender.linkedname§ has just invited every user of the group §targetGroup§.
+message.j.created                   = You have just created §targetGroup§.
+message.j                           = You have just joined §targetGroup§.§targetGroup.theme prefix="<br>(" suffix=")"§
+message.jclosed                     = You have just joined the locked group §targetGroup§.
+message.k.destination.singular      = §user.linkedname§ has just been kicked into this group.
+message.k.confirm.singular          = You have just kicked §user.linkedname§ into §targetGroup§.
+message.k.singular                  = §user.linkedname§ has just been kicked into "§targetGroup§" by §sender.linkedname§.
+message.k.destination.plural        = §firstusers§ and §lastuser§ have just been kicked into this group.
+message.k.confirm.plural            = You have just kicked §firstusers§ and §lastuser§ into §targetGroup§.
+message.k.plural                    = §firstusers§ and §lastuser§ have just been kicked into "§targetGroup§" by §sender.linkedname§.
+message.k.personal                  = You have just been kicked into §targetGroup§.
+message.kh.singular                 = §sender.linkedname§ has just kicked §user.linkedname§ from the server.
+message.kh.confirm.singular         = You have just kicked §user.linkedname§ from the server.
+message.kh.plural                   = §sender.linkedname§ has just kicked §firstusers§ and §lastuser§ from the server.
+message.kh.confirm.plural           = You have just kicked §firstusers§ and §lastuser§ from the server.
+message.kh.personal                 = <script language="JavaScript">kicked ();</script>If you can read this message your browser doesn't support javascript.<br><br><b><big>You have just been kicked from the server!</big></b><br><br></body></html>
+message.kc.personal                 = You have just been kicked into §targetGroup§ by §sender.linkedname§.
+message.kc.destination.singular     = §user.linkedname§ has just been kicked into ths group.
+message.kc.confirm.singular         = You have just kicked §user.linkedname§ into §targetGroup§.
+message.kc.singular                 = §user.linkedname§ has just been kicked into §targetGroup§.
+message.kc.destination.plural       = §firstusers§ and §lastuser§ have justbeen kicked into this group.
+message.kc.confirm.plural           = You have just kicked §firstusers§ and §lastuser§ into §targetGroup§.
+message.kc.plural                   = §firstusers§ and §lastuser§ have justbeen kicked into §targetGroup§ by §sender.linkedname§
+message.f.headline                  = There are §total§ friends online at the moment:
+message.f.isOnline                  = §user.linkedname§ is in the group §targetGroup§.
+message.f.joined                    = §user.linkedname§ has just joined the server and went to §targetGroup§.
+message.f                           = §user.linkedname§ is in the group §targetGroup§.
+message.f.count                     = A total of §param§ users is online.
+message.wban                        = The following users are banned from this group:<br>§result§
+message.wc.headline                 = There are §param§ users online at the moment:
+message.wc.underline                = ---
+message.m.vip                       = §sender.linkedname§ -> VIPS: §message§
+message.m.vip.confirm               = You whisper to every VIP: §message§
+message.vip.singular                = §user.linkedname§ is online in §targetGroup§
+message.vip.plural                  = §firstusers§ and §lastuser§ are online at the moment.
+message.l                           = §sender.linkedname§ has locked this group.
+message.ul                          = §sender.linkedname§ has unlocked this group.
+message.mycol                       = Your color-code is "<font color="#§sender.color§">§sender.color§</font>".
+message.m                           = [§sender.linkedname§] whispers: <i>§message§</i>
+message.m.away                      = §user.linkedname§ is away at the moment.
+message.m.confirm                   = Whispering to §user.linkedname§: §message§
+message.gag.singular                = §sender.linkedname§ has just punished §user.linkedname§.
+message.gag.plural                  = §sender.linkedname§ has just punished §firstusers§ and §lastuser§.
+message.gag.confirm.singular        = You have just punished §user.linkedname§.
+message.gag.confirm.plural          = You have just punished §firstusers§ and §lastuser§.
+message.aq                          = Question Nr.§group.questioncounter§: §message§
+message.q                           = <script language="JavaScript">quit ();</script>You have been logged out.<br><br></body></html>
+message.rig.singular                = You are no linger ignoring §user.linkedname§.
+message.rig.plural                  = You are no linger ignoring §firstusers§ and §lastuser§.
+message.rsu.personal                = §sender.linkedname§ has just taken away your su-rights.
+message.rsu.singular                = §sender.linkedname§ has just taken su-rights from §user.linkedname§.
+message.rsu.plural                  = §sender.linkedname§ has just taken su-rights from §firstusers§ and §lastuser§.
+message.rsu.confirm.singular        = You have just taken su-rights from §user.linkedname§.
+message.rsu.confirm.plural          = You have just taken su-rights from §firstusers§ and §lastuser§.
+message.su.personal                 = §sender.linkedname§ has just given su-rights to you.
+message.su.singular                 = §sender.linkedname§ has just given su-rights to §user.linkedname§.          
+message.su.plural                   = §sender.linkedname§ has just given su-rights to §firstusers§ and §lastuser§.
+message.su.confirm.singular         = You have just given su-rights to §user.linkedname§.                         
+message.su.confirm.plural           = You have just given su-rights to §firstusers§ and §lastuser§.               
+message.sepa                        = §sender.linkedname§ went to §targetGroup§ and locks it.
+message.sepa.confirm                = You have just joined §targetGroup§ and locked it. You may invite other users with /i username.
+message.s                           = §sender.linkedname§ shouts out: §message.toUpperCase§.
+message.ip                          = §user.linkedname§ connection-status:<br>§user.peerip§§user.peername prefix=" - "§§user.clientip prefix="<br>"§§user.clientname prefix=" - "§§user.forwardchain prefix="<br>Forward-Chain:"§
+message.time                        = Current Time: §time format="HH:mm"§
+message.user.detail                 = <br>[§user.linkedname§]§user.awaymessage prefix=" <font color=cc6600>(Away: " suffix=")</font>"§] is inside <b>§user.group.name§</b>§user.group.theme prefix="(Grouptheme: " suffix=")"§<br>online since [§user.sessionstart.hour suffix=":"§§user.sessionstart.minute§]<br>No activity since [§user.idletime§ min]<br>§user.info suffix="<br>"§
+message.t                           = §sender.linkedname§ has changed the theme from §param§ to §targetGroup.theme§.
+message.t.removed                   = §sender.linkedname§ has removed the theme from this group. (it was: §param§)
+message.th                          = §sender.linkedname§.oO(§message§)
+message.sys                         = <big>System: §message§</big>
+message.fl.headline                 = You have the following entries in your friendslist:
+message.fl.entry.offline            = §param§ is offline
+message.fl.entry.online             = §user.linkedname§ is inside §targetGroup§
+message.fl.count                    = A total of §param§ friends on your friendslist.
+message.user.short                  = §user.linkedname§§user.awaymessage prefix=" <font color=cc6600>(Away: " suffix=")</font>"§
+# the paragraph at the end keeps the line from beeing trimed to ","
+message.user.short.seperator        = , §
+# user.info is a custom-property (deffine a mapping inside your db-properties info=[dbcolumn] and this placeholder will be replaced with the content found inside the db-record of this user)
+message.user.overview               = §user.title suffix=" "§[§user.linkedname§§user.awaymessage prefix=" <font color=cc6600>(Away: " suffix=")</font>"§ online since §user.sessionstart.hour suffix=":"§§user.sessionstart.minute§ / silent since [§user.idletime§ min]<br>§user.info§
+message.user.flooded                = §user.linkedname§ was kicked due to flooding.
+message.user.leaving.group          = §sender.linkedname§ left group and joined §targetGroup§.
+message.user.join.group             = §sender.linkedname§ has just joined this group.
+message.user.join.closedGroup       = §sender.title suffix=" "§§sender.linkedname§ has just joined this locked group.
+message.user.join.server            = §sender.linkedname§ has just joined the server.
+message.user.join.server.personal   = Welcome to FreeCS §sender§. Please obey the netiquette.
+message.user.vip                    = You have VIP-rights§sender.title prefix=" and your title is "§.
+message.server.shutdown             = <script language="JavaScript">serverQuit ();</script><b><big>The server has been shut down.</body></html>
+# message.ack                         = 
+message.gag.personal                = You have just been punished by §sender.linkedname§.
+message.rgag.personal               = Your punishment has been ended by §sender.linkedname§.
+message.rgag.confirm.plural         = You have just unpunished §firstusers§ and §lastuser§.
+message.rgag.confirm.singular       = You have just unpunished §user.linkedname§.
+message.rgag.plural                 = §sender.linkedname§ has just unpunished §firstusers§ and §lastuser§.
+message.rgag.singular               = §sender.linkedname§ has just unpunished §user.linkedname§.
+message.user.leaving.server         = §sender.linkedname§ has just left the server.
+message.user.leaving.server.kicked  = §sender.linkedname§ was kicked from the server.§reason prefix=" Reason: "§
+
+message.softClose                   = <script language="JavaScript">quit ();</script>Another connection to /MESSAGES has been opened for this session.<br><br></body></html>
+
+list.users                          = <B>§targetGroup.islocked§§targetGroup.isopen§§targetGroup§:</B>§targetGroup.theme prefix=" - "§<br>§userlist§
+
+status.showtime                     = false
+status.showtime.timeformat          = §time format="HH:mm" prefix="[" suffix="] "§
+
+#constant.addBreak                   = <br>
+constant.userListItem               = §user.linkedname§
+constant.defaultColor               = 000000
+constant.emptyAwayMessage           = No awaymessage
+constant.extraTitel.prefix          = <b>
+constant.extraTitel.suffix          = </b>
+constant.title.moderator            = Moderator
+constant.title.god                  = Admin
+constant.title.vip                  = VIP
+constant.title.su                   = SU
+constant.linkedName                 = <a href="http://somewhere.net/§user.name toLowerCase§" target="_blank"><font color="#§user.color§">§user§</font></a>
+#### use option fadecolor
+#constant.linkedName                 = <a href="http://somewhere.net/§user.name toLowerCase§" target="_blank">§user§</a>
+constant.lockedGroup                = <font color="#990000">Closed </font>
+constant.openGroup                  = <font color="#009900">Open </font>
+
+# CmdRightChange
+error.rc.noArg						= not enough arguments
+error.rc.userNotFound               = user §param§ is not logged on
+error.rc.rightNotFound              = right §param§ does not exist
+error.rc.notRight					= you have not enough rights to change '§param§' for user '§user.name§'
+rc.rightAssigned					= right §param§ assigned to user §user.name§
+rc.rightRevoked						= right §param§ revoked from user§user.name§
+rc.newAssignedRight					= right §param§ assigned by §sender.name§
+rc.newRevokedRight					= right §param§ revoked by §sender.name§
+rc.rightsReset						= rights of §user.name§ have been reset
+rc.newResetRight					= rights have been reset by §sender.name§
+
+# for moderated rooms
+error.moderated.timelock          	= Not so many questions at once, please. Timelock for §param§[sec]. Your message was: §message§
+message.send.moderated.personal     = The message '§message§' was sent to the moderators.
+message.send.moderated				= User §sender.name§ sent the message: '§message§'

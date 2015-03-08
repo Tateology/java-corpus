@@ -1,0 +1,43 @@
+1.) Download
+    the latest distribution and extract it to your prefered 
+    location. Find it here (http://freecs.sourceforge.net).
+
+2.) Configure
+   - Linux/UNIX:
+     Open the freecs.sh-script. It is in fact a RedHat-
+     compatible start-script, which allowes freecs to run 
+     as daemon. Some things will have to be configured (like 
+     the location of your java-homedirectory, documentation 
+     inside)
+
+   - Win32
+     You have two possibilities: add your java-bin-directory 
+     to your path or replace the java-call within freecs.bat 
+     with the absolute path to your java.exe
+
+3.) Start
+    You are in fact ready to start with the default-layout and 
+    the default-configuration.
+
+There are other directories within your FreeCS-Folder which will 
+be described here: 
+- config
+  containing the config.cfg-file which controls the behavior of 
+  the chatserver 
+- docs
+  containing all documentation available at the time of creating
+  the package 
+- lib
+  containing the .jar-file containing the classes of the 
+  chatserver 
+- templatesets
+  containing subdirectories with the different templatesets 
+  
+  The default-subfolder contains the default-templateset, which 
+  will be used if no other templateset is requested. To use a 
+  special templateset, the client will have to submit a argument 
+  called templateset=[foldername].
+
+  Like this: 
+  http://yourserver.domain.tl:port/?templateset=dark
+  (HTTP-type POST is also supported)

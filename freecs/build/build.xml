@@ -1,0 +1,293 @@
+<?xml version="1.0"?>
+
+<project name="FreeCS" default="usage" basedir=".">
+
+    <!-- =================================================================== -->
+    <!-- Initializes some variables                                          -->
+    <!-- =================================================================== -->
+    <target name="init">
+        <tstamp/>
+        <property name="Name" value="freecs"/>
+        <property name="year" value="2000-${year}"/>
+        <property name="version" value="1.3.${DSTAMP}"/>
+        <property name="project" value="freecs"/>
+        <property name="build.compiler" value="classic"/>
+
+        <property name="cvs.root" value=":pserver:anonymous@cvs.sourceforge.net:/cvsroot/freecs"/>
+        <property name="cvs.tag" value="HEAD"/>
+
+        <property name="home.dir" value=".."/>
+        <property name="build.dir" value="${home.dir}/build"/>
+        <property name="build.src" value="${home.dir}/src"/>
+        <property name="build.lib" value="${home.dir}/lib"/>
+        <property name="build.xmlrpc" value="${home.dir}/lib/xmlrpc"/>
+        <property name="build.classes" value="${home.dir}/classes"/>
+        <property name="build.docs" value="${home.dir}/docs"/>
+        <property name="build.javadocs" value="${home.dir}/docs/api"/>
+
+        <property name="build.work" value="${build.dir}/work"/>
+        <property name="build.dist" value="${build.dir}/dist"/>
+
+        <property name="jar.name" value="${project}"/>
+        <property name="package.name" value="${project}-${version}"/>
+
+        <property name="debug" value="on"/>
+        <property name="optimize" value="on"/>
+        <property name="deprecation" value="off"/>
+
+        <path id="build.class.path">
+            <fileset dir="${home.dir}/lib">
+                <exclude name="**/freecs*.jar" />
+                <include name="**/*.jar" />
+            </fileset>
+            <fileset dir="${home.dir}/lib/xmlrpc">
+                <exclude name="**/freecs*.jar" />
+                <include name="**/*.jar" />
+            </fileset>
+
+        </path>
+
+        <filter token="year" value="${year}"/>
+        <filter token="version" value="${version}"/>
+        <filter token="date" value="${TODAY}"/>
+    </target>
+
+
+    <!-- =================================================================== -->
+    <!-- Help on usage                                                       -->
+    <!-- =================================================================== -->
+    <target name="help" depends="usage" />
+    <target name="usage">
+        <echo message=""/>
+        <echo message=""/>
+        <echo message="freecs build instructions"/>
+        <echo message="-------------------------------------------------------------"/>
+        <echo message=""/>
+        <echo message=" available targets are:"/>
+        <echo message=""/>
+        <echo message=" compile    --> compiles the source code to ./classes"/>
+        <echo message=" jar        --> generates the ./lib/freecs-YYYYMMDD.jar file"/>
+        <echo message=" javadocs   --> generates the API docs"/>
+        <echo message=""/>
+        <echo message=""/>
+        <echo message=" package    --> generates the distribution (zip and tar.gz)"/>
+        <echo message=""/>
+        <echo message=" usage      --> provides help on using the build tool (default)"/>
+        <echo message=""/>
+        <echo message=" See comments inside the build.xml file for more details."/>
+        <echo message="-------------------------------------------------------------"/>
+        <echo message=""/>
+        <echo message=""/>
+    </target>
+
+
+    <!-- =================================================================== -->
+    <!-- Compiles the source directory                                       -->
+    <!-- =================================================================== -->
+    <target name="compile" depends="init">
+        <mkdir dir="${build.classes}"/>
+        <javac srcdir="${build.src}"
+            destdir="${build.classes}"
+            debug="${debug}"
+            deprecation="${deprecation}"
+            optimize="${optimize}">
+            <classpath refid="build.class.path" />
+        </javac>
+    </target>
+
+
+    <!-- =================================================================== -->
+    <!-- Creates a jar file (snapshot) in the lib-directory            -->
+    <!-- =================================================================== -->
+    <target name="jar" depends="compile">
+        <mkdir dir="${build.lib}" />
+        <mkdir dir="${build.xmlrpc}" />
+        <jar jarfile="${build.lib}/${jar.name}-${DSTAMP}.jar"
+            basedir="${build.classes}" />
+    </target>
+
+
+    <!-- =================================================================== -->
+    <!-- Creates the API documentation                                       -->
+    <!-- =================================================================== -->
+    <target name="javadocs" depends="init">
+        <mkdir dir="${build.javadocs}"/>
+        <javadoc packagenames="freecs.*"
+            sourcepath="${build.src}"
+            destdir="${build.javadocs}"
+            author="false"
+            private="false"
+            version="false"
+            windowtitle="${Name} ${version} API"
+            doctitle="${Name} ${version} API"
+            bottom="Copyright &#169; ${year} Manfred Andres. All Rights Reserved."
+            classpathref="build.class.path"
+        />
+    </target>
+
+
+    <!-- =================================================================== -->
+    <!-- Creates the full freecs distribution                                 -->
+    <!-- =================================================================== -->
+    <target name="package" depends="init">
+        <mkdir dir="${build.work}"/>
+        
+        <!-- create the main part of freecs -->
+        <antcall target="package-raw">
+            <param name="distribution" value="main" />
+        </antcall>
+
+        <chmod perm="755">
+            <fileset dir="${build.work}">
+                <include name="freecs.sh"/>
+            </fileset>
+        </chmod>
+
+        <!-- zip up the whole thing -->
+        <antcall target="package-zip">
+            <param name="filename" value="${package.name}"/>
+        </antcall>
+        <antcall target="package-tgz">
+            <param name="filename" value="${package.name}"/>
+        </antcall>
+        
+        <!-- do the java-documentation first -->
+        <antcall target="javadocs" />
+        <!-- make the src distributions -->
+        <antcall target="package-src-zip">
+            <param name="filename" value="${package.name}"/>
+        </antcall>
+        <antcall target="package-src-tgz">
+            <param name="filename" value="${package.name}"/>
+        </antcall>
+
+        <!-- clean up -->
+        <delete dir="${build.work}"/>
+    </target>
+
+   <target name="package-raw" depends="init, jar">
+
+        <!-- copy the framework (templatesets, config, ...) -->
+        <copy todir="${build.work}">
+            <fileset dir="${home.dir}">
+               <exclude name="**/CVS/**" />
+               <exclude name="templatesets/orfon/**" />
+               <exclude name="templatesets/freecs-standard/**" />
+               <include name="templatesets/**" />
+               <include name="config/**" />
+               <include name="static/**" />
+               <include name="readme-**.txt" />
+               <include name="ExampleTableForMysql.txt" />
+               <include name="GPL-LICENSE*.txt" />
+            </fileset>
+        </copy>
+
+        <!-- copy the whole docs-directory -->
+        <copy todir="${build.work}/docs">
+            <fileset dir="${build.docs}">
+               <include name="**" />
+               <exclude name="**/CVS/**" />
+               <exclude name="**/api/**" />
+            </fileset>
+        </copy>
+
+        <!-- copy all libraries except freecs-YYYYMMDD.jar -->
+        <copy todir="${build.work}/lib">
+            <fileset dir="${home.dir}/lib">
+                <exclude name="freecs*.jar" />
+                <include name="*.jar" />
+                <include name="*.txt" />
+            </fileset>
+         </copy>
+        <copy todir="${build.work}/lib/xmlrpc">
+            <fileset dir="${home.dir}/lib/xmlrpc">
+                <exclude name="freecs*.jar" />
+                <include name="*.jar" />
+                <include name="*.txt" />
+            </fileset>
+         </copy>
+
+
+        <!-- rename the current jar-file -->
+        <copy file="${build.lib}/${jar.name}-${DSTAMP}.jar" tofile="${build.work}/lib/freecs.jar"/>
+        
+        <!-- copy the start-scripts -->
+        <copy todir="${build.work}">
+            <fileset dir="${home.dir}">
+               <include name="freecs.bat" />
+               <include name="freecs.sh" />
+            </fileset>
+        </copy>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Packages the work directory with TAR-GZIP                           -->
+    <!-- needs parameter ${filename} for final dist-file                     -->
+    <!-- =================================================================== -->
+    <target name="package-tgz" depends="init">
+        <mkdir dir="${build.dist}" />
+        <fixcrlf srcdir="${build.work}" eol="lf" eof="remove" includes="**/*.txt, **/*.html, **/*.set, **/*.cfg, **/*.properties, **/*.java" />
+        <tar tarfile="${build.dist}/${filename}.tar" basedir="${build.work}" excludes="**">
+            <tarfileset prefix="${filename}" dir="${build.work}" mode="755">
+                <include name="freecs.sh"/>
+            </tarfileset>
+            <tarfileset prefix="${filename}" dir="${build.work}">
+                <include name="**"/>
+                <exclude name="freecs.sh"/>
+            </tarfileset>
+        </tar>
+        <gzip zipfile="${build.dist}/${filename}.tar.gz" src="${build.dist}/${filename}.tar"/>
+        <delete file="${build.dist}/${filename}.tar"/>
+    </target>
+
+
+    <!-- =================================================================== -->
+    <!-- Packages the work directory with ZIP                                -->
+    <!-- needs parameter ${filename} for final dist-file                     -->
+    <!-- =================================================================== -->
+    <target name="package-zip" depends="init">
+        <mkdir dir="${build.dist}" />
+        <fixcrlf srcdir="${build.work}" eol="crlf" includes="**/*.txt, **/*.html, **/*.set" />
+        <zip zipfile="${build.dist}/${filename}.zip">
+            <zipfileset dir="${build.work}" prefix="${filename}" includes="**" excludes="**/docs/api/**" />
+        </zip>
+    </target>
+
+
+    <!-- =================================================================== -->
+    <!-- Packages FreeCS src and build directories with TAR-GZIP             -->
+    <!-- needs parameter ${filename} for final dist-file                     -->
+    <!-- =================================================================== -->
+    <target name="package-src-tgz" depends="init">
+        <mkdir dir="${build.dist}" />
+        <tar tarfile="${build.dist}/${filename}-src.tar">
+            <tarfileset prefix="${filename}" dir="${home.dir}"
+                includes="**" excludes="**/api/**,**/work/**,**/dist/**,**/classes/**,**/lib/freecs*.jar,**/lib/ext/**,**/orfon/**,**/freecs-standard/**" />
+        </tar>
+        <gzip zipfile="${build.dist}/${filename}-src.tar.gz" src="${build.dist}/${filename}-src.tar"/>
+        <delete file="${build.dist}/${filename}-src.tar"/>
+    </target>
+
+
+    <!-- =================================================================== -->
+    <!-- Packages FreeCS src and build directories with ZIP                  -->
+    <!-- needs parameter ${filename} for final dist-file                     -->
+    <!-- =================================================================== -->
+    <target name="package-src-zip" depends="init">
+        <mkdir dir="${build.dist}" />
+        <zip destfile="${build.dist}/${filename}-src.zip" whenempty="fail">
+            <zipfileset dir="${home.dir}" prefix="${filename}">
+               <include name="**" />
+               <exclude name="**/dist/**" />
+               <exclude name="**/api/**" />
+               <exclude name="**/work/**" />
+               <exclude name="**/classes/**" />
+               <exclude name="**/lib/freecs*.jar" />
+               <exclude name="**/lib/ext/**" />
+               <exclude name="**/orfon/**" />
+               <exclude name="**/freecs-standard/**" />
+            </zipfileset>
+        </zip>
+    </target>
+
+</project>

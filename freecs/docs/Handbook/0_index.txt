@@ -1,0 +1,18 @@
+1.) What is freecs and what are the goals
+2.) Downloading / Installing
+	2.1) Downloading FreeCS
+	2.2) Installation
+		2.2.1) Source distribution
+		2.2.2) Binary distribution
+		2.2.3) Installing as service
+3.) Altering the layout by changing the templates for pages and messages
+	3.1) Where are the templates?
+	3.2) Changing the layout
+		3.2.1) Placeholders for page-templates
+		3.2.2) Placeholders for message-templates	
+4.) Configuration-parameters and what they do
+	4.1) Connectivity configuration
+	4.2) Authentification configuration
+	4.3) Disable/Enable commands
+	4.4) Special behavior for groups
+5.) Thx for reading and everybody is welcome to enhance the documentation

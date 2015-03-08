@@ -1,0 +1,49 @@
+<table>
+<tr>
+<td  class="name">
+<form action="/ADMIN" method="post">send message: 
+<input type="text" name="msg">
+<input type="submit" value="send">
+<input type="hidden" name="do" value="sendmessage">
+</form>
+</td>
+<td  class="name">
+<form action="/ADMIN" method="post">send message: 
+<input type="text" name="msg"><br> to user: 
+<input type="text" name="username">
+<input type="submit" value="send">
+<input type="hidden" name="do" value="sendmessagetouser">
+</form>
+</td>
+<td  class="name">
+<form action="/ADMIN" method="post">send message: 
+<input type="text" name="msg"><br> to group: 
+<input type="text" name="groupname">
+<input type="submit" value="send">
+<input type="hidden" name="do" value="sendmessagetogroup">
+</form>
+</td>
+<td  class="name">
+<form action="/ADMIN" method="post">
+<input type="text" name="usr">
+<input type="submit" value="search&nbsp;User">
+<input type="hidden" name="do" value="searchuser">
+</form>
+<form action="/ADMIN" method="post">
+<input type="text" name="group">
+<input type="submit" value="search&nbsp;Group">
+<input type="hidden" name="do" value="searchgroup">
+</form>
+</td>
+</tr>
+<tr>
+<td  colspan="4" class="name">
+<a href="/ADMIN?do=userlist">show&nbsp;userlist</a>&nbsp;|&nbsp;
+<a href="/ADMIN?do=banlist">show&nbsp;banlist</a>&nbsp;|&nbsp;
+<a href="/ADMIN?do=actionstorelist">show&nbsp;actionstorelist</a>&nbsp;|&nbsp;
+<a href="/ADMIN?do=grouplist">grouplist</a>&nbsp;|&nbsp;
+<a href="/ADMIN?do=configoverview">configoverview</a>&nbsp;|&nbsp;
+<a href="/ADMIN?do=shutdown">shutdown</a>
+</td>
+</tr>
+</table>

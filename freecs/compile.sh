@@ -1,0 +1,1 @@
+javac -encoding ISO-8859-1 -cp ./build/ant.jar:./lib/xmlrpc/xmlrpc-server-3.1.3.jar:./lib/xmlrpc/xmlrpc-client-3.1.3.jar:./lib/xmlrpc/ws-commons-util-1.0.2.jar:./lib/xmlrpc/commons-codec-1.4.jar:./lib/xmlrpc/commons-logging-1.1.jar:./lib/xmlrpc/xmlrpc-common-3.1.3.jar:./lib/xmlrpc/commons-httpclient-3.1.jar @COMPILE_ARGS

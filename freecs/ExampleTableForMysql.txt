@@ -1,0 +1,14 @@
+create table freecs_data (
+   id int(11) not null auto_increment,
+   fc_username varchar(255) not null,
+   fc_password varchar(255) not null,
+   fc_friends text,
+   fc_color varchar(6) null,
+   fc_fadecolor varchar(6) null,
+   fc_lastlogin int(11),
+   fc_chattime int(11),
+   fc_userright int(11) default '33',
+   fc_homepage text,
+   primary key (id),
+   unique fc_uname_pwd (fc_username(250), fc_password(250)))
+type=MyISAM;

@@ -1,0 +1,31 @@
+<html><head>
+<script language=JavaScript>
+<!--
+function quit() {
+   top.location.href = "<% server_url %>/bye";
+}
+function kicked() {
+   top.location.href = "/user_banned";
+}
+function clear() {
+   window.location.reload ();
+}
+function serverQuit () {
+   top.location.href = "http://freecs.sourceforge.net/shutdown.html";
+}
+scrolling=true;
+function moves() {
+  if (scrolling != false) {window.scroll(1, 500000);}
+  window.setTimeout("moves()", 100);
+}
+moves();
+//-->
+</script>
+<style type="text/css">
+    body { font-family: verdana, arial, helvetica, sans-serif; color: #FFFFFF; background-color: #000000; }
+    p    { font-size: 80%; }
+</style>
+</head>
+<body onFocus="scrolling=false" onBlur="scrolling=true" onMouseOver="scrolling=false" onMouseOut="scrolling=true" link="#000066" vlink="#0000AA" alink="#EE0000">
+<p>FreeCS <% VERSION %><br />
+<b>Welcome to FreeCS!</b></p>

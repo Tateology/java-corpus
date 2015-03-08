@@ -1,0 +1,64 @@
+<html>
+<head><title>Placeholders for FreeCS-message-templates</title></head>
+<body><font face="Verdana, Arial, Helvetica">
+<p><b>Placeholders within message-templates:</b>
+<ul>
+<li><b>sender:</b> the sender of the message (without .extension the name will be rendered)</li>
+<li><b>friend/user:</b> the referenced user by the message the sender sent or a friend joining the server</li>
+<li>Extensions to user-placeholders: (e.g. sender.name or user.title...)
+	<ul>
+	<li><b>.awaymessage:</b> the awaymessage if the user is away and has given an awaymessage</li>
+	<li><b>.title:</b> the title of this user (depending on userrights and may be overwritten by an db-field)</li>
+	<li><b>.linkedname:</b> renders the message-template "constant.linkedUser" and inserts the result</li>
+	<li><b>.chattime:</b> the current (up to date) chattime (including the current session-time)</li>
+	<li><b>.questioncounter:</b> the questioncounter of this user</li>
+	<li><b>.tolowercase:</b> the name of this user in lower case</li>
+	<li><b>.touppercase:</b> the name of this user in upper case</li>
+	<li><b>.color:</b> the html-color-code of this user</li>
+	<li><b>.group:</b> the name of the group this user is in</li>
+	<li><b>.group.name:</b> same as group</li>
+	<li><b>.group.theme:</b> the theme of the group</li>
+	<li><b>.peername:</b> the hostname of the peer we are connected to</li>
+	<li><b>.peerip:</b> the ip-address of the peer</li>
+	<li><b>.clientname:</b> the hostname of the client behind the proxy (if present)</li>
+	<li><b>.clientip:</b> the ip-address of the client behind the proxy (if present)</li>
+	<li><b>.forwardchain:</b> the proxy-forward-chain (if present)</li>
+	<li><b>.[custom]:</b> custom fields fetched from db (must be declared within db.properties)</li>
+	</ul></li>
+<li><b>sourcegroup:</b> for example, the group this user is leaving</li>
+<li><b>targetgroup:</b> for example, the group this user is joining</li>
+<li>Extensiond to group-placeholders: (eg. sourcegroup.title or targetgroup.isopen)
+	<ul>
+	<li><b>.theme:</b> the theme given for this group</li>
+	<li><b>.islocked:</b> if the group is locked, this is replaced with the content of "constant.lockedGroup". if not, nothing will be displayed</li>
+	<li><b>.isopen:</b> if the group is open, this is replaced with the content of "constant.openGroup". if not, nothing will be displayed</li>
+	</ul></li>
+<li><b>message/userlist/result:</b> result of a /td, a userlist (for /fl or /wc ...)</li>
+<li>Extensions to message/userlist/result:
+	<ul>
+	<li><b>.touppercase:</b> the message in upper case
+	<li><b>.tolowercase:</b> the message in lower case
+	</ul></li>
+<li><b>reason:</b> reason for a kick</li>
+<li><b>source/total:</b> total number of points of a /td ...</li>
+<li><b>time:</b> displays the time. This has an additional parameter called format="". The value may be any valid java-simple-dateformat-string...</li>
+<li><b>Only useable inside mass-user-message-templates:</b>
+	<ul>
+	<li><b>firstusers:</b> the first users excluding the last user of an userenumeration
+	<li><b>lastuser:</b> the last user of a userenumeration
+	</ul></li>
+<li><b>constant.linkedName:</b> template for the linked user</li>
+<li><b>constant.defaultColor:</b> the default-color for this user</li>
+<li><b>constant.emptyAwayMessage:</b> display this if no awaymessage was given</li>
+<li><b>constant.lockedGroup:</b> display this if group is locked (or nothing if open)</li>
+<li><b>constant.openGroup:</b> display this if group is open (or nothing if closed)</li>
+</ul>
+</p>
+<p>Placeholders may take arguments (eg user.awaymessage prefix="(Away: " suffix=")")
+<ul>
+<li><b>prefix:</b> will be rendered in front of the value (only if value exists)</li>
+<li><b>suffix:</b> will be rendered after the value (only if value exists)</li>
+</ul>
+</p>
+</body>
+</html>

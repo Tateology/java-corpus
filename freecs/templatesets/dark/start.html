@@ -1,0 +1,100 @@
+<html>
+<head>
+<title>FreeCS - Chat</title>
+<style type="text/css">
+    body     { font-family: verdana, arial, helvetica, sans-serif; color: #FFFFFF; background-color: #000000;}
+    .inverse { font-family: verdana, arial, helvetica, sans-serif; color: #000000; background-color: #FFFFFF; }
+    td { font-size: 80%; }
+    p { font-size: 80%; }
+    b { font-size: 80%; }
+    a { font-variant=small-caps; }
+</style>
+</head>
+<body link="#66CCFF" alink="#000000" vlink="#006699">
+<table border="0" cellpadding="0" cellspacing="0" width="640">
+<tr>
+    <td width="20"></td><td width="68"></td>
+    <td width="315" align="left" valign="top"><b>Free Chat Server</b></td>
+    <td width="5"></td><td width="1" class=inverse rowspan=99></td><td width="5"></td>
+    <td width="227" align="right"><a href="http://sourceforge.net"><img src="http://sourceforge.net/sflogo.php?group_id=90211&type=3" 
+        width="125" height="37" border="0" alt="SourceForge.net Logo" /></a></td>
+</tr>
+<tr>
+    <td colspan="4" height="5" ></td>
+    <td colspan="2"></td>
+</tr>
+<tr>
+    <td colspan="4" height="1" class=inverse></td>
+    <td colspan="2" height="1" class=inverse></td>
+</tr>
+<tr>
+    <td colspan="4" height="5"></td>
+    <td colspan="2"></td>
+</tr>
+<tr>
+    <td colspan="4"><p>Different layouts: <a href="/?templateset=default">Light</a> | <a href="/?templateset=german">German</a></td>
+    <td colspan="2"></td>
+</tr>
+<tr>
+    <td colspan="4" height="25"></td>
+    <td colspan="2"></td>
+</tr>
+<tr>
+    <td></td>
+    <td colspan=2 height=300 align=left valign=top><form method="post" action="/LOGIN" name="formu">
+        <input type="hidden" name="token" value="<% token %>">
+        <input type="hidden" name="templateset" value="dark">
+        <table border=0 cellspacing=5 cellpadding=0>
+            <tr>
+                <td width=60 rowspan=99></td>
+                <td colspan=2 align=center><b>Welcome to FreeCS</b></td>
+            </tr>
+            <tr>
+                <td colspan=2 height=10></td>
+            </tr>
+            <tr>
+                <td align=right>Nickname:</td>
+                <td align=right><input type="text" name="username" size=14></td>
+            </tr>
+            <tr>
+                <td align=right>Password:</td>
+                <td align=right><input type="password" name="password" size=14></td>
+            </tr>
+            <tr>
+                <td align=right>Entryroom:</td>
+                <td align=right><select name="group">
+                    <option value="lounge" selected>lounge</option>
+                    <option value="backdoor">backdoor</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td align=right><input type="submit" value="[login]"></td>
+            </tr>
+        </table></form>
+        <p></p>
+        <p>There are currently <% active_users %> users online in <% open_groups %> open Groups:</p>
+        <p><% active_user_list %></p></td>
+    <td width="5"></td>
+    <td width="5"></td>
+    <td valign="top" align=right><p>Take a look at <A HREF=http://helma.org>Helma</A>!</p>
+        <p>Open-Source Web Scripting<br />for Java</p>
+        <p>Helma (also called Helma object publisher, or Hop for short) is a scriptable open source web application server written in Java.</p>
+            <A HREF="http://helma.org"><IMG SRC="http://helma.org/static/images/helma/helmalogo.gif" border=0 /></a></td>
+</tr>
+<tr>
+<td colspan=3 align=right></td>
+    <td width="5"></td>
+    <td colspan=2></td>
+</tr>
+<tr>
+    <td colspan="4" height=5></td>
+    <td colspan="2" height=5></td>
+</tr>
+<tr>
+    <td colspan="4" height="1" class=inverse></td>
+    <td colspan="2" height="1" class=inverse></td>
+</tr>
+</table>
+</body>
+</html>
