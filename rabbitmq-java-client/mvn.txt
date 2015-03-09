@@ -1,0 +1,23 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building RabbitMQ Java Client VERSION
+[INFO] ------------------------------------------------------------------------
+Downloading: https://repo.maven.apache.org/maven2/commons-cli/commons-cli/1.1/commons-cli-1.1.pom
+Downloaded: https://repo.maven.apache.org/maven2/commons-cli/commons-cli/1.1/commons-cli-1.1.pom (0 B at 0.0 KB/sec)
+Downloading: https://repo.maven.apache.org/maven2/commons-io/commons-io/1.2/commons-io-1.2.pom
+4/7 KB   7/7 KB            Downloaded: https://repo.maven.apache.org/maven2/commons-io/commons-io/1.2/commons-io-1.2.pom (7 KB at 86.4 KB/sec)
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ amqp-client ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /home/ben/code/shapes/java-corpus/rabbitmq-java-client/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ amqp-client ---
+[INFO] No sources to compile
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 1.144 s
+[INFO] Finished at: 2015-03-08T15:44:29-04:00
+[INFO] Final Memory: 9M/239M
+[INFO] ------------------------------------------------------------------------
