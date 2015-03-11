@@ -1,0 +1,6 @@
+exclude :test_binary, "needs investigation"
+exclude :test_float, "needs investigation"
+exclude :test_float_hex, "needs investigation"
+exclude :test_inf, "needs investigation"
+exclude :test_invalid, "needs investigation"
+exclude :test_nan, "needs investigation"

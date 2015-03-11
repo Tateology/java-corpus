@@ -1,0 +1,3 @@
+fails:Proc#== returns true if both procs have the same body and environment
+fails:Proc#== returns true if both lambdas with the same body and environment
+fails:Proc#== returns true if both different kinds of procs with the same body and env
