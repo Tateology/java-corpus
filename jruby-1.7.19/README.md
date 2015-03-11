@@ -1,6 +1,7 @@
 URL: http://jruby.org/download
 Accessed: 2015-03-08
 Compiled with: javac 1.8.0_31
+Version: 1.7.19
 
 # JRuby -  A Java implementation of the Ruby language
 
