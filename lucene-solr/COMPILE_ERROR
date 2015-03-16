@@ -1,0 +1,34 @@
+solr/contrib/map-reduce/src/test/org/apache/solr/hadoop/hack/MiniMRYarnCluster.java:165:        //bg
+solr/contrib/map-reduce/src/test/org/apache/solr/hadoop/hack/MiniYARNCluster.java:118:        //bg
+solr/contrib/map-reduce/src/test/org/apache/solr/hadoop/hack/MiniYARNCluster.java:196:        //bg
+solr/contrib/map-reduce/src/test/org/apache/solr/hadoop/hack/MiniYARNCluster.java:210:        //bg
+solr/contrib/map-reduce/src/test/org/apache/solr/hadoop/hack/MiniYARNCluster.java:216:        //bg
+solr/contrib/map-reduce/src/test/org/apache/solr/hadoop/hack/MiniYARNCluster.java:377:                //bg
+solr/contrib/map-reduce/src/test/org/apache/solr/hadoop/hack/MiniYARNCluster.java:383:              //bg
+solr/contrib/map-reduce/src/test/org/apache/solr/hadoop/hack/MiniYARNCluster.java:397:                //bg
+solr/contrib/morphlines-core/src/java/org/apache/solr/morphlines/solr/SolrLocator.java:185:    //bg
+solr/contrib/velocity/src/java/org/apache/solr/response/VelocityResponseWriter.java:288:    //bg, undeclared exception
+solr/solrj/src/java/org/apache/solr/client/solrj/impl/HttpSolrClient.java:382:                  //bg because deprecation
+solr/solrj/src/java/org/apache/solr/client/solrj/impl/HttpClientUtil.java:119:    //bg, inconvertible types
+solr/solrj/src/java/org/apache/solr/client/solrj/impl/HttpClientUtil.java:135:    //bg, inconvertible types
+solr/solrj/src/test/org/apache/solr/client/solrj/impl/HttpClientUtilTest.java:61:    //bg, inconvertible types
+solr/solrj/src/test/org/apache/solr/client/solrj/impl/HttpClientUtilTest.java:74:      //bg
+solr/core/src/java/org/apache/solr/rest/BaseSolrResource.java:71:  //bg, could not find symbol 'doError'
+solr/core/src/test/org/apache/solr/search/TestRecoveryHdfs.java:79:    //bg, cannot find getURI
+solr/core/src/test/org/apache/solr/core/HdfsDirectoryFactoryTest.java:61:    //bg, cannot find getURI
+solr/core/src/test/org/apache/solr/core/HdfsDirectoryFactoryTest.java:73:    //bg, cannot find getURI
+solr/core/src/test/org/apache/solr/core/HdfsDirectoryFactoryTest.java:81:    //bg
+solr/core/src/test/org/apache/solr/core/HdfsDirectoryFactoryTest.java:96:    //bg
+solr/core/src/test/org/apache/solr/cloud/hdfs/HdfsCollectionsAPIDistributedZkTest.java:42:    //bg, cannot find getURI
+solr/core/src/test/org/apache/solr/cloud/hdfs/HdfsTestUtil.java:83:      //bg, cannot find enterSafeMode
+solr/core/src/test/org/apache/solr/cloud/hdfs/HdfsTestUtil.java:92:          //bg, cannot find symbol
+solr/core/src/test/org/apache/solr/cloud/hdfs/HdfsTestUtil.java:100:      //bg, cannot find getURI
+solr/core/src/test/org/apache/solr/cloud/hdfs/HdfsTestUtil.java:140:    //bg, cannot find getURI
+solr/core/src/test/org/apache/solr/cloud/hdfs/HdfsWriteToMultipleCollectionsTest.java:64:    //bg, cannot find getURI
+solr/core/src/test/org/apache/solr/cloud/hdfs/StressHdfsTest.java:65:    //bg, cannot find getURI
+solr/core/src/test/org/apache/solr/cloud/hdfs/StressHdfsTest.java:112:        //bg, cannot find enterSafeMode
+solr/core/src/test/org/apache/solr/cloud/hdfs/StressHdfsTest.java:121:            //bg, cannot find symbol
+solr/core/src/test/org/apache/solr/store/hdfs/HdfsLockFactoryTest.java:66:    //bg, cannot find getURI
+solr/core/src/test/org/apache/solr/store/hdfs/HdfsDirectoryTest.java:76:    //bg, cannot find getURI
+JarFinder.java:1://bg Added manually, couldn't access from jars
+Collector.java:1://bg manually added
