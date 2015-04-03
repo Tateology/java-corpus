@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="de.nava.informa.impl.hibernate.ItemEnclosure"
+    table="ITEM_ENCLOSURE" dynamic-update="false"
+    dynamic-insert="false">
+
+    <id name="id" column="ITEM_ENCLOSURE_ID" type="long">
+      <generator class="native"/>
+    </id>
+
+    <many-to-one name="item" class="de.nava.informa.impl.hibernate.Item"
+      cascade="none" outer-join="auto" update="true" insert="true"
+      column="ITEM_ID" not-null="true" />
+
+    <property name="locationString" type="string" update="true"
+      insert="true" column="LOCATION" />
+
+    <property name="type" type="string" update="true" insert="true"
+      column="TYPE" />
+
+    <property name="length" type="int" update="true" insert="true"
+      column="LENGTH" />
+
+
+  </class>
+
+</hibernate-mapping>

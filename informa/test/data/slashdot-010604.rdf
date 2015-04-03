@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns="http://purl.org/rss/1.0/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+ xmlns:taxo="http://purl.org/rss/1.0/modules/taxonomy/"
+ xmlns:admin="http://webns.net/mvcb/"
+ xmlns:syn="http://purl.org/rss/1.0/modules/syndication/"
+>
+
+<channel rdf:about="http://slashdot.org/">
+<title>Slashdot</title>
+<link>http://slashdot.org/</link>
+<description>News for nerds, stuff that matters</description>
+<dc:language>en-us</dc:language>
+<dc:rights>Copyright 1997-2004, OSDN - Open Source Development Network, Inc.  All Rights Reserved.</dc:rights>
+<dc:date>2004-06-01T05:43:50+00:00</dc:date>
+<dc:publisher>OSDN</dc:publisher>
+<dc:creator>pater@slashdot.org</dc:creator>
+<dc:subject>Technology</dc:subject>
+<syn:updatePeriod>hourly</syn:updatePeriod>
+<syn:updateFrequency>1</syn:updateFrequency>
+<syn:updateBase>1970-01-01T00:00+00:00</syn:updateBase>
+<items>
+ <rdf:Seq>
+  <rdf:li rdf:resource="http://slashdot.org/article.pl?sid=04/05/31/2159238" />
+  <rdf:li rdf:resource="http://slashdot.org/article.pl?sid=04/05/31/2238208" />
+  <rdf:li rdf:resource="http://slashdot.org/article.pl?sid=04/05/31/2317246" />
+  <rdf:li rdf:resource="http://slashdot.org/article.pl?sid=04/05/31/2211233" />
+  <rdf:li rdf:resource="http://slashdot.org/article.pl?sid=04/05/31/226239" />
+  <rdf:li rdf:resource="http://slashdot.org/article.pl?sid=04/05/31/2136239" />
+  <rdf:li rdf:resource="http://slashdot.org/article.pl?sid=04/05/31/202218" />
+  <rdf:li rdf:resource="http://slashdot.org/article.pl?sid=04/05/31/1949241" />
+  <rdf:li rdf:resource="http://slashdot.org/article.pl?sid=04/05/31/1834219" />
+  <rdf:li rdf:resource="http://slashdot.org/article.pl?sid=04/05/31/1729234" />
+ </rdf:Seq>
+</items>
+<image rdf:resource="http://images.slashdot.org/topics/topicslashdot.gif" />
+<textinput rdf:resource="http://slashdot.org/search.pl" />
+</channel>
+
+<image rdf:about="http://images.slashdot.org/topics/topicslashdot.gif">
+<title>Slashdot</title>
+<url>http://images.slashdot.org/topics/topicslashdot.gif</url>
+<link>http://slashdot.org/</link>
+</image>
+
+<item rdf:about="http://slashdot.org/article.pl?sid=04/05/31/2159238">
+<title>Robots That Serve Beyond The Vacuum</title>
+<link>http://slashdot.org/article.pl?sid=04/05/31/2159238</link>
+<description>Tim Brown of Mobile Robotics writes "While everyone has been debating the abilities of new robotic vacuum cleaners and their varying price tags, Siemens has ...</description>
+<dc:creator>timothy</dc:creator>
+<dc:subject>robotics</dc:subject>
+<dc:date>2004-06-01T05:35:00+00:00</dc:date>
+<slash:department>alt-title-robots-that-don't-suck</slash:department>
+<slash:section>articles</slash:section>
+<slash:comments>21</slash:comments>
+<slash:hitparade>21,17,15,10,0,0,0</slash:hitparade>
+</item>
+
+<item rdf:about="http://slashdot.org/article.pl?sid=04/05/31/2238208">
+<title>OLED Displays Technology Primer and Forecasting</title>
+<link>http://slashdot.org/article.pl?sid=04/05/31/2238208</link>
+<description>HawKe writes "OLEDs are back in the news and Audioholics reports on what makes the technology so special as well as who leads the pack in currently shipping ...</description>
+<dc:creator>timothy</dc:creator>
+<dc:subject>displays</dc:subject>
+<dc:date>2004-06-01T02:42:00+00:00</dc:date>
+<slash:department>why-clarita-you're-positively-glowing</slash:department>
+<slash:section>articles</slash:section>
+<slash:comments>97</slash:comments>
+<slash:hitparade>97,82,67,50,27,21,9</slash:hitparade>
+</item>
+
+<item rdf:about="http://slashdot.org/article.pl?sid=04/05/31/2317246">
+<title>Slackware Chooses X.org Server Over XFree86</title>
+<link>http://slashdot.org/article.pl?sid=04/05/31/2317246</link>
+<description>Ananamous Coward writes "Some big distros had already dumped XFree86 for X.org for license reasons, but now Slackware, one of the most classical and stable ...</description>
+<dc:creator>timothy</dc:creator>
+<dc:subject>x</dc:subject>
+<dc:date>2004-06-01T00:34:00+00:00</dc:date>
+<slash:department>is-it-so-xurprising</slash:department>
+<slash:section>articles</slash:section>
+<slash:comments>272</slash:comments>
+<slash:hitparade>272,257,208,157,80,59,35</slash:hitparade>
+</item>
+
+<item rdf:about="http://slashdot.org/article.pl?sid=04/05/31/2211233">
+<title>First Looks At PCI-X, BTX, New Chipsets, And More</title>
+<link>http://slashdot.org/article.pl?sid=04/05/31/2211233</link>
+<description>rsrsharma writes "AnandTech has some early bird Computex 2004 coverage up its sleeve. Included are the first pictures and partial specs of nVidia's NV45, the ...</description>
+<dc:creator>timothy</dc:creator>
+<dc:subject>hardware</dc:subject>
+<dc:date>2004-05-31T23:30:00+00:00</dc:date>
+<slash:department>first-blush-followed-by-unveiling-and-then-more</slash:department>
+<slash:section>articles</slash:section>
+<slash:comments>134</slash:comments>
+<slash:hitparade>134,125,94,66,29,15,8</slash:hitparade>
+</item>
+
+<item rdf:about="http://slashdot.org/article.pl?sid=04/05/31/226239">
+<title>Bruce Sterling On Lovelock's Pro-Nuclear Stance</title>
+<link>http://slashdot.org/article.pl?sid=04/05/31/226239</link>
+<description>Robert Berger writes "Bruce Sterling, author, journalist, editor, critic, blogger is also the creator of the Viridian Notes series of emails that comment on ...</description>
+<dc:creator>timothy</dc:creator>
+<dc:subject>science</dc:subject>
+<dc:date>2004-05-31T22:33:00+00:00</dc:date>
+<slash:department>whistles-gunsmoke-and-tumbleweed</slash:department>
+<slash:section>science</slash:section>
+<slash:comments>417</slash:comments>
+<slash:hitparade>417,410,360,264,75,43,29</slash:hitparade>
+</item>
+
+<item rdf:about="http://slashdot.org/article.pl?sid=04/05/31/2136239">
+<title>NYT Calls For Open-Source Election Machines</title>
+<link>http://slashdot.org/article.pl?sid=04/05/31/2136239</link>
+<description>anti-drew writes "The New York Times Magazine has an interesting editorial (free reg. req.) calling for open-source voting machines. From the article: ...</description>
+<dc:creator>simoniker</dc:creator>
+<dc:subject>usa</dc:subject>
+<dc:date>2004-05-31T21:42:00+00:00</dc:date>
+<slash:department>immediate-response</slash:department>
+<slash:section>yro</slash:section>
+<slash:comments>231</slash:comments>
+<slash:hitparade>231,219,173,121,54,37,27</slash:hitparade>
+</item>
+
+<item rdf:about="http://slashdot.org/article.pl?sid=04/05/31/202218">
+<title>Programming For Terrified Adults?</title>
+<link>http://slashdot.org/article.pl?sid=04/05/31/202218</link>
+<description>makeitreal writes "My mom is getting bored with learning the basics of email and has mastered Solitaire. She asked me what I do on my computer and I told her ...</description>
+<dc:creator>simoniker</dc:creator>
+<dc:subject>programming</dc:subject>
+<dc:date>2004-05-31T20:49:00+00:00</dc:date>
+<slash:department>logical</slash:department>
+<slash:section>askslashdot</slash:section>
+<slash:comments>703</slash:comments>
+<slash:hitparade>703,688,538,319,101,58,44</slash:hitparade>
+</item>
+
+<item rdf:about="http://slashdot.org/article.pl?sid=04/05/31/1949241">
+<title>End Of Development For Grsecurity Announced?</title>
+<link>http://slashdot.org/article.pl?sid=04/05/31/1949241</link>
+<description>vrtk writes "I received this minutes ago, from the grsecurity mailing list, also displayed on the official site for the open-source security project: ...</description>
+<dc:creator>simoniker</dc:creator>
+<dc:subject>security</dc:subject>
+<dc:date>2004-05-31T19:58:00+00:00</dc:date>
+<slash:department>future-not-so-secure</slash:department>
+<slash:section>developers</slash:section>
+<slash:comments>250</slash:comments>
+<slash:hitparade>250,233,159,108,52,31,18</slash:hitparade>
+</item>
+
+<item rdf:about="http://slashdot.org/article.pl?sid=04/05/31/1834219">
+<title>Wireless Sensors Monitor Glacier Behavior</title>
+<link>http://slashdot.org/article.pl?sid=04/05/31/1834219</link>
+<description>Roland Piquepaille writes "In a world premiere, an interdisciplinary team of the University of Southampton, GlacsWeb, has deployed a network of wireless ...</description>
+<dc:creator>simoniker</dc:creator>
+<dc:subject>wireless</dc:subject>
+<dc:date>2004-05-31T19:04:00+00:00</dc:date>
+<slash:department>a-bit-like-starbucks</slash:department>
+<slash:section>science</slash:section>
+<slash:comments>74</slash:comments>
+<slash:hitparade>74,64,52,39,23,14,8</slash:hitparade>
+</item>
+
+<item rdf:about="http://slashdot.org/article.pl?sid=04/05/31/1729234">
+<title>DSPAM v3.0 RC1 Spam Filter Released</title>
+<link>http://slashdot.org/article.pl?sid=04/05/31/1729234</link>
+<description>Nuclear Elephant writes "DSPAM v3.0 RC1 is now available for download, with a stable release scheduled for June 13. DSPAM has appeared on Slashdot and in Wired ...</description>
+<dc:creator>simoniker</dc:creator>
+<dc:subject>spam</dc:subject>
+<dc:date>2004-05-31T18:15:00+00:00</dc:date>
+<slash:department>egg-and-beans</slash:department>
+<slash:section>yro</slash:section>
+<slash:comments>154</slash:comments>
+<slash:hitparade>154,144,118,80,42,25,11</slash:hitparade>
+</item>
+
+<textinput rdf:about="http://slashdot.org/search.pl">
+<title>Search Slashdot</title>
+<description>Search Slashdot stories</description>
+<name>query</name>
+<link>http://slashdot.org/search.pl</link>
+</textinput>
+
+</rdf:RDF>

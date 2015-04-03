@@ -1,0 +1,13 @@
+http://z.about.com/6/g/scifi/b/index.xml
+http://www.heise.de/newsticker/heise.rdf
+http://www.bbc.co.uk/syndication/feeds/news/ukfs_news/world/africa/rss091.xml
+http://www.bbc.co.uk/syndication/feeds/news/ukfs_news/world/asia-pacific/rss091.xml
+http://www.bbc.co.uk/syndication/feeds/news/ukfs_news/world/europe/rss091.xml
+http://www.cert.org/channels/certcc.rdf
+http://dwlt.net/tapestry/dilbert.rdf
+http://www.djeaux.com/rss/insecure-fulldisclosure.rss
+http://www.linuxjournal.com/news.rss
+http://msdn.microsoft.com/security/rss.xml
+http://www.linuxjournal.com/news.rss
+http://msdn.microsoft.com/security/rss.xml
+http://theregister.co.uk/feeds/latest.rdf

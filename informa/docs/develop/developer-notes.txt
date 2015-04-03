@@ -1,0 +1,103 @@
+Tags allowed in xdocs style documents:
+
+http://jakarta.apache.org/site/jakarta-site-tags.html
+
+
+---
+
+from build.xml, the convenient way to include tests in subdirs:
+
+      <batchtest todir="${test.data}">
+        <fileset dir="${test.classes}">
+          <include name="**/Test*.class"/>
+        </fileset>
+      </batchtest>
+
+=================================================================
+
+
+NOTE: This is out-dated please see the TODO for further details.
+
+
+README ----------------------------------------------------------
+A very rough sketch for what the RSS Library could look like
+-----------------------------------------------------------------
+
+[Note: This is very far from being complete, just my very first ideas
+thrashed out of my brain, especially the names of the classes and 
+package names are highly in-flux.]
+
+- how parsing could happen with the proposed interfaces:
+
+  the application would held a collection of FeedParser objects (at the
+  beginning may only a parser for OCS) and URLs to (OCS) news feeds.
+  
+  Some pseudo code for retrieving a list of available channels:
+  
+  // present the channels to the user and let him/her decide
+  // wether to subscribe to a channel or not
+  channels = FeedParserIF.parse(ocs_url)
+
+  The user could of course add manually URLs to channels he wants to
+  subscribe to. To get all the items of the subscribed channels
+  please conside the following (again this is pseudo code):
+
+  // channels is a collection of ChannelIF objects
+  for each channel in subscribed_channels:
+    channel_format = channel.getFormat()
+    parser = channel_parser_collection.getParser(channel_format)
+    items = parser.parse(channel.getLocation())
+
+
+- possible implementations of ChannelParserIF:
+  - de.nava.informa.parsers.RSS_0_91_Parser
+  - de.nava.informa.parsers.RSS_1_0_Parser
+
+
+- possible implementations of FeedParserIF:
+  - de.nava.informa.parsers.OCSParser
+
+
+- the core interfaces belonging to the "news object model"
+  could be implemented in-memory and in a SQL manner
+  (may be going via a O/R mapping tool)?
+  
+  
+- utility classes would allow to write out (serialize)
+  RSS Channels (also in different formats), may be we need
+  a ChannelWriterIF interface ?
+
+
+- questions:
+
+  - rename ChannelIF#contentType to format ?
+
+  - support single-user, or allow multi-user to access the environment (do
+    we want that this library is only used by Stand-alone applications
+    or also be used by multi-user environments like web-applications) ?
+
+  - state handling inside or outside the interfaces (may be best to separate
+    them) ?
+
+  - general: should the IDs be integers or String objects ?
+
+
+- missing interfaces:
+
+  - MonitorIF: for handling poll threads (postponed)
+  
+  
+- implementation notes:
+
+  - Item: hashCode important for comparing if item already exists
+          (Name/Title and Link/Location), do not take parent channel
+	        into account (since this may lack when item is not assigned
+	        because it has to be checked wether it is also already existant)
+
+
+Feedback is very welcome :)
+
+
+Niko Schmuck (niko@nava.de)
+Created: 26.04.2002
+$Id: developer-notes.txt 343 2003-09-26 14:39:40Z niko_schmuck $

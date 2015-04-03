@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://www.w3.org/2000/08/w3c-synd/style.css" type="text/css"?>
+<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:hr="http://www.w3.org/2000/08/w3c-synd/#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://purl.org/rss/1.0/">
+<channel rdf:about="http://www.w3.org/2000/08/w3c-synd/home.rss">
+<title>World Wide Web Consortium</title>
+<description>Leading the Web to Its Full Potential...</description>
+<link>http://www.w3.org/</link>
+<dc:date>2003-09-16T20:12:20Z</dc:date>
+<items>
+<rdf:Seq>
+<rdf:li rdf:resource="http://www.w3.org/News/2003#item147"/>
+<rdf:li rdf:resource="http://www.w3.org/News/2003#item152"/>
+<rdf:li rdf:resource="http://www.w3.org/News/2003#item151"/>
+<rdf:li rdf:resource="http://www.w3.org/News/2003#item150"/>
+<rdf:li rdf:resource="http://www.w3.org/News/2003#item149"/>
+<rdf:li rdf:resource="http://www.w3.org/News/2003#item148"/>
+<rdf:li rdf:resource="http://www.w3.org/News/2003#item145"/>
+</rdf:Seq>
+</items>
+</channel>
+<item rdf:about="http://www.w3.org/News/2003#item147">
+<title>RDF Core Working Group Publishes Six Working Drafts</title>
+<description>5 September 2003: The RDF Core Working Group has released six Working Drafts in response to Last Call comments. The Resource Description Framework (RDF) supports the exchange of knowledge on the Web. Also published as a Working Group Note is LBase, a framework for specifying the meaning of Semantic Web languages. Read about the Semantic Web Activity. (News archive)</description>
+<link>http://www.w3.org/News/2003#item147</link>
+<dc:date>2003-09-05</dc:date>
+</item>
+<item rdf:about="http://www.w3.org/News/2003#item152">
+<title>Timed Text: Use Cases and Requirements Updated</title>
+<description>16 September 2003: The Timed Text Working Group has released an updated Working Draft of Timed Text (TT) Authoring Format 1.0 Use Cases and Requirements. The group is developing an XML-based, portable format used to represent streamable text synchronized with timed media like audio or video. This content type can be interchanged among authoring systems. Visit the Timed Text home page. (News archive)</description>
+<link>http://www.w3.org/News/2003#item152</link>
+<dc:date>2003-09-16</dc:date>
+</item>
+<item rdf:about="http://www.w3.org/News/2003#item151">
+<title>CSS 2.1 Last Call Published</title>
+<description>15 September 2003: The CSS Working Group has released a Last Call Working Draft of Cascading Style Sheets, Level 2 Revision 1 (CSS 2.1). The Cascading Style Sheets language is used to render structured documents like HTML and XML on screen, on paper, and in speech. A "snapshot" of CSS usage, the draft adds a few highly requested features, fixes errata, and brings CSS2 in line with implementations. Comments are welcome through 10 October. Visit the CSS home page. (News archive)</description>
+<link>http://www.w3.org/News/2003#item151</link>
+<dc:date>2003-09-15</dc:date>
+</item>
+<item rdf:about="http://www.w3.org/News/2003#item150">
+<title>Proposal for XML Fragment Identifier Syntax Published</title>
+<description>12 September 2003: The XML Linking Working Group has released a Proposal for XML Fragment Identifier Syntax 0.9 as a W3C Working Group Note. Using the XPointer Framework, the document suggests a fragment identifier syntax, and recommends that the XML media type (RFC 2376 and RFC 3023) adopt it for use with XML resources. Comments are invited. Visit the XML home page. (News archive)</description>
+<link>http://www.w3.org/News/2003#item150</link>
+<dc:date>2003-09-12</dc:date>
+</item>
+<item rdf:about="http://www.w3.org/News/2003#item149">
+<title>CSS3 Paged Media Working Draft Published</title>
+<description>9 September 2003: The CSS Working Group has released an updated Working Draft of the CSS3 module: Paged Media, part of the Cascading Style Sheets (CSS) language level 3. The module adds pagination, page margins, headers and footers, footnotes and endnotes, and cross-references with page numbers. Visit the CSS home page. (News archive)</description>
+<link>http://www.w3.org/News/2003#item149</link>
+<dc:date>2003-09-09</dc:date>
+</item>
+<item rdf:about="http://www.w3.org/News/2003#item148">
+<title>Amaya 8.1b Released</title>
+<description>8 September 2003: Amaya is W3C's Web browser and authoring tool. Version 8.1b has editing enhancements and bug fixes for XHTML, HTML, CSS and SVG. Download Amaya binaries for Solaris, Linux and Windows, and Debian and RPM packages. Source code is available. Visit the Amaya home page. (News archive)</description>
+<link>http://www.w3.org/News/2003#item148</link>
+<dc:date>2003-09-08</dc:date>
+</item>
+<item rdf:about="http://www.w3.org/News/2003#item145">
+<title>Device Independence Working Group Notes Published</title>
+<description>2 September 2003: The Device Independence Working Group completed work on two Working Drafts and has published them as W3C Working Group Notes. Device Independence Principles describes Web access "anytime and anyhow" from user, authoring and delivery perspectives. Authoring Challenges for Device Independence are considerations and implications for building universally accessible Web content and applications. Visit the W3C Device Independence home page. (News archive)</description>
+<link>http://www.w3.org/News/2003#item145</link>
+<dc:date>2003-09-02</dc:date>
+</item>
+</rdf:RDF>

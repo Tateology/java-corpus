@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE rss PUBLIC
+  "-//Netscape Communications//DTD RSS 0.91//EN"
+  "http://my.netscape.com/publish/formats/rss-0.91.dtd">
+
+<rss version="0.91">
+
+  <channel>
+
+    <title>All Things Java</title>
+    <description>All Things Java</description>
+    <link>http://www.freeroller.net/page/aeden</link>
+    <language>English</language>
+
+    <item>
+      <title>FreeRoller Statistics</title>
+      <link>http://www.freeroller.net/page/aeden/20021002</link>
+      <description>I finally got around to gathering some statistics from the log files for &lt;a href=&amp;quot;http://www.freeroller.net/&amp;quot;&gt;freeroller.net&lt;/a&gt;:
+
+&lt;pre&gt;
+August 7 to October 2:
+----------------------
+
+August Hit Count:    58441
+September Hit Count: 139272
+
+Totals:
+-------
+Distinct Hosts Served:  6,866
+Total Requests:         215,926 (50,949 in the last 7 days)
+Total Data Transferred: 1.926 gigabytes
+
+Top 10 Requests:
+-------------
+ reqs: %bytes:       last time: file
+-----: ------: ---------------: ----
+25439: 16.64%:  2/Oct/02 11:57: /rss/rickard
+23070: 10.74%:  2/Oct/02 11:58: /rss/aeden
+21187:  0.18%:  2/Oct/02 11:57: /images/rssbadge.gif
+21136:  0.03%:  2/Oct/02 11:57: /images/permalink.gif
+13563: 15.59%:  2/Oct/02 11:58: /page/rickard
+ 5864:  3.51%:  2/Oct/02 11:57: /rss/jduska
+ 5791:  3.54%:  2/Oct/02 11:56: /rss/jcarreira
+ 5710:  0.17%:  2/Oct/02 11:34: /theme/roller.css
+ 4993:  0.56%:  2/Oct/02 11:34: /theme/sm-blue-jaggies.jpg
+ 4530:  2.35%:  2/Oct/02 11:56: /rss/rsal
+&lt;/pre&gt;
+
+&lt;p&gt;Well at least I know who to bill.  Rickard, I expect payment by the end of October.  What, you thought I meant free as in no charge?  No way!  I meant free as in speech. ;-)  [ the preceding was a joke...or was it? ]&lt;/p&gt;
+
+&lt;p&gt;These statistics do bring me to an interesting question.  If the popularity of freeroller.net continues to grow, how do you all suggest that I cover bandwidth costs?  That is the only cost which will continue growing as more users come online.  What would be the best means, in your opinion, for deferring that cost?&lt;/p&gt;
+
+&lt;p&gt;Finally, wouldn&amp;apos;t it be nice to have a spellcheck in Roller? :-D&lt;/p&gt;</description>
+    </item>
+
+    <item>
+      <title>Aetrion</title>
+      <link>http://www.freeroller.net/page/aeden/20021001</link>
+      <description>I have taken the plunge and have started my own company.  I suppose I am getting tired of working for others and would like to have a little bit of control over my own destiny.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&amp;quot;http://www.aetrion.com/&amp;quot;&gt;Aetrion LLC&lt;/a&gt; is the name of my new company.  Aetrion a.) provides support for &lt;a href=&amp;quot;http://www.jpublish.org/&amp;quot;&gt;JPublish Community Edition&lt;/a&gt;, b.) custom development of web applications using JPublish and other open source software and c.) enhanced commercial versions of JPublish.  For those who are not familiar with JPublish, it is a web application framework/CMS.  It has some &lt;a href=&amp;quot;http://www.jpublish.org/features.html&amp;quot;&gt;nifty features&lt;/a&gt; like script actions, clear separation of roles between developers, designers and content producers, uses the &lt;a href=&amp;quot;http://jakarta.apache.org/velocity/&amp;quot;&gt;Velocity&lt;/a&gt; template engine for views, and a whole lot more.&lt;/p&gt;
+
+&lt;p&gt;Speaking of commercial editions of JPublish, I am currently looking for testers.  If you are interested in testing an alpha version of JPublish Professional Edition, please contact me at &lt;a href=&amp;quot;aeden@aetrion.com&amp;quot;&gt;aeden@aetrion.com&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+
+    <item>
+      <title>More on FeedReader</title>
+      <link>http://www.freeroller.net/page/aeden/20021001</link>
+      <description>From &lt;a href=&amp;quot;http://roller.anthonyeden.com/page/tirsen/20021001&amp;quot;&gt;jutopia&lt;/a&gt;:
+
+&lt;blockquote&gt;
+I don&amp;apos;t agree with Anthony. Feedreader works splendid for me. No crashing, just pure pleasurable blog-rolling. If you&amp;apos;re running Windows, it&amp;apos;s a must have.
+&lt;/blockquote&gt;
+
+&lt;p&gt;FeedReader seems to be running better now, for whatever reason.  I agree that it is a nice way of reading all of the blogs which interest me.  There are a few things which irk me, but I think it may have to do with RSS 0.91 more than FeedReader itself.  Specifically it bothers me that if I restart FeedReader then all of my 0.91 feeds appear as being unread.  I think this is due to the fact that RSS 0.91 has no support for a post date.  Solution?  It would be nice if everyone would move up to 1.0, but since that probably won&amp;apos;t happen right away I would like to see FeedReader try to save read messages locally and then compare them with the &amp;quot;new&amp;quot; versions off of the server.  That&amp;apos;s the only way I can think of doing it at the moment.&lt;/p&gt;
+
+&lt;p&gt;On a side note, I started hacking out a little Java-based FeedReader clone.  I got a bit done but then playing with the Informa RSS library I was having some problems.  Hopefully I will get a chance to play with it some more after I get some &amp;quot;real&amp;quot; work done.&lt;/p&gt;</description>
+    </item>
+
+    <item>
+      <title>FreeRoller RSS Feeds (URLs Correct)</title>
+      <link>http://www.freeroller.net/page/aeden/20020930</link>
+      <description>I have just updated the freeroller.net server so that all RSS feeds will contain references to freeroller.net as opposed to roller.anthonyeden.com.  One more step towards getting my name out of your URLs. :-)</description>
+    </item>
+
+    <item>
+      <title>Blogging: Editorials for the 21st Century?</title>
+      <link>http://www.freeroller.net/page/aeden/20020930</link>
+      <description>Chris &lt;a href=&amp;quot;http://www.cwinters.com/News/show/?news_id=223&amp;quot;&gt;explains&lt;/a&gt; &lt;a href=&amp;quot;http://www.cwinters.com/News/show/?news_id=219&amp;quot;&gt;Perl v. Java 918&lt;/a&gt;:
+
+&lt;blockquote&gt;
+Yow: Anthony misinterpreted what I meant by &lt;a href=&amp;quot;http://www.cwinters.com/News/show/?news_id=219&amp;quot;&gt;this&lt;/a&gt;. I&amp;apos;m totally in the &amp;quot;appropriate tool for the appropriate job&amp;quot; camp. When I first started with Java I had a little chip on my shoulder but that&amp;apos;s long since gone. I&amp;apos;ve actually posted a few times on various Perl forums (like this) for people to stop bashing Java so much.&lt;/p&gt;
+
+&lt;p&gt;Language bashing, particularly the type on online forums, is generally done by people who haven&amp;apos;t actually used the language they&amp;apos;re bashing. So the bashers&amp;apos; arguments -- like: &amp;quot;Java is slow&amp;quot; or &amp;quot;Perl is unreadable&amp;quot; -- get repeated so often that they become truth for people who don&amp;apos;t know better. Thus, my &amp;quot;while I&amp;apos;m in the 13 year-old boy mindset comment&amp;quot; -- but I probably should have added more smileys :-)
+&lt;/blockquote&gt;
+
+&lt;p&gt;Its good to hear that you are the type of programmer who uses the right tool for the job.  Just keep in mind that other programmers, especially entry-level programmers, may look at your comments and consider them as truths without comprehending that &lt;b&gt;you&lt;/b&gt; don&amp;apos;t actually believe them (and they are meant to be a bit sarcastic).&lt;/p&gt;
+
+&lt;p&gt;Blogging is a new form of editorialism - editorials for the new century.  What you write now can influence others more so than you probably imagine.  One blogger echos the words of another and then another takes it and runs with it and so on.  Its actually a pretty interesting phenominon.  Regardless, we should all take time to think about what we are writing and how others will interpret them.  There is nothing wrong with stating your beliefs, just be ready to put on the flame-retardant suit. :-)&lt;/p&gt;</description>
+    </item>
+
+    <item>
+      <title>Perl v. Java My Ass</title>
+      <link>http://www.freeroller.net/page/aeden/20020930</link>
+      <description>From &lt;a href=&amp;quot;http://www.cwinters.com/News/show/?news_id=219&amp;quot;&gt;cwinters.com&lt;/a&gt;:
+
+&lt;blockquote&gt;
+I think when people tell me how much better Java is than Perl I&amp;apos;ll point them to this. (Sorry Rickard :-)
+&lt;/blockquote&gt;
+
+&lt;p&gt;First of all, the error on Rickard&amp;apos;s page is completely out of Rickard&amp;apos;s hands.  He didn&amp;apos;t write the software, he didn&amp;apos;t even install the software, rather he just uses the software.  That&amp;apos;s like me saying that Perl sucks because some website looks bad in my browser on OS X.  Bah.&lt;/p&gt;
+
+&lt;p&gt;Second, do you think that it isn&amp;apos;t possible to have errors in a Perl-based app?  Come on!  Every application has the potential for errors.  The fact that Java provides a comprehensive stack trace upon an error is a good thing.  Now, some applications written in Java (especially Tomcat) have stack traces which don&amp;apos;t provide the right kind of details, but that is not the fault of the Java language.  I dare say its not anyone&amp;apos;s fault, rather it is a by-product of the design of that particulat app.&lt;/p&gt;
+
+&lt;p&gt;Perl is good for some things.   Java is good for some things.  Stop this childish &amp;quot;my programming language is better than yours, so na na!&amp;quot; crap and just write good software.  And this goes for all language comparisons...I am sick of hearing it.&lt;/p&gt;</description>
+    </item>
+
+    <item>
+      <title>FreeRoller.Net Issues</title>
+      <link>http://www.freeroller.net/page/aeden/20020930</link>
+      <description>I just restarted Tomcat with some modifications to the database pooling in Roller which will hopefully reduce the possibility of pooling-related errors. </description>
+    </item>
+
+    <item>
+      <title>A Big Hole</title>
+      <link>http://www.freeroller.net/page/aeden/20020928</link>
+      <description>After over a year of planning we are finally breaking ground for our new addition.  After only a week we now have a lovely, gigantic hole!
+
+&lt;p&gt;&lt;img src=&amp;quot;http://www.anthonyeden.com/construction/Thumbnails/19.jpg&amp;quot; alt=&amp;quot;A Big Hole in the Ground&amp;quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;Isn&amp;apos;t it cool what backhoes can do?&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&amp;quot;http://www.anthonyeden.com/construction/Thumbnails/15.jpg&amp;quot; alt=&amp;quot;Backhoe&amp;quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;For the curious, the hole is for a new septic tank.&lt;/p&gt;</description>
+    </item>
+
+    <item>
+      <title>Clean It Up URL</title>
+      <link>http://www.freeroller.net/page/aeden/20020928</link>
+      <description>&lt;blockquote&gt;
+User-Centered URL Design touches on a meme I&amp;apos;ve noticed recently. I personally got frustrated with jakarta-struts and the fact that it required me to produce ugly URLs in my particular use-case. Russel has recently complained about ugly radio URLs.
+
+&lt;p&gt;Bob on &lt;a href=&amp;quot;http://blogs.werken.com/people/bob/archives/000099.html&amp;quot;&gt;Pretty URLs&lt;/a&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;For whatever its worth, JPublish was designed to have really nice URLs from the beginning.  When I looked at Turbine I immediately said to myself: &amp;quot;Self, you don&amp;apos;t want URLs like that...and self, using URL rewriting is not the solution.&amp;quot;  So, in JPublish the URLs look like static documents even though complex dynamic pages are being rendered.&lt;/p&gt;
+
+&lt;p&gt;Take a look at the &lt;a href=&amp;quot;http://www.jpublish.org/&amp;quot;&gt;JPublish site&lt;/a&gt;.  It is built with JPublish and every page is dynamic, but it looks like a static page.&lt;/p&gt;</description>
+    </item>
+
+    <item>
+      <title>TrayIcon</title>
+      <link>http://www.freeroller.net/page/aeden/20020927</link>
+      <description>Interesting tidbit from Russell&amp;apos;s Notebook on using the icon tray from within Java.
+
+&lt;p&gt;Project URL: &lt;a href=&amp;quot;http://jeans.studentenweb.org/java/trayicon/trayicon.html&amp;quot;&gt;http://jeans.studentenweb.org/java/trayicon/trayicon.html&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+
+  </channel>
+
+</rss>

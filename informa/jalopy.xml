@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+	
+<!-- =======================================================================
+     ANT TASKS FOR SOURCE CODE PRETTIFYING
+     This Ant project is soley for reformatting the source code
+     to a common standard. To run this code you must have
+     an installation of Jalopy (http://jalopy.sourceforge.net)
+     and set the property jalopy.dir to point to the location where Jalopy
+     is installed when calling this script.
+  			
+     IMPORTANT: Please use standard Java style when prettifying the sources.
+     ======================================================================= -->
+	
+<project name="jalopy-check" basedir="." default="format">
+
+	<property name="jalopy.dir" location="/usr/local/java/jalopy-1.0b10"/>
+
+  <taskdef name="jalopy"
+           classname="de.hunsicker.jalopy.plugin.ant.AntPlugin">
+    <classpath>
+      <fileset dir="${jalopy.dir}/lib">
+        <include name="*.jar" />
+      </fileset>
+    </classpath>
+  </taskdef>
+
+  <target name="_fixcrlf">
+    <fixcrlf srcDir="src" includes="de/nava/informa/**/*.java" javafiles="true" 
+             tab="remove" tablength="8" eol="lf" eof="remove"/>
+  </target>
+
+  <target name="format" depends="_fixcrlf">
+    <!-- specify style eventually -->
+    <jalopy fileformat="unix" sytle="code-convention.xml" history="file" 
+            loglevel="info" threads="2" classpathref="project.classpath">
+      <fileset dir="src">
+        <include name="de/nava/informa/**/*.java" />
+      </fileset>
+    </jalopy>
+  </target>
+
+</project>

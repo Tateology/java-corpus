@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- DOCTYPE rss PUBLIC "-//Netscape Communications//DTD RSS 0.91//EN"
+"../dtds/rss-0.91.dtd" -->
+<rss version="0.91">
+  <channel>
+    
+    <title>xmlhack</title>
+    <link>http://www.xmlhack.com</link>
+    <description>Developer news from the XML community</description>
+    <language>en-us</language>
+    <copyright>Copyright 1999-2001, xmlhack team.</copyright>
+    <managingEditor>editor@xmlhack.com</managingEditor>
+    <webMaster>webmaster@xmlhack.com</webMaster>
+
+    <image>
+      <title>xmlhack</title>
+      <url>http://www.xmlhack.com/images/mynetscape88.gif</url>
+      <link>http://www.xmlhack.com</link>
+      <width>88</width>
+      <height>31</height>
+      <description>News, opinions, tips and issues concerning XML development</description>
+    </image>
+    
+    <item>
+      <title>Editors' Newswire for 12 April, 2002</title>
+      <link>http://www.xmlhack.com/read.php?item=1613</link>
+      <description>Newswire stories, including: WSIO goes RAND?.</description>
+      <category>Newswire items</category>
+    </item>
+    
+    <item>
+      <title>Revised DOM Level 3 drafts</title>
+      <link>http://www.xmlhack.com/read.php?item=1612</link>
+      <description>The W3C has released new draft of Document Object
+      Model (DOM) Level 3 Abstract Schemas and Load and Save
+      Specification and Document Object Model (DOM) Level 3 Core
+      Specification.</description>
+      <category>W3C</category>
+      <category>Browsers</category>
+    </item>
+    
+<item>
+<title>Editors' Newswire for 9 April, 2002</title>
+<link>http://www.xmlhack.com/read.php?item=1611</link>
+<description>Newswire stories, including: UK government publish their standard for metadata.</description>
+<category>Newswire items</category>
+</item>
+<item>
+<title>Editors' Newswire for 8 April, 2002</title>
+<link>http://www.xmlhack.com/read.php?item=1610</link>
+<description>Newswire stories, including: Guidelines For The Use of XML in IETF Protocols; RDDL as RDF.</description>
+<category>Newswire items</category>
+</item>
+<item>
+<title>Editors' Newswire for 7 April, 2002</title>
+<link>http://www.xmlhack.com/read.php?item=1609</link>
+<description>Newswire stories, including: Second edition of Ken Holman's XSL-FO materials available; RDF Core Working Group to register application/rdf+xml.</description>
+<category>Newswire items</category>
+</item>
+<item>
+<title>Editors' Newswire for 6 April, 2002</title>
+<link>http://www.xmlhack.com/read.php?item=1608</link>
+<description>Newswire stories, including: Web Services, meet the Web.</description>
+<category>Newswire items</category>
+</item>
+
+
+<!-- for test purposes -->
+<item>
+<title>New Item</title>
+<link>http://www.xmlhack.com/verynew.php</link>
+<description>A basic news item for testing only.</description>
+<category>Newswire items</category>
+</item>
+
+
+</channel>
+</rss>

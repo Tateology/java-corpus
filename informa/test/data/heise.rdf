@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<rdf:RDF
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns="http://my.netscape.com/rdf/simple/0.9/">
+
+<channel>
+  <title>heise online news</title>
+  <link>http://www.heise.de/newsticker/</link>
+  <description>Nachrichten aus der Welt des Computers</description>
+</channel>
+
+<item>
+ <title>Trotz Flaute sind Computermessen optimistisch für die Zukunft</title>
+ <link>http://www.heise.de/newsticker/data/jk-11.06.02-011/</link>
+</item>
+
+<item>
+ <title>Insolvenzplan für teamwork AG ist zugelassen</title>
+ <link>http://www.heise.de/newsticker/data/tol-11.06.02-004/</link>
+</item>
+
+<item>
+ <title>Elsa-Gläubiger bleiben wohl auf ihren Forderungen sitzen (Update)</title>
+ <link>http://www.heise.de/newsticker/data/tol-11.06.02-003/</link>
+</item>
+
+<item>
+ <title>Computerführerschein für Linux-Anwender</title>
+ <link>http://www.heise.de/newsticker/data/anm-11.06.02-000/</link>
+</item>
+
+<item>
+ <title>Lothar Späth verläßt Jenoptik spätestens 2003</title>
+ <link>http://www.heise.de/newsticker/data/tol-11.06.02-002/</link>
+</item>
+
+<item>
+ <title>Das Moorhuhn vor dem Showdown</title>
+ <link>http://www.heise.de/newsticker/data/jk-11.06.02-010/</link>
+</item>
+
+<item>
+ <title>T-Mobile übernimmt Datendienst T-Motion komplett</title>
+ <link>http://www.heise.de/newsticker/data/tol-11.06.02-001/</link>
+</item>
+
+<item>
+ <title>Erster XScale-PDA in den Regalen (Update)</title>
+ <link>http://www.heise.de/newsticker/data/dal-11.06.02-000/</link>
+</item>
+
+<item>
+ <title>Lycos Rhapsody -- Musik auf Mausklick</title>
+ <link>http://www.heise.de/newsticker/data/sha-11.06.02-001/</link>
+</item>
+
+<item>
+ <title>Bayern will wissen, was Bürger von eGovernment erwarten</title>
+ <link>http://www.heise.de/newsticker/data/hod-11.06.02-000/</link>
+</item>
+
+<item>
+ <title>US-Regierung startet Netzwerk-Sicherheitsinitiative</title>
+ <link>http://www.heise.de/newsticker/data/pmz-11.06.02-000/</link>
+</item>
+
+<item>
+ <title>Verfassungsrang für Datenschutz gefordert</title>
+ <link>http://www.heise.de/newsticker/data/jk-11.06.02-009/</link>
+</item>
+
+<item>
+ <title>Taiwanische Halbleiterhersteller legen kräftig zu</title>
+ <link>http://www.heise.de/newsticker/data/ciw-11.06.02-000/</link>
+</item>
+
+<item>
+ <title>AOL heuert TV-Manager Hardin für Breitband-Sparte an</title>
+ <link>http://www.heise.de/newsticker/data/tol-11.06.02-000/</link>
+</item>
+
+</rdf:RDF>

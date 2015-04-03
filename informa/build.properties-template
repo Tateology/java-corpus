@@ -1,0 +1,49 @@
+# Template file for local property definitions read in by ant when
+# processing build.xml.
+#
+# ================================================================
+# Important: Copy to build.properties to ensure that ant makes 
+#            use of the settings declared here.
+# ================================================================
+#
+# $Id: build.properties-template 821 2006-12-13 00:27:58Z niko_schmuck $
+
+
+# ----------------------------------------------------------------
+# General build options
+# ----------------------------------------------------------------
+
+build.compiler=modern
+build.debug=true
+build.deprecation=true
+
+
+# ----------------------------------------------------------------
+# Hibernate configuration
+# ----------------------------------------------------------------
+
+hibernate.show_sql=true
+
+# --- HypersonicSQL settings
+hibernate.dialect=org.hibernate.dialect.HSQLDialect
+hibernate.connection.driver_class=org.hsqldb.jdbcDriver
+hibernate.connection.url=jdbc:hsqldb:informa
+hibernate.connection.username=sa
+hibernate.connection.password=
+hibernate.jdbc.jar=lib/hsqldb.jar
+
+# --- MySQL settings
+# hibernate.dialect=org.hibernate.dialect.MySQLDialect
+# hibernate.connection.driver_class=com.mysql.jdbc.Driver
+# hibernate.connection.url=jdbc:mysql://localhost:3306/informa
+# hibernate.connection.username=niko
+# hibernate.connection.password=
+# hibernate.jdbc.jar=lib/mysql.jar
+
+# --- PostgreSQL settings
+# hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+# hibernate.connection.driver_class=org.postgresql.Driver
+# hibernate.connection.url=jdbc:postgresql:informa
+# hibernate.connection.username=niko
+# hibernate.connection.password=
+# hibernate.jdbc.jar=lib/postgresql.jar

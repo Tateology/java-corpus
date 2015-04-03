@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?><feed version="0.3"
+  xmlns="http://purl.org/atom/ns#"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xml:lang="en"
+  >
+	<title>Life of Buddhi...</title>
+	<link rel="alternate" type="text/html" href="http://www.kottahachchi.net/buddhika/wpblog" />
+	<tagline>I swear this isn't inspired by the Monty Python movie!</tagline>
+	<modified>2005-09-06T01:54:18Z</modified>
+	<copyright>Copyright 2005</copyright>
+	<generator url="http://wordpress.org/" version="1.5">WordPress</generator>
+	
+  <entry>
+    <author>
+      <name>Buddhika</name>
+		</author>
+		<title type="text/html" mode="escaped">
+			<![CDATA[Tilden <b>Hike</b>]]>
+		</title>
+		<link rel="alternate" type="text/html" href="http://www.kottahachchi.net/buddhika/wpblog/index.php/archives/2005/09/05/tilden-hike/" />
+    <summary type="text/html" mode="escaped"><![CDATA[A hike in Tilden Park...]]></summary>
+		<content type="text/html" mode="escaped" xml:base="http://www.kottahachchi.net/buddhika/wpblog/index.php/archives/2005/09/05/tilden-hike/"><![CDATA[A hike in Tilden Park...]]></content>
+	</entry>
+</feed>

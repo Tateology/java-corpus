@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="de.nava.informa.impl.hibernate.Category"
+    table="CATEGORIES" dynamic-update="false" dynamic-insert="false">
+
+    <id name="id" column="CATEGORY_ID" type="long">
+      <generator class="native"/>
+    </id>
+
+    <property name="title" type="string" update="true" insert="true"
+      column="TITLE" not-null="true" />
+
+    <property name="domain" type="string" update="true" insert="true"
+      column="DOMAIN" />
+
+    <many-to-one name="parent"
+      class="de.nava.informa.impl.hibernate.Category" cascade="none"
+      outer-join="auto" update="true" insert="true" column="PARENT_ID" />
+
+    <bag name="children" lazy="true" inverse="false" cascade="none"
+      order-by="CATEGORY_ID">
+
+      <key column="PARENT_ID" />
+
+      <one-to-many class="de.nava.informa.impl.hibernate.Category" />
+    </bag>
+
+
+  </class>
+
+</hibernate-mapping>

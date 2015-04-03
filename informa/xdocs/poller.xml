@@ -1,0 +1,260 @@
+<?xml version="1.0"?>
+<document>
+
+  <meta revision="$Id: poller.xml 746 2005-01-12 11:05:58Z spyromus $"/>
+  <properties>
+    <author email="spyromus@users.sourceforge.net">Aleksey Gureev</author>
+    <title>Poller</title>
+  </properties>
+
+  <body>
+
+    <section name="General">
+
+      <p>The Poller module is intended to provide convenient services for background polling of
+      channel changes. Once you have some channels you might be interested in periodical check for
+      updates. Poller helps to do this task common to many applications. It accepts channels for
+      registration and creates the schedule for their updates.</p>
+
+      <p>Poller uses simple, but powerful engine to work with rules. Application may define rules
+      (Approvers) to decide whether the addition of separate items in channels should occur. This
+      way you can filter old, unwanted or other items before they are added to the application
+      database.</p>
+
+      <p>Also it has listeners (Observers) which are notified each time interesting event occurs. By
+      interesting events we mean:</p>
+
+      <ul>
+        <li>polling of channel started, finished or errored</li>
+        <li>channel data updated (updated information about channel itself, not its items)</li>
+        <li>new item found</li>
+      </ul>
+
+      <p>You can add as many listeners as you need and each of them will get an event notification
+      from Poller.</p>
+
+    </section>
+
+    <section name="Module structure">
+
+      <p>The module has very small number of classes in the package (de.nava.informa.utils.poller)
+      for you to remember in order to work effectively with it:</p>
+
+      <ul>
+
+        <li><i>Poller</i> - the main class and central access point to all of Poller services.</li>
+
+        <li><i>PollerApproverIF</i> - interface for Approver implementations. Each Approver added to
+        Poller will be consulted each time new item found in registered channel. Approver can
+        approve or deny addition of newly found item to the channel. If you have several
+        Approvers installed then <i>all</i> of them should vote for addition or item will not
+        be added.</li>
+
+        <li><i>PollerObserverIF</i> - interface for Observer implementation. Each Observer added to
+        Poller will be notified each time some event occurs over registered channel. Events are
+        specified briefly in previous section.</li>
+
+      </ul>
+
+      <p>In addition there is additional convenience class provided for transferring changes into
+      Informa persistent storage. <i>PersistenceObserver</i> listens to all events coming from
+      Poller and performs consequent changes to underlying storage using manager specified on
+      construction. Note that if you plan to use it instances of channels Poller will be dealing
+      with should be produced by Persistence Manager. Otherwise they will not be understood by it
+      and you can get confusing results.</p>
+
+    </section>
+
+    <section name="Working with Poller">
+
+      <section name="Initialization">
+
+        <p>Initialization of Poller is very simple. You create new instance of Poller and it starts
+        to work right away. Here&apos;s the code for that:</p>
+
+        <source>Poller poller = new Poller();</source>
+
+        <p>Default period of polls is set to one hour. You can change it and we will show a bit
+        later how.</p>
+
+        <p>Poller is capable of doing its work in multiple threads. Doing so it dramatically
+        increases performance of polling. Default value of number of working threads is
+        determined by underlying scheduler. At the moment of this writing the default is set to
+        <i>5</i> threads, but it may change, though it&apos;s not likely to. In most cases you
+        do not need to deal with such a details, but if you really need full control over that you
+        can specify number of working threads on creation or change it at run-time.</p>
+
+<source>
+// Here we create a single-threaded Poller
+Poller poller = new Poller(1);
+
+// Here we change number of threads to 3
+poller.setWorkerThreads(3);</source>
+
+        <p>You should note that change from bigger number of threads down to smaller can take some
+        time. It&apos;s not time of the method call itself, but a time of transition. It works
+        this way because the threads requiring to be removed can be busy with processing at the
+        time of change and engine will wait for completion before killing them.</p>
+
+        <p>In addition, you can control how Poller behaves when scanning the feed for a new items.
+        The parameter is called "item scanning policy", specified during Poller construction and
+        can have the following values:</p>
+
+        <ul>
+          <li><i>POLICY_SCAN_ALL</i> - default policy meaning that Poller will walk throught the
+            whole feed.</li>
+          <li><i>POLICY_SKIP_AFTER_EXISTING</i> - this policy means that Poller will stop checking
+            items once it finds the already existing one. It's helpful to save time spent on
+            checking old items, but hardly relies on the fact that we cannot see anything useful
+            after the existing items.</li>
+        </ul>
+
+<source>
+// Here we create a single-threaded Poller with specific item scanning policy
+Poller poller = new Poller(1, Poller.POLICY_SKIP_AFTER_EXISTING);</source>
+
+      </section>
+
+      <section name="Observers">
+
+        <p>Observers, as it was described before, receive notifications on interesting events:</p>
+
+        <ul>
+          <li>start of polling;</li>
+          <li>finish of polling;</li>
+          <li>abnormal termination of polling because of errors;</li>
+          <li>chang in channel information;</li>
+          <li>finding of new items.</li>
+        </ul>
+
+        <p>From the list of events it becomes clear what lifecycle of the channel processing looks
+	like. One necessary note is that only one of events (whether &apos;finish of polling&apos;
+	or &apos;abnormal termination&apos;) can be fired on completion.</p>
+
+        <p>Another note is that Poller is not adding new items to the channels for itself. One of
+        your observers should take care of it.</p>
+
+        <p>Once you have instance of Poller you need to register at least one observer to make it
+        useful. Here&apos;s the piece of code:</p>
+
+<source>
+Poller poller = new Poller();
+
+// Create and register observer
+PollerObserverIF observer = new MyObserver();
+poller.addObserver(observer);</source>
+
+        <p>You may need to remove some observer from the list and you can do it this way:</p>
+
+        <source>poller.removeObserver(observer);</source>
+
+      </section>
+
+      <section name="Approvers">
+
+        <p>Approvers are very simple by their nature. They have a single method which is called by
+        worker threads of Poller when they find some new items in channels. Approver should give
+        an answer to them if it likes new item and approves it to be added.</p>
+
+        <p>Adding and removing of approvers is also simple:</p>
+
+<source>
+// Adding new approver
+PollerApproverIF approver = new MyApprover();
+poller.addApprover(approver);
+
+// Removing approver
+poller.removeApprover(approver);</source>
+
+      </section>
+
+      <section name="Registering and unregistering channels">
+
+        <p>The next step after you have created Poller instance and set all necessary observers
+        and approvers is to register some channels. When you register channel Poller contacts
+        underlying scheduler to create plan of updates for the channel. The first checking of
+	the channel will start right after that.</p>
+
+<source>
+// Register channel with default polling period
+poller.registerChannel(channel);</source>
+
+        <p>It was the code which registers new channel. Simple, isn&apos;t it?</p>
+
+        <p>By default, Poller uses its global period setting (which is equal to one hour) to
+        initialize channel and build the updates plan with scheduler, but you may wish to specify
+        your own period for each particular channel.</p>
+
+<source>
+// Register channel with polling period set to 10 minutes
+poller.registerChannel(channel, 10 * 60 * 1000);</source>
+
+        <p>Unregistering of the channel is very straightforward:</p>
+
+<source>
+// Unregister channel
+poller.unregisterChannel(channel);</source>
+
+        <p>The call of this method guaraties that channel will never be processed again before it is
+        added back. However, if channel was under processing when unregistering was requested the
+        processing of channel will not be stopped for integrity reasons. It should pass full
+        processing cycle in any case.</p>
+
+      </section>
+
+      <section name="Updating channel immediately">
+
+        <p>At any time user or your application may decide to update the channel out of normal
+        update plan. For this particular case there&apos;s a method which instructs scheduler to
+        fire update event immediately and rebuild entire plan of updates for this channel taking
+	      current moment in time as starting point. Here is the code:</p>
+
+<source>
+// Trigger immediate updating and rebuild updates plan
+poller.updateChannel(channel);</source>
+
+      </section>
+
+      <section name="Changing global update period setting">
+
+        <p>By now you already know that Poller has its own global updates period setting. It applies
+        the setting to all new registrations having no custom period defined. It might be necessary to
+        your application to change this setting to fit better its needs. Changing can happen at
+        any time and guaranties intellectual behavior.</p>
+
+        <p>The change will reflect in rescheduling of all currently registered channels.
+        Rescheduling doesn&apos;t simply resets all of the plans (if it did this way we could end up
+        with immediate update of all registered channels and this is definitely not what we want),
+        but evaluates if time to update each of the channels has come (channels are older than age
+        specified by new period). If so then the update event will be fired. In any case the
+        plan of channels will be updated with new period setting in mind. Intelligence of this
+        sort ensures that Poller will not overload the network or CPU in any case.</p>
+
+        <p>Here&apos;s the code:</p>
+
+<source>
+// Set global updates period to 5 minutes.
+poller.setPeriod(5 * 60 * 1000);</source>
+
+      </section>
+
+    </section>
+
+    <section name="Things to note">
+
+      <ul>
+
+        <li>You should carefully choose settings for periods. Too often updates may bring overload
+        to network.</li>
+
+        <li>You should remember that if you have several Approvers <i>all</i> of them must vote for
+        item in order to make Poller fire itemFound event.</li>
+
+	      <li>Poller is supposed to be thread-safe. You can count on it.</li>
+      </ul>
+
+    </section>
+
+  </body>
+
+</document>

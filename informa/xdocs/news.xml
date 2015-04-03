@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<document>
+
+  <meta revision="$Id: news.xml 826 2007-01-05 23:21:53Z niko_schmuck $"/>
+  <properties>
+    <author email="niko@nava.de">Niko Schmuck</author>
+    <title>News</title>
+  </properties>
+  
+  <body>
+
+    <section name="Informa News">
+      <p style="color: blue">
+        <b>6 Jan 2007: Release 0.7.0 Alpha 1 out</b>
+        <ul>
+          <li>Migration to JDK 5 (thanks to Italo)</li>
+          <li>Improved parsing of Atom (0.3 and 1.0) feeds (contributed by Nilesh)</li>
+          <li>Updated 3rd party libraries</li>
+          <li>First integration of new persitence manager using the Spring Framework</li>
+          <li>Switched to Hibernate 3, switched to manual O/R mappings to get rid of XDoclet dependency and have
+              full control about the mappingdetails</li>
+          <li>Removed implementation for the JDO backend</li>
+        </ul>
+      </p>
+      
+      <p style="color: blue">
+        <b>30 Sep 2005: Beta release 0.6.5</b>
+        <ul>
+          <li>Many parsing fine-tunings by Aleksey</li>
+          <li>Improved poller and cleaner modules, improved thread safety (Many Thanks go out to Aleksey).</li>
+          <li>Fix for blogs which have 'created' dates, but not 'issued' dates (in clear contravention of the Atom 0.3 spec)</li>
+          <li>Fixed some minor bugs (1145998)</li>
+        </ul>
+      </p>
+
+      <p style="color: blue">
+        <b>18 Oct 2004: Beta release 0.6.0</b>
+        <ul>
+          <li>Added new persistence manager concept for convenient operations
+              on channel groups, channels and news items. You can choose between
+              the In-Memory and Hibernate persistence manager implementations.
+              (Many thanks to Aleksey)</li>
+          <li>Added Poller and Cleaner modules for convenient multi-threaded 
+              background polling of changes in channels resp. 
+              cleaning of channels (Aleksey).</li>
+          <li>Fixed some minor bugs (1015930, 1015926)</li>
+          <li>Updated library CGLIB to version 2.0.2</li>
+        </ul>
+      </p>
+
+      <p style="color: blue">
+        <b>29 Jun 2004: Beta release 0.5.5</b>
+        <ul>
+	      <li>Added support for parsing feeds with Atom 0.3 syntax</li>
+	  	  <li><b>IMPORTANT:</b> we changed the name of the parsing class 
+	      from RSSParser to FeedParser</li>
+          <li>Added an exporter according to RSS 2.0 specification</li>
+	      <li>Improved FeedManager: the refresh daemon makes now use of
+              cache settings (thanks Jean-Guy)</li>
+	      <li>Improved Hibernate backend robustness (thanks Pito)</li>
+	      <li>Fixed bug [934766]: RSS2 parser fails if namespace declared</li>
+	      <li>Upgraded library dependencies (JDOM b10)</li>
+        </ul>
+      </p>
+      
+      <p style="color: blue">
+        <b>22 Jun 2004</b>
+        <ul>
+          <li>An blog entry from Mohd Amin Mohd Din titled
+	  <a href="http://www.cheblogs.com/roller/page/princeamin/20040622#saving_feeds_with_informa_with">
+	  Saving feeds with Informa with Hibernate &amp; Appfuse</a>
+	  illustrates how easy you may integrate parsing news feeds 
+          from within your Struts web application.</li>
+        </ul>
+      </p>      
+
+      <p style="color: blue">
+        <b>30 Jan 2004: Beta release 0.5.0</b>
+        <ul>
+	  <li>Restructured core interface inheritance
+	      through introduction of MetaInterfaces (MIF),
+	      breaking neither the public API nor any implementations, 
+	      thanks to Alexei Matiouchkine</li>
+          <li>Some minor bug fixes (bug[880438])</li>
+	  <li>Improved Hibernate backend robustness</li>
+          <li>Updated Hibernate library to version 2.1.1</li>
+        </ul>
+      </p>
+
+      <p style="color: blue">
+        <b>9 Nov 2003: Beta release 0.4.5</b>
+        <ul>
+	  <li>Added missing fields to Channel and Item interfaces 
+	      to support the RSS 0.9x/1.0/2.0 specification more complete,
+	      thanks to Michael Harhen</li>
+          <li>Fixes for the hibernate backend integration
+	      (tested with HypersonicSQL, MySQL and PostgreSQL)</li>
+          <li>Updated support for PostgreSQL to version 7.3.2</li>
+        </ul>
+      </p>
+
+      <p style="color: blue">
+        <b>30 Oct 2003</b>
+        <ul>
+          <li>The second article by Sam Newman has been published at
+	  java.net titled
+	  <a href="http://today.java.net/pub/a/today/2003/10/30/rss.html">More
+          RSS</a>. He writes about how intelligent updating using the
+	  Informa API can improve your RSS-based JSPs.</li>
+        </ul>
+      </p>
+
+      <p style="color: blue">
+        <b>29 Sept 2003: First beta release 0.4.0</b>
+        <ul>
+          <li>Hibernate backend in place (see de.nava.informa.impl.hibernate)</li>
+          <li>OPML Parser (supporting version 1.1) now included.</li>
+          <li>Sam added his FeedManager (under de.nava.informa.utils)</li>
+          <li>Simplified feed parsing to avoid unnecessary parser collection
+              and pre-format detection</li>
+          <li>Switched to Maven for site generation</li>
+        </ul>
+      </p>
+
+      <p style="color: blue">
+        <b>14 Aug 2003</b>
+        <ul>
+          <li>Sam Newman has written <a
+          href="http://today.java.net/pub/a/today/2003/08/08/rss.html">Using
+          RSS in JSP pages</a>, published on <a
+          href="http://java.net">java.net</a> where he describes how
+          the Informa API can be used to develop custom JSP tags for
+          embedding RSS news feeds into web pages.</li>
+        </ul>
+      </p>
+      <p style="color: blue">
+        <b>27 Jul 2003: Alpha release 0.3.0</b>
+        <ul>
+	  <li>Some minor bugs were fixed and the exception handling was
+	      improved in general.</li>
+	  <li>Added support for the content syndication module
+	      in the RSS 1.0 exporter and parser, also a 
+	      channel comparator included (thanks to Jonathan Krebs).</li>
+          <li>Switched to Apache Commons Logging, to support Log4J
+	      and JDK 1.4 Logging.</li>
+	  <li>Updated code to run with JDOM b9.</li>
+        </ul>
+      </p>
+      <p style="color: blue">
+        <b>6 Apr 2003: Alpha release 0.2.6</b>
+        <ul>
+          <li>Improved support for timezones in item date handling.</li>
+	  <li>Some bugfixes to better handle RSS/RDF 1.0 news feeds.</li>
+	  <li>Easier customization through more log4j categories.</li>
+	  <li>Better usage of the ChannelFormat class throughout the code.</li>
+	  <li>Parsing is not any longer restricted to URLs, but do also
+	      accept a File, InputStream or Reader object.</li>
+        </ul>
+      </p>
+      <p style="color: blue">
+        <b>20 Jan 2003: Alpha release 0.2.4</b>
+        <ul>
+          <li>News channels can now be imported in the RSS 2.0 format.</li>
+	  <li>Refactored RSS Parsers for better date handling.</li>
+	  <li>Improved ItemComparator to allow easier news item sorting.</li>
+	  <li>Also: minor interface adjustments for separating user 
+	      metadata from channel informations.</li>
+        </ul>
+      </p>
+      <p style="color: blue">
+        <b>20 Oct 2002: Alpha release 0.2.2</b>
+        <ul>
+          <li>News channels can now be exported in RDF 1.0 format.</li>
+	  <li>Package structure polished (JDO related configuration and scripts).</li>
+	  <li>Some minor documentation issues fixed.</li>
+        </ul>
+      </p>
+      <p style="color: blue">
+        <b>21 Aug 2002</b>
+        <ul>
+          <li>Another alpha release (0.2.1) with improved JavaDoc.</li>
+          <li>Added first sections in FAQ.</li>
+        </ul>
+      </p>
+      <p style="color: blue">
+        <b>7 Aug 2002</b>
+        <ul>
+          <li>First public alpha release (0.2.0).</li>
+          <li>Set up initial web site.</li>
+        </ul>
+      </p>
+    </section>
+    
+  </body>
+</document>

@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<document>
+
+  <meta revision="$Id: neighbours.xml 723 2004-10-18 20:44:06Z niko_schmuck $"/>
+  <properties>
+    <author email="niko@nava.de">Niko Schmuck</author>
+    <title>Projects using Informa</title>
+  </properties>
+  
+  <body>
+
+   <section name="BlogBridge">
+	 <p>
+			BlogBridge is an RSS Reader/Aggregator designed for people who read and
+			follow a large number of RSS feeds. Typically these are Weblogs (or blogs)
+			but there are many other kinds of RSS feeds as well, which BlogBridge is
+			designed for.
+   </p>
+   <ul>
+   	<li>Project initiator: Pito Salas</li>
+   	<li>Homepage: <a href="http://www.blogbridge.com">http://www.blogbridge.com</a></li>
+	 </ul>
+	 </section>
+	 
+   <section name="ThinFeeder">
+	 <p>
+			ThinFeeder is a project that aims to provide a cross-platform, powerful 
+			and tiny RSS / Atom (currently RSS 0.9x, RSS 1.0 / RDF, RSS 2.0 and Atom 0.3) 
+			aggregator, using Informa and Thinlet. It has a few goals that wants to make 
+			the reading news experience the most pleasant possible, including
+			support for skins, multiple languages and anti-aliasing.
+   </p>
+   <ul>
+   	<li>Project initiator: Fabiano Franz</li>
+   	<li>Homepage: <a href="http://thinfeeder.sourceforge.net/">http://thinfeeder.sourceforge.net</a></li>
+	 </ul>
+	 </section>
+	 
+	 <section name="RSS JSP Tag Library">
+		<p>
+		The RSS JSP Tag Library provides easy and flexible access to RSS news
+		channels and associated metadata. Using the Informa RSS Library, also hosted
+		on SourceForge, it supports RSS 0.91, 0.92, 0.93, 0.94, 1.0, and 2.0.	
+		</p>
+		<ul>
+			<li>Project initiator: Michael Harhen</li>
+			<li>Homepage: <a href="http://sourceforge.net/projects/rsstaglib/">http://sourceforge.net/projects/rsstaglib/</a></li>
+		</ul>
+	 </section>
+
+
+	 <section name="RSS-Desk">
+		<p>
+		RSS-desk is a reusable component for the news aggregation in a web page.
+		It is based on j2ee-standards using the Informa API and includes JSP
+		tag-library for the processing of RSS-feeds and Admin interface.
+		</p>
+		<ul>
+			<li>Project initiator: Dmitry Belov</li>
+			<li>Homepage: <a href="http://sourceforge.net/projects/rss-desk/">http://sourceforge.net/projects/rss-desk/</a></li>
+		</ul>
+	 </section>
+</body>
+</document>

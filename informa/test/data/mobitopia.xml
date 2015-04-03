@@ -1,0 +1,1247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="rss.xsl" media="screen"?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<rss version="2.0">
+
+<channel>
+	<title>Mobitopia</title>
+	<link>http://www.mobitopia.com</link>
+	<description>News, links and opinions about mobile and wireless technologies</description>
+	<language>en-US</language>
+	<managingEditor>russ@mobitopia.com</managingEditor>
+	<ttl>60</ttl>
+	<image>
+		<url>http://www.mobitopia.com/images/mobitopia.gif</url>
+		<title>Mobitopia</title>
+		<link>http://www.mobitopia.com</link>
+		<width>158</width>
+		<height>59</height>
+	</image>
+
+
+
+	
+	<lastBuildDate>Wed, 02 Jun 2004 15:57:15 +0100</lastBuildDate>
+	
+		
+	
+	<item>
+		<title>Are high end phones a threat to operators?</title>
+		<link>http://www.mobitopia.com/20040602.html#155715</link>
+		<description>
+			&lt;p&gt;
+Are high end mobile handsets a threat to operator&#039;s revenue streams? Yes, &lt;a
+href=&#034;http://www.phonecontent.com/bm/news/nokia/298.shtml&#034;&gt;this article appears
+to be saying&lt;/a&gt;. Is it really true? Well, yes and no. More specifically no, not
+really. The article is based on research by &lt;a href=&#034;http://www.makoanalysis.com/&#034;&gt; 
+Mako Analysis&lt;/a&gt; who claim these high end handsets enable users to bypass the
+operators in services that would traditionally be pay per use. Let us examine the 
+nature of the &#034;threat&#034;.
+&lt;/p&gt;
+&lt;p&gt;
+&lt;b&gt;Messaging&lt;/b&gt;&lt;br /&gt;
+Higher end phones enable IP based mobile communications from mobile to mobile,
+or mobile to PC in much the same manner as PC to PC services.
+The usual range of applications exist. I use IRC occasionally from my phone,
+others make use of IM services such as AOL instant messenger. The claim being
+made here is that these services might in some manner undercut the market for
+SMS and MMS messaging from which operators make a great deal of money.
+&lt;/p&gt;
+&lt;p&gt;
+Is it true though? Well, not really. A simple bit of use case analysis will
+reveal the difference between IM and SMS messaging. To receive an SMS the only
+requirement is that your phone be in range of a cell, whereas to receive an IM
+you need to be in range of a cell, and signed in to the service. This involves
+an active GPRS or UMTS data connection, or at least that you authorise the
+application to sign in and check for messages from time to time, which costs
+money. The chief benefit of Instant Messaging is that it is indeed more or less
+instantaneous, whereas SMS messages you may answer at your leisure. To take a
+simple example, if you wished to ask a mobile user if they wanted to join you
+for a curry, you are aware they IM from their mobile but they aren&#039;t signed in
+at the moment, would you choose to send them SMS or IM? Which would you be more
+confident of the message reaching them before it became moot?
+&lt;/p&gt;
+&lt;p&gt;
+The article cites &lt;a
+href=&#034;http://www.fastmobile.com/services_overview.html&#034;&gt;FastChat&lt;/a&gt; as an
+example of a service designed for mobiles to allow the sending of text and voice
+messaging to each other. In the words of the article:
+&lt;/p&gt;
+&lt;blockquote&gt;
+&#034;If this user purchases a Nokia 6600 for example there are several ways of by passing the standard text
+ messaging method and significantly reducing his bill spend. Firms such 
+ as Fastchat for example offer an application that allows users to communicate
+ via text in an instant messaging style format for a completely flat rate of 
+ approx [GBP]5 per month. This application also allows users to send brief 
+ voice messages to each other in the same fashion as a Push-to-Talk service.&#034;
+&lt;/blockquote&gt;
+&lt;p&gt;
+But at 5 pounds a month, are they really undercutting mobile operators? 5 pounds
+is an awful lot of text messages, at minimum 100, maximally anywhere up to 250.
+My rather modest contract with Vodafone UK provides 200 messages a month for
+free. What incentive have I to replace my SMS usage with yet another contracted
+service? OK, I&#039;d get more voice messages than voice over MMS for less cost, but
+only to people who use this application. Plus again we have the wretched issue
+of having to be signed in to receive my messages, and the data cost.
+&lt;/p&gt;
+&lt;p&gt;
+&lt;b&gt;Mobile Music&lt;/b&gt;&lt;br /&gt;
+It is only recently that mobile phones have come to possess enough CPU speed to
+enable them to decode and play MP3s in real time. Certainly not enough time for
+this market to become any serious part of a mobile telco&#039;s portfolio of
+services. It is a null argument to users are bypassing operator serviles by
+listening to music they already own on their phones, because few if any
+operators offer this service anyway!
+&lt;/p&gt;
+&lt;p&gt;
+&lt;b&gt;Gaming&lt;/b&gt;&lt;br /&gt;
+Gaming is a significant and increasing revenue stream for many operators. At
+approaching 5 GBP for a single Java game, you can see why operators would be
+disappointed lose it. However the gaming sphere is not just about the games
+themselves. Very few games and operators yet exploit the full potential of the
+fact these games are running on a connected device. The potential for
+multiplayer gaming and associated services in more or less unlimited.
+&lt;/p&gt;
+&lt;p&gt;
+There is nothing an operator can do about developers undercutting them by selling
+games direct to their core markets, however they are in the best position to
+offer over the air service, which is an order of magnitude more convenient than
+downloading a game and transferring it to your phone via bluetooth, usb, etc.
+&lt;/p&gt;
+&lt;p&gt;
+So what you lose on the swings, you gain on the roundabouts. Revenues from games
+are going down, but new revenue streams from multiplayer gaming partner matching
+services might go up if operators play their cards right. Certainly, revenues
+from data will continue to rise.
+&lt;/p&gt;
+&lt;p&gt;
+&lt;b&gt;Phone Personalisation&lt;/b&gt;&lt;br /&gt;
+Lets face it, the ringtone as we know it is doomed to extinction. Phones have
+sophisticated speakers, and powerful processors, so what kind of sense does it
+make to continue with primitive ringtone formats? MIDI ringtones have been
+common for a couple of years now, MP3 ringtones are on the way in. Once all
+phones support these common formats, there will be no excuse for charging for
+these commodity items. So maybe in this area, the article has a point. But
+again, I see an advantage to over the air delivery, and another opportunity to
+increase data revenues.
+&lt;/p&gt;
+&lt;p&gt;
+&lt;b&gt;Conclusion&lt;/b&gt;&lt;br /&gt;
+The article concludes with a quote from Mako themselves:
+&lt;/p&gt;
+&lt;blockquote&gt;
+&#034;As we have shown, the increasing sophistication of high-end mobile devices opens
+ up a range of additional problems and will continue to undermine the data 
+ revenue streams of mobile operators at a time when they desperately need them 
+ to be increasing. As with any new device feature, it will eventually infiltrate
+ into medium and low-end terminals, in the case of practically every other 
+ advancement this would be welcomed. This historical approach has lead us to 
+ blindly encourage the addition of increasingly sophisticated devices throughout 
+ the range, in the case of open platform operating systems our approach surely 
+ has to be one of caution.&#034;
+&lt;/blockquote&gt;
+&lt;p&gt;
+Where Mako see problems, I see opportunity. Attempting to retard progress in
+search of short term revenue gains is akin to King Canute sitting on the sea
+shore attempting to hold back the tide, and operators who attempt it will most
+likely be drowned. The lessons from previous attempts to wall customers into
+controlled content gardens are clear, there has never been a success story.
+&lt;/p&gt;
+&lt;p&gt;
+There is not even any real evidence that high end handset owners spend less, in
+fact if anything &lt;a href=&#034;http://news.bbc.co.uk/1/hi/technology/3749739.stm&#034;&gt;it
+appears that the opposite is true&lt;/a&gt;. The openness of the platform encourages
+innovative new services, and new sources of revenue. The future, as they say, is
+bright.
+&lt;/p&gt;
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://www.cdavies.org/&quot;&gt;Chris Davies&lt;/a&gt;
+		</description>
+		<author>c.davies@cdavies.org</author>
+		<comments>http://www.mobitopia.com/1003563.html#comments</comments>
+		<guid isPermaLink="false">1003563</guid>
+		<pubDate>Wed, 02 Jun 2004 15:57:15 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>Got an N-Gage? Don&#039;t Like Sidetalking?</title>
+		<link>http://www.mobitopia.com/20040601.html#144905</link>
+		<description>
+			&lt;p&gt;
+&lt;img src=&#034;http://www.allaboutngage.com/images/articles/reartalk_04.jpg&#034;
+align=&#034;right&#034; width=&#034;240&#034; height=&#034;180&#034; alt=&#034;Rear Talkin with the taco&#034;/&gt;
+If that&#039;s you, then over at 
+&lt;a href=&#034;http://www.allaboutngage.com/&#034;&gt;All About N-Gage&lt;/a&gt;,
+&lt;a href=&#034;http://www.symbiandiaries.com/ewan/&#034;&gt;Ewan&lt;/a&gt;
+and I have an article with a potential solution.
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;a title=&#034;All About N-Gage: N-Gage Rear Talking Mod&#034;
+href=&#034;http://www.allaboutngage.com/viewarticle.php?id=76&#034;&gt;Rear Talkin&#039;&lt;/a&gt;:
+it&#039;s the new black, y&#039;know...
+&lt;/p&gt;
+
+&lt;p&gt;
+In reality, side talking isn&#039;t a big deal, it keeps the screen away from the side of your face thus keeping it cleaner, and it&#039;s not uncomfortable to hold the phone like that either. However as rear talking is such a simple change, why didn&#039;t Nokia think of doing this in the first place?
+&lt;/p&gt;
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://feetup.org/blog&quot;&gt;Jim Hughes&lt;/a&gt;
+		</description>
+		<author>jim@feetup.org</author>
+		<comments>http://www.mobitopia.com/1003562.html#comments</comments>
+		<guid isPermaLink="false">1003562</guid>
+		<pubDate>Tue, 01 Jun 2004 14:49:05 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>Verisign to acquire Jamba!</title>
+		<link>http://www.mobitopia.com/20040525.html#105413</link>
+		<description>
+			Whoa - this is big - the Samwer brothers have pulled it off a second time: after founding one of germany&#039;s first auction sites, alando.de, which got bought by eBay, the now managed to sell their mobile portal called &#034;Jamba!&#034; to Verisign:
+&lt;blockquote&gt;
+&#034;MOUNTAIN VIEW, CA - May 24, 2004 - VeriSign, Inc. (Nasdaq: VRSN), the leading provider of intelligent infrastructure services for the Internet and telecommunications networks, today announced it has signed a definitive agreement to acquire Berlin, Germany based Jamba! for approximately $273 million in cash and VeriSign stock. The acquisition is subject to German regulatory approvals and other conditions, and is expected to close by the end of the second quarter.
+&lt;br&gt;
+Jamba! is a leading provider of wireless content services in Europe. The company serves millions of wireless subscribers in nine European countries through distribution and billing relationships with carriers, including Vodafone, T-Mobile and KPN. In addition, Jamba! has worked with leading content publishers to build a downloadable library of over 50,000 individual products, including popular music, graphics, games and applications.&#034;
+&lt;/blockquote&gt; 
+&lt;p&gt;
+Read the full press release &lt;a href=&#034;http://www.verisign.com/corporate/news/2004/pr_20040524.html&#034;&gt;here&lt;/a&gt;.
+&lt;p&gt;
+So, Verisign will be moving into the mobile market. Will they just carry over their internet business model to the mobile internet, or will they start looking into &#034;real&#034; mobile services?
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://www.gadgetguy.de&quot;&gt;Frank Koehntopp&lt;/a&gt;
+		</description>
+		<author>frank@koehntopp.com</author>
+		<comments>http://www.mobitopia.com/1003560.html#comments</comments>
+		<guid isPermaLink="false">1003560</guid>
+		<pubDate>Tue, 25 May 2004 10:54:13 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>Germany: Mobile phones increasingly replacing fixed line telephony</title>
+		<link>http://www.mobitopia.com/20040514.html#132935</link>
+		<description>
+			A recent review in germany yields the fact that among the group of households with people under the age of 25, 25% use mobile phones exclusively and avoid fixed line telephony completely.
+&lt;p&gt;
+I&#039;m pretty sure this number would be even higher if it were possible to have internet access without having to buy telephony with it. Even DSL is not available without buying telephony as well, and cable is still a futuristic technology in germany (apart from a few select regions).
+&lt;p&gt;
+Adding the tidbit that 50% of those mobile enthusiasts are unemployed, maybe the lack of a credit line is more of a driver than the urge for mobility, though.
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://www.gadgetguy.de&quot;&gt;Frank Koehntopp&lt;/a&gt;
+		</description>
+		<author>frank@koehntopp.com</author>
+		<comments>http://www.mobitopia.com/1003548.html#comments</comments>
+		<guid isPermaLink="false">1003548</guid>
+		<pubDate>Fri, 14 May 2004 13:29:35 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>Semacode</title>
+		<link>http://www.mobitopia.com/20040506.html#090510</link>
+		<description>
+			&lt;img src=&#034;http://www.gadgetguy.de/blogpics/semacode.jpg&#034; align=&#034;left&#034; hspace=&#034;4&#034; vspace=&#034;4&#034;&gt;I&#039;ve been meaning to blog about &lt;a href=&#034;http://semacode.org/&#034;&gt;Semacode&lt;/a&gt; for a while, but somehow I haven&#039;t gotten round to it. In the meantime, it has been picked up by &lt;a href=&#034;http://www.boingboing.net/2004/05/04/cameraphone_barcode_.html&#034;&gt;BoingBoing&lt;/a&gt;, &lt;a href=&#034;http://www.thefeature.com/article?articleid=100600&#034;&gt;The Feature&lt;/a&gt;, &lt;a href=&#034;http://www.smartmobs.com/archives/003139.html&#034;&gt;SmartMobs&lt;/a&gt; and &lt;a href=&#034;http://www.wirelessmoment.com/&#034;&gt;Reiter&#039;s Camera Phone Report&lt;/a&gt; (among others).
+&lt;p&gt;
+Anyway - in short, it&#039;s a URL encoded in a 2D bar code, that can be picked up by a Symbian camera phone and linked to a browser on that same device. 
+As of now, this is it - encode your URL, print it somewhere, and anyone passing the sign with his phone (or seeing it printed somewhere, for example in a newspaper or on a wall) can snap a picture and go to the corresponding URL.
+&lt;p&gt;
+But the potential is there - a URL is not everything that you could encode in that barcode. It is even possible to chain multiple bar codes to increase the amount of data that can be stored. My last employer had a solution that packed the core data of digitally signed documents, for example a hotel bill, or a contract, into such a barcode, and printed it on top of the document.
+So, what you could do was print out a document, send or fax it to someone, and a small piece of software would extract the data and the digital signature and check it.
+Applications? Easy: you&#039;re on a business trip, you get the hotel bill on a piece of paper, you snap a picture, send it to your company&#039;s ERP system, and your expenses are done - in real time. Ain&#039;t that cool? 
+&lt;p&gt;
+Technology that bridges between analog and digital has huge potential - can&#039;t wait to see where semacode goes next.... 
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://www.gadgetguy.de&quot;&gt;Frank Koehntopp&lt;/a&gt;
+		</description>
+		<author>frank@koehntopp.com</author>
+		<comments>http://www.mobitopia.com/1003546.html#comments</comments>
+		<guid isPermaLink="false">1003546</guid>
+		<pubDate>Thu, 06 May 2004 09:05:10 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>CeBIT Australia 2004 Highlights</title>
+		<link>http://www.mobitopia.com/20040504.html#114523</link>
+		<description>
+			&lt;p&gt;
+&lt;img src=&#034;http://www.cebit.com.au/images/t_logo.gif&#034; align=&#034;left&#034; border=&#034;0&#034; hspace=&#034;2&#034; vspace=&#034;2&#034; hight=&#034;68&#034; width=&#034;84&#034; alt=&#034;CeBIT Australia&#034;/&gt;
+
+&lt;a href=&#034;http://www.cebit.com.au/&#034;&gt;CeBIT Australia 2004&lt;/a&gt; started today in Sydney. This time more than 500 exhibitors showcased their products and services. The overall number of exhibitors has grown 20 per cent on &lt;a href=&#034;http://www.mobitopia.com/20030506.html#145711&#034;&gt;last year&lt;/a&gt; and the exhibition was busier that last year on the first day. Organiser Hannover Fairs expects 25 000 visitors over the three-day event.
+&lt;/p&gt;
+
+&lt;p&gt;
+Again &lt;a href=&#034;http://www.vodafone.com.au&#034;&gt;Vodafone&lt;/a&gt; and &lt;a href=&#034;http://www.lge.com/&#034;&gt;LG&lt;/a&gt; had the largest stands right at the entrance. Most of the mobile phone manufacturers were again missing, but &lt;a href=&#034;http://www.samsung.com/au/&#034;&gt;Samsung&lt;/a&gt;, &lt;a href=&#034;http://www.curitel.com/&#034;&gt;Curitel&lt;/a&gt;, &lt;a href=&#034;http://www.panasonicmobile.com/&#034;&gt;Panasonic&lt;/a&gt; and &lt;a href=&#034;http://www.sagem.com/&#034;&gt;Sagem&lt;/a&gt; showed their latest GSM and cdma phones. A sign of &lt;a href=&#034;http://news.bbc.co.uk/2/hi/business/3668747.stm&#034;&gt; better times&lt;/a&gt; in the telecom and IT markets was that &lt;a href=&#034;http://www.jobserve.com.au/&#034;&gt;a couple of&lt;/a&gt; &lt;a href=&#034;http://www.jobnet.com.au/&#034;&gt;recruiting companies&lt;/a&gt; were also present.&lt;/p&gt;
+
+&lt;p&gt;
+&lt;img src=&#034;http://www.wideye.com.sg/images/bp100.jpg&#034; align=&#034;right&#034; border=&#034;0&#034; hspace=&#034;2&#034; vspace=&#034;2&#034; hight=&#034;163&#034; width=&#034;200&#034; alt=&#034;wideye&#034;/&gt;
+
+This year&#039;s exhibition was a bluetooth headset buyer&#039;s dream. &lt;a href=&#034;http://www.wideye.com.sg/&#034;&gt;Wideye&lt;/a&gt;, &lt;a href=&#034;http://www.plantronic.com/&#034;&gt;Plantronic&lt;/a&gt;, &lt;a href=&#034;http://www.ggtelecom2002.com/&#034;&gt;G.G. Telecom&lt;/a&gt;, &lt;a href=&#034;http://www.gnnetcom.com/&#034;&gt;GN Netcom&lt;/a&gt; and several others showed off their latest earpieces. &lt;a href=&#034;http://www.thb.de/_eng/&#034;&gt;THBBury&lt;/a&gt; demonstrated their handy in-car &lt;a href=&#034;http://www.thb.de/_eng/pokaz.php?kat=akcesoria_s8&amp;amp;l=eng&amp;amp;id=5&#034;&gt;mobile media display&lt;a/&gt; and &lt;a href=&#034;http://www.rojone.com/bandit/ezitrak.html&#034;&gt;Rojone&#039;s eziTRAK&lt;/a&gt; vehicle protection and control over GPS and GSM was worth a look.
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;a href=&#034;http://www.iburst.com.au/&#034;&gt;iBurst&lt;/a&gt;, a wireless broadband provider in the licensed 1.9GHz band, had an impressive stand and demo. iBurst &lt;a href=&#034;http://www.iburst.com.au/images/apc_award_03.jpg&#034;&gt;offers a 1Mbps service&lt;/a&gt; that competes with WLAN and 3G data services. The company is partly owned by &lt;a href=&#034;http://www.arraycomm.com/gpm/australia.htm&#034;&gt;ArrayComm&lt;/a&gt;, which is a 3G license holder in Australia.
+&lt;/p&gt;
+
+&lt;p&gt;
+There were plenty of VoIP companies like &lt;a href=&#034;http://www.comtrend.com/&#034;&gt;Comtrend&lt;/a&gt; and several messaging companies like &lt;a href=&#034;http://www.redrock.com.au/&#034;&gt;Redrock&lt;/a&gt;. Most the big wireless hardware companies like &lt;a href=&#034;http://www.dlink.com/&#034;&gt;D-link&lt;/a&gt; were present and of course local ones like &lt;a href=&#034;http://www.hillsantenna.com.au/&#034;&gt;Hills&lt;/a&gt; and &lt;a href=&#034;http://www.rfi.com.au/&#034;&gt;RFI&lt;/a&gt;. &lt;a href=&#034;http://www.volkswagen.com.au/&#034;&gt;Volkswagen&lt;/a&gt; had the their car full of latest gizmos and local university presented their &lt;a href=&#034;http://www.bluesat.unsw.edu.au/&#034;&gt;satelite project&lt;/a&gt;!
+&lt;/p&gt;
+
+&lt;p&gt;
+The show was a good mix of communication technology. The focus of the show seems to have shifted from wireless internet towards wireless enteprise solutions.  The exhibition was missing some of the big names of the telecom and IT industry, but it was definitely more upbeat than last year.
+&lt;/p&gt;
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://www.umtsworld.com/&quot;&gt;Petri Possi&lt;/a&gt;
+		</description>
+		<author>info@umtsworld.com</author>
+		<comments>http://www.mobitopia.com/1003544.html#comments</comments>
+		<guid isPermaLink="false">1003544</guid>
+		<pubDate>Tue, 04 May 2004 11:45:23 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>N-Gage QD - Less is More?</title>
+		<link>http://www.mobitopia.com/20040504.html#073531</link>
+		<description>
+			&lt;p align=&#034;center&#034;&gt;
+&lt;img src=&#034;http://postneo.com/pix/ngageqd.jpg&#034;
+alt=&#034;the cute and cuddly N-Gage QD&#034;
+width=&#034;287&#034; height=&#034;186&#034; border=&#034;0&#034; /&gt;
+&lt;/p&gt;
+
+&lt;blockquote&gt;
+...&lt;br /&gt;
+Yet do much less ... --so much less!&lt;br /&gt;
+Well, &lt;strong&gt;less is more&lt;/strong&gt;, Lucrezia: I am judged.&lt;br /&gt;
+There burns a truer light of God in them,&lt;br /&gt;
+In their &lt;a href=&#034;http://vexed.symbiandiaries.com/&#034;&gt;vexed&lt;/a&gt;
+beating stuffed and stopped-up brain ...&lt;br /&gt;
+- &lt;a href=&#034;http://www.abstractconcreteworks.com/essays/lessismore/ls_s_mor.html&#034;&gt;Robert Browning&lt;/a&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;
+Bold words indeed, but how do they apply to the &lt;a title=&#034;All About N-Gage&#039;s overview of the QD&#034; href=&#034;http://www.allaboutngage.com/devices/viewarticle.php?id=69&#034;&gt;N-Gage QD&lt;/a&gt;? Well there&#039;s certainly less; no MP3 player, no FM radio, no USB socket, less weight, less bulk, dual-band GSM instead or tri-band, and if Nokia have got their figures right, less cost to you the punter.
+&lt;/p&gt;
+
+&lt;p&gt;
+Does this really equate to more? Yes, I believe it does, here are some of my reasons for thinking the N-Gage QD is a good thing.&lt;/p&gt;
+
+&lt;h4&gt;Nokia are continuing with the N-Gage range&lt;/h4&gt;
+&lt;p&gt;There had been rumours, minor implausible ones, but rumours none the less that Nokia were going to abandon the N-Gage &#034;experiment&#034;. The sword of Damacles hanging over a product is always going to hamper sales and user acceptance, by launching another N-Gage device Nokia have confirmed their commitment to the N-Gage range.&lt;/p&gt;
+
+&lt;h4&gt;It&#039;s more variety&lt;/h4&gt;
+&lt;p&gt;We like variety, &#034;one size fits all&#034; as a slogan doesn&#039;t impress us. Any mobile device is a bundle of compromises, getting the particular selection that best fit your needs, tastes and pocket means that unless there are a range of devices offered, the product will invariably be a poor fit to your requirements.&lt;/p&gt;
+
+&lt;h4&gt;Nokia have &#034;fixed&#034; some of the glaring N-Gage flaws&lt;/h4&gt;
+&lt;p&gt;Sidetalking and hot swapping the MMC are not actually major problems for most N-Gage users, but they&#039;re a marketing disaster. By fixing these simple problems the press are happy that they&#039;ve influenced Nokia, Nokia are seen to be reactive to customer concern, and the ridicule diminishes. Smart move, great for PR. Nokia have listend to everyone and reacted well, admiting mistakes but improving themselves in the process. Something that wasn&#039;t trumpeted at the launch was the bigger capacity battery, which I suspect may also fit quite nicely into the 3650, N-Gage &#034;classic&#034;, 6600 et al and make a lot of people happier.&lt;/p&gt;
+
+&lt;h4&gt;The games are beginning to roll out again&lt;/h4&gt;
+&lt;p&gt;Or so it appears, we heard rumours that the QD was coming a while ago, and the flow of games seemed to dry up after Christmas, maybe Nokia originally intended to launch the QD earlier? Who knows, at least it&#039;s here now, and there&#039;s a tsunami of games massing on the horizon.&lt;/p&gt;
+
+&lt;h4&gt;Diversity of devices means more phones shipped, which creates a bigger market for games writers, ergo more games.&lt;/h4&gt;
+&lt;p&gt;That&#039;s my theory, I think it&#039;s simple enough to make sense and it should happen. Then again, the market may see the QD as being Quite Dull and the Taco Classic as too eccentric, we hope not.&lt;/p&gt;
+
+&lt;p&gt;
+All of these facts ignore whether I think the N-Gage QD is a good device, as an N-Gage &#034;classic&#034; owner I have little need to rush out and buy a QD, primarily because I spend 2-3 hours a day on public transport and I&#039;m a heavy user of the radio and MP3 player. Otherwise the QD is a nice device, the reduced size and increased battery life are worthwhile improvements and dual-band is no handicap for me or many other people, I&#039;ve yet to need a US frequency phone even though I&#039;ve travelled over much of the rest of the planet, and I&#039;m currently in no hurry to go to the US...
+&lt;/p&gt;
+
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://feetup.org/blog&quot;&gt;Jim Hughes&lt;/a&gt;
+		</description>
+		<author>jim@feetup.org</author>
+		<comments>http://www.mobitopia.com/1003543.html#comments</comments>
+		<guid isPermaLink="false">1003543</guid>
+		<pubDate>Tue, 04 May 2004 07:35:31 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>Nokia needs a few good men - badly!</title>
+		<link>http://www.mobitopia.com/20040503.html#130013</link>
+		<description>
+			&lt;p&gt;I have been in the market for a new phone + contract recently, and the best deal I could find included the &lt;a href=&#034;http://www.mobile-review.com/preview/nokia-6230-en.shtml&#034;&gt;Nokia 6230&lt;/a&gt;. I was convinced easily, as this little thingy &lt;a href=&#034;http://www.forum.nokia.com/main/0,6566,015_249,00.html&#034;&gt;contains&lt;/a&gt; everything a geek could be interested in:
+&lt;/p&gt;
+&lt;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Proven Nokia Series 40 platform&lt;/li&gt;
+&lt;li&gt;Exchangeable faceplates (for the first time &lt;em&gt;including&lt;/em&gt; the camera lens part!)&lt;/li&gt;
+&lt;li&gt;Bluetooth&lt;/li&gt;
+&lt;li&gt;VGA camera with video recording support&lt;/li&gt;
+&lt;li&gt;Java MIDP 2.0 with support for all the fancy Java APIs:  CLDC 1.1, MIDP 2.0, Nokia UI API, WMA (JSR-120), MMAPI (JSR-135), Bluetooth API (JSR-82 no OBEX), JTWI rel.1 (JSR-185)&lt;/li&gt;
+&lt;li&gt;Radio&lt;/li&gt;
+&lt;li&gt;MP3 player&lt;/li&gt;
+&lt;li&gt;Memory card support (MMC)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/p&gt;
+&lt;p&gt;
+So that&#039;s gonna be good, right? Well, not exactly. Let me debunk the features one after another:
+
+&lt;/p&gt;
+&lt;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;b&gt;Proven Nokia Series 40 platform&lt;/b&gt;: This is fine as long as we are talking about usability, but it stops when we extend this to PC connectivity. I was unable to connect the 6230 to the PC Suite via Bluetooth, and everybody else I asked basically said &#034;use IrDA!&#034;. The same problem existed with the Nokia 6310i and had to do with Nokia not supporting USB Bluetooth sticks at the time (I am using the built-in BT module of my Dell Latitude D600). Come on, Nokia - why is this so hard to do? Why can&#039;t I even select the bluetooth serial port connection in PC Suite (because this one works on my PC!)?&lt;/li&gt;
+&lt;li&gt;Another PC Suite problem: after all these years, they still haven&#039;t included an option to sort the phone book as &#034;last name, first name&#034;. This is a business phone - I don&#039;t even know the first name of some people in my address book...&lt;/li&gt;
+&lt;li&gt;Installation of Java Midlets is *only* possible via PC Suite, copying the .jar file to the phone won&#039;t do. This of course makes the PC connectivity problems matter even more.&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;Exchangeable faceplates:&lt;/b&gt; When I took them off for the first time (to insert the SIM) I feared I&#039;d break the phone. It has gotten easier now, but the phone also started creaking. Again, not exactly best quality for a phone in that price range.&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;Bluetooth:&lt;/b&gt; Works mostly. Browsing the phone requires lots of manual input, but this may be because pairing didn&#039;t work properly (it tells me it worked, but the pairing disappears after a few seconds)&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;VGA camera with video recording support:&lt;/b&gt; The pictures are ok. Regarding the video: well, this is ridiculous. Of course it&#039;s not  supposed to replace a real cam, but the quality is comparable to a TV without antenna. you can watch an example &lt;a href=&#034;http://www.gadgetguy.de/blogpics/6230.3gp&#034;&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;Java MIDP 2.0:&lt;/b&gt; Yeah, right. What was I expecting? Being a blogger, moBlogging would be the least. So, this phone is supposed to support MMAPI and has a camera. So I can use &lt;a href=&#034;http://www.kablog.org/&#034;&gt;Kablog&lt;/a&gt;, right? Wrong. I don&#039;t know which parts of MMAPI Nokia decided to support, but they definitely left out camera access. Judging by &lt;a href=&#034;http://discussion.forum.nokia.com/forum/showthread.php?s=d4e25c955fe728213edc5cd61a94b1be&amp;threadid=40619&amp;highlight=%2A6230%2A&#034;&gt;this&lt;/a&gt; Forum Nokia post, they don&#039;t even think about fixing it.&lt;/li&gt;
+&lt;li&gt;&lt;b&gt;Radio, MP3 and MMC:&lt;/b&gt; These are probably the phone&#039;s best features. The sound quality is really really good, and my 256 MMC worked like a charm. I can&#039;t yet say how long the batteries will last in MP3 mode, though....&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+So, what do I think of the 6230? I don&#039;t think I&#039;ll keep it. The bugs are too annoying for me to keep using it. I mean, I would probably be less pissed if I had known about this in advance. When they announce features in a phone, I can expect those to work. At the very least I can expect to be informed about what part specifically will &lt;em&gt;not&lt;/em&gt; work.
+&lt;/p&gt;
+&lt;p&gt;
+This is certainly not the reason the Nokia stock has gone down that fast (other manufacturers are not necessarily better), but it may be one of many. This is about the 5th Nokia phone that has disappointed me by not doing what it&#039;s supposed to do, and this will probably make me refrain from buying another Nokia phone in the near future. Mobile phones are work accessories, and as such I can not be expected to have to fiddle with them this much to make basic stuff work.
+&lt;/p&gt;
+&lt;p&gt;
+So, coming back to the topic of my post: Nokia, if you don&#039;t have the staff to implement Java and Bluetooth properly: Go and get some new (or additional) developers - there are plenty of good ones out there. Don&#039;t let your reputation be ruined by stuff that is known to be working for years.
+&lt;/p&gt;
+&lt;p&gt;
+2004-05-11: Another update - &lt;a href=&#034;http://www.enterprisej2me.com/blog/java/?postid=47&#034;&gt;Michael Yuan&lt;/a&gt; has an excellent overview of the MMAPI capabilities of the Nokia 6600 and 6230. The conclusion is the same, however...
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://www.gadgetguy.de&quot;&gt;Frank Koehntopp&lt;/a&gt;
+		</description>
+		<author>frank@koehntopp.com</author>
+		<comments>http://www.mobitopia.com/1003536.html#comments</comments>
+		<guid isPermaLink="false">1003536</guid>
+		<pubDate>Mon, 03 May 2004 13:00:13 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>SMS and WAP: Rumours of our demise are greatly exaggerated...</title>
+		<link>http://www.mobitopia.com/20040428.html#115915</link>
+		<description>
+			&lt;p&gt;&lt;a href=&#034;http://archive.scripting.com/2004/04/27#smsIsACautionaryTaleToo&#034; title=&#034;SMS is a cautionary tale too&#034;&gt;Dave Winer dit&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;I don&#039;t use SMS, I don&#039;t think it exists in the US, but I understand it&#039;s popular in Europe and Asia.&lt;/blockquote&gt;
+&lt;p&gt;Given that this sentence was written on the same day that &lt;a href=&#034;http://www.verizonwireless.com/&#034;&gt;Verizon Wireless&lt;/a&gt; of the US announced that they handled 2.1 &lt;em&gt;billion&lt;/em&gt; text messages in Q1 2004, and given that I was sending transatlantic SMS back in February 2002, it should have been fairly straightforward to check whether or not SMS exists in the US.&lt;/p&gt;
+&lt;p&gt;And it is indeed fairly popular in Europe, with &lt;a href=&#034;http://www.theregister.co.uk/2004/04/27/texting_up_again/&#034;&gt;2.1 billion (there&#039;s that big number again) text messages being sent in the UK&lt;/a&gt; in &lt;em&gt;March 2004 alone&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Dave also writes:&lt;/p&gt;
+&lt;blockquote&gt;There will be eighteen brands of SMS, and you&#039;ll only be able to message people who use the same brand of phone.&lt;/blockquote&gt;
+&lt;p&gt;After some discussion on &lt;a href=&#034;irc://irc.freenode.net/#mobitopia&#034;&gt;#mobitopia&lt;/a&gt;, we&#039;re of the opinion that SMS is a basic standard supplied with pretty much every GSM handset.  It was originally designed for engineering use, and you could only send to other handsets on the same network. Once the operators realised that people were actually using it as a lifestyle tool, they were quick to establish connections so that you could send messages to handsets (any handset) on the other networks.&lt;/p&gt;
+&lt;p&gt;Like any protocol, over time it evolved in different ways, such as EMS (which allowed sending little picture icons and never really took off), and the ability to send long messages (more than 160 characters) using Segmentation And Reassembly (SAR).  The kicker here is that these enhancements were designed to degrade gracefully, so a long message received by a phone which didn&#039;t support SAR would be received as multiple messages.&lt;/p&gt;
+&lt;p&gt;Now, there are multiple different brands of SMSCs, the software which actually handles the messages, and there are several different ways of communicating directly with these (SMPP being the official standard, but it only appeared relatively late in the day). But that doesn&#039;t affect the end user.&lt;/p&gt;
+&lt;p&gt;&amp;quot;But what of MMS?&amp;quot;, you cry. The protocol itself is a hybrid of SMS and WAP, and once again, graceful degradation is the order of the day: sending an MMS to a non-MMS client results in the recipient getting a standard SMS with the text portion of the MMS and a URL for them to see the associated media objects. The problems MMS has are related to the carrier inter-connections, which have yet to be fully resolved, not the protocol itself.&lt;/p&gt;
+
+&lt;p&gt;What&#039;s next? Ah, yes; &lt;a href=&#034;http://www.blognewsnetwork.com/members/0000001/2004/04/27.html#a5570&#034; title=&#034;google&#039;s destiny is history&#034;&gt;Adam Curry&lt;/a&gt; writes:&lt;/p&gt;
+&lt;blockquote&gt;Ed is a developer of cellphone applications, he told me the saddest story about WAP, and why it died before it really had a chance. Apparently every phone manufacturer made up their &#039;own&#039; version of the WAP protocol and built proprietary browsers. The net effect is that Ed said developing content for close to 2000 (!) different versions and permutations made it impossible.&lt;/blockquote&gt;
+
+&lt;p&gt;First of all, &lt;em&gt;WAP didn&#039;t die&lt;/em&gt; and it isn&#039;t likely to.  This &lt;a href=&#034;http://www.cellular-news.com/story/10957.shtml&#034; title=&#034;WAP usage continues to rise&#034;&gt;story&lt;/a&gt; tells us that there were 1.2 billion WAP impressions in February 2004, just in the UK.  Practically every handset produced since 2000 supports WAP, and manufacturers didn&#039;t make up their versions of the WAP protocol; they did write their own browsers (gods forbid!), however, and yes they were (and still can be) buggy.  To say that you needed to build 2000 different versions of the same site or application is stretching the truth a little: &lt;a href=&#034;http://www.nokia.com/&#034;&gt;Nokia&lt;/a&gt;&#039;s browser accounts for around 60% of the market, and it behaves in pretty much the same way across all devices. &lt;a href=&#034;http://www.openwave.com/&#034;&gt;Openwave&lt;/a&gt;&#039;s accounts for 35% or so, although it behaves differently than Nokia&#039;s does. Who cares? That&#039;s 95% of the market -- we just didn&#039;t use any of the dubious elements, focussed on using images and hyperlinks only. And Wireless Pets (a game which &lt;a href=&#034;http://www.gameskitchen.com/&#034; title=&#034;The Games Kitchen&#034;&gt;my company&lt;/a&gt; produced) ran for over 36 months (one of the longest running WAP applications, I believe). It even had animation in it when you fed the pets and played with them.&lt;/p&gt;
+&lt;p&gt;Secondly, tools have been developed for dealing with implementation differences in WAP phones. There is an &lt;a href=&#034;http://wurfl.sourceforge.net/wurfl.xml&#034;&gt;XML file&lt;/a&gt; written by members of the &lt;a href=&#034;http://wurfl.sourceforge.net/&#034;&gt;WURFL&lt;/a&gt; project that describes in great detail the capabilities of most of the phones in the market. Of course if you stick with the basics and test content using the Openwave and Nokia browsers, it should work for most people. How many different permutations of HTML web browsers are there out there? Do you test for each and every one? Do you check your site with every version of IE, Mozilla, Netscape, Opera, Safari, and every other browser ever made on every platform? I doubt it.  I&#039;ll also just point out that XHTML-MP will help resolve this in the same way as standards based browsers resolve similar issues on the desktop.&lt;/p&gt;
+&lt;p&gt;So, as is mentioned above, WAP forms the basis for delivering and viewing MMS content, and it is also used to deliver J2ME content. So, what has it ever done for us?&lt;/p&gt;
+
+&lt;p&gt;And what&#039;s &lt;a href=&#034;http://pro.enetation.co.uk/comments.php?user=adamc1999&amp;commentid=5570&amp;usersite=http://www.blognewsnetwork.com/members/0000001/2004/04/27.html#3108561&#034;&gt;with this focus on finding the killer app&lt;/a&gt;?  The killer app is killing time, something which the phone allows people to do very well indeed.  And it&#039;s not even so much about any given application; the killer aspect is connectivity.  That&#039;s what inspires us here at Mobitopia.&lt;/p&gt;
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://dwlt.net/&quot;&gt;David Thomson&lt;/a&gt;
+		</description>
+		<author>dwlt@dwlt.net</author>
+		<comments>http://www.mobitopia.com/1003525.html#comments</comments>
+		<guid isPermaLink="false">1003525</guid>
+		<pubDate>Wed, 28 Apr 2004 11:59:15 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>Happy Birthday, Orange</title>
+		<link>http://www.mobitopia.com/20040428.html#025439</link>
+		<description>
+			&lt;center&gt;&lt;img src=&#034;http://www.mobitopia.com/images/orange.gif&#034; alt=&#034;Orange logo&#034; /&gt;&lt;/center&gt;
+&lt;p&gt;
+Orange (UK) is &lt;a href=&#034;http://www.orange.com/textonly/aboutorange/milestones.asp&#034; title=&#034;10 today&#034;&gt;ten years old today&lt;/a&gt;.  Oh how things have changed from back then: phones, network and services.
+&lt;/p&gt;
+&lt;p&gt;
+The choice of phone you could have back then was somewhat limited.  You could have a &lt;a href=&#034;http://www.handy-seiten.de/10-Geschichte/10-Sammlung/10-NokiaOrange/10-nokiaorange.html&#034; title=&#034;Nokia Orange&#034;&gt;Nokia Orange&lt;/a&gt; or you could have a &lt;a href=&#034;http://www.handy-seiten.de/10-Geschichte/10-Sammlung/10-NokiaOrange/10-nokiaorange.html&#034; title=&#034;Nokia Orange&#034;&gt;Nokia Orange&lt;/a&gt;.  Comparing the Nokia Orange&#039;s two lines of block monochromatic text and pull-out aerial to today&#039;s 64k colour screens with pen input, running video and syncing with one&#039;s computer from several metres across a room shows just how far we&#039;ve come.  Battery life was also a killer, with under a day of usage, and quite considerably so if you actually talked on the phone!
+&lt;/p&gt;
+&lt;p&gt;
+Given the amount of cash and effort required to build a network, it was no surpirse there wasn&#039;t much of it at launch, covering just small parts of the country.  Today we enjoy coverage almost everywhere, from the tops of mountains to the middle of forests to at sea.  Coverage in cities has picked up, too, with a huge reduction in the number of blackspots, often to some people&#039;s dismay.
+&lt;/p&gt;
+&lt;p&gt;
+And the services back in 1994?    Phones were for receiving incoming calls, unless yours was a company phone.  Text messaging was available, just, but rarely used.  If only I&#039;d had the foresight to think that in 2004 we&#039;d be sending around &lt;a href=&#034;http://news.bbc.co.uk/1/hi/technology/3662807.stm&#034; title=&#034;UK sends even more SMS&#034;&gt;69 million of the things in the UK alone&lt;/a&gt;!  WAP, MMS, cameraphones, expandable memory slots, video, Bluetooth, Pay As You Go and self-installable applications were all but glints in the inimitable &lt;a href=&#034;http://www.time.com/time/europe/digital/2000/12/snook.html&#034; title=&#034;Hans Snook&#034;&gt;Hans Snook&lt;/a&gt;&#039;s visionary eye.
+&lt;/p&gt;
+&lt;p&gt;
+But wait, it isn&#039;t all a happy story!  We&#039;ve lost Snook, free phone insurance that would have a new phone to you in two hours, customer service that really cared and a myriad little things that used to differentiate Orange from the pack.  Let&#039;s hope &lt;a href=&#034;http://orange.com/English/aboutorange/e_ahuja.asp&#034; title=&#034;Sanjiv Ahuja&#034;&gt;Sanjiv Ahuja&lt;/a&gt; remembers his customers are key, and that he has the ideas to take Orange forward over the next ten years!
+&lt;/p&gt;
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://martinlittle.com&quot;&gt;Martin Little&lt;/a&gt;
+		</description>
+		<author>mobitopia@martinlittle.com</author>
+		<comments>http://www.mobitopia.com/1003524.html#comments</comments>
+		<guid isPermaLink="false">1003524</guid>
+		<pubDate>Wed, 28 Apr 2004 02:54:39 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>Mobile Phones make car stereos redundant</title>
+		<link>http://www.mobitopia.com/20040421.html#103212</link>
+		<description>
+			I &lt;a href=&#034;http://www.gadgetguy.de/archives/000754.php&#034;&gt;wrote&lt;/a&gt; about getting a Nokia N-Gage as MP3 player a while ago. I may be getting a Nokia 6230 in the near future, which also features radio and MP3. Lots of phones can be paired with bluetooth GPS receivers and be used for in-car navigation.
+&lt;p&gt;
+If you want to use a phone in the car without being fined, you need a handsfree set. These can be connected to car speakers. So, in essence, we have more functionality in the mobile phone than in the car stereo. That, and it&#039;s highly personalised.
+&lt;p&gt;
+I think we&#039;re at a point where mobile phones could be capable of replacing car stereos once and for all. I mean, nearly everybody owns a mobile phone, and might want to use it in his or her car. Today, you need to install the handsfree kit, wire it to the car stereo, and install antenna and stuff. 
+&lt;p&gt;
+What if cars came with a standard installation of speakers, an amplifier with bluetooth, and a GSM antenna? Everybody driving the car would already carry their personalized car stereo with favourite music and radio stations, a car stereo would not offer any additional value. You could also think of services that allowed you to plan your route in advance and receive alerts concerning traffic jams or diversions while on the road.
+&lt;p&gt;
+&lt;a href=&#034;http://www.feetup.org/blog&#034;&gt;Jim&lt;/a&gt; has two good remarks. The witty one: that would solve the problem of stolen car radios - and the technical one: you might also listen to streaming content (once GPRS data gets cheap enough, that is), either from your favourite net radio station, or maybe from your private music collection at home - be your own DJ!
+&lt;p&gt;
+This may still be a bit too early, but the opportunity is here. What do you think?
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://www.gadgetguy.de&quot;&gt;Frank Koehntopp&lt;/a&gt;
+		</description>
+		<author>frank@koehntopp.com</author>
+		<comments>http://www.mobitopia.com/1003506.html#comments</comments>
+		<guid isPermaLink="false">1003506</guid>
+		<pubDate>Wed, 21 Apr 2004 10:32:12 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>Mobilopia? How uncreative can an agency be?</title>
+		<link>http://www.mobitopia.com/20040420.html#204036</link>
+		<description>
+			Some bright sparks have created a new mobile marketing company called &#034;Mobilopia&#034;. Hmm. Where have we heard that type of name before? Ahh, that&#039;s right, the oft-neglected, never duplicated, still chugging, original &lt;a href=&#034;http://www.mobitopia.com&#034;&gt;Mobitopia&lt;/a&gt; (this blog). Can you believe these guys? Mobilopia.com? Are you kidding me?
+&lt;p&gt;
+The name &#034;mobilopia&#034; doesn&#039;t even make sense. Mobil + opia? They&#039;re going to be talking about an oil compania? Mobi + lo + pia? Mob + ilopia? There&#039;s lots of good domain names still out there, if you&#039;re a marketing company you probably should&#039;ve come up with one. I mean, if you&#039;re going to typo-squat someone&#039;s domain and weblog, you might as well be a bit more creative about it, no? 
+&lt;p&gt;
+Anyways, I wouldn&#039;t mention it except that I want to make sure that Google notes the difference. 
+&lt;p&gt;
+&gt;:-D
+&lt;p&gt;
+-Russ
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://www.russellbeattie.com/notebook&quot;&gt;Russell Beattie&lt;/a&gt;
+		</description>
+		<author>russ@russellbeattie.com</author>
+		<comments>http://www.mobitopia.com/1003505.html#comments</comments>
+		<guid isPermaLink="false">1003505</guid>
+		<pubDate>Tue, 20 Apr 2004 20:40:36 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>T-Mobile to lose #1 spot in Germany?</title>
+		<link>http://www.mobitopia.com/20040416.html#083549</link>
+		<description>
+			The German IT weekly, &lt;a href=&#034;http://www.computerwoche.de/index.cfm?pageid=254&amp;type=detail&amp;artid=60111&#034;&gt;Computerwoche&lt;/a&gt;, reported yesterday that T-Mobile may soon lose its position as Germany&#039;s #1 mobile operator to Vodafone. In the months of January and February of this year, T-Mobile acquired only 190.000 new customers - far less than the expected 340.000. In the same period, O2 was able to acquire 400.000 new customers (other operators haven&#039;t released figures yet). A T-Mobile customer talks on his mobile for an average of 22.1 minutes / month. The number of SMS sent is also on the decline. According to the report, T-Mobile really has no idea why the figures are so low.
+&lt;p&gt;
+Now, my calculator tells me that if the figures are correct, O2 is gaining new customers at a rate of 13 per minute (8 hour day, 60 days Jan/Feb). Wow. I&#039;m a T-Mobile customer, but I also have a good overview of what Vodafone provides in the way of new technologies (i.e. mobile portal etc.). And I&#039;m not surprised that T-Mobile are doing so badly really. I&#039;m sure Vodafone&#039;s brand is way more appealing to young people (can we have a breakdown of those figures into age-groups please?) whereby T-Mobile still has a somewhat boring way of advertising their services.
+&lt;p&gt;
+And really, what makes a new customer choose one or the other mobile-operator? The prices/forms of contract etc. are really the same (give or take) - but I think Vodafone has the better eye-candy. T-Mobile need to ramp up the visuals on their marketing stuff and churn out some interesting services on their mobile-portal if they want to hold on to their position.
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://www.silent-penguin.com&quot;&gt;Matthew Langham&lt;/a&gt;
+		</description>
+		<author>mlangham@s-und-n.de</author>
+		<comments>http://www.mobitopia.com/1003500.html#comments</comments>
+		<guid isPermaLink="false">1003500</guid>
+		<pubDate>Fri, 16 Apr 2004 08:35:49 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>N-Gage QD: Taco Has a Little Brother</title>
+		<link>http://www.mobitopia.com/20040414.html#140529</link>
+		<description>
+			&lt;p align=&#034;center&#034;&gt;
+&lt;img src=&#034;http://postneo.com/pix/ngageqd.jpg&#034;
+alt=&#034;the cute and cuddly N-Gage QD&#034;
+width=&#034;287&#034; height=&#034;186&#034; border=&#034;0&#034; /&gt;
+&lt;/p&gt;
+&lt;p&gt;
+&lt;a href=&#034;http://ewan.symbiandiaries.com&#034;&gt;Ewan&lt;/a&gt; and &lt;a href=&#034;http://feetup.org/blog&#034;&gt;Jim&lt;/a&gt; attended the N-Gage QD press conference this morning.  Ewan sums up my thoughts at &lt;a href=&#034;http://www.allaboutngage.com/news.php?id=22149&#034;&gt;All About N-Gage:&lt;/a&gt; 
+&lt;/p&gt;
+&lt;blockquote&gt;The biggest change is the loss of the MP3 Player and FM Radio receiver. We&#039;re left with only Bluetooth as a connectivity option to desktop PC&#039;s with the loss of the USB connector. This is a big disappointment. Seeing the N-Gage as another Drive on your computer was a great help to developers and power users. It will be missed.&lt;/blockquote&gt;
+&lt;p&gt;The N-Gage QD will debut at $199 ($99 on contract), which is $100 less than the debut price of the N-Gage classic.  In the US, the N-Gage classic can currently be &lt;a href=&#034;http://www.gamestop.com/product.asp?product%5Fid=B020230AC&#034;&gt;purchased with 3 games&lt;/a&gt; for $199.&lt;/p&gt;
+&lt;p&gt;Customers will eventually welcome the lower price of the N-Gage QD.  The initial price is $100 less than that N-Gage classic was, but the actual price of both models is currently identical.  Build cost must be considerably lower than the N-Gage classic given the lack of MP3 hardware and the FM receiver.  The QD will roll out in Europe during May and will make its way to the US in June.  Expect Nokia to put the N-Gage QD front and center at E3 in early May.&lt;/p&gt;
+&lt;p&gt;Could this mean a drop in price for the N-Gage classic?  Nokia has put themselves in a bit of a sticky situation.  They have positioned the QD to be an alternative to the N-Gage classic, with both phones having different feature sets.  The QD is not designed to be a replacement of the classic, but another model in the lineup.  It sounds like Nokia is wating to see how sales of the new model go before committing to an N-Gage 3 or an N-Gage Pro.  I&#039;m wondering how the announcement will affect the price of the N-Gage classic.  Will retailers drop it to $149 in order to move more units?  Will the cheaper to build QD end up being more expensive than the classic?  We don&#039;t know.&lt;/p&gt;
+&lt;p&gt;Further reading:&lt;/p&gt;
+&lt;ul&gt;
+ &lt;li&gt;&lt;a href=&#034;http://www.allaboutngage.com/news.php?id=22149&#034;&gt;All About N-Gage&lt;/a&gt; on the QD&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&#034;http://www.n-gage.com/qd&#034;&gt;N-Gage QD site&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&#034;http://www.n-gage.com/en-R1/gamedeck/ngage_qd/techspex/&#034;&gt;N-Gage QD Tech Spex&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&#034;http://press.nokia.com/PR/200404/941343_5.html&#034;&gt;Press release&lt;/a&gt;: Call of Duty coming to N-Gage&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&#034;http://www.pathwaytoglory.com/&#034;&gt;Pathway to Glory&lt;/a&gt; is being hyped, but where are the in-game shots?&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&#034;http://www.n-gage.com/en-R1/games/gamedata/jungle_storm.htm&#034;&gt;Ghost Recon: Jungle Storm&lt;/a&gt; is due out soon&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&#034;http://www.n-gage.com/en-R1/games/gamedata/ashen.htm&#034;&gt;Ashen&lt;/a&gt; looks promising&lt;/li&gt;
+&lt;/ul&gt;
+
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://postneo.com/&quot;&gt;Matt Croydon&lt;/a&gt;
+		</description>
+		<author>matt@ooiio.com</author>
+		<comments>http://www.mobitopia.com/1003497.html#comments</comments>
+		<guid isPermaLink="false">1003497</guid>
+		<pubDate>Wed, 14 Apr 2004 14:05:29 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>N-Gage 2 - The Bean Counters Take Over</title>
+		<link>http://www.mobitopia.com/20040413.html#133251</link>
+		<description>
+			&lt;p align=&#034;center&#034;&gt;
+&lt;img src=&#034;http://www.flashfly.net/forums/files/picture_028_136.jpg&#034;
+alt=&#034;The N-Gage catches up with the 9210&#034;
+width=&#034;320&#034; height=&#034;240&#034; border=&#034;0&#034; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+More pictures of what might be the N-Gage 2 have trickled out at 
+&lt;a href=&#034;http://www.flashfly.net/forums/viewtopic.php?t=3950&#034;&gt;FlashFly.net&lt;/a&gt;
+- pictures planted? Perish the thought :-)
+An interesting speculative point is that DTAC the Thai GSM network displayed on the phone&#039;s screen appear to have very close Nokia ties, for instance they have 
+announced that they would be
+&lt;a href=&#034;http://press.nokia.com/PR/200310/920264_5.html&#034;&gt;using Nokia&#039;s EDGE base-stations&lt;/a&gt;
+exclusively for their network. Does this mean that they&#039;ve been testing the NG2 with EDGE? That would certainly please
+&lt;a title=&#034;postneo: Will the N-Gage 2 have an EDGE?&#034; href=&#034;http://postneo.com/2004/04/13.html&#034;&gt;Matt&lt;/a&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;
+Personally I suspect not, a closer look at the pictures
+suggests that 
+&lt;a href=&#034;http://www.symbiandiaries.com/archives/ewan/001248.html&#034;&gt;Ewan&#039;s&lt;/a&gt;
+and 
+&lt;a href=&#034;http://feetup.org/blog/mobile/taco2.html&#034;&gt;my wishlists&lt;/a&gt;
+were too optimistic and that the NG2 is being built to the lowest possible price.
+So into the cutting bin of wishful thinking goes the camera (needs hardware, the suggestions are that this only appears on screen because this is beta firmware based on firmware from another Symbian phone), MP3 player (the N-Gage 1 uses a dedicated dsp chip), FM radio (likewise more hardware), possibly USB (if only to save the
+costs of shipping a cable).
+&lt;/p&gt;
+
+&lt;p&gt;
+Whilst this attention to the needs of the bean counters may get a lot of N-Gages shipped, there&#039;s going to be little incentive for existing users to &amp;quot;upgrade&amp;quot;, unless of course a better specified version is also
+waiting in the wings? One could argue that the 
+&lt;a href=&#034;http://www.mobitopia.com/20031028.html#160004&#034;&gt;Nokia 7700&lt;/a&gt;
+is the Taco-Pro (for want of a better term). Especially if as rumoured it will seamlessly run series 60 applications. There&#039;s a thought.
+&lt;/p&gt;
+
+&lt;p&gt;
+Anyway enough speculation about the Taco&#039;s successor, we&#039;ll find out for sure tomorrow, join us in
+&lt;a href=&#034;irc://irc.freenode.net/mobitopia&#034;&gt;#mobitopia&lt;/a&gt;
+for live coverage (GPRS and T9 willing).
+&lt;/p&gt;
+
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://feetup.org/blog&quot;&gt;Jim Hughes&lt;/a&gt;
+		</description>
+		<author>jim@feetup.org</author>
+		<comments>http://www.mobitopia.com/1003493.html#comments</comments>
+		<guid isPermaLink="false">1003493</guid>
+		<pubDate>Tue, 13 Apr 2004 13:32:51 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>SMS for mobile authentication</title>
+		<link>http://www.mobitopia.com/20040408.html#151253</link>
+		<description>
+			&lt;a href=&#034;http://www.silent-penguin.com/&#034;&gt;Matthew&lt;/a&gt; has applied for an account on T-Mobile&#039;s WLAN hotspot &lt;a href=&#034;http://www.t-mobile.de/hotspot/1,5284,8245-_,00.html&#034;&gt;Anytime&lt;/a&gt;.  Applying via SMS lets him come to this conclusion:
+&lt;blockquote&gt;
+&#034;I applied for a WLAN hotspot account using an SMS? Think about it. It took a couple of hours for the relevance to hit me.
+It&#039;s not about GSM or 3G or WLAN - it&#039;s about mobility and connectivity. And the mobile operators don&#039;t really care what it&#039;s called in the end.
+Because they win anyway.&#034;
+&lt;/blockquote&gt;
+I&#039;m not yet fully convinced, as the former telecoms monopoly in germany may make this easier for T-Mobile compared to other mobile operators. Still, it&#039;s a good thing convergence now starts to appear, and I will surely be signing up, too.
+&lt;p&gt;
+Thinking about doing that made me hesitate: my mobile phone is being paid for by my employer. I have immediately sent out an email advocating we all sign up, as this is far cheaper and faster than GPRS, which is what we&#039;re doing now when on the road. For a moment, however, my thoughts were &#034;if I just sign up - will anyone even notice?&#034;. My phone bill is being paid by someone who hasn&#039;t the faintest idea what all the positions on the bill are for. If the final amount isn&#039;t too far off, nobody will be concerned.
+&lt;p&gt;
+The situation gets worse when you think about that some more: what if a colleague signs up using *my* phone while I&#039;m away from my desk? I&#039;d never know, and I wouldn&#039;t even see the bill. Using SMS for authentication purposes may make things easier for the operator, but it has some serious security implications not only for the recipient, but for *any* mobile phone owner: if somebody with knowledge of your phone number has access to your phone in your absence, you are in danger of identity fraud. 
+&lt;p&gt;
+I&#039;m sure this isn&#039;t the last application of this technology, yet it makes me wonder if security is on anybody&#039;s mind there. For example, I have also signed up for &lt;a href=&#034;http://www.t-zones.de/linkto?ID=150032&#034;&gt;T-Mobile&#039;s mobile wallet&lt;/a&gt;, entered my credit card details, and all I ever received in confirmation was a password SMS. No written confirmation or email at all. 
+&lt;br&gt;
+Somebody else could have done that, and could subsequently pay on the internet with that account even &lt;em&gt;without the phone&lt;/em&gt;!
+&lt;p&gt;
+Again, it could have been anybody - all they know is somebody who knew the phone number also had the phone in his hands for a minute....
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://www.gadgetguy.de&quot;&gt;Frank Koehntopp&lt;/a&gt;
+		</description>
+		<author>frank@koehntopp.com</author>
+		<comments>http://www.mobitopia.com/1003489.html#comments</comments>
+		<guid isPermaLink="false">1003489</guid>
+		<pubDate>Thu, 08 Apr 2004 15:12:53 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>Boost Mobile&#039;s Motorola i730</title>
+		<link>http://www.mobitopia.com/20040404.html#210310</link>
+		<description>
+			&lt;p align=&#034;center&#034;&gt;
+&lt;img src=&#034;http://www.boostmobile.com/_images/bshop_img_i730.jpg&#034;&gt;
+&lt;/p&gt;
+I interupt this regularly scheduled Nokia love-fest for a review of a new mobile phone I just bought for work. It&#039;s a Motorola i730 for the NEXTEL network here in the U.S. and it&#039;s being sold by a Mobile Virtual Network Operator (MVNO like Virgin Mobile) called &lt;a href=&#034;http://www.boostmobile.com&#034;&gt;Boost Mobile&lt;/a&gt;. It&#039;s a pretty amazing bit of tech being sold at an incredible price: $230, no contract needed. There&#039;s actually so many things about this phone and the service to write about I don&#039;t know where to start.
+&lt;p&gt;
+Actually, let me start with what it doesn&#039;t have: It&#039;s an iDEN phone, not a GSM phone (though it takes a GSM-like SIM chip) and it doesn&#039;t have Bluetooth or a Camera. Normally these would be deal breakers for me (well, I won&#039;t actually using this phone, so I guess they still are), but there&#039;s a *ton* more to play with you almost don&#039;t notice.
+&lt;p&gt;
+Let&#039;s look at the feature list of this phone and examine them one by one:
+&lt;ul&gt;
+&lt;li&gt;iDEN (800Mhz)&lt;/li&gt;
+&lt;li&gt;Push-To-Talk ($1 a day for unlimited usage)&lt;/li&gt;
+&lt;li&gt;Integrated Prepay&lt;/li&gt;
+&lt;li&gt;Web Browser (20 cents a day for unlimited usage)&lt;/li&gt;
+&lt;li&gt;Text Messaging (10 cents per message)&lt;/li&gt;
+&lt;li&gt;J2ME MIDP 2.0 + a million JSRs and other API&lt;/li&gt;
+&lt;li&gt;Assisted GPS&lt;/li&gt;
+&lt;li&gt;Integrated Downloads App&lt;/li&gt;
+&lt;li&gt;USB Support&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+First, I&#039;m sure you&#039;re asking &#034;what the heck is iDEN&#034; as I did. It stands for &#034;Integrated Digital Enhanced Network&#034; and I did a quick Google look up and found out it&#039;s a proprietary variation of TDMA technology (like GSM) created by NEXTEL and Motorola. It operates on 800Mhz, so it supposedly has a European-like quality associated with it (lower frequencies travel through walls better, for example). Moto does have some iDEN/GSM world phones, but for the most part the phones are limited to the U.S. market.
+&lt;p&gt;
+The one thing that iDEN is known for is the time it takes to connect to another phone allowing near-instant Push To Talk functionality. Think about the time it takes after you dial in a number and click &#034;call&#034; on a normal GSM or CDMA cell phone. That connect time is usually around 6 seconds or so for me. On NEXTEL networks, it&#039;s less than a second. The i730 comes with a walkie-talkie like button on the side which I can press to talk to another NEXTEL/Boost Mobile subscriber instantly. This sort of thing has been around for a while, but mostly for enterprise customers, so you&#039;d see roaming support-techs and mail couriers with NEXTEL phones strapped to their body and that distinctive &#034;chirp-brrdilaBEEP!&#034; as they talked on the hands-free. Actually, I remember the first time I saw one in action years ago, I thought it was a normal walkie-talkie. What Boost Mobile has done is extend that functionality to the consumer market with the hip slogan &#034;Where you at?&#034; They&#039;re all about the urban teen wandering around the city communicating with their homies via PTT. I think it actually works well, though if you think normal cellphone users in public places are annoying, you should try sitting in front of some dad talking to his wife and kids on his PTT phone (as I did the other day). It gets old fast. 
+&lt;p&gt;
+Boost has an innovative pricing model for PTT - $1 a day to use. That&#039;s pretty amazing if you think about how many &#034;calls&#034; you could make using the phone in a day. All of Boost&#039;s pricing is actually reasonable and clearly displayed on a card that comes with the phone. Personally, I think that&#039;s a revolution in pre-pay itself as I never had a *clue* what I was paying for talk time on my pre-pay on Movistar in Spain or AT&amp;T Wireless here in the U.S. Look at these prices - especially the data plan - pretty amazing:
+&lt;blockquote&gt;
+National Cellular Calls (including long distance and roaming): Flat Rate of just $0.25 a minute, 24 hours a day, 7 days a week.
+&lt;p&gt;
+Boost Walkie-Talkie: $1.00 a day (unlimited usage within single market), $1.50 a day (unlimited usage nationwide).
+&lt;p&gt;
+Boost Mobile Voice Mail: $0.25 a minute.
+&lt;p&gt;
+Boost Wireless Web: $0.20 a day (unlimited usage) [wow!]
+&lt;p&gt;
+Text Messaging: $0.10 per message sent (free to receive)
+&lt;p&gt;
+Call Credit Validity Period: 90 days
+&lt;/blockquote&gt;
+&lt;p&gt;
+I think the flat-rate data charge is pretty amazing - iDEN must have some sort of GPRS-like packet-data functionality because the i730&#039;s built-in UP 1.1 WAP browser is really fast. And though Boost hasn&#039;t made it super-easy to enter in your own URL, the &#034;Boost Menu&#034; is really fast and includes a &#034;Web Search&#034; with Google&#039;s WML gateway as the first option, which is very well done. If only Phone.com&#039;s WAP browser didn&#039;t suck so badly when it comes to usability: it never remembers entered information, there&#039;s no clear &#034;back&#034; function, etc. If all you want to use is the &#034;menu&#034; functionality (like Vodafone Live) then it works great, otherwise forget it. One very cool thing is that Boost has included an option in the WAP menu to recharge your phone&#039;s prepay account. That&#039;s particularly cool as I know from experience how frustating it is to run out of cash on your phone&#039;s account and not be near a phone store or ATM (in Spain) to recharge it. 
+&lt;p&gt;
+I still don&#039;t understand American carriers and why they make pre-pay phones so hard to set up. You can&#039;t just buy a pre-pay and walk out and start talking on the damn phone (like you can in Europe). When I bought my T-Mobile pre-pay phone months ago, I had to jump through hoops in the store before it was enabled and Boost Mobile - because I bought it at Best Buy - made me go to boostmobile.com/activate and enter in, I kid you not, at least 50+ different numbers. The Activation PIN (510011005555555), the SIM card number (00080555555555), the IMEI number (000101555555550) and the phone&#039;s serial number (55555C55DY). And they *still* didn&#039;t activate the phone! I had to wait until the next day (today) between 7a.m. and 9p.m. Urgh! It&#039;s up and running now, but hey - I&#039;m impatient guy.
+&lt;p&gt;
+The text messaging on the phone is a bit weird - you need to use the WAP menu in order to send and receive the messages! You do get the alerts of the message instantly and there is interop between AT&amp;T Wireless and NEXTEL&#039;s networks (so it seems to be SMS of some sort) but it definitely seemed odd at first not having a dedicated app for the job. But after some thought, it seems a pretty great idea! First, it&#039;s just text, so a WAP interface is fine and, honestly, is very organized and just as quick to use as a dedicated app. If you&#039;re a new user of a phone, why should you go to one section of your phone&#039;s menu to send/receive messages and another for Web access? It should all be in the same place. I bet you that integrating this functionality into the WAP browser like this spurs data-services usage as well because it forces you to use the Menu system. This is where Nokia has really fallen down in their UI - separating out the &#034;Services&#034; menu from the text messaging, etc. is a real flaw in the famous Nokia UI on both the Series 40 and Series 60 platforms. &#034;Services?&#034; what the hell is that? Nokia just finally labeled their browser icon &#034;Web&#034; in my pre-release 7610... years after it should&#039;ve been marked as such and promoted up higher. How many clicks in the S40 device do you need to make to find the Services menu? You get my point.
+&lt;p&gt;
+Speaking of S40 phones, the color screen on the i730 is very nice: 130x130 64k colors - just about the size of a Series 40 screen but with more colors, though somehow Moto seems to have been able to fit more on the screen. The Moto menus are relatively straight-forward to use (a massive leap ahead for Moto menu design) but still aren&#039;t particularly intuitive. It took me a while to get the hang of it, but I still feel like I&#039;m missing some options. You figure after all this time, Moto would be able to get their UI in line, but I guess not. 
+&lt;p&gt;
+Here, I took a video of the phone in action:
+&lt;p align=&#034;center&#034;&gt;
+&lt;a href=&#034;http://www.russellbeattie.com/notebook/videos/BoostMobilei730Review.3gp&#034;&gt;&lt;img src=&#034;http://www.russellbeattie.com/images/vidicon.gif&#034; border=&#034;0&#034; align=&#034;middle&#034;&gt; WATCH this video&lt;/a&gt;
+&lt;/p&gt;
+So all this is pretty good - and the phone supports polyphonic ringtones and other goodies like flight-mode as well - but the main reason I bought the phone is for the integrated Assisted GPS and Java MIDP 2.0 + vast API support. Both are pretty amazing to have in a phone, but even more so in one so cheap and easy to get your hands on. Check out the Java specs on this phone (from Motorola&#039;s &lt;a href=&#034;http://idenphones.motorola.com/iden/developer/java_specs.jsp&#034;&gt;iDEN developer page&lt;/a&gt;):
+&lt;blockquote&gt;
+MIDP 2.0 (JSR 118),&lt;br&gt;
+Mobile Media (JSR 135),&lt;br&gt;
+WMA (JSR 120),&lt;br&gt;
+Motorola LWT, Look And Feel, &lt;br&gt;
+Polyphonic MIDI, &lt;br&gt;
+WAV, &lt;br&gt;
+AU, &lt;br&gt;
+Vibrator, &lt;br&gt;
+Lighting, &lt;br&gt;
+Location API, &lt;br&gt;
+Phonebook, &lt;br&gt;
+Datebook, &lt;br&gt;
+External display, &lt;br&gt;
+Call Receive and Initiation, &lt;br&gt;
+Recent calls, &lt;br&gt;
+File I/O, &lt;br&gt;
+Serial port, &lt;br&gt;
+Crypto,  &lt;br&gt;
+Digital Camera, &lt;br&gt;
+Java Menu MIDlet icon, &lt;br&gt;
+RF enabling, &lt;br&gt;
+Alpha blending, &lt;br&gt;
+Secure file connection, &lt;br&gt;
+Voicenote, &lt;br&gt;
+3D &lt;br&gt;
+&lt;p&gt;
+Heap Size: 1.15 MB&lt;br&gt;
+Midlet Storage: &gt;2MB (installed MIDlet space), &gt;2MB (file storage) &lt;br&gt;
+Recommended Midlet Max Size: 500K
+&lt;/blockquote&gt;
+That&#039;s the most amazing access to the hardware I&#039;ve ever seen for a MIDP device and the most storage for a non-smart phone that I&#039;ve seen. I can&#039;t want to grab the SDK and start playing with all that functionality. I hope it&#039;s not a mistake (notice the &#034;Digital camera&#034; option in the list above). Seriously, this has to be the most advanced Java phone on the market right now... and it&#039;s available as a $250 pre-pay phone?!?! Incredible. If all that functionality works, and other manufacturers take note and include this type of access to their hardware, I will officially stop bitching about MIDP forever. Promise.
+&lt;p&gt;
+The last thing is the integrated GPS app. I couldn&#039;t get it to work in my first floor apartment, nor hanging out the window. I finally went to the roof of my building (believe it or not) and did the search and it finally worked. It took about 30 seconds to find my position, here&#039;s what the screen says:
+&lt;blockquote&gt;
+Last Fix&lt;br&gt;
+7:45pm GMT 4/4&lt;br&gt;
+N 37° 48.143&#039;&lt;br&gt;
+W 122° 26.480&#039;&lt;br&gt;
+Est Accur: 52ft&lt;br&gt;
+Sats Used: 6
+&lt;/blockquote&gt;
+Wow! For someone who works at a Location Based Services company, I actually have never played with a GPS device before. I have to say how incredibly cool it is to think that the phone in my hand is talking to orbiting satellites and finding my exact position (within a few yards/meters) on the Earth. Cool beans. What&#039;s even *cooler* is that I can get to this info from within Java. Now that is going to fun to play with. 
+&lt;p&gt;
+So my final thoughts is that I&#039;m really impressed with Motorola&#039;s efforts lately. You can look at the variety of phones they&#039;ve been producing lately as a desperate &#034;throw the spaghetti against the wall and see what sticks&#034; strategy, or as an attempt to regain some of the stature they once held as a technology company. They&#039;ve got 3G phones, the most advanced Java phones, Symbian phones, Linux phones and Windows Mobile phones. All very interesting technologies. My heart is definitely solidly in the Series 60 camp - I can&#039;t imagine making a limited Motorola V600 my main phone after experiencing the power of a smart phone, but still, if you&#039;re thinking about services to offer consumers, all those Moto phones are really going to provide a great platform for development.
+&lt;p&gt;
+Cool stuff. Great to see neat tech from Moto and an innovative company like Boost produce a really neat product and service like this. It bodes well for the industry as a whole.
+&lt;p&gt;
+-Russ
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://www.russellbeattie.com/notebook&quot;&gt;Russell Beattie&lt;/a&gt;
+		</description>
+		<author>russ@russellbeattie.com</author>
+		<comments>http://www.mobitopia.com/1003485.html#comments</comments>
+		<guid isPermaLink="false">1003485</guid>
+		<pubDate>Sun, 04 Apr 2004 21:03:10 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>The Tariff of the Gods</title>
+		<link>http://www.mobitopia.com/20040402.html#094229</link>
+		<description>
+			&lt;p&gt;Let me tell you about my mobile phone tariff. It costs me 50p per day (so that&#039;s roughly £15 per month, what looks to be the starting basic price for most monthly tarrifs in the UK). For that 50p, I get 50 minutes. Every day. And once I run out of minutes, calls are 1p per minute. And (unlike almost every other contract) 0845 (so called &#039;national&#039; numbers) are included in those 50 mintues. As are data calls (at 9,600bps only mind you, no HSCSD).&lt;/p&gt;
+&lt;p&gt;Which means that I can be online, over GSM for 50 minutes every day, for a minimal monthly cost. Aftern that it is 1p per minute to other Orange mobiles and UK Landlines. Okay those minutes and prices are for off peak only (7pm to 7am) and I need to add £5 a month for insurance on the handset, but Everyday 50 (that&#039;s what it&#039;s called) is truly manna from heaven.&lt;/p&gt;
+&lt;p&gt;It&#039;s a pity Orange no longer offer it to new subscribers. If you are already on it, you can stay on it, but if you change to another tariff, then you can &lt;i&gt;never&lt;/i&gt; switch back.&lt;/p&gt;
+&lt;p&gt;Orange must know its popular. That&#039;s why their call centre staff know that anyone on it is not going to change tarriffs. Why would they? 1500 minutes a month outside of office hours? An email send and pick up through Freeserve takes 5 minutes, plus some browsing (say 15 minutes) and that still leaves 30 minutes to chat! A close freind of mine enquired about upgrading his phone through Orange. They were happy to drop the phone price if they changed their tarrif... but the second they realised he was on Everyday 50 they went &#034;Ah,&#034; and assumed he wouldn&#039;t want to change.&lt;/p&gt;
+&lt;p&gt;Orange no longer offer Everyday 50 to new subscribers - and I think this is a  big mistake. Is it really loosing them that much money? What is the true cost to making a mobile call? Everyone I speak to either has Everyday 50, or thinks it is a cracking tariff that they want to be on.&lt;/p&gt;
+&lt;p&gt;So what would happen to Orange&#039;s subsriber numebrs if Everyday 50 made a comeback? How many users would switch to a tariff that has a 40p/mn rate during peak hours (one 5 minute call a month and the ARPU is very healthy)? A lot I think. So where is it? Could it be that it&#039;s too good a deal for the user?&lt;/p&gt;
+
+
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://ewan.symbiandiaries.com/&quot;&gt;Ewan&lt;/a&gt;
+		</description>
+		<author>ewan@izzyhack.org</author>
+		<comments>http://www.mobitopia.com/1003482.html#comments</comments>
+		<guid isPermaLink="false">1003482</guid>
+		<pubDate>Fri, 02 Apr 2004 09:42:29 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>Symbian hack: Series 60 phones can do WiFi</title>
+		<link>http://www.mobitopia.com/20040401.html#105110</link>
+		<description>
+			They&#039;ve done it again: a group of mobile phone freaks have analysed Nokia&#039;s Series 60 firmware and found references to wireless LAN functionality. 
+Further analysis revealed code that allows for re-tuning the bluetooth chipset to enable WLAN mode. 
+Technical background: wireless LAN and bluetooth both operate in the 2.4 GHz spectrum, so they share the same core technology.
+Although the range will not match that of dedicated WLAN cards,
+it should be good enough for sitting in a cafe and browse web pages with Opera, far faster than it ever could be with GPRS. First tests have shown transfer rates 
+up to 2.4 MBit/s.
+&lt;p&gt;
+There have been no comments by Nokia yet as to how they intended to use the technology in the first place.
+&lt;p&gt;
+The patch will work with the following list of Nokia phones only (you can check the firmware version by typing &#034;*#0000#&#034;):
+&lt;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Nokia 3650 (NHL-8) v 4.13
+&lt;li&gt;Nokia 3660 (NHL-8) v 4.57
+&lt;li&gt;Nokia 6600 NHL-10 V 3.44.1
+&lt;li&gt;Nokia N-Gage (NEM-4) v 4.03
+&lt;/ul&gt;
+&lt;p&gt;
+As a service to our readers, we will supply a download for the patch courtesy of &lt;a href=&#034;http://www.mobitopia.com/&#034;&gt;Mobitopia&lt;/a&gt; and &lt;a href=&#034;http://www.allaboutsymbian.com/&#034;&gt;AllAboutSymbian&lt;/a&gt;. Please point your WAP browser to http://www.allaboutsymbian.com/symbianwifi.php and follow the 
+instructions. Please make sure to select the correct phone model and verify the firmware version. We will not take any liability for this.
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://www.gadgetguy.de&quot;&gt;Frank Koehntopp&lt;/a&gt;
+		</description>
+		<author>frank@koehntopp.com</author>
+		<comments>http://www.mobitopia.com/1003477.html#comments</comments>
+		<guid isPermaLink="false">1003477</guid>
+		<pubDate>Thu, 01 Apr 2004 10:51:10 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>Whither mCommerce?</title>
+		<link>http://www.mobitopia.com/20040331.html#095534</link>
+		<description>
+			(Via &lt;a href=&#034;http://www.ventureblog.com/articles/indiv/2004/000477.html&#034;&gt;VentureBlog&lt;/a&gt;:) 
+&lt;p&gt;
+&lt;blockquote&gt;
+&#034;In Europe or Asia, a smart person with a good idea can have an exciting idea on your phone by nightfall. They just plug into the existing payments infrastructure and receive 90% of the benefits of whatever consumers do (carriers take about 10% for facilitating the transaction). Anything is available -- horoscopes, comics, all manner of fads and fashions, shopping, tv, movies, maps, and more. Even adult entertainment is common on the phones.
+&lt;br&gt;
+Consumers accept that carriers are just that &#034;carriers of voice and data&#034;. They&#039;ve been making money by providing the platform upon which all of the applications are built. Unlike the wired world, available radio spectrum means that there will always be a limited number of companies providing service, and they can compete on reliability and data speed.
+&lt;br&gt;
+In the US, by contrast, getting an application on a carrier&#039;s service is like pulling teeth. One of our portfolio companies just went through the process -- it took over a year to negotiate the deal and put the right equipment in place. The carrier rolled it out in a controlled and slow manner to test every detail -- after all, they don&#039;t want their customers to have a bad experience. They are selling a &#034;complete experience&#034; to their customers, not just a platform for others to provide services.&#034;
+&lt;/blockquote&gt;
+&lt;p&gt;
+That is a view that I cannot really support from a european point of view. Look at &lt;a href=&#034;http://www.vodafone.co.uk/live&#034;&gt;Vodafone Live&lt;/a&gt; or &lt;a href=&#034;http://www.t-mobile.com/services/tzones/overview.asp&#034;&gt;T-Zones&lt;/a&gt; and you&#039;ll know what I mean. Control is the name of the game. Even the phones are being branded to lock customers to the portal, i.e. hardwired buttons to operator portals and operator specific firmwares that don&#039;t allow customers to change the WAP configuration.
+&lt;p&gt;
+Operators are also quite hesitant to let applications into their service - you need to conform to their standards, there are HUGE manuals telling you exactly how to do that. 
+&lt;p&gt;
+In the payment space, it&#039;s even worse. With premium SMS payment, carriers take up to 50% of the transaction, and for a small entrepreneur it&#039;s completely commercially unfeasible to use that, as they also ask a high basic fee. &#034;Real&#034; mPayment has been held up by operators for about 4 years now. The technology is here, umpteen consortiums and standards group have been founded, and all the carriers do is &lt;a href=&#034;http://www.simpay.com/documents/Cannes.pdf&#034;&gt;announce 10-Euro-payments by end of 2004 (PDF)&lt;/a&gt;. Great move. 
+&lt;p&gt;
+As for operators being data pipes, germany must be one of the most expensive countries. Nearly nobody uses GPRS for data or email, as you just can&#039;t afford it - remember &lt;a href=&#034;http://www.gadgetguy.de/archives/000725.php&#034;&gt;Joi Ito&#039;s phone bill&lt;/a&gt;.
+&lt;p&gt;
+So, who&#039;s going to drive mCommerce under those circumstances???
+
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://www.gadgetguy.de&quot;&gt;Frank Koehntopp&lt;/a&gt;
+		</description>
+		<author>frank@koehntopp.com</author>
+		<comments>http://www.mobitopia.com/1003473.html#comments</comments>
+		<guid isPermaLink="false">1003473</guid>
+		<pubDate>Wed, 31 Mar 2004 09:55:34 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>Stupid, Stupid Operator Creatures</title>
+		<link>http://www.mobitopia.com/20040329.html#115010</link>
+		<description>
+			&lt;p&gt;Last night I caught a &lt;a href=&#034;http://www.vodafone.com/&#034;&gt;Vodafone&lt;/a&gt; advert I hadn&#039;t seen before. In it, a man is walking around (on his way home from working late or something) and is listening to commentary of a football (by which I mean &lt;a href=&#034;http://www.fifa.com/&#034;&gt;Football&lt;/a&gt;, not &lt;a href=&#034;http://www.nfl.com/&#034;&gt;football&lt;/a&gt;) match.&lt;/p&gt;
+
+&lt;p&gt;&#034;Oh,&#034; thinks I, &#034;they must be launching a sports radio service or something, that&#039;s cool.&#034;&lt;/p&gt;
+
+&lt;p&gt;The the guy gets home, and it turns out that his wife had her phone sat in front of the television, relaying the TV commentary to her husbands phone. Vodafone are selling special packs of voice minutes from only 2 pence per minute.&lt;/p&gt;
+
+&lt;p&gt;I can just imagine the marketing meeting: &#034;Oh, you know what would make a &lt;b&gt;great&lt;/b&gt; advert..?&#034;. I bet they&#039;re all really pleased with themselves.&lt;/p&gt;
+
+&lt;p&gt;I&#039;d fire all of them. And the advertising agency.&lt;/p&gt;
+
+&lt;p&gt;What the marketing team should have done when somebody suggested the advert is actually think &#034;Wait, that sounds like a service we could offer...&#034;&lt;/p&gt;
+
+&lt;p&gt;Let&#039;s assume that you get 2 pence per minute for the 94 minutes of the average football game; that works out at a call cost of GBP 1.88 (possibly slightly higher if you split the call in two halves (as you must) and thus have two connection charges). That&#039;s not an unreasonable price to pay for a footy mad nation like the UK, right? Right. But because of the nature of the setup suggested in the advert, I&#039;m willing to bet the audio quality isn&#039;t as crystal clear as they make it out to be.&lt;/p&gt;
+
+&lt;p&gt;So why don&#039;t Vodafone offer audio commentary for GBP 1.99 per match (hell, they could probably get away with GBP 2.99) straight from the TV or radio station covering the event, and give them some cut of the proceeds. I just send a text or click a button on my phone&#039;s browser, the system calls me back, and I get a good quality audio feed direct to the phone?  Why don&#039;t they do that?&lt;/p&gt;
+
+&lt;p&gt;The advert is bad enough in that I don&#039;t think many women would be prepared to set their phones up like that in the first place (certainly not in front of the living room television, anyway) since they wouldn&#039;t be able to receive calls. And the guy in the advert doesn&#039;t even use a headset - his arm must &lt;i&gt;hurt&lt;/i&gt;.&lt;/p&gt;
+
+&lt;p&gt;Those stupid, stupid operator creatures make me madder every day.&lt;/p&gt;
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://dwlt.net/&quot;&gt;David Thomson&lt;/a&gt;
+		</description>
+		<author>dwlt@dwlt.net</author>
+		<comments>http://www.mobitopia.com/1003466.html#comments</comments>
+		<guid isPermaLink="false">1003466</guid>
+		<pubDate>Mon, 29 Mar 2004 11:50:10 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>Are You Being Self-Served?</title>
+		<link>http://www.mobitopia.com/20040324.html#153048</link>
+		<description>
+			&lt;p&gt;Why is mobile network operator customer service so bad?&lt;/p&gt;
+
+&lt;p&gt;The majority of the time I call is to add something to my existing service, such as roaming, switching on GPRS, enabling MMS, conference calls and such like. On the other occasions, I want to upgrade my handset.  I think that in 8 years, I&#039;ve called Orange about a network problem once, perhaps twice. That&#039;s probably a good recommendation of the network, but not of their customer service.&lt;/p&gt;
+
+&lt;p&gt;Usually, I have to wait a while before someone actually answers (and that&#039;s after I&#039;ve gone through the maze of touchtone options), and then inevitably, the &#034;system is down for now&#034; or some such. How can it be down every time I call in?&lt;/p&gt;
+
+&lt;p&gt;If all I want to do is enable a new service, order a new handset or have my GPRS settings resent to me, I shouldn&#039;t have to call up. I should just go into the phone&#039;s browser, visit the &#039;Support&#039; section and choose my option. The operator knows who I am, and they already send me a bill every month for using their network, so what&#039;s the holdup in implementing such a service? Make it available through the web too, if you like.&lt;/p&gt;
+
+&lt;p&gt;This would help cut the costs of servicing users (especially users like me), and I expect it would work out even cheaper in the long run than offshoring your customer support team...&lt;/p&gt;
+
+&lt;p&gt;Still, at least I&#039;ve never had an experience to match that of &lt;a href=&#034;http://www.costik.com/weblog/2004_03_01_blogchive.html#107964185864937660&#034;&gt;Greg Costikyan&lt;/a&gt;. Greg also makes a great recommendation for improving customer service:&lt;/p&gt;
+&lt;blockquote&gt;
+...why can&#039;t the phone detect that it&#039;s an AT&amp;T SIM card, the account isn&#039;t activated, and give me the option of making a simple call to activate it?
+&lt;/blockquote&gt;
+
+&lt;p&gt;What other things could operators do that would help them improve on how they serve their customers?&lt;/p&gt;
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://dwlt.net/&quot;&gt;David Thomson&lt;/a&gt;
+		</description>
+		<author>dwlt@dwlt.net</author>
+		<comments>http://www.mobitopia.com/1003461.html#comments</comments>
+		<guid isPermaLink="false">1003461</guid>
+		<pubDate>Wed, 24 Mar 2004 15:30:48 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>CeBIT: Nokia Announces the 7610</title>
+		<link>http://www.mobitopia.com/20040317.html#155506</link>
+		<description>
+			&lt;div align=&#034;center&#034;&gt;&lt;img src=&#034;http://postneo.com/pix/7610.jpg&#034; width=&#034;175&#034; height=&#034;256&#034; alt=&#034;Nokia 7610&#034;&gt;&lt;/div&gt;
+&lt;p&gt;This afternoon at &lt;a href=&#034;http://www.cebit.de/&#034;&gt;CeBIT&lt;/a&gt;, &lt;a href=&#034;http://www.nokia.com&#034;&gt;Nokia&lt;/a&gt; announced a new Series 60 phone: &lt;a href=&#034;http://www.nokia.com/phones/7610&#034;&gt;The 7610.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Here are some of the features of the 7610:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1 megapixel camera&lt;/li&gt;
+&lt;li&gt;works with &lt;a href=&#034;http://www.nokia.com/lifeblog&#034;&gt;Nokia Lifeblog&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Movie Director app on phone&lt;/li&gt;
+&lt;li&gt;video recorder up to 10 minutes&lt;/li&gt;
+&lt;li&gt;8 megs internal memory, with 64 meg &lt;a href=&#034;http://www.nokia.com/nokia/0,,55010,00.html#6&#034;&gt;&#034;Reduced Size MMC&#034;&lt;/a&gt; (move on, guys)&lt;/li&gt;
+&lt;li&gt;funky keypad&lt;/li&gt;
+&lt;li&gt;MP3/AAC player&lt;/li&gt;
+&lt;li&gt;smaller/sleeker design&lt;/li&gt;
+&lt;li&gt;Java MIDP 2.0&lt;/li&gt;
+&lt;li&gt;Bluetooth and USB connectivity, no IR&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The 7610 seems to be the upgraded inernals of a 6600/6620 (but lacking EDGE) in a very sleek package.  Availability: Q2 2004.  That&#039;s pretty soon.&lt;/p&gt;
+&lt;p&gt;Further reading:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#034;http://www.nokia.com/phones/7610&#034;&gt;Nokia 7610 page&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#034;http://www.nokia.com/nokia/0,8764,33325,00.html?appId=7610&#034;&gt;more photos of the 7610&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#034;http://www.nokia.com/nokia/0,,54676,00.html&#034;&gt;7610 specs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://postneo.com/&quot;&gt;Matt Croydon&lt;/a&gt;
+		</description>
+		<author>matt@ooiio.com</author>
+		<comments>http://www.mobitopia.com/1003454.html#comments</comments>
+		<guid isPermaLink="false">1003454</guid>
+		<pubDate>Wed, 17 Mar 2004 15:55:06 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>Mobile domain names</title>
+		<link>http://www.mobitopia.com/20040316.html#191553</link>
+		<description>
+			&lt;p&gt;There&#039;s been a lot of talk recently about mobile-specific domain names - a .mob extension, for instance - which would allow service providers to mark a given resource or site as being mobile specific. Matt &lt;a href=&#034;http://www.mobitopia.com/20040106.html#001236&#034;&gt;posted a piece&lt;/a&gt; to this site a while back arguing for their adoption, but (no disrepect to him) I&#039;m unconvinced for a few reasons:&lt;/p&gt;
+
+&lt;p&gt;&lt;ol&gt;
+&lt;li&gt;We can already differentiate services by using a prefix to the domain name: compare www.futureplatforms.com and wap.futureplatforms.com; you don&#039;t need a new domain name to do this.
+
+&lt;li&gt;Saying a service is &#034;mobile&#034; doesn&#039;t tell you anything about which &#034;version&#034; of mobile it is: WAP? XHTML? cHTML? If you plan to automatically determine which version you&#039;re going to deliver, that&#039;s great: but in this case you don&#039;t need a separate domain name. Just hand out &#034;futureplatforms.com&#034; and redirect as necessary.
+
+&lt;li&gt;There&#039;s an underlying assumption that URLs are relevant to everyday users of mobile services - that in a few years time, we&#039;ll all be tapping addresses into our handsets to access sites. Personally, I don&#039;t like this: the reach of mobile goes way beyond the reach of the fixed-line internet. People who don&#039;t know or care about underlying technology use mobiles every day of their life, and it seems rather arrogant of us (mobile service providers) to expect them to learn about browsers, servers, sites, and URLs in order to get them to spend time and money with us. The mobile internet needs to be easier than the web, rather than apeing (sp?) it on a small screen. Just because the people building the mobile Internet understand URLs doesn&#039;t mean that users have to.
+&lt;/ol&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So why are we seeing proposals like this?&lt;/p&gt;
+
+&lt;p&gt;&lt;ol&gt;
+&lt;li&gt;The main reason: domain names are a good way of making money out of thin air. Convince people they need to own every possible representation of their name, and keep coming up with new representations (.biz, .ltd, and so on) to sell them. This sort of activity isn&#039;t restricted to the domain names guys: think of &lt;a href=&#034;http://corp.bango.net/support/setup.asp#setup&#034;&gt;Bango numbers&lt;/a&gt; and &lt;a href=&#034;http://www.itagg.com/&#034;&gt;iTagg&lt;/a&gt; too.
+
+&lt;li&gt;Mobile is where it&#039;s at right now in certain industry circles, and being fashionable attracts all sorts of loons (as we saw in dot-com times). 
+
+&lt;li&gt;I admit this one&#039;s a bit shaky: convincing people to access services through URLs (as opposed to portal menus) helps to get individuals thinking beyond the limited portal their operator presents them with, and maybe weakens the operators control over their customers experiences. I&#039;m not completely convinced by this one though - especially as Vodafone (or at least, one bit of Vodafone) seem to be backing the proposal for .mob domains.
+&lt;/ol&gt;
+&lt;/p&gt;
+
+&lt;p&gt;By the way, if you&#039;re a developer and find typing long URLs into a handset to be a pain, I recommend checking out &lt;a href=&#034;http://tinyurl.com/&#034;&gt;TinyURL&lt;/a&gt;, which works just dandy for mobile.&lt;/p&gt;
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://www.tomhume.org&quot;&gt;Tom Hume&lt;/a&gt;
+		</description>
+		<author>tom@futureplatforms.com</author>
+		<comments>http://www.mobitopia.com/1003452.html#comments</comments>
+		<guid isPermaLink="false">1003452</guid>
+		<pubDate>Tue, 16 Mar 2004 19:15:53 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>Siemens S65 - first looks</title>
+		<link>http://www.mobitopia.com/20040311.html#125505</link>
+		<description>
+			&lt;center&gt;
+&lt;img src=&#034;http://www.gadgetguy.de/blogpics/S653.jpg&#034;&gt;
+ 
+ 
+&lt;img src=&#034;http://www.gadgetguy.de/blogpics/S654.jpg&#034;&gt;
+&lt;/center&gt;
+&lt;p&gt;
+Looks like Siemens will soon announce a killer business phone (&lt;a href=&#034;http://www.cebit.de&#034;&gt;CeBIT&lt;/a&gt; is their usual time to do that...). Here&#039;s what they say about the &lt;a href=&#034;http://www.siemens-mobile.com/cds/frontdoor/0,2241,hq_en_0_3911_rArNrNrNrN_img%253A1159308,00.html&#034;&gt;S65&lt;/a&gt; (more picture available there, too):
+&lt;p&gt;
+&lt;blockquote&gt;
+&#034;A skilful professional  the new Siemens S65. With a full suite of business software, integrated 1.3 megapixel camera, extra large color screen, and a massive 32MB of memory, the sharp-styled S65 is perfect for busy professionals looking for a powerful phone with a great design.&#034;
+&lt;/blockquote&gt;
+&lt;p&gt;
+I suspect bluetooth will come naturally so there&#039;s no need for an extra mention. I hope they also feature some kind of memory card to hold those pictures.
+&lt;p&gt;
+More details as I can get them....
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://www.gadgetguy.de&quot;&gt;Frank Koehntopp&lt;/a&gt;
+		</description>
+		<author>frank@koehntopp.com</author>
+		<comments>http://www.mobitopia.com/1003446.html#comments</comments>
+		<guid isPermaLink="false">1003446</guid>
+		<pubDate>Thu, 11 Mar 2004 12:55:05 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>Nokia sends killer-SMS to own customers</title>
+		<link>http://www.mobitopia.com/20040311.html#115108</link>
+		<description>
+			According to &lt;a href=&#034;http://www.golem.de/0403/30188.html&#034;&gt;this (german) article&lt;/a&gt;, Nokia has been sending out picture SMS messages to invite their customers to &lt;a href=&#034;http://www.cebit.de/homepage_e?x=1&#034;&gt;CeBIT&lt;/a&gt;. Unfortunately, this particular SMS seems to have rendered several Nokia phones (3510i, 5100, 6100) unusable to the point that they need to be reanimated in a Nokia Service Center.
+&lt;p&gt;
+Nokia has announced that repair will be free of charge (how noble...), and that repair will be immediate (usually they ask you to leave your phone in the service center for a day). The poor customers will unfortunately not be able to enter the Club Nokia Lounge on CeBIT, as the SMS was supposed to be used as the ticket. Not a great loss IMHO - from my CeBIT experience you have to stand in line for two hours before getting in, anyway.
+&lt;p&gt;
+Again, this makes me wonder: what happened to the good old habit of testing?
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://www.gadgetguy.de&quot;&gt;Frank Koehntopp&lt;/a&gt;
+		</description>
+		<author>frank@koehntopp.com</author>
+		<comments>http://www.mobitopia.com/1003444.html#comments</comments>
+		<guid isPermaLink="false">1003444</guid>
+		<pubDate>Thu, 11 Mar 2004 11:51:08 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>Nokia N-Gage: Prices in Free Fall?</title>
+		<link>http://www.mobitopia.com/20040311.html#110359</link>
+		<description>
+			The &lt;a href=&#034;http://www.allaboutngage.com/&#034;&gt;Nokia N-Gage&lt;/a&gt; offers in Germany carry huge &lt;b&gt;sale&lt;/b&gt; signs nowadays: the latest &lt;a href=&#034;http://www.toysrus.de/index.php?mapid=49&amp;produkt=870&amp;details=1&amp;PHPSESSID=cd561397bf0b089e789a2b58f2af8d79&#034;&gt;offer by Toys&#039;r&#039;us&lt;/a&gt; is for EUR 149 (unbranded, unlocked) &lt;em&gt;including&lt;/em&gt; a 15 Euro prepaid card, a 5 Euro download voucher, &lt;em&gt;and&lt;/em&gt; a free game (FIFA 2004). That&#039;s a good offer if I&#039;ve ever seen one. A S60 device with great gaming capabilities, bluetooth, Radio, MP3, video player, MMC card support (a 32MB MMC should also be included), stereo headset, USB cable amongst othzer goodies - what a package... you should only be careful if you actually want to use it as a phone ;)
+&lt;p&gt;
+I wonder if Nokia itself carries resposibility for that: they &lt;a href=&#034;http://www.theregister.co.uk/content/54/35778.html&#034;&gt;fessed up to poor N-Gage sales&lt;/a&gt;, and they allowed rumours of the N-Gage 2. They also have refused to give sales figures for the device beyond &#034;600,000 units shipped to wholesalers.&#034;
+&lt;p&gt;
+All in all, they don&#039;t seem to proud of the &#039;&lt;a href=&#034;http://www.sidetalking.com&#034;&gt;Taco&lt;/a&gt;&#039;, which makes it harder for retailers to sell it. A pity, really - the amount of technology that you can now get for roughly 130 Euro is incredible - even if you &#034;only&#034; use it to listen to radio or MP3, play &lt;a href=&#034;http://vexed.symbiandiaries.com/&#034;&gt;Vexed&lt;/a&gt; or do some &lt;a href=&#034;http://opl-dev.sourceforge.net/&#034;&gt;OPL&lt;/a&gt; hacking.
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://www.gadgetguy.de&quot;&gt;Frank Koehntopp&lt;/a&gt;
+		</description>
+		<author>frank@koehntopp.com</author>
+		<comments>http://www.mobitopia.com/1003443.html#comments</comments>
+		<guid isPermaLink="false">1003443</guid>
+		<pubDate>Thu, 11 Mar 2004 11:03:59 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>Phones as a fashion accessory</title>
+		<link>http://www.mobitopia.com/20040310.html#134728</link>
+		<description>
+			&lt;p&gt;It probably escaped your notice, but back in January of 2003
+&lt;a href=&#034;http://www.siemens.com/&#034;&gt;Siemens&lt;/a&gt; launched
+their &lt;a href=&#034;http://www.xelibri.com/&#034;&gt;Xelibri&lt;/a&gt;
+brand with the stated aim of designing phones specifically as fashion
+accessories. In the words of Xelibri exec George Appling: &#034;XELIBRI
+products are fashion accessories that make phone calls. Today, most
+people buy the mobile phone that looks the best, and many have a
+habit of showing it off. This shows that mobile phones are potential
+fashion accessories like watches, handbags, and shoes. We envisage
+the scenario where people will own many fashion accessory phones and
+wear the one that matches their mood, the occasion, or their attire.&#034;
+&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#034;http://www.cdavies.org/images/xelibri4.jpg&#034; width=&#034;75&#034; height=&#034;146&#034; align=&#034;right&#034; alt=&#034;Xelibri 4&#034; /&gt;Siemens are
+perhaps better known for their pay as you go friendly handsets, such
+as the popular A60. These no frills, no nonsense phones are well
+within the budget of the average teenager (the A60 retails at around
+the 50 UKP price point). So is the Xelibri brand just an excuse to
+sell outdated handset cores at inflated prices as some cynics might
+suggest? I bought a Xelibri 4 to find out.
+&lt;/p&gt;
+&lt;p&gt;The
+handset is certainly attractive, a sleek greyish affair with a
+central greyscale LCD below which sits an easy to use joypad, with
+the numeric keypad arrayed around it in a V shape, in a very similar
+style to the Nokia 3650 keypad. The keys themselves are quite small and
+tightly bunched together which makes fast text entry a little
+awkward. The handset feels very solidly constructed, this is
+definitely a phone you can abuse with the confidence that comes with
+knowing vital bits won&#039;t fly off if you drop it. However, this does
+mean it is difficult to actually take the phone apart on purpose.
+Taking it apart to insert a SIM card and the battery involves
+levering the backplate off, which takes no small application of
+force.
+&lt;/p&gt;
+&lt;p&gt;The
+software onboard is basic, but functional. The left joypad button
+acts as a softkey to customise the standby mode, while the right
+brings up the main menu, while up and down produce various calling
+options such as phonebook lookup. The standard ringtone collection
+is, unsurprisingly considering the market, extremely tasteful. Not a
+single ringtone which would annoy me if I heard it on a train, and
+one or two which are actually quite nice to listen to! Of course, it
+also has a vibrate only option for when a ringtone is inappropriate.
+Text entry is via the standard T9, with a well stocked dictionary and
+a reasonably useful prediction display. The one outstanding feature
+of the phone is something I&#039;ve always wanted, a unified messaging
+applet. The phone itself decides on the format of the message when
+you send it (a choice of SMS or EMS in this case), rather than asking
+the user to decide as most phones do. 
+&lt;/p&gt;
+&lt;p&gt;In
+conclusion, the Xelibri 4 is stunning visually and is a nice size and
+weight to slip in your pocket, but retailing at 189 UKP you&#039;d have to
+be really fashion conscious for it to be worth your money. However,
+it you are looking for a cute companion for your pay as you go SIM
+card, and your needs aren&#039;t too demanding you could do much worse
+than a Xelibri. If they could just drop the price, the Xelibri ideal of changing
+your phone as often as you change your clothes could be a reality.
+&lt;/p&gt;
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://www.cdavies.org/&quot;&gt;Chris Davies&lt;/a&gt;
+		</description>
+		<author>c.davies@cdavies.org</author>
+		<comments>http://www.mobitopia.com/1003441.html#comments</comments>
+		<guid isPermaLink="false">1003441</guid>
+		<pubDate>Wed, 10 Mar 2004 13:47:28 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>Book Review: Rollercoaster</title>
+		<link>http://www.mobitopia.com/20040308.html#161053</link>
+		<description>
+			&lt;p&gt;&lt;a href=&#034;http://www.amazon.co.uk/exec/obidos/ASIN/1841124311/&#034;&gt;Rollercoaster: The Turbulent Life and Times of Chris Gent and Vodafone&lt;/a&gt; is, tellingly, a book that doesn&#039;t have any descriptions on the Amazon site, and the back of the book is covered with quotes for the author&#039;s previous book (about Napster).  However, a couple of review quotes do exist on the book&#039;s page at Amazon, with one claiming that &#034;it gives the reader an insight into their (Chris Gent &amp; Vodafone) stunning achievement&#034; (from Management Today). Now, I&#039;ve never read Management Today, and frankly, if the quality of their book reviews is a taster for the quality of their other articles, I&#039;m never likely to read it either.
+&lt;/p&gt;&lt;p&gt;
+The book is pretty much a series of news clippings about Vodafone, with a potted history stuck on the front, and all loosely linked with narrative of sorts.  The author makes such a big show about the fact that he asked Chris Gent a question at a press conference once that it made me wonder if he&#039;d actually ever interviewed anyone else for the book.  Actually, that&#039;s not quite true: the chapter about how Vodafone upset the population of their headquarters town (Newbury) has quite a lot of actual quotes from people, whereas the rest of the book relies on quotes from &#034;sources&#034;, which just adds to the tabloid-esque style of writing.
+&lt;/p&gt;&lt;p&gt;
+I&#039;m not completely averse to that type of book, after all &lt;a href=&#034;http://www.amazon.co.uk/exec/obidos/ASIN/0743203151/&#034;&gt;Breaking Windows&lt;/a&gt; is pretty much built in the same way, using court records of all the emails that Microsoft sent and piecing them all together with the time line of events surrounding the Internet and Microsoft&#039;s decisions.  But at least there, the author provides his own insights into the situations.
+&lt;/p&gt;&lt;p&gt;
+For an example from Rollercoaster, the book starts and ends with the press conference where the author asks his question (about how long Gent intends to remain at Vodafone). The conference that day is about how Vodafone had turned around their business from the previous 6 months (when they&#039;d issued a GBP 13 billion loss), and now they had a really good set of figures.  At no point does the book go into how they had managed to turn things around so well, so quickly.
+&lt;/p&gt;&lt;p&gt;
+This is not the sort of detailed book for a company which, for all its faults, has come an incredibly long way in a very short space of time.
+&lt;/p&gt;&lt;p&gt;
+&lt;strong&gt;Summary&lt;/strong&gt;: Not the best 10 quid I&#039;ve ever spent, and you, reader, should save your money.
+&lt;/p&gt;
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://dwlt.net/&quot;&gt;David Thomson&lt;/a&gt;
+		</description>
+		<author>dwlt@dwlt.net</author>
+		<comments>http://www.mobitopia.com/1003437.html#comments</comments>
+		<guid isPermaLink="false">1003437</guid>
+		<pubDate>Mon, 08 Mar 2004 16:10:53 +0100</pubDate>
+	</item>
+
+
+		
+	
+	<item>
+		<title>The fastest and cheapest pipe will win content</title>
+		<link>http://www.mobitopia.com/20040304.html#224226</link>
+		<description>
+			Joi Ito has learned a lesson from his &lt;a href=&#034;http://www.gadgetguy.de/archives/000725.php&#034;&gt;$3500 GPRS bill&lt;/a&gt;:
+&lt;p&gt;
+&lt;blockquote&gt;
+&#034;&lt;em&gt;I think that as broadband becomes a standard part of households, more and more people will fill up their iPods and mobile devices with all the content they need from their flat-fee low-cost pipe. Most content isn&#039;t THAT time sensitive. I don&#039;t see any reason to have to download content on-the-go over expensive gprs when devices can talk wifi or bluetooth and have enough storage to allow you to carry content around.&lt;/em&gt;&#034;
+&lt;/blockquote&gt;
+&lt;p&gt;
+That&#039;s a good point. Operators have tried to get people to buy the idea that if only they have UMTS, their mobiles will be able to be used for huge amounts of data: music, video and pictures. That is just not true, at least with the current economics. I can see that in my own behaviour: before I leave the house to go somewhere where I can&#039;t access the net for a while (like a business trip), I&#039;m making sure I got all my gadgets &#039;synced&#039;, i.e. I have the content that I need while I&#039;m away with me.
+&lt;p&gt;
+Another point: if every mobile user switched to UMTS for data, you could see the masts glowing in the dark. I heard a statistic mentioning that the german railway system is only capable of taking 5 percent of the trucks off the road, and I guess even smaller numbers apply for the amount of internet usage a UMTS network can take before it collapses.
+&lt;p&gt;
+So, what &lt;em&gt;is&lt;/em&gt; the best use for UMTS, really? Honestly, I have no idea....
+			&lt;p/&gt;Posted by &lt;a href=&quot;http://www.gadgetguy.de&quot;&gt;Frank Koehntopp&lt;/a&gt;
+		</description>
+		<author>frank@koehntopp.com</author>
+		<comments>http://www.mobitopia.com/1003432.html#comments</comments>
+		<guid isPermaLink="false">1003432</guid>
+		<pubDate>Thu, 04 Mar 2004 22:42:26 +0100</pubDate>
+	</item>
+
+
+</channel>
+</rss>
+

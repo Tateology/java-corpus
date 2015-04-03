@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:admin="http://webns.net/mvcb/" xmlns="http://purl.org/rss/1.0/">
+
+<channel rdf:about="http://bloggy.com/mt/">
+<title>bloggy</title>
+<link>http://bloggy.com/mt/</link>
+<description>Thoughts, rants, and photos</description>
+<language>en-us</language>
+<webMaster></webMaster>
+<lastBuildDate>2003-04-03T18:34:34-05:00</lastBuildDate>
+<pubDate>2003-04-03T18:54:29-05:00</pubDate>
+<admin:generatorAgent rdf:resource="http://www.movabletype.org/?v=2.51" />
+
+<items>
+<rdf:Seq><rdf:li rdf:resource="http://bloggy.com/mt/archives/000846.html" />
+<rdf:li rdf:resource="http://bloggy.com/mt/archives/000845.html" />
+<rdf:li rdf:resource="http://bloggy.com/mt/archives/000844.html" />
+<rdf:li rdf:resource="http://bloggy.com/mt/archives/000843.html" />
+<rdf:li rdf:resource="http://bloggy.com/mt/archives/000842.html" />
+<rdf:li rdf:resource="http://bloggy.com/mt/archives/000841.html" />
+<rdf:li rdf:resource="http://bloggy.com/mt/archives/000840.html" />
+<rdf:li rdf:resource="http://bloggy.com/mt/archives/000839.html" />
+<rdf:li rdf:resource="http://bloggy.com/mt/archives/000838.html" />
+<rdf:li rdf:resource="http://bloggy.com/mt/archives/000837.html" />
+<rdf:li rdf:resource="http://bloggy.com/mt/archives/000836.html" />
+<rdf:li rdf:resource="http://bloggy.com/mt/archives/000835.html" />
+<rdf:li rdf:resource="http://bloggy.com/mt/archives/000834.html" />
+<rdf:li rdf:resource="http://bloggy.com/mt/archives/000833.html" />
+<rdf:li rdf:resource="http://bloggy.com/mt/archives/000832.html" />
+</rdf:Seq>
+</items>
+
+</channel>
+
+<item rdf:about="http://bloggy.com/mt/archives/000846.html">
+<title>Trifecta</title>
+<description>Bush used to joke about hitting the trifecta. The French say we made a triple mistake with the war in...</description>
+<link>http://bloggy.com/mt/archives/000846.html</link>
+<dc:subject>Weblog</dc:subject>
+<dc:creator>barry</dc:creator>
+<dc:date>2003-04-03T18:34:34-05:00</dc:date>
+</item>
+<item rdf:about="http://bloggy.com/mt/archives/000845.html">
+<title>Not-for-profit</title>
+<description>I was at a meeting of queer anti-war activists last night, and we were talking about how some groups seem...</description>
+<link>http://bloggy.com/mt/archives/000845.html</link>
+<dc:subject>War</dc:subject>
+<dc:creator>barry</dc:creator>
+<dc:date>2003-04-03T12:34:22-05:00</dc:date>
+</item>
+<item rdf:about="http://bloggy.com/mt/archives/000844.html">
+<title>Is it a parody?</title>
+<description>This site -- warning: bad music -- is showing up in my referrer logs. I can&apos;t decide if it&apos;s a...</description>
+<link>http://bloggy.com/mt/archives/000844.html</link>
+<dc:subject>General</dc:subject>
+<dc:creator>barry</dc:creator>
+<dc:date>2003-04-03T12:19:31-05:00</dc:date>
+</item>
+<item rdf:about="http://bloggy.com/mt/archives/000843.html">
+<title>War profiteers</title>
+<description>An interesting list of war profiteers and their offices in NYC...</description>
+<link>http://bloggy.com/mt/archives/000843.html</link>
+<dc:subject>Weblog</dc:subject>
+<dc:creator>barry</dc:creator>
+<dc:date>2003-04-02T18:24:54-05:00</dc:date>
+</item>
+<item rdf:about="http://bloggy.com/mt/archives/000842.html">
+<title>We know what culture is, right?</title>
+<description>Via The Guardian and Common Dreams: A few miles from the bridge to the south lie the ruins of the...</description>
+<link>http://bloggy.com/mt/archives/000842.html</link>
+<dc:SUBJECT>War</dc:SUBJECT>
+<dc:creator>barry</dc:creator>
+<dc:date>2003-04-01T13:43:21-05:00</dc:date>
+</item>
+<item rdf:about="http://bloggy.com/mt/archives/000841.html">
+<title>Overheard at Century 21</title>
+<description>We took Mom to Century 21 for some shopping during her visit last week. While there, I overheard one employee...</description>
+<link>http://bloggy.com/mt/archives/000841.html</link>
+<dc:subject>NYC</dc:subject>
+<dc:creator>barry</dc:creator>
+<dc:date>2003-04-01T12:04:37-05:00</dc:date>
+</item>
+<item rdf:about="http://bloggy.com/mt/archives/000840.html">
+<title>Cultural Sensitivity</title>
+<description>You&apos;re either with us or against us. Like it or not, Canadian baseball fans will be hearing God Bless America...</description>
+<link>http://bloggy.com/mt/archives/000840.html</link>
+<dc:subject>War</dc:subject>
+<dc:creator>barry</dc:creator>
+<dc:date>2003-03-30T14:00:08-05:00</dc:date>
+</item>
+<item rdf:about="http://bloggy.com/mt/archives/000839.html">
+<title>His is not a house of mirth</title>
+<description>The title of this post, along with &quot;We can&apos;t hear your car alarms / from our renovated barn&quot; are some...</description>
+<link>http://bloggy.com/mt/archives/000839.html</link>
+<dc:subject>Music</dc:subject>
+<dc:creator>barry</dc:creator>
+<dc:date>2003-03-29T00:48:27-05:00</dc:date>
+</item>
+<item rdf:about="http://bloggy.com/mt/archives/000838.html">
+<title>Intermittent posting</title>
+<description>I won&apos;t be posting much for a few days. Mom arrived today for a visit, and we&apos;re busy having fun....</description>
+<link>http://bloggy.com/mt/archives/000838.html</link>
+<dc:subject>General</dc:subject>
+<dc:creator>barry</dc:creator>
+<dc:date>2003-03-27T00:16:50-05:00</dc:date>
+</item>
+<item rdf:about="http://bloggy.com/mt/archives/000837.html">
+<title>The Onion - Special War Edition</title>
+<description>&quot;Baghdad resident Taha Sabri, killed Monday in a U.S. air strike on his city, would have loved the eventual liberation...</description>
+<link>http://bloggy.com/mt/archives/000837.html</link>
+<dc:subject>Weblog</dc:subject>
+<dc:creator>barry</dc:creator>
+<dc:date>2003-03-25T18:16:54-05:00</dc:date>
+</item>
+<item rdf:about="http://bloggy.com/mt/archives/000836.html">
+<title>Boycotting America</title>
+<description>Boycott of American Goods Over Iraq War Gains. See also Boycott Brand America and Consumers Against War....</description>
+<link>http://bloggy.com/mt/archives/000836.html</link>
+<dc:subject>Weblog</dc:subject>
+<dc:creator>barry</dc:creator>
+<dc:date>2003-03-25T15:15:32-05:00</dc:date>
+</item>
+<item rdf:about="http://bloggy.com/mt/archives/000835.html">
+<title>Paris Commune</title>
+<description>This should be fabulous. We went to a preview reception, with a few of the songs and one of the...</description>
+<link>http://bloggy.com/mt/archives/000835.html</link>
+<dc:subject>Culture</dc:subject>
+<dc:creator>barry</dc:creator>
+<dc:date>2003-03-24T11:25:07-05:00</dc:date>
+</item>
+<item rdf:about="http://bloggy.com/mt/archives/000834.html">
+<title>Free Miss Kittin mix</title>
+<description>Go here to get a 78 minute MP3 (about 108MB) of a mix by Miss Kittin. I just burned a...</description>
+<link>http://bloggy.com/mt/archives/000834.html</link>
+<dc:subject>Music</dc:subject>
+<dc:creator>barry</dc:creator>
+<dc:date>2003-03-23T23:54:25-05:00</dc:date>
+</item>
+<item rdf:about="http://bloggy.com/mt/archives/000833.html">
+<title>No more war posts for a bit</title>
+<description>OK. I need to take a break on war stuff for a bit. Here are links to my favorite news...</description>
+<link>http://bloggy.com/mt/archives/000833.html</link>
+<dc:subject>War</dc:subject>
+<dc:creator>barry</dc:creator>
+<dc:date>2003-03-23T20:55:48-05:00</dc:date>
+</item>
+<item rdf:about="http://bloggy.com/mt/archives/000832.html">
+<title>Kottke photos</title>
+<description>Kottke has great photos from yesterday&apos;s march....</description>
+<link>http://bloggy.com/mt/archives/000832.html</link>
+<dc:subject>Weblog</dc:subject>
+<dc:creator>barry</dc:creator>
+<dc:date>2003-03-23T14:32:43-05:00</dc:date>
+</item>
+
+
+</rdf:RDF>

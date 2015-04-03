@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="/css/feed.xsl"?>
+<feed version="0.3"
+  xmlns="http://purl.org/atom/ns#"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xml:lang="en">
+  <title type="text/plain" mode="escaped">dive into mark</title>
+  <tagline type="text/plain" mode="escaped">Every time you use TypeKey, God kills a kitten.</tagline>
+  <link rel="alternate" type="text/html" href="http://diveintomark.org/"/>
+  <link rel="next" type="application/atom+xml" href="http://diveintomark.org/xml/2004/05/index.atom"/>
+  <modified>2004-05-13T17:16:00Z</modified>
+  <author>
+    <name>Mark Pilgrim</name>
+    <url>http://diveintomark.org/</url>
+  </author>
+
+  <id>tag:diveintomark.org,2004:3</id>
+  <generator url="http://www.movabletype.org/" version="3.0b4">Movable Type</generator>
+  <copyright mode="escaped">Copyright &#169; 2004, Mark Pilgrim</copyright>
+  <entry>
+    <title type="text/plain" mode="escaped">The first thing we do, let&apos;s shoot all the copy editors</title>
+    <link rel="alternate" type="text/html" href="http://diveintomark.org/archives/2004/05/12/copy-editor"/>
+    <modified>2004-05-13T17:14:05Z</modified>
+    <issued>2004-05-12T10:29:00-05:00</issued>
+    <id>tag:diveintomark.org,2004:3.3735</id>
+    <created>2004-05-12T14:29:00Z</created>
+    <summary type="text/plain" mode="escaped">Dive Into Python is almost finished.  Now the copy editor is wielding her virtual pen and striking through every word I&apos;ve ever written. (332 words)</summary>
+    <dc:subject>Python</dc:subject>
+    <content type="application/xhtml+xml" mode="xml" xml:base="http://diveintomark.org/archives/2004/05/12/copy-editor"><div xmlns="http://www.w3.org/1999/xhtml"><p><a href="http://diveintopython.org/">Dive into Python</a> is almost finished. I still need to write one more chapter, but I've incorporated all the revisions from the technical reviewer (the ultra-talented Anna Ravenscroft). Now the copy editor is wielding her virtual pen and striking through every word I've ever written. Incorporating her revisions is simultaneously humbling, enlightening, and mind-numbingly tedious.</p>
+<p>Here are the main things I've learned so far:</p>
+<p class="c1"><a class="plain" href="http://www.amazon.com/exec/obidos/ASIN/1592400876/ref%3Dnosim/diveintomark20"><img src="http://images.amazon.com/images/P/1592400876.01._SCMZZZZZZZ_.jpg" width="97" height="140" alt="[Eats, Shoots &amp; Leaves]" title="Eats, Shoots &amp; Leaves, by Lynne Truss" /></a></p>
+<ul>
+<li>I use <q>have to</q> when I mean <q>need to</q>.</li>
+<li>I misplace the word <q>only</q>. Instead of <q>you can only walk through a stream once,</q> the copy editor prefers <q>you can walk through a stream only once.</q></li>
+<li>I use <q>lots</q> when I mean <q>a lot</q>.</li>
+<li>I use <q>which</q> when I mean <q>that</q>.</li>
+<li>I overuse footnotes to be cute. This is a bad habit I picked up from the interactive fiction version of <cite>Hitchhiker's Guide to the Galaxy</cite> and the infamous footnote 12.</li>
+<li>I use <q>like</q> when I mean <q>such as</q>.</li>
+<li>I use <q>then</q> immediately after a comma, when I mean <q>and then</q>.</li>
+<li>I overuse semicolons for no particular reason except that I've always liked them.</li>
+<li>I use <q>note</q> when I mean <q>notice</q>, and vice-versa.</li>
+<li>I use <q>we</q> when I mean <q>you</q>. <q>As we saw in the previous chapter...</q> <q>We'll work through this example line by line.</q> And so forth. Apparently <em>we</em> won't be working through this example. <em>You</em> will be working through this example; <em>I</em> will be in the Bahamas drinking my royalty check.</li>
+</ul>
+<p>In related news, my copy of <a href="http://www.amazon.com/exec/obidos/ASIN/1592400876/ref%3Dnosim/diveintomark20">Eats, Shoots, &amp; Leaves</a> arrived yesterday. It is hysterically funny, if you like that sort of thing.</p>
+<p>In vaguely related news, here is a tip for people who do a lot of work in Docbook. In Firefox, create a new bookmark for <code>http://docbook.org/tdg/en/html/%s.html</code>, and then give it a keyword (I used the letter <kbd>d</kbd>). Then you can type things like <kbd>d xref</kbd> into your address bar to go to <a href="http://docbook.org/tdg/en/html/xref.html">the <code>xref</code> reference page</a>. Go go gadget hyperlink.</p>
+
+</div></content>
+  </entry>
+  <entry>
+    <title type="text/plain" mode="escaped">Google Watcher</title>
+    <link rel="alternate" type="text/html" href="http://diveintomark.org/archives/2004/05/11/google-watcher"/>
+    <modified>2004-05-12T17:41:17Z</modified>
+    <issued>2004-05-11T21:30:52-05:00</issued>
+    <id>tag:diveintomark.org,2004:3.3727</id>
+    <created>2004-05-12T01:30:52Z</created>
+    <summary type="text/plain" mode="escaped">Google Blog is deleting controversial statements without explanation. (176 words)</summary>
+    <dc:subject></dc:subject>
+    <content type="application/xhtml+xml" mode="xml" xml:base="http://diveintomark.org/archives/2004/05/11/google-watcher"><div xmlns="http://www.w3.org/1999/xhtml"><p>Briefly seen on <a href="http://www.google.com/googleblog/2004/05/going-out-of-our-way-to-find-right.html">Google Blog</a>:</p>
+<blockquote cite="http://www.google.com/googleblog/2004/05/going-out-of-our-way-to-find-right.html">
+<p>Interestingly, when we announced our engineering center in Bangalore, we found ourselves knee-deep in the debate about "outsourcing" -- the practice of cutting a company's American operations in favor of cheaper labor elsewhere. India in particular has been a subject of a lot of press coverage on this topic lately, which we find to be pretty unfair. It's not their fault they have a lot of brilliant computer scientists who don't care to relocate to the States.</p>
+</blockquote>
+<p>The paragraph has since been deleted without explanation.</p>
+<p>This kind of revisionist history is unacceptable, regardless of who does it. If you don't want it saved for all time, don't publish it on the Internet. Putting <q>blog</q> on the top of the page does not absolve you of all responsibility.</p>
+<p>If Google is unable to hold themselves accountable, others will surely do it for them.</p>
+<p>Via <a href="http://slashdot.org/comments.pl?sid=107211&amp;cid=9119940">Slashdot</a>, <a href="http://www.metafilter.com/mefi/33035">MetaFilter</a>, and <a href="http://hello.typepad.com/hello/2004/05/google_on_outso.html">Hello TypePad</a>.</p>
+<h3>Update</h3>
+<p>Michael Hanscom has <a href="http://www.michaelhanscom.com/eclecticism/2004/05/google_bits_red.html">a screenshot of the changes</a>, as rendered by NetNewsWire's excellent <q>HTML Differences</q> feature.</p>
+
+</div></content>
+  </entry>
+  <entry>
+    <title type="text/plain" mode="escaped">Yet another crack at user-friendly feeds</title>
+    <link rel="alternate" type="text/html" href="http://diveintomark.org/archives/2004/05/04/user-friendly-feeds-2"/>
+    <modified>2004-05-13T17:14:11Z</modified>
+    <issued>2004-05-04T08:24:54-05:00</issued>
+    <id>tag:diveintomark.org,2004:3.3703</id>
+    <created>2004-05-04T12:24:54Z</created>
+    <summary type="text/plain" mode="escaped">Round 2: I&apos;m styling my Atom feed with XSLT now.  The result is just as user-friendly, but works in IE. (374 words)</summary>
+    <dc:subject>Those that tremble as if they were mad</dc:subject>
+    <content type="application/xhtml+xml" mode="xml" xml:base="http://diveintomark.org/archives/2004/05/04/user-friendly-feeds-2"><div xmlns="http://www.w3.org/1999/xhtml"><p>Following up on <a href="http://diveintomark.org/archives/2004/05/02/user-friendly-feeds">my experiment with styling my Atom feed with CSS</a>...</p>
+<p>There were 3 major complaints that I noticed in comments, email, and elsewhere around the web:</p>
+<ol>
+<li>It required additional markup in the feed, which seemed wasteful</li>
+<li>Entry titles weren't displayed as links</li>
+<li>It didn't work well in IE</li>
+</ol>
+<p>Next step: XSLT. <a href="http://diveintomark.org/public/2004/05/atom-plain.xml">Atom feed</a> + <a href="http://diveintomark.org/public/2004/05/feed.xsl">XSLT</a> = <a href="http://diveintomark.org/public/2004/05/atom-with-xsl.xml">styled feed</a>. (View source on each; the last one will surprise you!)</p>
+<p>I removed all extra XHTML markup in the feed itself (it's rolled into <code>feed.xsl</code>). I removed the <code>info</code> element that explained the purpose of the feed (also moved to <code>feed.xsl</code>). This Atom feed is as svelte as it can be, but it looks like a regular page in IE 6 and Mozilla. Even the entry links work.</p>
+<p>There is apparently some confusion about how this works. <q>Won't it be wasteful for feed readers to download all those images and crap?</q> No, it doesn't work like that. Feed readers download the feed, nothing else. They don't even see the images. How can they not see the images? The images are linked in from the CSS file.</p>
+<p><q>Well, won't it be wasteful for feed readers to download a separate CSS file?</q> No, it doesn't work like that either. Feed readers download the feed, nothing else. They don't even see the CSS file, because it's never mentioned in the feed. So how does your browser find it? When you view the feed in your browser, it transforms the XML into HTML+CSS <em>on the fly</em>, using XSLT (based on the rules in the <code>feed.xsl</code> file).</p>
+<p><q>But I don't want to see your styles in my feed reader!</q> <em>You won't. Feed readers download the feed, nothing else.</em> They don't apply XSLT transformations; they'll still display the feed however they display feeds. But modern browsers like IE and Mozilla look for a particular line in the feed (that feed readers ignore) that tells them to do something more useful than dumping raw XML on the screen:</p>
+<p><code>&lt;?xml-stylesheet type="text/xsl" href="feed.xsl"?&gt;</code></p>
+<p><q>But now users can't see your XML! When they click on your feed link, you need to show them your XML and get them excited about XML technology!</q> That's the dumbest thing I've ever heard.</p>
+
+</div></content>
+  </entry>
+
+</feed>

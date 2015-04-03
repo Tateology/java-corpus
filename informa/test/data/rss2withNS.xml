@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<rss version="2.0" xmlns="http://backend.userland.com/rss2">
+<channel>
+  <title>Blogging Roller</title>
+  <link>http://www.rollerweblogger.org/page/roller</link>
+  <description>Dave Johnson on Roller, software development, Java, blogging, and other random nonsense.</description>
+  <language>en-us</language>
+  <copyright>Copyright 2004</copyright>
+  <lastBuildDate>Wed, 12 May 2004 07:20:13 EDT</lastBuildDate>
+  <generator>Roller Weblogger 0.9.9-dev (20040501035503:dmj)</generator>
+  <managingEditor>snoopdave@nc.rr.com</managingEditor>
+  <webMaster>snoopdave@nc.rr.com</webMaster> 
+      <item>
+    <title>Recent Wiki spam attacks</title>  
+        <description>                             &lt;p /&gt;
+Two Wiki spammers have been trying for over a week to sneak links into the &lt;a href=&quot;http://www.rollerweblogger.org/wiki&quot;&gt;Roller Wiki&lt;/a&gt;. I subscribe to the Wiki&#39;s Recent Changes newsfeed, so I am able to catch them everytime, but I am getting a little tired of doing this.  One Wiki spammer has the IP address 222.64.23.78 and is advertising the site &lt;span style=&quot;color:blue&quot;&gt;http://www.newline.sh.cn&lt;/span&gt;.  The other Wiki spammer has the IP address 61.149.181.4 and is advertising &lt;span style=&quot;color:blue&quot;&gt;http://www.99986.com&lt;/span&gt;. I would hate to have to set usernames and passwords for the Wiki again, but these dirtbags may force me to do it.
+         </description>       
+    <category>Roller</category>
+    <guid isPermaLink="true">http://www.rollerweblogger.org/page/roller/20040512#recent_wiki_spam_attacks</guid>    
+        <comments>http://www.rollerweblogger.org/page/roller?anchor=recent_wiki_spam_attacks</comments>    
+        <pubDate>Wed, 12 May 2004 07:20:13 EDT</pubDate>    
+  </item>
+    <item>
+    <title>Weblog to DocBook.</title>  
+        <description>                             &lt;p&gt;I was seriously considering using &lt;a href=&quot;http://www.docbook.org/&quot;&gt;DocBook&lt;/a&gt; for a big writing project. I backed out because my collaborators use the reviewer comment features of MS Word, but even if my collaborators could have accepted DocBook I&#39;m not sure that I could have done so. DocBook is complex and climbing a big learning curve when I should be writing and working on example code does not appeal to me at all. Take a look at the XML files and the build scripts for Mark Pilgrim&#39;s DocBook-based &lt;a href=&quot;http://diveintopython.org/&quot;&gt;Dive into Python&lt;/a&gt; if you don&#39;t believe me.  I get the feeling that a DocBook project is a lot like a software project with a build-script and build-time error messages that require debugging. I don&#39;t want to miss a deadline because my manuscript won&#39;t compile.&lt;/p&gt;
+
+&lt;p&gt;The best way to work with DocBook would probably be a WYSIWYG editor that uses DocBook as it&#39;s native format or that can export in DocBook format. Otherwise, you&#39;ll be swimming in angle-brackets and cursing validation errors. DocBook provides a powerful set of tools, but DocBook XML is something that should be generated rather than written by hand.&lt;/p&gt;
+
+&lt;p&gt;Along those lines: what if you wanted to print your entire Weblog, including all of the entries in your archive, as a nicely formatted book, ready for printing. DocBook would be a great way to do that. You could write a utility to dump your Weblog to DocBook XML format and, if you&#39;ve been writing your Weblog entries in valid XHTML, you could even transform the formatting information in your entries to DocBook XML. Then, you could easily transform your entire Weblog to PDF, RTF, or any of the dozens of formats supported by the DocBook transforms.  Weblog to DocBook - has anybody tried that before?&lt;/p&gt;
+         </description>       
+    <category>Blogging</category>
+    <guid isPermaLink="true">http://www.rollerweblogger.org/page/roller/20040510#weblog_to_docbook</guid>    
+        <comments>http://www.rollerweblogger.org/page/roller?anchor=weblog_to_docbook</comments>    
+        <pubDate>Mon, 10 May 2004 09:08:57 EDT</pubDate>    
+  </item>
+    <item>
+    <title>What belongs on a corporate-sponsored blog?</title>  
+        <description>                             &lt;p&gt;There is a interesting discussion of what should be allowed on a Java.Net weblog in the comments of Richard Monson-Haefel&#39;s post &lt;a href=&quot;http://weblogs.java.net/pub/wlg/1268&quot;&gt;9 of Clubs Seeks a new Deck of Cards&lt;/a&gt;. Richard needs a job and is using his weblog to do a little self-promotion/marketing, but his weblog is hosted on Sun&#39;s Java.Net site which suppoosedly restricts marketing. Java.Net&#39;s managing editor Daniel Steinberg raised this issue, mainly as a discussion point, and thankfully the consensus seems to be in favor of allowing Richard&#39;s post and others like it.&lt;/p&gt;
+
+&lt;p&gt;Last year, I &lt;a href=&quot;http://www.rollerweblogger.org/page/roller/20030611#weblogs_java_net_oh_the&quot;&gt;criticized&lt;/a&gt; what I saw as forced corporate blogging on Java.Net, but the open spirit on the Java.Net weblogs, Sun&#39;s progressive new &lt;a href=&quot;http://www.tbray.org/ongoing/When/200x/2004/05/02/Policy&quot;&gt;Policy on Public Discourse&lt;/a&gt;, and the Sun employee blogs at &lt;a href=&quot;http://blogs.sun.com&quot;&gt;blogs.sun.com&lt;/a&gt;, show that Sun trusts it&#39;s employees to communicate publicly and directly with each other, with Java developers, and with customers. As a long-time Java developer and small-time Sun shareholder, I see this as a very good thing.&lt;/p&gt; 
+         </description>       
+    <category>General</category>
+    <guid isPermaLink="true">http://www.rollerweblogger.org/page/roller/20040509#what_belongs_on_a_corporate</guid>    
+        <comments>http://www.rollerweblogger.org/page/roller?anchor=what_belongs_on_a_corporate</comments>    
+        <pubDate>Sun, 9 May 2004 11:40:28 EDT</pubDate>    
+  </item>
+    <item>
+    <title>Don Brown picks up Struts Control Flow.</title>  
+        <description>                             &lt;p&gt;I&#39;ve got too many other things going on right now to resume my work on Control Flow, so I&#39;m happy to report that &lt;a href=&quot;http://jroller.com/page/mrdon/20040507#cocoon_s_flow_in_struts&quot;&gt;Don Brown&lt;/a&gt; has picked up where I left off and has integrated Cocoon&#39;s Control Flow module into a Struts application.&lt;/p&gt;
+
+&lt;p&gt;Don implemented the same number guess example that I did, but with Struts, by replacing my Flow Servlet with a Flow Action. This is a different approach than I was considering. I was under the impression that the only way to enable Control Flow to take advantage of Struts Form Bean processing and Validation was to integrate Control Flow at the ActionServlet level. On second thought, I think the Flow Action approach will work fine, but it will require that Actions that are to participate in the flow extend the Flow Action &lt;s&gt;Flow Servlet&lt;/s&gt;. I&#39;m looking forward to seeing Don&#39;s code.&lt;/p&gt;
+         </description>       
+    <category>Java</category>
+    <guid isPermaLink="true">http://www.rollerweblogger.org/page/roller/20040507#don_brown_picks_up_struts</guid>    
+        <comments>http://www.rollerweblogger.org/page/roller?anchor=don_brown_picks_up_struts</comments>    
+        <pubDate>Fri, 7 May 2004 20:28:14 EDT</pubDate>    
+  </item>
+    <item>
+    <title>blogs.sun.com</title>  
+        <description>                             &lt;p&gt;&lt;a href=&quot;http://blogs.sun.com&quot;&gt;http://blogs.sun.com&lt;/a&gt; is powered by &lt;a href=&quot;http://rollerweblogger.org&quot;&gt;Roller&lt;/a&gt;!&lt;/p&gt;
+
+&lt;p&gt;I&#39;m amazed, surprised, and very pleased. I&#39;d like to ensure that Roller is a success at Sun, so, Sun bloggers please let me know how I can help.&lt;/p&gt;
+         </description>       
+    <category>Roller</category>
+    <guid isPermaLink="true">http://www.rollerweblogger.org/page/roller/20040504#blogs_sun_com</guid>    
+        <comments>http://www.rollerweblogger.org/page/roller?anchor=blogs_sun_com</comments>    
+        <pubDate>Tue, 4 May 2004 11:19:21 EDT</pubDate>    
+  </item>
+    <item>
+    <title>JRoller on the fritz?</title>  
+        <description>                             &lt;p&gt;&lt;a href=&quot;http://jroller.com&quot;&gt;JRoller&lt;/a&gt; has been on acting up recently as &lt;a href=&quot;http://jroller.com/comments/lasse/Weblog/i_m_leaving_jroller&quot;&gt;several&lt;/a&gt; &lt;a href=&quot;http://raibledesigns.com/comments/rd/sunsets/converting_appfuse_to_use_spring&quot;&gt;people&lt;/a&gt; have &lt;a href=&quot;http://jroller.com/page/cpurdy&quot;&gt;noticed&lt;/a&gt;. We are looking into the problem(s). We started to notice some flaky behavior last week and system loads were somewhat higher than usual. Some of the additional load was due to a second Tomcat server running some other software. I noticed a lot of suspicious JK2 errors in the Tomcat log files, but that was probably a red herring. After spending some time trying to get the JK2 setup right and upgrading from Tomcat 5.0.18 to Tomcat 5.0.19, I talked to Rick and Matt about taking JK2 and HTTPD out of the picture entirely and that is what we did. We&#39;re not getting any more JK2 errors, but we are still experiencing technical difficulties. I&#39;ll keep you posted as I try to track down the source of the problem.&lt;p/&gt;
+         </description>       
+    <category>Roller</category>
+    <guid isPermaLink="true">http://www.rollerweblogger.org/page/roller/20040503#jroller_on_the_fritz</guid>    
+        <comments>http://www.rollerweblogger.org/page/roller?anchor=jroller_on_the_fritz</comments>    
+        <pubDate>Mon, 3 May 2004 20:56:54 EDT</pubDate>    
+  </item>
+    <item>
+    <title>Go blog it on the mountain.</title>  
+        <description>                             &lt;blockquote&gt;
+&lt;a href=&quot;http://www.tbray.org/ongoing/When/200x/2004/05/02/Policy&quot;&gt;&lt;cite&gt;Tim Bray&lt;/cite&gt;&lt;/a&gt;: 
+Many of us at Sun are doing work that could change the world. We need to do a better job of telling the world. As of now, you are encouraged to tell the world about your work, without asking permission first (but please do read and follow the advice in this note). Blogging is a good way to do this... 
+&lt;/blockquote&gt;
+
+&lt;p&gt;
+Bravo!
+&lt;p&gt;
+         </description>       
+    <category>Java</category>
+    <guid isPermaLink="true">http://www.rollerweblogger.org/page/roller/20040503#go_blog_it_on_the</guid>    
+        <comments>http://www.rollerweblogger.org/page/roller?anchor=go_blog_it_on_the</comments>    
+        <pubDate>Mon, 3 May 2004 20:46:17 EDT</pubDate>    
+  </item>
+    <item>
+    <title>Continue my continuing series on continuations?</title>  
+        <description>                             &lt;p /&gt;
+Yes I will, but don&#39;t hold your breath. I&#39;ve got a lot on my plate now. I&#39;ve been starting to run in the mornings again, after my usual winter lapse, so I have had some time to think about the problem of integrating my &lt;a href=&quot;http://rollerweblogger.org/page/roller/20040327#jsp_control_flow_engine&quot;&gt;hacked-free version of Cocoon Control Flow&lt;/a&gt; into a Struts application. I&#39;ll try to write up my thoughts on the topic in the next couple of days, because it may be while before I have time to code up a solution.
+         </description>       
+    <category>Java</category>
+    <guid isPermaLink="true">http://www.rollerweblogger.org/page/roller/20040501#continue_my_continuing_series_on</guid>    
+        <comments>http://www.rollerweblogger.org/page/roller?anchor=continue_my_continuing_series_on</comments>    
+        <pubDate>Sat, 1 May 2004 18:34:30 EDT</pubDate>    
+  </item>
+    <item>
+    <title>Powerbook second impressions.</title>  
+        <description>                             &lt;p /&gt;I&#39;ve had my Powerbook for over a week now and I&#39;m starting to get settled in. Overall, I&#39;ve been very pleased with the Powerbook itself, the software that came with MacOS, and the software I&#39;ve downloaded. I&#39;m still trying to figure out what works best and I find it very useful to read what other Mac users are using and why, so here I&#39;ll document the software I&#39;ve started to use.&lt;/p&gt;
+
+&lt;p&gt;Before I started using the Powerbook, I had assumed that I would be using the same browser and mail programs that I use on Windows, Mozilla &lt;a href=&quot;http://mozilla.org/products/firefox/&quot;&gt;Firefox&lt;/a&gt; and Mozilla &lt;a href=&quot;http://mozilla.org/products/thunderbird/&quot;&gt;Thunderbird&lt;/a&gt;. When I got the Powerbook, I installed Firefox and Mozilla and found that they work well and look almost exactly as the do on Windows. Generally speaking that is a good thing, but I&#39;m in the mood to try something new and I prefer applications that get the native look-and-feel perfectly right, so I switched over to the built-in default browser and mail programs, &lt;a href=&quot;http://www.apple.com/safari/&quot;&gt;Safari&lt;/a&gt; and &lt;a href=&quot;http://www.apple.com/macosx/features/mail/&quot;&gt;Mail.App&lt;/a&gt;. I&#39;ve been using them for about a week now and they both look great and work great. I&#39;ll stick with them for now.&lt;/p&gt;
+
+&lt;p&gt;I&#39;ve been experimenting with &lt;a href=&quot;http://www.apple.com/ilife/imovie/&quot;&gt;iMovie&lt;/a&gt;. I imported a bunch of video clips from my digital camcorder and found it very easy to compose a video, edit out the bad spots, incude transitions between clip, and add titles and text. iMovie works very well and, at this point, I don&#39;t think I&#39;ll be needing any other video editing software. I&#39;ve also been using the &lt;a href=&quot;http://www.omnigroup.com/applications/omnioutliner/&quot;&gt;OmniOutliner&lt;/a&gt; and the &lt;a href=&quot;http://www.omnigroup.com/applications/omnigraffle/&quot;&gt;OmniGraffle&lt;/a&gt; drawing programs. I was surprised to find these applications included with Mac OSX and very pleased with both of them. I downloaded &lt;a href=&quot;&quot;&gt;Voodoo Pad&lt;/a&gt; Lite the other day and found it so useful that within hours I was paying the the $19.95 registration fee for the full version.&lt;/p&gt;
+
+&lt;p&gt;There are some bad points, of course. For example, I have&#39;t found any chat software nearly as good as &lt;a href=&quot;http://www.ceruleanstudios.com/&quot;&gt;Trillian&lt;/a&gt;. &lt;a href=&quot;http://fire.sourceforge.net/&quot;&gt;Fire&lt;/a&gt; may eventially rival Trillian, but right now it&#39;s GUI is clunky and nowhere near as full-featured.  &lt;a href=&quot;http://eclipse.org&quot;&gt;Eclipse&lt;/a&gt; is usable, but the fonts are so big and the new Eclipse 3.0 M8 look-and-feel is a real put-off.&lt;/p&gt;
+         </description>       
+    <category>General</category>
+    <guid isPermaLink="true">http://www.rollerweblogger.org/page/roller/20040501#powerbook_second_impressions</guid>    
+        <comments>http://www.rollerweblogger.org/page/roller?anchor=powerbook_second_impressions</comments>    
+        <pubDate>Sat, 1 May 2004 18:18:37 EDT</pubDate>    
+  </item>
+    <item>
+    <title>JRoller down until after soccer practice.</title>  
+        <description>                             &lt;p&gt;After months of relatively trouble free operation, JRoller is straining against the load of 3980 users and heavy traffic. I adjusted some of JRoller&#39;s mod_jk2 settings today and restarted the server. It failed to start, so I reversed my settings change and tried again - still no luck. Unfortunately, I&#39;m not going to be able to touch the system until tonight, after I get off work, take the kids to soccer practice, and to the end-of-season dinner. Sorry JRollers, I&#39;m a soccer dad first and a JRoller admin second. Matt Schmidt may be able to do something after he gets out of class this afternoon.&lt;/p&gt;
+
+&lt;p&gt;Update - 11:30PM EST - JRoller is back up. JRoller&#39;s JIRA instance should be up shortly.&lt;/p&gt;
+
+
+         </description>       
+    <category>Roller</category>
+    <guid isPermaLink="true">http://www.rollerweblogger.org/page/roller/20040429#jroller_down_until_after_soccer</guid>    
+        <comments>http://www.rollerweblogger.org/page/roller?anchor=jroller_down_until_after_soccer</comments>    
+        <pubDate>Thu, 29 Apr 2004 12:34:56 EDT</pubDate>    
+  </item>
+    <item>
+    <title>A couple links to help with Apache-JK2-Tomcat on Debian</title>  
+        <description>                             &lt;p /&gt;During my recent re-installfest, I searched high and low for JK2 documentation. I could not find any &quot;official&quot; documentation on building JK2 for Debian, but I was able to fumble my way through by following the steps in a Debian mailing list post titled &lt;a href=&quot;http://www.mail-archive.com/debian-java@lists.debian.org/msg03844.html&quot;&gt;mod_jk and mod_jk2&lt;/a&gt;. I tried using the latest version of JK2, which is 2.0.4, but I could not get it to compile. I ended up using version 2.0.2.  I&#39;m using Debian testing, by the way.&lt;/p&gt;
+
+&lt;p&gt;Once I had built JK2, I followed the &lt;a href=&quot;http://jakarta.apache.org/tomcat/tomcat-4.1-doc/jk2/index.html&quot;&gt;JK2 documentation&lt;/a&gt; on the Jakarta website. I was able to get JK2 working, but I kept getting intermittent HTTP 500 errors from the server. I started looking for alternative ways to configure JK2. I found some very helpful instructions at Greenfield Research titled &lt;a href=&quot;http://www.greenfieldresearch.ca/technical/jk2_config.html&quot;&gt;Tomcat-Apache using JK2 Connector&lt;/a&gt;. I followed those instructions and I haven&#39;t seen a 500 since.
+         </description>       
+    <category>Java</category>
+    <guid isPermaLink="true">http://www.rollerweblogger.org/page/roller/20040428#tomcat_apache_with_jk2</guid>    
+        <comments>http://www.rollerweblogger.org/page/roller?anchor=tomcat_apache_with_jk2</comments>    
+        <pubDate>Wed, 28 Apr 2004 22:01:41 EDT</pubDate>    
+  </item>
+    <item>
+    <title>Stupid irrestable urges.</title>  
+        <description>                             &lt;p /&gt;Why do I do it? Why do I have to re-install Linux every six months? Every time I do it, without fail, I find myself on my knees with my computer case open, swearing out load, and muttering &quot;why the hell did I do this.&quot;  I have the same problem with room re-arrangement. Every couple of months I find that I must, I simply must, rearrange some room in the house. I empty the bookcases, take everything off of every surface, and burn a day re-arranging and cleaning and putting everything back together again. Sometimes it works out for the best - I learn something cool about Linux or I find a better way to use the space in my house. Usually, it is just a waste of time.&lt;/p&gt;
+
+&lt;p&gt;My latest re-installfest was a classic example of this phenomenon. I had told myself and even mentioned to my wife that I wouldn&#39;t do it. I would resist the urge to install Gentoo Linux. I had too way to many things to do, but late one night in a moment of weak geekness I burned a Gentoo install CD and it was all downhill from there. It took me a week and a half to get back where I started: a Linux box with Apache hooked up to Tomcat via JK2, MySQL Roller, and Gallery. Along the way I installed Gentoo three times, took out memory modules then put them back in, moved my CD drive from one IDE controller to another, installed Debian unstable, unstalled Debian testing, and fought and won a bloody battle with JK2. I gained nothing! I think need a therapist.&lt;/p&gt;.
+         </description>       
+    <category>General</category>
+    <guid isPermaLink="true">http://www.rollerweblogger.org/page/roller/20040428#stupid_irrestable_urges</guid>    
+        <comments>http://www.rollerweblogger.org/page/roller?anchor=stupid_irrestable_urges</comments>    
+        <pubDate>Wed, 28 Apr 2004 18:40:27 EDT</pubDate>    
+  </item>
+    <item>
+    <title>Gentoo it is not.</title>  
+        <description>                             &lt;p&gt;Long story short: I ran into too many build failures during and after completion of my Gentoo Linux installation. I&#39;m not sure if I have hardware problems or if Gentoo&#39;s support for my Athlon XP CPU is flakey or what, but I&#39;m out of patience. I&#39;m switching over to Debian.&lt;/p&gt;
+         </description>       
+    <category>General</category>
+    <guid isPermaLink="true">http://www.rollerweblogger.org/page/roller/20040425#gentoo_it_is_not</guid>    
+        <comments>http://www.rollerweblogger.org/page/roller?anchor=gentoo_it_is_not</comments>    
+        <pubDate>Sun, 25 Apr 2004 09:53:00 EDT</pubDate>    
+  </item>
+    <item>
+    <title>Eclipse and Netbeans on MacOS</title>  
+        <description>                             &lt;p &gt;I&#39;m not exactly pleased with the open source Java IDE situation on MacOS. Eclipse 3.0 M8 works and connects to SourceForge CVS/SSH just fine, but it is slow, looks obnoxious, and it just crashed while I was editing a Java source file. I hope that, by the 3.0 release, Eclipse will be usable on MacOS.  Next, I tried Netbeans.&lt;/p&gt;
+
+&lt;p&gt;Netbeans 3.6 seems fast, fits in with the MacOS GUI, and even recognized the SourceForge CVS/SSH configuration that Eclipse left behind, but... when I attemped to login to CVS, Netbeans showed me a stack-trace. I decided to try using a real cvs client instead of Netbeans built-in implementation. I used Fink to download the cvs command-line client, configured it, and confirmed that it works with SourceForge CVS/SSH by doing an update on the Roller CVS. I configured Netbeans to use the command-line cvs client, but no luck.  Netbeans says &quot;Permission denied (publickey,password,keyboard-interactive).&quot; I have CVS_RSH set in my .bash_profile and in Netbeans CVS environment variables... is there some other trick?&lt;/p&gt;
+
+&lt;p&gt;Anybody had any luck connecting to SourceForge CVS/SSH with Netbeans on Mac OSX?&lt;/p&gt;
+
+         </description>       
+    <category>MacOS</category>
+    <guid isPermaLink="true">http://www.rollerweblogger.org/page/roller/20040424#netbeans_3_6_on_macosx</guid>    
+        <comments>http://www.rollerweblogger.org/page/roller?anchor=netbeans_3_6_on_macosx</comments>    
+        <pubDate>Sat, 24 Apr 2004 13:28:38 EDT</pubDate>    
+  </item>
+    <item>
+    <title>PowerBook first impressions.</title>  
+        <description>                             &lt;p&gt;I picked up my new PowerBook on Wednesday. I bought one of the new 15&quot; models with 1.5Ghz processor, 1.25GB RAM, and Apple Care. Apple provides a great out-of-box experience - everything is attractive, even the packaging, and well designed and everything just works - right off the bat. I was happy to find lots of cool software pre-installed, including, to my surprise, both vim and JDK 1.4.2. The system comes loaded up with cool Apple software including iPhoto, iDVD, iMovie, and GarageBand as well as 3rd party programs like the OmniWriter outliner and the Visio-like Omni Graffle diagrammer. Within an hour I had established a WIFI connection, mounted shared folders from my Windows box, and ssh&#39;ed into my Gentoo Linux server. Very cool! I&#39;m gushing now. Sorry about that. I haven&#39;t bought an off-the-shelf computer in about ten years and I&#39;ve never bought a laptop.  Normally, I build my own machines from el cheapo components, crappy cases, and noisy fans.  This is a very different experience than that.&lt;/p&gt;
+
+&lt;p&gt;After getting comfortable with the UI and some of the pre-installed software, I started to download some of the same software that I use on Windows: Firefox 0.8, Thunderbird 0.3, Eclipse 3.0M8, Microsoft&#39;s Remote Desktop client, and Palm Desktop. I spent a short time with each of these applications; here are some nutshell reviews. Firefox seems functional, but I prefer the built-in browser Safari.  Thunderbird also seems to work, but I could not figure out how to import my existing Thunderbird mail files from my Windows-box, so I guess I&#39;m stuck with the built-in Mail.App. Eclipse 3.0 works, but the new M8 look-and-feel looks especially crummy on Mac OSX. Remove Desktop works well. Palm Desktop works well, but I only downloaded it so that I can get the Conduit Manager necessary to iSync my PalmOS-based PDA.  Perhaps I need to try using IDEA instead of Eclipse and Microsoft Office/Entourage instead of Mail.App, but I&#39;m not in the mood to spend more money right now. Plus, I missed the $249 IDEA sale by one day.&lt;/p&gt;  
+
+&lt;p&gt;Last night, I tried some of the multi-media software. I plugged my digital camera into the USB port and iPhoto popped up. It imported my photos and I tried doing some rotations, cropping, and enhancements. It seems to provide more than adequate thumbnailing and photo management/organization features. I hooked up my digital camcorder and imported some video footage with iMovie but I haven&#39;t tried to compose a video yet or burn a DVD. iPhoto is no Photoshop and iMovie seems pretty rudimentary, but I didn&#39;t have to set any preferences or install any drivers to get my camera and camcoder hooked up. That has not been my experience with my home-built Windows and Linux machines.&lt;/p&gt;
+
+&lt;p&gt;That&#39;s all for now. I&#39;ll be blogging my Mac experiences as I go and I&#39;ve sarted a new category just for that: /Main/General/MacOS.&lt;/p&gt;
+         </description>       
+    <category>MacOS</category>
+    <guid isPermaLink="true">http://www.rollerweblogger.org/page/roller/20040423#powerbook_first_impressions</guid>    
+        <comments>http://www.rollerweblogger.org/page/roller?anchor=powerbook_first_impressions</comments>    
+        <pubDate>Fri, 23 Apr 2004 21:38:36 EDT</pubDate>    
+  </item>
+  </channel>
+</rss>

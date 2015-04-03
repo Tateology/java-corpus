@@ -1,0 +1,26 @@
+$Id: tags.txt 831 2007-01-06 22:52:57Z niko_schmuck $
+
+Date          Tagname
+
+06-Jan-2007   release_0_7_0_alpha2
+05-Jan-2007   release_0_7_0_alpha1
+30-Sep-2005   release_0_6_5         (on branch-0_6_5)
+19-Sep-2005   branch-0_6_5
+18-Oct-2004   release_0_6_0
+29-Jun-2004   release_0_5_5
+30-Jan-2004   release_0_5_0
+09-Nov-2003   release_0_4_5
+29-Sep-2003   release_0_4_0
+28-Jul-2003   release_0_3_0
+06-Apr-2003   release_0_2_6
+20-Jan-2003   release_0_2_4
+20-Oct-2002   release_0_2_2
+21-Aug-2002   release_0_2_1
+05-Aug-2002   release_0_2_0
+
+
+Command for tagging CVS repository:
+
+cd $INFORMA_HOME/..
+cvs -d niko_schmuck@informa.cvs.sourceforge.net:/cvsroot/informa tag -c <tagname> informa
+

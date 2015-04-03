@@ -1,0 +1,171 @@
+========================================================================
+Development issue list for the Informa library project
+$Id: TODO.txt 788 2006-01-03 00:30:39Z niko_schmuck $
+========================================================================
+
+
+WHAT REMAINS FOR NEXT RELEASES:
+
+
+o integrate patches from Brian King
+  - compare each implementation file, for example:
+  - check mapping of Item <-> ItemSource Relationsship
+  - merge also ChannelBuilder
+  
+  Finally check:
+  * consistent equals() and hashCode() methods
+  * all mapping of link attributes as strings
+  
+
+o integrate exporter refactoring from Peter Darton
+  - patches/peter
+
+o try to use hibernate-unittest.properties for TestHibernatePersistenceManager
+
+
+
+===========================
+
+
+
+o switch from jdom to dom4j for XML parsing
+
+o integrate FeedManager with OPML parsing
+
+o proceed with ChannelBuilder restructurement:
+
+  builder = "fqcn".newInstance();
+  builder.init();
+  ...
+  builder.close();
+
+o evaluate further convergence between ChannelRegistry and ChannelBuilderIF
+
+o integrate hypersonic SQL as test (default?) data storage for the 
+  hibernate backend
+
+o split user metadata out of core interface usages, that is:
+  ChannelIF
+  - getSubscription
+  - setSubscription
+  ItemIF
+  - getMetadata
+  - setMetadata
+
+o ChannelGroupIF add composite pattern, so that groups may have
+  zero or more ChannelGroupIF objects as children
+
+o check that new Channel/Item categories assignment works with castor
+  JDO write some test cases for this, check also im-/exporters
+
+o fix long transaction problem
+  implement org.exolab.castor.jdo.TimeStampable interface:
+  - long jdoGetTimeStamp()
+  - void jdoSetTimeStamp(long timeStamp)
+  to allow Castor dirty-checking
+
+o improve minigui.py for easier restarting from existant
+  channel structure / data
+
+o how can minigui use castor JDO implementation ?
+
+o think more about extracting IdGenerator from concrete
+  object instantiation, put it into ChannelBuilder for example
+
+o what to do about HTML markup inside item title/description fields
+  - generally
+  - when indexing (extracting first the content (?))
+  - rigurous strip-off markup ??
+
+o if dc:date available than make use of it, instead of using the
+  default found behaviour.  ---> for better support of <dc:date> (of
+  indivdual item) it could make sense to move found date into
+  ItemSubscription and have a (second) date field (just "date") instead
+
+o test/jdo/marshal.py: 
+  - investigate how to best marshal a group of channels, since query: 
+    SELECT g FROM de.nava.informa.impl.jdo.ChannelGroup g
+    results in <group id="1"/><group id="2"/>...
+  - when marshalling channel-by-channel is it really necessary to
+    have one enclosing root element, how would this be produced?
+
+o support RSS 0.92 fully (fix then fake behaviour of FormatDetector)
+
+o add some more test cases
+  (especially test castor JDO un-/marshalling)
+
+o improve how channels are retrieved (HttpClient library from jakarta)
+  for better socket timeouts and client behaviour (for example
+  setting request header to something different than "Java/1.4.1_02")
+  http://jakarta.apache.org/commons/httpclient/ 
+
+
+--- documentation / web-site ---
+
+o describe setting-up and usage of hibernate backend
+
+o add FAQ about:
+  - how to export to a stream (wrapping a stream into a writer object)
+  - sorting items
+
+o clean up docs directory 
+  - remove NOTES.txt ?
+  - integrate resources.txt into rss-feeds.txt
+
+o finish class diagram of the core interfaces for easier
+  explanation (use Poseidon UML to generate diagrams?)
+
+o castor JDO mapping should be documented and made available also on
+  the web-site
+
+o short example using castor JDO would be nice
+
+o short example about how to incoporate full-text search with Lucene
+  would be also nice
+
+
+------------------------------------------------------------------------
+
+ISSUES TO BE ADDRESSED BY FOLLOWING RELEASES:
+
+o write ItemCleaner, which would remove all items which are older
+  than a certain date
+
+o add convenience method to ActionRegistry for updating one channel
+  without repetition (also updating all channels at once)
+
+o make the observing of multiple channels more elegant, instead of
+  adding an observer to each channel ???
+
+o improve fault tolerance, do not throw RuntimeException if not really
+  necessary (for example, in the case a stream can not be found, just log
+  warn message and try next time)
+
+o more test cases:
+  - add parser test for partly empty TextInput and Image elements
+  - equals test for Channel and Item
+  - may be some JDO load tests (very interesting to watch it scaling)
+
+o may be have a utils.XMLPersistenceManager (using Castor XML) and
+  a dedicated mapping.xml (writeRegistry, readRegistry)
+
+o common super class for similar ChannelParsers (using JDOM) ???
+  (not sure this makes really sense)
+
+o check if subject (member of Item) should be rather a collection
+  of SubjectIF objects instead of string (figure out more about
+  how and where subject is used) to improve support for RSS 1.0
+
+o more thinking about FeedIF: similar members needed like in ChannelIF?
+  format, subscription (?)
+
+o OCS integration: writer parser and generate channel structure
+
+o OPML integration (nested outlines containing links) used by UserLand
+
+
+========================================================================
+
+Please use CHANGELOG.txt to note the changes you made.
+
+========================================================================

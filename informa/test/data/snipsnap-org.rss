@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- name="generator" content="SnipSnap/0.2.7a -->
+<rss version="2.0"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+    xmlns:admin="http://webns.net/mvcb/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/">
+
+  <channel>
+    <title>SnipSnap</title>
+    
+    <link>http://snipsnap.org/space/start</link>
+    <description>The easy Weblog and Wiki Software.</description>
+    <dc:date>2002-07-12</dc:date>
+<dc:creator>leo</dc:creator>
+<dc:type>Text</dc:type>
+<dc:identifier>http://snipsnap.org/space/start</dc:identifier>
+<dc:language>en</dc:language>
+<dc:title>start</dc:title>
+<dc:copyright>Copyright 2002</dc:copyright>
+
+    <admin:generatorAgent rdf:resource="http://www.snipsnap.org/space/version-0.2.7a"/>
+
+    
+       <item>
+        <title>2002-10-16 Fixed a bug in DV. SnipSnap now uses &amp;#x ...</title>
+        <link>http://snipsnap.org/space/2002-10-16</link>
+        <description>Fixed a bug in DV. SnipSnap now uses &lt;dc:title&gt; in RSS and DC.Title in HTML.
+Started to rewrite the Macro Interface to
+ use Writer instead of StringBuffer
+ use a Map instead of an Array to make &lt;image:b.gif|align=left|caption=boing&gt;
+</description>
+        <guid isPermaLink="true">http://snipsnap.org/space/2002-10-16</guid>
+        <dc:date>2002-10-16</dc:date>
+<dc:creator>funzel</dc:creator>
+<dc:type>Text</dc:type>
+<dc:identifier>http://snipsnap.org/space/2002-10-16</dc:identifier>
+<dc:language>en</dc:language>
+<dc:title>2002-10-16</dc:title>
+<dc:copyright>Copyright 2002</dc:copyright>
+
+      </item>
+    
+       <item>
+        <title>2002-10-14 Near time roadmap:
+ Complete features c ...</title>
+        <link>http://snipsnap.org/space/2002-10-14</link>
+        <description>Near time roadmap:
+ Complete features currently in the work
+ Even more extensive bug fixes
+
+Then:
+ Plugin architecture
+ More :-) documentation
+ Feature freeze for beta 
+</description>
+        <guid isPermaLink="true">http://snipsnap.org/space/2002-10-14</guid>
+        <dc:date>2002-10-14</dc:date>
+<dc:creator>funzel</dc:creator>
+<dc:type>Text</dc:type>
+<dc:identifier>http://snipsnap.org/space/2002-10-14</dc:identifier>
+<dc:language>en</dc:language>
+<dc:title>2002-10-14</dc:title>
+<dc:copyright>Copyright 2002</dc:copyright>
+
+      </item>
+    
+       <item>
+        <title>2002-10-10 New release version-0.2.7a.
+Changes:
+  ...</title>
+        <link>http://snipsnap.org/space/2002-10-10</link>
+        <description>New release version-0.2.7a.
+Changes:
+ Added feature: a installed blog pings to SnipSnap.org and is featured on SnipSnap.org
+ Added feature: ping blog.gs with extendedPing
+ Added feature: weblogs.ping is now asynchron, so posting is faster with the ping on
+ Fixed bug: weblogs.ping now works and is default on (can be turned of in the configuration)
+ Added feature: Detect search engine bots (Googlebot, Fast Webcrawler)
+ Switched to RSS 2.0 by default
+ Added feature: 0.2.7a macro displays SnipSnap version.
+ Added feature: Added description to RSS, remove HTML from snip content
+ Fixed bug: AdminServer did not receive shutdown command
+ Fixed bug: application dirs must not contain space (replaced by _ now)
+ Fixed smaller bugs
+
+You can find it at snipsnap-download</description>
+        <guid isPermaLink="true">http://snipsnap.org/space/2002-10-10</guid>
+        <dc:date>2002-10-10</dc:date>
+<dc:creator>funzel</dc:creator>
+<dc:type>Text</dc:type>
+<dc:identifier>http://snipsnap.org/space/2002-10-10</dc:identifier>
+<dc:language>en</dc:language>
+<dc:title>2002-10-10</dc:title>
+<dc:copyright>Copyright 2002</dc:copyright>
+
+      </item>
+    
+       <item>
+        <title>2002-10-09 Take a look at the lower right side of t ...</title>
+        <link>http://snipsnap.org/space/2002-10-09</link>
+        <description>Take a look at the lower right side of the page. Changed snips that ping weblogs.com or another site will also appear on this site.</description>
+        <guid isPermaLink="true">http://snipsnap.org/space/2002-10-09</guid>
+        <dc:date>2002-10-09</dc:date>
+<dc:creator>leo</dc:creator>
+<dc:type>Text</dc:type>
+<dc:identifier>http://snipsnap.org/space/2002-10-09</dc:identifier>
+<dc:language>en</dc:language>
+<dc:title>2002-10-09</dc:title>
+<dc:copyright>Copyright 2002</dc:copyright>
+
+      </item>
+    
+       <item>
+        <title>2002-10-08 Added weblogs ping configuration to conf ...</title>
+        <link>http://snipsnap.org/space/2002-10-08</link>
+        <description>Added weblogs ping configuration to config file in DV.</description>
+        <guid isPermaLink="true">http://snipsnap.org/space/2002-10-08</guid>
+        <dc:date>2002-10-08</dc:date>
+<dc:creator>funzel</dc:creator>
+<dc:type>Text</dc:type>
+<dc:identifier>http://snipsnap.org/space/2002-10-08</dc:identifier>
+<dc:language>en</dc:language>
+<dc:title>2002-10-08</dc:title>
+<dc:copyright>Copyright 2002</dc:copyright>
+
+      </item>
+    
+       <item>
+        <title>2002-10-07 Fixed some xhtml bugs in RDF and Dublin  ...</title>
+        <link>http://snipsnap.org/space/2002-10-07</link>
+        <description>Fixed some xhtml bugs in RDF and Dublin Core.
+Validated our RSS 2.0 feed at http://aggregator.userland.com/validator
+</description>
+        <guid isPermaLink="true">http://snipsnap.org/space/2002-10-07</guid>
+        <dc:date>2002-10-07</dc:date>
+<dc:creator>funzel</dc:creator>
+<dc:type>Text</dc:type>
+<dc:identifier>http://snipsnap.org/space/2002-10-07</dc:identifier>
+<dc:language>en</dc:language>
+<dc:title>2002-10-07</dc:title>
+<dc:copyright>Copyright 2002</dc:copyright>
+
+      </item>
+    
+       <item>
+        <title>2002-10-04 We are sorry for the last 12hour downtim ...</title>
+        <link>http://snipsnap.org/space/2002-10-04</link>
+        <description>We are sorry for the last 12hour downtime. There was an internal router crash.</description>
+        <guid isPermaLink="true">http://snipsnap.org/space/2002-10-04</guid>
+        <dc:date>2002-10-04</dc:date>
+<dc:creator>leo</dc:creator>
+<dc:type>Text</dc:type>
+<dc:identifier>http://snipsnap.org/space/2002-10-04</dc:identifier>
+<dc:language>en</dc:language>
+<dc:title>2002-10-04</dc:title>
+<dc:copyright>Copyright 2002</dc:copyright>
+
+      </item>
+    
+       <item>
+        <title>2002-10-02 Because the real version name is 0.2.6-a ...</title>
+        <link>http://snipsnap.org/space/2002-10-02</link>
+        <description>Because the real version name is 0.2.6-alpha (in the config) and it's easier to link to this from other wikis and from RSS (RDF), I added a version-0.2.6-alpha snip. This will be the snip name format for versions in the future.
+Most reported bugs from version-0.2.6 are fixed and new files are uploaded.
+Just updated out local copy of the source/binary files to include command line load, stop and reload of applications.
+Sorry for the repeated restarts ...</description>
+        <guid isPermaLink="true">http://snipsnap.org/space/2002-10-02</guid>
+        <dc:date>2002-10-02</dc:date>
+<dc:creator>funzel</dc:creator>
+<dc:type>Text</dc:type>
+<dc:identifier>http://snipsnap.org/space/2002-10-02</dc:identifier>
+<dc:language>en</dc:language>
+<dc:title>2002-10-02</dc:title>
+<dc:copyright>Copyright 2002</dc:copyright>
+
+      </item>
+    
+       <item>
+        <title>2002-10-01 If you have comments about SnipSnap that ...</title>
+        <link>http://snipsnap.org/space/2002-10-01</link>
+        <description>If you have comments about SnipSnap that we can use, contact us.
+
+There is a new SnipSnap version-0.2.6. There are no database changes sind 0.2.5 so no DB update necessary. For download see snipsnap-download.
+ Added feature: Dublin Core support
+ Added feature: Broader search: searching for tree will no also find treehouse
+ Added feature: Snip names are case insensitive
+ Added feature: Jabber notification for new snips and User logins
+ Added feature: &#x7b;since-last-visit:funzel&#x7d; to show all changed snips since last visit for funzel
+ Added feature: &#x2d;&#x2d;strike&#x2d;&#x2d; for strike through text
+ Added feature: &#x7b;quote&#x7d;this is a quote&#x7b;quote&#x7d;
+ Fixed bug: # in external links didn't work, &#x3c;ul&#x3e;&#x3c;ul&#x3e; was rendered in weblogs, double images in external links in weblog
+ Added feature: Changed snips since last visit
+ Added feature: RSS Autodiscovery, RSS
+ Added feature: &#x7b;image:&#x68;ttp://boing.org/boing.gif&#x7d; for external images
+ Added feature: create snip at search, when snip does not exist
+ Added feature: XML-RPC Blogger API newPost()
+ Added feature: automatic re-login via cookie
+ Added feature: configurable list formatter, made &#x7b;index:AtoZ&#x7d; for A to Z listing
+ 
+
+ JabberNotifications work now.
+ SnipNamesShouldNotBeCaseSensitive works now.
+
+Because SnipSnap uses Lucence as it's search engine, you can use OR, AND, NOT, grouping with (), ? for single character wildcards, * for multi character wildcards (not at the beginning) and &#x7e; which will find similar words, e.g roam&#x7e; will find foam too. "SnipSnap great"&#x7e;10 will find all Snips where SnipSnap is within 10 words of great. "Funzel^4 stupid" will boost the term funzel over the term stupid.
+http://jakarta.apache.org/lucene/docs/queryparsersyntax.html
+</description>
+        <guid isPermaLink="true">http://snipsnap.org/space/2002-10-01</guid>
+        <dc:date>2002-10-01</dc:date>
+<dc:creator>funzel</dc:creator>
+<dc:type>Text</dc:type>
+<dc:identifier>http://snipsnap.org/space/2002-10-01</dc:identifier>
+<dc:language>en</dc:language>
+<dc:title>2002-10-01</dc:title>
+<dc:copyright>Copyright 2002</dc:copyright>
+
+      </item>
+    
+       <item>
+        <title>2002-09-30 Started work on JabberNotifications this ...</title>
+        <link>http://snipsnap.org/space/2002-09-30</link>
+        <description>Started work on JabberNotifications this morning. This will be a first plugin and not part of the SnipSnap base distribution because of the size of the third party libraries.
+olli wrote a HOWTO for writing macros in SnipSnap, Macro-HOWTO and a second example, thanks.</description>
+        <guid isPermaLink="true">http://snipsnap.org/space/2002-09-30</guid>
+        <dc:date>2002-09-30</dc:date>
+<dc:creator>funzel</dc:creator>
+<dc:type>Text</dc:type>
+<dc:identifier>http://snipsnap.org/space/2002-09-30</dc:identifier>
+<dc:language>en</dc:language>
+<dc:title>2002-09-30</dc:title>
+<dc:copyright>Copyright 2002</dc:copyright>
+
+      </item>
+    
+  </channel>
+</rss>

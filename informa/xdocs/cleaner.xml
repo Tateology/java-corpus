@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<document>
+
+  <meta revision="$Id: cleaner.xml 736 2004-11-25 11:57:48Z spyromus $"/>
+  <properties>
+    <author email="spyromus@users.sourceforge.net">Aleksey Gureev</author>
+    <title>Cleaner</title>
+  </properties>
+
+  <body>
+
+    <section name="General">
+
+      <p>The goal of Cleaner module is very trivial -- to provide convenient multi-threaded
+      cleanup for your channels collection.</p>
+
+      <p>Cleaner is very similar to Poller in some manner. It uses Observers to fire events
+      notifications, but instead of Approvers it uses Matchers to make a decisions.</p>
+
+      <p>In order to make use of Cleaner you create it, add Observers and Matchers you need and
+      start to register channels. In the following sections we will walk through all these steps.
+      </p>
+    </section>
+
+    <section name="Module structure">
+
+      <p>Module is located at the package <b>de.nava.informa.utils.cleaner</b>.</p>
+
+      <ul>
+
+        <li><i>Cleaner</i> - the main class and central access point to all of Cleaner services.
+        </li>
+
+        <li><i>CleanerMatcherIF</i> - interface for Matcher implementations.</li>
+
+        <li><i>PollerObserverIF</i> - interface for Observer implementations.</li>
+
+      </ul>
+
+      <p>In addition there is additional convenience class provided for transferring changes into
+      Informa persistent storage. <i>PersistenceObserver</i> listens to all events coming from
+      Cleaner and performs consequent changes to underlying storage using manager specified on
+      construction. Note that if you plan to use it instances of channels Cleaner will be dealing
+      with should be produced by Persistence Manager. Otherwise they will not be understood by it
+      and you can get confusing results.</p>
+
+    </section>
+
+    <section name="Working with Cleaner">
+
+      <section name="Initialization">
+
+        <p>There&apos;s special rules you need to know to initialize your Cleaner copy.
+        Here&apos;s the code for that:</p>
+
+        <source>Cleaner cleaner = new Cleaner();</source>
+
+        <p>Default period of cleans is set to one hour. You can change it and we will show a bit
+        later how.</p>
+
+        <p>Cleaner is capable of doing its work in multiple threads. Doing so it dramatically
+        increases performance. Default value of number of working threads is
+        determined by underlying scheduler. At the moment of this writing the default is set to
+	<i>5</i> threads, but it may change, though it&apos;s not likely to. In most cases you
+	do not need to deal with such a details, but if you really need full control over that you
+	can specify number of working threads on creation or change it at run-time.</p>
+
+<source>
+// Here we create a single-threaded Cleaner
+Cleaner cleaner = new Cleaner(1);
+
+// Here we change number of threads to 3
+cleaner.setWorkerThreads(3);</source>
+
+        <p>You should note that change from bigger number of threads down to smaller can take some
+        time. It&apos;s not time of the method call itself, but a time of transition. It works
+        this way because the threads requiring to be removed can be busy with processing at the
+        time of change and engine will wait for completion before killing them.</p>
+
+      </section>
+
+      <section name="Observers">
+
+        <p>Observers receive notifications on interesting events:</p>
+
+        <ul>
+          <li>start of cleaning;</li>
+          <li>finish of cleaning;</li>
+          <li>finding of unwanted items.</li>
+        </ul>
+
+        <p>Another note is that Cleaner is not removing items from the channels for itself. One of
+        your observers should take care of it.</p>
+
+        <p>Once you have instance of Cleaner you need to register at least one observer to make it
+        useful. Here&apos;s the piece of code:</p>
+
+<source>
+Cleaner cleaner = new Cleaner();
+
+// Create and register observer
+CleanerObserverIF observer = new MyObserver();
+cleaner.addObserver(observer);</source>
+
+        <p>You may need to remove some observer from the list and you can do it this way:</p>
+
+        <source>cleaner.removeObserver(observer);</source>
+
+      </section>
+
+      <section name="Matchers">
+
+        <p>Matchers act as decision-makers. During cleaning each item present in the channel passed
+        to registered Matchers for review. It&apos;s enough to have even <i>single</i> vote to
+        decide that item is unwanted and fire necessary event to Observers.</p>
+
+        <p>Adding and removing of matchers is also simple:</p>
+
+<source>
+// Adding new matcher
+CleanerMatcherIF matcher = new MyMatcher();
+cleaner.addApprover(matcher);
+
+// Removing approver
+cleaner.removeMatcher(matcher);</source>
+
+      </section>
+
+      <section name="Registering and unregistering channels">
+
+        <p>The next step after you have created Cleaner instance and set all necessary observers
+        and matchers is to register some channels. When you register channel Cleaner contacts
+        underlying scheduler to create plan of cleans for the channel. The first checking of
+	the channel will start right after that.</p>
+
+<source>
+// Register channel with default cleaning period
+cleaner.registerChannel(channel);</source>
+
+        <p>By default, Cleaner uses its global period setting (which is equal to one hour) to
+        initialize channel and build the cleans plan with scheduler, but you may wish to specify
+        your own period for each particular channel.</p>
+
+<source>
+// Register channel with cleaning period set to 10 minutes
+cleaner.registerChannel(channel, 10 * 60 * 1000);</source>
+
+        <p>Unregistering of the channel is very straightforward:</p>
+
+<source>
+// Unregister channel
+cleaner.unregisterChannel(channel);</source>
+
+        <p>The call of this method guaraties that channel will never be processed again before it is
+        added back. However, if channel was under processing when unregistering was requested the
+        processing of channel will not be stopped for integrity reasons. It should pass full
+        processing cycle in any case.</p>
+
+      </section>
+
+      <section name="Cleaning channel immediately">
+
+        <p>At any time user or your application may decide to clean the channel out of normal
+        clean plan. For this particular case there&apos;s a method which instructs scheduler to
+        fire clean event immediately and rebuild entire plan of cleans for this channel taking
+	      current moment in time as starting point. Here is the code:</p>
+
+<source>
+// Trigger immediate cleaning and rebuild updates plan
+cleaner.cleanChannel(channel);</source>
+
+      </section>
+
+      <section name="Changing global cleaning period setting">
+
+        <p>By now you already know that Cleaner has its own global cleans period setting.
+        It applies the setting to all new registrations having no custom period defined. It might
+        be necessary to your application to change this setting to fit better its needs. Changing
+        can happen at any time and guaranties intellectual behavior.</p>
+
+        <p>The change will reflect in rescheduling of all currently registered channels.
+        Rescheduling doesn&apos;t simply resets all of the plans (if it did this way we could end up
+        with immediate cleaning of all registered channels and this is definitely not what we want),
+        but evaluates if time to clean each of the channels has come (channels are older than age
+        specified by new period). If so then the cleaning event will be fired. In any case the
+        plan of channels will be updated with new period setting in mind. Intelligence of this
+        sort ensures that Poller will not overload CPU with massive processing.</p>
+
+        <p>Here&apos;s the code:</p>
+
+<source>
+// Set global cleans period to 5 minutes.
+cleaner.setPeriod(5 * 60 * 1000);</source>
+
+      </section>
+
+    </section>
+
+    <section name="Things to note">
+
+      <ul>
+
+        <li>You should carefully choose settings for periods. Too often updates may bring overload
+        to CPU.</li>
+
+        <li>You should remember that if you have several Matchers <i>single positive</i> vote is
+        enough to fire event about that unwanted item found.</li>
+
+	      <li>Cleaner is supposed to be thread-safe. You can count on it.</li>
+
+      </ul>
+
+    </section>
+
+  </body>
+
+</document>

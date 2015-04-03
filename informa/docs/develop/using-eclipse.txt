@@ -1,0 +1,33 @@
+Description on how to use Ant from Eclipse for the Informa Project
+
+Using Eclipse 3.0M8
+
+External Tools
+-> Ant Build
+   -> Entry for build.xml
+   
+      * Main:
+        - Buildfile: ${workspace_loc:/informa/build.xml}
+	- Base Directory: ${workspace_loc:/informa}
+	- Arguments: empty
+	- Capture output: enabled
+      * Refresh (default)
+      * Targets (default)
+      * Classpath:
+        - ANT_HOME: /usr/local/java/ant-1.6.1
+	  (make sure junit.jar is available therein)
+      * Properties:
+        - Use global properties as specified in the Ant runtime pref
+        - eclipse.home=(path to your eclipse)
+	- eclipse.running=true
+      * JRE:
+        - Alternate JRE: j2sdk1.4.1_02
+	- VM arguments: empty
+	- Working directory: Use default working directory
+	- Java executable: Default
+      * Environemnt (default)
+      * Common:
+        - Type of launch configuration: local
+	- Launch in background: enabled
+	
+      

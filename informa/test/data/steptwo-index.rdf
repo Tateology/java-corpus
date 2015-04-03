@@ -1,0 +1,188 @@
+<?xml version="1.0"?>
+
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:admin="http://webns.net/mvcb/" xmlns="http://purl.org/rss/1.0/">
+
+<channel rdf:about="http://www.steptwo.com.au/columntwo/">
+<title>Column Two</title>
+<link>http://www.steptwo.com.au/columntwo/</link>
+<description>News and opinion on all things KM &amp; CM</description>
+<language>en-us</language>
+<webMaster></webMaster>
+<lastBuildDate>2002-07-18T15:45:45+10:00</lastBuildDate>
+<pubDate>2002-07-18T23:33:01+10:00</pubDate>
+<admin:generatorAgent rdf:resource="MovableType/2.11" />
+
+<items>
+<rdf:Seq>
+<rdf:li rdf:resource="http://www.steptwo.com.au/columntwo/archives/000098.html" />
+
+<rdf:li rdf:resource="http://www.steptwo.com.au/columntwo/archives/000097.html" />
+
+<rdf:li rdf:resource="http://www.steptwo.com.au/columntwo/archives/000096.html" />
+
+<rdf:li rdf:resource="http://www.steptwo.com.au/columntwo/archives/000095.html" />
+
+<rdf:li rdf:resource="http://www.steptwo.com.au/columntwo/archives/000094.html" />
+
+<rdf:li rdf:resource="http://www.steptwo.com.au/columntwo/archives/000093.html" />
+
+<rdf:li rdf:resource="http://www.steptwo.com.au/columntwo/archives/000092.html" />
+
+<rdf:li rdf:resource="http://www.steptwo.com.au/columntwo/archives/000091.html" />
+
+<rdf:li rdf:resource="http://www.steptwo.com.au/columntwo/archives/000090.html" />
+
+<rdf:li rdf:resource="http://www.steptwo.com.au/columntwo/archives/000089.html" />
+
+<rdf:li rdf:resource="http://www.steptwo.com.au/columntwo/archives/000088.html" />
+
+<rdf:li rdf:resource="http://www.steptwo.com.au/columntwo/archives/000087.html" />
+
+<rdf:li rdf:resource="http://www.steptwo.com.au/columntwo/archives/000086.html" />
+
+<rdf:li rdf:resource="http://www.steptwo.com.au/columntwo/archives/000085.html" />
+
+<rdf:li rdf:resource="http://www.steptwo.com.au/columntwo/archives/000084.html" />
+</rdf:Seq>
+</items>
+
+</channel>
+
+
+<item rdf:about="http://www.steptwo.com.au/columntwo/archives/000098.html">
+<title>Authoring options</title>
+<description>Following on from my work with the government department yesterday, I've just sent through my summary of the day, and</description>
+<link>http://www.steptwo.com.au/columntwo/archives/000098.html</link>
+<dc:subject>content management</dc:subject>
+<dc:creator>jamesr</dc:creator>
+<dc:date>2002-07-18T15:45:45+10:00</dc:date>
+</item>
+
+<item rdf:about="http://www.steptwo.com.au/columntwo/archives/000097.html">
+<title>Ontologies</title>
+<description>Deborah L. McGuinness has written a very thorough article on ontologies, in relation to building the current, and next, generation</description>
+<link>http://www.steptwo.com.au/columntwo/archives/000097.html</link>
+<dc:subject>knowledge management</dc:subject>
+<dc:creator>jamesr</dc:creator>
+<dc:date>2002-07-18T15:30:20+10:00</dc:date>
+</item>
+
+<item rdf:about="http://www.steptwo.com.au/columntwo/archives/000096.html">
+<title>Simple HTML prototyping</title>
+<description>I've stumbled across a lovely little paper which outlines Using HTML for Early UI Prototyping. This consists of five distinct</description>
+<link>http://www.steptwo.com.au/columntwo/archives/000096.html</link>
+<dc:subject>usability &amp; user-centered design</dc:subject>
+<dc:creator>jamesr</dc:creator>
+<dc:date>2002-07-18T15:20:42+10:00</dc:date>
+</item>
+
+<item rdf:about="http://www.steptwo.com.au/columntwo/archives/000095.html">
+<title>Indexing websites</title>
+<description>Fred Leise has written an article titled Improving Usability with a Website Index. It walks through what an online index</description>
+<link>http://www.steptwo.com.au/columntwo/archives/000095.html</link>
+<dc:subject>usability &amp; user-centered design</dc:subject>
+<dc:creator>jamesr</dc:creator>
+<dc:date>2002-07-18T12:35:54+10:00</dc:date>
+</item>
+
+<item rdf:about="http://www.steptwo.com.au/columntwo/archives/000094.html">
+<title>Walking before running</title>
+<description>I've just spent the day in Canberra, doing some consultancy work for one of the government departments. With the plane</description>
+<link>http://www.steptwo.com.au/columntwo/archives/000094.html</link>
+<dc:subject>content management</dc:subject>
+<dc:creator>jamesr</dc:creator>
+<dc:date>2002-07-17T21:20:18+10:00</dc:date>
+</item>
+
+<item rdf:about="http://www.steptwo.com.au/columntwo/archives/000093.html">
+<title>Technology Confined Collaboration?</title>
+<description>Michael Helfrich writes that many IT collaboration systems are confining the natural human collaborative process. I guess the answer is</description>
+<link>http://www.steptwo.com.au/columntwo/archives/000093.html</link>
+<dc:subject>knowledge management</dc:subject>
+<dc:creator>jamesr</dc:creator>
+<dc:date>2002-07-16T11:31:10+10:00</dc:date>
+</item>
+
+<item rdf:about="http://www.steptwo.com.au/columntwo/archives/000092.html">
+<title>About the users</title>
+<description>Donna Maurer has posted her experiences in conducting user research. Her top two &quot;rediscoveries&quot;: People don't like using the Internet</description>
+<link>http://www.steptwo.com.au/columntwo/archives/000092.html</link>
+<dc:subject>usability &amp; user-centered design</dc:subject>
+<dc:creator>jamesr</dc:creator>
+<dc:date>2002-07-16T11:12:10+10:00</dc:date>
+</item>
+
+<item rdf:about="http://www.steptwo.com.au/columntwo/archives/000091.html">
+<title>More metrics in call centres</title>
+<description>By lucky coincidence, Joel Spolsky is also talking about metrics in call centres. He gives the examples of Amazon and</description>
+<link>http://www.steptwo.com.au/columntwo/archives/000091.html</link>
+<dc:subject>knowledge management</dc:subject>
+<dc:creator>jamesr</dc:creator>
+<dc:date>2002-07-16T10:48:08+10:00</dc:date>
+</item>
+
+<item rdf:about="http://www.steptwo.com.au/columntwo/archives/000090.html">
+<title>The TAO of Topic Maps</title>
+<description>Steve Pepper has written a succinct introduction to topic maps, titled The TAO of Topic Maps. To quote Steve: Topic</description>
+<link>http://www.steptwo.com.au/columntwo/archives/000090.html</link>
+<dc:subject>knowledge management</dc:subject>
+<dc:creator>jamesr</dc:creator>
+<dc:date>2002-07-15T17:22:00+10:00</dc:date>
+</item>
+
+<item rdf:about="http://www.steptwo.com.au/columntwo/archives/000089.html">
+<title>Tog on call centers</title>
+<description>Bruce Tognazzini (aka &quot;Tog&quot;) has written an excellent piece about How Call Centers can Make or Break Companies. This talks</description>
+<link>http://www.steptwo.com.au/columntwo/archives/000089.html</link>
+<dc:subject>knowledge management</dc:subject>
+<dc:creator>jamesr</dc:creator>
+<dc:date>2002-07-15T15:26:04+10:00</dc:date>
+</item>
+
+<item rdf:about="http://www.steptwo.com.au/columntwo/archives/000088.html">
+<title>Creating reusable content</title>
+<description>Michael Feldstein highlights that writing reusable information (content that can be written once, and used in multiple contexts) is not</description>
+<link>http://www.steptwo.com.au/columntwo/archives/000088.html</link>
+<dc:subject>content management</dc:subject>
+<dc:creator>jamesr</dc:creator>
+<dc:date>2002-07-13T17:06:29+10:00</dc:date>
+</item>
+
+<item rdf:about="http://www.steptwo.com.au/columntwo/archives/000087.html">
+<title>What is information architecture?</title>
+<description>Thomas Myer from IBM presents an overview of what information architecture is, and what an architect does. This explains some</description>
+<link>http://www.steptwo.com.au/columntwo/archives/000087.html</link>
+<dc:subject>information architecture</dc:subject>
+<dc:creator>jamesr</dc:creator>
+<dc:date>2002-07-13T16:54:23+10:00</dc:date>
+</item>
+
+<item rdf:about="http://www.steptwo.com.au/columntwo/archives/000086.html">
+<title>Usability and evolution</title>
+<description>John S. Rhodes has written a brief article that draws parallels between Evolution, Usability, and Web Design. His summary: Diversity</description>
+<link>http://www.steptwo.com.au/columntwo/archives/000086.html</link>
+<dc:subject>usability &amp; user-centered design</dc:subject>
+<dc:creator>jamesr</dc:creator>
+<dc:date>2002-07-13T16:41:27+10:00</dc:date>
+</item>
+
+<item rdf:about="http://www.steptwo.com.au/columntwo/archives/000085.html">
+<title>Users In The Development Cycle</title>
+<description>Salvatore Palmisano talks about involving users in the development cycle. While this shouldn't be news for anyone with an interest</description>
+<link>http://www.steptwo.com.au/columntwo/archives/000085.html</link>
+<dc:subject>usability &amp; user-centered design</dc:subject>
+<dc:creator>jamesr</dc:creator>
+<dc:date>2002-07-13T13:39:28+10:00</dc:date>
+</item>
+
+<item rdf:about="http://www.steptwo.com.au/columntwo/archives/000084.html">
+<title>Getting information retrieval right</title>
+<description>Marcia J. Bates clearly writes from considerable experience when she talks about Getting Web Information Retrieval Right This Time. Looking</description>
+<link>http://www.steptwo.com.au/columntwo/archives/000084.html</link>
+<dc:subject>knowledge management</dc:subject>
+<dc:creator>jamesr</dc:creator>
+<dc:date>2002-07-13T13:24:28+10:00</dc:date>
+</item>
+
+
+</rdf:RDF>

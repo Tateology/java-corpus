@@ -1,0 +1,18 @@
+Buildfile: /home/ben/code/shapes/java-corpus/informa-code/informa/build.xml
+
+jar:
+
+init:
+
+compile:
+    [mkdir] Created dir: /home/ben/code/shapes/java-corpus/informa-code/informa/build/classes
+    [javac] /home/ben/code/shapes/java-corpus/informa-code/informa/build.xml:144: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
+    [javac] Compiling 150 source files to /home/ben/code/shapes/java-corpus/informa-code/informa/build/classes
+    [javac] error: error reading /home/ben/code/shapes/java-corpus/informa-code/informa/lib/spring.jar; invalid END header (bad central directory offset)
+    [javac] 1 error
+
+BUILD FAILED
+/home/ben/code/shapes/java-corpus/informa-code/informa/build.xml:220: The following error occurred while executing this line:
+/home/ben/code/shapes/java-corpus/informa-code/informa/build.xml:144: Compile failed; see the compiler error output for details.
+
+Total time: 0 seconds

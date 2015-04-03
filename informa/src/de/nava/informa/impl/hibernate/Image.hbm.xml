@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="de.nava.informa.impl.hibernate.Image" table="IMAGES"
+    dynamic-update="false" dynamic-insert="false">
+
+    <id name="id" column="IMAGE_ID" type="long">
+      <generator class="native"/>
+    </id>
+
+    <property name="title" type="string" update="true" insert="true"
+      column="TITLE" not-null="true" />
+
+    <property name="description" type="string" update="true"
+      insert="true" column="DESCRIPTION" />
+
+    <property name="locationString" type="string" update="true" insert="true"
+      column="LOCATION" />
+
+    <property name="linkString" type="string" update="true" insert="true"
+      column="LINK" />
+
+    <property name="width" type="int" update="true" insert="true"
+      column="WIDTH" />
+
+    <property name="height" type="int" update="true" insert="true"
+      column="HEIGHT" />
+
+
+  </class>
+
+</hibernate-mapping>

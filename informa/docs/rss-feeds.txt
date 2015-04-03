@@ -1,0 +1,210 @@
+
+---------------------------------
+Information / Channel collections
+---------------------------------
+
+News and information on the RSS format
+
+- Proposal for an RSS module that can be used to connect RSS news
+  items to topics defined in OPML, XTM, or RDF. Seems well aligned with
+  published subjects.
+  http://matt.blogs.it/specs/ENT/1.0/
+
+- Latest RSS News
+  http://blogspace.com/rss/
+  
+- RSS Feeds (RSS Info)
+  http://blogspace.com/rss/writers
+
+- RSS Readers
+  http://blogspace.com/rss/readers
+
+- Information on the RSS format and specifications
+  http://blogspace.com/rss/rss10
+
+  RSS 2.0:   http://backend.userland.com/rss
+  RSS 1.0:   http://purl.org/rss/1.0/spec
+  RSS 0.93:  http://backend.userland.com/rss093
+  RSS 0.92:  http://backend.userland.com/rss092
+  RSS 0.91:  http://backend.userland.com/rss091
+  RSS 0.9:   http://my.netscape.com/publish/help/quickstart.html
+
+- Very good tutorial on RSS by Mark Nottingham
+  http://www.mnot.net/rss/tutorial/
+
+
+List of News Feeds:
+
+- Extensive list at moreover: 
+  http://w.moreover.com/categories/category_list_rss.html
+
+- http://www.newsisfree.com/
+
+- Very Good hints:
+  http://www.voidstar.com/node.php?id=144
+
+- meerkat news channel add to URL to retrieve as RSS
+  &_fl=rss&t=ALL
+
+- http://www.syndic8.com
+
+- http://www.javablogs.com
+
+- Entry page of the Open Directory to Weblogs
+  http://dmoz.org/Computers/Internet/On_the_Web/Weblogs/
+
+- Java and J2EE Weblogs
+  http://radio.weblogs.com/0107789/stories/2002/06/03/javaAndJ2eeWeblogs.html
+
+
+-----------------
+Concrete Channels
+-----------------
+
+- Cafe Fort : Jazz, coffee and web - almost everyday.
+  Personnal thoughts, web technologies, standars, art and life style.
+  http://www.cafefort.com/rss20.php
+
+- Joe Walnes: The musings of a ThoughtWorker obsessed with Agile, XP,
+  maintainability, Java, .NET, Ruby and OpenSource.
+  http://joe.truemesh.com/blog/index.rdf
+
+- Ara Abrahamian: Memory Dump Blog
+  http://www.jroller.com/rss/ara_e
+
+- Patrick Lightbody: Another Java Blogger
+  http://www.lightbody.net/~plightbo/index.rdf
+
+- Cafe au Lait Java News and Resources
+  http://www.ibiblio.org/javafaq/today.rss
+  
+- java.sun.com is the premier source of information about the Java platform.
+  http://servlet.java.sun.com/syndication/rss_java_highlights-PARTNER-20.xml
+
+- Java Today on java.net
+  http://today.java.net/pub/q/java_today_rss?x-ver=1.0
+
+- Artima Java Buzz: A community of webloggers who post primarily about Java.
+  http://www.artima.com/buzz/feeds/java.rss
+
+- JavaWorld.com: Fueling Innovation
+  http://www.javaworld.com/index.xml
+
+- Marcus Ahnve: Computer geeky stuff like Java, Linux and XP
+  http://ahnve.com/marcus/blogs/xmlsrv/rss2.php?blog=5
+
+- Mark Pilgrim's WebLog (Python and the Web)
+  http://www.diveintomark.org/xml/rss.xml
+
+- Slashdot Developers: News for nerds, stuff that matters
+  http://slashdot.org/developers.rdf
+
+- TheServerSide: J2EE Community Forum
+  http://www.theserverside.com/rss/theserverside-1.0.rdf
+
+- Martin Fowler's cross between a blog and wiki of ideas on software development 
+  http://martinfowler.com/bliki/bliki.rss
+
+- Matt Mower's Action Journal (live topics, k-log, radio, RSS, blogging)
+  http://matt.blogs.it/rss.xml
+
+- Prag Dave's Weblog (Co-Author of "The Pragmatic Programmer")
+  http://www.pragprog.com/pragdave/index.rss
+
+- Andy's Weblog (Co-Author of "The Pragmatic Programmer")
+  http://www.toolshed.com/blog/index.rss
+
+- bloggy: Thoughts, rants, and photos (Movable Type Blog)
+  http://bloggy.com/mt/index.rdf
+
+- A resource for Java, J2EE, and Jini developers (Bill Venners)
+  http://www.artima.com/newatartima.rss
+
+- Patrick O'Brien's weblog about Python/Jython and open source 
+  development issues
+  http://www.orbtech.com/blog/pobrien/index.rdf
+
+- Jason Hunter weblog (Java, Servlets, JDOM and open source)
+  http://www.servlets.com/blog/index-all.xml
+
+- Google Weblog from Aaron Swartz
+  The latest news on everyone's favorite search engine.
+  http://google.blogspace.com/index.xml
+
+- Linux Journal Newsfeed
+  http://www.linuxjournal.com/news.rss
+
+- The Outerthought Java & XML Weblog.
+  http://blogs.cocoondev.org/stevenn/index.rss
+
+- Salon.com: "Salon makes you think."
+  http://www.salon.com/feed/RDF/salon_use.rdf
+
+- JSP Insider Site News
+  http://www.jspinsider.com/jspinsider.rdf
+
+- Geek news
+  http://geeknews.net/backend.php
+
+- Linux central
+  http://linuxcentral.com/backend/lcnew.rdf
+
+- Wired news
+  http://www.wired.com/news_drop/netcenter/netcenter.rdf
+
+- Step Two: News and opinion on all things KM & CM
+  http://www.steptwo.com.au/columntwo/index.rdf
+  
+- ia/ - news for information architects
+  http://www.iaslash.org/module.php?mod=node&op=feed
+
+- News about syndication using XML (from Bill Kearney)
+  http://www.syndic8.com/~wkearney/blogs/syndic8/index.xml
+
+- rebelutionary: Mike Cannon-Brookes on Java, J2EE, OSX, Open Source, 
+  Australia, Atlassian and more...
+  http://blogs.atlassian.com/rebelutionary/index.rdf
+
+- The Roller Weblogger, open source Java, and other disjointed ramblings... 
+  http://www.rollerweblogger.org/page/roller
+
+- Matt Raible (raibledesigns, co-developer of Roller)
+  http://www.raibledesigns.com/page/rd/
+
+- News from Java-Channel.org (collaborative Java review database)
+  http://pharos.inria.fr/Java/exportRSS-091.jsp
+
+- New releases out on sourceforge (RSS 0.91)
+  http://sourceforge.net/export/rss_sfnewreleases.php
+
+- Nice personal page from Vattekkat Satheesh Babu using Movable Types
+  http://vsbabu.org/ 
+
+
+------------------
+Channels in german
+------------------
+
+- Spiegel news feed (german news magazine)
+  http://bootleg-rss.g-blog.net/spiegel_de.php
+
+- Hamburger Abendblatt (german newspaper)
+  http://www.abendblatt.de/z/newsticker/ticker_ha.xml
+
+- Semantic Pool Weblog (german)
+  http://www.semanticpool.de/index.xml
+
+- Tagesschau (german broadcasting station)
+  http://www.tagesschau.de/newsticker.rdf
+
+- Heise Newsticker - Nachrichten aus der Welt des Computers
+  http://www.heise.de/newsticker/heise.rdf
+
+- Pro-Linux - Wir geben Ihrem Computer das Leben zurück
+  http://www.pl-forum.de/backend/pro-linux.rdf
+
+- Rollberg News - Die etwas anderen Nachrichten
+  http://rollberg.antville.org/rss10
+  
+- Der Schockwellenreiter - Die tägliche Ration Wahnsinn 
+  http://www.schockwellenreiter.de/rss.xml

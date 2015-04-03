@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<rdf:RDF 
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://purl.org/rss/1.0/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+ >
+
+  <channel rdf:about="http://xmlhack.com/rss10.php">
+    <title>XMLhack</title>
+    <link>http://xmlhack.com/</link>
+    <dc:source resource="http://xmlhack.com/" />
+    <description>
+      Developer news from the XML community
+    </description>
+    <dc:language>en-us</dc:language>
+    <dc:publisher>Edd Dumbill (mailto:webmaster@xmlhack.com)</dc:publisher>
+    <dc:creator>Edd Dumbill (mailto:editor@xmlhack.com)</dc:creator>
+    <dc:rights>Copyright 1999-2001, xmlhack team.</dc:rights>
+
+    <image rdf:resource="http://xmlhack.com/images/mynetscape88.gif" />
+
+    <items>
+      <rdf:Seq>
+        <rdf:li resource="http://xmlhack.com/read.php?item=1684" />
+        <rdf:li resource="http://xmlhack.com/read.php?item=1682" />
+        <rdf:li resource="http://xmlhack.com/read.php?item=1681" />
+        <rdf:li resource="http://xmlhack.com/read.php?item=1679" />
+        <rdf:li resource="http://xmlhack.com/read.php?item=1677" />
+        <rdf:li resource="http://xmlhack.com/read.php?item=1675" />
+        <rdf:li resource="http://xmlhack.com/read.php?item=1674" />
+        <rdf:li resource="http://xmlhack.com/read.php?item=1671" />
+      </rdf:Seq>
+    </items>
+
+  </channel>
+
+  <image rdf:about="http://xmlhack.com/images/mynetscape88.gif">
+    <title>xmlhack</title>
+    <url>http://xmlhack.com/images/mynetscape88.gif</url>
+    <link>http://xmlhack.com</link>
+    <dc:description>News, opinions, tips and issues concerning XML development</dc:description>
+  </image>
+
+    <item rdf:about="http://xmlhack.com/read.php?item=1684">
+        <title>Mozilla 1.0 Released</title>
+        <link>http://xmlhack.com/read.php?item=1684</link>
+        <dc:description>The Mozilla open-source Web browser, which has probably been the most sharply scrutinized software development project in history, has reached version 1.0.  Standards compliance has always been a primary goal of Mozilla, and XML standards have taken no back seat in the feature set.</dc:description>
+        <dc:subject>Browsers</dc:subject>
+    </item>
+
+    <item rdf:about="http://xmlhack.com/read.php?item=1682">
+        <title>Growing RDF mindshare reflected in XML Web Services One keynote</title>
+        <link>http://xmlhack.com/read.php?item=1682</link>
+        <dc:description>The halls and meeting rooms at the XML Web Services One conference in San Jose were abuzz with discussion of RDF technology, and the keynote presentation by Willaim Ruh, Sr. VP of Professional Services at Software AG, focused on the importance of semantic Web technologies to the future of Web services.</dc:description>
+        <dc:subject>RDF</dc:subject>
+    </item>
+
+    <item rdf:about="http://xmlhack.com/read.php?item=1681">
+        <title>diffxml and patchxml: new XML-aware diff/patch utilities</title>
+        <link>http://xmlhack.com/read.php?item=1681</link>
+        <dc:description>Adrian Mouat has released diffxml and patchxml, new open-source 
+        Java-based utilities for diff'ing and patching XML
+        files.</dc:description>
+        <dc:subject>Java</dc:subject>
+        <dc:subject>Tools</dc:subject>
+    </item>
+
+    <item rdf:about="http://xmlhack.com/read.php?item=1679">
+        <title>Web Services Interoperability panel at XML One/Web Service One</title>
+        <link>http://xmlhack.com/read.php?item=1679</link>
+        <dc:description>The XML Web Services One conference featured a panel of Web services experts from a variety of companies demonstrating interoperability in a basic scenario prepared for the conference.</dc:description>
+        <dc:subject>Protocols</dc:subject>
+    </item>
+
+    <item rdf:about="http://xmlhack.com/read.php?item=1677">
+        <title>XML and the IETF: Making the case for RELAX NG</title>
+        <link>http://xmlhack.com/read.php?item=1677</link>
+        <dc:description>In a message to the ietf-xml-use mailing list, James Clark
+        makes a detailed case for giving RELAX NG at least "equal
+        billing" with the W3C XML schema language as a recommended
+        formalism in IETF protocols using XML.</dc:description>
+        <dc:subject>Schemas</dc:subject>
+        <dc:subject>IETF</dc:subject>
+    </item>
+
+    <item rdf:about="http://xmlhack.com/read.php?item=1675">
+        <title>RELAX NG gets "feasible validation" support</title>
+        <link>http://xmlhack.com/read.php?item=1675</link>
+        <dc:description>James Clark has announced the addition to his Jing validator for RELAX NG of support
+        for "feasible validation" (a type of "gradual" or
+        "progressive" validation), as discussed in Rick Jelliffe's
+        When Well-Formed is too much and Validity is
+        too little presentation at XML Europe 2002.</dc:description>
+        <dc:subject>Schemas</dc:subject>
+        <dc:subject>Tools</dc:subject>
+    </item>
+
+    <item rdf:about="http://xmlhack.com/read.php?item=1674">
+        <title>Apache Ant 1.5Beta2</title>
+        <link>http://xmlhack.com/read.php?item=1674</link>
+        <dc:description>The Apache Jakarta Project has released version 1.5Beta2 of its cross-platform Java- and
+        XML-based build tool, Ant.</dc:description>
+        <dc:subject>Apache</dc:subject>
+        <dc:subject>Tools</dc:subject>
+    </item>
+
+    <item rdf:about="http://xmlhack.com/read.php?item=1671">
+        <title>Tutorial: Cocoon 2: Build database-driven sites</title>
+        <link>http://xmlhack.com/read.php?item=1671</link>
+        <dc:description>Leigh Dodds has written a tutorial on using Apache Cocoon&#160;2 to generate and publish XML and HTML content based on database data.</dc:description>
+        <dc:subject>Apache</dc:subject>
+        <dc:subject>XSLT</dc:subject>
+    </item>
+
+    <rdf:Description ID="manifest">
+      <channels>
+      <rdf:Seq>
+        <rdf:li resource="http://xmlhack.com/rss10.php" />
+      </rdf:Seq>
+      </channels>
+    </rdf:Description>
+
+</rdf:RDF>

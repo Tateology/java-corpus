@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="de.nava.informa.impl.hibernate.Channel" table="CHANNELS"
+    dynamic-update="false" dynamic-insert="false">
+
+    <id name="id" column="CHANNEL_ID" type="long">
+      <generator class="native"/>
+    </id>
+
+    <property name="title" type="string" update="true" insert="true"
+      column="TITLE" not-null="true" />
+
+    <property name="description" type="string" update="true"
+      insert="true" column="DESCRIPTION" />
+
+    <property name="locationString" type="string" update="true"
+      insert="true" column="LOCSTRING" />
+
+    <property name="siteString" type="string" update="true"
+      insert="true" column="SITE" />
+
+    <property name="creator" type="string" update="true" insert="true"
+      column="CREATOR" />
+
+    <property name="publisher" type="string" update="true" insert="true"
+      column="PUBLISHER" />
+
+    <property name="language" type="string" update="true" insert="true"
+      column="LANGUAGE" />
+
+    <property name="formatString" type="string" update="true"
+      insert="true" column="FORMAT" />
+
+    <set name="groups" table="CAT_GROUP_CHANNEL" lazy="true"
+      inverse="true" cascade="none" sort="unsorted">
+      <key column="CHANNEL_ID" />
+      <many-to-many class="de.nava.informa.impl.hibernate.ChannelGroup"
+        column="GROUP_ID" outer-join="auto" />
+    </set>
+
+    <set name="items" table="ITEMS" lazy="false" inverse="true"
+      cascade="all-delete-orphan">
+      <key column="CHANNEL_ID" />
+      <one-to-many class="de.nava.informa.impl.hibernate.Item" />
+    </set>
+
+    <many-to-one name="image"
+      class="de.nava.informa.impl.hibernate.Image" cascade="none"
+      outer-join="auto" update="true" insert="true" column="IMAGE_ID"
+      not-null="false" />
+
+    <many-to-one name="textInput"
+      class="de.nava.informa.impl.hibernate.TextInput" cascade="none"
+      outer-join="auto" update="true" insert="true"
+      column="TEXTINPUT_ID" not-null="false" />
+
+    <property name="copyright" type="string" update="true" insert="true"
+      column="COPYRIGHT" />
+
+    <property name="rating" type="string" update="true" insert="true"
+      column="RATING" />
+
+    <many-to-one name="cloud"
+      class="de.nava.informa.impl.hibernate.Cloud" cascade="none"
+      outer-join="auto" update="true" insert="true" column="CLOUD_ID"
+      not-null="false" />
+
+    <property name="generator" type="string" update="true" insert="true"
+      column="GENERATOR" />
+
+    <property name="docs" type="string" update="true" insert="true"
+      column="DOCS" />
+
+    <property name="ttl" type="int" update="true" insert="true"
+      column="TTL" />
+
+    <bag name="categories" table="CAT_CHANNEL_LINK" lazy="true"
+      inverse="false" cascade="none">
+      <key column="CHANNEL_ID" />
+      <many-to-many class="de.nava.informa.impl.hibernate.Category"
+        column="CATEGORY_ID" outer-join="auto" />
+    </bag>
+
+    <property name="lastUpdated" type="timestamp" update="true"
+      insert="true" column="LAST_UPDATED" />
+
+    <property name="lastBuildDate" type="timestamp" update="true"
+      insert="true" column="LAST_BUILD_DATE" />
+
+    <property name="pubDate" type="timestamp" update="true"
+      insert="true" column="PUB_DATE" />
+
+    <property name="updatePeriod" type="de.nava.informa.impl.hibernate.ChannelUpdatePeriodUserType" update="true"
+      insert="true" column="UPDATE_PERIOD" />
+
+    <property name="updateFrequency" type="int" update="true"
+      insert="true" column="UPDATE_FREQUENCY" />
+
+    <property name="updateBase" type="timestamp" update="true"
+      insert="true" column="UPDATE_BASE" />
+
+
+  </class>
+
+</hibernate-mapping>

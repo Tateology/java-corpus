@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed version="0.3" xmlns="http://purl.org/atom/ns#" xml:lang="en">
+<title type="text/plain">multilink test - linkblog with multiple links</title>
+<link rel="alternate" type="text/html" href="http://diveintomark.org/archives/blinks/"/>
+<tagline>prototype of multiple links</tagline>
+<id>tag:diveintomark.org,2001-07-29:/archives/blinks/multilink-linkblog</id>
+<modified>2004-05-24T18:23:57Z</modified>
+<copyright type="text/plain">Copyright (c) 2004 Mark Pilgrim</copyright>
+<author>
+<name>Mark Pilgrim</name>
+<url>http://diveintomark.org/</url>
+</author>
+<entry>
+<title/>
+<link rel="alternate" type="text/html" href="http://diveintomark.org/archives/blinks/2004/05/#b9"/>
+<link rel="related" type="text/html" href="http://www.alistapart.com/articles/onionskin/" title="Onion skinned drop shadows"/>
+<link rel="related" type="text/html" href="http://www.alistapart.com/articles/cssdropshadows/" title="CSS Drop Shadows"/>
+<link rel="related" type="text/html" href="http://www.alistapart.com/articles/cssdrop2/" title="CSS Drop Shadows 2"/>
+<issued>2004-05-24T16:07:48Z</issued>
+<created>2004-05-24T16:07:48Z</created>
+<modified>2004-05-24T16:07:48Z</modified>
+<id>tag:diveintomark.org,2001-07-29:/archives/blinks/multilink-linkblog/1</id>
+<summary>CSS drop shadows just keep getting better and better</summary>
+</entry>
+</feed>

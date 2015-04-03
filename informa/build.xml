@@ -1,0 +1,557 @@
+<?xml version="1.0"?>
+
+<!--
+    Ant build file for the informa project.
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    $Id: build.xml 848 2007-07-01 19:06:36Z nileshbansal $
+-->
+
+<project name="informa" default="jar">
+
+  <!-- ========================================================== -->
+  <!-- Global properties and path definitions                     -->
+  <!-- ========================================================== -->
+
+  <!-- Version of the Informa library -->
+  <property name="version" value="0.7.0-alpha2"/>
+  <property name="project.name" value="Informa"/>
+  <property name="project.description" value="News Aggregation Library for Java"/>
+
+  <!-- Read in (optional) external file with local property settings -->
+  <property file="build.properties"/>
+
+  <!-- Define important directories -->
+  <property name="src.dir"       location="src"/>
+  <property name="conf.dir"      location="config"/>
+
+  <property name="build.dir"     location="build"/>
+  <property name="build.classes" location="${build.dir}/classes"/>
+  <property name="build.scripts" location="${build.dir}/scripts" />
+  <property name="build.lib"     location="${build.dir}/lib"/>
+  <property name="build.dist"    location="${build.dir}/dist"/>
+  <property name="build.javadoc" location="${build.dir}/apidocs"/>
+
+  <property name="test.src"      location="test/src"/>
+  <property name="test.out"      location="${build.dir}/test"/>
+  <property name="test.classes"  location="${test.out}/classes"/>
+  <property name="test.reports"  location="${test.out}/reports"/>
+  <property name="test.data"     location="${test.out}/data"/>
+  <property name="test.db"       location="${test.out}/db"/>
+  <property name="test.datagen"  location="${test.data}/out"/>
+  <property name="test.index"    location="${test.data}/index"/>
+
+  <!-- Zip files that gets created for a release -->
+  <property name="release.zip" value="informa-${version}.zip"/>
+  <property name="release-with-dependencies.zip" value="informa-${version}-with-dependencies.zip"/>
+  
+  <!-- Path prefix within the Zip file -->
+  <property name="release.path" value="informa-${version}"/>
+  
+  <!-- JUnit default setting for the unit test execution -->
+  <property name="junit.fork"    value="true"/>
+
+  <!-- Pattern for generated hibernate mapping files -->
+  <fileset id="hibernate.mapping.files" dir="${src.dir}">
+    <include name="**/*.hbm.xml" />
+  </fileset>
+
+  <!-- Name of the generated DDL file for hibernate schema -->
+  <property name="hibernate.schema.file"
+            location="${build.scripts}/informa-hibernate.ddl"/>
+
+  <!-- Hibernate Property file (here used to specify SQL dialect for DDL gen) -->
+  <property name="hibernate.prop.file"
+            location="${build.classes}/hibernate.properties"/>
+  
+  <!-- Construct compile classpath -->
+  <path id="compile.classpath">
+    <pathelement location="lib/commons-logging.jar"/>
+    <pathelement location="lib/jdom.jar"/>
+    <pathelement location="lib/dom4j.jar"/>
+    <pathelement location="lib/lucene.jar"/>
+    <pathelement location="lib/hibernate3.jar"/>
+    <pathelement location="lib/commons-lang.jar"/>
+    <pathelement location="lib/commons-collections.jar"/>
+    <pathelement location="lib/spring.jar"/>
+  </path>
+
+  <!-- Libraries needed when hibernate is involved -->
+  <path id="hibernate.classpath">
+    <pathelement location="lib/antlr.jar"/>
+    <pathelement location="lib/hibernate3.jar"/>
+    <pathelement location="lib/commons-lang.jar"/>
+    <pathelement location="lib/commons-logging.jar"/>
+    <pathelement location="lib/commons-collections.jar"/>
+    <pathelement location="lib/commons-beanutils.jar"/>
+    <pathelement location="lib/cglib-nodep.jar"/>
+    <pathelement location="lib/asm.jar"/>
+    <pathelement location="lib/asm-attrs.jar"/>
+    <pathelement location="lib/dom4j.jar"/>
+    <pathelement location="lib/ehcache.jar"/>
+    <pathelement location="lib/jdbc2_0-stdtext.jar"/>
+    <pathelement location="lib/jta.jar"/>
+  </path>
+
+  <!-- Classpath when compiling tests -->
+  <path id="test.classpath">
+    <path refid="compile.classpath"/>
+    <pathelement location="lib/junit.jar"/>
+    <pathelement location="${build.classes}"/>
+  </path>
+
+  <!-- Classpath when executing tests -->
+  <path id="test.run.classpath">
+    <path refid="test.classpath"/>
+    <path refid="hibernate.classpath"/>
+    <pathelement location="${hibernate.jdbc.jar}"/>
+    <pathelement location="lib/hsqldb.jar"/>
+  </path>
+
+  
+  <!-- ========================================================== -->
+  <!-- Initialisation (to be used in the future)                  -->
+  <!-- ========================================================== -->
+
+  <target name="init"
+          description="Initialises project global settings.">
+    <tstamp>
+      <format property="TODAY" pattern="dd-MM-yyyy"/>
+    </tstamp>
+  </target>
+
+
+  <!-- ========================================================== -->
+  <!-- Clean environment                                          -->
+  <!-- ========================================================== -->
+
+  <target name="clean"
+          description="Deletes all files that are generated by the build.">
+    <delete dir="${build.classes}"/>
+    <delete dir="${build.lib}"/>
+    <delete dir="${build.javadoc}"/>
+    <delete dir="${test.out}"/>
+  </target>
+
+
+  <!-- ========================================================== -->
+  <!-- Compile the java sources                                   -->
+  <!-- ========================================================== -->
+
+  <target name="compile" depends="init"
+          description="Compiles the project sources.">
+    <mkdir dir="${build.classes}"/>
+    <javac srcdir="${src.dir}" destdir="${build.classes}"
+           debug="${build.debug}" deprecation="${build.deprecation}">
+      <classpath refid="compile.classpath"/>
+    </javac>
+    <!-- copy property files -->
+    <filter filtersfile="build.properties"/>
+    <copy todir="${build.classes}" overwrite="true" filtering="true">
+      <fileset dir="${conf.dir}">
+        <include name="**/*.properties"/>
+      </fileset>
+    </copy>
+    <!-- copy O/R mapping files -->
+    <copy todir="${build.classes}">
+      <fileset dir="${src.dir}">
+      	<!-- hibernate mapping files -->
+        <include name="**/*.hbm.xml" />
+      </fileset>
+    </copy>
+  	<!-- copy necessary config files, not the specific ones -->
+    <copy todir="${build.classes}">
+      <fileset dir="${conf.dir}">
+      	<include name="ehcache.xml"/>
+      </fileset>
+    </copy> 	
+  </target>
+
+
+  <!-- ========================================================== -->
+  <!-- Bundle class files as JAR                                  -->
+  <!-- ========================================================== -->
+	
+  <target name="jar-init" depends="compile"
+	      description="Prepare for creating the Jar files">
+  	<mkdir dir="${build.lib}"/>
+  	<!-- create a manifest file with version and name information -->
+  	<tstamp>
+      <format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss" />
+   </tstamp>
+  	<delete file="${build.dir}/MANIFEST.MF"/>
+    <manifest file="${build.dir}/MANIFEST.MF">
+      <attribute name="Specification-Title"
+                 value="${project.name} - ${project.description}"/> 
+      <attribute name="Specification-Version"
+                 value="${version}"/> 
+      <attribute name="Implementation-Title" 
+                 value="de.nava.informa"/> 
+      <attribute name="Implementation-Version" 
+                 value="${version}"/> 
+      <attribute name="Built-Date" value="${TODAY}"/> 
+  	</manifest>
+  </target>
+
+  <target name="jar-without-source" depends="jar-init"
+          description="Creates JAR (without sources) of the project classes.">
+    <!-- config and property files must be also reside in build.classes -->
+    <jar jarfile="${build.lib}/informa.jar" manifest="${build.dir}/MANIFEST.MF">
+      <!-- Do not include environment specific files -->
+      <fileset dir="${build.classes}"
+               excludes="log4j.properties, hibernate.properties">
+      </fileset>
+    </jar>
+  </target>
+
+  <target name="jar-with-source" depends="jar-init"
+          description="Creates JAR (with sources) of the project classes.">
+  	<jar jarfile="${build.lib}/informa-with-source.jar" manifest="${build.dir}/MANIFEST.MF">
+  	      <!-- Do not include environment specific files -->
+  	      <fileset dir="${build.classes}"
+  	               excludes="log4j.properties, hibernate.properties">
+  	      </fileset>
+  		  <!-- Include source files as well for convenient developement using Informa -->
+  	      <fileset dir="${src.dir}" />
+    </jar>
+  </target>
+
+  <target name="jar"
+          description="Creates JAR of the project classes.">
+  	<antcall target="jar-with-source"/>
+  	<antcall target="jar-without-source"/>
+  </target>
+
+  <!-- ========================================================== -->
+  <!-- Generate JavaDoc                                           -->
+  <!-- ========================================================== -->
+
+  <target name="javadoc"
+          description="Generates Javadoc for the Informa API."
+          unless="javadoc.generated">
+    <mkdir dir="${build.javadoc}"/>
+    <javadoc packagenames="de.nava.informa.*"
+             destdir="${build.javadoc}"
+             access="package" author="true" version="true"
+             use="true" defaultexcludes="true"
+             stylesheetfile="docs/jdstyle.css"
+             windowtitle="Informa API (Version ${version})">
+      <sourcepath>
+        <pathelement location="${src.dir}"/>
+      </sourcepath>
+      <classpath refid="compile.classpath"/>
+      <doctitle><![CDATA[<h1>Informa ${version} API</h1>]]></doctitle>
+      <bottom><![CDATA[<i>Copyright &#169; 2002-2007 Niko Schmuck.
+        All Rights Reserved.</i>]]></bottom>
+      <link href="http://java.sun.com/j2se/1.5.0/docs/api"/>
+      <link href="http://www.hibernate.org/hib_docs/v3/api"/>
+      <link href="http://www.springframework.org/docs/api"/>
+    </javadoc>
+    <property name="javadoc.generated" value="true"/>
+  </target>
+  
+
+  <!-- ========================================================== -->
+  <!-- Targets related to testing the library                     -->
+  <!-- ========================================================== -->
+
+  <target name="compile.test" depends="compile"
+          description="Compiles the sources of the test cases.">
+    <mkdir dir="${test.classes}"/>
+    <javac srcdir="${test.src}" destdir="${test.classes}"
+           debug="${build.debug}" deprecation="${build.deprecation}">
+      <classpath refid="test.classpath"/>
+    </javac>
+  </target>
+
+  <!-- Shortcut to allow only one testcase to be executed -->
+  <target name="test.brief" depends="compile.test" if="testcase">
+    <junit printsummary="no" haltonfailure="true" fork="${junit.fork}">
+      <classpath>
+        <path refid="test.run.classpath"/>
+        <pathelement path="${test.classes}"/>
+      </classpath>
+      <!-- print out details about which asserts had problems -->
+      <formatter type="brief" usefile="false"/>
+      <test name="${testcase}"/>
+      <jvmarg value="-Dbasedir=${basedir}"/>
+    </junit>
+  </target>
+
+  <!-- Remove old test data and result files -->
+  <target name="test.init">
+    <delete dir="${test.data}"/>
+    <delete dir="${test.db}"/>
+    <delete dir="${test.reports}"/>
+    <!-- create necessary output directory for tests -->
+    <mkdir dir="${test.data}"/>
+    <mkdir dir="${test.db}"/>
+    <mkdir dir="${test.reports}"/>
+    <mkdir dir="${test.datagen}"/>
+    <mkdir dir="${test.index}"/>
+  </target>
+
+  <!-- Do not call directly: Run stand-alone unit tests -->
+  <target name="test.most">
+    <junit printsummary="no" fork="${junit.fork}"
+           errorProperty="test.failed" failureProperty="test.failed">
+      <classpath>
+        <path refid="test.run.classpath"/>
+        <pathelement path="${test.classes}"/>
+      </classpath>
+      <formatter type="brief" usefile="false"/>
+      <formatter type="xml"/>
+      <batchtest fork="${junit.fork}" todir="${test.data}">
+        <fileset dir="${test.src}">
+          <include name="de/nava/informa/**/Test*.java"/>
+          <exclude name="**/AllTests.java"/>
+          <exclude name="**/TestAbstract*.java"/>
+          <exclude name="de/nava/informa/impl/hibernate/Test*.java"/>
+        </fileset>
+      </batchtest>
+    </junit>
+  </target>
+
+  <!-- Do not call directly: Run hibernate tests -->
+  <target name="test.hibernate" if="running-test-hibernate" >
+    <ant antfile="build.xml" target="hibernate.initdb">
+      <property file="config/hibernate-unittest.properties"/>
+    </ant>
+    <junit printsummary="no" fork="${junit.fork}"
+           errorProperty="test.failed" failureProperty="test.failed">
+      <classpath>
+        <path refid="test.run.classpath"/>
+        <pathelement path="${test.classes}"/>
+      </classpath>
+      <formatter type="brief" usefile="false"/>
+      <formatter type="xml"/>
+      <batchtest fork="${junit.fork}" todir="${test.data}">
+        <fileset dir="${test.src}">
+          <include name="de/nava/informa/impl/hibernate/Test*.java"/>
+          <exclude name="de/nava/informa/impl/hibernate/*StressTest.java"/>
+          <exclude name="de/nava/informa/impl/hibernate/TestInformaPersistence.java"/>
+          <exclude name="de/nava/informa/impl/hibernate/TestPersistChannelGrp.java"/>
+        </fileset>
+      </batchtest>
+      <jvmarg value="-Dbasedir=${basedir}"/>
+    </junit>
+  </target>
+
+  <!-- Generate HTML report for tests in result directory -->
+  <target name="generate.test.report">
+    <junitreport todir="${test.data}">
+      <fileset dir="${test.data}">
+        <include name="TEST-*.xml"/>
+      </fileset>
+      <report format="frames" todir="${test.reports}"/>
+    </junitreport>
+    <echo message="Test reports available from directory ${test.reports}"/>
+  </target>
+
+  
+  <!-- Run the whole test consisting of several suites and cases -->
+  <target name="test" depends="compile.test, test.init"
+          description="Runs the unit test suites (except hibernate).">
+    <!-- Let the tests run -->
+    <antcall target="test.most"/>
+    <!-- Generate test report -->
+    <antcall target="generate.test.report"/>
+    <fail message="Tests failed. Check log and/or reports." if="test.failed"/>
+  </target>
+
+  <!-- Only run hibernate test cases -->
+  <target name="test-hibernate" depends="compile.test, test.init"
+        description="Runs the unit test suites for the hibernate backend.">
+    <property name="running-test-hibernate" value="true" />
+    <!-- Let the tests run -->
+    <antcall target="test.hibernate"/>
+    <!-- Generate test report -->
+    <antcall target="generate.test.report"/>
+    <fail message="Tests failed. Check log and/or reports." if="test.failed"/>
+  </target>
+
+  <!-- Run all test suites (including hibernate backend) -->
+  <target name="test-all" depends="compile.test, test.init"
+          description="Runs all test suite, including hibernate backend test.">
+    <antcall target="test.most"/>
+    <antcall target="test.hibernate"/>
+    <!-- Generate test report -->
+    <antcall target="generate.test.report"/>
+    <fail message="Tests failed. Check log and/or reports." if="test.failed"/>
+  </target>
+
+  <target name="parse" depends="compile"
+          description="Parse a single feed and put content to console.">
+	  
+    <java classname="de.nava.informa.parsers.FeedParser">
+      <arg line="${args}"/>
+      <classpath>
+        <path refid="test.run.classpath"/>
+      </classpath>
+    </java>
+  </target>
+
+  <!-- For testing purposes -->
+  <target name="spring" depends="compile">
+    <java classname="de.nava.informa.utils.manager.hibernate.TestSpringPersistenceManager">
+      <arg line="${args}"/>
+      <classpath>
+        <path refid="test.run.classpath"/>
+      </classpath>
+    </java>
+  </target>
+
+
+  <!-- ========================================================== -->
+  <!-- Generate DDL from hibernate mapping files                  -->
+  <!-- ========================================================== -->
+
+  <target name="hibernate.dbscheme" depends="init,compile"
+          description="Creates Data Definition Language for hibernate backend.">
+    <mkdir dir="${build.scripts}"/>
+    <!-- define schema export task -->
+    <taskdef name="schemaexport"
+             classname="org.hibernate.tool.hbm2ddl.SchemaExportTask">
+      <classpath>
+        <pathelement location="${build.classes}"/>
+        <path refid="hibernate.classpath"/>
+      </classpath>
+    </taskdef>
+
+    <!-- create schema -->
+    <schemaexport properties="${hibernate.prop.file}"
+                  quiet="yes"
+                  drop="no"
+                  text="yes"
+                  delimiter=";"
+                  output="${hibernate.schema.file}">
+      <fileset refid="hibernate.mapping.files"/>
+    </schemaexport>
+
+    <echo message="Schema written to ${hibernate.schema.file},"/>
+    <echo message="make sure you initialise your database with this DDL file"/>
+    <echo message="or run target 'hibernate.initdb'."/>
+  </target>
+
+  <target name="hibernate.dbscheme.generate"
+          description="Generate for DDL the most commonly used dialects.">
+    <!-- Backup original hibernate settings -->
+    <move file="${build.classes}/hibernate.properties" 
+          tofile="${build.classes}/hibernate.properties.bak"/>
+    
+    <!-- Hypersonic SQL: Replace hibernate settings with dialect specific -->
+    <copy file="sql/schema/hsqldb/hsqldb-dialect.properties" 
+          tofile="${build.classes}/hibernate.properties" overwrite="true"/>
+    <antcall target="hibernate.dbscheme">
+      <param name="hibernate.schema.file" value="sql/schema/hsqldb/hsqldb-hibernate.ddl"/>
+    </antcall>
+    
+    <!-- MySQL: Replace hibernate settings with dialect specific -->
+    <copy file="sql/schema/mysql/mysql-dialect.properties" 
+          tofile="${build.classes}/hibernate.properties" overwrite="true"/>
+    <antcall target="hibernate.dbscheme">
+      <param name="hibernate.schema.file" value="sql/schema/mysql/mysql-hibernate.ddl"/>
+    </antcall>
+    
+    <!-- PostgreSQL: Replace hibernate settings with dialect specific -->
+    <copy file="sql/schema/postgres/postgres-dialect.properties" 
+          tofile="${build.classes}/hibernate.properties" overwrite="true"/>
+    <antcall target="hibernate.dbscheme">
+      <param name="hibernate.schema.file" value="sql/schema/postgres/postgres-hibernate.ddl"/>
+    </antcall>
+    
+    <!-- Restore original hibernate settings -->
+    <move file="${build.classes}/hibernate.properties.bak"
+          tofile="${build.classes}/hibernate.properties" />
+  </target>
+  
+  <target name="hibernate.initdb"
+          description="Run hibernate DB schema according to DDL to init DB.">
+    <!-- TODO: depends="hibernate.dbscheme", but then the user has not
+               a chance to modify the DDL to her needs. -->
+    <!-- continue on errors, because of drop statements -->
+    <sql driver="${hibernate.connection.driver_class}"
+         url="${hibernate.connection.url}"
+         userid="${hibernate.connection.username}"
+         password="${hibernate.connection.password}"
+         src="${hibernate.schema.file}"
+         onerror="continue">
+      <classpath>
+        <pathelement location="${hibernate.jdbc.jar}"/>
+      </classpath>
+    </sql>
+  </target>
+
+
+  <!-- ========================================================== -->
+  <!-- Create distributions                                       -->
+  <!-- ========================================================== -->
+
+  <target name="release-zips" depends="jar, javadoc"
+          description="Packages the project sources for distribution.">
+    
+	<delete file="${build.dist}/${release.zip}"/>
+	<delete file="${build.dist}/${release-with-dependencies.zip}"/>
+	
+	<fileset id="main" dir=".">
+		<include name="src/**"/>
+		<include name="config/**"/>
+		<include name="sql/**"/>
+		<include name="test/**"/>
+		<include name="docs/**"/>
+		<include name="xdocs/**"/>
+		<include name="build.xml"/>
+		<include name="build.properties-template"/>
+	    <include name="project.xml"/>
+	    <include name="project.properties"/>
+	    <include name="*.txt"/>
+	    <include name="*.apache"/>
+		<!-- exclude name="junit*.properties"/ -->
+	</fileset>
+    
+	<zip zipfile="${build.dist}/${release.zip}">
+		<zipfileset refid="main" prefix="${release.path}"/>
+		<zipfileset dir="build/apidocs" prefix="${release.path}/docs/apidocs"/>
+		<zipfileset dir="build/lib" includes="informa.jar" fullpath="${release.path}/informa.jar"/>
+		<zipfileset dir="build/lib" includes="informa-with-source.jar" fullpath="${release.path}/informa-with-source.jar"/>
+	</zip>
+	
+	<zip zipfile="${build.dist}/${release-with-dependencies.zip}">
+		<zipfileset refid="main" prefix="${release.path}"/>
+		<zipfileset dir="build/apidocs" prefix="${release.path}/docs/apidocs"/>
+		<zipfileset dir="build/lib" includes="informa.jar" fullpath="${release.path}/informa.jar"/>
+        <zipfileset dir="build/lib" includes="informa-with-source.jar" fullpath="${release.path}/informa-with-source.jar"/>
+		<zipfileset dir="." prefix="${release.path}">
+			<include name="lib/*.jar"/>
+			<include name="lib/*.txt"/>
+			<exclude name="lib/checkstyle-all.jar"/>
+			<exclude name="lib/mysql.jar"/>
+		</zipfileset>
+	</zip>
+  </target>
+
+  
+  <!--
+    part of the sourceforge upload process involves an ftp up of an
+    image. Not destructive in the hands of people without admin
+    rights, but not useful either.
+  -->
+
+  <target name="ftp-to-sourceforge">
+          <!-- depends="dist.src, dist.bin" -->
+    <property name="basename" location="${build.dist}/informa-bin-${version}"/>
+    <ftp server="upload.sourceforge.net"
+         remotedir="incoming"
+         userid="ftp"
+         password="nobody@"
+         depends="true"
+         binary="true"
+         verbose="true">
+    <fileset dir="${build.dist}"
+             includes="informa-src-${version}.tar.gz,
+                       informa-bin-${version}.tar.gz"/>
+    </ftp>
+    <echo>Go to https://sourceforge.net/projects/informa/</echo>
+    <echo>and create a new release for the informa project.</echo>
+  </target>
+
+</project>

@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+
+<rdf:RDF
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns="http://my.netscape.com/rdf/simple/0.9/">
+
+<channel>
+<title>Slashdot: News for nerds, stuff that matters</title>
+<link>http://slashdot.org/</link>
+<description>News for nerds, stuff that matters</description>
+</channel>
+
+<image>
+<title>Slashdot: News for nerds, stuff that matters</title>
+<url>http://images.slashdot.org/topics/topicslashdot.gif</url>
+<link>http://slashdot.org/</link>
+</image>
+
+<item>
+<title>Matrix Reloaded Filming Wants to Shut Sydney Down</title>
+<link>http://slashdot.org/article.pl?sid=02/06/11/1231204</link>
+</item>
+
+<item>
+<title>IBM Reinvents Punch Cards</title>
+<link>http://slashdot.org/article.pl?sid=02/06/11/1124220</link>
+</item>
+
+<item>
+<title>Return of the WaSP</title>
+<link>http://slashdot.org/article.pl?sid=02/06/11/1114248</link>
+</item>
+
+<item>
+<title>Two Steps Forward for Linux Multimedia</title>
+<link>http://slashdot.org/article.pl?sid=02/06/11/0322200</link>
+</item>
+
+<item>
+<title>Mobile Phones for Geese and Seals</title>
+<link>http://slashdot.org/article.pl?sid=02/06/10/2144210</link>
+</item>
+
+<item>
+<title>Laser Powered Paper Plane Takes Flight</title>
+<link>http://slashdot.org/article.pl?sid=02/06/10/2154216</link>
+</item>
+
+<item>
+<title>Can Superconductors Block Gravitational Fields?</title>
+<link>http://slashdot.org/article.pl?sid=02/06/10/171213</link>
+</item>
+
+<item>
+<title>Freecharge Windup Mobile Phone Power Source</title>
+<link>http://slashdot.org/article.pl?sid=02/06/10/2140252</link>
+</item>
+
+<item>
+<title>Slashback: Gopherectomy, Portacinema, Disunity</title>
+<link>http://slashdot.org/article.pl?sid=02/06/10/1453232</link>
+</item>
+
+<item>
+<title>Information Valuation - The Most Buck for the Bits?</title>
+<link>http://slashdot.org/article.pl?sid=02/06/10/2150217</link>
+</item>
+
+<textinput>
+<title>Search Slashdot</title>
+<description>Search Slashdot stories</description>
+<name>query</name>
+<link>http://slashdot.org/search.pl</link>
+</textinput>
+
+</rdf:RDF>

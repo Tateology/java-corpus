@@ -1,0 +1,307 @@
+<?xml version="1.0"?>
+<document>
+
+  <meta revision="$Id: persistence_manager.xml 747 2005-01-28 15:45:08Z spyromus $"/>
+  <properties>
+    <author email="spyromus@users.sourceforge.net">Aleksey Gureev</author>
+    <title>Persistence Manager</title>
+  </properties>
+  
+  <body>
+
+    <section name="General">
+      <p>
+        At a present moment Informa library is providing wide variety of parsers.
+        It also allows user to store his groups of channels, channels, items and
+        other objects in persistent storages using Hiberate and JDO interfaces. 
+        However, there are some problems with the implementations. Despite the
+        fact that all of implementations have similar interfaces for helper classes
+        (<i>ChannelBuilderIF</i> and etc) and objects (<i>ChannelGroupIF</i> and
+        etc), they still should be handled in implementation specific way. This
+        means that if you wish to migrate from in-memory storage model to Hibernate
+        you should be ready to change your client application code significantly.
+      </p>
+      <p>
+        Persistence Manager module is intended to hide the internal implementation
+        complexities from developer and provide unified and well-defined interface
+        to all persistent services. Persistence Manager itself will take care of
+        initialization, transactions management and other specific things. It is
+        also intended to solve the other big problem - multi-threading. Great number
+        of applications suffer from incorrect work with persistence models in
+        multi-threaded environment, having many unsynchronized sessions and objects
+        floating in heap.
+      </p>
+    </section>
+
+    <section name="Module structure">
+      <p>
+        Structure of the module is extremely simple. Base part of the module has
+        only two classes and one interface:
+        <ul>
+          <li><i>PersistenceManagerIF</i> - main interface of any Persistence
+            Manager. This interface defines contract between client application
+            and persistence management implementation. Interface provides methods,
+            which are necessary to create groups of channels, channels and items,
+            populate groups with channels and channels with items, delete each of
+            them and perform some other valuable manipulations. The main benefit
+            is that you don&apos;t need to know how things work internally, you
+            just need to know what you wish to do.</li>
+          <li><i>PersistenceManagerConfig</i> - configuration storage. This is
+            the factory for <i>PersistenceManagerIF</i> implementations. You can
+            use this class to get manager object at run-time without knowing what
+            implementation is used in particular. In other words, you specify what
+            implementation to use by setting system properties and do not hard-code
+            the names of classes and packages in code.</li>
+          <li><i>PersistenceManagerException</i> - type of exception, thrown in
+            error cases by <i>PersistenceManagerIF</i>.</li>
+        </ul>
+      </p>
+    </section>
+
+    <section name="Working with Persistence Manager">
+
+      <section name="Initialization">
+        <p>
+          By initialization the process of establishing ready to use object of
+          <i>PersistenceManagerIF</i> type is meant. There are two general ways
+          to get one for yourself:
+          <ul>
+            <li>Create it manually using constructor of particular Manager.</li>
+            <li>Get it from <i>PersistenceManagerConfig</i>.</li>
+          </ul>
+        </p>
+
+        <section name="Creating manager manually">
+          <p>
+            This method isn&apos;t good as you hard-code the name of
+            implementation class in your application. In order to change
+            implementation you will need to rebuild whole application (or module).
+            This is how it&apos;s done on practice.
+          </p>
+          <source>PersistenceManagerIF manager = new de.nava.informa.utils.manager.memory.PersistenceManager();</source>
+        </section>
+
+        <section name="Getting manager from PersistenceManagerConfig">
+          <p>
+            This way of establishing manager object is much more flexible. During
+            initialization <i>PersistenceManagerConfig</i> object (which is
+            following <b>Singleton</b> pattern) reads the value of 
+            <i>informa.persistencemanager</i> system property. This property
+            can hold the name of class implementing <i>PersistenceManagerIF</i>.
+            Here&apos;s how you can define the name of class on startup.
+          </p>
+<source>
+java -cp ... \
+  -Dinforma.persistencemanager=de.nava.informa.utils.manager.memory.PersistenceManager \
+  my.app.Main</source>
+          <p>
+            <i>In this example we specify that in-memory implementation required.</i>
+          </p>
+          <p>
+            The other way to specify necessary class is passing its name at
+            run-time using appropriate method of <i>PersistenceManagerConfig</i>
+            class.
+          </p>
+          <source>setPersistenceManagerClassName("de.nava.informa.utils.manager.memory.PersistenceManager");</source>
+        </section>
+        <p>
+          <i>This piece of code initializes the same manager.</i>
+        </p>
+        <p>
+          When initialization is done in one of these ways you can get your manager
+          by making a direct call to configuration object:
+        </p>
+        <source>PersistenceManagerIF manager = PersistenceManagerConfig.getPersistenceManager();</source>
+        <p>
+          Now that you have manager object what you can do with it? Many things.
+          Lets create some channels for the start.
+        </p>
+      </section>
+
+      <section name="Creating channels">
+        <p>
+          Channels in Informa are rich on properties, but to create channel you
+          need to know only few things: its title and location. Without these
+          two properties channels have no practical meaning. Lets create one.
+        </p>
+        <source>
+URL url = new URL("http://my.home.net/rss.xml");
+ChannelIF newChannel = manager.createChannel("My home blog", url);</source>
+        <p>
+          <i>Creating the channel doesn&apos;t mean that it will be automatically
+          populated with items from the given location. This only means that it
+          will be stored in persistent storage. You should take care of reading
+          channels&apos; data yourself, using Informa parsers or by means of
+          another convenient utility module - Poller (check 
+          de.nava.informa.utils.poller package).</i>
+        </p>
+        <p>
+          Now you have your new channel. Lets add some items to it.
+        </p>
+      </section>
+
+      <section name="Creating items">
+        <p>
+          Items cannot live on their own in wild nature, they should always
+          have parent channel. As we already have one, created in the previous
+          step, we can proceed to creation of items. The simplest form is
+          when item has only the title. So, necessary minimum is title.
+        </p>
+        <source>ItemIF newItem = manager.createItem(newChannel, "Item title");</source>
+        <p>
+          This command creates new item and puts it into the channel.
+        </p>
+        <p>
+          There is another way to create item. Sometimes it&apos;s necessary
+          to duplicate existing item by copying all of its properties. It can
+          be done easily by calling appropriate item creation method of manager.
+        </p>
+        <source>ItemIF newItem = manager.createItem(newChannel, itemToCopy);</source>
+      </section>
+
+      <section name="Creating groups of channels">
+        <p>
+          Sometimes it&apos;s necessary to organize the channels into groups.
+          Each channel can reside in several groups and can also live on its
+          own without any groups associated. To create empty group you should
+          make the following call.
+        </p>
+        <source>ChannelGroupIF newGroup = manager.createGroup("My new group");</source>
+        <p>
+          To assign the channel to this new group you should make another call.
+        </p>
+        <source>manager.addChannelToGroup(newChannel, newGroup);</source>
+        <p>
+          Later you may decide to remove channel from group. Do so by third
+          call.
+        </p>
+        <source>manager.removeChannelFromGroup(newChannel, newGroup);</source>
+      </section>
+
+      <section name="Merging groups">
+        <p>
+          You might need to move channels from one group to another, avoiding
+          duplicates, and delete one of the groups. This is called merging.
+          Assume that we have <i>groupA</i> and <i>groupB</i>. We wish to leave
+          with only <i>groupA</i> aboard, having all channels from <i>groupB</i>
+          in it. This is how we can reach our goal.
+        </p>
+        <source>manager.mergeGroups(groupA, groupB);</source>
+      </section>
+
+      <section name="Deleting groups">
+        <p>
+          When deleting groups only group objects are removed from storage.
+          It&apos;s because channels can live alone, not being in any groups.
+          Here&apos;s how groups are deleted.
+        </p>
+        <source>manager.deleteGroup(group);</source>
+      </section>
+
+      <section name="Deleting channels">
+        <p>
+          This topic is going after groups intentionally. You should first
+          learn the basics of grouping to understand how deleting of channels
+          works. When channel is deleted it&apos;s automatically removed from
+          all groups it currently in. Also, all items of the channel are also
+          removed from persistent storage. This means that the mentioned
+          objects are no longer valid persistent entities and manager may start
+          throwing exceptions (if it has no means of handling non-stored
+          entities) if you will try to continue performing operations over
+          them. To delete channel make a call to manager.
+        </p>
+        <source>manager.deleteChannel(channel);</source>
+      </section>
+
+      <section name="Deleting items">
+        <p>
+          Deleting items is very simple. Also has no pitfalls.
+        </p>
+        <source>manager.deleteItem(item);</source>
+      </section>
+
+      <section name="Getting groups, channels and items">
+        <p>
+          Well, by this moment we know how to create several entities, but how
+          we can get these entities back when we restart our application? Each
+          of the entities provides methods to get their children. You can get
+          list of channels from group and list of items from channel. The only
+          thing left to learn is how to get the list of groups. Manager can
+          give it to you.
+        </p>
+        <source>ChannelGroupIF[] groups = manager.getGroups();</source>
+        <p>
+          Attentive reader may ask, about getting the list of channels which
+          are not in groups? Yes, by this moment manager interface has no
+          method to get the list of groupless channels. You can simply avoid
+          these situations by using default group to keep "ungrouped"
+          channels in it.
+        </p>
+      </section>
+
+      <section name="Updating groups, channels and items">
+        <p>
+          Here comes the tricky part. It&apos;s always welcome if you notify
+          manager about changes in objects. Of course, it&apos;s not necessary
+          to tell manager about operations you just did by it&apos;s own means,
+          but you&apos;d better tell it when you make your own modifications
+          (changing title of channels, or manipulating read state of an item
+          and others). It&apos;s a very simple rule. In most cases forgetting
+          to notify manager about changes will not be a big problem and next
+          time you will request some operation over your objects manager will
+          try to update the database according to noticed changes, but
+          you&apos;d better do not rely on this much. First, because it&apos;s
+          not reliable enough for some implementations (for example, Hibernate).
+          And second, some of implementations will require significantly more
+          operations to parse your objects hierarchy in searching these changes.
+        </p>
+        <p>
+          You may ask: "<i>Why are you haven&apos;t made automatic
+          changes detection if it&apos;s so vital?</i>". Answering...
+          Because if we will detect each particular change in sequence of 100
+          modifications we will have 100 update statements. And if we will
+          make all of our modifications and then notify the manager we will 
+          have significantly less of them. Moreover, we can have even single
+          statement if all the changes were made on behalf of single object.
+        </p>
+        <p>
+          This is how we do our updates:
+        </p>
+<source>
+URL url = new URL("http://my.home.net/rss.xml");
+ChannelIF newChannel = manager.createChannel("My home blog", url);
+
+...
+
+// Update and notify manager
+newChannel.setTitle("Some new title");
+manager.updateChannel(newChannel);
+
+// The similar picture with groups and channels
+manager.updateGroup(someGroup);
+manager.updateItem(someItem);</source>
+
+      </section>
+    </section>
+
+    <section name="Limitations">
+      <p>
+        <ul>
+          <li>Current version supports only groups (<i>ChannelGroupIF</i>),
+            channels (<i>ChannelIF</i>) and items (<i>ItemIF</i>). It&apos;s
+            not planned to extend the library by now as it looks sufficient
+            for the most applications to have only these three kinds of
+            entities.</li>
+          <li>When working with manager make sure that you are not using
+            externally created objects of the types understood by manager. For
+            example, you may have some <i>ChannelIF</i> objects unserialized
+            from XML or created manually. Using them with manager will not
+            work. Manager implementation is free to support these cases, but
+            it also free to not to do so. Please be careful with where you
+            get your objects.</li>
+        </ul>
+      </p>
+    </section>
+
+  </body>
+</document>

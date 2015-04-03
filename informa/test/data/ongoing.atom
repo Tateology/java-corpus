@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns='http://www.w3.org/2005/Atom'
+      xml:base='http://www.tbray.org/ongoing/'
+      xml:lang='en-us'>
+ <title>ongoing</title>
+ <link href='' />
+ <link rel='self' href='ongoing.atom' />
+ <logo>rsslogo.jpg</logo>
+ <icon>/favicon.ico</icon>
+ <updated>2005-07-29T23:20:26-08:00</updated>
+ <author><name>Tim Bray</name></author>
+ <subtitle>ongoing fragmented essay by Tim Bray</subtitle>
+ <id>http://www.tbray.org/ongoing/</id>
+ <rights>All content written by Tim Bray and photos by Tim Bray Copyright Tim Bray, some rights reserved, see /ongoing/misc/Copyright</rights>
+ <generator uri='misc/Colophon'>Generated from XML source code using Perl, Expat, XML::Parser, Emacs, Mysql, and ImageMagick.  Industrial strength technology, baby.</generator>
+ <entry xml:base='When/200x/2005/07/29/'>
+  <title>Wet College Shakespeare Flowers</title>
+  <link href='Wet-College-Flowers' />
+  <id>http://www.tbray.org/ongoing/When/200x/2005/07/29/Wet-College-Flowers</id>
+  <published>2005-07-29T13:00:00-08:00</published>
+  <updated>2005-07-29T23:20:14-08:00</updated>
+  <category scheme='http://www.tbray.org/ongoing/What/' term='Arts/Photos' />
+  <category scheme='http://www.tbray.org/ongoing/What/' term='Garden' />
+<summary type='xhtml'><div xmlns='http://www.w3.org/1999/xhtml'>After a rainstorm in the Fellows’ Garden at Wadham College, Oxford.</div></summary>
+<content type='xhtml'><div xmlns='http://www.w3.org/1999/xhtml'>
+<p>After a rainstorm in the Fellows’ Garden at Wadham College, Oxford.</p>
+<img src="IMG_3855.png" alt="Pink flowers after rain, Wadham College, Oxford" />
+<img src="IMG_3860.png" alt="Pink flowers after rain, Wadham College, Oxford" />
+<img src="IMG_3861.png" alt="Yellow flower after rain, Wadham College, Oxford" />
+<p>Last night, the week’s work being over, I took the kid to see the
+<a href="http://www.oxfordshakespearecompany.co.uk/">Oxford Shakespeare
+Company’s</a> production of
+<a href="http://en.wikipedia.org/wiki/Macbeth">Macbeth</a>, outside in this
+same garden, minimally staged but played fairly straight and rather well I
+thought.
+The ending, the writing dark enough, was played mostly in the dark, lit by
+hand-held torches.</p>
+<p>Hadn’t seen that
+one in years; you can forget how large old Will looms over our language until
+you sit there and hear, within a few words, basics like “fell swoop”
+and “be-all and end-all” and remember he <em>invented</em> them.</p>
+</div></content></entry>
+</feed>

@@ -1,0 +1,56 @@
+$Id: BUILDING.txt 846 2007-07-01 18:15:02Z nileshbansal $
+
+                              Building Informa
+                              ================
+
+To build Informa from the src distribution or CVS just execute the Ant build
+script (it is assumed that you have a Java Development Kit (JDK) version 1.5
+or later already installed).  If you have a recent version of Ant (otherwise
+get it from http://jakarta.apache.org/ant/) available on your system you
+should be able to type 'ant' on the command line to execute the build.xml
+script.
+
+---------------------------------------------------------------------------------
+Preparement: 
+
+  Please make sure you copied build.properties-template
+  to build.properties and modify to your local environment.
+---------------------------------------------------------------------------------
+
+
+Here are the build targets:
+
+  compile            - Compiles the Informa sources.
+
+  jar                - Builds the Informa JAR.  Note that the JAR is in the build/lib
+                       directory. Two jar files are created, one containing just the
+                       compiled class files, and other including sources along with 
+                       compiled class files for development purposes.
+ 
+  compile.test       - Compiles the sources of the test cases.
+
+  hibernate.mapping  - Generates hibernate mapping configuration documents.
+
+  hibernate.dbscheme - Creates Data Definition Language for hibernate backend.
+
+  hibernate.initdb   - Generates hibernate DB schema according to DDL.
+
+  test 	             - Runs all the test cases.
+
+  test.brief         - Runs only one given test case ('-Dtestcase=FQCN').
+
+  clean              - Removes the build directory.
+ 
+  javadoc            - Creates all JavaDocs for the Informa API.
+  
+  dist.src           - Creates source distribution (with JavaDocs).
+  dist.bin           - Creates full binary distribution (with JavaDocs).
+
+
+Please see the build.xml file for more information. If you have any
+questions, please post them to the Informa mailing list which can be reached
+via <informa-developer@lists.sourceforge.net>. More information on this
+project can be found at <http://sourceforge.net/projects/informa/>.
+
+Have fun,
+Niko Schmuck

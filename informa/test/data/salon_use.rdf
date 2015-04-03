@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!DOCTYPE rss PUBLIC "-//Netscape Communications//DTD RSS 0.91//EN"
+              "http://my.netscape.com/publish/formats/rss-0.91.dtd">
+
+<rss version="0.91">
+  <channel>
+    <title>Salon.com</title>
+    <link>http://www.salon.com</link>
+    <description>Salon makes you think.</description>
+    <language>en-us</language>
+    <copyright>Copyright 2000, Salon.com.</copyright>
+    <pubDate>Jun 25, 2002</pubDate>
+
+  <image>
+    <title>Salon.com</title>
+    <url>http://www.salon.com/src/rdf_salonlogo.gif</url>
+    <link>http://www.salon.com/</link>
+  </image>
+
+  <item>
+    <title>&quot;An opportunity and a test&quot;</title>
+    <link>http://www.salon.com/news/feature/2002/06/25/bush_speech/index.html?CP=RDF&amp;#38;DN=310</link>
+    <description>The full text of President Bush's remarks on the Middle East.</description>
+  </item>
+  <item>
+    <title>Another strike against the death penalty</title>
+    <link>http://www.salon.com/news/feature/2002/06/25/deathrow/index.html?CP=RDF&amp;#38;DN=310</link>
+    <description>The U.S. Supreme Court lifted the death sentence on more than 100 cases, but some critics say court conservatives may only be trying to fine-tune the machinery of capital punishment.</description>
+  </item>
+  <item>
+    <title>Will Congress tackle pay-for-play?</title>
+    <link>http://www.salon.com/ent/feature/2002/06/25/pfp_congress/index.html?CP=RDF&amp;#38;DN=310</link>
+    <description>Radio-station owners are shocked -- shocked!-- as the music industry's payola scandal widens. Record-label execs aren't buying it (and neither should you).</description>
+  </item>
+  <item>
+    <title>Flour power</title>
+    <link>http://www.salon.com/mwt/feature/2002/06/25/flour_bag/index.html?CP=RDF&amp;#38;DN=310</link>
+    <description>The authorities have decided that hauling around sacks of flour will teach middle schoolers not to get pregnant. My daughter and I think it's a half-baked idea.</description>
+  </item>
+  <item>
+    <title>Fiddling while the Middle East burns</title>
+    <link>http://www.salon.com/news/feature/2002/06/25/israel/index.html?CP=RDF&amp;#38;DN=310</link>
+    <description>Bush's one-sided speech is just the latest chapter in a long history of U.S. ignorance, ill will  and condescension toward the Palestinians -- and it's not going to help Israel, either.</description>
+  </item>
+  <item>
+    <title>&quot;Clear moral vision&quot; or &quot;sugar-coated palliative&quot;?</title>
+    <link>http://www.salon.com/politics/feature/2002/06/25/speech/index.html?CP=RDF&amp;#38;DN=310</link>
+    <description>Foxman, Ibish, Lerner, Horowitz and others square off over President Bush's peace plan.</description>
+  </item>
+  <item>
+    <title>Is Clear Channel selling hit singles?</title>
+    <link>http://www.salon.com/ent/feature/2002/06/25/eagle_eye/index.html?CP=RDF&amp;#38;DN=310</link>
+    <description>Insiders suggest that the broadcasting giant gave an obscure singer major airplay to promote its pricey new market-research program.</description>
+  </item>
+  <item>
+    <title>Remember when we had no e-mail?</title>
+    <link>http://www.salon.com/tech/books/2002/06/25/what_just_happened/index.html?CP=RDF&amp;#38;DN=310</link>
+    <description>James Gleick, author of &quot;What Just Happened,&quot; explains what he got right, and wrong, over the last 10 years.</description>
+  </item>
+  <item>
+    <title>Story Minute</title>
+    <link>http://www.salon.com/comics/lay/2002/06/25/lay/index.html?CP=RDF&amp;#38;DN=310</link>
+    <description>Travel tip: Never drive cross-country with a friend who's just discovered she's gay.</description>
+  </item>
+  <item>
+    <title>Random numbers</title>
+    <link>http://www.salon.com/books/feature/2002/06/25/bestsellers/index.html?CP=RDF&amp;#38;DN=310</link>
+    <description>If you think bestseller lists are based on solid facts, guess again. But&#13;
+a new technology is promising to improve the hot-book scorecard.</description>
+  </item>
+
+</channel>
+</rss>
+

@@ -1,0 +1,52 @@
+<body>
+
+<p>This package contains definition of Persistence Manager interface. It
+also holds configuration class (PersistentManagerConfig), which should
+be used to establish instances of managers indirectly.</p>
+
+<p>Persistence Manager is a front-end for persistence model implemented
+in Informa. It provides convenient and implementation independend ways
+to operate with data located in persistent storage. Different
+implementations of interface can be provided to support different
+types of storage (Memory, Database, plain and XML files, etc).</p>
+
+<p>Concrete implementations of manager interface reside deeper in
+package hierarchy, but can be easily moved anywhere in code.</p>
+
+<p><b>Note for Persistence Manager implementation developers!</b><br>
+There's an acceptance test developed to help you with making sure
+that your implementation does what's expected. When you develop your
+own implementation make sure that it passes at least the acceptance test.
+In order to do so you should create your own test case and extend
+<code>TestAbstractPersistenceManager</code> with it, like below.</p>
+
+<pre>
+<code>
+// header skipped
+package de.nava.informa.utils.manager.memory;
+
+// imports skipped
+
+/**
+ * In-Memory persistence manager test.
+ *
+ * @see PersistenceManager
+ * @author Aleksey Gureev (spyromus@noizeramp.com)
+ */
+public class TestMemoryPersistenceManager extends TestAbstractPersistenceManager {
+  /**
+   * Returns manager to be tested.
+   *
+   * @return manager to be tested.
+   */
+  protected PersistenceManagerIF getManager() {
+    return new PersistenceManager();
+  }
+}
+</code>
+</pre>
+
+<p>You can see that this is very simple. If you need your own additional
+tests to be run then just put them below as usual.</p>
+
+</body>

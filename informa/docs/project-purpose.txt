@@ -1,0 +1,83 @@
+---------------------------------
+Project Full Name
+---------------------------------
+
+RSS Library for Java
+
+
+---------------------------------
+Project Purpose and Summarization
+---------------------------------
+
+This is a joint project of the authors of two Java news reader applications
+(HotSheet and Risotto [part of jsurfer]). We intend to unify the common
+parts into a library which can be used by any developer who needs to address
+those issues in their application. The main important goals of this projects
+are:
+
+ 1: Ability to both read RSS channels and write them.
+
+ 2: Ability to store off the news items read from RSS channels but to skip
+    that step for programs that don't require storage. Programs that don't
+    need anything but the ability to read a current channel can stick to the
+    Channel and Item objects and blow off the ChannelStore and ItemStore.
+
+ 3: Better modelling of the pieces that make up RSS channels in order to
+    support 0.92 and 0.93 channel types.
+
+ 4: Use interfaces to describe pieces of the library where we think there
+    might be multiple different implementations (for example database
+    storage vs. XML).
+
+ 5: Provide functionality that can prevent duplicates from getting into the
+    item storage.
+
+ 6: Simple filtering can be done on the stored set of news items so you can
+    pick out only those for a particular set of channels, within a date
+    range, that match a particular regex expression, etc.
+
+ 7: Provide events and listeners that allows developers to build a
+    Model-View-Controller application around the library (as well as more
+    traditional linear applications).
+
+ 8: Give support for retrieving and handling OCS channel lists. 
+
+ 9: Threaded execution of RSS retrieval. 
+
+10: The library has a clear separation between retrieving RSS and parsing
+    it.
+
+11: The library would ship with Unit Tests, Javadocs and some sample
+    programs.
+
+
+---------------------------------
+License
+---------------------------------
+
+GNU Library or "Lesser" Public License (LGPL)
+http://www.opensource.org/licenses/lgpl-license.html
+
+
+---------------------------------
+Project Public Description
+---------------------------------
+
+The RSS Library will provide a convenient Java API for handling news
+channels and metadata about them. Different syntax formats (like RSS 0.90,
+0.91 and 1.0) for channels will be supported, as well as we plan to allow
+retrieving channel information through OCS.
+
+
+---------------------------------
+Project Unix Name
+---------------------------------
+
+informa
+
+
+---------------------------------
+Project approved by sourceforge
+---------------------------------
+
+May 1, 2002

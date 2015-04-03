@@ -1,0 +1,185 @@
+<?xml version="1.0"?>
+<document>
+  <meta revision="$Id: quickstart.xml 778 2005-09-25 20:30:11Z niko_schmuck $"/>
+  <properties>
+    <author email="niko@nava.de">Niko Schmuck</author>
+    <title>Quickstart</title>
+  </properties>
+
+  <body>
+
+    <section name="Parsing an RSS feed">
+      <p>
+        To read in an RSS feed you have to provide basically two things:
+        a source from where to read the feed (URL, File, InputStream or Reader)
+        and a ChannelBuilder which builds the news channel object model.
+        Currently two ChannelBuilder are available: one in-memory
+        (see de.nava.informa.impl.basic.ChannelBuilder) and the other one using
+        the Hibernate O/R mapping mechansim to persist the data in a relational
+        database (see de.nava.informa.impl.hibernate.ChannelBuilder).
+        The following code fragment demonstrates the usage:
+      </p>
+      <source>
+import java.io.File;
+import de.nava.informa.core.ChannelIF;
+import de.nava.informa.impl.basic.ChannelBuilder;
+import de.nava.informa.parsers.FeedParser;
+...
+File inpFile = new File("javanews.xml");
+ChannelIF channel = FeedParser.parse(new ChannelBuilder(), inpFile);
+      </source>
+      <p>
+        Further information about the channel object can be found in the
+        <a href="apidocs/de/nava/informa/core/ChannelIF.html">JavaDoc for ChannelIF</a>.
+      </p>
+    </section>
+
+    <section name="Parsing an OPML descriptor">
+      <p>
+        To read in a OPML (<a href="http://www.opml.org">Outline processor
+        markup language</a>) you can use code as follows:
+      </p>
+      <source>
+import de.nava.informa.parsers.OPMLParser;
+...
+// parse inpFile file and return a collection of FeedIF objects
+Collection feeds = OPMLParser.parse(inpFile);
+      </source>
+      <p>
+        This provides a convenient facility to read in a collection of
+        <a href="apidocs/de/nava/informa/core/FeedIF.html">FeedIF</a>
+        objects which might be helpful for retrieving news channels.
+      </p>
+    </section>
+
+
+    <section name="Build your own channel object model">
+      <p>
+        For creating your own news channel object model in-memory, look
+        at following example:
+      </p>
+      <source>
+ChannelIF channel = builder.createChannel(chanName);
+channel.setDescription("Test Channel: " + chanName);
+ItemIF item1 = builder.createItem(channel, "Item 1 for " + chanName,
+                                  "First in line", new URL("http://sf.net/rss2_projnews.php?group_id=52620"));
+ItemIF item2 = builder.createItem(channel, "Item 2 for " + chanName,
+                                  "Second in line", new URL("http://sf.net/export/rss2_projfiles.php?group_id=52620"));
+      </source>
+      <p>
+        If you like to make use of the persistent backend using
+        de.nava.informa.impl.hibernate.ChannelBuilder you can achieve the above
+        with:
+      </p>
+      <source>
+SessionHandler handler = SessionHandler.getInstance();
+Session session = handler.getSession();
+ChannelBuilder builder = new ChannelBuilder(session);
+Transaction tx = null;
+try {
+  tx = session.beginTransaction();
+  ChannelIF channel = builder.createChannel(chanName);
+  channel.setDescription("Test Channel: " + chanName);
+  session.saveOrUpdate(channel);
+  ItemIF item1 = builder.createItem(channel, "Item 1 for " + chanName,
+                                    "First in line", new URL("http://sf.net/rss2_projnews.php?group_id=52620"));
+  session.saveOrUpdate(item1);
+  ItemIF item2 = builder.createItem(channel, "Item 2 for " + chanName,
+                                    "Second in line", new URL("http://sf.net/export/rss2_projfiles.php?group_id=52620"));
+  session.saveOrUpdate(item2);
+  session.saveOrUpdate(channel);
+  tx.commit();
+}
+catch (HibernateException he) {
+  logger.warn("trying to rollback the transaction");
+  if (tx != null) tx.rollback();
+  throw he;
+}
+finally {
+  session.close();
+}
+      </source>
+    </section>
+
+
+    <section name="Index and search news items">
+      <p><!-- TODO: finish -->
+        Please look at
+        <a href="apidocs/de/nava/informa/search/ChannelIndexer.html">ChannelIndexer</a>
+        and
+        <a href="apidocs/de/nava/informa/search/ChannelSearcher.html">ChannelSearcher</a>
+        in the meantime or find more information about the usage inside the
+        test cases (directory: test/src/de/nava/informa/search).
+      </p>
+    </section>
+
+
+    <section name="Serialize channel as RSS">
+      <p>
+        Some day you might want to export a news channel to a file. The
+        informa library does support writing a news channel to RSS 0.91 and 1.0
+        formats. Please look at the following example:
+      </p>
+      <source>
+import de.nava.informa.core.ChannelExporterIF;
+import de.nava.informa.exporters.RSS_1_0_Exporter;
+...
+ChannelExporterIF exporter = new RSS_1_0_Exporter("myfeed.rdf");
+// assuming you have a ChannelIF object available as channel
+exporter.write(channel);
+      </source>
+    </section>
+
+    <section name="Sorting of news items">
+      <p> <!-- TODO: finish -->
+        Please see the question in the <a href="faq.html">FAQ</a>.
+      </p>
+    </section>
+
+
+    <section name="Managing updates">
+      <p> <!-- TODO: finish -->
+        There are two utility classes provided by the Informa API which are
+        <ul>
+          <li><a href="apidocs/de/nava/informa/utils/UpdateChannelTask.html">UpdateChannelTask</a>
+            using the Push-approach (registering event listeners) and
+          </li>
+          <li><a href="apidocs/de/nava/informa/utils/FeedManager.html">FeedManager</a>
+             using the Pull-approach (suitable for web pages, i.e.)
+          </li>
+        </ul>
+
+      </p>
+    </section>
+
+
+    <section name="Hibernate configuration">
+      <p>
+        The Hibernate 2 library files are provided with the informa
+        distribution. If you do not want to use the Hypersonic SQL database,
+        you have to make sure that you include any files
+        required for JDBC connectivity to the database in the classpath.
+
+        The first file that to investigate is the hibernate.properties file.
+        Place this file in your classpath so that Hibernate can find it at
+        runtime.  This file contains the runtime settings that Hibernate will
+        use when it is started up.  Here is an example:
+      </p>
+      <source>
+hibernate.dialect=org.hibernate.dialect.HSQLDialect
+hibernate.connection.driver_class=org.hsqldb.jdbcDriver
+hibernate.connection.url=jdbc:hsqldb:informa
+hibernate.connection.username=sa
+hibernate.connection.password=
+hibernate.show_sql=true
+      </source>
+      <p>
+        There are also DDLs (for MySQL, PostgreSQL and HSQL) for the tables
+        needed by Informa's hibernate backend provided with the distribution
+        under the directory sql.
+      </p>
+
+    </section>
+
+  </body>
+</document>

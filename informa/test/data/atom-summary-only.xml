@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="/css/feed.xsl"?>
+<feed version="0.3"
+  xmlns="http://purl.org/atom/ns#"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xml:lang="en">
+  <title type="text/plain" mode="escaped">dive into mark</title>
+  <tagline type="text/plain" mode="escaped">Every time you use TypeKey, God kills a kitten.</tagline>
+  <link rel="alternate" type="text/html" href="http://diveintomark.org/"/>
+  <link rel="next" type="application/atom+xml" href="http://diveintomark.org/xml/2004/05/index.atom"/>
+  <modified>2004-05-13T17:16:00Z</modified>
+  <author>
+    <name>Mark Pilgrim</name>
+    <url>http://diveintomark.org/</url>
+  </author>
+
+  <id>tag:diveintomark.org,2004:3</id>
+  <generator url="http://www.movabletype.org/" version="3.0b4">Movable Type</generator>
+  <copyright mode="escaped">Copyright &#169; 2004, Mark Pilgrim</copyright>
+  <entry>
+    <title type="text/plain" mode="escaped">The first thing we do, let&apos;s shoot all the copy editors</title>
+    <link rel="alternate" type="text/html" href="http://diveintomark.org/archives/2004/05/12/copy-editor"/>
+    <modified>2004-05-13T17:14:05Z</modified>
+    <issued>2004-05-12T10:29:00-05:00</issued>
+    <id>tag:diveintomark.org,2004:3.3735</id>
+    <created>2004-05-12T14:29:00Z</created>
+    <summary type="text/plain" mode="escaped">Dive Into Python is almost finished.  Now the copy editor is wielding her virtual pen and striking through every word I&apos;ve ever written. (332 words)</summary>
+    <dc:subject>Python</dc:subject>
+  </entry>
+  <entry>
+    <title type="text/plain" mode="escaped">Google Watcher</title>
+    <link rel="alternate" type="text/html" href="http://diveintomark.org/archives/2004/05/11/google-watcher"/>
+    <modified>2004-05-12T17:41:17Z</modified>
+    <issued>2004-05-11T21:30:52-05:00</issued>
+    <id>tag:diveintomark.org,2004:3.3727</id>
+    <created>2004-05-12T01:30:52Z</created>
+    <summary type="application/xhtml+xml" mode="xml">Google <b>Blog</b></summary>
+    <dc:subject></dc:subject>
+  </entry>
+  <entry>
+    <title type="text/plain" mode="escaped">Yet another crack at user-friendly feeds</title>
+    <link rel="alternate" type="text/html" href="http://diveintomark.org/archives/2004/05/04/user-friendly-feeds-2"/>
+    <modified>2004-05-13T17:14:11Z</modified>
+    <issued>2004-05-04T08:24:54-05:00</issued>
+    <id>tag:diveintomark.org,2004:3.3703</id>
+    <created>2004-05-04T12:24:54Z</created>
+    <summary type="text/plain" mode="escaped">Round 2: I&apos;m styling my Atom feed with XSLT now.  The result is just as user-friendly, but works in IE. (374 words)</summary>
+    <dc:subject>Those that tremble as if they were mad</dc:subject>
+  </entry>
+</feed>

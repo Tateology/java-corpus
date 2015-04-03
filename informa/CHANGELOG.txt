@@ -1,0 +1,460 @@
+Informa change log:
+
+------------------------------------------------------------------------------
+Version 0.7.0-alpha2
+
+ o Minor code beautifications (JavaDoc)
+ 
+ o Improved build system: 
+   - two distrubtions á la Spring (with and without dependencies, sources
+     and tests are included anyway)
+   - switched from tar.gz to zip compression
+   
+ o Bringing Maven (1) project build back again for site generation
+
+------------------------------------------------------------------------------
+Version 0.7.0-alpha1
+
+ o Improved parsing of Atom (0.3 and 1.0) feeds (thanks to Nilesh Bansal)
+ 
+ o Migrated to JDK 5 (thanks to Ítalo Borssatto)
+
+ o New PersistenceManager for better integration into the Spring Framework
+   see de.nava.informa.utils.manager.hibernate.SpringPersistenceManager
+
+ o Updated 3rd party libraries:
+   - JDOM library from b10 to 1.0
+   - Lucene from 1.2 to 1.4.3
+   - Hibernate from 2.1 to 3.0.5 (and dependent libraries like Jakarta commons)
+   - MySQL driver from 3.0.9 to 3.0.17
+   - Log4J from 1.2.8 to 1.2.9
+
+ o Removed unecessary 3rd party libraries:
+   - XML parsing libraries, since we now assume at least JDK 1.4
+   - PostgreSQL JDBC driver (you have to bring it with you on your own)
+   - Castor JDO (they were outdated anyway, and the informa Castor JDO 
+     binding experimental, the sources are still shipped anyway)
+
+ o Removed xdoclet dependency for generating Hibernate mapping files (hbm)
+   from now on we will maintain them manually
+
+ o Removed implementation for the JDO backend, it was not maintained for a
+   long time anyway
+   
+ o Fixed bug 1560571 (Exporting image element for the channel)
+ 
+------------------------------------------------------------------------------
+Version 0.6.5
+ 
+ o Fixed bug 1145998 (Encoding not correctly set on writing feed)
+   Thanks for reporting on this to Felipe Vieira Silva and Filip van Laenen.
+
+ o [adewale@gmail.com, 01-May-2005] Fix for blogs (msdn) which have
+   'created' dates, but not 'issued' dates in clear contravention of the Atom
+   0.3 spec (Atom 0.3 Parser).
+
+ o Changes by Aleksey Gureev (BlogBridge Team):
+   - Added recognition of content type for Atom tags 'title', 'copyright',
+     'content' and 'summary'. Title and copyright are returned in plain text.
+     Content / summary are preferred in HTML format. Content tag is preferred
+     source of entry (item) description.
+   - Added support of <content:encoded> tag for RSS1.0 and RSS2.0.
+   - Added support of muliple links in entries of Atom feed with different
+     types. The one to be put in item object is selected using the order of
+     type preference (currently it's set to 'text/html', then 'text/plain',
+     then others.
+   - Added support for another date format met at http://www.jnsk.se/weblog:
+     "Tue, 21 Dec 2004 23:02 +0100".
+   - Made poller and cleaner worker threads be daemons.
+   - Reverted equals() matching methods to perform minimum comparisons for
+     all implementations of ChannelIF and ItemIF (others don't have equals()).
+   - Reworked Poller and Cleaner to process tasks basing on simple blocking
+     queue, which is significantly more simple and reliable.
+   - Added items scanning policies to Poller to control how it looks for the
+     new items:
+      POLICY_SCAN_ALL            - Scan all items (default)
+      POLICY_SKIP_AFTER_EXISTING - Stop scanning once existing item detected.
+   - Fixed problems with orphan guide available after successful merging.
+   - Added Poller construction method with custom HTTP user-agent.
+   - Added support for custom SAX2 Drivers in FeedParser.
+   - Reworked session locking in HibernateUtil to improve thread-safety.
+   - Added callback interface InputSourceProviderIF to convert feed's
+     InputStream before parsing, which is useful for pre-processing the data
+     before it gets into parser.
+   - Converting case of tags' names to expected before feeds parsing.
+   - Poller Module: Channels can be scheduled for polling with initial delay
+     different from zero.
+   - Poller Module: Added stream providing hook to create non-default
+     InputStream for feed fetching.
+   - Added detection of Atom 0.1-0.3 to FormaDetector.
+   - Fix for invalid TTL format parsing in RSS 2.0.
+   - Fix for parsing of Atom feeds without version attribute (v0.3 is assumed).
+   - Added support for correct CDATA handling in the fields of Atom feeds
+     (title, description, copyright, or whatever).
+   - Integrated minor Hibernate + Channel/Item URL's fix by Scott Douglass
+
+------------------------------------------------------------------------------
+Version 0.6.0
+
+ o upgraded CGLib to 2.0.2 (full)
+
+ o Changes by Aleksey Gureev (BlogBridge Team):
+   - Added universal Persistence Management interface. At the present moment
+     interface supports operations over ChannelGroup's, Channel's and Item's.
+   - Added In-Memory and Hibernate persistence manager implementations.
+   - Added Poller module for convenient multi-threaded background polling of
+     changes in channels.
+   - Added Cleaner module for convenient multi-threaded background cleaning
+     of channels using the set of rules.
+   - Changed the way two URL's compared in implementations of ChannelIF and
+     ItemIF to perform better and unleash the power of multi-threaded
+     environment.
+
+ o Fixed feature request 1015930 (long channelId vs. int channelId:
+   ChannelRegistry)
+ 
+ o Fixed feature request 1015926 (Issue Tracking link is bad)
+
+
+------------------------------------------------------------------------------
+Version 0.5.5
+
+ o first experimental support for reading in Atom syntax (0.3 spec)
+ 
+ o renamed de.nava.informa.parsers.RSSParser 
+   to de.nava.informa.parsers.FeedParser to express that we
+   will be able to read in RSS and Atom news feeds
+   (the associated test class is also renamed)
+
+ o Improved FeedManager: the refresh daemon makes now use of cache settings
+
+ o fixed Bug 934766 (RSS2 parser fails if namespace declared)
+
+ o added exporter for RSS 2.0 format
+   (see class de.nava.informa.exporters.RSS_2_0_Exporter)
+
+ o Refreshed library dependencies:
+   - upgraded to JDOM b10
+   - upgraded MySQL JDBC driver 3.0.9
+   - upgraded JUnit to 3.8.1
+
+------------------------------------------------------------------------------
+Version 0.5.0
+
+ o Changes by Michael Harhen:
+   - Modified Channel to use a Jakarta Commons 3.0 LinkedMap if it is available.
+     Otherwise use a LinkedHashMap for JDK 1.4+, and a HashMap for
+     earlier versions. This provides full equivalence for all JDK versions.
+   - Added getName() / setName() methods to WithNameMIF interface.
+   
+ o Pito
+   - added moveChannelTo, deleteChannel, deleteItemFromChannel, hasChannel methods to PersistChanGrp class
+   - fixed several very tricky bugs in hibernate support (relating to .equals handling)
+   - added many new JUNit tests to verify hibernate support
+   - added handy rssUrlTestData class to help with writing JUnit tests (provides a bunch of usable rss urls)
+
+------------------------------------------------------------------------------
+Version 0.4.5 (November 9, 2003)
+
+ o added guard for checking that channel element is found when parsing RSS
+   feeds.
+
+ o Pito
+   - added test/src/de/nava/informa/impl/hibernate/TestInformaPersistence
+   - Continued to make hibernate support more robust
+   - Added new PersistChanGrpMgr + PersistChanGrpMgrTask
+   - Added InformUtils class with misc utility functions
+   - Added TestPersistentChannelGroup (not yet a JUnit case)
+   - Corrected duplicate LOCATION and LOCSTRING fields in Hibernate Schema
+   - Added ability to supply a Property object to Hibernate for a final set of defaults
+   - Added some more notification options to PersistChanGrpMgr
+   - Added a new test for PersistChanGrpMgr and PersistChanGrpTask
+   - Integrate Hibernate 2.1
+
+ o added id fields to ImageIF and TextInputIF
+
+ o updated PostgreSQL JDBC driver (to 7.3.2)
+
+ o Changes by Michael Harhen:
+   - Added elements to ChannelIF: Rating, Generator, Docs, Ttl and Cloud
+   - Added elements to ItemIF: GUID, Comments, Source, and Enclosure
+   - Added detection of RSS 0.94 (uses RSS 2.0 parser)
+   - Added "link" attribute to ImageIF
+   - Added "name" attribute to TextInputIF
+   - Fixed bugs in RSS_1_0_Parser.java - incorrect namespace for copyright,
+     image description. Added better detection of various elements - comments,
+     pubDate, lastBuildDate.
+   - Fixed bug and simplified getNamespace(Element element, String prefix)
+     in ParserUtils
+   - Added methods to ChannelIF and ItemIF to retrieve arbitrary elements
+     and attributes.
+   - Modified Channel to use a LinkedHashMap for JDK 1.4+, and a HashMap for
+     earlier versions. This restores compatibility with JDK 1.3.
+   - Modified RSS_2_0_Parser, there is now a separate GUID element, so do
+     not treat "guid" as equivalent to "link".
+
+------------------------------------------------------------------------------
+Version 0.4.0 (September 29, 2003)
+
+ o first implementation of OPML Parser (currently only version 1.1 is
+   supported)
+
+ o added ChannelIF to ChannelBuilderIF.createItem()
+
+ o impl.Channel now uses LinkedHashMap for storing news items,
+   this allows to keep original order of items (thanks to Michael Rex)
+
+ o renamed AbstractParser into AbstractChannelParser
+
+ o Sam added his FeedManager (under de.nava.informa.utils)
+
+ o substantial simplifying parsing by removing:
+   ChannelParserIF, ChannelParserCollection
+   FeedParserIF, AbstractParser, AbstractChannelParser
+
+   OLD:
+    ChannelParserIF parser = new RSS_2_0_Parser(inpFile);
+    parser.setBuilder(channelBuilder);
+    ChannelIF channel = parser.parse();
+
+   NEW:
+    ChannelIF channel = RSSParser.parse(channelBuilder, inpFile);
+
+ o first release of the hibernate backend
+   (see tests under de.nava.informa.impl.hibernate for usage)
+
+
+------------------------------------------------------------------------------
+Version 0.3.0 (July 28, 2003)
+
+ o Fixed some bugs:
+   [719185] Exporters do not write Date for items
+   [724432] UpdateChannelTask not catching RunTimeException
+   [736257] copyChannelProperties does not copy the Image
+   [719175] Comment after XML Header seems to break FormatDetector
+   [755358] NullPointerException when parsing RSS 0.9 file
+   [730833] Remove "<" and ">" in stringifications
+   [743318] ChannelFormat not Serializable
+   [771138] Problem with build - missing log4j.properties file
+
+ o added de.nava.informa.parsers.AbstractParser to be able to clean
+   the parser implementations (RSS 0.91, 1.0 and 2.0), this fixes also
+   a bug reported by Sam in case no channel builder was set
+
+ o added comparison for channels (Thanks to Jonathan Krebs)
+   see de.nava.informa.utils.ChannelComparator
+
+ o added support in the RSS 1.0 exporter and parser for the Syndication
+   module (Thanks to Jonathan Krebs)
+
+ o switched logging mechanism used for Informa library to be compliant with
+   Apache Commons Logging, since this makes it easier to plug-in JDK 1.4
+   logging besides Log4J
+
+ o upgraded to JDOM b9 (was b8)
+
+ o ChannelParserIF#parse() throws now also IOException if something
+   bad happens with the source from which the channel is read in
+
+ o same applies to FormatDetector#getFormat(URL), throws now also
+   in addition IOException, instead of transforming into RuntimeException
+
+ o removed ChannelIF#copyProperties(ChannelIF) this method was not
+   at the right place and is now there where it belongs in UpdateChannelTask
+
+ o restructuring of the ChannelBuilder classes:
+   - new methods: ChannelBuilderIF#init(Properties) and #close()
+   - introducing ChannelBuilderException
+   - renaming method names from make...() to create...()
+
+ o added subject support in RSS_2_0_Parser (thanks to Sergio Umlauf)
+
+ o renamed package de.nava.informa.impl.jdo to de.nava.informa.castorjdo
+   to make more clear that this backend relies on the Exolab Castor JDO
+
+
+------------------------------------------------------------------------------
+Version 0.2.6 (April 6, 2003)
+
+ o improved date parsing again, by giving the timezone more respect
+   (fixing also bug 714831)
+
+ o When parsing a RSS 1.0 channel the item description element tries
+   to use the default namespace, if not available it falls back to the
+   'dc' namespace (this fixes bug 714835)
+
+ o Better handling of unset news item links in the RSS_1_0_Exporter
+   (bug report 715523)
+
+ o added test case for importing a channel defintion according to the
+   RSS/RDF 1.0 syntax
+
+ o integrated the more lazy channel parsing approach from Pito which
+   does not parse right in the same moment as the channel is being
+   added to the channel registry
+
+ o fixed mapping.xml (only relevant to the JDO implementation)
+   * changed element xml to bind-xml (now validates again)
+   * added link mapping information to item (fixes bug 707159)
+
+ o (finally) added log4j.properties (automatically loaded by the
+   classloader, if available in the classpath)
+
+ o improved ChannelFormat (was mis-use of an interface before) so
+   instead of an integer there is now an own type for the channel
+   format
+
+ o changed interface ChannelParserIF to be more flexible (was only
+   allowing a URL to be passed), now up to the constructor, for
+   example:
+   OLD:
+     ChannelParserIF parser = new RSS_0_91_Parser(new ChannelBuilder());
+     channel = parser.parse(inpFile.toURL());
+   NEW: (instead of a new ChannelBuilder instance, this should be shared)
+     ChannelParserIF parser = new RSS_0_91_Parser(inpFile);
+     parser.setBuilder(new ChannelBuilder());
+     channel = parser.parse();
+
+
+------------------------------------------------------------------------------
+Version 0.2.4 (January 20, 2003)
+
+ o Refactored utility methods out of RSS Parsers into
+   utils.ParserUtils, also improved parsing of dates
+
+ o ItemComparator allows now to distinguish between found and
+   retrieved date to be used by sorter
+
+ o Core interface adjustments:
+   ~ refactored attribute subscription from Channel[IF] to a
+     collection of channel subscriptions in UserIF
+   ~ refactored attribute metadata from Item[IF] to a collection of
+     item metadata objects in UserIF
+   ~ added attribute channel to ChannelSubscription[IF] (navigability)
+   ~ added attribute item to ItemMetadata[IF] (navigability)
+   ~ removed attribute channelGroup from Channel[IF] to allow separate
+     channel grouping per user
+   ~ applied composite pattern to ChannelGroup[IF] so that channel
+     groups are allowed to be nested
+   ~ added attributes pubDate and lastBuildDate to Channel[IF]
+   ~ added attribute title to ChannelGroup[IF]
+
+
+------------------------------------------------------------------------------
+Version 0.2.2 (October 20, 2002)
+
+ o Added RSS/RDF 1.0 export
+
+ o A Channel[IF] can now be assigned a *collection* of CategoryIF objects
+
+ o Removed obsolete interface ChannelCollectionIF (and basic implementation)
+
+ o moved Castor JDO mapping and database configuration file into
+   src/de/nava/informa/impl/jdo (was: test/jdo)
+
+ o moved database schema creation script into own 'sql' directory
+
+
+------------------------------------------------------------------------------
+Version 0.2.1 (August 21, 2002)
+
+ o Summary: Added more JavaDoc to the sources
+
+ o create a very basic web site explaining the project and basic
+   usage (started a FAQ)
+
+ o improved a bit the JavaDoc of:
+   - impl.basic.IdGenerator
+   - utils.FormatDetector
+   - utils.SimpleChannelObserver
+
+ o switched from protected member fields to private in general
+
+ o create package.html inside all of the source package directories
+
+ o write script to add docs/header to all of the java source files
+
+
+------------------------------------------------------------------------------
+Version 0.2.0 (August 5, 2002)
+
+ o Summary: Initial (alpha) release
+
+ o build a category tree in minigui, containing the individual channels
+
+ o fixed update problem in minigui, added method channelRetrieved in
+   ChannelObserverIF and impls
+
+ o how to persist channel and item information?
+   - using Castor JDO (first implementation is now finished, 21-July-2002)
+   (alternatives, not chosen for this library)
+   ~ use Torque (similar to Castor, less cache features)
+   ~ try to figure out wether jdom-contrib-beans-BeanMapper could be used
+   ~ consider using Jakarta Betwixt
+     http://jakarta.apache.org/commons/betwixt
+   ~ write custom JDOM code
+
+ o JDO implementation: second class objects get id member not in
+   interface but only in JDO implementation, because it is not needed
+   anywhere else
+
+ o new IdGenerator concept / interface which all implemenation use
+   consistently (impl.basic does not care about Ids)
+
+ o renamed ChannelCollection[IF] to ChannelGroup[IF]
+
+ o ChannelExporterIF and RSS 0.91 Exporter class in place
+
+ o integrating lucene for searching/filtering through Items
+
+ o try to avoid Lucene specific parameters in public methods in
+   informa.search classes to be a bit more independent
+
+ o re-indexing (or updating the index) if new item was added by
+   using the following code:
+   writer = new IndexWriter(_path, _analyzer, false)
+   writer.addDocument(_new_item)
+   writer.optimize();
+   writer.close();
+
+ o add to the Lucene Item Document a new field with the parent
+   channel location (non indexed field)
+
+ o improve fault tolerance of lucene indexing if fields are not set
+   -> ItemDocument class
+
+ o added implementation of ChannelCollectionIF
+
+ o renamed ItemFields into ItemFieldConstants in package
+   de.nava.informa.search
+
+ o added member ID to ChannelIF and implementation
+
+ o created ItemSubscriptionIF for storing client metadata (read flag
+   and score)
+
+ o add to ItemIF method (and implement)
+   ChannelIF getChannel();
+
+ o avoid reading DTD (that is done, even when explictly unset validation)
+   (see jdom-faq.txt)
+   -> de.nava.informa.utils.NoOpEntityResolver
+
+ o migrate ItemComparator from test/minigui.py into own java utility class
+
+ o integrate Log4J, throw away all printing to stdout and stderr
+
+ o think about moving ChannelRegistry from utils package to impl.basic
+   and create also an interface for it (no, it is too tight bound to
+   other classes from the utils package, also only the Map of channels
+   is interesting to persist).
+
+ o implement utils.UpdateChannelTask
+
+ o implement utils.FormatDetector
+   -> improve by using version attribute
+
+ o start write some test cases
+
+ o start implementing the Event - Listener mechanism
+   (using the Observer pattern)

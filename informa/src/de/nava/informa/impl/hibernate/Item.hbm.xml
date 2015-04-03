@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="de.nava.informa.impl.hibernate.Item" table="ITEMS"
+    dynamic-update="false" dynamic-insert="false">
+
+    <id name="id" column="ITEM_ID" type="long">
+      <generator class="native"/>
+    </id>
+
+    <many-to-one name="channel"
+      class="de.nava.informa.impl.hibernate.Channel" cascade="none"
+      outer-join="auto" update="true" insert="true" column="CHANNEL_ID"
+      not-null="true" />
+
+    <property name="title" type="string" update="true" insert="true"
+      column="TITLE" not-null="true" />
+
+    <property name="description" type="string" update="true"
+      insert="true" column="DESCRIPTION" length="600" />
+
+    <property name="unRead" type="boolean" update="true" insert="true"
+      column="UNREAD" />
+
+    <property name="linkString" type="string" update="true" insert="true"
+      column="LINK" />
+
+    <bag name="categories" table="CAT_ITEM_LINK" lazy="true"
+      inverse="false" cascade="none">
+
+      <key column="ITEM_ID" />
+
+      <many-to-many class="de.nava.informa.impl.hibernate.Category"
+        column="CATEGORY_ID" outer-join="auto" />
+
+    </bag>
+
+    <property name="creator" type="string" update="true" insert="true"
+      column="CREATOR" />
+
+    <property name="subject" type="string" update="true" insert="true"
+      column="SUBJECT" />
+
+    <property name="date" type="timestamp" update="true" insert="true"
+      column="DATE" />
+
+    <property name="found" type="timestamp" update="true" insert="true"
+      column="FOUND" />
+
+    <many-to-one name="guid"
+      class="de.nava.informa.impl.hibernate.ItemGuid" cascade="none"
+      outer-join="auto" update="true" insert="true" column="GUID" />
+
+    <property name="commentsString" type="string" update="true" insert="true"
+      column="COMMENTS" />
+
+    <many-to-one name="source"
+      class="de.nava.informa.impl.hibernate.ItemSource" cascade="none"
+      outer-join="auto" update="true" insert="true" column="SOURCE" />
+
+    <many-to-one name="enclosure"
+      class="de.nava.informa.impl.hibernate.ItemEnclosure"
+      cascade="none" outer-join="auto" update="true" insert="true"
+      column="ENCLOSURE" />
+
+
+  </class>
+
+</hibernate-mapping>

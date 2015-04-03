@@ -1,0 +1,31 @@
+Some notes about usage of HypersonicSQL (1.7.1)
+It is a very nice database which can be run in 
+standalone (server) or in-memory mode.
+
+- export HSQLDB_HOME=/usr/local/java/hsqldb
+
+- download and extract from hsqldb.sourceforge.net
+  into HSQLDB_HOME
+
+- export CLASSPATH=$CLASSPATH:$HSQLDB_HOME/lib/hsqldb.jar:.
+
+$ java org.hsqldb.util.DatabaseManager -?
+Usage: java DatabaseManager [-options]
+where options include:
+    -driver <classname>  jdbc driver class
+    -url <name>          jdbc url
+    -user <name>         username used for connection
+    -password <password> password for this user
+    -dir <path>          default directory
+    -script <file>       reads from script file
+
+Example for url: jdbc:hsqldb:informa
+default user: 'sa', default password: ''
+
+$ java org.hsqldb.util.ScriptTool -script build/scripts/informa-hibernate.ddl -database informa
+
+- Warning: Only INTEGER is allowed data type for IDENTITY columns,
+  so the generated BIGINT (=> long id) definition is not working,
+  workaround: manually changed the DDL
+  TODO: investigate if this is resolved in a more current version of hsqldb
+  

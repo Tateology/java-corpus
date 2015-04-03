@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed version="0.3" xmlns="http://purl.org/atom/ns#" xml:lang="en">
+<title type="text/plain">multilink test - linkblog with multiple types</title>
+<link rel="alternate" type="text/html" href="http://diveintomark.org/archives/blinks/"/>
+<tagline>prototype of multiple links</tagline>
+<id>tag:diveintomark.org,2001-07-29:/archives/blinks/multilink-multitype</id>
+<modified>2004-05-24T18:23:57Z</modified>
+<copyright type="text/plain">Copyright (c) 2004 Mark Pilgrim</copyright>
+<author>
+<name>Mark Pilgrim</name>
+<url>http://diveintomark.org/</url>
+</author>
+<entry>
+<title/>
+<link rel="alternate" type="text/html" href="http://diveintomark.org/archives/blinks/2004/05/#b10"/>
+<link rel="related" type="text/html" href="http://talks.php.net/show/lca04" title="PHP Tips and Tricks"/>
+<link rel="related" type="application/pdf" href="http://www.lerdorf.com/tips.pdf" title="PHP Tips and Tricks (PDF)"/>
+<issued>2004-05-24T16:07:48Z</issued>
+<created>2004-05-24T16:07:48Z</created>
+<modified>2004-05-24T16:07:48Z</modified>
+<id>tag:diveintomark.org,2001-07-29:/archives/blinks/multilink-multitype/1</id>
+<summary>Rasmus bares all</summary>
+</entry>
+</feed>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="de.nava.informa.impl.hibernate.Cloud" table="CLOUDS"
+    dynamic-update="false" dynamic-insert="false">
+
+    <id name="id" column="CLOUD_ID" type="long">
+      <generator class="native"/>
+    </id>
+
+    <property name="domain" type="string" update="true" insert="true"
+      column="DOMAIN" not-null="true" />
+
+    <property name="port" type="int" update="true" insert="true"
+      column="PORT" not-null="true" />
+
+    <property name="path" type="string" update="true" insert="true"
+      column="PATH" not-null="true" />
+
+    <property name="registerProcedure" type="string" update="true"
+      insert="true" column="REGISTER_PROCEDURE" not-null="true" />
+
+    <property name="protocol" type="string" update="true" insert="true"
+      column="PROTOCOL" not-null="true" />
+
+
+  </class>
+
+</hibernate-mapping>

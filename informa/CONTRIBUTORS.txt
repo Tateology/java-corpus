@@ -1,0 +1,62 @@
+Contributors to the Informa Project
+(in historical order, for now :-):
+
+Niko Schmuck <niko@nava.de>
+  - Informa founder, implementor and project administratior
+
+Anthony Eden <me@anthonyeden.com>
+  - introducing RSS 2.0 parser support
+
+Jason Carreira <jason@zenfrog.com>
+  - reviewing core interface design
+
+Jon Pipitone <jon.pipitone@utoronto.ca>
+  - Tinara (integrating Informa aggregator with CVS functionality)
+
+Pito Salas <pito@salas.com>
+  - InformaClient - User Interface for reading and discovering blogs
+    (now renamed to BlogBridge, check out informa-contrib/blogbridge)
+  - helping to find bugs in the hibernate mappings
+  - BlogBridge - follow on to InformaClient. Now moved to 
+    http://sourceforge.net/projects/blogbridge/
+  - Added PersistenChanGrp facility
+
+Jonathan Krebs <Jonathan.Krebs@trw.com>
+  - Improving the RSS 1.0 parser and exporter to support 
+    the Syndication Module
+
+Sam Newman <sam-newman@magpiebrain.com>
+  - Providing a FeedManager for handling channel updates
+
+Michael Harhen <michaelharhen@cox.net>
+  - Useful enhancements for the interface completeness and parser stability
+
+Alexei Matiouchkine <matiouchkine@ask-petersburg.com>
+  - Refactoring core interfaces, introducing MetaInterfaces (MIF)
+
+Sami Alireza <sami2box@bonbon.net>
+  - Contributed RSS_2_0_Exporter, for serializing channels in RSS 2.0 format
+
+Jean-Guy Avelin <avelin@univ-reunion.fr>
+  - Improved FeedManager: the refresh daemon makes now use of cache settings
+  - Improved parsing of Atom 0.3 feeds
+
+Jerald Pratt <jerald.pratt@ngc.com>
+  - Added support for nested (hierarchical) categories when parsing
+    and exporting RSS 2.0 feeds
+
+Aleksey Gureev <spyromus@noizeramp.com>
+  - The second guy behind BlogBridge bringing a lot of good ideas into
+    the informa project and spent a lot of time improving the usability
+    of this library (especially the Hibernate back-end).
+
+Nilesh Bansal <nileshbansal@gmail.com>
+  - Improved heavily Atom feed parsers
+
+Ítalo Borssatto <italobb@gmail.com>
+  - Migration to JDK 5
+  - Improvements to build system (better test execution)
+
+Benjamin Wiedmann <benjamin.wiedmann@gmx.net>
+  - Bugfixes in ATOM 1.0 parser (handling of category tags)
+

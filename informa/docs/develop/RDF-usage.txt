@@ -1,0 +1,66 @@
+-----------------------------------------------------------------------
+RDF used by XMLhack:
+-----------------------------------------------------------------------
+
+<rdf:RDF 
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://purl.org/rss/1.0/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/">
+
+  <channel rdf:about="http://xmlhack.com/rss10.php">
+    <title>XMLhack</title>
+    <link>http://xmlhack.com/</link>
+    <dc:source resource="http://xmlhack.com/" />
+    <description>Developer news from the XML community</description>
+    <dc:language>en-us</dc:language>
+    <dc:publisher>Edd Dumbill (mailto:webmaster@xmlhack.com)</dc:publisher>
+    <dc:creator>Edd Dumbill (mailto:editor@xmlhack.com)</dc:creator>
+    <dc:rights>Copyright 1999-2001, xmlhack team.</dc:rights>
+    <image rdf:resource="http://xmlhack.com/images/mynetscape88.gif" />
+    <items>
+      <rdf:Seq>
+        <rdf:li resource="http://xmlhack.com/read.php?item=1684" />
+        <!-- more of this -->
+      </rdf:Seq>
+    </items>
+  </channel>
+  <image rdf:about="http://xmlhack.com/images/mynetscape88.gif">
+    <title>xmlhack</title>
+    <url>http://xmlhack.com/images/mynetscape88.gif</url>
+    <link>http://xmlhack.com</link>
+    <dc:description>News, opinions, tips and issues ...</dc:description>
+  </image>
+  <item rdf:about="http://xmlhack.com/read.php?item=1684">
+    <title>Mozilla 1.0 Released</title>
+    <link>http://xmlhack.com/read.php?item=1684</link>
+    <dc:description>The Mozilla open-source Web browser ...</dc:description>
+    <dc:subject>Browsers</dc:subject>
+  </item>
+  <!-- more item elements -->
+</rdf:RDF>
+
+
+-----------------------------------------------------------------------
+RDF used by Slashdot / Heise / etc.
+-----------------------------------------------------------------------
+
+<rdf:RDF
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://my.netscape.com/rdf/simple/0.9/">
+
+  <channel>
+    <title>Slashdot: News for nerds, stuff that matters</title>
+    <link>http://slashdot.org/</link>
+    <description>News for nerds, stuff that matters</description>
+  </channel>
+  <image>
+    <title>Slashdot: News for nerds, stuff that matters</title>
+    <url>http://images.slashdot.org/topics/topicslashdot.gif</url>
+    <link>http://slashdot.org/</link>
+  </image>
+  <item>
+    <title>Matrix Reloaded Filming Wants to Shut Sydney Down</title>
+    <link>http://slashdot.org/article.pl?sid=02/06/11/1231204</link>
+  </item>
+  <!-- more item elements -->
+</rdf:RDF>

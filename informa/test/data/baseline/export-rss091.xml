@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE rss PUBLIC "-//Netscape Communications//DTD RSS 0.91//EN" "http://my.netscape.com/publish/formats/rss-0.91.dtd">
+<rss version="0.91">
+  <channel>
+    <title>The Great Demo Channel</title>
+    <description>Just a very simple short description.</description>
+    <link>http://nava.de</link>
+    <item>
+      <title>Bugo</title>
+      <link>http://nava.de/huhu2002</link>
+      <description>All about it!</description>
+    </item>
+    <item>
+      <title>SoCool</title>
+      <link>http://nava.de/very/nested/98</link>
+      <description>äöüß**$12 @ÄÖÜ # should work</description>
+    </item>
+  </channel>
+</rss>
+

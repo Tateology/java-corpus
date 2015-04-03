@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="de.nava.informa.impl.hibernate.TextInput"
+    table="TEXTINPUTS" dynamic-update="false" dynamic-insert="false">
+
+    <id name="id" column="TEXTINPUT_ID" type="long">
+      <generator class="native"></generator>
+    </id>
+
+    <property name="title" type="string" update="true" insert="true"
+      column="TITLE" not-null="true" />
+
+    <property name="description" type="string" update="true"
+      insert="true" column="DESCRIPTION" />
+
+    <property name="name" type="string" update="true" insert="true"
+      column="NAME" />
+
+    <property name="linkString" type="string" update="true"
+      insert="true" column="LINK" />
+
+
+  </class>
+
+</hibernate-mapping>

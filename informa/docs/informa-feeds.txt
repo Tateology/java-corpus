@@ -1,0 +1,42 @@
+
+Project RSS Feeds: informa
+
+RSS feeds are available for SourceForge.net-hosted projects, providing
+ready access to various types of project data. This page provides a
+listing of the RSS feeds which may be accessed for the informa
+project.
+
+Information on how to use RSS feeds may be found in our documentation
+titled, "Information regarding SourceForge.net-provided RSS feeds".
+Please do not submit these feeds to RSS feed databases (such as
+Syndic8) unless you are the administrator for this project.
+
+The following RSS feeds may be useful for this project. XML icons link
+to the feed directly. XML icons with pill are for AmphetaDesk users
+(who can use that icon to add the feed to their channel list).
+
+- Project news releases
+  http://sourceforge.net/export/rss2_projnews.php?group_id=52620
+
+- Project news releases (including full text of news items)
+  http://sourceforge.net/export/rss2_projnews.php?group_id=52620&rss_fulltext=1
+
+- Project file releases
+  http://sourceforge.net/export/rss2_projfiles.php?group_id=52620
+
+- Project documentation (DocManager) updates
+  http://sourceforge.net/export/rss2_projdocs.php?group_id=52620
+
+- Project summary (including basic statistics)
+  http://sourceforge.net/export/rss2_projsummary.php?group_id=52620
+
+Additional information regarding these feeds (and instructions on
+acessing RSS feeds) may be found in our documentation titled,
+"Information regarding SourceForge.net-provided RSS feeds". This page
+has provided a list of available project RSS feeds; SourceForge.net
+also provides a number of site-wide RSS feeds (details regarding these
+feeds may be found in the aforementioned documentation).
+
+Source: http://sourceforge.net/export/rss2_project.php?group_id=52620
+Date:   25-Mar-2003
+$Id: informa-feeds.txt 158 2003-03-25 09:23:56Z niko_schmuck $

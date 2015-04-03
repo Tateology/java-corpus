@@ -1,0 +1,44 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns="http://purl.org/rss/1.0/">
+  <channel rdf:about="http://localhost/index.xml">
+    <title>Test</title>
+    <link>http://localhost/</link>
+    <description>Some description.</description>
+    <language>en-us</language>
+    <items>
+      <rdf:Seq>
+        <rdf:li rdf:resource="http://localhost/001033"/>
+        <rdf:li rdf:resource="http://localhost/001032"/>
+        <rdf:li rdf:resource="http://localhost/001029"/>
+      </rdf:Seq>
+    </items>
+  </channel>
+
+  <item rdf:about="http://localhost/001033">
+    <title>Test 1</title>
+    <link>http://localhost/001033</link>
+    <description>1</description>
+    <dc:creator>Test</dc:creator>
+    <dc:date>2003-09-11T13:13-06:00</dc:date>
+    <content:encoded><![CDATA[1&amp;]]></content:encoded>
+  </item>
+
+  <item rdf:about="http://localhost/001032">
+    <title>Test 2</title>
+    <link>http://localhost/001032</link>
+    <description>2</description>
+    <dc:creator>Test</dc:creator>
+    <dc:date>2003-09-08T13:21-06:00</dc:date>
+  </item>
+
+  <item rdf:about="http://localhost/001029">
+    <title>Test 3</title>
+    <link>http://localhost/001029</link>
+    <dc:creator>Test</dc:creator>
+    <dc:date>2003-08-22T15:23-06:00</dc:date>
+    <content:encoded>3&amp;</content:encoded>
+  </item>
+</rdf:RDF>

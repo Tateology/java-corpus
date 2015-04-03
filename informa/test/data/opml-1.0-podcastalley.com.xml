@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generator="PodcastAlley 1.0" -->
+<opml xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0">
+    <head>
+        <title>PodcastAlley.com 10 Newest Podcasts</title>
+         <dateCreated>Wed, 27 Jun 2007 12:30:01 +0100</dateCreated>
+         <dateModified>Wed, 27 Jun 2007 12:30:01 +0100</dateModified>
+         <ownerName>Chris McIntyre - PodcastAlley.com</ownerName>
+         <ownerEmail>info@podcastalley.com</ownerEmail>
+    </head>
+    <body>
+    <outline type="rss" text="pulseparanormal" title="pulseparanormal" xmlUrl="http://pulseparanormal.podbean.com/feed" htmlUrl=""/>
+    <outline type="rss" text="SWM Podcast" title="SWM Podcast" xmlUrl="http://www.jamestownpublicschools.org/washington/faculty/sdinapoli/iWeb/Star%20Wars%20Minis/Star%20Wars%20Minatures%20Podcast/rss.xml" htmlUrl=""/>
+    <outline type="rss" text="Mike Bennett&amp;amp;#039;s Bonus Track" title="Mike Bennett&amp;amp;#039;s Bonus Track" xmlUrl="http://www.podshow.com/feeds/thebonustrack.xml" htmlUrl=""/>
+    <outline type="rss" text="The Seegers Family Edifice Venture&amp;amp;#xD;(Home Improvement Show)" title="The Seegers Family Edifice Venture&amp;amp;#xD;(Home Improvement Show)" xmlUrl="http://feeds.feedburner.com/TheSeegersFamilyEdificeVenturehomeImprovementShow" htmlUrl=""/>
+    <outline type="rss" text="Vision Critical's Online Research Panel Podcast" title="Vision Critical's Online Research Panel Podcast" xmlUrl="http://www.visioncriticalpodcast.com/?feed=podcast" htmlUrl=""/>
+    <outline type="rss" text="canonpuncture" title="canonpuncture" xmlUrl="http://feeds.feedburner.com/canonpuncture" htmlUrl=""/>
+    <outline type="rss" text="The Good Atheist" title="The Good Atheist" xmlUrl="http://thegoodatheist.net/?feed=podcast" htmlUrl=""/>
+    <outline type="rss" text="Slow Home Podcast" title="Slow Home Podcast" xmlUrl="http://feeds.feedburner.com/SlowHomePodcast" htmlUrl=""/>
+    <outline type="rss" text="I WANT TO BE SPOCK" title="I WANT TO BE SPOCK" xmlUrl="http://feeds.feedburner.com/IWantToBeSpock" htmlUrl=""/>
+    <outline type="rss" text="Uncensored Net Noise Every Friday 9pm Eastern" title="Uncensored Net Noise Every Friday 9pm Eastern" xmlUrl="http://www.morningshowcentral.com/mscunn.xml" htmlUrl=""/>
+    </body>
+</opml>

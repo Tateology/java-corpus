@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed version="0.3" xmlns="http://purl.org/atom/ns#" xml:lang="en">
+<title type="text/plain">multilink test - linkblog with via link</title>
+<link rel="alternate" type="text/html" href="http://diveintomark.org/archives/blinks/"/>
+<tagline>prototype of multiple links</tagline>
+<id>tag:diveintomark.org,2001-07-29:/archives/blinks/multilink-via</id>
+<modified>2004-05-25T08:23:57Z</modified>
+<copyright type="text/plain">Copyright (c) 2004 Mark Pilgrim</copyright>
+<author>
+<name>Mark Pilgrim</name>
+<url>http://diveintomark.org/</url>
+</author>
+<entry>
+<title/>
+<link rel="alternate" type="text/html" href="http://diveintomark.org/archives/blinks/2004/05/#b11"/>
+<link rel="related" type="text/html" href="http://www.horsman.co.nz/story.do?id=34" title="Darwin Awards 2004"/>
+<link rel="via" type="text/html" href="http://www.thauvin.net/linkblog/?date=2004-05-24" title="Eric's Linkblog"/>
+<issued>2004-05-25T06:07:48Z</issued>
+<created>2004-05-25T06:07:48Z</created>
+<modified>2004-05-25T06:07:48Z</modified>
+<id>tag:diveintomark.org,2001-07-29:/archives/blinks/multilink-linkblog/1</id>
+<summary>Stupid human tricks</summary>
+</entry>
+</feed>

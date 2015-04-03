@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!--
+  Maven project file for Informa.
+
+  Very experimental at the moment. Use on your own risk!
+
+  TODO:
+  - check that Unit test names do not contain parent name
+  - improve logo and integrate
+  - how to model dependencies when executing test cases
+    (not straight-forward, have to use maven.xml)
+  - set different CVS properties for developer access
+    (seems to be ignored by maven?)
+
+  $Id: project.xml 835 2007-01-06 23:09:45Z niko_schmuck $
+-->
+
+<project>
+  <pomVersion>3</pomVersion>
+  <id>informa</id>
+  <name>Informa</name>
+  <groupId>informa.sf.net</groupId>
+
+  <currentVersion>0.7.0-alpha2</currentVersion>
+  <inceptionYear>2002</inceptionYear>
+  <package>de.nava.informa</package>
+
+  <organization>
+    <name>Informa Project</name>
+    <url>http://sourceforge.net/projects/informa/</url>
+    <logo>http://sourceforge.net/sflogo.php?group_id=52620</logo>
+  </organization>
+  <logo>./images/informa-logo.png</logo>
+
+  <shortDescription>News Aggregation Library for Java</shortDescription>
+
+  <description>
+    The Informa RSS Library provides a convenient Java API for handling news
+    channels and metadata about them. Different syntax formats (like RSS
+    0.91 and 1.0 RDF, Atom 0.3 and 1.0) for channels are supported. In addition a parser for
+    reading in channel information descriptions (OPML) is provided.
+  </description>
+
+  <url>http://informa.sourceforge.net/</url>
+  <issueTrackingUrl><![CDATA[http://sourceforge.net/tracker/?atid=467483&group_id=52620]]>
+  </issueTrackingUrl>
+
+  <!-- Deployment information -->
+  <siteAddress>informa.sourceforge.net</siteAddress>
+  <siteDirectory>/home/groups/i/in/informa/htdocs</siteDirectory>
+  <distributionDirectory>/home/groups/i/in/informa/htdocs/dist</distributionDirectory>
+
+  <!-- Source code management details -->
+  <repository>
+    <connection>scm:cvs:pserver:anonymous@informa.cvs.sourceforge.net:/cvsroot/informa:informa</connection>
+    <developerConnection>scm:cvs:ext:${maven.username}@informa.cvs.sourceforge.net:/cvsroot/informa:informa</developerConnection>
+    <url>http://informa.cvs.sourceforge.net/informa/</url>
+  </repository>
+
+  <!-- Previous versions of informa -->
+  <versions>
+    <version>
+      <id>0.2.0</id>
+      <name>alpha_0.2.0</name>
+      <tag>release_0_2_0</tag>
+    </version>
+    <version>
+      <id>0.2.1</id>
+      <name>alpha_0.2.1</name>
+      <tag>release_0_2_1</tag>
+    </version>
+    <version>
+      <id>0.2.2</id>
+      <name>alpha_0.2.2</name>
+      <tag>release_0_2_2</tag>
+    </version>
+    <version>
+      <id>0.2.4</id>
+      <name>alpha_0.2.4</name>
+      <tag>release_0_2_4</tag>
+    </version>
+    <version>
+      <id>0.2.6</id>
+      <name>alpha_0.2.6</name>
+      <tag>release_0_2_6</tag>
+    </version>
+    <version>
+      <id>0.3.0</id>
+      <name>alpha_0.3.0</name>
+      <tag>release_0_3_0</tag>
+    </version>
+    <version>
+      <id>0.4.0</id>
+      <name>alpha_0.4.0</name>
+      <tag>release_0_4_0</tag>
+    </version>
+  </versions>
+
+  <!-- Contacting via mailing-lists -->
+  <mailingLists>
+    <mailingList>
+      <name>Informa Announcements List</name>
+      <subscribe>
+        informa-announce-request@lists.sourceforge.net?subject=subscribe
+      </subscribe>
+      <unsubscribe>
+        informa-announce-request@lists.sourceforge.net?subject=unsubscribe
+      </unsubscribe>
+      <archive>
+        http://sourceforge.net/mailarchive/forum.php?forum=informa-announce
+      </archive>
+    </mailingList>
+    <mailingList>
+      <name>Informa Developer List</name>
+      <subscribe>
+        informa-developer-request@lists.sourceforge.net?subject=subscribe
+      </subscribe>
+      <unsubscribe>
+        informa-developer-request@lists.sourceforge.net?subject=unsubscribe
+      </unsubscribe>
+      <archive>
+        http://sourceforge.net/mailarchive/forum.php?forum=informa-developer
+      </archive>
+    </mailingList>
+  </mailingLists>
+
+  <!-- Developers to informa project -->
+  <developers>
+    <developer>
+      <name>Niko Schmuck</name>
+      <id>niko_schmuck</id>
+      <email>niko_schmuck at users.sourceforge.net</email>
+      <organization></organization>
+      <roles><role>Project Manager</role><role>Developer</role></roles>
+      <timezone>+2</timezone>
+    </developer>
+    <developer>
+      <name>Pito Salas</name>
+      <id>pitosalas</id>
+      <email>pitosalas at users.sourceforge.net</email>
+      <organization>BlogBridge Team</organization>
+      <roles><role>Developer</role></roles>
+      <timezone>-4</timezone>
+    </developer>
+    <developer>
+      <name>Aleksey Gureev</name>
+      <id>spyromus</id>
+      <email>spyromus at users.sourceforge.net</email>
+      <organization>BlogBridge Team</organization>
+      <roles><role>Developer</role></roles>
+      <timezone>+3</timezone>
+    </developer>
+    <developer>
+      <name>Sam Newman</name>
+      <id>padark</id>
+      <email>padark at users.sourceforge.net</email>
+      <organization></organization>
+      <roles><role>Developer</role></roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <name>Jean-Guy Avelin</name>
+      <id>jga</id>
+      <email>jga at users.sourceforge.net</email>
+      <organization></organization>
+      <roles><role>Developer</role></roles>
+      <timezone>+2</timezone>
+    </developer>
+    <developer>
+      <name>Michael Harhen</name>
+      <id>mharhen</id>
+      <email>mharhen at users.sourceforge.net</email>
+      <organization></organization>
+      <roles><role>Developer</role></roles>
+      <timezone>-7</timezone>
+    </developer>
+    <developer>
+      <name>Anthony Eden</name>
+      <id>aeden</id>
+      <email>aeden at users.sourceforge.net</email>
+      <organization></organization>
+      <roles><role>Consultant</role></roles>
+      <!-- timezone>-5</timezone -->
+    </developer>
+    <developer>
+      <name>John Munsch</name>
+      <id>johnmunsch</id>
+      <email>johnmunsch at users.sourceforge.net</email>
+      <organization></organization>
+      <roles><role>Developer</role></roles>
+      <!-- timezone>-5</timezone -->
+    </developer>
+    <developer>
+      <name>Jonathan Krebs</name>
+      <id>krebsj</id>
+      <email>krebsj at users.sourceforge.net</email>
+      <organization></organization>
+      <roles><role>Developer</role></roles>
+      <!-- timezone>-5</timezone -->
+    </developer>
+    <developer>
+      <name>Dolan Halbrook</name>
+      <id>dhalbrook</id>
+      <email>dhalbrook at users.sourceforge.net</email>
+      <organization></organization>
+      <roles><role>Developer</role></roles>
+    </developer>
+    <developer>
+      <name>Dmitry Belov</name>
+      <id>bel70</id>
+      <email>bel70 at users.sourceforge.net</email>
+      <organization></organization>
+      <roles><role>Developer</role></roles>
+    </developer>
+    <developer>
+      <name>Nilesh Bansal</name>
+      <id>nileshbansal</id>
+      <email>nileshbansal at users.sourceforge.net</email>
+      <organization></organization>
+      <roles><role>Developer</role></roles>
+      <timezone>-7</timezone>
+    </developer>
+    <developer>
+      <name>Ítalo Borssatto</name>
+      <id>italobb</id>
+      <email>italobb at users.sourceforge.net</email>
+      <organization></organization>
+      <roles><role>Developer</role></roles>
+      <timezone>-3</timezone>
+    </developer>
+  </developers>
+
+  <!-- Contributors to informa project -->
+  <contributors>
+    <contributor>
+      <name>Jon Pipitone</name>
+      <email>nrvs at users.sourceforge.net</email>
+      <organization></organization>
+      <roles><role>Developer</role></roles>
+    </contributor>
+    <contributor>
+      <name>Alexei Matiouchkine</name>
+      <email>matiouchkine at ask - petersburg dot com</email>
+      <organization></organization>
+      <roles><role>Developer</role></roles>
+    </contributor>
+  </contributors>
+
+
+  <licenses>
+  	<license>
+  		<name>GNU Lesser General Public License (LGPL)</name>
+  		<url>http://www.opensource.org/licenses/lgpl-license.php</url>
+  	</license>
+  </licenses>
+
+  <!-- Project dependencies for compilation and execution -->
+  <dependencies>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring</artifactId>
+      <version>1.2.8</version>
+      <url>http://www.springframework.org/</url>
+    </dependency>
+
+    <dependency>
+      <id>jdom</id>
+      <version>1.0</version>
+      <url>http://www.jdom.org/</url>
+    </dependency>
+
+    <dependency>
+      <id>commons-logging</id>
+      <version>1.0.4</version>
+      <url>http://jakarta.apache.org/commons/logging.html</url>
+    </dependency>
+
+    <!-- Log4J only needed if JDK < 1.4 is used -->
+    <!-- dependency>
+      <id>log4j</id>
+      <version>1.2.9</version>
+      <url>http://jakarta.apache.org/log4j/</url>
+    </dependency -->
+
+    <dependency>
+      <id>lucene</id>
+      <version>1.4.3</version>
+      <url>http://jakarta.apache.org/lucene/</url>
+    </dependency>
+
+    <dependency>
+      <id>hibernate</id>
+      <version>3.0.5</version>
+      <url>http://www.hibernate.org/</url>
+    </dependency>
+
+    <!-- needed by hibernate -->
+
+    <dependency>
+      <id>cglib</id><!-- -asm -->
+      <version>2.1</version>
+      <url>http://cglib.sourceforge.net/</url>
+    </dependency>
+    <dependency>
+      <id>asm</id>
+      <version>1.4.3</version>
+      <url>http://objectweb.org/</url>
+    </dependency>
+    
+    <!-- dependency>
+      <groupId>jta</groupId>
+      <artifactId>jta</artifactId>
+      <version>1.0.1</version>
+      <type>jar</type>
+    </dependency -->
+
+    <dependency>
+      <id>commons-lang</id>
+      <version>2.1</version>
+      <url>http://jakarta.apache.org/commons/lang.html</url>
+    </dependency>
+    <dependency>
+      <id>commons-beanutils</id>
+      <version>1.7.0</version>
+      <url>http://jakarta.apache.org/commons/beanutils.html</url>
+    </dependency>
+    <dependency>
+      <id>commons-collections</id>
+      <version>3.1</version>
+      <url>http://jakarta.apache.org/commons/collections/index.html</url>
+    </dependency>
+    <dependency>
+      <id>dom4j</id>
+      <version>1.6</version>
+      <url>http://dom4j.sourceforge.net/</url>
+    </dependency>
+    <dependency>
+      <id>ehcache</id>
+      <version>1.1</version>
+      <url>http://ehcache.sourceforge.net/</url>
+    </dependency>
+
+    <dependency>
+      <id>hsqldb</id>
+      <version>1.7.3.3</version>
+      <url>http://hsqldb.sourceforge.net/</url>
+    </dependency>
+
+  </dependencies>
+
+
+  <build>
+
+    <nagEmailAddress>
+      informa-developer@lists.sourceforge.net
+    </nagEmailAddress>
+
+    <sourceDirectory>src</sourceDirectory>
+    <unitTestSourceDirectory>test/src</unitTestSourceDirectory>
+    <jars></jars>
+
+    <!-- Unit test cases -->
+    <unitTest>
+      <includes>
+        <include>**/Test*.java</include>
+        <!-- include>de/nava/informa/test/AllTests.java</include -->
+      </includes>
+      <excludes>
+        <!-- exclude>de/nava/informa/impl/hibernate/*.java</exclude -->
+        <!-- exclude>de/nava/informa/utils/manager/hibernate/*.java</exclude -->
+        <exclude>**/TestAbstract*.java</exclude>
+      </excludes>
+    </unitTest>
+
+    <!-- Resources that are needed by java classes resp. tests -->
+    <resources>
+      <resource>
+        <directory>config</directory>
+        <includes>
+          <include>*.xml</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src</directory>
+        <includes>
+          <include>**/*.hbm.xml</include>
+        </includes>
+      </resource>
+    </resources>
+
+  </build>
+
+  <!-- Reports integrated into Site generated by Maven -->
+  <reports>
+    <report>maven-jdepend-plugin</report>
+    <report>maven-checkstyle-plugin</report>
+    <report>maven-changes-plugin</report>
+    <report>maven-changelog-plugin</report>
+    <report>maven-file-activity-plugin</report>
+    <report>maven-developer-activity-plugin</report>
+    <report>maven-javadoc-plugin</report>
+    <!-- report>maven-jxr-plugin</report -->
+    <report>maven-junit-report-plugin</report>
+    <!-- report>maven-tasklist-plugin</report -->
+    <!-- report>maven-faq-plugin</report -->
+    <!-- report>maven-linkcheck-plugin</report -->
+  </reports>
+
+</project>

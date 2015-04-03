@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE rss PUBLIC "-//Netscape Communications//DTD RSS 0.91//EN"
+"http://my.netscape.com/publish/formats/rss-0.91.dtd">
+<rss version="0.91">
+  <channel>
+    <copyright>Copyright 2001, 2002 Pro-Linux</copyright>
+    <description>Pro-Linux - Wir geben Ihrem Computer das Leben zurück</description>
+    <link>http://www.pro-linux.de/</link>
+    <title>Pro-Linux News</title>
+    <image>
+      <link>http://www.pro-linux.de/</link>
+      <title>Pro-Linux News</title>
+      <url>http://www.pl-forum.de/images/pl_black.jpg</url>
+      <width>50</width>
+      <height>50</height>
+    </image>
+    <item>
+      <title>Bugfix-Version von Mozilla erschienen</title>
+      <description>Die freie Web-Suite Mozilla 1.0 ist in einer von Fehler befreiten Version 1.0.1 erschienen - neue Funktionen erst in Mozilla 1.2. Während die Entwicklung an Mozilla 1.2 unaufhaltsam weitergeht, stellte das Team eine Bugfix-Version der Suite vor.</description>
+      <link>http://www.pro-linux.de/news/2002/4690.html</link>
+    </item>
+    <item>
+      <title>FlightGear 0.8: Nur Fliegen ist schöner</title>
+      <description>Die Entwickler des bekannten Flug-Simulators FlightGear stellen allen Nutzern eine neue Version zur Verfügung.</description>
+      <link>http://www.pro-linux.de/news/2002/4689.html</link>
+    </item>
+    <item>
+      <title>SuSE Linux 8.1 angekündigt</title>
+      <description>Fünf Monate nach der Veröffentlichung der Version 8.0 der Nürnberger Distribution kündigt der Hersteller die Version 8.1 an.</description>
+      <link>http://www.pro-linux.de/news/2002/4688.html</link>
+    </item>
+    <item>
+      <title>Linux-basierter Videorecorder von Sony</title>
+      <description>Japans Sony Corporation stellte einen Linux-Video-Recoder vor, der nach Angaben des Unternehmens die TV-Gewohnheiten der Nutzer revolutionieren wird.</description>
+      <link>http://www.pro-linux.de/news/2002/4687.html</link>
+    </item>
+    <item>
+      <title>Quanta Plus 3.0 PR2</title>
+      <description>Das Entwicklerteam um Eric Lafoon hat die zweite Test-Version der kommenden Generation 3.0 der Web-Entwicklungsumgebung Quanta+ freigegeben.</description>
+      <link>http://www.pro-linux.de/news/2002/4686.html</link>
+    </item>
+    <item>
+      <title>Opencola - Nur noch ein Monat</title>
+      <description>Pizza und Cola sind wohl die Hauptnahrungsmittel jedes Geeks und schlagen nicht selten tiefe Löcher in die Haushaltskasse der Programmierer - damit dürfte nun Schluss sein.</description>
+      <link>http://www.pro-linux.de/news/2002/4685.html</link>
+    </item>
+    <item>
+      <title>Neue Konfiguration für den Kernel</title>
+      <description>Ein neues System soll nach Willen eines Entwicklers die umständliche Konfiguration des Linux-Kernels einfacher machen.</description>
+      <link>http://www.pro-linux.de/news/2002/4684.html</link>
+    </item>
+    <item>
+      <title>AtheOS ist jetzt Syllable</title>
+      <description>Nach mehrmonatiger Funkstille ist der Autor des Unix-ähnlichen Desktop-Betriebssystems AtheOS , Kurt Skauen, kürzlich wieder aus der Versenkung aufgetaucht, nur um der AtheOS-Fangemeinde mitzuteilen, dass er im Moment keine Zeit und Lust hat , an dem für...</description>
+      <link>http://www.pro-linux.de/news/2002/4683.html</link>
+    </item>
+    <item>
+      <title>Blender endgültig frei</title>
+      <description>Der beliebte 3D-Modeller Blender kann nun unwiderruflich unter die GPL gestellt werden - die 100.000 USD zum Freikaufen der Quellen sind beisammen.</description>
+      <link>http://www.pro-linux.de/news/2002/4682.html</link>
+    </item>
+    <item>
+      <title>Jhai: Linux-Computer für Laos</title>
+      <description>Die Jhai Foundation, eine amerikanisch-laotische Stiftung, will einen PC-kompatiblen Computer für die Landbevölkerung der dritten Welt produzieren.</description>
+      <link>http://www.pro-linux.de/news/2002/4681.html</link>
+    </item>
+  </channel>
+</rss>

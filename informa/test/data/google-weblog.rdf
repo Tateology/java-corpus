@@ -1,0 +1,203 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+xmlns:content="http://purl.org/rss/1.0/modules/content/"
+xmlns="http://purl.org/rss/1.0/">
+  <channel rdf:about="http://google.blogspace.com/index.xml">
+    <title>Google Weblog</title>
+    <link>http://google.blogspace.com/</link>
+    <description>The latest news on everyone's favorite search engine.</description>
+    <language>en-us</language>
+    <items>
+      <rdf:Seq>
+        <rdf:li rdf:resource="http://google.blogspace.com/archives/001033" />
+     
+        <rdf:li rdf:resource="http://google.blogspace.com/archives/001032" />
+     
+        <rdf:li rdf:resource="http://google.blogspace.com/archives/001029" />
+     
+        <rdf:li rdf:resource="http://google.blogspace.com/archives/001023" />
+     
+        <rdf:li rdf:resource="http://google.blogspace.com/archives/001022" />
+     
+        <rdf:li rdf:resource="http://google.blogspace.com/archives/001021" />
+     
+        <rdf:li rdf:resource="http://google.blogspace.com/archives/001020" />
+     
+        <rdf:li rdf:resource="http://google.blogspace.com/archives/001019" />
+     
+        <rdf:li rdf:resource="http://google.blogspace.com/archives/001018" />
+     
+        <rdf:li rdf:resource="http://google.blogspace.com/archives/001017" />
+     
+        <rdf:li rdf:resource="http://google.blogspace.com/archives/001015" />
+     
+        <rdf:li rdf:resource="http://google.blogspace.com/archives/001013" />
+     
+        <rdf:li rdf:resource="http://google.blogspace.com/archives/001012" />
+     
+        <rdf:li rdf:resource="http://google.blogspace.com/archives/001009" />
+     
+        <rdf:li rdf:resource="http://google.blogspace.com/archives/001007" />
+     </rdf:Seq>
+    </items>
+  </channel>
+
+
+  <item rdf:about="http://google.blogspace.com/archives/001033">
+    <title>Related Searches</title>
+    <link>http://google.blogspace.com/archives/001033</link>
+    <description>Google is testing a new feature that suggests related searches (screenshot). The something different link apparently suggests a whole new batch of related searches....</description>
+    <dc:creator>Aaron Swartz</dc:creator>
+    <dc:date>2003-09-11T13:13-06:00</dc:date>
+    <content:encoded><![CDATA[<p>Google is testing a new feature that suggests related searches (<a href="http://www.haymeadows.com/related.htm">screenshot</a>). The <em>something different</em> link apparently suggests a whole new batch of related searches. </p>]]></content:encoded>
+  </item>
+
+  <item rdf:about="http://google.blogspace.com/archives/001032">
+    <title>Froogle Redesign</title>
+    <link>http://google.blogspace.com/archives/001032</link>
+    <description>Google&apos;s product search, Froogle has redesigned. New features include: sort by price, Grid View (the page becomes a grid of product images, just like Google Image Search), and a sidebar to make more advanced searching easier....</description>
+    <dc:creator>Aaron Swartz</dc:creator>
+    <dc:date>2003-09-08T13:21-06:00</dc:date>
+    <content:encoded><![CDATA[<p>Google's product search, <a href="http://froogle.google.com/">Froogle</a> has redesigned. New features include: sort by price, Grid View (the page becomes a grid of product images, just like Google Image Search), and a sidebar to make more advanced searching easier.</p>]]></content:encoded>
+  </item>
+
+  <item rdf:about="http://google.blogspace.com/archives/001029">
+    <title>New Toolbar, Ad Sizes</title>
+    <link>http://google.blogspace.com/archives/001029</link>
+    <description>Google has released Google Toolbar 2.0 which has several interesting new features including a BlogThis button, a pop-up blocker, and AutoFill. It&apos;s interesting to see that Google is providing more generic Web utilities and less Google-specific stuff. I guess now that Microsoft has announced they won&apos;t continue to update Internet Explorer, it&apos;s up to Google to provide these important features. Meanwhile, Google AdSense has introduced two new ad sizes (available now): horizontal leaderboard (728x90) and inline rectangle (300x250)....</description>
+    <dc:creator>Aaron Swartz</dc:creator>
+    <dc:date>2003-08-22T15:23-06:00</dc:date>
+    <content:encoded><![CDATA[<p>Google has released <a href="http://toolbar.google.com">Google Toolbar 2.0</a> which has several interesting new features including a BlogThis button, a pop-up blocker, and AutoFill. It's interesting to see that Google is providing more generic Web utilities and less Google-specific stuff. I guess now that Microsoft has announced they won't continue to update Internet Explorer, it's up to Google to provide these important features.</p>
+
+<p>Meanwhile, Google AdSense has introduced two new ad sizes (<a href="http://www.google.com/adsense/adformats">available now</a>): horizontal leaderboard (728x90) and inline rectangle (300x250).</p>]]></content:encoded>
+  </item>
+
+  <item rdf:about="http://google.blogspace.com/archives/001023">
+    <title>Web Calc</title>
+    <link>http://google.blogspace.com/archives/001023</link>
+    <description>Google now has a built in calculator that can tell you everything from 2+2 to speed of light in furlongs per fortnight to 2048 in binary. I&apos;d love to know who did this. Awesome hack! Now what would be really cool: Google API support for this....</description>
+    <dc:creator>Aaron Swartz</dc:creator>
+    <dc:date>2003-08-12T17:43-06:00</dc:date>
+    <content:encoded><![CDATA[<p>Google now has <a href="http://www.google.com/help/features.html#calculator">a built in calculator</a> that can tell you everything from <a href="http://www.google.com/search?q=2%2B2">2+2</a> to <a href="http://www.google.com/search?q=speed+of+light+in+furlongs+per+fortnight">speed of light in furlongs per fortnight</a> to <a href="http://www.google.com/search?q=2048+in+binary">2048 in binary</a>.</p>
+
+<p>I'd love to know who did this. Awesome hack!</p>
+
+<p>Now what would be really cool: Google API support for this.</p>]]></content:encoded>
+  </item>
+
+  <item rdf:about="http://google.blogspace.com/archives/001022">
+    <title>Google Glimpses</title>
+    <link>http://google.blogspace.com/archives/001022</link>
+    <description>The Random Personal Picture Finder uses Google Images to search for digital camera photos, providing an odd glimpse into the lives of everyday people. (Thanks, jse8!)...</description>
+    <dc:creator>Aaron Swartz</dc:creator>
+    <dc:date>2003-08-06T19:51-06:00</dc:date>
+    <content:encoded><![CDATA[<p>The <a href="http://www.diddly.com/random/">Random Personal Picture Finder</a> uses Google Images to search for digital camera photos, providing an odd glimpse into the lives of everyday people. (Thanks, jse8!)</p>]]></content:encoded>
+  </item>
+
+  <item rdf:about="http://google.blogspace.com/archives/001021">
+    <title>AdSense Colors</title>
+    <link>http://google.blogspace.com/archives/001021</link>
+    <description>Google AdSense now lets you pick the color scheme for your ads. &quot;We understand that maintaining the quality of your website means having control over the way it looks. Follow the steps below to create and save up to 100 custom ad color palettes that are right for your web page.&quot;...</description>
+    <dc:creator>Aaron Swartz</dc:creator>
+    <dc:date>2003-08-06T19:25-06:00</dc:date>
+    <content:encoded><![CDATA[<p>Google AdSense now lets you pick the color scheme for your ads. "We understand that maintaining the quality of your website means having control over the way it looks. Follow the steps below to create and save up to 100 custom ad color palettes that are right for your web page."</p>]]></content:encoded>
+  </item>
+
+  <item rdf:about="http://google.blogspace.com/archives/001020">
+    <title>Google Labs Introduces News Alerts</title>
+    <link>http://google.blogspace.com/archives/001020</link>
+    <description>New, from Google Labs: Google News Alerts. Have Google email you when Google News finds a new story on a topic you&apos;re interested in. (FAQ)...</description>
+    <dc:creator>Aaron Swartz</dc:creator>
+    <dc:date>2003-08-06T15:39-06:00</dc:date>
+    <content:encoded><![CDATA[<p>New, from Google Labs: <a href="http://www.google.com/newsalerts">Google News Alerts</a>. Have Google email you when Google News finds a new story on a topic you're interested in. (<a href="http://www.google.com/help/faq_newsalerts.html">FAQ</a>)</p>]]></content:encoded>
+  </item>
+
+  <item rdf:about="http://google.blogspace.com/archives/001019">
+    <title>Synonym Detection</title>
+    <link>http://google.blogspace.com/archives/001019</link>
+    <description>Andy Baio has already come up with a way to figure out what synonyms Google has for a word: search for the word and synonyms minus the word. He&apos;s got a list of interesting ones. Did you know that Beck is a synonym for loser? (Oops, just checked my email and noticed that Henk van Ess noticed this trick first!)...</description>
+    <dc:creator>Aaron Swartz</dc:creator>
+    <dc:date>2003-08-04T11:59-06:00</dc:date>
+    <content:encoded><![CDATA[<p>Andy Baio has already <a href="http://www.waxy.org/archive/2003/08/04/fun_with.shtml">come up with a way to figure out what synonyms Google has for a word</a>: search for the word and synonyms minus the word.</p>
+
+<p>He's got a list of interesting ones. Did you know that Beck is a synonym for loser?</p>
+
+<p>(Oops, just checked my email and noticed that Henk van Ess noticed this trick first!)</p>]]></content:encoded>
+  </item>
+
+  <item rdf:about="http://google.blogspace.com/archives/001018">
+    <title>Big News! New Google Operator</title>
+    <link>http://google.blogspace.com/archives/001018</link>
+    <description>From Google Spokesperson, Nate Tyler:Today, Google introduced a new advanced search feature that enables users to search not only for a particular keyword, but also for its synonyms. This is accomplished by placing a ~ character directly in front of the keyword in the search box. For example, to search for browser help as well as browser guides and tutorials users can search for browser ~help. The ~ character was chosen because it&apos;s shorthand for approximate and a good way for users to express their wish to expand searches to include synonyms. More information about this feature is available. This enhancement shows that Google continuies to develop new resources that enable users to refine their searches to find the information they need. I hope you find the ~ operator useful - please take a look and let me know if you have any questions....</description>
+    <dc:creator>Aaron Swartz</dc:creator>
+    <dc:date>2003-08-04T09:47-06:00</dc:date>
+    <content:encoded><![CDATA[<p>From Google Spokesperson, Nate Tyler:</p><blockquote><p>Today, Google introduced a new advanced search feature that enables users to search not only for a particular keyword, but also for its synonyms.  This is accomplished by placing a ~ character directly in front of the keyword in the search box.</p>
+
+<p>For example, to search for browser help as well as browser guides and tutorials users can search for <a href="http://www.google.com/search?q=browser+%7Ehelp">browser ~help</a>.  The ~ character was chosen because it's shorthand for approximate and a good way for users to express their wish to expand searches to include synonyms.  <a href="http://www.google.com/help/refinesearch.html">More information about this feature is available</a>.</p>
+
+<p>This enhancement shows that Google continuies to develop new resources that enable users to refine their searches to find the information they need.  I hope you find the ~ operator useful - please take a look and let me know if you have any questions.</p></blockquote><p></p>]]></content:encoded>
+  </item>
+
+  <item rdf:about="http://google.blogspace.com/archives/001017">
+    <title>Horrors of Targeted Ads</title>
+    <link>http://google.blogspace.com/archives/001017</link>
+    <description>NYT: If You Liked the Web Page, You&apos;ll Love the Ad. &quot;The technology is not yet foolproof. The online edition of The New York Post, which is owned by the News Corporation, ran an article last month about a murder in which the victim&apos;s body parts were packed in a suitcase, and Google served up an ad for a luggage dealer.&quot; The Need to Know newsletter has done a series of mistakes like these in their &quot;doh section&quot;....</description>
+    <dc:creator>Aaron Swartz</dc:creator>
+    <dc:date>2003-08-04T09:27-06:00</dc:date>
+    <content:encoded><![CDATA[<p>NYT: <a href="http://www.nytimes.com/2003/08/04/technology/04ECOM.html?ex=1375416000&amp;en=2ac396ed576ca1b3&amp;ei=5007&amp;partner=USERLAND">If You Liked the Web Page, You'll Love the Ad</a>. "The technology is not yet foolproof. The online edition of The New York Post, which is owned by the  News Corporation,  ran an article last month about a murder in which the victim's body parts were packed in a suitcase, and Google served up an ad for a luggage dealer."</p>
+
+<p>The <a href="http://www.ntk.net/">Need to Know</a> newsletter has done a series of mistakes like these in their "doh section".</p>]]></content:encoded>
+  </item>
+
+  <item rdf:about="http://google.blogspace.com/archives/001015">
+    <title>Google Check</title>
+    <link>http://google.blogspace.com/archives/001015</link>
+    <description>Yesterday I received a check for June&apos;s Google AdSense revenue. Thanks, Google!...</description>
+    <dc:creator>Aaron Swartz</dc:creator>
+    <dc:date>2003-07-29T12:24-06:00</dc:date>
+    <content:encoded><![CDATA[<p>Yesterday I received a check for June's Google AdSense revenue. <em>Thanks, Google!</em></p>]]></content:encoded>
+  </item>
+
+  <item rdf:about="http://google.blogspace.com/archives/001013">
+    <title>Google Adds Building Phi</title>
+    <link>http://google.blogspace.com/archives/001013</link>
+    <description>News.com reports that Google is adding a building phi (the golden mean) to go along with Buildings 0, 1, e, and π. They also note that some celebrity visitors have dropped by Google: &quot;[Gwyneth Paltrow] showed up with the members of British music sensation Coldplay, rode around on a Segway and peered into a couple of cubicles, no doubt to catch the real-life drama of someone writing an action-item memo or taking a sales call. Other visitors include former U.S. President Jimmy Carter, former San Francisco 49ers quarterback Steve Young and former Vice President Al Gore. Even people with day jobs---such as Thomas Friedman, international affairs columnist for The New York Times--have dropped by for visit, a Google representative confirmed.&quot; But they fail to mention that I visited recently. I&apos;ve got a few photos (including some of buildings π and e) that I should put up here soon....</description>
+    <dc:creator>Aaron Swartz</dc:creator>
+    <dc:date>2003-07-24T11:21-06:00</dc:date>
+    <content:encoded><![CDATA[<p><a href="http://news.com.com/2010-1071_3-5053312.html">News.com reports</a> that Google is adding a building phi (the golden mean) to go along with Buildings 0, 1, e, and π.</p>
+
+<p>They also note that some celebrity visitors have dropped by Google: "[Gwyneth Paltrow] showed up with the members of British music sensation Coldplay, rode around on a Segway and peered into a couple of cubicles, no doubt to catch the real-life drama of someone writing an action-item memo or taking a sales call. Other visitors include former U.S. President Jimmy Carter, former San Francisco 49ers quarterback Steve Young and former Vice President Al Gore. Even people with day jobs---such as Thomas Friedman, international affairs columnist for The New York Times--have dropped by for visit, a Google representative confirmed."</p>
+
+<p>But they fail to mention that I visited recently. I've got a few photos (including some of buildings π and e) that I should put up here soon.</p>]]></content:encoded>
+  </item>
+
+  <item rdf:about="http://google.blogspace.com/archives/001012">
+    <title>Advanced News Search</title>
+    <link>http://google.blogspace.com/archives/001012</link>
+    <description>Google has introduced an advanced news search. Now you can search by source, source location, headline, URL, or date....</description>
+    <dc:creator>Aaron Swartz</dc:creator>
+    <dc:date>2003-07-21T12:02-06:00</dc:date>
+    <content:encoded><![CDATA[<p>Google has introduced <a href="http://news.google.com/advanced_news_search">an advanced news search</a>. Now you can search by source, source location, headline, URL, or date.</p>]]></content:encoded>
+  </item>
+
+  <item rdf:about="http://google.blogspace.com/archives/001009">
+    <title>Patent Attack</title>
+    <link>http://google.blogspace.com/archives/001009</link>
+    <description>News.com suggests that Yahoo! may use Overture&apos;s patent portfolio to extort money from their competitors. I guess their stategy is ``If you can&apos;t beat &apos;em, sue &apos;em.&apos;&apos;...</description>
+    <dc:creator>Aaron Swartz</dc:creator>
+    <dc:date>2003-07-18T12:38-06:00</dc:date>
+    <content:encoded><![CDATA[<p><a href="http://news.com.com/2100-1024_3-1027084.html">News.com suggests</a> that Yahoo! may use Overture's patent portfolio to extort money from their competitors. I guess their stategy is ``If you can't beat 'em, sue 'em.''</p>]]></content:encoded>
+  </item>
+
+  <item rdf:about="http://google.blogspace.com/archives/001007">
+    <title>Deploying Google Viewer</title>
+    <link>http://google.blogspace.com/archives/001007</link>
+    <description>Greg reports that some of his search results contain a &quot;View results as slide show&quot; link, presumably using Google viewer. Have you seen this?...</description>
+    <dc:creator>Aaron Swartz</dc:creator>
+    <dc:date>2003-07-17T13:28-06:00</dc:date>
+    <content:encoded><![CDATA[<p><a href="http://supergreg.hopto.org/">Greg</a> reports that some of his search results contain a "View results as slide show" link, presumably using <a href="http://labs.google.com/gviewer.html">Google viewer</a>. <a href="http://google.blogspace.com/submit">Have you seen this?</a></p>]]></content:encoded>
+  </item>
+
+
+</rdf:RDF>

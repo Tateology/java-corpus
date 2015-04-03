@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<!-- $Id: checkstyle.xml 139 2003-01-20 21:30:30Z niko_schmuck $ -->
+
+<project name="informa.checkstyle" basedir="." default="checkstyle">
+
+  <!-- Make sure to include 'checkstyle-all.jar' in the classpath -->
+  <taskdef name="checkstyle"
+           classname="com.puppycrawl.tools.checkstyle.CheckStyleTask"
+           classpath="lib/checkstyle-all.jar"/>
+
+  <target name="checkstyle"
+          description="Generates a report of code convention violations.">
+    <checkstyle failureProperty="checkstyle.failure"
+                failOnViolation="false"
+                allowProtected="true"
+                javadocScope="nothing">
+      <!-- formatter type="xml" tofile="checkstyle-report.xml"/ -->
+      <fileset dir="src" includes="**/*.java"/>
+    </checkstyle>
+  </target>
+
+</project>

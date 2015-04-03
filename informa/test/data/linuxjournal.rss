@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE rss PUBLIC "-//Netscape Communications//DTD RSS 0.91//EN"
+ "http://my.netscape.com/publish/formats/rss-0.91.dtd">
+
+<rss version="0.91">
+
+ <channel>
+  <title>Linux Journal</title>
+  <link>http://www.linuxjournal.com</link>
+  <description>
+   Linux Journal focuses specifically on Linux and other open-source OSes, allowing the content to be a highly specialized source of information for open-source enthusiasts.
+  </description>
+  <language>en-us</language>
+  <copyright>Copyright 2001, Specialized Systems Consultants (SSC)</copyright>
+  <managingEditor>ljeditor@ssc.com</managingEditor>
+  <webMaster>webmaster@ssc.com</webMaster>
+
+  <image>
+    <title>Linux Journal</title>
+    <url>http://www.linuxjournal.com/images/logo_tiny.png</url>
+    <link>http://www.linuxjournal.com</link>
+    <height>33</height>
+    <width>88</width>
+    <description>News for the web from Linux Journal</description>
+  </image>
+
+  <item>
+    <title>Tinyminds.org for Everyone</title>
+    <link>http://www.linuxjournal.com/article.php?sid=6157</link>
+    <description>A new web site for all levels of the Linux community offers cheat sheets, HOWTOs, reviews and more.</description>
+  </item>
+
+  <item>
+    <title>Usenix Tutorials Answer Deep Questions</title>
+    <link>http://www.linuxjournal.com/article.php?sid=6151</link>
+    <description>What can an old-school UNIX organization teach you about new Linux stuff anyway?</description>
+  </item>
+
+  <item>
+    <title>Use Binary-Only Kernel Modules, Hate Life</title>
+    <link>http://www.linuxjournal.com/article.php?sid=6152</link>
+    <description>Last week's Usenix Technical Conference brought together academics, high-end information technology professionals and old-school UNIX gurus. And Linus Torvalds.</description>
+  </item>
+
+  <item>
+    <title>VPN Implementation in Cluster Computing</title>
+    <link>http://www.linuxjournal.com/article.php?sid=6142</link>
+    <description>Negotiating security and scalability issues with clusters by setting up a virtual private network.</description>
+  </item>
+
+  <item>
+    <title>Linux and Scooby-Doo</title>
+    <link>http://www.linuxjournal.com/article.php?sid=6148</link>
+    <description>One more on the ever-growing list of animated films using Linux opened this past weekend.</description>
+  </item>
+
+  <item>
+    <title>A Successful Linux/Open-Source Business Model</title>
+    <link>http://www.linuxjournal.com/article.php?sid=6149</link>
+    <description>Tom discusses how to use the Public Domain and community open-source projects to subvert media conglomerates.</description>
+  </item>
+
+  <item>
+    <title>Building an Inexpensive, Powerful Parallel Machine and Using It for Numerical Simulations</title>
+    <link>http://www.linuxjournal.com/article.php?sid=5502</link>
+    <description>Faced with a limited budget, Roman researched and built his own parallel system for multiprocessor simulations.</description>
+  </item>
+
+  <item>
+    <title>Is Beauty Only Pixel Deep?, Part 2</title>
+    <link>http://www.linuxjournal.com/article.php?sid=6139</link>
+    <description>Fonts at your service.</description>
+  </item>
+
+  <item>
+    <title>DSI: A New Architecture for Secure Carrier-Class Linux Clusters</title>
+    <link>http://www.linuxjournal.com/article.php?sid=6053</link>
+    <description>An approach for distributed security architecture that supports
+ advanced security mechanisms for current and future security needs,
+ targeted at telecom
+ applications running on carrier-class Linux clusters.</description>
+  </item>
+
+  <item>
+    <title>Celebrating the 20th Anniversary of the Swiss Open Systems Group</title>
+    <link>http://www.linuxjournal.com/article.php?sid=6136</link>
+    <description>maddog travels to Zurich in a bid to make up for lost time.</description>
+  </item>
+
+ </channel>
+</rss> 

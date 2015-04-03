@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed version="0.3" xmlns="http://purl.org/atom/ns#">
+  <title>Every entry title should read "History of the blink tag", with visible brackets around the word "blink"</title>
+  <link rel="alternate" type="text/html" href="http://example.org/"/>
+  <modified>2004-05-07T12:29:29Z</modified>
+  <id>tag:diveintomark.org,2004-05-07:/tests/feed/escaping/blink</id>
+
+  <entry>
+    <title type="text/plain" mode="escaped">History of the &lt;blink&gt; tag</title>
+    <link rel="alternate" type="text/html" href="http://example.org/1"/>
+    <id>tag:example.org,2004-05-07:/tests/feed/escaping/blink/1</id>
+    <issued>2004-05-07T12:29:29Z</issued>
+    <modified>2004-05-07T12:29:29Z</modified>
+  </entry>
+
+  <entry>
+    <title type="text/html" mode="escaped">History of the &amp;lt;blink&amp;gt; tag</title>
+    <link rel="alternate" type="text/html" href="http://example.org/2"/>
+    <id>tag:example.org,2004-05-07:/tests/feed/escaping/blink/2</id>
+    <issued>2004-05-07T12:29:29Z</issued>
+    <modified>2004-05-07T12:29:29Z</modified>
+  </entry>
+
+  <entry>
+    <title type="application/xhtml+xml" mode="xml"><div xmlns="http://www.w3.org/1999/xhtml">History of the &lt;blink&gt; tag</div></title>
+    <link rel="alternate" type="text/html" href="http://example.org/3"/>
+    <id>tag:example.org,2004-05-07:/tests/feed/escaping/blink/3</id>
+    <issued>2004-05-07T12:29:29Z</issued>
+    <modified>2004-05-07T12:29:29Z</modified>
+  </entry>
+
+  <entry>
+    <title type="text/plain" mode="base64">SGlzdG9yeSBvZiB0aGUgPGJsaW5rPiB0YWc=</title>
+    <link rel="alternate" type="text/html" href="http://example.org/4"/>
+    <id>tag:example.org,2004-05-07:/tests/feed/escaping/blink/4</id>
+    <issued>2004-05-07T12:29:29Z</issued>
+    <modified>2004-05-07T12:29:29Z</modified>
+  </entry>
+
+  <entry>
+    <title type="text/html" mode="base64">SGlzdG9yeSBvZiB0aGUgJmx0O2JsaW5rJmd0OyB0YWc=</title>
+    <link rel="alternate" type="text/html" href="http://example.org/5"/>
+    <id>tag:example.org,2004-05-07:/tests/feed/escaping/blink/5</id>
+    <issued>2004-05-07T12:29:29Z</issued>
+    <modified>2004-05-07T12:29:29Z</modified>
+  </entry>
+
+</feed>

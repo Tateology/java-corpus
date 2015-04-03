@@ -1,0 +1,25 @@
+$Id: cvs-guide.txt 455 2004-01-10 23:01:27Z niko_schmuck $
+
+==================================================
+Some notes about using CVS for the Informa project
+--------------------------------------------------
+(To make hopefully life easier and motivate usage
+ of branches and tags wisely :-)
+==================================================
+
+Create a branch from the given release (server-side):
+cvs rtag -r <release> -b <branch> informa
+
+Checkout a specified release/branch into a named directory:
+cvs -z3 -d:ext:<user>@cvs.sourceforge.net:/cvsroot/informa co -r <release/branch> -d informa-0.4.5 informa
+
+Checkout module informa (main trunk aka HEAD):
+cvs -z3 -d:ext:<name>@cvs.sourceforge.net:/cvsroot/informa co -d informa informa
+
+Merge in difference between local revision and mentioned revision/branch:
+cvs update -j <release/branck>
+
+--
+Should be used with care:
+Delete a tag/branch name from CVS:
+cvs rtag -d <branchname> informa

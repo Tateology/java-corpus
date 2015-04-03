@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="de.nava.informa.impl.hibernate.ItemMetadata"
+    table="ITEM_METADATA" dynamic-update="false"
+    dynamic-insert="false">
+
+    <id name="id" column="ITEM_METADATA_ID" type="long">
+      <generator class="native"/>
+    </id>
+
+    <many-to-one name="item" class="de.nava.informa.impl.hibernate.Item"
+      cascade="none" outer-join="auto" update="true" insert="true"
+      column="ITEM_ID" not-null="true" />
+
+    <property name="markedRead" type="boolean" update="true"
+      insert="true" column="MARKED_READ" />
+
+    <property name="score" type="int" update="true" insert="true"
+      column="SCORE" />
+
+  </class>
+
+</hibernate-mapping>

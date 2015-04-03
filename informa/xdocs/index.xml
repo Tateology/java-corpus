@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<document>
+
+  <meta revision="$Id: index.xml 831 2007-01-06 22:52:57Z niko_schmuck $"/>
+  <properties>
+    <author email="niko@nava.de">Niko Schmuck</author>
+    <title>Overview</title>
+  </properties>
+  
+  <body>
+
+    <section name="What is Informa?">
+      <p>
+        The goal of the Informa Project is to provide a
+        news aggregation library based on the Java Platform.  
+	
+        The idea was born by the authors of two Java news reader
+        applications (<a
+        href="http://sourceforge.net/projects/hotsheet">HotSheet</a> and <a
+        href="http://sourceforge.net/projects/jsurfer">Risotto</a>). We
+        intended to unify the common parts into a library which can be used by
+        any developer who needs to address those issues in their
+        application.	
+      </p>
+    </section>
+
+    <section name="What is the scope of Informa?">
+      <p>
+        With Informa we enable you with a harmonised view on a news
+        channel object model. Both channels and news items do have
+        metadata assigned, it does not make any difference from which
+        channel format they were originally retrieved (RSS 0.9x, RSS
+        1.0 / RDF, RSS 2.0, Atom 0.3 and Atom 1.0).
+      </p>
+      <p>
+        To ease finding relevant news items an integration
+        with the full-text search
+        engine (Jakarta's <a
+        href="http://jakarta.apache.org/lucene/">Lucene</a>) 
+        may be used optionally.
+      </p>
+      <p>
+        Besides exporting news channels in a specified XML format
+        there is a persistence backend available using the <a
+        href="http://hibernate.sourceforge.net/">Hibernate</a> O/R
+        mapping framework. This allows to persist the whole object
+        model into a JDBC-compliant relational database. As default
+        database <a href="http://hsqldb.sourceforge.net/">HypersonicSQL</a>
+        was chosen, because it is very easy to embed.
+
+        Alternatively you may want to give the other persistent backend based on <a
+        href="http://castor.exolab.org/">Castor JDO</a> storage
+        mechanism a try (from Informa release 0.7.0 not any longer supported).
+      </p>
+    </section>
+
+    <section name="What is the status of Informa?">
+      <p>
+        Currently, Informa is in beta state, but
+        it is quite stable and fully usable. You are very welcome to
+        send in feature requests or bug reports (preferably through
+        the sourceforge pages).
+      </p>
+    </section>
+
+    <section name="Informa License">
+      <p>
+        Informa is licensed under the <a
+        href="http://www.opensource.org/licenses/lgpl-license.html">GNU
+        Library or "Lesser" Public License</a> (LGPL).
+      </p>
+    </section>
+
+    <section name="Contact">
+      <p>
+        Any questions? Contact <a
+        href="mailto:niko at nava dot de">Niko Schmuck</a>.
+      </p>
+    </section>
+    
+  </body>
+</document>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Informa"
+         href="http://informa.sourceforge.net/">
+
+  <title>Informa: RSS Library for Java</title>
+  <organizationLogo href="http://sourceforge.net/sflogo.php?group_id=52620">informa</organizationLogo>
+
+  <body>
+    <menu name="Overview">
+      <item name="Introduction"
+            href="/index.html"/>
+      <item name="News &amp; Status"
+            href="/news.html"/>
+      <item name="JavaDocs"
+            href="apidocs/index.html"/>
+      <item name="Downloads"
+            href="http://sourceforge.net/project/showfiles.php?group_id=52620"/>
+      <item name="Related Projects"
+            href="/neighbours.html"/>
+    </menu>
+
+	<menu name="Documentation">
+      <item name="Quickstart"
+            href="/quickstart.html"/>
+      <item name="Persistence manager"
+            href="/persistence_manager.html"/>
+      <item name="Poller module"
+            href="/poller.html"/>
+      <item name="Cleaner module"
+            href="/cleaner.html"/>
+      <item name="FAQs"
+            href="/faq.html"/>
+	</menu>
+
+<!--
+    <menu name="Downloads">
+      <item name="Binaries ${pom.currentVersion}"
+            href="http://prdownloads.sourceforge.net/informa/informa-bin-0.3.0.tar.gz?download"/>
+      <item name="Source Code"
+            href="http://prdownloads.sourceforge.net/informa/informa-src-0.3.0.tar.gz?download"/>
+      <item name="Older Versions"
+            href="http://sourceforge.net/project/showfiles.php?group_id=52620"/>
+    </menu>
+-->
+
+<!-- 
+    <menu name="Get Involved">
+      <item name="SF Project Page"
+            href="http://sourceforge.net/projects/informa"/>
+      <item name="CVS Repositories"
+            href="http://sourceforge.net/cvs/?group_id=52620"/>
+      <item name="Mailing Lists"
+            href="http://sourceforge.net/mail/?group_id=52620"/>
+      <item name="Bug Database"
+            href="http://sourceforge.net/tracker/?group_id=52620&amp;atid=467480"/>
+    </menu>
+-->
+
+<!--
+    <menu name="Misc">
+      <item name="Who We Are"            href="/site/whoweare.html"/>
+      <item name="Acknowledgements"      href="/site/acknowledgements.html"/>
+      <item name="Contact"               href="/site/contact.html"/>
+      <item name="Legal"                 href="/site/legal.html"/>
+    </menu>
+-->
+
+  </body>
+</project>

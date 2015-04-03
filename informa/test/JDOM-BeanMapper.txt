@@ -1,0 +1,48 @@
+Date: Wed, 20 Sep 2000 10:08:15 -0700
+From: Alex Chaffee <guru@edamame.stinky.com>
+Subject: [jdom-interest] BeanMapper
+
+Because there weren't enough XML Data Binding technologies already, I
+just wrote one using JDOM. org.jdom.contrib.beans.BeanMapper allows
+you to easily (I'd say 'trivially' but that would be taunting the
+gods) make a JDOM tree from an existing JavaBean, and/or
+instantiate-and-fill one of your JavaBean classes based on a JDOM
+tree.  By default it maps element names and property names directly,
+but you can override that by setting mappings; e.g. getFoo() could map
+to <foo>foovalue</foo> (the default) or <bar>foovalue</bar> or <baz
+baf="foovalue">.
+
+Usage:
+
+BeanMapper mapper = new BeanMapper();
+// Converting Bean to JDOM Document
+doc = mapper.toDocument(mybean);
+// Converting JDOM to Bean
+TestBean mybean = mapper.toBean(doc);
+
+It uses reflection, so it's not super-fast, but it's meant as a quick
+way to get started if you've got a a lot of beans already written and
+want to do XML import/export. I seem to have misplaced my CVS
+password.  Jools, can you please contact me about checking this in?
+In the meantime, anyone who wants to play, please email me privately.
+
+--
+
+Date: Thu, 21 Sep 2000 09:33:47 -0700
+From: Alex Chaffee <guru@edamame.stinky.com>
+Subject: [jdom-interest] BeanMapper
+
+On Wed, Sep 20, 2000 at 10:08:15AM -0700, Alex Chaffee wrote:
+> Because there weren't enough XML Data Binding technologies already, I
+> just wrote one using JDOM.
+
+Also, my BeanMapper has support for arrays as property types, and you
+can map properties to either elements or attributes.  Attributes must
+map to simple properties (ints or strings or other primitives) but
+elements can either be mapped to simple properties, or complex ones
+(that are themselves beans).
+
+Brett's marshaller/unmarshaller requires elements to be complex and
+attributes to be primitive. However, his SchemaMapper kicks major ass.
+
+http://www-4.ibm.com/software/developer/library/data-binding3/SchemaMapper.html

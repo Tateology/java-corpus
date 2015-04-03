@@ -1,0 +1,70 @@
+
+OPML 1.0 Specification (Outline Processor Markup Language)
+http://www.opml.org/spec
+
+--
+RSS 2.0 Specification (Really Simple Syndication)
+http://blogs.law.harvard.edu/tech/rss
+
+--
+Spec: RSS 1.0 (RSS-DEV)
+http://purl.org/rss/1.0/
+
+Version 1.0 of the RSS format, created by the members of RSS-DEV. It extends
+RSS with RDF-style metadata, and modules.
+dmoz.org: RDF > Applications > RSS > Specifications
+
+--
+RSS 0.93
+http://backend.userland.com/rss093
+
+A work-in-progress of the Userland specification of RSS 0.93 - by Dave Winer,
+April 20 2001
+
+
+--
+RSS 0.92 
+http://backend.userland.com/rss092
+
+The Userland specification of RSS 0.92 - by Dave Winer, December 25 2000
+
+
+--
+Spec: RSS 0.91 (Netscape)
+http://my.netscape.com/publish/formats/rss-spec-0.91.html
+
+Revision 3 of the 0.91 draft. By Dan Libby, Netscape.
+
+
+--
+Spec: RSS 0.91 (UserLand) 
+http://backend.userland.com/rss091
+
+Description of RSS current practice. By Dave Winer, UserLand.
+
+
+--
+Obsolete Spec: RSS 0.90 
+http://www.purplepages.ie/RSS/netscape/rss0.90.html
+
+A copy of the original Netscape version of the RSS0.90 specification. This
+is no longer in use, and is here for historical reasons only.
+
+===========================================================================
+
+RSS Validator available online and for download
+Written in Python (2.2) and using RSS 2.0
+
+http://feeds.archive.org/validator/check?url=<url-to-your-rss>
+
+
+===========================================================================
+Interesting Articles:
+
+"Parsing RSS at All Costs" Mark Pilgrim argues that the data is more
+important than the letter of the XML law, and provides code for a
+tolerant RSS parser.
+
+http://www.xml.com/pub/a/2003/01/22/dive-into-xml.html
+
+

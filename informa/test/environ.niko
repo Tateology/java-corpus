@@ -1,0 +1,24 @@
+#
+# Setting up CLASSPATH for execution of test programs.
+# Requires that JAVA_HOME is already set.
+# $Id: environ.niko 200 2003-05-05 21:01:20Z niko_schmuck $
+#
+
+INF=/opt/cvs-co/informa/informa
+
+# root stuff
+export CLASSPATH=$JAVA_HOME/jre/lib/rt.jar
+export CLASSPATH=$CLASSPATH:$JAVA_HOME/lib/tools.jar
+
+# informa classes
+export CLASSPATH=$CLASSPATH:$INF/build/classes
+
+# helper libraries
+export CLASSPATH=$CLASSPATH:$INF/lib/jdom.jar
+export CLASSPATH=$CLASSPATH:$INF/lib/commons-logging.jar
+export CLASSPATH=$CLASSPATH:$INF/lib/log4j.jar
+export CLASSPATH=$CLASSPATH:$INF/lib/lucene.jar
+export CLASSPATH=$CLASSPATH:$INF/lib/castor.jar
+export CLASSPATH=$CLASSPATH:$INF/lib/jta.jar
+export CLASSPATH=$CLASSPATH:$INF/lib/xerces.jar
+export CLASSPATH=$CLASSPATH:$INF/lib/postgresql.jar

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<opml version="1.1">
+	<head>
+		<title>Favorite Channels</title>
+	</head>
+	<body>
+		<!-- (italo) 28 Nov 2006: no route to host    outline text="Anthony Eden's Blog" title="Anthony Eden's Blog" type="rss" version="RSS" xmlUrl="http://allthings.mp/rss.xml" htmlUrl="http://allthings.mp/"/> 
+		                                              outline text="Debian Planet" title="Debian Planet" type="rss" version="RSS" xmlUrl="http://www.debianplanet.org/module.php?mod=node&amp;op=feed" htmlUrl="http://www.debianplanet.org/"/ -->
+
+		<outline text="Artima.com Articles" title="Artima.com Articles" type="rss" version="RSS" xmlUrl="http://www.artima.com/newatartima.rss" htmlUrl="http://www.artima.com/" description="Artima.com Articles"/>
+		<outline text="BBC News - Technology - UK Edition" title="BBC News - Technology - UK Edition" type="rss" version="RSS" xmlUrl="http://www.bbc.co.uk/syndication/feeds/news/ukfs_news/technology/rss091.xml" htmlUrl="http://news.bbc.co.uk/go/click/rss/0.91/public/-/1/hi/technology/default.stm"/>
+		<outline text="BBC News - World - UK Edition" title="BBC News - World - UK Edition" type="rss" version="RSS" xmlUrl="http://www.bbc.co.uk/syndication/feeds/news/ukfs_news/world/rss091.xml" htmlUrl="http://news.bbc.co.uk/go/click/rss/0.91/public/-/1/hi/world/default.stm"/>
+		<outline text="Eclipse community" title="Eclipse community" type="rss" version="RSS" xmlUrl="http://www.eclipseproject.de/backend.php"/>
+		<outline text="Google Weblog" title="Google Weblog" type="rss" version="RSS" xmlUrl="http://google.blogspace.com/index.xml" htmlUrl="http://google.blogspace.com/" description="Google Weblog"/>
+		<outline text="Heise News" title="Heise News" type="rss" version="RSS" xmlUrl="http://www.heise.de/newsticker/heise.rdf" htmlUrl="http://www.heise.de/newsticker/"/>
+		<outline text="ia- - information architecture news" title="ia- - information architecture news" type="rss" version="RSS" xmlUrl="http://iaslash.org/blog/feed" htmlUrl="http://www.iaslash.org/"/>
+		<outline text="Java Today Daily News" title="Java Today Daily News" type="rss" version="RSS" xmlUrl="http://today.java.net/pub/q/java_today_rss?x-ver=1.0" htmlUrl="http://today.java.net/"/>
+		<outline text="java.sun.com" title="java.sun.com" type="rss" version="RSS" xmlUrl="http://servlet.java.sun.com/syndication/rss_java_highlights-PARTNER-20.xml" htmlUrl="http://java.sun.com/"/>
+		<!-- (niko) 26 Nov 2006: return non-wellformed XML  outline text="Meerkat- An Open Wire Service- O'Reilly Network Weblogs- Java" title="Meerkat- An Open Wire Service- O'Reilly Network Weblogs- Java" type="rss" version="RSS" xmlUrl="http://www.oreillynet.com/meerkat/?_fl=rss10&amp;t=ALL&amp;c=5565" htmlUrl="http://meerkat.oreillynet.com/"/>
+		                                                    outline text="ONJava.com news" title="ONJava.com news" type="rss" version="RSS" xmlUrl="http://www.oreillynet.com/meerkat/?_fl=rss10&amp;t=ALL&amp;c=5136" htmlUrl="http://meerkat.oreillynet.com/"/ -->
+		<outline text="Outer Web Thought Log" title="Outer Web Thought Log" type="rss" version="RSS" xmlUrl="http://blogs.cocoondev.org/stevenn/index.rss" htmlUrl="http://blogs.cocoondev.org/stevenn/"/>
+		<outline text="Scripting News" title="Scripting News" type="rss" version="RSS" xmlUrl="http://www.scripting.com/rss.xml" htmlUrl="http://www.scripting.com/"/>
+		<outline text="Servlets.com Weblog" title="Servlets.com Weblog" type="rss" version="RSS" xmlUrl="http://www.servlets.com/blog/index-all.xml" htmlUrl="http://www.servlets.com/blog/"/>
+		<outline text="Slashdot" title="Slashdot" type="rss" version="RSS" xmlUrl="http://slashdot.org/developers.rdf" htmlUrl="http://slashdot.org/" description="Slashdot"/>
+		<outline text="Spiegel Online" title="Spiegel Online" type="rss" version="RSS" xmlUrl="http://www.spiegel.de/schlagzeilen/rss/0,5291,,00.xml" htmlUrl="http://www.spiegel.de"/>
+		<outline text="tagesschau im Internet" title="tagesschau im Internet" type="rss" version="RSS" xmlUrl="http://www.tagesschau.de/newsticker.rdf" htmlUrl="http://www.tagesschau.de"/>
+		<outline text="Techquila Shots" title="Techquila Shots" type="rss" version="RSS" xmlUrl="http://www.techquila.com/blog/index.rdf" htmlUrl="http://www.techquila.com/blog/" description="Techquila Shots"/>
+		<outline text="TheServerSide.Com- Your J2EE Community Forum" title="TheServerSide.Com- Your J2EE Community Forum" type="rss" version="RSS" xmlUrl="http://www.theserverside.com/rss/theserverside-1.0.rdf" htmlUrl="http://www.theserverside.com/"/>
+		<outline text="TopStyle Blog" title="TopStyle Blog" type="rss" version="RSS" xmlUrl="http://www.bradsoft.com/feeds/rss.asp?id=1" htmlUrl="http://www.bradsoft.com/topstyle/blog/" description="TopStyle Blog"/>
+		<outline text="Wired News" title="Wired News" type="rss" version="RSS" xmlUrl="http://www.wired.com/news_drop/netcenter/netcenter.rdf" htmlUrl="http://www.wired.com/" description="Wired"/>
+	</body>
+</opml>

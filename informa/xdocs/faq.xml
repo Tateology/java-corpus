@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<document>
+
+  <meta revision="$Id: faq.xml 769 2005-09-18 14:21:44Z spyromus $"/>
+  <properties>
+    <author email="niko@nava.de">Niko Schmuck</author>
+    <title>FAQ</title>
+  </properties>
+  
+  <body>
+
+    <section name="How do I parse a newsfeed from a file?">
+      <p>
+        We assume that you know that you have a newsfeed available as a
+        file in a supported format (currently RSS 0.91, 1.0 and 2.0 are
+        supported). Reading in a newsfeed is then really as simple as:
+      </p>
+<source>
+import java.io.File;
+import de.nava.informa.core.ChannelIF;
+import de.nava.informa.impl.basic.ChannelBuilder;
+import de.nava.informa.parsers.FeedParser;
+...
+File inpFile = new File("javanews.xml");
+ChannelIF channel = FeedParser.parse(new ChannelBuilder(), inpFile);
+</source>
+      <p>
+        For accessing the news items please look into the <a
+        href="apidocs/de/nava/informa/core/ChannelIF.html">JavaDoc for
+        ChannelIF</a>.
+      </p>
+    </section>
+
+
+    <section name="How do I parse a newsfeed from an URL?">
+      <p>
+        Very similar solution to the previous question, here is the code
+        fragment (replace fooURL with your URL object):
+      </p>
+<source>
+ChannelIF channel = FeedParser.parse(channelBuilder, fooURL);
+</source>
+    </section>
+
+    <section name="Does the API support dynamic discovery of the format
+      of a newsfeed?">
+      <p>
+        Yes, normally you don't have to care about the channel format, since
+        the FeedParser takes the format into account. The format of the
+        channel can be retrieved with ChannelIF.getFormat().
+      </p>
+      <p>
+        It is also possible to determine the channel format without parsing
+        the complete feed, but analysing the root element. Here is an
+        example how the <a href="apidocs/de/nava/informa/utils/FormatDetector.html">
+        FormatDetector</a> could be used:
+      </p>
+<source>
+import de.nava.informa.core.ChannelFormat;
+import de.nava.informa.utils.FormatDetector;
+...
+ChannelFormat format = FormatDetector.getFormat(fooURL);
+</source>
+    </section>
+
+    <section name="I want to order the news items chronologically, but how?">
+      <p>
+        For this purpose please use the ItemComparator (see <a
+        href="apidocs/de/nava/informa/utils/ItemComparator.html">JavaDoc</a>)
+        which allows you to sort news item in ascending (oldest
+        entries first, this is the default setting) or descending
+        order. You can also set (optionally) if you want the retrieve
+        date or the original date (as specified in the channel
+        definition) to be used, with the later assumed as default
+        behaviour.
+      </p>
+      <p>
+        The following example should clearify the usage:
+      </p>
+<source>
+import de.nava.informa.utils.ItemComparator;
+...
+// convert from List to Array
+Object[] items = channel.getItems().toArray();
+// sort news items (latest entry first)
+java.util.Arrays.sort(items, new ItemComparator(true));        
+</source>
+    </section>
+
+    
+    <section name="What is a good starting point to learn more about the API?">
+      <p>
+        I would highly recommend to have a look into the source code
+        of the ChannelRegistry class (<a
+        href="apidocs/de/nava/informa/utils/ChannelRegistry.html">JavaDoc</a>)
+        where you might get an idea how to use channel collections in
+        your own code. 
+      </p>
+    </section>
+    
+    <section name="How do I read and parse secured feeds?">
+      <p>
+        Fortunately, Java SDK has everything for this already. All you have to do
+        is specify your default Authenticator which will be
+        queried when username and password are required to access restricted
+        domains. It's very convenient mechanism and it allows lots of fun things
+        to be build on top of it: dialog boxes, password repositories
+        and etc. To get started quickly, try adding the following line to your
+        application and access the secured feed after that (note that it will open dialog
+        box, so better you weren't running it on server side):
+      </p>
+<source>
+Authenticator.setDefault(new PluginAuthenticator());
+</source>
+      <p>
+        Of course, this implementation isn't perfect -- it's just default.
+        To do better, create your own implementation.
+      </p>
+    </section>
+
+    <section name="Why is my question not covered here?">
+      <p>
+        Due to lack of time the documentation is not complete yet.
+        Please study the source code and
+        especially the test cases (in the directory test/src) in the meantime.
+        If you are willing to help out to improve documenation
+        please contact the informa-developer mailing list.
+      </p>
+    </section>
+
+  </body>
+</document>

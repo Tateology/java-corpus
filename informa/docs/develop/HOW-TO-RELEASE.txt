@@ -1,0 +1,41 @@
+----------------------------------------------------------------------
+Some notes about how a new Informa build is released
+$Id: HOW-TO-RELEASE.txt 506 2004-05-15 15:59:44Z niko_schmuck $
+----------------------------------------------------------------------
+
+ o update CHANGELOG.txt
+     it may be helpful to run 'cvs2cl -F HEAD --delta release_0_4_5:HEAD'
+     in root directory to get an idea what happened
+ 
+ o add short para in xdocs/news.xml
+ 
+ o update docs/develop/tags.txt (CVS)
+ 
+ o update build number in build.xml and project.xml
+
+ o verify tests are all green: 
+     ant clean compile
+     ant hibernate.dbscheme
+     ant hibernate.initdb
+     ant test 
+     
+ o tag CVS repository
+
+ o export LANG=en_GB (for proper localization of checkstyle warnings)
+ o maven site:generate
+
+ o ant clean dist.src
+ o ant clean dist.bin
+
+ o upload distributions to SF FTP server with ant ftp-to-sourceforge
+ o create new release with the admin SF web-frontend
+ o create new 'group' for features/bugs with the admin SF web-frontend
+   for the new release number
+
+ o update the website informa.sourceforge.net (rsync, scp)
+   $ cd target/docs
+   $ rsync -av * niko_schmuck@shell.sourceforge.net:/home/groups/i/in/informa/htdocs/.
+
+ o send out email to informa-developer and informa-announce mailing lists
+ o submit news on http://sf.net/projects/informa/ page specific to project
+ o update entry on http://freshmeat.net/projects/informa/
