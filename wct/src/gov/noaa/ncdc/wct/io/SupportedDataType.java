@@ -1,0 +1,17 @@
+package gov.noaa.ncdc.wct.io;
+
+public enum SupportedDataType { 
+	UNKNOWN,
+	RADIAL,
+	GRIDDED,
+	NEXRAD_LEVEL3,
+	NEXRAD_LEVEL3_NWS,
+	NEXRAD_XMRG,
+	GOES_SATELLITE_AREA_FORMAT,
+	
+	
+	GRIDDED_NEXRAD_Q2_2D,
+	GRIDDED_NEXRAD_Q2_3D,
+	
+	POINT_TIMESERIES
+}

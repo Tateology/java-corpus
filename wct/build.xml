@@ -1,0 +1,200 @@
+<project name="NOAA Weather and Climate Toolkit" default="compile" basedir=".">
+
+	
+	
+	<description>
+        Build file for the WCT
+   </description>
+
+   <!-- Load properties from build.properties -->
+   <property file="build.properties" />
+
+	<!-- ==================== Compilation Classpath =========================== -->
+
+	<!--
+
+  Rather than relying on the CLASSPATH environment variable, Ant includes
+  features that makes it easy to dynamically construct the classpath you
+  need for each compilation.  The example below constructs the compile
+  classpath to include the servlet.jar file, as well as the other components
+  that Tomcat makes available to web applications automatically, plus anything
+  that you explicitly added.
+
+-->
+
+	<!--
+  <splash/>
+-->
+
+
+	<path id="compile.classpath">
+		<fileset dir="${lib}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<path id="run.classpath">
+		<fileset dir="${lib}">
+			<include name="*.jar" />
+		</fileset>
+		<pathelement location="${build}" />
+	</path>
+
+	<path id="tests.classpath">
+		<fileset dir="${lib}">
+			<include name="*.jar" />
+		</fileset>
+		<pathelement location="${build}" />
+		<pathelement location="${tests-build}" />
+	</path>
+
+
+
+	<target name="init">
+		<!-- Create the time stamp -->
+		<tstamp />
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}" />
+	</target>
+
+	<target name="compile" depends="init" description="compile the source ">
+
+		<!-- Copy associated resource files -->
+		<copy todir="${build}">
+			<fileset dir="src" includes="**/*.properties" />
+		</copy>
+
+		<!-- Copy extra stuff such as images, icons, shapefiles, etc... -->
+		<copy todir="${build}">
+			<fileset dir="${ext}" />
+		</copy>
+
+		<!-- Compile the java code from ${src} into ${build} -->
+		<javac srcdir="${src}" destdir="${build}" debug="${compile.debug}" source="${compile.source}" target="${compile.target}" nowarn="on" deprecation="${compile.deprecation}" optimize="${compile.optimize}">
+			<classpath refid="compile.classpath" />
+		</javac>
+
+	</target>
+
+	<target name="compile-tests" depends="init" description="compile the tests ">
+
+		<!-- Copy associated resource files -->
+		<copy todir="${tests-build}">
+			<fileset dir="${tests-src}" includes="**/*.properties" />
+		</copy>
+
+		<!-- Copy extra stuff such as images, icons, shapefiles, etc... -->
+		<copy todir="${tests-build}">
+			<fileset dir="${ext}" />
+		</copy>
+
+		<!-- Compile the java code from ${src} into ${build} -->
+		<javac srcdir="${tests-src}" destdir="${tests-build}" debug="${compile.debug}" source="${compile.source}" target="${compile.target}" nowarn="on" deprecation="${compile.deprecation}" optimize="${compile.optimize}">
+			<classpath refid="compile.classpath" />
+		</javac>
+
+	</target>
+
+
+
+
+	<!-- ==================== Dist Targets ===================================== -->
+	<target name="dist" depends="compile" description="Generate the wct distribution">
+		<!-- Create the distribution directory -->
+		<mkdir dir="${dist}/lib" />
+
+		<!--
+		<jar jarfile="${dist}/wct-${version}.jar" basedir="${build}" 
+			includes="gov/**, META-INF/**, nina/**, org/**, thredds/**, ucar/**, uk/**, config/**, icons/**, images/**, helphtml/**"
+			excludes="**/*~,**/*.marks, **/.svn" 
+			manifest="${build}/META-INF/MANIFEST.MF" />
+		-->
+		
+		<!-- Gather the jars in ${lib} and assemble the manifest classpath entry -->
+		<path id="mf.classpath">
+			<fileset dir="${lib}">
+				<include name="*.jar" />
+			</fileset>
+			<pathelement location="${dist}/wct-MapData-${mapversion}.jar" />
+		</path>
+		<manifestclasspath jarfile="${dist}/wct-${version}.jar" property="manifest.classpath">
+		  <classpath refid="mf.classpath"/>
+		</manifestclasspath>
+		
+		
+		<!-- Create the jar distribution -->
+		<jar jarfile="${dist}/wct-${version}.jar" basedir="${build}" 
+			includes="gov/**, META-INF/**, nina/**, org/**, thredds/**, ucar/**, uk/**, config/**, icons/**, images/**, helphtml/**"
+			excludes="**/*~,**/*.marks, **/.svn" >					
+				
+			<manifest>				
+				<attribute name="Class-Path" value="${manifest.classpath}"/>
+				<attribute name="Main-Class" value="gov.noaa.ncdc.wct.export.WCTExportBatch"/>
+			</manifest>
+		</jar>
+		
+		<!-- Create the .bat and .sh scripts to run command line -->
+
+		<echo file="wct" message="java -mx350m -Djava.awt.headless=true -jar dist/wct-${version}.jar $@" />
+		<echo file="wct-viewer" message="java -mx350m -Djava.awt.headless=false -jar dist\wct-${version}.jar -viewer $@" />
+		<echo file="wct.bat">
+@echo off
+java -mx350m -Djava.awt.headless=true -jar dist\wct-${version}.jar %*
+		</echo>
+		<echo file="wct-viewer.bat">
+@echo off
+java -mx350m -Djava.awt.headless=false -jar dist\wct-${version}.jar -viewer %*
+		</echo>
+
+	</target>
+
+
+	<target name="dist-all" depends="dist" description="Generate the wct distribution">
+		<!-- Create the distribution directory -->
+
+		<jar jarfile="${dist}/wct-MapData-${mapversion}.jar" basedir="${build}" 
+				includes="shapefiles/**"
+				excludes="**/*~,**/*.marks, **/.svn" />
+
+	</target>
+
+
+
+
+
+	<!-- ==================== Clean Target ==================================== -->
+
+	<!--
+
+  The "clean" target deletes any previous "build" and "dist" directory,
+  so that you can be ensured the application can be built from scratch.
+
+-->
+
+	<target name="clean" description="Delete old build and dist directories">
+		<!-- Delete the ${build} and ${dist} directory trees -->
+		<delete dir="${build}" />
+		<!--<delete dir="${dist}" />-->
+	</target>
+
+
+	<!-- ==================== Run Target ==================================== -->
+
+	<!--
+  The "run" target assembles the classpath and allows you to run individual classes using this syntax:
+  ant run -Dclass=steve.test.nxstats.MosaicExample
+	-->
+	  <target name="run" depends="compile"
+	   description="Run argument of class - ex: ant run -Dclass=steve.test.nxstats.MosaicExample">
+	   
+	   <java classname="${class}">
+			<classpath refid="run.classpath" />
+	   </java>      
+	  </target>
+
+
+	
+
+</project>
+
+

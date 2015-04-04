@@ -1,0 +1,132 @@
+/**
+ * NOAA's National Climatic Data Center
+ * NOAA/NESDIS/NCDC
+ * 151 Patton Ave, Asheville, NC  28801
+ * 
+ * THIS SOFTWARE AND ITS DOCUMENTATION ARE CONSIDERED TO BE IN THE 
+ * PUBLIC DOMAIN AND THUS ARE AVAILABLE FOR UNRESTRICTED PUBLIC USE.  
+ * THEY ARE FURNISHED "AS IS." THE AUTHORS, THE UNITED STATES GOVERNMENT, ITS
+ * INSTRUMENTALITIES, OFFICERS, EMPLOYEES, AND AGENTS MAKE NO WARRANTY,
+ * EXPRESS OR IMPLIED, AS TO THE USEFULNESS OF THE SOFTWARE AND
+ * DOCUMENTATION FOR ANY PURPOSE. THEY ASSUME NO RESPONSIBILITY (1)
+ * FOR THE USE OF THE SOFTWARE AND DOCUMENTATION; OR (2) TO PROVIDE
+ * TECHNICAL SUPPORT TO USERS.
+ */
+
+package gov.noaa.ncdc.nexradiv.test;
+
+
+import java.io.*;
+import java.util.*;
+
+
+public class MemWorkout {
+  private static final int K = 1024;
+  private int maxStep;
+  private LinkedList blobs = new LinkedList();
+  private long totalAllocs;
+  private long totalUnrefs;
+  private long unrefs;
+
+  public String toString() {
+    return "MemWorkout allocs=" + totalAllocs + "unrefs=" + totalUnrefs;
+  }
+
+  private static class Blob {
+    public final int size;
+    private final byte[] data;
+    public Blob(int size) {
+      this.size = size;
+      data = new byte[size];
+    }
+  }
+
+  private void grow(long goal) {
+    long totalGrowth = 0;
+    long allocs = 0;
+    while (totalGrowth < goal) {
+      int grow = (int)(Math.random() * maxStep);
+      blobs.add(new Blob(grow));
+      allocs++;
+      totalGrowth += grow;
+    }
+    totalAllocs += allocs;
+    System.out.println("" + allocs + " allocs, " + 
+                          totalGrowth + " bytes");
+  }
+
+  private void shrink(long goal) {
+    long totalShrink = 0;
+    unrefs = 0;
+    try {
+      while (totalShrink < goal) {
+        totalShrink += shrinknext();
+      }
+    } catch (Exception nsee) {
+      System.out.println("all items removed");
+    }
+    totalUnrefs+= unrefs;
+    System.out.println("" + unrefs + " unreferenced objs, " + totalShrink + " bytes");
+  } 
+
+  private long shrinknext() {
+    //choice of fifo/lifo very important!
+    //Blob b = (Blob) blobs.removeFirst();
+    Blob b = (Blob) blobs.removeLast();
+    unrefs++;
+    return b.size;
+  }
+
+  public MemWorkout(int maxStep) {
+    this.maxStep = maxStep;
+  }
+
+  public static void main(String [] args) {
+    if (args.length < 1) {
+      System.out.println("usage MemWorkout maxStepKB");
+      System.exit(1);
+    }
+    int maxStep = Integer.parseInt(args[0]) * K;
+    if (maxStep < (K)) {
+      System.out.println("maxStep must be at least 1KB");
+      System.exit(1);
+    }
+    MemWorkout mw = new MemWorkout(maxStep);
+    try {
+      while (true) {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        logMemStats();
+        System.out.println("{intMB} allocates, {-intMB}"+ 
+         "deallocates, GC collects garbage, EXIT exits");
+        String s = br.readLine();
+        if (s.equals("GC")) {
+          System.gc();
+          System.runFinalization();
+          continue;
+        }
+        long alloc = Integer.parseInt(s) * 1024* 1024;
+        if (alloc > 0) {
+          mw.grow(alloc);
+        } else {
+          mw.shrink(-alloc);
+        }
+      }
+    } catch (NumberFormatException ne) {
+    } catch (Throwable t) {
+      t.printStackTrace();
+    }
+    System.out.println(mw);
+  }
+
+  public static void logMemStats() {
+    Runtime rt = Runtime.getRuntime();
+    System.out.println("total mem: " + 
+                      (rt.totalMemory()/K) + "K free mem:"+ 
+                      (rt.freeMemory()/K) + "K");
+  }
+}
+
+
+ 
+
+

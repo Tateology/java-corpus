@@ -1,0 +1,21 @@
+# Color table used for one hour and
+# storm total precip difference products.
+                                                                                                                                                                                                                                                                                                                                                                           
+Color: 3.0   255 255 255
+Color: 2.5   250 190 189
+Color: 2.0   255   0   0
+Color: 1.5   255 182   0
+Color: 1.0   255 255   0
+Color: 0.6   189 255   0
+Color: 0.3     0 255   0    
+Color: 0.1    99 215  99
+Color: 0.0    60  60  60
+#Color: 0.0    255 255 255
+Color: -0.1   99 223 222
+Color: -0.3    0 255 255
+Color: -0.6    0 174 255   
+Color: -1.0    0   0 255
+Color: -1.5  198   0 255
+Color: -2.0  255  40 255
+Color: -2.5  255 190 255
+Color: -3.0  255 255 255

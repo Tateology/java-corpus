@@ -1,0 +1,42 @@
+AVIDemo
+
+License
+Table of Contents
+
+    * Disclaimer
+    * License Fee
+    * License Terms
+    * Copyright
+
+Disclaimer
+
+Use of the AVIDemo is entirely at your own risk. I will not be liable for any data loss, hardware damage or whatever this program might cause.
+
+Permission to use this release of AVIDemo is granted provided you agree with its license terms, and the copyright notice and this license notice appear in all copies and in supporting documentation.
+License Fee
+
+Use of AVIDemo is free for all uses, including personal use, educational use, and commercial use.
+License Terms
+
+You can license AVIDemo under the terms of the Creative Commons Attribution 3.0 license.
+You are free:
+
+    * to Share — to copy, distribute and transmit the work
+    * to Remix — to adapt the work
+
+Under the following conditions:
+
+    * Attribution. You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work).
+
+For any reuse or distribution, you must make clear to others the license terms of this work. The best way to do this is with a link to this web page.
+
+Any of the above conditions can be waived if you get permission from the copyright holder.
+
+Nothing in this license impairs or restricts the author's moral rights.
+Copyright
+AVIDemo © 2008-2009
+
+Werner Randelshofer, Hausmatt 10, Immensee, CH-6405, Switzerland
+http://www.randelshofer.ch/
+werner.randelshofer@bluewin.ch
+All Rights Reserved.

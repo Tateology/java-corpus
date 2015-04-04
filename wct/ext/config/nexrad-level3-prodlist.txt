@@ -1,0 +1,105 @@
+key|value
+GSM|p2   General Status Message
+FTM|p5   Free Text Message
+N0R|p19  Base Reflectivity (lowest elevation angle)
+N1R|p19  Base Reflectivity (second lowest elevation angle)
+N2R|p19  Base Reflectivity (third lowest elevation angle)
+N3R|p19  Base Reflectivity (fourth lowest elevation angle)
+N0Z|p20  Base Reflectivity (Long Range)
+N0W|p25  Base Velocity (Short Range)
+N0V|p27  Base Velocity (lowest elevation angle)
+N1V|p27  Base Velocity (second lowest elevation angle)
+N2V|p27  Base Velocity (third lowest elevation angle)
+N3V|p27  Base Velocity (fourth lowest elevation angle)
+NSP|p28  Base Spectrum Width (Short Range)
+NSW|p30  Base Spectrum Width
+DHR|p32  Digital Hybrid Scan Reflectivity
+NCF|p34  Clutter Filter Control
+NC1|p34  Clutter Filter Control (elev. seg. 1)
+NC2|p34  Clutter Filter Control (elev. seg. 2)
+NC3|p34  Clutter Filter Control (elev. seg. 3)
+NC4|p34  Clutter Filter Control (elev. seg. 4)
+NC5|p34  Clutter Filter Control (elev. seg. 5)
+NCO|p36  Composite Reflectivity (8 Levels)
+NCR|p37  Composite Reflectivity (16 Levels)
+NCZ|p38  Composite Reflectivity (16 Levels)
+NET|p41  Echo Tops
+NWP|p47  Severe Weather Probability
+NVW|p48  VAD Wind Profile
+N0S|p56  Storm Relative Velocity (lowest elevation angle)
+N1S|p56  Storm Relative Velocity (second lowest elevation angle)
+N2S|p56  Storm Relative Velocity (third lowest elevation angle)
+N3S|p56  Storm Relative Velocity (fourth lowest elevation angle)
+NVL|p57  Vertical Integrated Liquid
+NST|p58  Storm Tracking Information
+NHI|p59  Hail Index
+NME|p60  Mesocyclone
+NTV|p61  Tornadic Vortex Signature
+NSS|p62  Storm Structure
+NLL|p65  Low Layer Composite Reflectivity
+NML|p66  Mid Layer Composite Reflectivity
+RCM|p74  Radar Coded Message
+N1P|p78  One Hour Precipitation Total
+N3P|p79  Three Hour Precipitation Total
+NTP|p80  Storm Total Precipitation
+DPA|p81  Digital Precipitation Array
+SPD|p82  Supplemental Precipitation Data
+NHL|p90  High Layer Composite Reflectivity
+DSP|p138 Digital Storm Total Precipitation
+NMD|p141 Mesocyclone Detection Algorithm
+RSL|p152 Radar Status Log
+TR0|p181 TDWR Base Reflectivity (lowest elevation angle)	
+TR1|p181 TDWR Base Reflectivity (second elevation angle)	
+TR2|p181 TDWR Base Reflectivity (third elevation angle)	
+TV0|p182 TDWR Base Velocity (lowest elevation angle)	
+TV1|p182 TDWR Base Velocity (second elevation angle)	
+TV2|p182 TDWR Base Velocity (third elevation angle)	
+TZL|p186 TDWR Long Range Base Reflectivity (0.6 elev angle)
+N0Q|p94  Base Reflectivity (0.5 elev angle)
+NAQ|p94  Base Reflectivity (0.9 elev angle)
+N1Q|p94  Base Reflectivity (1.5 elev angle)
+NBQ|p94  Base Reflectivity (1.8 elev angle)
+N2Q|p94  Base Reflectivity (2.4 elev angle)
+N3Q|p94  Base Reflectivity (3.4 elev angle)
+N0U|p99  Base Velocity (0.5 elev angle)
+NAU|p99  Base Velocity (0.9 elev angle)
+N1U|p99  Base Velocity (1.5 elev angle)
+NBU|p99  Base Velocity (1.8 elev angle)
+N2U|p99  Base Velocity (2.4 elev angle)
+N3U|p99  Base Velocity (3.4 elev angle)
+DVL|p134 Digital Vertical Integrated Liquid
+EET|p135 Enhanced Echo Tops 
+N0X|p159 Differential Reflectivity (0.5 elev angle)
+NAX|p159 Differential Reflectivity (0.9 elev angle)
+N1X|p159 Differential Reflectivity (1.5 elev angle)
+NBX|p159 Differential Reflectivity (1.8 elev angle)
+N2X|p159 Differential Reflectivity (2.4 elev angle)
+N3X|p159 Differential Reflectivity (3.4 elev angle)
+N0C|p161 Correlation Coefficient (0.5 elev angle)
+NAC|p161 Correlation Coefficient (0.9 elev angle)
+N1C|p161 Correlation Coefficient (1.5 elev angle)
+NBC|p161 Correlation Coefficient (1.8 elev angle)
+N2C|p161 Correlation Coefficient (2.4 elev angle)
+N3C|p161 Correlation Coefficient (3.4 elev angle)
+N0K|p163 Specific Differential Phase (0.5 elev angle)
+NAK|p163 Specific Differential Phase (0.9 elev angle)
+N1K|p163 Specific Differential Phase (1.5 elev angle)
+NBK|p163 Specific Differential Phase (1.8 elev angle)
+N2K|p163 Specific Differential Phase (2.4 elev angle)
+N3K|p163 Specific Differential Phase (3.4 elev angle)
+N0H|p165 Hydrometeor Classification (0.5 elev angle)
+NAH|p165 Hydrometeor Classification (0.9 elev angle)
+N1H|p165 Hydrometeor Classification (1.5 elev angle)
+NBH|p165 Hydrometeor Classification (1.8 elev angle)
+N2H|p165 Hydrometeor Classification (2.4 elev angle)
+N3H|p165 Hydrometeor Classification (3.4 elev angle)
+OHA|p169 One Hour Precipitation (Dual Pol. / 16 Level)
+DAA|p170 One Hour Precipitation (Dual Pol. / 256 Level)
+PTA|p171 Storm Total Precipitation (Dual Pol. / 16 Level)
+DTA|p172 Storm Total Precipitation (Dual Pol. / 256 Level)
+DOD|p174 One Hour Precip. Difference (Dual Pol. / 256 Level)
+DSD|p175 Storm Total Precip. Difference (Dual Pol. / 256 Level)
+DPR|p176 Instantaneous Precip. Rate (Dual Pol. / 65535 Level)
+HHC|p177 Hybrid Hydrometeor Classification
+
+

@@ -1,0 +1,236 @@
+<HTML>
+<HEAD>
+   
+<TITLE>Jeks</TITLE>
+<META  name="description" content="Jeks">
+<META  name="keywords" content="">
+<META  name="copyright" content="(C) 2001 Emmanuel PUYBARET - eTeks">
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" >
+<center>
+ <img src="jeks.gif" width="30" height="30"> 
+ <h1 align="center"> Mode d'emploi Jeks</h1>
+<p><a href="#Features">Fonctionnalit&eacute;s</a><br>
+ <a href="#Syntax">Syntaxe des formules</a><br>
+ <a href="#Menus">Menus Jeks</a><br>
+ <br>
+</p>
+</center>
+<h3><a name="Features"></a>Fonctionnalit&eacute;s </h3>
+<blockquote> 
+ <p>Jeks est un tableur Java<sup>TM</sup>.<br>
+  Comme le montre la liste des fonctionnalit&eacute;s suivante, Jeks 1.0 permet surtout l'&eacute;dition et le calcul de formules dans les cellules d'une 
+  feuille de calcul :</p>
+ <ul>
+  <li>Edition de formules dans les cellules avec &agrave; disposition de nombreux op&eacute;rateurs et fonctions. </li>
+  <li>Edition de fonctions param&eacute;trables utilisant des expressions d&eacute;finies par l'utilisateur. </li>
+  <li>V&eacute;rification des r&eacute;f&eacute;rences circulaires dans les formules et mise &agrave; jour optimis&eacute;e des formules utilisant d'autres 
+   cellules.</li>
+  <li>Couper / Copier / Coller avec d&eacute;calage automatique des r&eacute;f&eacute;rences de cellule dans les formules. </li>
+  <li>Internationalisation du tableur et de la syntaxe des formules. Version fran&ccedil;aise et anglaise disponibles uniquement pour l'instant.</li>
+  <li>Enregistrer / Ouvrir des fichiers au format Jeks (fichiers <i>.jks</i>).
+  </li>
+ </ul>
+ </blockquote>
+<h3><a name="Syntax"></a> Syntaxe des formules </h3>
+<blockquote> 
+ <p>Une formule commence par le caract&egrave;re =, ne fait pas de nuance entre majuscules et minuscules et sa syntaxe supporte les op&eacute;rateurs suivants 
+  :</p>
+ <ul>
+  <li>Op&eacute;rateurs unaires : + -</li>
+  <li>Op&eacute;rateurs binaires : ^ * / + - &gt;= &lt;= &gt; &lt; = &lt;&gt; (du plus prioritaire au moins prioritaire).</li>
+  <li>Constantes : VRAI FAUX</li>
+  <li>Fonctions (les param&egrave;tres optionnels sont en <i>italique</i>) : 
+   <ul>
+    <li> Fonctions math&eacute;matiques : 
+     <ul>
+      <li>LN (nombre)</li>
+      <li>LOG10 (nombre) </li>
+      <li>EXP (nombre)</li>
+      <li>RACINE (nombre)</li>
+      <li>COS (nombre)</li>
+      <li>SIN (nombre)</li>
+      <li>TAN (nombre)</li>
+      <li>ACOS (nombre)</li>
+      <li>ASIN (nombre)</li>
+      <li>ATAN (nombre)</li>
+      <li>COSH (nombre)</li>
+      <li>SINH (nombre)</li>
+      <li>TANH (nombre)</li>
+      <li>ENT (nombre)</li>
+      <li>ABS (nombre)</li>
+      <li>ALEA ()</li>
+      <li>MOD (nombre;diviseur)</li>
+      <li>FACT (nombre)</li>
+      <li>SOMME (nombre1<i>;nombre2;...</i>)</li>
+     </ul>
+    </li>
+    <li>Fonctions logiques : 
+     <ul>
+      <li>SI (test;valeur_si_vrai;valeur_si_faux)</li>
+      <li>NON (valeur)</li>
+      <li>ET (valeur1<i>;valeur2;...</i>)</li>
+      <li>OU (valeur1<i>;valeur2;...</i>)</li>
+      <li>VRAI ()</li>
+      <li>FAUX ()</li>
+     </ul>
+    </li>
+   <li>Fonctions de date et d'heure : 
+    <ul>
+     <li>DATE (annee;mois;jour)</li>
+     <li>DATEVAL (texte_date)</li>
+     <li>MAINTENANT ()</li>
+     <li>TEMPS (heure;minute;seconde)</li>
+     <li>TEMPSVAL (texte_temps)</li>
+     <li>ANNEE (date)</li>
+     <li>MOIS (date)</li>
+     <li>JOUR (date)</li>
+     <li>JOURSEM (date)</li>
+     <li>HEURE (date)</li>
+     <li>MINUTE (date)</li>
+     <li>SECONDE (date)</li>
+    </ul>
+   </li>
+   <li>Fonctions texte : 
+    <ul>
+     <li>CAR (unicode)</li>
+     <li>TROUVE (texte_trouve;text;indice_de_depart)</li>
+     <li>CODE (texte)</li>
+    </ul>
+   </li>
+  </ul>
+ </ul>
+ <p>Les valeurs litt&eacute;rales peuvent &ecirc;tre des nombres d&eacute;cimaux, entiers ou des cha&icirc;nes de caract&egrave;res entre &quot;&quot;. 
+  Le s&eacute;parateur d&eacute;cimal est la virgule et le symbole exponentiel la lettre E (par exemple 12,3E2, 15,3, 0,333E-3).<br>
+  Les formules peuvent contenir des espaces ou des tabulations. Le s&eacute;parateur de param&egrave;tre dans les appels de fonctions est le point-virgule. 
+  Des expressions peuvent &ecirc;tre parenth&eacute;s&eacute;es entre () pour changer la priorit&eacute; des op&eacute;rateurs. </p>
+ <p>Une cellule est r&eacute;f&eacute;renc&eacute;e par la ou les lettres de sa colonne suivie(s) de l'indice de sa ligne (par exemple A1, AB12,...) ; la 
+  lettre de la colonne ou l'indice de la ligne peuvent &ecirc;tre pr&eacute;fix&eacute;es par le caract&egrave;re $ pour &eacute;viter le d&eacute;calage 
+  de la colonne ou de la ligne pendant une op&eacute;ration de copier / coller (par exemple $A3, B$4, $C$1).<br>
+  Un ensemble de cellules se note avec deux r&eacute;f&eacute;rences de cellule s&eacute;par&eacute;es par le caract&egrave;re : (par exemple A1:A3, B2:C5, 
+  $C4:$C8).<br>
+  La r&eacute;f&eacute;rence d'une cellule peut &ecirc;tre utilis&eacute;e n'importe o&ugrave; dans une formule (un ensemble de cellules ne peut &ecirc;tre 
+  utilis&eacute; que dans la fonction SOMME()).</p>
+ <p>Le type de la valeur renvoy&eacute;e par une formule d&eacute;pend du type de ses param&egrave;tres et des op&eacute;rateurs et des fonctions utilis&eacute;s 
+  dans la formule. Jeks g&egrave;re les types suivants :</p>
+ <ul>
+  <li>entiers</li>
+  <li>decimaux</li>
+  <li>cha&icirc;nes de caract&egrave;res</li>
+  <li>dates</li>
+  <li>valeurs bool&eacute;ennes</li>
+ </ul>
+ <p>Exemples de formules :</p>
+ <ul>
+  <li>=SOMME(A1:A5;C1:C5)</li>
+  <li>=12 + SI (ET (C1 &gt; 5; C2 &lt; 10); 5; 4)</li>
+  <li>=A1^2 + 2*A1*A2 + A2^2</li>
+ </ul>
+</blockquote>
+<h3><a name="Menus"></a> Menus Jeks</h3>
+<blockquote> 
+ <table cellpadding="4" cellspacing="3">
+ <tr valign="top"> 
+ <td rowspan="5" bgcolor="#999999"> <b>Fichier</b></td>
+ <td bgcolor="#CCCCCC"><b>Nouveau</b></td>
+ <td>Cr&eacute;e une nouvelle feuille de calcul. Si la feuille en cours d'&eacute;dition a &eacute;t&eacute; modifi&eacute;e une boite de dialogue vous 
+ demande d'accepter d'enregistrer les changements.</td>
+ </tr>
+ <tr valign="top"> 
+ <td bgcolor="#CCCCCC"><b>Ouvrir...</b></td>
+ <td>Affiche une boite de dialogue de choix de fichier pour s&eacute;lectionner un fichier de feuille de calcul et l'ouvre dans Jeks. Seuls les fichiers 
+ au format Jeks (fichiers<i> .jks</i>) peuvent &ecirc;tre lus dans cette version. Le format Jeks est portable et les formules qu'il contient sont traduites 
+ automatiquement dans la syntaxe de la langue en cours d'utilisation dans Jeks.</td>
+ </tr>
+ <tr valign="top"> 
+ <td bgcolor="#CCCCCC"><b>Enregistrer</b></td>
+ <td>
+ <p>Enregistre la feuille de calcul en cours dans un fichier. A la premi&egrave;re sauvegarde, une boite de dialogue de choix de fichier est affich&eacute;e 
+  pour que vous choisissiez un nom de fichier. </p>
+ </td>
+ </tr>
+ <tr valign="top"> 
+ <td bgcolor="#CCCCCC"><b>Enregistrer sous...</b></td>
+ <td> 
+ <p>Affiche une boite de dialogue de choix de fichier pour choisir un nom de fichier et enregistre la feuille de calcul en cours dans ce fichier. Seuls 
+  les fichiers au format Jeks (fichiers<i> .jks</i>) peuvent &ecirc;tre g&eacute;n&eacute;r&eacute;s dans cette version. Ce format enregistre toutes les 
+  valeurs et les formules des cellules et les &eacute;ventuelles fonctions que vous avez saisies.</p>
+ </td>
+ </tr>
+ <tr valign="top"> 
+ <td bgcolor="#CCCCCC"><b>Quitter</b></td>
+ <td>Quitte Jeks. Si la feuille en cours d'&eacute;dition a &eacute;t&eacute; modifi&eacute;e une boite de dialogue vous demande d'accepter d'enregistrer 
+ les changements.</td>
+ </tr>
+ <tr> 
+ <td colspan="2" >&nbsp; </td>
+ <td >&nbsp;</td>
+ </tr>
+ <tr valign="top"> 
+ <td rowspan="4" bgcolor="#999999"> <b>Edition</b></td>
+ <td bgcolor="#CCCCCC"><b>Couper</b></td>
+ <td>Copie les cellules s&eacute;lectionn&eacute;es dans la m&eacute;moire tampon de copie et efface les cellules.</td>
+ </tr>
+ <tr valign="top"> 
+ <td bgcolor="#CCCCCC"><b>Copier</b></td>
+ <td>Copie les cellules s&eacute;lectionn&eacute;es dans la m&eacute;moire tampon de copie.</td>
+ </tr>
+ <tr valign="top"> 
+ <td bgcolor="#CCCCCC"><b>Coller</b></td>
+ <td>Colle les cellules de la m&eacute;moire tampon de copie en commen&ccedil;ant &agrave; la position courante, en effectuant une op&eacute;ration de d&eacute;calage 
+ des cellules dans les formules coll&eacute;es si n&eacute;cessaire.</td>
+ </tr>
+ <tr valign="top"> 
+ <td bgcolor="#CCCCCC"><b>Effacer</b></td>
+ <td>Efface les cellules s&eacute;lectionn&eacute;es.</td>
+ </tr>
+ <tr> 
+ <td colspan="2"> 
+ <h4>&nbsp; </h4>
+ </td>
+ <td>&nbsp;</td>
+ </tr>
+ <tr valign="top"> 
+ <td bgcolor="#999999"> <b>Options</b>&nbsp;</td>
+ <td bgcolor="#CCCCCC"><b>Nouvelle fonction...</b></td>
+ <td> 
+ <p>Affiche une boite de dialogue vous demandant de saisir une nouvelle fonction du type <i>fonction(parametres)=expression utilisant les parametres</i>, 
+  o&ugrave; <i>parametres</i> est une liste de param&egrave;tres s&eacute;par&eacute;s par des point-virgules, que l'expression peut utiliser.<br>
+  La syntaxe d'une fonction est &agrave; peu pr&egrave;s la m&ecirc;me que la <a href="#Syntax">syntaxe des formules</a> : Elle accepte les m&ecirc;mes 
+  op&eacute;rateurs et les m&ecirc;mes fonctions mais ne permet pas d'utiliser des r&eacute;f&eacute;rences &agrave; des cellules (utiliser des param&egrave;tres 
+  &agrave; la place). La fonction SI() est remplac&eacute;e par l'op&eacute;rateur de condition SI ALORS SINON qui permet d'&eacute;crire des appels r&eacute;cursifs.<br>
+  Une fois accept&eacute;e par le compilateur de Jeks, une fonction utilisateur peut &ecirc;tre utilis&eacute;e dans n'importe quelle formule d'une cellule 
+  ou dans une fonction.</p>
+ <p>Exemples de fonctions :</p>
+ <ul>
+  <li>f(x,y)=x^2 + 2*x*y + y^2</li>
+  <li>fact2 (n)=SI n &lt;= 0 ALORS 1 SINON n * fact2(n-1)</li>
+ </ul>
+ </td>
+ </tr>
+ <tr> 
+ <td colspan="2"> 
+ <h4>&nbsp; </h4>
+ </td>
+ <td>&nbsp;</td>
+ </tr>
+ <tr valign="top"> 
+ <td rowspan="2" bgcolor="#999999"> <b>Aide</b></td>
+ <td bgcolor="#CCCCCC"><b>Aide Jeks...</b></td>
+ <td>Affiche le fichier que vous lisez actuellement.</td>
+ </tr>
+ <tr valign="top"> 
+ <td bgcolor="#CCCCCC"><b>A propos...</b></td>
+ <td>Affiche une boite d'information sur Jeks.</td>
+ </tr>
+ </table>
+</blockquote>
+<P><CENTER>
+<HR>
+ <FONT
+SIZE="-1"><a href="http://www.eteks.com"><img src="logoeteks.gif" width="94" height="25" alt="eTeks" border="0"></a><br>
+ &copy; 1998-2001 </FONT><FONT
+SIZE="-1"><A HREF="http://www.eteks.com">eTeks</A></FONT><FONT SIZE="-1"> - Tous droits r&eacute;serv&eacute;s</FONT> 
+</CENTER>
+</BODY>
+</HTML>

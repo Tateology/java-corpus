@@ -1,0 +1,19 @@
+
+Units: DEG
+Step: 15.0
+
+
+Color: 180.0   255  140  255
+;Color: 165.0
+;Color: 150.0
+;Color: 135.0
+Color: 120.0    90    0    0
+;Color: 105.0
+Color:  90.0   255  125    0
+Color:  75.0   255  255    0
+Color:  60.0    30  100    0
+Color:  45.0     0  255    0
+Color:  30.0    10   20   95
+Color:  15.0   210  210  180
+Color:   0.0   255  255  255
+

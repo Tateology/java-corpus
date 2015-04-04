@@ -1,0 +1,892 @@
+<html>
+<head>
+  <title>NOAA Weather and Climate Toolkit - New Features</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+<center>
+<h1>New Features in the NOAA Weather and Climate Toolkit (Viewer / Exporter) </h1>
+</center>
+
+
+
+<h2> Version 3.7 </h2>
+
+<p>
+<strong>Station Data Support</strong><br><br>
+Basic support for Station Time Series data in NetCDF structured according to the Discrete Sampling Geometries definitions in the 
+CF Conventions.  Point, Profile and Trajectory structures are not supported yet.
+<br><br>
+ 
+<strong>Command-Line Export Support for the KMZ Export Format</strong><br><br>
+KMZ output is now supported when exporting from the command-line using the batch processing command-line 'wct-export' script.
+Please refer to the exportKmlOptions section in the wctBatchConfig.xml file which comes with the distribution.
+There is also an example palette file used to color the data.  Further documentation and examples
+are available from: http://www.ncdc.noaa.gov/wct/batch.php .  <br><br>
+
+<strong>Upgrades to supporting libraries</strong><br><br>
+NetCDF for Java API has been upgraded to version 4.3.  The naming of GRIB variables has changed
+in some cases, which could cause problems with batch export scripts when running from the command-line.
+<br><br>
+
+<strong>Improvements to KML Isosurface output</strong><br><br>
+Improved isosurface output to cap at 1000 meters above highest recorded value.
+<br><br>
+
+<strong>Improvements to Radar Constant Altitude (CAPPI)</strong><br><br>
+Interpolation methods (simple linear and inverse distance weighted squared) have been added.  Using interpolation results in smoother transitions between 
+sweeps from different elevation angles.
+<br><br>
+
+<strong>General User Interface Improvements</strong><br><br>
+Added Ctrl-Z support to capture images in viewer when Layer Selector is the active window.  Helps when creating fade-in/out of snapshots.
+<br><br>
+
+<strong>AREA Format Support</strong><br><br>
+Allow AREA files to be displayed as GOES filetype when the filenames are custom and do not match the CLASS naming convention.  The 'Data Type'
+ be set to 'GOES_SATELLITE_AREA_FORMAT'.
+<br><br>
+
+
+3.7.1 bugfixes: <br>
+1) upgraded to more accurate radar site locations, based on NCDC HOMR project.  
+Only sites with significant changes: KVWX ~(1 km). <br>
+2) Fixed error when viewing alphanumeric products from NWS Gateway FTP server. <br>
+3) Fixed OPeNDAP connection error created during NetCDF library upgrade. <br>
+4) Fixed bug in CAPPI interpolations when Range Folded values are present. <br>
+5) Improved Radar display when filtering and smoothing are used in combination. <br>
+6) Fixed bug in Station Data display when a station has no records. <br><br>
+
+3.7.2 bugfixes: <br>
+1) Fixed bug in batch export when an input directory is specified. <br>
+2) Batch command-line export of grids will now not append variable, height, time 
+dimension indices to output filename. <br>
+3) Added import support for markers exported in CSV format. <br>
+4) Updated Java Web Start launch configuration to add new security enhancements required in Java 7 Update 45. <br><br>
+
+3.7.3 bugfixes: <br>
+1) Upgraded NetCDF-Java 4.3 library to fix bug preventing reading of V07 Level-2 NEXRAD 
+files. <br>
+2) Fixed units bug with export of GOES Visible data to 'Gridded NetCDF' format.  Units
+were erroneously written as 'Kelvin' and should be 'count'. <br>
+3) Removed empty variables for 'radiance' and 'calibratedData' (brightness temperature)
+which are empty when GOES Visible data are converted to the 'Native NetCDF' format. <br><br>
+
+3.7.4 bugfixes: <br>
+1) Upgraded code signing certificate. <br>
+2) Fixed several links to WCT help pages. <br>
+<br><br>
+
+3.7.5 bugfixes: <br>
+1) Changed location of primary HAS data location. <br>
+<br><br>
+
+
+<h2> Version 3.6 </h2>
+
+<p>
+
+<strong>NEXRAD Dual-Polarization support</strong><br><br>
+Support for the Digital Precipitation Rate product (DPR).  Custom radar sites are 
+now supported via user-supplied metadata, entered when a new site is requested.
+<br><br>
+
+<strong>Time Morphing</strong><br><br>
+EXPERIMENTAL TOOL: Please use with caution!  
+The time morphing tool interpolates data between two timesteps. The interpolation 
+can be either a simple weighted average (fade in/out effect) or motion vectors can 
+be used to add movement to the interpolation. The motion vectors can be derived from 
+the NEXRAD Level-III Storm Structure product available in the NOAA/NCDC Severe Weather 
+Data Inventory, or the Storm Motion variables in the RUC Model available from the NOAA/NCDC NOMADS THREDDS Server.
+<br><br>
+
+<strong>Simple Math Tool</strong><br><br>
+There is now a simple math tool to perform min/max/sum/avg calculations across 
+a dimension or multiple files.
+<br><br>
+
+<strong>Data Selector Improvements</strong><br><br>
+The Data Selector tabs have been renamed to be more descriptive and easier to understand.  A 'Favorites'
+tab has been added, which automatically saves entries to the user profile of the Toolkit.  Custom lists of Favorites 
+may be loaded and saved as well.
+<br><br>
+
+<strong>GHCN-D export</strong><br><br>
+'Global Historical Climatology Network - Daily' (GHCN-D) data ordered through the
+NCDC Climate Data Online (CDO) ( http://cdo.ncdc.noaa.gov ), may now be
+converted to Shapefile using the specialized tool under the 'Services' menu.
+For more info: <br>
+http://www.ncdc.noaa.gov/oa/climate/ghcn-daily/ <br>
+http://www.ncdc.noaa.gov/cdo-web
+
+
+<br><br>
+
+3.6.1 bugfixes: <br>
+1) upgrade of NetCDF Java code to fix DPR range bug caused by erroneous elevation angle values in DPR decoder. <br>
+3.6.2 bugfixes: <br>
+1) fix of unix distro run script to put wct jar first in classpath to override geotools classes if needed. <br>
+2) fixed problem with saving animated gifs due to removed library from distribution. <br>
+3) enabled decompression tool to handle .tar and .zip archive files. <br>
+4) added diff function to Math tool. <br>
+5) added support for valid_range CF-convention attribute in Layer Selector. <br>
+6) modified CLASS data source in Data Selector to support new subdirectory structure in fulfilled CLASS orders on FTP. <br>
+3.6.3 bugfixes: <br>
+1) fixed bug in cache directory initialization. <br>
+3.6.4 bugfixes: <br>
+1) fixed bug in native copy export progress monitoring. <br>
+2) added headers to html and text copy output of alphanumeric attribute tables. <br>
+3.6.5 bugfixes: <br>
+1) fixed bug in Supplemental Data dialogs. <br>
+2) added configuration for V07 NEXRAD filenames. <br>
+3) better error handling for empty or non-validating customFilenamePatterns.xml file. <br>
+4) added all-sweeps point export to Data Export Wizard. <br>
+3.6.6 bugfixes: <br>
+1) fixed bug in legend for NEXRAD Level-3 Clutter Filter product. <br>
+3.6.7 bugfixes: <br>
+1) upgraded to more accurate radar site locations, based on NCDC HOMR project.  Only sites with significant changes: KVWX ~(1 km). <br>
+<br><br>
+
+
+<h2> Version 3.5 </h2>
+
+<p>
+
+<strong>NEXRAD Dual-Polarization support</strong><br><br>
+The Level-2 Dual-Polarization moments and Level-3 Dual-Polarization products are now
+supported.  For more information on dual-polarization and the new Level-3 NEXRAD
+products, please refer to:  http://www.wdtb.noaa.gov/courses/dualpol/outreach/
+<br><br>
+
+<strong>Isosurface KMZ Generation</strong><br><br>
+The generation and export of KMZ isosurfaces for Radial and Gridded Datasets is now supported.  
+An isosurface is a three-dimensional equivalent of the two-dimensional contour line.  
+Isosurfaces can be generated from gridded data that have a height dimension or Radial 
+volume scan data such as Level-2 NEXRAD.  The resulting KMZ can be visualized in KMZ viewers 
+such as Google Earth.  The 'Isosurface KML Generator' is located under the 'Tools' menu.
+<br><br>
+
+<strong>CAPPI for Radial Radar Data</strong><br><br>
+CAPPI (Constant Altitude Plan Position Indicator) - a constant altitude cross-section of Radar data.
+To create a CAPPI, select the desired CAPPI altitude from the Radial Properties window after 
+loading a Radar volume scan data file.  Data exports also allow the selection of 
+a CAPPI altitude instead of a specific elevation angle.  CAPPI heights can be set using
+the 'Radial Properties' window, which appears after loading Level-II NEXRAD (or generic Radial) data.
+<br><br>
+
+3.5.1 bugfixes: <br>
+1) fixed styling bug when changing colors of custom local shapefiles added to the map. <br>
+2) upgrade of GRIB library now allows reading of certain problematic CFSR model products. <br>
+3) fixed bug that prevent 'draping' of images in kmz animation export. <br>
+4) fixed bug that caused animation issues when exporting a kmz animation from a reversed-order (newest to oldest) file list. <br>
+5) various minor fixes for Java 7 support. <br>
+3.5.2 bugfixes: <br>
+1) internal refactoring to clean up modules under development. <br>
+3.5.3 bugfixes: <br>
+1) fixed bug that prevented use of AVI export with JPEG compression. <br>
+3.5.4 bugfixes: <br>
+1) fixed bug that reset the transparency after a zoom refresh for unsmoothed radar data. <br>
+3.5.5 bugfixes: <br>
+1) fixed bug in libraries for saving of session files in xml format.<br>
+3.5.6 bugfixes: <br>
+1) added larger NOAA icon for improved appearance in Windows 7 task bar.<br>
+2) added link to edit custom filename patterns on the 'View Properties' -> 'Misc.' tab. <br>
+3) fixed bug when editing custom site location file for the first time from the 'View Properties' -> 'Misc.' tab. <br>
+3.5.7 bugfixes: <br>
+1) fixed bug when new users are using the 'browse' button on the local tab of the data selector<br>
+3.5.8 bugfixes: <br>
+1) fixed bug when in Grid Dataset Properties for Java 7 users<br>
+3.5.9 bugfixes: <br>
+1) fixed bug in decoding of Level-2 Differential Phase moment<br>
+
+<br><br>
+
+<h2> Version 3.4 </h2>
+
+<p>
+
+<strong>Variable Information Search</strong><br><br>
+The Location Search dialog (tool with the 'abc' icon), has been extended to allow 
+web searching of the current data type, variable name, variable description or units. 
+<br><br>
+
+<strong>3-D Volume Scan Export from Level-II Radar data</strong><br><br>
+The KMZ export dialog for Radar data now allows processing of multiple sweeps.  The 
+'Sweeps To Include:' option defaults to the current sweep, but can be set to process
+the lowest 3, 5 or 7 sweeps in addition to the entire volume scan.  When multiple
+sweeps exist at the same approximate elevation angle, the first sweep will be used.
+<br><br>
+
+<strong>Command-Line Utitilties now included</strong><br><br>
+<ol>
+    <li>'sat2netcdf' : Conversion tool for GOES and AVHRR data.  Exports data to NetCDF format.  For
+        more information, please refer to: http://www.ncdc.noaa.gov/oa/rsad/netcdf-access/index.php?name=sat2netcdf </li>
+    <li>'cdm-checker' : Checks for CF-compliance of the data structure and determines the
+        Unidata Common Data Model (CDM) Feature Type of the data file. </li>
+    <li>'ncmldump' : Does an 'ncdump -h' (header dump) on the NetCDF structure built by an NcML file </li>
+</ol>
+<br><br>
+
+Minor Changes / Bugfixes: <br>
+1) Cache clearing bugs fixed (files left open after processing by AREA decoder) <br>
+2) Added registration of GEMPAK Grid decoders <br>
+3) Removed automatic version checking in the batch export script (wct-export).  Version now checking occurs with this command: 'wct-export -version' <br>
+<br><br>
+3.4.1 bugfixes: <br>
+1) Fixed velocity and spectrum width value filtering bug.  Filter was in m/s, now in knots (same as legend). <br>
+3.4.1 enhancements: <br>
+1) Added labeling clutter filtering for overlay labels
+	- improves performance and appearance.<br>
+2) Added scale factor transistions to automatically toggle between state borders
+and interstates at U.S. and closer zooms and U.S. borders only at U.S. to distant
+zooms. <br>
+3.4.2 bugfixes: <br>
+fixed lack of ui refresh for grid dataset properties. <br>
+animations - forced de-selection of 'Auto' min/max during animations. <br>
+fixed overlay bugs related to style regeneration after 'states' (background overlay) color is changed. <br>
+3.4.3 bugfixes: <br>
+fixed kmz export dialog bug for 'drape on model' exports.<br>
+3.4.4 bugfixes: <br>
+fixed minor texture mapping issue on collada models used for radar sweeps in KMZ exports.<br>
+3.4.5 bugfixes: <br>
+fixed layer drawing error for drought service.  switched CLASS access tab to use FTP, instead of HTTP.<br>
+3.4.6 bugfixes: <br>
+fixed extent calculation error for GOES data exports using a custom user-defined extent.<br>
+
+<br><br><br>
+
+<h2> Version 3.3 </h2>
+
+<p>
+
+<strong>3-D Google Earth Support</strong><br><br>
+Radar imagery can now be visualized in 3-D in both the internal Google Earth viewer and 
+with exported KMZ files.  The Radar image is draped on a 3-D model of the height of 
+the center of the Radar beam.  The elevation exaggeration can be selected in both 
+the internal viewer and the exported KMZ as well.
+<br><br>
+
+<strong>Internal Google Earth Features</strong><br><br>
+Images of the Google Earth internal viewer can now be saved to disk and copied to the 
+clipboard.
+<br><br>
+
+<strong>Google Location Search</strong><br><br>
+Address, city, landmark and zip code lookups are now supported using the new Location Search 
+dialog ('abc' icon).  Reverse lookups are supported by entering a lat/lon string (such as 32,-94).
+  
+<br><br><br>
+
+
+<h2> Version 3.2 </h2>
+
+<p>
+
+<strong>Snapshot Layers</strong><br><br>
+Any current view may be saved as a snapshot layer, by using the 'Snapshot Layer' button
+in the 'Layer Selector'.  IMPORTANT:  Snapshot Layers represent a snapshot of a layer 
+as it has been rendered, which are resampled values for all non lat/lon data (projected grids, 
+GOES Satellite and Radar data).  What this means is that during an 'Identify', the value of 
+a snapshot layer does not necessarily represent the actual data value at the lat/lon requested.  
+Rather, it represents the value of the resampled data.  
+<br><br>
+<strong>Identify Layer Tool</strong><br><br>
+Grid, Radar, Satellite and 'Snapshot' layers can be queried with the Identify tool.  Results 
+are shown in a text area with copy and save support.  Any 'internal' point layers may be 
+used as well, including cities, airports, asos, crn and user defined marker locations.
+<br><br>
+<strong>Irregular Grid Support (2-D Lat/Lon Coordinate Axes)</strong><br><br>
+CF-compliant Grids with 2-D coordinate axes are now supported.  This allows visualization and 
+export of irregular and non-standard projected grids.
+<br><br>
+<strong>GOES 13 Support</strong><br><br>
+Support and calibrations for GOES 13 data has been added.
+<br><br>
+<strong>Improved Level-II NEXRAD Performance</strong><br><br>
+The processing for Level-II NEXRAD data has been changed to increase performance (faster and 
+less memory consumption).  
+<br><br>
+<strong>Data Export Batch Processing support for Gridded Data</strong><br><br>
+Batch command-line processing (using the 'wct-export' script) now supports Gridded Data.  
+Currently, the vector export types (Shapefile and WKT), will contain the point centroids
+of the grid cells.  The XML Configuration file supports the selection of variable, time index 
+and run time index.  For more information, refer to the Batch Processing documentation on:
+http://www.ncdc.noaa.gov/oa/wct/batch.php .
+<br><br>
+
+
+
+<br><br><br>
+
+
+<h2> Version 3.1 </h2>
+
+<p>
+
+<strong>New Google Earth View</strong><br><br>
+The integrated Google Earth view (currently only available on Windows), now has a 'split' option offering side-by-side
+views of Google Earth and the standard 2-D map.  In this view mode, the Google Earth view is in the 'follow-along' mode, where 
+standard 2-D map is the 'leader'. 
+<br><br>
+
+<strong>32-bit GeoTIFF Export</strong><br><br>
+The GeoTIFF export is now available in 8-bit grayscale and 32-bit real values. 
+<br><br>
+
+<strong>THREDDS Catalog Browser</strong><br><br>
+The THREDDS catalog browser in the Data Selector is vastly improved.  For more information on THREDDS: 
+http://www.unidata.ucar.edu/projects/THREDDS/ .  To try an example catalog, drag the catalog links (TDS = THREDDS Data Server)
+from this page: <a href="http://www.ncdc.noaa.gov/oa/wct/data.php">http://www.ncdc.noaa.gov/oa/wct/data.php</a>
+<br><br>
+
+<strong>Drag and Drop</strong><br><br>
+Links from web browsers and other application may be dragged and dropped onto the main viewer or data selector window
+to list the available data in the Data Selector.  In addition, files and/or directories may be dragged and dropped from the File Explorer 
+window (Windows Explorer, Mac Finder, etc...).
+<br><br><br>
+
+Bugfix release 3.1.1: <br>
+Improvements on data filtering. 
+<br><br>
+Bugfix release 3.1.2: <br>
+KMZ export bugs.
+<br><br>
+Bugfix release 3.1.3: <br>
+Frame export bug fixed for 'loaded' animations.  Rock animation export now works correctly.
+Accidental data filtering bug fixed (filtered data less than 0 by default). Added better legend support for 'no data' found.
+<br><br>
+Bugfix release 3.1.4: <br>
+Added better user interface integration of cache controls.
+Fixed bug that was y-axis flipping grids with reverse longitude coordinate variables.
+<br><br>
+
+<h2> Version 3.0 </h2>
+
+<p>
+
+<strong>Gridded Data Support</strong><br><br>
+All CF-compliant Gridded Data (NetCDF 3/4, GRIB, HDF, GINI, GEMPAK) is now supported.  All projections are supported and data is automatically resampled onto
+an unprojected lat/lon grid using nearest neighbor.  Currently 2-dimensional coordinate variables (such as Swath or irregularly spaced grid) are not supported.  
+<br><br>
+
+<strong>Google Earth Integration (Windows Only):</strong><br><br>
+A fully functional Google Earth browser is now integrated into the Toolkit.  The user will prompted to download and install the Google Earth API plugin
+the first time the view is used.  When this view is enabled, data is rendered directly onto Google Earth.  The export of KMZ files is still supported
+for snapshots and time animations.  Work is being done to provide this support for the Mac, while the Google Earth API is not currently available for Unix/Linux.
+<br><br>
+
+<strong>'All Files' support:</strong><br><br>
+A checkbox in the Data Selector now controls the recognized file format filtering.  If the 'All Files' selection is used, non-recognized files will
+be visible in the Data Selector.  The Data Type dropdown menu can be used to specify the format of these files when attempting to load.
+<br><br>
+
+<strong>OPeNDAP support:</strong><br><br>
+Remote gridded files may be accessed using OPeNDAP.  This is ideal for very large datasets since only the desired 'slice' (variable, time, height, etc...) is transferred.
+<br><br>
+
+<strong>Range-Folded Support in Level-II NEXRAD Data:</strong><br><br>
+Range-Folded data is now visible in Level-II NEXRAD displays.   
+<br><br>
+
+<strong>New Animation and Data Export Wizards:</strong><br><br>
+New wizards have replaced the previous animation and data export user interfaces.  The wizards are accessible from the 'Data Selector' dialog
+and are designed to be more user-friendly and flexible. 
+<br><br>
+
+
+<strong>New features under development for a future release:</strong><br><br>
+1) Capability for user to add custom WMS resource as a background map. <br>
+2) Batch processing for Gridded data. <br>
+3) Simple 'Grid Math' functions for analysis on multiple files, or dimensions within a variable. <br>
+4) Timed auto-refresh for currently loaded layer. <br>
+<br><br>
+
+
+
+
+
+<h2> Version 2.5 </h2>
+
+<p>
+
+<strong>New NEXRAD Level-III Products</strong><br><br>
+New NEXRAD Level-III Products are supported including N*Q (256 level Reflectivity), N*U (256 level Velocity), DVL (Digital 
+Vertical Integrated Liquid) and EET (Enhanced Echo Tops).
+<br><br>
+
+<strong>Bug Fixes:</strong><br><br>
+
+1) Fixed KMZ export memory consumption bug. <br>
+2) Increased precision in ASCII GRID export header <br><br>
+
+Version 2.5.1 Bugfix release <br>
+Fixed minor bugs with Level-II NEXRAD Legends. <br><br>
+
+Version 2.5.2 Bugfix release <br>
+Removed confusing 'classify' option for Level-II NEXRAD data export. <br><br>
+
+<h2> Version 2.4 </h2>
+
+<p>
+
+<strong>Marker Editor</strong><br><br>
+Markers are now automatically saved as they are created or removed and restored each time the Toolkit's Marker Editor is used.  
+The markers are stored in the user profile and are not shared between users in an multi-user environment. 
+<br><br>
+
+<strong>Cache Settings:</strong><br><br>
+The cache for data files may now be specified.  The default location of the data cache is $(user.home)/.wct-cache/data, which 
+is unique for each user.  A custom shared cache location outside the user's profile may improve performance in a multi-user 
+environment.  To change the cache location, go to the 'Cache' tab on the 'View Properties' dialog ('View'-'View Properties'-'Cache').
+<br><br>
+
+<strong>Bug Fixes:</strong><br><br>
+
+1) Fixed KMZ export bug for real-time NWS files (or any file named sn.xxxx). <br>
+2) Incorrect unit display in legend for TDWR velocity products. <br><br>
+
+Bugfix release 2.5.1: <br>
+Radial data legend bugfix. 
+
+
+<br><br>
+<br><br>
+<br><br>
+<strong>Version 2.4.1 Bugfix Release: </strong><br>
+1) Added CLASS backup FTP site, which is checked when data is not found on primary site.<br>
+2) Fixed some of the open files issues with the Level-II export. <br>
+
+<br><br>
+<strong>Version 2.4.2 Bugfix Release: </strong><br>
+1) Fixed bug with N*S Level-III NEXRAD files display.<br>
+
+<br><br>
+<strong>Version 2.4.3 Bugfix Release: </strong><br>
+1) Fixed bug in data exporter where selecting All Points Export would set all further exports to be point.<br>
+2) Removed 'height' attribute and added 'heightRel' (height relative to radar site) and 'heightASL' (height above sea level) attributes. <br>
+3) Fixed bug where time attribute was shown in local user time zone.  Set back to UTC and set format to ISO yyyy-MM-dd'T'hh:mm:ss'Z' (ex: 2009-04-01T12:34:02Z) <br>
+4) Added new enhancement color table for GOES Water Vapor (BAND_03) <br> 
+5) Fixed bug in batch mode command-line data exporter that caused shift in extent filter when processing directories and using gridCellResolution setting.<br>
+6) Fixed bug in large animation creation / frame export that caused data display problems after processing ~200 frames.<br><br>
+<br><br>
+
+<h2> Version 2.3 </h2>
+
+<p>
+
+
+<strong>TDWR support </strong> <br><br>
+The FAA TDWR (Terminal Doppler Weather Radar) network support has been added.  TDWR Level-III products are available from 
+NCDC and the NWS real-time Gateway server.  While many products are identical to NEXRAD Level-III, several 'special' TDWR specific products
+exist.  For more information, refer to the product list at: http://www.ncdc.noaa.gov/oa/radar/productsdetail.html and the following
+documents from the Radar Operations Center: <br>
+ftp://ftp.roc.noaa.gov/PUB/TDWR_SPG_INFO/TDWR%20Map.pdf <br>
+ftp://ftp.roc.noaa.gov/PUB/TDWR_SPG_INFO/CONUS%20Radar%20Coverage%20AGL%20WSR-88D%20&%20TDWR.ppt
+ 
+<br><br>
+
+<strong>New Level-III Product support </strong> <br><br>
+The Level-III products 'Digital Hybrid Reflectivity' (DHR) and 'Digital Storm Total Precipitation' (DSP) are now supported.
+<br><br>
+
+<strong>Return of the Point Export support </strong> <br><br>
+Point export of the range bin or grid cell centroid is now supported for Radar and Satellite data.  This feature was removed in 
+version 2.0 due to significant API changes.  The 'All Cuts' option is also supported.
+<br><br>
+
+<strong>Bookmarks </strong> <br><br>
+'Bookmarks' may now be saved which save the current map extent.  
+ These bookmarks are saved to the user profile and will be visible in all subsequent launchs of the Toolkit.
+ The Bookmark Editor is available from the 'View' menu and the Bookmark button on the Toolbar.<br><br>
+ 
+ <strong>KMZ Launch </strong> <br><br>
+The current view may be opened instantly in Google Earth (or whatever program is registered to the '.kmz' extension).
+A 'snapshot' KMZ file is written to the user's cache.  This 'Launch KMZ' option is convenient for quick looks, while the 
+'Save KMZ' option may be used to create permanent output. <br><br>
+
+<strong>Additional Map Backgrounds </strong> <br><br>
+Additional Map Backgrounds including Base Maps and Imagery from ESRI (http://www.esri.com), Color Shaded Relief and Hydrologic Units. 
+<br><br>
+
+<strong>Updated 'Interstates' Map Layer </strong> <br><br>
+The 'Interstates' Map Layer is now 'Major Highways' and includes major 4-lane Highways and Toll Roads.  
+<br><br>
+
+<strong>KMZ Legend Location Changed </strong> <br><br>
+The location of the Legends in KMZ (Google Earth) output has changed from the top left to the upper-middle left.  
+This change was needed because of the new location the new Time Slider in Google Earth version 5.   
+<br><br>
+<br><br>
+<strong>Version 2.3.2 Bugfix Release: </strong><br>
+1) Changed NEXRAD HAS Orders ('NCDC' tab in Data Selector) to use ftp3.ncdc.noaa.gov server.<br>
+<br><br>
+<strong>Version 2.3.1 Bugfix Release: </strong><br>
+1) Fixed issue with the 'T' in the TDWR IDs parsed from TDWR files.<br>
+
+<br><br>
+<br><br>
+
+<h2> Version 2.2 </h2>
+
+<p>
+
+
+<strong>GOES AREA file support </strong> <br><br>
+GOES AREA files are now supported.  These files may be ordered from NOAA's CLASS system ( http://www.class.noaa.gov ).
+NOTE: Smoothing and Vector Data Export formats (Shapefile, WKT) are currently not supported.  
+For a full tutorial on ordering GOES AREA files from CLASS and displaying in the Weather and Climate Toolkit, 
+please refer to http://www.ncdc.noaa.gov/oa/wct/tutorials/
+<br><br>
+
+<strong>KMZ Export</strong> <br><br>
+Single, non-animation, KMZ files may now be produced by selecting 'Save KMZ' from the left side bar or 'File' menu.
+<br><br>
+
+
+<strong>Look and Feel</strong> <br><br>
+New side bars contain buttons for displaying the Data Selector, Map Selector, Services, Image and KMZ saving options.
+The map and legend areas are also separated with a drop shadow border.
+<br><br>
+
+
+<strong>Temporary removal of 'Session' saving </strong><br><br>
+Due to several bugs and new features under development, the 'Session' saving option is temporarily disabled.
+<br><br>
+
+<strong>Switch in datum from WGS84 to NAD83 </strong><br><br>
+NAD83 is the NOAA standard geographic coordinate system and part of the NSRS (National Spatial Reference System).  
+The Weather and Climate Toolkit has switched from 
+using WGS84 to NAD83 in all maps, calculations and data export.  NAD83 and WGS84 are VERY similar and the 
+differences in the data location is within several meters, which is well within the accuracy range of the 
+input data sources (Radar, Satellite, etc...).  
+<br><br>
+
+<strong>Adjustment to Level-II Velocity color map</strong>
+The color map has been extended from:  -50 to +50 KT , to: -60 to +60 KT.
+<br><br>
+
+<strong>NWS Gateway FTP support</strong>
+NWS Gateway FTP support has returned!  For more info on the NWS FTP server, refer to:
+http://www.nws.noaa.gov/tg/radfiles.html
+<br><br>
+
+<strong>Bug Fixes</strong><br><br>
+1) Export of XMRG data now allowed. <br>
+2) Classification bug in Level-II velocity and spectrum width products is fixed.<br>
+3) Bug in NetCDF for Java fixed for reading some V04 NEXRAD Level-II files. <br><br>
+
+<strong>Known Bugs / Limitations</strong><br><br>
+1) 32-bit (floating point value) GeoTIFFs are temporarily disabled due to GeoTIFF encoding issues.  
+1-byte grayscale GeoTIFFs are provided in the interim.  If the real values are needed, the ASCII GRID format is recommended.<br>
+2) NEXRAD export to point shapefiles is also temporarily disabled.<br>
+3) GOES imagery cannot be saved to Vector (Shapefile, WKT) formats.<br>
+
+<br><br>
+
+<strong>Version 2.2.1 Bugfix Release: </strong><br>
+1) Level-II NEXRAD legend date formatting for 12:00 - 12:59 files displayed as 00:00 - 00:59 <br>
+2) Native format transfer was giving an error <br>
+3) Data source history was not current source correctly <br>
+4) DPA and XMRG export bug fixed <br>
+5) NWS Gateway files in cache now correctly cleaned up <br>
+6) Added 'None' option to Satellite legend options<br>
+7) Added checkbox in 'View Properties' to control the automatic placement of  the NOAA logo in saved animations and images<br><br>
+
+<strong>Version 2.2.2  Bugfix Release: </strong><br>
+1) ASOS overlay labeling did not work<br><br>
+
+<strong>Version 2.2.5 Bugfix Release: </strong><br>
+1) Changed NEXRAD HAS Orders ('NCDC' tab in Data Selector) to use ftp3.ncdc.noaa.gov server.<br>
+
+
+<h2> Version 2.1 </h2>
+
+<p>
+
+<strong>Full Message 31 (Build-10) Level-II NEXRAD support</strong> <br><br>
+The recombined data (V04) structure is now supported.
+<br><br>
+
+
+<strong>Improved KMZ support </strong><br><br>
+Altitude values may now be specified for exported KMZ files (Google Earth display).  This is for visual effect only,
+and does not represent the actual altitude of the data.  Surface 'shadows' are created for when an altitude above the 
+Earth surface is used.  Single KMZ files may be exported from the 'Export KMZ' button on the right 'SideBar'.
+<br><br>
+
+<strong>Move to NetCDF for Java version 4.0 API </strong> <br><br>
+The NetCDF for Java version 4.0 API is now used as the framework for data decoding.  
+The Common Data Model layer is used to deal with data as 'Radial', 'Grid', 'Swath', etc...
+This allows users to develop plugin decoders to add custom data formats.  Currently, these require
+recompilation of the source code to integrate.  Eventually, these plugins will be able to be
+loaded dynamically.  
+<br><br>
+
+<br><br>
+
+
+
+<h2> Version 2.0 </h2>
+
+<p>
+
+<strong>Transition to the NOAA Weather and Climate Toolkit</strong> <br><br>
+The Java NEXRAD Tools is being used as the basis for the new NOAA Weather and Climate Toolkit, with support for Radar, Satellite, 
+Model and Station Network data.  The emphasis for this toolkit will be simple visualization and data export, focusing on
+enhancing interoperability with other specialized tools in various scientific communities.
+In addition, the Weather and Climate Toolkit will allow direct access to 
+data available via Web Services.  Initial plans include access to the U.S. Drought Monitor, NEXRAD Reflectivity Mosaics, 
+Station Data services and more.  The toolkit is in early development and not all planned features are available.
+<br><br>
+
+<strong>NEXRAD Super-Resolution Support </strong> <br><br>
+NEXRAD Super-Resolution (Message 31) data is now supported.  Super-Res. data has 4 times greater range 
+resolution and 2 times greater azimuth resolution.
+<br><br>
+
+<strong>Smoothing and Transparency Controls Moved </strong> <br><br>
+The Smoothing and Transparency controls for NEXRAD data are now located in the 'Data Layers' tab
+of the 'Layer selector' window (formerly the 'Overlay Selector').
+<br><br>
+
+<strong>New Rasterizer / Improved Performance </strong> <br><br>
+Rasterization (converting range bin polygons to a grid) is now done with Java 2D Graphics API.
+This eliminates a previous (and rare) bug that showed large rectangular streaks of small data values
+at certain zoom extents.  In addition, performance in decoding and processing (rasterizing) is 
+improved.
+<br><br>
+
+
+<strong>Missing Features Available in Java NEXRAD Tools version 1.9:</strong> <br><br>
+	These features are under development and will be included in later releases.
+<ul>
+	<li> 'Point' and 'All Points' export is currently not available for Level-II NEXRAD files </li>
+	<li> Range-Folded data values are unable to be displayed for Level-II NEXRAD files </li>
+	<li> Improved handling of NWS Real-Time server </li>
+	<li> VTK export of Level-II 'CAPPI Cubes' </li>
+</ul>
+
+<br><br>
+
+
+
+
+
+<br><br>
+
+
+<hr>
+
+<h2> Java NEXRAD Tools - New Features </h2>
+<h2> Version 1.9 </h2>
+
+<p>
+
+<strong>Improved handling of the Real-Time National Weather Service server </strong> <br><br>
+The file listing has been improved for Custom URLs pointing towards the real-time NWS server
+( http://www.nws.noaa.gov/tg/rpccds.html ).  
+Note: The date/time of the file is not present in the NWS server filenames (sn.xxxx, etc...).  As a result of this,
+the timestamp of the file is used in the file list.  This timestamp is usually several minutes ahead of the actual
+product generation time.  When the file is displayed, the correct timestamp decoded from the file is displayed.
+<br><br>
+
+<br><br>
+
+
+<h2> Version 1.8 </h2>
+
+<p>
+
+<strong>Improved NEXRAD Level-III Filtering Capabilities</strong>  <br><br> NEXRAD Level-III data can now be filtered by
+minValues and maxValues.  Previously, the category (most Level-III data is categorized) had to be specified.  
+Non-numeric categories (such as 'RF' (range folded)), can be also selected for inclusion/exclusion.  
+In addition, multiple min/max ranges can now be specified.  For more information, please refer
+to the Java NEXRAD Tools Tutorial (Getting Started) at http://www.ncdc.noaa.gov/oa/radar/jnx/jnxv-basics.php .
+<br><br>
+
+<br><br>
+
+<h2> Version 1.7 </h2>
+
+<p>
+
+<strong>AVI Movie Export</strong>  <br><br> Any animation may now be saved as an AVI file.  
+The uncompressed AVI format is used which provides excellent quality but large file sizes.
+<br><br>
+
+<br><br>
+
+<h2> Version 1.6 </h2>
+
+<p>
+
+<strong>Supplemental Data Access</strong>  <br><br> Any supplemental data present in supported NEXRAD Level-III files
+can now be viewed in the Java NEXRAD Viewer.  Supplemental data is text information produced with some 
+NEXRAD Level-III products such as One/Three/Storm Total Precip (N1P,N3P,NTP).  These data include the adaptation parameters used in the algorithms along
+with general information about the product.  To open the supplemental data viewer, select 
+'Supplemental Data' under the 'View' menu.
+<br><br>
+
+<strong>Data Export Support for VAD Wind Profile (NVW/48):</strong>  <br><br> 
+The VAD Wind Profile product may now be exported as any Vector output format, including shapefile and WKT.
+The point features all have the same lat/lon of the radar site, but the different altitudes and 
+corresponding values are present in the attribute table.  In addition, the raw supplemental data 
+is exported (see below).
+<br><br>
+
+<strong>Supplemental Data Export</strong>  <br><br> Any supplemental data present in supported NEXRAD Level-III files
+are now exported with any export format.  These data are saved in a text file with the naming
+convention of *filename*_sup.txt
+<br><br>
+
+<strong>Puerto Rico on Base Map</strong>  <br><br> Puerto Rico has been added to the states base map layer available
+through the 'Overlay Selector'.
+<br><br>
+
+<strong>Raw NetCDF Output</strong>  <br><br> Level-II and some Level-III files may be saved in a Raw NetCDF file.  
+These NetCDF files are not gridded and represent the raw radial data structure in the data.  Most
+NetCDF visualization tools will only display CF-compliant gridded NetCDF data.  This feature is 
+accessible from the 'Format' menu of the Data Exporter.  In batch mode, use the format string of
+'rnc' to specify Raw NetCDF - 'nc' still means gridded NetCDF.
+<br><br>
+
+<br><br>
+
+
+
+
+<h2> Version 1.5 </h2>
+
+<p>
+
+<strong>Support of Mesocyclone Detection Algorithm product (NMD/141):</strong>  <br><br> The new Mesocyclone Detection Algorithm (MDA)
+Level-III product (NMD), code 141, is now supported.  
+This product provides information about circulation 
+features generated from the output of the new Mesocyclone Detection Algorithm. 
+This product provides information concerning the past and future positions 
+of each tracked circulation feature and is updated once per volume scan time.
+
+<br><br>
+
+<strong>User Interface Windows</strong>  <br><br> The pop-up user interface windows (such as Overlay Selector, View Properties, etc...)
+are now dialogs that will always remain 'on top' of the main map window.  
+<br><br>
+
+<strong>Raster Export Projection Files</strong>  <br><br> All NEXRAD files exported to the ESRI ASCII Grid 
+or ESRI Binary Grid raster (gridded) formats will now have an accompanying projection (.prj) 
+file, as is currently the case for Shapefiles.  This reflects a recent change in ArcGIS 9.2 
+which allows direct loading (without using ArcToolbox) of ESRI ASCII Grid (.asc) files.  
+ArcGIS 9.2 will also automatically detect the projection (.prj) file, which eliminates the need 
+for the manual projection definition in ArcToolbox.  Originally gridded data (DPA, XMRG), is
+now output with '_native.[asc,hdr,flt]' and '_native.prj' suffixes, to prevent overlap and 
+confusion with Shapefiles. 
+<br><br>
+
+
+<br><br>
+
+
+<h2> Version 1.4 </h2>
+
+<p>
+
+<strong>Copy Image to Clipboard:</strong>  <br><br> Screenshots may now be copied to the system clipboard.  To copy the current 
+image in the viewer to the clipboard, use either the menu option 'File' - 'Copy to Clipboard' or the keyboard
+shortcut (Control-C).  The image may be pasted into applications such as Office, Email, Photo editors, etc...
+<br><br>
+
+<strong>Support of Archive Status Product (RSL/152):</strong>  <br><br> The Archive Status Product / Radar Status Log (RSL), 
+code 152, is now supported.  The Archive Status Product contains an adaptable number of hours of RPG status log messages. 
+The product (by default) is generated every eight hours at 00:00, 08:00, and 16:00 GMT. The product contains 
+all RPG status log messages since the last product was generated.
+<br><br>
+
+<strong>Copy Alphanumeric and Status Products to Clipboard:</strong>  <br><br> Text content from the 'Supplemental Data'
+windows of Alphanumeric data along with the status messages (GSM and RSL products) can now be copied to the 
+system clipboard.  The text may be pasted into applications such as Office, Email, Photo editors, etc...
+<br><br>
+
+
+<br><br>
+
+
+<h2> Version 1.3 </h2>
+
+<p>
+
+<strong>KMZ Animation Export:</strong>  <br><br> Animations may now be saved in the KMZ format used in digital earth software, 
+such as Google Earth, NASA Worldwind and ArcGIS Explorer.  
+The KMZ files are completely self-contained and portable containing all necessary image frames, legends and logos. 
+Similar to regular animations, the exported images use the current view extent of the NEXRAD Viewer along 
+with the current background color.  All overlays are turned off, although any WMS Backgrounds will remain visible.
+To access this feature, open the 'Animation Generator' ( 'Tools' - 'NEXRAD Animation' from menu), select
+the desired files and press the 'Export KMZ' button.
+<br><br>
+
+<br><br>
+
+
+<h2> Version 1.2 </h2>
+
+<p>
+
+<strong>New WMS Background Maps:</strong>  Several new Web Map Services (WMS) are available for use as background maps.  <br><br>
+
+1) Geography Network US Map - replaces the DEMIS US Streets WMS and provides very attractive Country-level to Street-level
+background maps.  <br><br>
+
+2) ESRI World Map - provides detailed world maps with different layers closer zoom extents. <br><br>
+
+3) NASA Earth At Night - nighttime satellite product showing population centers <br><br>
+
+
+These features are accessible in the 'Overlay Selector' under the 'Web Map Services (WMS)' tab
+and 'WMS Image 1' dropdown.  
+
+The Web Map Services are generated from the Geospatial Information Database (GIDB) maintained by the 
+Digital Mapping, charting and Geodesy Analysis Program Team (DMAP) at the Naval Research Laboratory (NRL).  For
+more information: http://columbo.nrlssc.navy.mil/dmap/idx.jsp
+<br><br>
+
+<br><br>
+
+
+
+<h2> Version 1.1 </h2>
+
+<p>
+
+<strong>1. VTK Export Format:</strong>  This interpolates Level-II data onto a 'data cube' ( x(lon)/y(lat)/z(meters) ) and exports the data in the VTK format.  
+This format can be viewed in 3D using programs such as Paraview ( http://www.paraview.org ).  This processing is still in 
+the early testing phase so use at your own risk!
+<br><br>
+
+<strong>2. GML Export Format:</strong> The Geographic Markup Language (GML) can be used to encode vector datasets.  GML is a type of XML
+and is described at: http://www.opengis.net/gml/
+<br><br>
+
+<strong>3. Raster Cellsize Support:</strong> Either the raster number of cells or cellsize can now be defined.  Cellsize is defined in
+degrees. <br><br>
+
+<strong>4. SSH Support:</strong> Users may now connect to SSH servers to access data. <br><br>
+
+<strong>5. Level-II Animations:</strong> Level-II data may now be animated using the Nexrad Animator tool.
+If VCPs change between files, the same integer cut number will be used regardless of the 
+actual elevation angle.  If the cut number doesn't exist, the last cut in
+the volume scan will be used.  <br><br>
+
+<strong>6. Level-II Export Properties:</strong> This window is now embedded in the NexradExporter main window and
+appears when exporting Level-II data. <br><br>
+
+
+Bug Fixes: <br><br>
+1. KCAE Asos location corrected <br>
+2. Level-II Export Properties list non-refresh error <br>
+
+<br><br>
+
+
+
+</body>
+</html>

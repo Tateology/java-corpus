@@ -1,0 +1,217 @@
+<HTML>
+<HEAD>
+   
+<TITLE>Jeks</TITLE>
+<META  name="description" content="Jeks">
+<META  name="keywords" content="">
+<META  name="copyright" content="(C) 2001 Emmanuel PUYBARET - eTeks">
+</HEAD>
+<BODY BGCOLOR="#FFFFFF">
+<center>
+<img src="jeks.gif" width="30" height="30">
+<h1 align="center">Jeks  User's guide</h1>
+
+<p><a href="#Features">Features</a><br>
+ <a href="#Syntax">Syntax of formulas</a><br>
+ <a href="#Menus">Jeks menus</a><br>
+ <br>
+</p>
+</center>
+<h3><a name="Features"></a>Features </h3>
+<blockquote> 
+ <p>Jeks is a Java<sup>TM</sup> spreadsheet application.<br>
+  As the following list of features shows, Jeks 1.0 allows particularly the edition and computation of formulas in cells of a spreadsheet :</p>
+ <ul>
+  <li>Edition of formulas in cells using a rich set of operators and functions.</li>
+  <li>Edition of parameterized functions using expressions defined by users.</li>
+  <li>Checking of circular reference in formulas and optimized update of formulas referencing other cells.</li>
+  <li>Cut / Copy / Paste with automatic shift of cell references in formulas.</li>
+  <li> Internationalization of Jeks and of the syntax in formulas. Only English and French is supported at this moment.</li>
+  <li> Save / Open files at Jeks format (<i>.jks</i> files).</li>
+ </ul>
+ </blockquote>
+<h3><a name="Syntax"></a> Syntax of formulas </h3>
+<blockquote> 
+ <p>A formula starts with the = character, isn't case sensitive and its syntax supports the following operators :</p>
+ <ul><li>Unary operators : + -</li>
+  <li>Binary operators : ^ * / + - &gt;= &lt;= &gt; &lt; = &lt;&gt; (from the highest to the lowest priority).</li>
+  <li>Constants : TRUE FALSE</li>
+  <li>Functions (optional parameters are in <i>italic</i>) : 
+   <ul>
+    <li> Mathematical functions : 
+     <ul>
+      <li>LN (number)</li>
+      <li>LOG10 (number) </li>
+      <li>EXP (number)</li>
+      <li>ROOT (number)</li>
+      <li>COS (number)</li>
+      <li>SIN (number)</li>
+      <li>TAN (number)</li>
+      <li>ACOS (number)</li>
+      <li>ASIN (number)</li>
+      <li>ATAN (number)</li>
+      <li>COSH (number)</li>
+      <li>SINH (number)</li>
+      <li>TANH (number)</li>
+      <li>INT (number)</li>
+      <li>ABS (number)</li>
+      <li>RAND ()</li>
+      <li>MOD (number,divider)</li>
+      <li>FACT (number)</li>
+      <li>SUM (number1<i>,number2,...</i>)</li>
+     </ul>
+    </li>
+    <li>Logical functions : 
+     <ul>
+      <li>IF (test, value_if_true, value_if_false)</li>
+      <li>NOT (value)</li>
+      <li>AND (value1<i>,value2,...</i>)</li>
+      <li>OR (value1<i>,value2,...</i>)</li>
+      <li>TRUE ()</li>
+      <li>FALSE ()</li>
+     </ul>
+    </li>
+   <li>Date and hour functions : 
+    <ul>
+     <li>DATE (year,month,day)</li>
+     <li>DATEVALUE (date_text)</li>
+     <li>NOW ()</li>
+     <li>TIME (hour,minute,second)</li>
+     <li>TIMEVALUE (time_text)</li>
+     <li>YEAR (date)</li>
+     <li>MONTH (date)</li>
+     <li>DAY (date)</li>
+     <li>WEEKDAY (date)</li>
+     <li>HOUR (date)</li>
+     <li>MINUTE (date)</li>
+     <li>SECOND (date)</li>
+    </ul>
+   </li>
+   <li>Text functions : 
+    <ul>
+     <li>CHAR (unicode)</li>
+     <li>FIND (found_text,text<i>,start_index</i>)</li>
+     <li>CODE (text)</li>
+    </ul>
+   </li>
+  </ul>
+ </ul>
+ <p>Literal values may be any decimal, integer number or strings quoted between &quot;&quot;. The decimal separator is a dot and the exponential symbol 
+  E (for example 12.3E2, 15.3, 0.333E-3).<br>
+  Formulas may contain spaces, tabs. The parameter separator in function calls is a coma. Some expressions may be bracketed between () to change operators 
+  priority. </p>
+ <p>A cell is referenced with its column letter(s) followed with its row index (for example A1, AB12,...) ; the column letter or the row index may be prefixed 
+  with the $ character to avoid the shift of the column or the row of a cell reference during copy / paste operation (for example $A3, B$4, $C$1).<br>
+  A set of cells is noted with two cell references separated with the character : (for example A1:A3, B2:C5, $C4:$C8).<br>
+  A cell reference may be used anywhere in a formula (cells set can be used only in the SUM() function).</p>
+ <p>The type of the returned value of a formula depends on the type of its parameters and the operators and functions used in the formula. Jeks manages 
+  the following types :</p>
+ <ul>
+  <li>integers</li>
+  <li>decimals</li>
+  <li>strings</li>
+  <li>dates</li>
+  <li>boolean values</li>
+ </ul>
+ <p>Examples of formulas :</p>
+ <ul>
+  <li>=SUM(A1:A5,C1:C5)</li>
+  <li>=12 + IF (AND (C1 &gt; 5, C2 &lt; 10), 5, 4)</li>
+  <li>=A1^2 + 2*A1*A2 + A2^2</li>
+ </ul>
+</blockquote>
+<h3><a name="Menus"></a>Jeks menus</h3>
+<blockquote> 
+ <table cellpadding="4" cellspacing="3">
+ <tr valign="top"> 
+ <td rowspan="5" bgcolor="#999999"> <b>File</b></td>
+ <td bgcolor="#CCCCCC"><b>New</b></td>
+ <td>Creates a new spreadsheet. If the current spreadsheet was modified a dialog prompts you to accept to save changes.</td>
+ </tr>
+ <tr valign="top"> 
+ <td bgcolor="#CCCCCC"><b>Open...</b></td>
+ <td>Shows a file dialog to choose a spreadsheet file and opens it in Jeks. Only files at Jeks format (<i>.jks</i> files) can be read at this moment. Jeks 
+ format is portable and the formulas it contains are translated to the syntax of the language in use in Jeks.</td>
+ </tr>
+ <tr valign="top"> 
+ <td bgcolor="#CCCCCC"><b>Save</b></td>
+ <td>Save current spreadsheet to a file. At first saving, a file dialog prompts you to choose a file name. </td>
+ </tr>
+ <tr valign="top"> 
+ <td bgcolor="#CCCCCC"><b>Save as...</b></td>
+ <td>Shows a file dialog to choose a spreadsheet file name and saves the current spreadsheet in that file. Only files at Jeks format (<i>.jks</i> files) 
+ can be written at this moment. This format records all the cells values and formulas, and the additional functions you may have entered.</td>
+ </tr>
+ <tr valign="top"> 
+ <td bgcolor="#CCCCCC"><b>Quit</b></td>
+ <td>Quits Jeks. If the current spreadsheet was modified a dialog prompts you to accept to save changes.</td>
+ </tr>
+ <tr> 
+ <td colspan="2" >&nbsp; </td>
+ <td >&nbsp;</td>
+ </tr>
+ <tr valign="top"> 
+ <td rowspan="4" bgcolor="#999999"> <b>Edit</b></td>
+ <td bgcolor="#CCCCCC"><b>Cut</b></td>
+ <td>Copies the current selected cells in the copy buffer and deletes the cells.</td>
+ </tr>
+ <tr valign="top"> 
+ <td bgcolor="#CCCCCC"><b>Copy</b></td>
+ <td>Copies the current selected cells in the copy buffer.</td>
+ </tr>
+ <tr valign="top"> 
+ <td bgcolor="#CCCCCC"><b>Paste</b></td>
+ <td>Pastes the cells stored in the copy buffer starting at the current cell position, shifting the cells in pasted formulas if necessary.</td>
+ </tr>
+ <tr valign="top"> 
+ <td bgcolor="#CCCCCC"><b>Delete</b></td>
+ <td>Deletes the current selected cells.</td>
+ </tr>
+ <tr> 
+ <td colspan="2"> 
+ <h4>&nbsp; </h4>
+ </td>
+ <td>&nbsp;</td>
+ </tr>
+ <tr valign="top"> 
+ <td bgcolor="#999999"> <b>Options</b>&nbsp;</td>
+ <td bgcolor="#CCCCCC"><b>New function...</b></td>
+ <td> 
+ <p>Shows a dialog that prompts you to enter a new function of the type <i>function(parameters)=expression operating on parameters</i>, where <i>parameters</i> 
+  is a list of parameters separated by comas that the expression can use.<br>
+  Function syntax is almost the same as the <a href="#Syntax">syntax of formulas</a> : It supports the same operators and functions but doesn't allow to 
+  use cell references (use parameters instead). The IF() function is replaced by the condition operator IF THEN ELSE that allows to write recursive calls.<br>
+  Once accepted by Jeks compiler, a user function may be used in any cell formula or any other function.</p>
+ <p>Examples of functions :</p>
+ <ul>
+  <li>f(x,y)=x^2 + 2*x*y + y^2</li>
+  <li>fact2 (n)=IF n &lt;= 0 THEN 1 ELSE n * fact2(n-1)</li>
+ </ul>
+ </td>
+ </tr>
+ <tr> 
+ <td colspan="2"> 
+ <h4>&nbsp; </h4>
+ </td>
+ <td>&nbsp;</td>
+ </tr>
+ <tr valign="top"> 
+ <td rowspan="2" bgcolor="#999999"> <b>Help</b></td>
+ <td bgcolor="#CCCCCC"><b>Jeks help...</b></td>
+ <td>Displays the file you read.</td>
+ </tr>
+ <tr valign="top"> 
+ <td bgcolor="#CCCCCC"><b>About...</b></td>
+ <td>Shows a dialog with information about Jeks.</td>
+ </tr>
+ </table>
+</blockquote>
+<P><CENTER>
+<HR>
+ <FONT
+SIZE="-1"><a href="http://www.eteks.com"><img src="logoeteks.gif" width="94" height="25" alt="eTeks" border="0"><br>
+ </a>&copy; 1998-2001 </FONT><FONT
+SIZE="-1"><A HREF="http://www.eteks.com">eTeks</A></FONT><FONT SIZE="-1"> - All rights reserved</FONT> 
+</CENTER>
+</BODY>
+</HTML>

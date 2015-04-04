@@ -1,0 +1,19 @@
+                                                                                                                                                                                                                                                                                                                                                                           
+Unique: 15 "RF"              #77007D
+Unique: 14 "Unknown"         #E700FF
+# 13-11 are TBD
+Unique: 13 "TBD"  #FFFFFF
+Unique: 12 "TBD"  #FFFFDF
+Unique: 11 "TBD"  #FFFFBF
+Unique: 10 "Hail w/ Rain"    #FF0000
+Unique: 9  "Graupel"           #D28484
+Unique: 8  "Big Drops Rain"    #D0D060
+Unique: 7  "Heavy Rain"        #00BB00
+Unique: 6  "Lt./Mod. Rain"     #00FB90
+Unique: 5  "Wet Snow"          #0090FF
+Unique: 4  "Dry Snow"          #00FFFF
+Unique: 3  "Ice Crystals"      #FFB0B0
+Unique: 2  "AP/Gr. Clutter"    #767676
+Unique: 1  "Biological"        #9C9C9C
+#  leave out zero, so it is not in the legend
+#Unique: 0 "No Data"     #000000

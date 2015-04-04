@@ -1,0 +1,4988 @@
+/**
+ * NOAA's National Climatic Data Center
+ * NOAA/NESDIS/NCDC
+ * 151 Patton Ave, Asheville, NC  28801
+ * 
+ * THIS SOFTWARE AND ITS DOCUMENTATION ARE CONSIDERED TO BE IN THE 
+ * PUBLIC DOMAIN AND THUS ARE AVAILABLE FOR UNRESTRICTED PUBLIC USE.  
+ * THEY ARE FURNISHED "AS IS." THE AUTHORS, THE UNITED STATES GOVERNMENT, ITS
+ * INSTRUMENTALITIES, OFFICERS, EMPLOYEES, AND AGENTS MAKE NO WARRANTY,
+ * EXPRESS OR IMPLIED, AS TO THE USEFULNESS OF THE SOFTWARE AND
+ * DOCUMENTATION FOR ANY PURPOSE. THEY ASSUME NO RESPONSIBILITY (1)
+ * FOR THE USE OF THE SOFTWARE AND DOCUMENTATION; OR (2) TO PROVIDE
+ * TECHNICAL SUPPORT TO USERS.
+ */
+
+package steve.test;
+
+import java.io.*;
+import java.net.*;
+import java.awt.*;
+import java.text.DecimalFormat;
+import java.awt.event.*;
+import java.util.*;
+// import image stuff
+import java.awt.image.*;
+
+// import swing
+import javax.swing.*;
+import javax.swing.border.*;
+
+import javax.imageio.*;
+
+import gov.noaa.ncdc.ndit.decoders.*;
+import gov.noaa.ncdc.ndit.decoders.nexrad.DecodeHail;
+import gov.noaa.ncdc.ndit.decoders.nexrad.DecodeL2Header;
+import gov.noaa.ncdc.ndit.decoders.nexrad.DecodeL2Nexrad;
+import gov.noaa.ncdc.ndit.decoders.nexrad.DecodeL3Alpha;
+import gov.noaa.ncdc.ndit.decoders.nexrad.DecodeL3Header;
+import gov.noaa.ncdc.ndit.decoders.nexrad.DecodeL3Nexrad;
+import gov.noaa.ncdc.ndit.decoders.nexrad.DecodeMeso;
+import gov.noaa.ncdc.ndit.decoders.nexrad.DecodeStormStructure;
+import gov.noaa.ncdc.ndit.decoders.nexrad.DecodeStormTracking;
+import gov.noaa.ncdc.ndit.decoders.nexrad.DecodeTVS;
+import gov.noaa.ncdc.ndit.decoders.nexrad.DecodeXMRGData;
+import gov.noaa.ncdc.ndit.decoders.nexrad.DecodeXMRGHeader;
+import gov.noaa.ncdc.ndit.decoders.nexrad.Level2Format;
+import gov.noaa.ncdc.ndit.decoders.nexrad.Level2Transfer;
+import gov.noaa.ncdc.ndit.decoders.nexrad.NexradColorFactory;
+import gov.noaa.ncdc.ndit.decoders.nexrad.FileScanner;
+import gov.noaa.ncdc.ndit.decoders.nexrad.NexradFilter;
+import gov.noaa.ncdc.ndit.decoders.nexrad.NexradHeader;
+import gov.noaa.ncdc.ndit.decoders.nexrad.NexradTransfer;
+import gov.noaa.ncdc.ndit.decoders.nexrad.NexradUtilities;
+import gov.noaa.ncdc.ndit.export.raster.*;
+import gov.noaa.ncdc.ndit.ui.NDITUiInterface;
+import gov.noaa.ncdc.nexradiv.*;
+import gov.noaa.ncdc.nexradexport.*;
+import gov.noaa.ncdc.nexradiv.legend.*;
+import gov.noaa.ncdc.help.*;
+import gov.noaa.ncdc.common.SwingWorker;
+import gov.noaa.ncdc.nexrad.NexradFrame;
+import gov.noaa.ncdc.wms.*;
+//import gov.nssl.iras.*;
+// EPS IMPORTS
+//import org.jibble.epsgraphics.*;
+
+// iTEXT IMPORTS
+//import com.lowagie.text.Document;
+//import com.lowagie.text.pdf.PdfContentByte;
+//import com.lowagie.text.pdf.PdfWriter;
+//import com.lowagie.text.PageSize;
+//import com.lowagie.text.Graphic;
+
+// JGoodies IMPORTS
+//import com.jgoodies.plaf.*;
+//import com.jgoodies.plaf.plastic.*;
+//import com.jgoodies.plaf.plastic.theme.*;
+
+// GT2 IMPORTS
+//import org.geotools.gui.swing.sldeditor.property.std.*;
+import org.geotools.gc.GridCoverage;
+
+import org.geotools.data.shapefile.*;
+import org.geotools.data.*;
+import org.geotools.feature.*;
+import org.geotools.gui.swing.*;
+import org.geotools.map.*;
+import org.geotools.renderer.j2d.*;
+import org.geotools.filter.*;
+import org.geotools.styling.ColorMap;
+import org.geotools.styling.Graphic;
+import org.geotools.styling.LineSymbolizer;
+import org.geotools.styling.Mark;
+import org.geotools.styling.PointSymbolizer;
+import org.geotools.styling.PointSymbolizerImpl;
+import org.geotools.styling.PolygonSymbolizer;
+import org.geotools.styling.RasterSymbolizer;
+import org.geotools.styling.Rule;
+import org.geotools.styling.Style;
+import org.geotools.styling.StyleBuilder;
+import org.geotools.styling.Symbolizer;
+import org.geotools.styling.TextSymbolizer;
+import org.geotools.styling.DisplacementImpl;
+import org.geotools.styling.PointPlacementImpl;
+import org.geotools.styling.FeatureTypeStyle;
+import com.vividsolutions.jts.geom.LineString;
+import com.vividsolutions.jts.geom.MultiLineString;
+import com.vividsolutions.jts.geom.MultiPoint;
+import com.vividsolutions.jts.geom.MultiPolygon;
+import com.vividsolutions.jts.geom.Point;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.GeometryCollection;
+import com.vividsolutions.jts.geom.GeometryFactory;
+
+import org.geotools.cs.CoordinateSystem;
+import org.geotools.cs.GeographicCoordinateSystem;
+
+
+// JAI IMPORTS
+import javax.media.jai.RasterFactory;
+import org.geotools.pt.Envelope;
+
+/**
+ *  Nexrad Interactive Viewer
+ *  Developed at the National Climatic Data Center
+ *
+ * @author     Steve Ansari (steve.ansari@noaa.gov)
+ * @created    May 3, 2004
+ */
+public class NexradViewerBatch {
+
+   private String fileString = "Untitled";
+   private File projectFile;
+   //private StyledMapPane mapPane = new StyledMapPane();
+   private NexradMapPane mapPane = new NexradMapPane();
+   private NexradMapPaneZoomChange nxZoomChange;
+   private JNXMapContext map = new JNXMapContext();
+   private StyleBuilder sb = new StyleBuilder();
+   private JNXStatusBar statusBar = new JNXStatusBar(mapPane);
+   
+   private DefaultMapLayer mlNexrad, mlNexradAlpha, mlNexradAlphaLabel;
+   private DefaultMapLayer mlNexradAlphaTrack, mlNexradRangeRings, mlMarkers;
+   
+   private java.awt.geom.Rectangle2D.Double nexradBounds;
+   private FeatureCollection nexradFeatures = FeatureCollections.newCollection();
+   private FeatureCollection rangeRingFeatures = FeatureCollections.newCollection();
+   private FeatureCollection markerFeatures = FeatureCollections.newCollection();
+   private FeatureType nexradSchema;
+   
+   private RenderedGridCoverage nexradRGC = new RenderedGridCoverage(
+         new GridCoverage("NEXRAD_RASTER",
+         RasterFactory.createBandedRaster(DataBuffer.TYPE_FLOAT, 1000, 1000, 1, null),
+         new Envelope(new java.awt.geom.Rectangle2D.Double(179.0, 30.0, .001, .001))
+         )
+         );
+
+   private RenderedGridCoverage[] wmsRGC = new RenderedGridCoverage[3];
+   
+
+         
+   private boolean isLoading = false;       
+         
+   //private NexradRasterizer rasterizer = new NexradRasterizer(Double.NaN); // intialize with NaN for NO_DATA values
+   private NexradRasterizer rasterizer = new NexradRasterizer();
+   // intialize with NaN for NO_DATA values
+
+   private boolean memoryThreadRunning = true;
+
+   private String nexradFile = "none";
+   private URL nexrad_url = null;
+
+   private JPanel mainPanel, toolPanel, viewPanel, centerPanel;
+   private JPanel infoPanel, metaPanel, dummyPanel, topPanel, exportPanel;
+   private JScrollPane infoScrollPane, vadScrollPane;
+   private JComponent mapScrollPane;
+   private NexradLegendPanel keyPanel;
+   private JLabel memLabel;
+   private JLabel[] metaLabel;
+   private NexradVADPanel vadPanel;
+
+   // View constants
+   /**
+    *  Description of the Field
+    */
+   public final static int VIEW_RASTER = 1;
+   /**
+    *  Description of the Field
+    */
+   public final static int VIEW_VECTOR = 2;
+   /**
+    *  Description of the Field
+    */
+   public boolean autoView = true;
+   /**
+    *  Description of the Field
+    */
+   public int nexradView = VIEW_RASTER;
+
+   // Projection Constants
+   /**
+    *  Description of the Field
+    */
+   public final static int LATLON = 1, ALBERS = 2, STEREO = 3, HRAP = 4, RADAR = 5;
+   /**
+    *  Description of the Field
+    */
+   public final static int MILES = 1, KM = 2, NAUTICAL_MI = 3;
+   int projection = LATLON;
+   // Units Constants
+   /**
+    *  Description of the Field
+    */
+   public final static int DMS = 1, DECI = 2;
+   int geoUnits = DMS;
+   int distUnits = MILES;
+
+   // Map Themes ORDER DICTATES DISPLAY ORDER
+   /**
+    *  Description of the Field
+    */
+   public final static int STATES = 0;
+   /**
+    *  Description of the Field
+    */
+   public final static int RIVERS = 1;
+   /**
+    *  Description of the Field
+    */
+   public final static int COUNTIES = 2;
+   /**
+    *  Description of the Field
+    */
+   public final static int HWY_INT = 3;
+   /**
+    *  Description of the Field
+    */
+   public final static int STATES_OUT = 4;
+   /**
+    *  Description of the Field
+    */
+   public final static int CITY250 = 9, CITY100 = 8, CITY35 = 7, CITY10 = 6, CITY_SMALL = 5;
+   /**
+    *  Description of the Field
+    */
+   public final static int AIRPORTS = 10;
+   /**
+    *  Description of the Field
+    */
+   public final static int ASOS_AWOS = 11;
+   /**
+    *  Description of the Field
+    */
+   public final static int CRN = 12;
+   /**
+    *  Description of the Field
+    */
+   public final static int WSR = 13, CLIMATE_DIV = 14;
+   /**
+    *  Description of the Field
+    */
+   public final static int NUM_LAYERS = 15;
+
+   
+   public final static String ACTION_LOAD = "LOAD";
+   public final static String ACTION_REFRESH = "REFRESH";
+   
+   
+   
+   
+   // Local User Added Theme Counter
+   int localThemeCounter = 0;
+
+   boolean legendVisible = true;
+   boolean legendHighlights = true;
+   boolean nexradHighlights = true;
+
+   // Alphanumeric Display Values and defaults
+   private int alphaLineWidth = 1;
+   // aka size
+   private Color alphaLineColor = new Color(220, 220, 220);
+   private Color alphaFillColor = new Color(220, 220, 220);
+   private double alphaTransparency = 0.0;
+   private int nexradAlphaChannelValue = 255;
+   // 1 == fully transparent
+   private String alphaSymbol = StyleBuilder.MARK_CIRCLE;
+
+   private Vector baseMapThemes = new Vector();
+   private Vector baseMapLabels = new Vector();
+   private Vector baseMapStyleInfo = new Vector();
+/*
+   // External GUI Frames
+   private static JFrame nexframe;
+   private DataSelector dataSelect;
+   private MapSelector mapSelect;
+   private NexradAnimator nexradAnimate;
+   private CaptureAnimator captureAnimate;
+   private ViewProperties viewProperties;
+   private AlphaProperties alphaProperties;
+   private NexradExport nexradExporter;
+   private NexradMath nexradMath;
+   private JNXHelp jnxhelp, jnxnew;
+   private Level2Properties level2Prop;
+   private NexradFilterGUI nxfilterGUI = new NexradFilterGUI("Nexrad Filter", this);
+   private NexradFilter nxfilter;
+   private RangeRingsGUI rangeRings;
+   private MarkerEditor markerEditor;
+   private StormSummaryGUI stormSummaryGUI;
+
+   // Frame Tools
+   JNXFrameTools jnxTools;
+*/   
+   private NexradFilter nxfilter;
+   
+   
+   
+   // Decoders
+   private FileScanner nexrad_file;
+   private NexradHeader header; 
+   private DecodeL2Header level2Header;
+   //private DecodeL2ITRHeader level2ITRHeader;
+   private DecodeL3Header level3Header;
+   private DecodeXMRGHeader xmrgHeader;
+   private DecodeL2Nexrad level2Decoder;
+   private DecodeL3Nexrad level3Decoder;
+   private DecodeL3Alpha alpha_decoder;
+   private DecodeXMRGData xmrgDecoder;
+
+
+   
+   private JProgressBar progress;
+
+   static Font font12 = new Font("TimesRoman", Font.PLAIN, 12);
+   static Font font14 = new Font("TimesRoman", Font.PLAIN, 14);
+
+   DecimalFormat fmt0 = new DecimalFormat("00");
+   DecimalFormat fmt2 = new DecimalFormat("0.00");
+
+   private Color menuColor1 = new Color(230, 230, 250);
+   private Color menuColor2 = new Color(100, 149, 237);
+
+   private boolean isRasterVariableRes = true;
+
+   boolean firstTime = true;
+   boolean isVADdisplayed = false;
+
+
+   private Font[] fontArray = new Font[]{
+         new Font("Arial", Font.PLAIN, 10),
+         new Font("Arial", Font.PLAIN, 11),
+         new Font("Arial", Font.PLAIN, 12),
+         new Font("Arial", Font.PLAIN, 14),
+         new Font("Arial", Font.PLAIN, 16)
+         };
+
+   //private BufferedImage  logo = null;
+   private Image logo = null;
+   private RenderedLogo renderedLogo = null;
+
+
+   
+   private boolean isSmoothing = false;
+   
+
+   /**
+    * Full Constructor for use in batch mode
+    *
+    * @param  batchMode  Description of the Parameter
+    */
+   public NexradViewerBatch() {
+  
+      // Initialize Theme Vector
+      baseMapThemes.setSize(NUM_LAYERS);
+      baseMapLabels.setSize(NUM_LAYERS);
+      baseMapStyleInfo.setSize(NUM_LAYERS);
+
+
+      setupLayout();
+      loadBaseMaps();
+
+      mainPanel.validate();
+      mainPanel.repaint();
+
+   }
+
+
+   public void setupLayout() {
+      mainPanel = new JPanel();
+      centerPanel = new JPanel();
+      toolPanel = new JPanel();
+      infoPanel = new JPanel();
+      //metaPanel = new JPanel();
+      metaPanel = new NexradMetaPanel();
+      //vadPanel = new NexradVADPanel();
+      topPanel = new JPanel();
+      exportPanel = new JPanel();
+      keyPanel = new NexradLegendPanel();
+      metaLabel = new JLabel[14];
+
+      // Set Layouts
+      mainPanel.setLayout(new BorderLayout());
+      mainPanel.setBackground(new Color(220, 220, 220));
+      //centerPanel.setLayout(new BorderLayout());
+      toolPanel.setLayout(new GridLayout(1, 3));
+      //infoPanel.setLayout(new GridLayout(2, 1));
+      infoPanel.setLayout(new BorderLayout());
+      infoPanel.setBackground(new Color(220, 220, 220));
+      metaPanel.setBackground(new Color(220, 220, 220));
+      keyPanel.setBackground(new Color(220, 220, 220));
+      keyPanel.setForeground(Color.black);
+      //keyPanel.setBackground(new Color(220, 220, 220));
+//      infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+      //exportPanel.setLayout(new BorderLayout());
+      metaPanel.setLayout(new BoxLayout(metaPanel, BoxLayout.Y_AXIS));
+      //         keyPanel.setLayout(new BorderLayout());
+
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      metaPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+      // Set up the text labels
+      for (int n = 0; n < metaLabel.length; n++) {
+         metaLabel[n] = new JLabel(" ");
+      }
+      // Add to metaPanel
+      for (int n = 0; n < metaLabel.length; n++) {
+         metaPanel.setFont(font12);
+         metaPanel.add(metaLabel[n]);
+      }
+
+      infoPanel.add(metaPanel, BorderLayout.NORTH);
+      infoPanel.add(keyPanel, BorderLayout.CENTER);
+
+      centerPanel.setLayout(null);
+      centerPanel.add(mapPane);
+
+      topPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+
+      mapPane.setBackground(new Color(0, 0, 55));
+
+      //mainPanel.add(jnxTools, BorderLayout.NORTH);
+      //mainPanel.add(mapScrollPane, BorderLayout.CENTER);
+      //mainPanel.add(statusBar, BorderLayout.SOUTH);
+      
+      mainPanel.add(mapPane, BorderLayout.CENTER);
+      mainPanel.add(infoPanel, BorderLayout.EAST);
+      
+      
+   }
+
+   // END ActionPerformed FUNCTION
+
+   //**************************************************************
+   //**************************************************************
+
+   public void reloadNexrad() {
+      // Put in thread               
+      SwingWorker worker = new SwingWorker() {
+         public Object construct() {
+
+            //public boolean loadNexradFile(URL nexrad_url, boolean clearAlphanumeric,
+            //   boolean isAlphaBackground, boolean isAnimation, boolean resetExtent) {
+
+            //loadNexradFile(nexrad_url);
+            loadNexradFile(nexrad_url, false, false, false, false);
+
+            return "Done";
+         }
+      };
+      worker.start();
+      
+      updateMemoryLabel();
+   }
+
+   //**************************************************************
+   //**************************************************************
+
+   public void refreshNexrad() {
+      refreshNexrad(true);
+   }
+   public void refreshNexrad(final boolean clipToExtent) {
+      
+      rasterizer.setSmoothing(isSmoothing);
+      
+      // Put in thread               
+      SwingWorker worker = new SwingWorker() {
+         public Object construct() {
+
+                  
+
+
+/*
+      // Check for native raster
+      if (nexrad_file.getNexradFileType() == NexradFile.NEXRAD_XMRG) {
+         try {
+            nexradRGC.setGridCoverage(xmrgDecoder.getXMRGRaster().getGridCoverage());
+            nexradRGC.setVisible(true);
+         } catch (Exception e) {
+            e.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(null, "XMRG Native Raster Error", "RASTER DISPLAY ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);            
+         }
+         setIsLoading(false);
+         return "XMRG DONE";
+      }
+*/      
+      
+      
+      
+      
+      
+
+         System.out.println("---------------- START REFRESH ---------------");
+
+         if (nexradFeatures == null) {
+            JOptionPane.showMessageDialog(null, "No NEXRAD Data is currently loaded.",
+               "NEXRAD REFRESH ERROR", JOptionPane.ERROR_MESSAGE);
+            return "ERROR";
+         }
+         
+         java.awt.geom.Rectangle2D.Double currentExtent = getCurrentExtent();
+
+         java.awt.geom.Rectangle2D.Double maxExtent = MaxGeographicExtent.getNexradExtent(header);
+         if (currentExtent.getWidth() > maxExtent.getWidth()) {
+            currentExtent = maxExtent;
+         }
+
+
+         // adjust current extent if we are smoothing
+         if (isSmoothing) {
+            currentExtent = new java.awt.geom.Rectangle2D.Double(
+               currentExtent.x - currentExtent.width/2.0,
+               currentExtent.y - currentExtent.height/2.0,
+               currentExtent.width * 2.0,
+               currentExtent.height * 2.0);
+         }
+         
+         
+         
+         
+/*         
+         NexradFilter refreshFilter = new NexradFilter();
+         refreshFilter.setExtentFilter(currentExtent);
+         
+         Feature feature;
+         com.vividsolutions.jts.geom.Geometry geometry;
+         displayFeatures.clear();
+         FeatureIterator fci = nexradFeatures.features();         
+         
+         while (fci.hasNext()) {
+            feature = fci.next();
+            geometry = feature.getDefaultGeometry();
+            if (! clipToExtent || refreshFilter.accept(geometry)) {
+               displayFeatures.add(feature);
+            }
+         }
+
+         System.out.println("---------------- FINISH FEATURE FILTERING BASED ON NEXRAD FILTER ---------------");
+*/
+
+
+
+   statusBar.resetProgress(0);
+
+
+         BoundedRangeModel boundedRangeModel = statusBar.getBoundedRangeModel();
+         statusBar.setProgressText("Processing Data...");
+         
+         
+         System.out.println("---------------- START RASTERIZER --------------------");
+         // RASTERIZE THE DATA
+boolean isRasterVariableRes = ! clipToExtent; // use current extent
+         try {
+
+            if (nexrad_file.getNexradFileType() == FileScanner.NEXRAD_LEVEL2) {
+               //boolean classify = (level2Prop == null) ? false : level2Prop.getClassify();
+               boolean classify = false;
+               //boolean isRasterVariableRes = false; // use current extent
+              
+               if (classify) {
+                  //rasterizer.rasterize(displayFeatures, currentExtent, isRasterVariableRes, 
+                  rasterizer.rasterize(nexradFeatures, currentExtent, isRasterVariableRes, 
+                     NexradRasterizer.CMD_KEEP_LARGER_VALUE, "colorIndex", NexradRasterizer.INT);
+               }
+               else {
+                  //rasterizer.rasterize(displayFeatures, currentExtent, isRasterVariableRes, 
+                  rasterizer.rasterize(nexradFeatures, currentExtent, isRasterVariableRes, 
+                     NexradRasterizer.CMD_KEEP_LARGER_VALUE, "value", NexradRasterizer.FLOAT);
+               }
+
+               //nexradRGC.dispose();
+               nexradRGC.setGridCoverage(rasterizer.getGridCoverage(header, classify, 
+                  NexradColorFactory.getTransparentColors(header.getProductCode(), classify, nexradAlphaChannelValue)));
+            } 
+            else {
+               //rasterizer.rasterize(displayFeatures, currentExtent, isRasterVariableRes, 
+               rasterizer.rasterize(nexradFeatures, currentExtent, isRasterVariableRes, 
+                  NexradRasterizer.CMD_KEEP_LARGER_VALUE, "colorIndex", NexradRasterizer.INT);
+                  
+               //nexradRGC.dispose();
+               nexradRGC.setGridCoverage(rasterizer.getGridCoverage(header, true, 
+                  NexradColorFactory.getTransparentColors(header.getProductCode(), true, nexradAlphaChannelValue)));
+            }
+               
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
+         System.out.println("---------------- FINISH RASTERIZER --------------------");
+
+         nexradRGC.setVisible(true);
+            
+         statusBar.resetProgress(0);
+         statusBar.setProgressText("");
+         
+         nxZoomChange.setNexradActive(true);
+
+         isLoading = false;
+   
+   
+   
+
+
+
+      
+            return "Done";
+         }
+      };
+      worker.start();
+      
+      
+      
+      updateMemoryLabel();
+   }
+   
+   
+   
+   
+   
+   
+   
+   /**
+    *  Description of the Method
+    */
+   public void loadBaseMaps() {
+
+      System.gc();
+      boolean showProgressFrame = false;
+
+      //-----------------------------*
+      // Start GeoTools
+      //-----------------------------*
+
+      Color c;
+      int wid;
+      URL url;
+
+      // Set initial coordinate system
+      setCoordinateSystem(GeographicCoordinateSystem.WGS84);
+      //org.opengis.referencing.crs.CoordinateReferenceSystem originCrs = GeographicCoordinateSystem.WGS84;
+      //CoordinateSystem reprojectCrs = NexradProjections.getCoordinateSystem(NexradProjections.ALBERS_EQUALAREA_CONUS_NAD83_WKT);
+      
+      try {
+         // Eventually make vector of query's and set the CoordinateSystemReproject when the map projection changes
+         //DefaultQuery query = new DefaultQuery("states");
+         //query.setCoordianteSystem(originCrs);
+         //query.setCoordinateSystemReproject(reprojectCrs);
+         
+         // Update splash window
+         System.out.println("Loading states base map");
+
+         url = NexradIAViewer.class.getResource("/shapefiles/states.shp");
+         ShapefileDataStore dsStates = new ShapefileDataStore(url);
+         FeatureSource fsStates = dsStates.getFeatureSource("states");
+         //FeatureSource fsStates = dsStates.getView(query);
+         Style statesStyleBG = sb.createStyle(sb.createPolygonSymbolizer(Color.black, Color.black, 1));
+         Style statesStyleFG = sb.createStyle(sb.createLineSymbolizer(new Color(235, 167, 0), 2));
+         baseMapThemes.setElementAt((Object) new DefaultMapLayer(fsStates, statesStyleBG, "STATES_BG"), STATES);
+         baseMapStyleInfo.setElementAt((Object) new BaseMapStyleInfo(2, Color.black, Color.black), STATES);
+
+         baseMapThemes.setElementAt((Object) new DefaultMapLayer(fsStates, statesStyleFG, "STATES"), STATES_OUT);
+
+         /*
+          *  RenderedLayerFactory layerFactory = new RenderedLayerFactory();
+          *  RenderedLayer[] layers = layerFactory.create(fsStates, statesStyleBG);
+          *  for (int n=0; n<layers.length; n++) {
+          *  mapPane.getRenderer().addLayer(layers[n]);
+          *  }
+          */
+         org.geotools.styling.Font font = sb.createFont(fontArray[3]);
+         TextSymbolizer tsStates = sb.createTextSymbolizer(new Color(235, 167, 0), font, "ID");
+         tsStates.setHalo(sb.createHalo(Color.BLACK, 1, 2));
+         Style statesLabelStyle = sb.createStyle(tsStates);
+         baseMapLabels.setElementAt((Object) new DefaultMapLayer(fsStates, statesLabelStyle, "STATES_LABELS"), STATES_OUT);
+
+         baseMapStyleInfo.setElementAt((Object) new BaseMapStyleInfo(2, new Color(235, 167, 0)), STATES_OUT);
+
+      } catch (Exception e) {
+         System.out.println("EXCEPTION WHILE LOADING STATES DATA");
+         e.printStackTrace();
+      }
+
+      //*
+
+      try {
+         
+         //DefaultQuery query = new DefaultQuery("counties");
+         //query.setCoordianteSystem(originCrs);
+         
+         // Update splash window
+         System.out.println("Loading counties base map");
+
+         url = NexradIAViewer.class.getResource("/shapefiles/counties.shp");
+         ShapefileDataStore dsCounties = new ShapefileDataStore(url);
+         FeatureSource fsCounties = dsCounties.getFeatureSource("counties");
+         //FeatureSource fsCounties = dsCounties.getView(query);
+         Style countiesStyle = sb.createStyle(sb.createLineSymbolizer(new Color(169, 99, 49), 1));
+         baseMapThemes.setElementAt((Object) new DefaultMapLayer(fsCounties, countiesStyle, "COUNTIES"), COUNTIES);
+
+         org.geotools.styling.Font font = sb.createFont(fontArray[1]);
+         TextSymbolizer tsCounties = sb.createTextSymbolizer(new Color(169, 99, 49), font, "ID");
+         //tsCounties.setHalo(sb.createHalo(Color.BLACK, 1, 2));
+         tsCounties.setHalo(sb.createHalo(Color.BLACK, .7, 2.2));
+         Style countiesLabelStyle = sb.createStyle(tsCounties);
+         baseMapLabels.setElementAt((Object) new DefaultMapLayer(fsCounties, countiesLabelStyle, "COUNTIES_LABELS"), COUNTIES);
+
+         baseMapStyleInfo.setElementAt((Object) new BaseMapStyleInfo(1, new Color(169, 99, 49)), COUNTIES);
+
+      } catch (Exception e) {
+         System.out.println("EXCEPTION WHILE LOADING COUNTY DATA");
+         e.printStackTrace();
+      }
+      try {
+         // Update splash window
+         System.out.println("Loading interstates base map");
+
+         url = NexradIAViewer.class.getResource("/shapefiles/hwy_int.shp");
+         ShapefileDataStore dsHwyInt = new ShapefileDataStore(url);
+         FeatureSource fsHwyInt = dsHwyInt.getFeatureSource("hwy_int");
+         Style hwyIntStyle = sb.createStyle(sb.createLineSymbolizer(Color.red, 1));
+         baseMapThemes.setElementAt((Object) new DefaultMapLayer(fsHwyInt, hwyIntStyle, "HWY_INT"), HWY_INT);
+
+         org.geotools.styling.Font font = sb.createFont(fontArray[1]);
+         TextSymbolizer ts = sb.createTextSymbolizer(Color.red, font, "ID");
+         ts.setLabelPlacement(sb.createLinePlacement(0.0));
+         ts.setHalo(sb.createHalo(Color.BLACK, .7, 2.2));
+         Style style = sb.createStyle(ts);
+         baseMapLabels.setElementAt((Object) new DefaultMapLayer(fsHwyInt, style, "HWYINT_LABELS"), HWY_INT);
+
+         baseMapStyleInfo.setElementAt((Object) new BaseMapStyleInfo(1, Color.red), HWY_INT);
+
+      } catch (Exception e) {
+         System.out.println("EXCEPTION WHILE LOADING HWYINT DATA");
+         e.printStackTrace();
+      }
+      try {
+         // Update splash window
+         System.out.println("Loading rivers base map");
+
+         url = NexradIAViewer.class.getResource("/shapefiles/rivers.shp");
+         ShapefileDataStore dsRivers = new ShapefileDataStore(url);
+         FeatureSource fsRivers = dsRivers.getFeatureSource("rivers");
+         Style riversStyle = sb.createStyle(sb.createLineSymbolizer(new Color(28, 134, 238), 1));
+         baseMapThemes.setElementAt((Object) new DefaultMapLayer(fsRivers, riversStyle, "RIVERS"), RIVERS);
+
+         org.geotools.styling.Font font = sb.createFont(fontArray[2]);
+         TextSymbolizer ts = sb.createTextSymbolizer(new Color(28, 134, 238), font, "ID");
+         ts.setLabelPlacement(sb.createLinePlacement(0.0));
+         ts.setHalo(sb.createHalo(Color.BLACK, .7, 2.2));
+         Style style = sb.createStyle(ts);
+         baseMapLabels.setElementAt((Object) new DefaultMapLayer(fsRivers, style, "RIVERS_LABEL"), RIVERS);
+
+         baseMapStyleInfo.setElementAt((Object) new BaseMapStyleInfo(1, new Color(28, 134, 238)), RIVERS);
+
+      } catch (Exception e) {
+         System.out.println("EXCEPTION WHILE LOADING RIVER DATA");
+         e.printStackTrace();
+      }
+      try {
+         // Update splash window
+         System.out.println("Loading cities base map");
+
+         url = NexradIAViewer.class.getResource("/shapefiles/cities_250k.shp");
+         ShapefileDataStore ds = new ShapefileDataStore(url);
+         FeatureSource fs = ds.getFeatureSource("cities_250k");
+         Mark mark = sb.createMark(StyleBuilder.MARK_CIRCLE, new Color(240, 240, 240), new Color(240, 240, 240), 1);
+         Graphic gr = sb.createGraphic(null, mark, null);
+         Style style = sb.createStyle(sb.createPointSymbolizer(gr));
+         baseMapThemes.setElementAt((Object) new DefaultMapLayer(fs, style, "CITY250"), CITY250);
+
+         org.geotools.styling.Font font = sb.createFont(fontArray[4]);
+         TextSymbolizer ts = sb.createTextSymbolizer(new Color(240, 240, 240), font, "AREANAME");
+         ts.setLabelPlacement(sb.createPointPlacement(0.0, 0.0, 5.0, -5.0, 0.0));
+         ts.setHalo(sb.createHalo(Color.BLACK, .7, 2.2));
+         Style labelStyle = sb.createStyle(ts);
+         baseMapLabels.setElementAt((Object) new DefaultMapLayer(fs, labelStyle, "CITY250_LABEL"), CITY250);
+
+         baseMapStyleInfo.setElementAt((Object) new BaseMapStyleInfo(1, new Color(240, 240, 240), 
+            new Color(240, 240, 240)), CITY250);
+
+      } catch (Exception e) {
+         System.out.println("EXCEPTION WHILE LOADING CITY250 DATA");
+         e.printStackTrace();
+      }
+
+      try {
+
+         url = NexradIAViewer.class.getResource("/shapefiles/cities_100k.shp");
+         ShapefileDataStore ds = new ShapefileDataStore(url);
+         FeatureSource fs = ds.getFeatureSource("cities_100k");
+         Mark mark = sb.createMark(StyleBuilder.MARK_CIRCLE, new Color(200, 200, 200), new Color(200, 200, 200), 1);
+         Graphic gr = sb.createGraphic(null, mark, null);
+         Style style = sb.createStyle(sb.createPointSymbolizer(gr));
+         baseMapThemes.setElementAt((Object) new DefaultMapLayer(fs, style, "CITY100"), CITY100);
+
+         org.geotools.styling.Font font = sb.createFont(fontArray[3]);
+         TextSymbolizer ts = sb.createTextSymbolizer(new Color(200, 200, 200), font, "AREANAME");
+         ts.setLabelPlacement(sb.createPointPlacement(0.0, 0.0, 5.0, -5.0, 0.0));
+         ts.setHalo(sb.createHalo(Color.BLACK, .7, 2.2));
+         Style labelStyle = sb.createStyle(ts);
+         baseMapLabels.setElementAt((Object) new DefaultMapLayer(fs, labelStyle, "CITY100_LABEL"), CITY100);
+
+         baseMapStyleInfo.setElementAt((Object) new BaseMapStyleInfo(1, new Color(200, 200, 200), 
+            new Color(200, 200, 200)), CITY100);
+
+      } catch (Exception e) {
+         System.out.println("EXCEPTION WHILE LOADING CITY100 DATA");
+         e.printStackTrace();
+      }
+
+      try {
+
+         url = NexradIAViewer.class.getResource("/shapefiles/cities_35k.shp");
+         ShapefileDataStore ds = new ShapefileDataStore(url);
+         FeatureSource fs = ds.getFeatureSource("cities_35k");
+         Mark mark = sb.createMark(StyleBuilder.MARK_CIRCLE, new Color(160, 160, 160), new Color(160, 160, 160), 1);
+         Graphic gr = sb.createGraphic(null, mark, null);
+         Style style = sb.createStyle(sb.createPointSymbolizer(gr));
+         baseMapThemes.setElementAt((Object) new DefaultMapLayer(fs, style, "CITY35"), CITY35);
+
+         org.geotools.styling.Font font = sb.createFont(fontArray[2]);
+         TextSymbolizer ts = sb.createTextSymbolizer(new Color(160, 160, 160), font, "AREANAME");
+         ts.setLabelPlacement(sb.createPointPlacement(0.0, 0.0, 5.0, -5.0, 0.0));
+         ts.setHalo(sb.createHalo(Color.BLACK, .7, 2.2));
+         Style labelStyle = sb.createStyle(ts);
+         baseMapLabels.setElementAt((Object) new DefaultMapLayer(fs, labelStyle, "CITY35_LABEL"), CITY35);
+
+         baseMapStyleInfo.setElementAt((Object) new BaseMapStyleInfo(1, new Color(160, 160, 160), 
+            new Color(160, 160, 160)), CITY35);
+
+      } catch (Exception e) {
+         System.out.println("EXCEPTION WHILE LOADING CITY35 DATA");
+         e.printStackTrace();
+      }
+
+      try {
+
+         url = NexradIAViewer.class.getResource("/shapefiles/cities_10k.shp");
+         ShapefileDataStore ds = new ShapefileDataStore(url);
+         FeatureSource fs = ds.getFeatureSource("cities_10k");
+         Mark mark = sb.createMark(StyleBuilder.MARK_CIRCLE, new Color(120, 120, 120), new Color(120, 120, 120), 1);
+         Graphic gr = sb.createGraphic(null, mark, null);
+         Style style = sb.createStyle(sb.createPointSymbolizer(gr));
+         baseMapThemes.setElementAt((Object) new DefaultMapLayer(fs, style, "CITY10"), CITY10);
+
+         org.geotools.styling.Font font = sb.createFont(fontArray[1]);
+         TextSymbolizer ts = sb.createTextSymbolizer(new Color(120, 120, 120), font, "AREANAME");
+         ts.setLabelPlacement(sb.createPointPlacement(0.0, 0.0, 5.0, -5.0, 0.0));
+         ts.setHalo(sb.createHalo(Color.BLACK, .7, 2.2));
+         Style labelStyle = sb.createStyle(ts);
+         baseMapLabels.setElementAt((Object) new DefaultMapLayer(fs, labelStyle, "CITY10_LABEL"), CITY10);
+
+         baseMapStyleInfo.setElementAt((Object) new BaseMapStyleInfo(1, new Color(120, 120, 120), 
+            new Color(120, 120, 120)), CITY10);
+
+      } catch (Exception e) {
+         System.out.println("EXCEPTION WHILE LOADING CITY10 DATA");
+         e.printStackTrace();
+      }
+
+      try {
+
+         url = NexradIAViewer.class.getResource("/shapefiles/cities_small.shp");
+         ShapefileDataStore ds = new ShapefileDataStore(url);
+         FeatureSource fs = ds.getFeatureSource("cities_small");
+         Mark mark = sb.createMark(StyleBuilder.MARK_CIRCLE, new Color(80, 80, 80), new Color(80, 80, 80), 1);
+         Graphic gr = sb.createGraphic(null, mark, null);
+         Style style = sb.createStyle(sb.createPointSymbolizer(gr));
+         baseMapThemes.setElementAt((Object) new DefaultMapLayer(fs, style, "CITY_SMALL"), CITY_SMALL);
+
+         org.geotools.styling.Font font = sb.createFont(fontArray[0]);
+         TextSymbolizer ts = sb.createTextSymbolizer(new Color(80, 80, 80), font, "AREANAME");
+         ts.setLabelPlacement(sb.createPointPlacement(0.0, 0.0, 5.0, -5.0, 0.0));
+         ts.setHalo(sb.createHalo(Color.BLACK, .7, 2.2));
+         Style labelStyle = sb.createStyle(ts);
+         baseMapLabels.setElementAt((Object) new DefaultMapLayer(fs, labelStyle, "CITY_SMALL_LABEL"), CITY_SMALL);
+
+         baseMapStyleInfo.setElementAt((Object) new BaseMapStyleInfo(1, new Color(80, 80, 80), 
+            new Color(80, 80, 80)), CITY_SMALL);
+
+      } catch (Exception e) {
+         System.out.println("EXCEPTION WHILE LOADING CITY_SMALL DATA");
+         e.printStackTrace();
+      }
+
+      try {
+
+         url = NexradIAViewer.class.getResource("/shapefiles/airports.shp");
+         ShapefileDataStore ds = new ShapefileDataStore(url);
+         FeatureSource fs = ds.getFeatureSource("airports");
+         Mark mark = sb.createMark(StyleBuilder.MARK_CIRCLE, new Color(0, 200, 0), new Color(0, 200, 0), 1);
+         Graphic gr = sb.createGraphic(null, mark, null);
+         Style style = sb.createStyle(sb.createPointSymbolizer(gr));
+         baseMapThemes.setElementAt((Object) new DefaultMapLayer(fs, style, "AIRPORTS"), AIRPORTS);
+
+         org.geotools.styling.Font font = sb.createFont(fontArray[2]);
+         TextSymbolizer ts = sb.createTextSymbolizer(new Color(0, 200, 0), font, "ID");
+         ts.setLabelPlacement(sb.createPointPlacement(0.0, 0.0, 5.0, -5.0, 0.0));
+         ts.setHalo(sb.createHalo(Color.BLACK, .7, 2.2));
+         Style labelStyle = sb.createStyle(ts);
+         baseMapLabels.setElementAt((Object) new DefaultMapLayer(fs, labelStyle, "AIRPORTS_LABEL"), AIRPORTS);
+
+         baseMapStyleInfo.setElementAt((Object) new BaseMapStyleInfo(1, new Color(0, 200, 0), 
+            new Color(0, 200, 0)), AIRPORTS);
+
+      } catch (Exception e) {
+         System.out.println("EXCEPTION WHILE LOADING AIRPORTS DATA");
+         e.printStackTrace();
+      }
+
+      try {
+
+         url = NexradIAViewer.class.getResource("/shapefiles/asos_awos.shp");
+         ShapefileDataStore ds = new ShapefileDataStore(url);
+         FeatureSource fs = ds.getFeatureSource("asos_awos");
+         Mark mark = sb.createMark(StyleBuilder.MARK_CIRCLE, Color.blue, Color.blue, 1);
+         Graphic gr = sb.createGraphic(null, mark, null);
+         Style style = sb.createStyle(sb.createPointSymbolizer(gr));
+         baseMapThemes.setElementAt((Object) new DefaultMapLayer(fs, style, "ASOS_AWOS"), ASOS_AWOS);
+
+         org.geotools.styling.Font font = sb.createFont(fontArray[2]);
+         TextSymbolizer ts = sb.createTextSymbolizer(Color.blue, font, "ASOSID");
+         ts.setLabelPlacement(sb.createPointPlacement(0.0, 0.0, 5.0, -5.0, 0.0));
+         ts.setHalo(sb.createHalo(Color.BLACK, .7, 2.2));
+         Style labelStyle = sb.createStyle(ts);
+         baseMapLabels.setElementAt((Object) new DefaultMapLayer(fs, labelStyle, "ASOS_AWOS_LABEL"), ASOS_AWOS);
+
+         baseMapStyleInfo.setElementAt((Object) new BaseMapStyleInfo(1, Color.blue, Color.blue), ASOS_AWOS);
+
+      } catch (Exception e) {
+         System.out.println("EXCEPTION WHILE LOADING ASOS_AWOS DATA");
+         e.printStackTrace();
+      }
+      
+      try {
+
+         url = NexradIAViewer.class.getResource("/shapefiles/crn.shp");
+         ShapefileDataStore ds = new ShapefileDataStore(url);
+         FeatureSource fs = ds.getFeatureSource("crn");
+         Mark mark = sb.createMark(StyleBuilder.MARK_CIRCLE, new Color(32, 178, 170), new Color(32, 178, 170), 1);
+         Graphic gr = sb.createGraphic(null, mark, null);
+         Style style = sb.createStyle(sb.createPointSymbolizer(gr));
+         baseMapThemes.setElementAt((Object) new DefaultMapLayer(fs, style, "CRN"), CRN);
+
+         org.geotools.styling.Font font = sb.createFont(fontArray[2]);
+         TextSymbolizer ts = sb.createTextSymbolizer(new Color(32, 178, 170), font, "SITEID");
+         ts.setLabelPlacement(sb.createPointPlacement(0.0, 0.0, 5.0, -5.0, 0.0));
+         ts.setHalo(sb.createHalo(Color.BLACK, .7, 2.2));
+         Style labelStyle = sb.createStyle(ts);
+         baseMapLabels.setElementAt((Object) new DefaultMapLayer(fs, labelStyle, "CRN_LABEL"), CRN);
+
+         baseMapStyleInfo.setElementAt((Object) new BaseMapStyleInfo(1, new Color(32, 178, 170), new Color(32, 178, 170)), CRN);
+
+      } catch (Exception e) {
+         System.out.println("EXCEPTION WHILE LOADING CRN DATA");
+         e.printStackTrace();
+      }
+      
+      try {
+         // Update splash window
+         System.out.println("Loading radar base map");
+
+         url = NexradIAViewer.class.getResource("/shapefiles/wsr.shp");
+         ShapefileDataStore dsWSR = new ShapefileDataStore(url);
+         FeatureSource fsWSR = dsWSR.getFeatureSource("wsr");
+         Mark wsrMark = sb.createMark(StyleBuilder.MARK_CIRCLE, new Color(148, 0, 211), new Color(148, 0, 211), 2);
+         Graphic grWSR = sb.createGraphic(null, wsrMark, null);
+         Style wsrStyle = sb.createStyle(sb.createPointSymbolizer(grWSR));
+         baseMapThemes.setElementAt((Object) new DefaultMapLayer(fsWSR, wsrStyle, "WSR"), WSR);
+
+// STEVE -- USE THE BASEMAPLABELS VECTOR TO HOLD ALL THE TEXTSYMBOLIZER LAYERS FOR EASY ON/OFF WITH VISIBILITY!
+
+         org.geotools.styling.Font font = sb.createFont(fontArray[3]);
+         TextSymbolizer tsWSR = sb.createTextSymbolizer(new Color(148, 0, 211), font, "SITE");
+         tsWSR.setLabelPlacement(sb.createPointPlacement(0.0, 0.0, 5.0, -5.0, 0.0));
+         tsWSR.setHalo(sb.createHalo(Color.BLACK, .7, 2.2));
+         Style wsrLabelStyle = sb.createStyle(tsWSR);
+         baseMapLabels.setElementAt((Object) new DefaultMapLayer(fsWSR, wsrLabelStyle, "WSR_LABEL"), WSR);
+
+         //Rule wsrRule = sb.createRule(new Symbolizer[] {psWSR, tsWSR});
+         //Style wsrStyle = sb.createStyle();
+         //wsrStyle.addFeatureTypeStyle(sb.createFeatureTypeStyle(null, wsrRule));
+         //baseMapThemes.setElementAt((Object) new DefaultMapLayer(fsWSR, wsrStyle), WSR);
+
+
+         baseMapStyleInfo.setElementAt((Object) new BaseMapStyleInfo(1, new Color(148, 0, 211), 
+            new Color(148, 0, 211)), WSR);
+
+      } catch (Exception e) {
+         System.out.println("EXCEPTION WHILE LOADING WSR DATA");
+         e.printStackTrace();
+      }
+      
+      
+      try {
+         //DefaultQuery query = new DefaultQuery("climate-divisions");
+         //query.setCoordianteSystem(originCrs);
+         
+         // Update splash window
+         System.out.println("Loading climate division base map");
+
+         url = NexradIAViewer.class.getResource("/shapefiles/climate-divisions.shp");
+         ShapefileDataStore dsClimateDiv = new ShapefileDataStore(url);
+         FeatureSource fsClimateDiv = dsClimateDiv.getFeatureSource("climate-divisions");
+         //FeatureSource fsClimateDiv = dsClimateDiv.getView(query);
+         Style climateDivStyle = sb.createStyle(sb.createLineSymbolizer(new Color(245, 174, 138), 1));
+         baseMapThemes.setElementAt((Object) new DefaultMapLayer(fsClimateDiv, climateDivStyle, "CLIMATE_DIV"), CLIMATE_DIV);
+
+         Style climateDivLabelStyle = sb.createStyle();
+         org.geotools.styling.Font font = sb.createFont(fontArray[1]);
+         TextSymbolizer tsClimateDiv1 = sb.createTextSymbolizer(new Color(245, 174, 138), font, "NAME");
+         tsClimateDiv1.setHalo(sb.createHalo(Color.BLACK, .7, 2.2));
+         tsClimateDiv1.setLabelPlacement(sb.createPointPlacement(0.0, 0.0, 5.0, -5.0, 0.0));
+         //Style climateDivLabelStyle = sb.createStyle(tsClimateDiv);
+         TextSymbolizer tsClimateDiv2 = sb.createTextSymbolizer(new Color(245, 174, 138), font, "DIVISION_I");
+         tsClimateDiv2.setHalo(sb.createHalo(Color.BLACK, .7, 2.2));
+         tsClimateDiv2.setLabelPlacement(sb.createPointPlacement(0.0, 0.0, 5.0, 5.0, 0.0));
+         
+         climateDivLabelStyle.addFeatureTypeStyle(sb.createFeatureTypeStyle("climate-divisions", 
+            new Symbolizer[] { tsClimateDiv1, tsClimateDiv2 }));
+            
+            
+            
+         baseMapLabels.setElementAt((Object) new DefaultMapLayer(fsClimateDiv, climateDivLabelStyle, "CLIMATE_DIV_LABELS"), CLIMATE_DIV);
+
+         baseMapStyleInfo.setElementAt((Object) new BaseMapStyleInfo(1, new Color(245, 174, 138)), CLIMATE_DIV);
+
+      } catch (Exception e) {
+         System.out.println("EXCEPTION WHILE LOADING CLIMATE_DIVISION DATA");
+         e.printStackTrace();
+      }
+
+      //*/
+
+
+
+      // Update splash window
+      System.out.println("Adding Layers to Map (0/" + NUM_LAYERS + ")");
+
+      
+      try {
+
+         // Make initial nexrad MapLayer
+         //1//mlNexrad = new DefaultMapLayer(nexradFeatures, sb.createStyle(), "NEXRAD_POLYGONS");
+
+         //((StyledMapRenderer)mapPane.getRenderer()).insertLayer((MapLayer) baseMapThemes.elementAt(0), 0);
+
+//           ((StyledMapRenderer)mapPane.getRenderer()).addLayer();
+
+         // init the wmsRGCs
+         for (int n=0; n<wmsRGC.length; n++) {
+            wmsRGC[n] = new RenderedGridCoverage(new GridCoverage("OGCWMS"+n,
+               RasterFactory.createBandedRaster(DataBuffer.TYPE_FLOAT, 2, 2, 1, null),
+               new Envelope(new java.awt.geom.Rectangle2D.Double(179.0, 30.0, .001, .001))
+               )
+            );
+            
+            ((StyledMapRenderer) mapPane.getRenderer()).addLayer(wmsRGC[n]);
+            wmsRGC[n].setZOrder(((float)n)/100 + 0.2f);
+            wmsRGC[n].setVisible(false);
+         }
+
+
+
+         ((StyledMapRenderer) mapPane.getRenderer()).addLayer(nexradRGC);
+         nexradRGC.setZOrder(0.9f);
+         nexradRGC.setVisible(false);
+         
+         // added method in JNXMapContext
+         map.setSize(2*NUM_LAYERS + 2);
+         
+         //map.addLayer(mlNexrad);
+         for (int i = 0; i < NUM_LAYERS; i++) {
+            if (baseMapThemes.elementAt(i) != null) {
+               if (i == STATES || i == STATES_OUT || i == HWY_INT) {
+                  map.addLayer(i, (MapLayer) baseMapThemes.elementAt(i));
+               }
+               System.out.println("Adding Layers to Map (" + i + "/" + NUM_LAYERS + ")");
+            }
+         }
+         // Add range ring layer
+         Style rangeRingStyle = sb.createStyle(sb.createLineSymbolizer(Color.red, 1));
+         mlNexradRangeRings = new DefaultMapLayer(rangeRingFeatures, rangeRingStyle);
+         map.addLayer(2*NUM_LAYERS+1, mlNexradRangeRings);
+         
+         // Add marker layer
+         try {
+
+            mlMarkers = new DefaultMapLayer(markerFeatures, MarkerEditor.getDefaultStyle());
+
+            map.addLayer(2*NUM_LAYERS+2, mlMarkers);
+            //((StyledMapRenderer)mapPane.getRenderer()).insertLayer(mlMarkers, 101);
+            
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
+
+         try {
+            System.out.println("Finishing Map");
+            mapPane.setMapContext(map);
+            //((StyledMapRenderer)mapPane.getRenderer()).setMapContext(map);
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
+         
+         
+         try {
+            java.net.URL imageURL = NexradIAViewer.class.getResource("/images/noaalogont-20tr.gif");
+            if (imageURL != null) {
+               this.logo = new ImageIcon(imageURL).getImage();
+            }
+            else {
+               System.err.println("Logo image not found");
+            }
+            renderedLogo = new RenderedLogo(logo);
+            //mapPane.getRenderer().addLayer(renderedLogo);
+            renderedLogo.setZOrder(500.0f);
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
+
+         mapPane.setPaintingWhileAdjusting(false);
+
+
+         //((StyledMapRenderer)mapPane.getRenderer()).addLayer(new RenderedMapScale());
+
+         /*
+          *  ((StyledMapRenderer)mapPane.getRenderer()).addLayer(mlNexrad);
+          *  /((StyledMapRenderer)mapPane.getRenderer()).insertLayer(mlNexrad, 4);
+          *  for (int i=1; i<NUM_LAYERS; i++) {
+          *  if (baseMapThemes.elementAt(i) != null) {
+          *  /map.addLayer((MapLayer) baseMapThemes.elementAt(i));
+          *  ((StyledMapRenderer)mapPane.getRenderer()).insertLayer((MapLayer) baseMapThemes.elementAt(i), i+5);
+          *  }
+          *  }
+          *  for (int i=1; i<NUM_LAYERS; i++) {
+          *  if (baseMapLabels.elementAt(i) != null) {
+          *  /map.addLayer((MapLayer) baseMapLabels.elementAt(i));
+          *  ((StyledMapRenderer)mapPane.getRenderer()).insertLayer((MapLayer) baseMapLabels.elementAt(i), NUM_LAYERS+i+5);
+          *  }
+          *  }
+          */
+         
+          // PRINT LAYER INFO
+           System.out.println("============================================");
+           System.out.println("============================================");
+           RenderedLayer[] layers = ((StyledMapRenderer)mapPane.getRenderer()).getLayers();
+           for (int n=0; n<layers.length; n++) {
+              System.out.println("LAYER "+n+":  "+layers[n].getName(layers[n].getLocale()));
+           }
+           System.out.println("============================================");
+           System.out.println("============================================");
+          
+         //mapPane.getRenderer().addLayer(new RenderedMapScale());
+
+         //mapPane.getRenderer().setOffscreenBuffered(0, mapPane.getRenderer().getLayerCount(), ImageType.NONE);
+         //org.geotools.renderer.Renderer renderer = mapPane.getRenderer();
+         //renderer = new org.geotools.renderer.LiteRenderer(map);
+
+      } catch (Exception e) {
+         System.out.println("EXCEPTION WHILE ADDING MAP DATA");
+         e.printStackTrace();
+      }
+
+      // Set some layers visibility to false
+      try {
+         ((MapLayer) baseMapThemes.elementAt(COUNTIES)).setVisible(false);
+      } catch (Exception e) {}
+      try {
+         ((MapLayer) baseMapThemes.elementAt(RIVERS)).setVisible(false);
+      } catch (Exception e) {}
+      try {
+         ((MapLayer) baseMapThemes.elementAt(CITY250)).setVisible(false);
+      } catch (Exception e) {}
+      try {
+         ((MapLayer) baseMapThemes.elementAt(CITY100)).setVisible(false);
+      } catch (Exception e) {}
+      try {
+         ((MapLayer) baseMapThemes.elementAt(CITY35)).setVisible(false);
+      } catch (Exception e) {}
+      try {
+         ((MapLayer) baseMapThemes.elementAt(CITY10)).setVisible(false);
+      } catch (Exception e) {}
+      try {
+         ((MapLayer) baseMapThemes.elementAt(CITY_SMALL)).setVisible(false);
+      } catch (Exception e) {}
+      try {
+         ((MapLayer) baseMapThemes.elementAt(AIRPORTS)).setVisible(false);
+      } catch (Exception e) {}
+      try {
+         ((MapLayer) baseMapThemes.elementAt(ASOS_AWOS)).setVisible(false);
+      } catch (Exception e) {}
+      try {
+         ((MapLayer) baseMapThemes.elementAt(CRN)).setVisible(false);
+      } catch (Exception e) {}
+      try {
+         ((MapLayer) baseMapThemes.elementAt(WSR)).setVisible(false);
+      } catch (Exception e) {}
+      try {
+         ((MapLayer) baseMapThemes.elementAt(CLIMATE_DIV)).setVisible(false);
+      } catch (Exception e) {}
+
+      // Set all layers label visibility to false
+      for (int i = 0; i < NUM_LAYERS; i++) {
+         if (baseMapLabels.elementAt(i) != null) {
+            ((MapLayer) baseMapLabels.elementAt(i)).setVisible(false);
+         }
+      }
+
+      // Set max and current views to conus (before NEXRAD added)
+      mapPane.setVisibleArea(new java.awt.geom.Rectangle2D.Double(-125.0, 22.0, 58.0, 35.0));
+      mapPane.setPreferredArea(new java.awt.geom.Rectangle2D.Double(-125.0, 22.0, 58.0, 35.0));
+      mapPane.reset();
+
+      updateMemoryLabel();
+
+      //mapPane.getRenderer().setOffscreenBuffered(0.0f, 1.0f, ImageType.VOLATILE);
+
+   }
+
+
+   // END loadBaseMaps()
+
+   /**
+    *  Loads the nexrad file and removes both graphic (polygon) and
+    *  alphanumeric (point) nexrad data from the view.
+    *  For use with an animation thread!
+    *
+    * @param  nexrad_url  Description of the Parameter
+    * @return             Description of the Return Value
+    */
+   public boolean loadNexradAnimationFile(URL nexrad_url) {
+      return (loadNexradFile(nexrad_url, true, false, true, false));
+   }
+
+   /**
+    *  Loads the nexrad file and removes both graphic (polygon) and
+    *  alphanumeric (point) nexrad data from the view.
+    *  For use with an animation thread!
+    *
+    * @param  nexrad_url  URL of NEXRAD File
+    * @param  rangeModel  RangeModel from a Progress Bar
+    * @return             true if successful
+    */
+   public boolean loadNexradAnimationFile(URL nexrad_url, BoundedRangeModel rangeModel) {
+      return (loadNexradFile(nexrad_url, true, false, true, false, rangeModel));
+   }
+   
+   
+
+   /**
+    *  Loads the nexrad file and removes both graphic (polygon) and
+    *  alphanumeric (point) nexrad data from the view.
+    *
+    * @param  nexrad_url  URL of NEXRAD File
+    * @return             Description of the Return Value
+    */
+   public boolean loadNexradFile(URL nexrad_url) {
+      return (loadNexradFile(nexrad_url, true, false, false, false));
+   }
+
+
+   /**
+    *  Loads the nexrad file and removes both graphic (polygon) and
+    *  alphanumeric (point) nexrad data from the view.
+    *
+    * @param  nexrad_url  URL of NEXRAD File
+    * @param  rangeModel  RangeModel from a Progress Bar
+    * @return             Description of the Return Value
+    */
+   public boolean loadNexradFile(URL nexrad_url, BoundedRangeModel rangeModel) {
+      return (loadNexradFile(nexrad_url, true, false, false, false, rangeModel));
+   }
+   
+
+   /**
+    *  Loads the nexrad file, removes both graphic (polygon) and
+    *  alphanumeric (point) nexrad data from the view(optional) and is for a non-alphanumeric background image.
+    *
+    * @param  clearAlphanumeric  Description of the Parameter
+    * @param  nexrad_url         Description of the Parameter
+    * @return                    Description of the Return Value
+    */
+   public boolean loadNexradFile(URL nexrad_url, boolean clearAlphanumeric) {
+      return (loadNexradFile(nexrad_url, clearAlphanumeric, false, false, false));
+   }
+
+
+   /**
+    *  Loads nexrad file into viewer with all options available
+    *  (for use when it is not executed by an animation thread)
+    *
+    * @param  clearAlphanumeric  Description of the Parameter
+    * @param  isAlphaBackground  Description of the Parameter
+    * @param  nexrad_url         Description of the Parameter
+    * @return                    Description of the Return Value
+    */
+   public boolean loadNexradFile(URL nexrad_url, boolean clearAlphanumeric, boolean isAlphaBackground) {
+      return (loadNexradFile(nexrad_url, clearAlphanumeric, isAlphaBackground, false, false));
+   }
+
+
+   /**
+    *  Loads nexrad file into viewer with all options available
+    *  (for use when it is not executed by an animation thread)
+    *
+    * @param  clearAlphanumeric  Description of the Parameter
+    * @param  isAlphaBackground  Description of the Parameter
+    * @param  isAnimation        Description of the Parameter
+    * @param  nexrad_url         Description of the Parameter
+    * @return                    Description of the Return Value
+    */
+   public boolean loadNexradFile(URL nexrad_url, boolean clearAlphanumeric,
+         boolean isAlphaBackground, boolean isAnimation) {
+      return (loadNexradFile(nexrad_url, clearAlphanumeric, isAlphaBackground, isAnimation, false));
+   }
+
+
+   /**
+    *  Loads nexrad file into viewer with all options available
+    *
+    * @param  clearAlphanumeric  Description of the Parameter
+    * @param  isAlphaBackground  Description of the Parameter
+    * @param  isAnimation        Description of the Parameter
+    * @param  resetExtent        Reset the view to the bounds of the nexrad site
+    * @param  nexrad_url         Description of the Parameter
+    * @return                    Description of the Return Value
+    */
+   public boolean loadNexradFile(URL nexrad_url, boolean clearAlphanumeric,
+      boolean isAlphaBackground, boolean isAnimation, boolean resetExtent) {
+
+      return loadNexradFile(nexrad_url, clearAlphanumeric, isAlphaBackground, 
+         isAnimation, resetExtent, null);            
+
+   }
+   
+   
+   /**
+    *  Loads nexrad file into viewer with all options available
+    *
+    * @param  clearAlphanumeric  Clear the alphanumeric layer? 
+    * @param  isAlphaBackground  Is this a background for an alphanumeric?
+    * @param  isAnimation        Is this an animation process?
+    * @param  resetExtent        Reset the view to the bounds of the nexrad site?
+    * @param  nexrad_url         URL of NEXRAD File
+    * @param  rangeModel         BoundedRangeModel from ProgressBar
+    * @return                    Description of the Return Value
+    */
+   public boolean loadNexradFile(URL nexrad_url, boolean clearAlphanumeric,
+         boolean isAlphaBackground, boolean isAnimation, boolean resetExtent,
+         BoundedRangeModel rangeModel) {
+            
+            
+      if (isLoading) {
+          return false;
+      }
+            
+      try {
+
+         System.gc();
+         System.runFinalization();
+
+         this.nexrad_url = nexrad_url;
+         String urlString = nexrad_url.toString();
+         int index;
+         if (urlString.indexOf("/") == -1) {
+            // windows format
+            index = urlString.lastIndexOf((int) '\\');
+         }
+         else {
+            index = urlString.lastIndexOf((int) '/');
+         }
+         this.nexradFile = urlString.substring(index + 1, urlString.length());
+
+         System.out.println("NEXRAD URL: " + nexrad_url);
+         System.out.println("NEXRAD FILE: " + nexradFile);
+
+
+         // Load DPA RasterLayer
+         //                                                 0         1         2         3         4         5         6
+         //                                                 0123456789012345678901234567890123456789012345678901234567890
+         //URL nexrad_url = new URL("http://www1.ncdc.noaa.gov/pub/has/HAS000085249/7000KAKQ_SDUS81_DPAAKQ_200309190001");
+
+         // DETERMINE HERE WHICH KIND OF FILE WE ARE LOOKING AT BY SCANNING THROUGHT THE FILE NAME W/ INDEXOF FOR THE 3LETTER PRODUCT CODE
+
+         //URL nexrad_url = new URL("http://www1.ncdc.noaa.gov/" + nexradFile);
+
+         //================================================================================
+         // Lazy object creation
+         if (nexrad_file == null) {
+            nexrad_file = new FileScanner();
+         }
+         
+         // Transfer file to local tmp area
+         //nexrad_url = NexradTransfer.getURL(nexrad_url);
+
+
+         try {  
+            
+            
+statusBar.setProgressText("Downloading File...");
+
+
+            nexrad_file.scanFile(nexrad_url);
+            // Check for file compression
+            if (nexrad_file.isUNIXZLevel2()) {
+               nexrad_url = Level2Transfer.getNCDCLevel2UNIXZ(nexrad_url);
+               nexrad_file.scanFile(nexrad_url);
+System.out.println("DOWNLOADING .Z : "+nexrad_url);               
+            }
+            else if (nexrad_file.isGZIPLevel2()) {
+               nexrad_url = Level2Transfer.getNCDCLevel2GZIP(nexrad_url);
+               nexrad_file.scanFile(nexrad_url);
+System.out.println("DOWNLOADING .GZ : "+nexrad_url);               
+            }
+            else {
+               // Transfer file to local tmp area -- force overwrite if NWS
+               if (nexrad_file.getNexradFileType() == FileScanner.NEXRAD_LEVEL3_NWS) {
+                  nexrad_url = NexradTransfer.getURL(nexrad_url, true);
+               }               
+               else {
+                  nexrad_url = NexradTransfer.getURL(nexrad_url);
+               }
+               nexrad_file.scanFile(nexrad_url);
+            }
+         } catch (java.net.ConnectException ce) {
+            javax.swing.JOptionPane.showMessageDialog(null, 
+               "Could not connect to "+nexrad_url, 
+               "NEXRAD CONNECTION ERROR", 
+               javax.swing.JOptionPane.ERROR_MESSAGE);
+            return false;
+         }
+         
+statusBar.setProgressText("Decoding File...");
+
+
+
+         
+
+         if (level2Header == null) {
+            level2Header = new DecodeL2Header();
+         }
+         //if (level2ITRHeader == null) {
+         //   level2ITRHeader = new DecodeL2ITRHeader();
+         //}         
+         if (level3Header == null) {
+            level3Header = new DecodeL3Header();
+         }
+         if (xmrgHeader == null) {
+            xmrgHeader = new DecodeXMRGHeader();
+         }
+         
+         
+
+         // Get header
+         System.out.println("---------------- START HEADER DECODE --------------------");
+         if (nexrad_file.getNexradFileType() == FileScanner.NEXRAD_LEVEL2) {
+            level2Header.decodeHeader(nexrad_url);
+         }
+         else if (nexrad_file.getNexradFileType() == FileScanner.NEXRAD_LEVEL3 ||
+            nexrad_file.getNexradFileType() == FileScanner.NEXRAD_LEVEL3_NWS) {
+            level3Header.decodeHeader(nexrad_url);
+         }
+         else if (nexrad_file.getNexradFileType() == FileScanner.NEXRAD_LEVEL3_UNSUPPORTED) {
+            JOptionPane.showMessageDialog(null, "This Level-III NEXRAD Product is not supported with the Java NEXRAD Software.",
+               "NEXRAD LOADING ERROR", JOptionPane.ERROR_MESSAGE);
+            //dataSelect.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            //this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            return false;
+         }
+         else if (nexrad_file.getNexradFileType() == FileScanner.NEXRAD_XMRG) {
+            xmrgHeader.decodeHeader(nexrad_url);
+            //setIsLoading(false);
+            //return false;
+         }
+         else {
+            JOptionPane.showMessageDialog(null, "This is not WSR-88D Level-II, Level-III or XMRG NEXRAD Data",
+                  "NEXRAD LOADING ERROR", JOptionPane.ERROR_MESSAGE);
+               
+            //dataSelect.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            //this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            return false;
+         }
+         System.out.println("---------------- FINISH HEADER DECODE -------------------");
+
+
+         
+         
+         //NexradHeader header; 
+         if (nexrad_file.getNexradFileType() == FileScanner.NEXRAD_LEVEL2) {
+            header = level2Header;
+         }
+         else if (nexrad_file.getNexradFileType() == FileScanner.NEXRAD_LEVEL3 ||
+            nexrad_file.getNexradFileType() == FileScanner.NEXRAD_LEVEL3_NWS) {
+               
+            header = level3Header;
+         }
+         else if (nexrad_file.getNexradFileType() == FileScanner.NEXRAD_XMRG) {
+            header = xmrgHeader;
+         }
+         else {
+            return false;
+         }
+
+         // set NexradHeader info in StatusBar
+         statusBar.setNexradHeader(header);
+
+         
+         nexradBounds = header.getNexradBounds();
+         mapPane.setPreferredArea(nexradBounds);
+
+         
+         if (header.getProductType() != NexradHeader.L3VAD) {
+            if (isVADdisplayed) {
+               mainPanel.remove(vadScrollPane);
+               mainPanel.add(mapScrollPane, "Center");
+               mainPanel.repaint();
+            }
+            isVADdisplayed = false;
+         }               
+               
+               
+               
+               
+               
+               
+               
+               
+         
+         if (resetExtent) {
+            mapPane.setVisibleArea(nexradBounds);
+         }
+
+
+         //================================================================================
+
+         metaPanel.setSize(200, metaPanel.getHeight());
+         metaPanel.validate();
+         infoPanel.validate();
+         mainPanel.validate();
+
+         //================================================================================
+         System.out.println("---------------- START PRODUCT DECODE --------------------");
+
+         // Check for unsupported level-3 product and return if unknown
+         if (nexrad_file.getNexradFileType() == FileScanner.NEXRAD_LEVEL3 ||
+            nexrad_file.getNexradFileType() == FileScanner.NEXRAD_LEVEL3_NWS) {
+               
+            if (level3Header.getProductType() == NexradHeader.UNKNOWN) {
+
+               System.err.println("This product (code=" + level3Header.getProductCode() + ") is not yet supported!");
+
+               return false;
+            }
+
+               // Allow everything to finish repainting
+               if (isAnimation) {
+                  try {                     
+                     Thread.sleep(200);
+                  } catch (Exception e) {
+                     e.printStackTrace();
+                  }
+               }
+            
+            
+            
+            if (level3Header.getProductType() == NexradHeader.L3VAD) {
+               System.out.println("DECODING VAD");
+               
+               
+               if (vadPanel == null) {
+                  vadPanel = new NexradVADPanel();
+                  vadPanel.setBackground(Color.white);
+                  JPanel junkPanel = new JPanel();
+                  junkPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+                  junkPanel.add(vadPanel);
+                  vadScrollPane = new JScrollPane(junkPanel);
+               }
+               vadPanel.setNexradHeader(level3Header);
+               if (!isVADdisplayed) {
+                  mainPanel.remove(mapScrollPane);
+                  mainPanel.add(vadScrollPane, "Center");
+                  vadPanel.repaint();
+                  mainPanel.repaint();
+               }
+
+               NexradLegendLabelFactory.setStandardLegendLabels(metaLabel, level3Header, nexradFile,
+                  NexradLegendLabelFactory.DMS);
+               keyPanel.setNexradHeader(level3Header);
+               keyPanel.repaint();
+               NexradLegendLabelFactory.setSpecialLegendLabels(metaLabel, level3Header, isAlphaBackground);
+            
+               isVADdisplayed = true;
+
+
+
+
+               return true;
+            }
+         
+            // CHECK FOR ALPHANUMERIC PRODUCTS (HAIL, MESO, TVS, STORM STRUCTURE)
+            if (level3Header.getProductType() == NexradHeader.L3ALPHA) {
+               int pcode = level3Header.getProductCode();
+               if (pcode == 58) {
+                  alpha_decoder = new DecodeStormTracking(level3Header);
+               }
+               else if (pcode == 59) {
+                  alpha_decoder = new DecodeHail(level3Header);
+               }
+               else if (pcode == 60) {
+                  alpha_decoder = new DecodeMeso(level3Header);
+               }
+               else if (pcode == 61) {
+                  alpha_decoder = new DecodeTVS(level3Header);
+               }
+               else if (pcode == 62) {
+                  alpha_decoder = new DecodeStormStructure(level3Header);
+               }
+
+               clearNexrad();
+               boolean finished = decodeAlphaNumeric();
+
+               mapPane.setPreferredArea(alpha_decoder.getNexradExtent());
+               if (resetExtent) {
+                  mapPane.setVisibleArea(alpha_decoder.getNexradExtent());
+               }
+
+               keyPanel.setIsUsingHeader(false);
+               keyPanel.repaint();
+
+               for (int n = 11; n < metaLabel.length; n++) {
+                  metaLabel[n].setText("");
+               }  
+
+               return (finished);
+            }
+            else {
+               for (int n = 11; n < metaLabel.length; n++) {
+                  metaLabel[n].setText("");
+               }  
+            }
+
+         
+         }
+
+         //================================================================================
+
+         
+
+         // Remove the alphanumeric layer the layer loading is not for a background
+         if (!isAlphaBackground) {
+            map.removeLayer(mlNexradAlpha);
+            map.removeLayer(mlNexradAlphaTrack);
+            map.removeLayer(mlNexradAlphaLabel);
+         }
+
+
+         //----------------------------------------------------------------------------------------
+         //------ LOAD NEXRAD DATA INTO FEATURE COLLECTION ---------------------
+         //----------------------------------------------------------------------------------------
+
+         System.out.println("NEXRAD FILE TYPE ::: "+nexrad_file.getNexradFileType());
+
+         // set up rasterizer metadata         
+         rasterizer.setLongName(NexradUtilities.getLongName(header));
+         rasterizer.setUnits(NexradUtilities.getUnits(header));
+         
+         
+         if (nexrad_file.getNexradFileType() == FileScanner.NEXRAD_LEVEL2) {
+            
+            for (int n = 11; n < metaLabel.length; n++) {
+               metaLabel[n].setText("");
+            }  
+            
+            
+            
+            
+            
+            if (level2Decoder == null) {
+               level2Decoder = new DecodeL2Nexrad(level2Header, nexradFeatures);
+               level2Decoder.setUseDisplayAttributes(true); // don't need all the extra attributes for display purposes
+            }
+            
+            boolean classify;
+            classify = false;
+            level2Decoder.decodeData(classify, false, Level2Format.REFLECTIVITY, 0, false);
+
+            
+            /*
+               classify = level2Prop.getClassify();
+               int moment = level2Prop.getMoment();
+               int cut = level2Prop.getCut();
+               boolean useRFvalues = level2Prop.getUseRFvalues();
+
+  
+//level2Decoder.decodeData(classify, false, moment, cut, useRFvalues);
+
+               if (nxfilterGUI == null || ! nxfilterGUI.isFilterEngaged()) {
+                  level2Decoder.decodeData(classify, false, moment, cut, useRFvalues);
+               }
+               else {
+                  level2Decoder.decodeData(classify, false, moment, cut, useRFvalues, 
+                     nxfilterGUI.getLevel2Filter(nxfilter));
+               }
+
+               
+               if (nxfilterGUI != null) {
+                  nxfilterGUI.setSelectedTab(NexradFilterGUI.LEVEL2_TAB);
+               }
+            }
+            */
+            // set statusBar elevation
+            statusBar.setNexradElevationAngle(level2Decoder.getLastDecodedCutElevation());
+            
+            
+            
+            nexradFeatures = level2Decoder.getFeatures();
+            nexradSchema = level2Decoder.getFeatureType();
+            
+            // Update legend with standard information
+            NexradLegendLabelFactory.setStandardLegendLabels(metaLabel, level2Header, nexradFile,
+               NexradLegendLabelFactory.DMS);
+            ((NexradLegendPanel) keyPanel).setClassify(classify);
+            ((NexradLegendPanel) keyPanel).setNexradHeader(level2Header);
+            
+            // Close file opened by Level2Format class
+            level2Decoder.getLevel2Format().close();
+            
+            
+            
+            
+            
+         }
+         else if (nexrad_file.getNexradFileType() == FileScanner.NEXRAD_LEVEL3 ||
+            nexrad_file.getNexradFileType() == FileScanner.NEXRAD_LEVEL3_NWS) {
+               
+System.out.println("DECODING ::: "+nexrad_url);
+
+            if (level3Decoder == null) {
+               level3Decoder = new DecodeL3Nexrad(level3Header, nexradFeatures);
+            }
+
+            // Update legend with standard information
+            NexradLegendLabelFactory.setStandardLegendLabels(metaLabel, level3Header, nexradFile,
+               NexradLegendLabelFactory.DMS);
+            ((NexradLegendPanel) keyPanel).setClassify(true);
+            ((NexradLegendPanel) keyPanel).setNexradHeader(level3Header);            
+
+
+            level3Decoder.decodeData(false);
+               
+            // set up status bar info 
+            if (level3Header.getProductCode() == NexradHeader.L3PC_VELOCITY_32NM ||
+                level3Header.getProductCode() == NexradHeader.L3PC_VELOCITY_124NM ||
+                level3Header.getProductCode() == NexradHeader.L3PC_STORM_RELATIVE_VELOCITY_124NM ||
+                level3Header.getProductCode() == NexradHeader.L3PC_SPECTRUM_WIDTH_32NM ||
+                level3Header.getProductCode() == NexradHeader.L3PC_SPECTRUM_WIDTH_124NM ||
+                level3Header.getProductCode() == NexradHeader.L3PC_BASE_REFLECTIVITY_124NM ||
+                level3Header.getProductCode() == NexradHeader.L3PC_BASE_REFLECTIVITY_248NM 
+               ) {
+               statusBar.setNexradElevationAngle(level3Header.getProductSpecificValue(2) / 10.0);
+            }
+            else {
+               statusBar.setNexradElevationAngle(JNXStatusBar.NEXRAD_ELEVATION_UNDEFINED);
+            }
+            
+            
+            
+            
+            
+            nexradFeatures = level3Decoder.getFeatures();
+            nexradSchema = level3Decoder.getFeatureType();
+            
+         }
+         else if (nexrad_file.getNexradFileType() == FileScanner.NEXRAD_XMRG) {
+            
+            statusBar.setNexradElevationAngle(JNXStatusBar.NEXRAD_SITE_UNDEFINED);
+            if (xmrgDecoder == null) {
+               xmrgDecoder = new DecodeXMRGData(xmrgHeader, nexradFeatures);
+            }
+
+            // Update legend with standard information
+            NexradLegendLabelFactory.setStandardLegendLabels(metaLabel, xmrgHeader, nexradFile,
+               NexradLegendLabelFactory.DMS);
+            NexradLegendLabelFactory.setSpecialXMRGLegendLabels(metaLabel, xmrgHeader, xmrgDecoder);
+            ((NexradLegendPanel) keyPanel).setClassify(true);
+            ((NexradLegendPanel) keyPanel).setNexradHeader(xmrgHeader);            
+
+
+            xmrgDecoder.decodeData(true, false, nxfilter);
+
+               
+               
+            nexradFeatures = xmrgDecoder.getFeatures();
+            nexradSchema = xmrgDecoder.getFeatureType();
+            
+            
+            //setIsLoading(false);
+         }
+         else {
+
+            statusBar.setNexradElevationAngle(JNXStatusBar.NEXRAD_SITE_UNDEFINED);
+            JOptionPane.showMessageDialog(null, "General Decode Error 1B",
+                  "NEXRAD LOADING ERROR", JOptionPane.ERROR_MESSAGE);
+
+            return false;
+         }
+
+
+         rasterizer.setDateInMilliseconds(header.getMilliseconds());
+         
+         System.out.println("---------------- FINISH PRODUCT DECODE --------------------");
+
+         
+         // Update keypanel
+         keyPanel.repaint();
+         
+
+         
+         
+         refreshNexrad();         
+
+         metaPanel.validate();
+         infoPanel.validate();
+         mainPanel.validate();
+
+System.out.println(" XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX ");            
+
+         // Set up the metadata panel
+         for (int n = 0; n < metaLabel.length; n++) {
+            //metaLabel[n].setFont(font12);
+            metaLabel[n].setHorizontalAlignment(JLabel.CENTER);
+         }
+
+
+         //nexradBounds = decoder.getNexradExtent();
+         System.out.println("BOUNDS======  " + nexradBounds);
+
+         
+         
+         if (nexrad_file.getNexradFileType() == FileScanner.NEXRAD_LEVEL2) {
+            NexradLegendLabelFactory.setSpecialLevel2LegendLabels(metaLabel, level2Header, level2Decoder);
+         }
+         else if (nexrad_file.getNexradFileType() == FileScanner.NEXRAD_XMRG) {
+            NexradLegendLabelFactory.setSpecialXMRGLegendLabels(metaLabel, xmrgHeader, xmrgDecoder);
+         }
+         else {
+            NexradLegendLabelFactory.setSpecialLegendLabels(metaLabel, level3Header, isAlphaBackground);
+         }
+         
+         
+
+      } catch (DecodeException nde) {
+         JOptionPane.showMessageDialog(null, (Object) nde.toString()+"\n URL: "+nexrad_url,
+               "NEXRAD DECODE EXCEPTION", JOptionPane.ERROR_MESSAGE);
+         statusBar.setProgressText("");
+      } catch (Exception me) {
+         me.printStackTrace();
+         statusBar.setProgressText("");
+         return false;
+      } 
+      return true;
+   }
+
+
+   // END METHOD loadNexradFile
+
+   //================================================================================
+   //================================================================================
+
+   
+   /**
+    *  Description of the Method
+    *
+    * @return    Description of the Return Value
+    */
+   private boolean decodeAlphaNumeric() {
+
+      try {
+
+         System.out.println("DECODING ALPHA!");
+
+
+         // Set up product unique stuff
+         NexradLegendLabelFactory.setStandardLegendLabels(metaLabel, level3Header, nexradFile,
+            NexradLegendLabelFactory.DMS);
+         alphaSymbol = NexradLegendLabelFactory.setAlphaLegendLabels(metaLabel, level3Header, alpha_decoder);
+
+         System.out.println("NUMBER OF ALPHA FEATURES: " + alpha_decoder.getFeatures().size());
+
+
+         Style alphaTrackStyle = sb.createStyle(sb.createLineSymbolizer(new Color(220, 220, 220), .5));
+
+         map.removeLayer(mlNexradAlphaTrack);
+         if (alpha_decoder.getLineFeatures() != null) {
+            mlNexradAlphaTrack = new DefaultMapLayer(alpha_decoder.getLineFeatures(), alphaTrackStyle);
+            map.addLayer(mlNexradAlphaTrack);
+         }
+
+         Style alphaStyle;
+
+         if (alpha_decoder.getLineFeatures() != null) {
+
+            Rule rules[] = new Rule[5];
+            alphaStyle = sb.createStyle();
+            Color startColor = new Color(220, 220, 220);
+            try {
+               BetweenFilter filters[] = new BetweenFilter[rules.length];
+               FilterFactory ffi = FilterFactory.createFilterFactory();
+
+               Color color = new Color(startColor.getRGB());
+               // Create standard filter for all products except DPA
+               for (int i = 0; i < rules.length; i++) {
+
+                  filters[i] = ffi.createBetweenFilter();
+                  Mark alphaTrackMark = sb.createMark(alpha_decoder.getDefaultSymbol(), color, color, 1);
+                  Graphic grAlphaTrack = sb.createGraphic(null, alphaTrackMark, null);
+                  rules[i] = sb.createRule(sb.createPointSymbolizer(grAlphaTrack));
+
+                  filters[i].addLeftValue(sb.literalExpression(i * 15));
+                  filters[i].addRightValue(sb.literalExpression((i + 1) * 15));
+                  filters[i].addMiddleValue(ffi.createAttributeExpression(alpha_decoder.getFeatureType(), "time"));
+                  rules[i].setFilter(filters[i]);
+
+                  alphaStyle.addFeatureTypeStyle(sb.createFeatureTypeStyle(null, rules[i]));
+
+                  color = color.darker();
+               }
+            } catch (Exception e) {
+               e.printStackTrace();
+            }
+
+         }
+         else {
+            Mark alphaMark = sb.createMark(alpha_decoder.getDefaultSymbol(), new Color(220, 220, 220), new Color(220, 220, 220), 1);
+            Graphic grAlpha = sb.createGraphic(null, alphaMark, null);
+            alphaStyle = sb.createStyle(sb.createPointSymbolizer(grAlpha));
+         }
+
+         map.removeLayer(mlNexradAlpha);
+         mlNexradAlpha = new DefaultMapLayer(alpha_decoder.getFeatures(), alphaStyle);
+         map.addLayer(mlNexradAlpha);
+
+
+         org.geotools.styling.Font font = sb.createFont(new Font("Arial", Font.PLAIN, 12));
+         TextSymbolizer tsAlphaLabel = sb.createTextSymbolizer(new Color(220, 220, 220), font, "id");
+         tsAlphaLabel.setLabelPlacement(sb.createPointPlacement(0.0, 0.0, 5.0, -5.0, 0.0));
+         tsAlphaLabel.setHalo(sb.createHalo(Color.BLACK, .7, 2.2));
+         Style alphaLabelStyle = sb.createStyle(tsAlphaLabel);
+
+         map.removeLayer(mlNexradAlphaLabel);
+         mlNexradAlphaLabel = new DefaultMapLayer(alpha_decoder.getFeatures(), alphaLabelStyle);
+         map.addLayer(mlNexradAlphaLabel);
+
+
+         // Repaint the legend panel
+         mainPanel.validate();
+         infoPanel.repaint();
+
+
+         return true;
+      } catch (Exception e) {
+         e.printStackTrace();
+         return false;
+      }
+   }
+   
+   public NexradMapPaneZoomChange getNexradMapPaneZoomChange() {
+      return nxZoomChange;
+   }
+   
+   public StyledMapPane getMapPane() {
+      return mapPane;
+   }
+
+   public void refreshWMSBackground(int index, int type) {
+      refreshWMSBackground(index, type, null, 2);
+   }
+   
+   public void refreshWMSBackground(int index, int type, String layers) {
+      refreshWMSBackground(index, type, layers, 2);
+   }
+   public void refreshWMSBackground(int index, int type, String layers, int numRetries) {
+      
+      for (int n=0; n<numRetries; n++) {
+         
+         // GET WMS DATA
+         try {         
+             WMSData wms = new WMSData();
+             
+               //wmsRGC[index].dispose();
+               wmsRGC[index].setGridCoverage(wms.getGridCoverage(
+               type, layers, this.getCurrentExtent(), 
+               mapPane.getNexradZoomableBounds(new java.awt.Rectangle())));
+            
+            wmsRGC[index].setVisible(true);
+            n = numRetries; // don't retry     
+         } catch (WMSException niae) {
+            if (n == numRetries - 1) { // last time
+               String message = niae.getMessage();
+               javax.swing.JOptionPane.showMessageDialog(null, message, "WMS ERROR", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
+      }
+   }
+   
+   public void setNexradTransparency(int alphaChannelValue) {
+      setNexradTransparency(alphaChannelValue, this.rasterizer);
+   }
+   
+   public void setNexradTransparency(int alphaChannelValue, NexradRasterizer rasterizer) {
+      try {
+         nexradAlphaChannelValue = alphaChannelValue;
+         // Update raster rendered grid coverage
+         if (nexradRGC != null && rasterizer != null && header != null) {
+            //nexradRGC.setGridCoverage(rasterizer.getGridCoverage(header, 
+            //   NexradColorFactory.getTransparentColors(header.getProductCode(), nexradAlphaChannelValue)));
+            if (nexrad_file.getNexradFileType() == FileScanner.NEXRAD_LEVEL2) {
+
+               //boolean classify = (level2Prop == null) ? false : level2Prop.getClassify();
+               boolean classify = false;
+
+               //nexradRGC.dispose();
+               nexradRGC.setGridCoverage(rasterizer.getGridCoverage(header, classify,  
+                  NexradColorFactory.getTransparentColors(header.getProductCode(), classify, nexradAlphaChannelValue)));
+            }
+            else {
+               //nexradRGC.dispose();
+               nexradRGC.setGridCoverage(rasterizer.getGridCoverage(header, true,  
+                  NexradColorFactory.getTransparentColors(header.getProductCode(), true, nexradAlphaChannelValue)));
+            }
+
+            // Update the polygon map layer
+            //1//Style nexradStyle = getNexradPolygonStyle(header);
+            //1//mlNexrad.setStyle(nexradStyle);
+         }
+
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+   
+   public int getNexradTransparency() {
+      return nexradAlphaChannelValue;
+   }
+   
+
+   public void setSmoothing(boolean isSmoothing) {
+      try {
+         this.isSmoothing = isSmoothing;
+         rasterizer.setSmoothing(isSmoothing);
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+      
+   }
+   public boolean isSmoothing() {
+      return isSmoothing;
+   }
+   
+   /**
+    * Sets the range rings given the range ring feature collection (0-360 degrees)
+    *
+    * @return  nexrad_file  The current NexradFile
+    */
+    public void setRangeRings(double minDistance, double maxDistance, double ringIncrement,
+      int distUnits, Color ringColor, int ringSize, boolean label) {
+
+      setRangeRings(minDistance, maxDistance, ringIncrement, distUnits, 0.0, 360.0, -1.0, 
+         ringColor, ringSize, label);
+    }
+   /**
+    * Sets the range rings given the range ring feature collection
+    *
+    * @return  nexrad_file  The current NexradFile
+    */
+    public void setRangeRings(double minDistance, double maxDistance, double ringIncrement,
+      int distUnits, double startAzimuth, double endAzimuth, double spokeIncrement, 
+      Color ringColor, int ringSize, boolean label) {
+       
+       if (header == null) {
+          javax.swing.JOptionPane.showMessageDialog(null, 
+          "-- No NEXRAD File Has Been Loaded --", 
+          "NEXRAD RANGE RING ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);          
+          return;
+       }
+       
+//System.out.println("setRangeRings ::: LAT: "+header.getLat()+" LON: "+header.getLon());
+//System.out.println("setRangeRings ::: minDistance: "+minDistance+" max: "+maxDistance);
+       
+       if (nexrad_file.getNexradFileType() == FileScanner.NEXRAD_XMRG) {
+          javax.swing.JOptionPane.showMessageDialog(null, "Range Rings are not applicable for this product.", 
+            "RANGE RINGS", javax.swing.JOptionPane.ERROR_MESSAGE);          
+          return;
+       }
+       
+       rangeRingFeatures = RangeRings.getRangeRingFeatures(
+          header.getRadarCoordinate(),
+          minDistance, maxDistance, ringIncrement, distUnits,
+          startAzimuth, endAzimuth, spokeIncrement,
+          rangeRingFeatures);
+         
+      try {
+         //Style rangeRingStyle = sb.createStyle(sb.createLineSymbolizer(ringColor, ringSize));
+         
+         if (label) {
+            org.geotools.styling.Font font = sb.createFont(fontArray[0]);
+            TextSymbolizer tsRangeRings = sb.createTextSymbolizer(ringColor, font, "label");
+            //tsRangeRings.setLabelPlacement(sb.createPointPlacement(0.0, 0.0, 5.0, -5.0, 0.0));
+            tsRangeRings.setHalo(sb.createHalo(Color.BLACK, .7, 2.2));
+            Rule rangeRingRule = sb.createRule(new Symbolizer[] {
+               sb.createLineSymbolizer(ringColor, ringSize), 
+               tsRangeRings
+            });
+         
+            Style rangeRingStyle = sb.createStyle();
+            rangeRingStyle.addFeatureTypeStyle(sb.createFeatureTypeStyle(null, rangeRingRule));
+         
+            mlNexradRangeRings.setStyle(rangeRingStyle);
+         }
+         else {
+            Style rangeRingStyle = sb.createStyle(sb.createLineSymbolizer(ringColor, ringSize));
+            mlNexradRangeRings.setStyle(rangeRingStyle);
+         }
+         
+         mlNexradRangeRings.setVisible(false);
+         mlNexradRangeRings.setVisible(true);
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+      
+System.out.println("NEXVIEW: SETTING RANGE RINGS");      
+         
+    }
+    
+    public FeatureCollection getRangeRings() {
+       return rangeRingFeatures;
+    }
+   
+   
+   
+   
+   /**
+    *  Gets the nexrad_file attribute of the NexradIAViewer object
+    *
+    * @return  nexrad_file  The current NexradFile
+    */
+   public FileScanner getNexradFile() { 
+      return nexrad_file;
+   }
+   
+   /**
+    *  Gets the level2Header attribute of the NexradIAViewer object
+    *
+    * @return  level2Header  The current DecodeL2Header
+    */
+   public DecodeL2Header getLevel2Header() { 
+      return level2Header;
+   }
+   
+   /**
+    *  Gets the level3Header attribute of the NexradIAViewer object
+    *
+    * @return  level3Header  The current DecodeL3Header
+    */
+   public DecodeL3Header getLevel3Header() { 
+      return level3Header;
+   }
+   
+   /**
+    *  Gets the generic header interface that represents the last decoded file.
+    *
+    * @return  header  The current header loaded into the viewer
+    */
+   public NexradHeader getNexradHeader() { 
+      return header;
+   }
+   
+   /**
+    *  Gets the level2Decoder attribute of the NexradIAViewer object
+    *
+    * @return  level2Decoder  The current DecodeL2Nexrad
+    */
+   public DecodeL2Nexrad getLevel2Decoder() { 
+      return level2Decoder;
+   }
+   
+   /**
+    *  Gets the level3Decoder attribute of the NexradIAViewer object
+    *
+    * @return  level3Decoder  The current DecodeL3Nexrad
+    */
+   public DecodeL3Nexrad getLevel3Decoder() { 
+      return level3Decoder;
+   }
+
+   /**
+    *  Gets the NexradFilter attribute of the NexradIAViewer object
+    *
+    * @return  nxfilter  The current NexradFilter
+    */
+   public NexradFilter getNexradFilter() { 
+      return nxfilter;
+   }
+
+
+   /**
+    *  Gets the MapContext attribute of the NexradIAViewer object
+    *
+    * @return  map  The current MapContext
+    */
+   public MapContext getMapContext() { 
+      return map;
+   }
+
+
+   public JNXStatusBar getStatusBar() {
+      return statusBar;
+   }
+
+   /**
+    *  Gets the current NEXRAD Feature Collection loaded into the viewer.
+    *
+    * @return    The nexradFeatures object
+    */
+   public FeatureCollection getNexradFeatures() {
+      return nexradFeatures;
+   }
+   
+   /**
+    *  Gets the base map layers currently loaded into the viewer.
+    *
+    * @return    Vector of DefaultMapLayers
+    */
+   public Vector getBaseMapLayers() {
+      return baseMapThemes;
+   }
+   
+   
+   
+   /**
+    *  Sets the nexradGridCoverage attribute of the NexradIAViewer object.
+    *
+    * @param  gc  The new nexradGridCoverage value
+    */
+   public void setNexradGridCoverage(GridCoverage gc) {
+      try {
+         //nexradRGC.dispose();
+         nexradRGC.setGridCoverage(gc);
+         
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+
+   /**
+    *  Gets the nexradRenderedGridCoverage attribute of the NexradIAViewer object.
+    *
+    * @return  gc  The nexradRenderedGridCoverage value
+    */
+   public RenderedGridCoverage getNexradRenderedGridCoverage() {
+      return nexradRGC;
+   }
+
+   /**
+    *  Sets the visibility of the NEXRAD GridCoverage.
+    *
+    * @param  gc  The new nexradGridCoverage value
+    */
+   public void setNexradGridCoverageVisibility(boolean isVisible) {
+      try {
+         nexradRGC.setVisible(isVisible);
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+   
+   
+   /**
+    *  Returns the array of JLabels that populate the Metadata panel
+    */
+   public JLabel[] getMetaLabels() {
+      return metaLabel;
+   }
+
+   /**
+    *  Sets the graphical color-scheme legend for Metadata Panel using a NexradHeader object.
+    *
+    * @param  header The NexradHeader object to use to set the legend
+    */
+   public void setNexradLegendHeader(NexradHeader header) {
+      ((NexradLegendPanel) keyPanel).setNexradHeader(header);
+      keyPanel.repaint();
+   }
+   
+   /**
+    *  Sets the graphical color-scheme legend for Metadata Panel using a NexradHeader object.
+    *
+    * @param  header The NexradHeader object to use to set the legend
+    */
+   public void setNexradLegendClassify(boolean classify) {
+      ((NexradLegendPanel) keyPanel).setClassify(classify);
+      keyPanel.repaint();
+   }
+
+   
+   
+   public void setCoordinateSystem(CoordinateSystem cs) {
+      try {
+         mapPane.setCoordinateSystem(cs);
+      } catch (Exception e) {
+         e.printStackTrace();
+         javax.swing.JOptionPane.showMessageDialog(null, "Coordinate System Error", 
+            "CS ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);         
+      }
+   }
+   
+   public CoordinateSystem getCoordinateSystem() {
+      return mapPane.getCoordinateSystem();
+   }
+   
+   
+   
+   
+   
+   
+   /**
+    *  Description of the Method
+    */
+   public void validateAll() {
+      metaPanel.validate();
+      infoPanel.validate();
+      mainPanel.validate();
+   }
+
+
+   /**
+    *  Description of the Method
+    */
+   public void clearNexrad() {
+      // Remove the existing nexrad theme
+      try {
+         nexradRGC.setVisible(false);
+         nexradFeatures.clear();
+         map.removeLayer(mlNexradAlpha);
+         map.removeLayer(mlNexradAlphaLabel);
+         map.removeLayer(mlNexradAlphaTrack);
+
+      } catch (Exception e) {
+         System.out.println("CAUGHT EXCEPTION WHILE CLEARING NEXRAD DATA: " + e);
+      }
+   }
+
+
+   /**
+    *  Description of the Method
+    */
+   public void clearAllNexrad() {
+      clearNexrad();
+      map.removeLayer(mlNexradAlpha);
+      map.removeLayer(mlNexradAlphaTrack);
+      map.removeLayer(mlNexradAlphaLabel);
+   }
+
+
+   /**
+    * Gets the current timestamp (YYYYMMDD HH:MM) for the most recently loaded nexradfile
+    *
+    * @return    The currentNexradTimestamp value
+    */
+   public String getCurrentNexradTimestamp() {
+      try {
+         return (FileScanner.quickScan(nexradFile)[FileScanner.RETURN_ARRAY_ELEMENT_TIMESTAMP]);
+      } catch (Exception e) {
+         return "";
+      }
+   }
+
+
+   /**
+    * Gets the current type for the most recently loaded nexradfile
+    *
+    * @return    The currentNexradTypeString value
+    */
+   public String getCurrentNexradTypeString() {
+      return (metaLabel[0].getText());
+   }
+
+   /**
+    * Gets the current type for the most recently loaded nexradfile <br>
+    * Types defined in NexradHeader interface
+    *
+    * @return    The currentNexradType value
+    */
+   public int getCurrentNexradType() {
+      try {      
+         return (header.getProductType());
+      } catch (Exception e) {
+         return NexradHeader.UNKNOWN;
+      }
+   }
+
+   
+
+   /**
+    * Gets the current site id for the most recently loaded nexradfile (4-letter id)
+    *
+    * @return    The currentNexradSiteID value
+    */
+   public String getCurrentNexradSiteID() {
+      try {
+         return (FileScanner.quickScan(nexradFile)[FileScanner.RETURN_ARRAY_ELEMENT_DISPLAYNAME].substring(0, 4));
+      } catch (Exception e) {
+         return "ERR1";
+      }
+   }
+
+   /**
+    * Gets the alphanumeric map layer
+    *
+    * @return    The alphanumericTheme value
+    */
+   public MapLayer getAlphanumericMapLayer() {
+      return mlNexradAlpha;
+   }
+
+
+   /**
+    * Gets the alphanumeric supplemental data for the specified vector index (0 to n)
+    *
+    * @param  index  "page" number
+    * @return        Vector of Strings that represent the lines in the page
+    */
+   public String getAlphanumericSupplemental(int index) {
+      return (alpha_decoder.getSupplementalData(index));
+   }
+
+
+   /**
+    * Gets the current full filename for the most recently loaded nexradfile
+    *
+    * @return    The currentNexradFilename value
+    */
+   public String getCurrentNexradFilename() {
+      return (nexradFile);
+   }
+
+   /**
+    * Gets the current URL for the most recently loaded nexradfile
+    *
+    * @return    The currentNexradURL value
+    */
+   public URL getCurrentNexradURL() {
+      return (nexrad_url);
+   }
+
+
+
+
+   /**
+    *  Gets the alphanumericDecoder attribute of the NexradIAViewer object
+    *
+    * @return    The alphanumericDecoder value
+    */
+   public DecodeL3Alpha getAlphanumericDecoder() {
+      return alpha_decoder;
+   }
+
+
+   /**
+    * Show both the alphanumeric themes
+    *
+    * @param  on  The new showAlphanumericThemes value
+    */
+   public void setShowAlphanumericThemes(boolean on) {
+      try {
+         mlNexradAlpha.setVisible(on);
+         mlNexradAlphaTrack.setVisible(on);
+         mlNexradAlphaLabel.setVisible(on);
+      } catch (Exception e) {}
+   }
+
+
+   /**
+    * Show the alphanumeric points
+    *
+    * @param  on  The new showAlphanumericPoints value
+    */
+   public void setShowAlphanumericPoints(boolean on) {
+      try {
+         mlNexradAlpha.setVisible(on);
+      } catch (Exception e) {}
+   }
+
+
+   /**
+    * Show the alphanumeric labels
+    *
+    * @param  on  The new showAlphanumericLabels value
+    */
+   public void setShowAlphanumericLabels(boolean on) {
+      try {
+         mlNexradAlphaLabel.setVisible(on);
+      } catch (Exception e) {}
+   }
+
+
+   /**
+    * Show the alphanumeric labels
+    *
+    * @param  on  The new showAlphanumericLabels value
+    */
+   public void setShowAlphanumericTracks(boolean on) {
+      try {
+         mlNexradAlphaTrack.setVisible(on);
+      } catch (Exception e) {}
+   }
+
+
+
+   /**
+    * Gets the alphanumeric line width (both points and labels)
+    *
+    * @return    The alphanumericLineWidth value
+    */
+   public int getAlphanumericLineWidth() {
+      try {
+
+         return alphaLineWidth;
+         /*
+          *  MapLayer ml = mlNexradAlpha;
+          *  FeatureTypeStyle[] fts = ml.getStyle().getFeatureTypeStyles();
+          *  Class geometryClass = ml.getFeatureSource().getSchema().getDefaultGeometry().getType();
+          *  if (Point.class.isAssignableFrom(geometryClass)
+          *  || MultiPoint.class.isAssignableFrom(geometryClass)) {
+          *  Symbolizer[] symbs = fts[0].getRules()[0].getSymbolizers();
+          *  for (int i=0; i<symbs.length; i++)
+          *  if (symbs[i] instanceof PointSymbolizer) {
+          *  / THIS SEEMS TO RETURN THE SAME THING ALL THE TIME
+          *  /System.out.println("MARK SIZE: "+((PointSymbolizer)symbs[i]).getGraphic().getMarks()[0].getSize());
+          *  System.out.println("*********" + ((PointSymbolizer)symbs[i]).getGraphic().getMarks()[0].getSize().toString());
+          *  return (Integer.parseInt(((PointSymbolizer)symbs[i]).getGraphic().getMarks()[0].getSize().toString())/2);
+          *  }
+          *  / Return white if we can't find a PointSymbolizer (shouldn't happen)
+          *  return (1);
+          *  } else {
+          *  Symbolizer symb = fts[0].getRules()[0].getSymbolizers()[0];
+          *  try {
+          *  return (int)(Float.parseFloat(((LineSymbolizer)symb).getStroke().getWidth().toString()));
+          *  } catch (Exception e) {
+          *  return (int)(Float.parseFloat(((PolygonSymbolizer)symb).getStroke().getWidth().toString()));
+          *  }
+          *  }
+          */
+      } catch (NullPointerException e) {
+         return 0;
+      }
+   }
+
+
+   /**
+    * Gets the alphanumeric line color (both points and labels)
+    *
+    * @return    The alphanumericLineColor value
+    */
+   public Color getAlphanumericLineColor() {
+      try {
+         return alphaLineColor;
+         /*
+          *  MapLayer ml = mlNexradAlpha;
+          *  FeatureTypeStyle[] fts = ml.getStyle().getFeatureTypeStyles();
+          *  Class geometryClass = ml.getFeatureSource().getSchema().getDefaultGeometry().getType();
+          *  if (Point.class.isAssignableFrom(geometryClass)
+          *  || MultiPoint.class.isAssignableFrom(geometryClass)) {
+          *  Symbolizer[] symbs = fts[0].getRules()[0].getSymbolizers();
+          *  for (int i=0; i<symbs.length; i++) {
+          *  try {
+          *  return (Color.decode(((PointSymbolizer)symbs[i]).getGraphic().getMarks()[0].getStroke().getColor().toString()));
+          *  } catch (Exception e) {
+          *  }
+          *  }
+          *  / Return white if we can't find a PointSymbolizer (shouldn't happen)
+          *  return (Color.white);
+          *  } else {
+          *  Symbolizer symb = fts[0].getRules()[0].getSymbolizers()[0];
+          *  try {
+          *  return (Color.decode(((LineSymbolizer)symb).getStroke().getColor().toString()));
+          *  } catch (Exception e) {
+          *  return (Color.decode(((PolygonSymbolizer)symb).getStroke().getColor().toString()));
+          *  }
+          *  }
+          */
+      } catch (NullPointerException e) {
+         return (Color.white);
+      }
+   }
+
+
+   /**
+    * Gets the alphanumeric fill color (both points and labels)
+    * (Lets use this to store the monoshader color)
+    *
+    * @return    The alphanumericFillColor value
+    */
+   public Color getAlphanumericFillColor() {
+      try {
+         return alphaFillColor;
+         /*
+          *  MapLayer ml = mlNexradAlpha;
+          *  FeatureTypeStyle[] fts = ml.getStyle().getFeatureTypeStyles();
+          *  Class geometryClass = ml.getFeatureSource().getSchema().getDefaultGeometry().getType();
+          *  if (Point.class.isAssignableFrom(geometryClass)
+          *  || MultiPoint.class.isAssignableFrom(geometryClass)) {
+          *  Symbolizer[] symbs = fts[0].getRules()[0].getSymbolizers();
+          *  for (int i=0; i<symbs.length; i++)
+          *  if (symbs[i] instanceof PointSymbolizer)
+          *  return (Color.decode(((PointSymbolizer)symbs[i]).getGraphic().getMarks()[0].getStroke().getColor().toString()));
+          *  / Return white if we can't find a PointSymbolizer (shouldn't happen)
+          *  return (Color.white);
+          *  } else {
+          *  Symbolizer symb = fts[0].getRules()[0].getSymbolizers()[0];
+          *  try {
+          *  return (Color.decode(((LineSymbolizer)symb).getStroke().getColor().toString()));
+          *  } catch (Exception e) {
+          *  return (Color.decode(((PolygonSymbolizer)symb).getStroke().getColor().toString()));
+          *  }
+          *  }
+          */
+      } catch (NullPointerException e) {
+         return (Color.white);
+      }
+   }
+
+
+   /**
+    * Sets the alphanumeric line width (both points and labels)
+    *
+    * @param  newWidth  The new alphanumericLineWidth value
+    */
+   public void setAlphanumericLineWidth(int newWidth) {
+
+      alphaLineWidth = newWidth;
+
+      try {
+         MapLayer ml = mlNexradAlpha;
+         Class geometryClass = ml.getFeatureSource().getSchema().getDefaultGeometry().getType();
+         if (Point.class.isAssignableFrom(geometryClass)
+                || MultiPoint.class.isAssignableFrom(geometryClass)) {
+
+            if (alpha_decoder.getLineFeatures() != null) {
+
+               Rule rules[] = new Rule[5];
+               Style alphaStyle = sb.createStyle();
+               try {
+                  BetweenFilter filters[] = new BetweenFilter[rules.length];
+                  FilterFactory ffi = FilterFactory.createFilterFactory();
+
+                  Color color = alphaFillColor;
+                  Color linecolor = alphaLineColor;
+                  // Create standard filter for all products except DPA
+                  for (int i = 0; i < rules.length; i++) {
+
+                     filters[i] = ffi.createBetweenFilter();
+                     Mark alphaTrackMark = sb.createMark(alphaSymbol, color, linecolor, newWidth);
+                     Graphic grAlphaTrack = sb.createGraphic(null, alphaTrackMark, null);
+                     rules[i] = sb.createRule(sb.createPointSymbolizer(grAlphaTrack));
+
+                     filters[i].addLeftValue(sb.literalExpression(i * 15));
+                     filters[i].addRightValue(sb.literalExpression((i + 1) * 15));
+                     filters[i].addMiddleValue(ffi.createAttributeExpression(alpha_decoder.getFeatureType(), "time"));
+                     rules[i].setFilter(filters[i]);
+
+                     alphaStyle.addFeatureTypeStyle(sb.createFeatureTypeStyle(null, rules[i]));
+
+                     color = color.darker();
+                     linecolor = linecolor.darker();
+                  }
+                  mlNexradAlpha.setStyle(alphaStyle);
+                  mlNexradAlphaTrack.setStyle(sb.createStyle(sb.createLineSymbolizer(
+                        alphaLineColor, newWidth / 2.0)));
+
+               } catch (Exception e) {
+                  e.printStackTrace();
+               }
+
+            }
+            else {
+
+               Mark wsrMark = sb.createMark(alphaSymbol, alphaLineColor,
+                     alphaLineColor, newWidth);
+               Graphic grWSR = sb.createGraphic(null, wsrMark, null);
+               mlNexradAlpha.setStyle(sb.createStyle(sb.createPointSymbolizer(grWSR)));
+            }
+
+         }
+         else {
+            mlNexradAlpha.setStyle(
+                  sb.createStyle(sb.createLineSymbolizer(alphaLineColor, newWidth)));
+         }
+      } catch (Exception e) {
+         e.printStackTrace();
+         return;
+      }
+   }
+
+
+   /**
+    * Sets the alphanumeric line color (both points and labels)
+    *
+    * @param  newColor  The new alphanumericFillColor value
+    */
+   public void setAlphanumericFillColor(Color newColor) {
+      try {
+
+         alphaFillColor = newColor;
+
+         MapLayer ml = mlNexradAlpha;
+         Class geometryClass = ml.getFeatureSource().getSchema().getDefaultGeometry().getType();
+         if (Point.class.isAssignableFrom(geometryClass)
+                || MultiPoint.class.isAssignableFrom(geometryClass)) {
+
+            if (alpha_decoder.getLineFeatures() != null) {
+
+               Rule rules[] = new Rule[5];
+               Style alphaStyle = sb.createStyle();
+               try {
+                  BetweenFilter filters[] = new BetweenFilter[rules.length];
+                  FilterFactory ffi = FilterFactory.createFilterFactory();
+
+                  Color color = new Color(newColor.getRGB());
+                  Color linecolor = alphaLineColor;
+                  // Create standard filter for all products except DPA
+                  for (int i = 0; i < rules.length; i++) {
+
+                     filters[i] = ffi.createBetweenFilter();
+                     Mark alphaTrackMark = sb.createMark(alphaSymbol, color, linecolor, alphaLineWidth);
+                     Graphic grAlphaTrack = sb.createGraphic(null, alphaTrackMark, null);
+                     rules[i] = sb.createRule(sb.createPointSymbolizer(grAlphaTrack));
+
+                     filters[i].addLeftValue(sb.literalExpression(i * 15));
+                     filters[i].addRightValue(sb.literalExpression((i + 1) * 15));
+                     filters[i].addMiddleValue(ffi.createAttributeExpression(alpha_decoder.getFeatureType(), "time"));
+                     rules[i].setFilter(filters[i]);
+
+                     alphaStyle.addFeatureTypeStyle(sb.createFeatureTypeStyle(null, rules[i]));
+
+                     color = color.darker();
+                     linecolor = linecolor.darker();
+                  }
+                  mlNexradAlpha.setStyle(alphaStyle);
+                  mlNexradAlphaTrack.setStyle(sb.createStyle(sb.createLineSymbolizer(newColor, alphaLineWidth)));
+
+               } catch (Exception e) {
+                  e.printStackTrace();
+               }
+
+            }
+            else {
+
+               Mark wsrMark = sb.createMark(alphaSymbol, newColor,
+                     alphaLineColor, alphaLineWidth);
+               Graphic grWSR = sb.createGraphic(null, wsrMark, null);
+               mlNexradAlpha.setStyle(sb.createStyle(sb.createPointSymbolizer(grWSR)));
+            }
+         }
+         else {
+            mlNexradAlpha.setStyle(sb.createStyle(
+                  sb.createLineSymbolizer(newColor, alphaLineWidth)));
+         }
+
+      } catch (Exception e) {
+         e.printStackTrace();
+         return;
+      }
+   }
+
+
+   /**
+    * Sets the alphanumeric line color (both points and labels)
+    *
+    * @param  newColor  The new alphanumericLineColor value
+    */
+   public void setAlphanumericLineColor(Color newColor) {
+      try {
+
+         alphaLineColor = newColor;
+
+         MapLayer ml = mlNexradAlpha;
+         Class geometryClass = ml.getFeatureSource().getSchema().getDefaultGeometry().getType();
+         if (Point.class.isAssignableFrom(geometryClass)
+                || MultiPoint.class.isAssignableFrom(geometryClass)) {
+
+            if (alpha_decoder.getLineFeatures() != null) {
+
+               Rule rules[] = new Rule[5];
+               Style alphaStyle = sb.createStyle();
+               try {
+                  BetweenFilter filters[] = new BetweenFilter[rules.length];
+                  FilterFactory ffi = FilterFactory.createFilterFactory();
+
+                  Color color = new Color(newColor.getRGB());
+                  Color fillcolor = alphaFillColor;
+                  // Create standard filter for all products except DPA
+                  for (int i = 0; i < rules.length; i++) {
+
+                     filters[i] = ffi.createBetweenFilter();
+                     Mark alphaTrackMark = sb.createMark(alphaSymbol, fillcolor, color, alphaLineWidth);
+                     Graphic grAlphaTrack = sb.createGraphic(null, alphaTrackMark, null);
+                     rules[i] = sb.createRule(sb.createPointSymbolizer(grAlphaTrack));
+
+                     filters[i].addLeftValue(sb.literalExpression(i * 15));
+                     filters[i].addRightValue(sb.literalExpression((i + 1) * 15));
+                     filters[i].addMiddleValue(ffi.createAttributeExpression(alpha_decoder.getFeatureType(), "time"));
+                     rules[i].setFilter(filters[i]);
+
+                     alphaStyle.addFeatureTypeStyle(sb.createFeatureTypeStyle(null, rules[i]));
+
+                     color = color.darker();
+                     fillcolor = fillcolor.darker();
+                  }
+                  mlNexradAlpha.setStyle(alphaStyle);
+                  mlNexradAlphaTrack.setStyle(sb.createStyle(sb.createLineSymbolizer(newColor, alphaLineWidth)));
+
+               } catch (Exception e) {
+                  e.printStackTrace();
+               }
+
+            }
+            else {
+               Mark wsrMark = sb.createMark(alphaSymbol, alphaFillColor,
+                     newColor, alphaLineWidth);
+               Graphic grWSR = sb.createGraphic(null, wsrMark, null);
+               mlNexradAlpha.setStyle(sb.createStyle(sb.createPointSymbolizer(grWSR)));
+            }
+
+         }
+         else {
+            mlNexradAlpha.setStyle(sb.createStyle(
+                  sb.createLineSymbolizer(newColor, alphaLineWidth)));
+         }
+
+         org.geotools.styling.Font font = sb.createFont(new Font("Arial", Font.PLAIN, 12));
+         TextSymbolizer tsAlphaLabel = sb.createTextSymbolizer(newColor, font, "id");
+         tsAlphaLabel.setLabelPlacement(sb.createPointPlacement(0.0, 0.0, 5.0, -5.0, 0.0));
+         tsAlphaLabel.setHalo(sb.createHalo(Color.BLACK, .7, 2.2));
+         Style alphaLabelStyle = sb.createStyle(tsAlphaLabel);
+         mlNexradAlphaLabel.setStyle(alphaLabelStyle);
+
+      } catch (Exception e) {
+         e.printStackTrace();
+         return;
+      }
+   }
+
+
+   /**
+    * Sets the alphanumeric transparency percent (0 to 1)
+    * (Both points and labels)
+    *
+    * @param  transValue  The new alphanumericTransparency value
+    */
+   public void setAlphanumericTransparency(double transValue) {
+
+      alphaTransparency = transValue;
+
+      try {
+         MapLayer ml = mlNexradAlpha;
+         Class geometryClass = ml.getFeatureSource().getSchema().getDefaultGeometry().getType();
+         if (Point.class.isAssignableFrom(geometryClass)
+                || MultiPoint.class.isAssignableFrom(geometryClass)) {
+            Mark wsrMark = sb.createMark(alphaSymbol, alphaFillColor,
+                  alphaLineColor, alphaLineWidth);
+            Graphic grWSR = sb.createGraphic(null, wsrMark, null);
+            grWSR.setOpacity(sb.literalExpression(transValue));
+            System.out.println("SETTING ALPHA TRANS: " + transValue);
+            mlNexradAlpha.setStyle(sb.createStyle(sb.createPointSymbolizer(grWSR)));
+         }
+         else {
+            mlNexradAlpha.setStyle(sb.createStyle(
+                  sb.createLineSymbolizer(alphaLineColor, alphaLineWidth)));
+         }
+
+      } catch (Exception e) {
+         e.printStackTrace();
+         return;
+      }
+   }
+
+
+   /**
+    * Gets the alphanumeric monoshader transparency percent
+    * (0-100) derived from alpha value (0-255) (single color)
+    * (Both points and labels)
+    *
+    * @return    The alphanumericTransparency value
+    */
+   public double getAlphanumericTransparency() {
+      return alphaTransparency;
+   }
+
+
+   /**
+    * Sets the alphanumeric symbol type
+    * (Circle, cross, square, triangle, xmark)
+    *
+    * @param  symbol  The new alphanumericSymbol value
+    */
+   public void setAlphanumericSymbol(String symbol) {
+      try {
+         alphaSymbol = symbol;
+         MapLayer ml = mlNexradAlpha;
+         Class geometryClass = ml.getFeatureSource().getSchema().getDefaultGeometry().getType();
+         if (Point.class.isAssignableFrom(geometryClass)
+                || MultiPoint.class.isAssignableFrom(geometryClass)) {
+
+            if (alpha_decoder.getLineFeatures() != null) {
+
+               Rule rules[] = new Rule[5];
+               Style alphaStyle = sb.createStyle();
+               try {
+                  BetweenFilter filters[] = new BetweenFilter[rules.length];
+                  FilterFactory ffi = FilterFactory.createFilterFactory();
+
+                  Color color = alphaFillColor;
+                  Color linecolor = alphaLineColor;
+                  // Create standard filter for all products except DPA
+                  for (int i = 0; i < rules.length; i++) {
+
+                     filters[i] = ffi.createBetweenFilter();
+                     Mark alphaTrackMark = sb.createMark(alphaSymbol, color, linecolor, alphaLineWidth);
+                     Graphic grAlphaTrack = sb.createGraphic(null, alphaTrackMark, null);
+                     rules[i] = sb.createRule(sb.createPointSymbolizer(grAlphaTrack));
+
+                     filters[i].addLeftValue(sb.literalExpression(i * 15));
+                     filters[i].addRightValue(sb.literalExpression((i + 1) * 15));
+                     filters[i].addMiddleValue(ffi.createAttributeExpression(alpha_decoder.getFeatureType(), "time"));
+                     rules[i].setFilter(filters[i]);
+
+                     alphaStyle.addFeatureTypeStyle(sb.createFeatureTypeStyle(null, rules[i]));
+
+                     color = color.darker();
+                     linecolor = linecolor.darker();
+                  }
+                  mlNexradAlpha.setStyle(alphaStyle);
+                  mlNexradAlphaTrack.setStyle(sb.createStyle(sb.createLineSymbolizer(alphaLineColor, alphaLineWidth)));
+
+               } catch (Exception e) {
+                  e.printStackTrace();
+               }
+
+            }
+            else {
+
+               Mark wsrMark = sb.createMark(symbol, alphaFillColor,
+                     alphaLineColor, alphaLineWidth);
+               Graphic grWSR = sb.createGraphic(null, wsrMark, null);
+               mlNexradAlpha.setStyle(sb.createStyle(sb.createPointSymbolizer(grWSR)));
+            }
+
+         }
+         else {
+            mlNexradAlpha.setStyle(sb.createStyle(
+                  sb.createLineSymbolizer(alphaLineColor, alphaLineWidth)));
+         }
+
+      } catch (Exception e) {
+         e.printStackTrace();
+         return;
+      }
+   }
+
+
+   /**
+    * Gets the alphanumeric symbol type (integer ShaderMarker fields)
+    * (Circle, cross, square, triangle, xmark)
+    *
+    * @return    The alphanumericSymbol value
+    */
+   public String getAlphanumericSymbol() {
+      return alphaSymbol;
+   }
+
+
+   /**
+    * Gets the alphanumeric line color (both points and labels)
+    */
+   public void clearNexradAlphaBackground() {
+      try {
+         nexradRGC.setVisible(false);
+         map.removeLayer(mlNexrad);
+         nexradFeatures.clear();
+         /*
+          *  try {
+          *  infoPanel.remove(keyPanel);
+          *  } catch (Exception e) {}
+          */
+         keyPanel.setIsUsingHeader(false);
+         metaLabel[12].setText("");
+         metaLabel[13].setText("");
+         mainPanel.repaint();
+      } catch (Exception e) {}
+      return;
+   }
+
+
+   /**
+    *  Gets the projectionString attribute of the NexradIAViewer object
+    *
+    * @return    The projectionString value
+    */
+   public String getProjectionString() {
+
+      String sproj;
+      switch (projection) {
+          case ALBERS:
+             sproj = "Albers";
+             break;
+          case STEREO:
+             sproj = "Polarstereo";
+             break;
+          case LATLON:
+             sproj = "Latlon";
+             break;
+          case HRAP:
+             sproj = "HRAP";
+             break;
+          default:
+             sproj = "Radar";
+      }
+      return sproj;
+   }
+
+
+   // END METHOD getProjectionString
+
+   /**
+    *  Sets the projection attribute of the NexradIAViewer object
+    *
+    * @param  p  The new projection value
+    */
+   public void setProjection(int p) {
+      return;
+      /*
+       *  if (projection == p) {
+       *  return;
+       *  }
+       *  / Set up units and view properties
+       *  if (p == LATLON) {
+       *  viewProperties.setGeographicUnitsEnabled(true);
+       *  setGeographicUnits(DMS);
+       *  }
+       *  else {
+       *  viewProperties.setGeographicUnitsEnabled(false);
+       *  setGeographicUnits(DECI);
+       *  }
+       *  / Change projection
+       *  if (p == LATLON) {
+       *  projection = LATLON;
+       *  view.setProjection(null);
+       *  try {
+       *  view.setMapExtent(nexradBounds);
+       *  } catch (Exception e) {
+       *  view.setMapExtentFull();
+       *  }
+       *  view.repaint();
+       *  }
+       *  else if (p == ALBERS) {
+       *  projection = ALBERS;
+       *  view.setProjection(new AlbersEquidistant(AlbersEquidistant.CONUS));
+       *  try {
+       *  view.setMapExtent(nexradBounds);
+       *  } catch (Exception e) {
+       *  view.setMapExtentFull();
+       *  }
+       *  view.repaint();
+       *  }
+       *  else if (p == RADAR) {
+       *  projection = RADAR;
+       *  view.setProjection(new AlbersEquidistant(header.getLat() + 8.0, header.getLat() - 8.0,
+       *  header.getLat(), header.getLon(), 1.0));
+       *  try {
+       *  view.setMapExtent(nexradBounds);
+       *  } catch (Exception e) {
+       *  view.setMapExtentFull();
+       *  }
+       *  view.repaint();
+       *  }
+       *  else if (p == STEREO) {
+       *  projection = STEREO;
+       *  view.setProjection(new PolarStereographic());
+       *  try {
+       *  view.setMapExtent(nexradBounds);
+       *  } catch (Exception e) {
+       *  view.setMapExtentFull();
+       *  }
+       *  view.repaint();
+       *  }
+       *  else if (p == HRAP) {
+       *  projection = HRAP;
+       *  view.setProjection(new HRAP());
+       *  try {
+       *  view.setMapExtent(nexradBounds);
+       *  } catch (Exception e) {
+       *  view.setMapExtentFull();
+       *  }
+       *  view.repaint();
+       *  }
+       *  try {
+       *  xydisplay.revalidate();
+       *  } catch (Exception e) {}
+       */
+   }
+
+
+   /**
+    * Sets visibility of active xy coordinates for mouse
+    *
+    * @return    The nexradHighlight value
+    */
+   /*
+    *  public void setXYDisplay(boolean on) {
+    *  try {
+    *  if (on) {
+    *  / Remove any existing listeners
+    *  try {
+    *  view.removeMouseMotionListener(xydisplay);
+    *  view.removeMouseListener(xydisplay);
+    *  view.removeMouseMotionListener(diazdisplay);
+    *  view.removeMouseListener(diazdisplay);
+    *  } catch (Exception e) {}
+    *  view.addMouseMotionListener(xydisplay);
+    *  view.addMouseListener(xydisplay);
+    *  view.addMouseMotionListener(diazdisplay);
+    *  view.addMouseListener(diazdisplay);
+    *  }
+    *  else {
+    *  view.removeMouseMotionListener(xydisplay);
+    *  view.removeMouseListener(xydisplay);
+    *  view.removeMouseMotionListener(diazdisplay);
+    *  view.removeMouseListener(diazdisplay);
+    *  }
+    *  } catch (Exception e) {}
+    *  }
+    */
+   /**
+    *  Gets the nexradHighlight attribute of the NexradIAViewer object
+    *
+    * @return    The nexradHighlight value
+    */
+   public boolean isNexradHighlight() {
+      return nexradHighlights;
+   }
+
+
+
+   /**
+    *  Gets the legendHighlight attribute of the NexradIAViewer object
+    *
+    * @return    The legendHighlight value
+    */
+   public boolean isLegendHighlight() {
+      return legendHighlights;
+   }
+
+
+
+
+   /**
+    * Sets the distance units for the distance/azimuth mouse-over label
+    * Sets to MILES, KM or NAUTICAL_MI (International)
+    *
+    * @param  units  The new distanceUnits value
+    */
+   public void setDistanceUnits(int units) {
+      distUnits = units;
+      //diazdisplay.setUnits(units);
+   }
+
+
+
+   /**
+    * Gets the theme line color for the specified theme in the Theme Vector
+    *
+    * @param  index  Description of the Parameter
+    * @return        The themeLineColor value
+    */
+   public Color getThemeLineColor(int index) {
+      try {
+
+         return ((BaseMapStyleInfo) (baseMapStyleInfo.elementAt(index))).getLineColor();
+      } catch (NullPointerException e) {
+         return (Color.white);
+      }
+   }
+
+
+   // END METHOD getThemeLineColor
+
+   /**
+    * Gets the theme fill color for the specified theme in the Theme Vector
+    *
+    * @param  index  Description of the Parameter
+    * @return        The themeFillColor value
+    */
+   public Color getThemeFillColor(int index) {
+      try {
+
+         return ((BaseMapStyleInfo) (baseMapStyleInfo.elementAt(index))).getFillColor();
+      } catch (NullPointerException e) {
+         return (Color.white);
+      }
+   }
+
+
+   // END METHOD getThemeFillColor
+
+   /**
+    *  Gets the themeLineWidth attribute of the NexradIAViewer object
+    *
+    * @param  index  Description of the Parameter
+    * @return        The themeLineWidth value
+    */
+   public int getThemeLineWidth(int index) {
+      try {
+
+         return ((BaseMapStyleInfo) (baseMapStyleInfo.elementAt(index))).getLineWidth();
+      } catch (NullPointerException e) {
+         return 0;
+      }
+   }
+
+
+   // END METHOD getThemeLineWidth
+
+   /**
+    *  Gets the themeStatus attribute of the NexradIAViewer object
+    *
+    * @param  index  Description of the Parameter
+    * @return        The themeStatus value
+    */
+   public boolean getThemeStatus(int index) {
+      return (baseMapThemes.elementAt(index) != null);
+   }
+
+
+   // END METHOD getThemeStatus
+
+   /**
+    *  Sets the themeLineColor attribute of the NexradIAViewer object
+    *
+    * @param  index     The new themeLineColor value
+    * @param  newColor  The new themeLineColor value
+    */
+   public void setThemeLineColor(int index, Color newColor) {
+      try {
+         ((BaseMapStyleInfo) (baseMapStyleInfo.elementAt(index))).setLineColor(newColor);
+
+         if (index == STATES) {
+            for (int n = 0; n < NUM_LAYERS; n++) {
+               MapLayer ml = ((MapLayer) baseMapLabels.elementAt(n));
+               try {
+                  FeatureTypeStyle[] fts = ml.getStyle().getFeatureTypeStyles();
+                  Style style = sb.createStyle();
+                  for (int m=0; m<fts.length; m++) {
+                  
+                  
+                     Symbolizer[] symbs = fts[m].getRules()[0].getSymbolizers();
+System.out.println("SETTING TEXT LINE SYM STYLE FOR INDEX: "+n);
+                     for (int i = 0; i < symbs.length; i++) {
+                        if (symbs[i] instanceof TextSymbolizer && i != index) {
+                           ((TextSymbolizer) symbs[i]).setFill(sb.createFill(newColor));
+                           ((TextSymbolizer) symbs[i]).setHalo(sb.createHalo(getThemeFillColor(STATES), .7, 2.2));
+
+                        
+                           style.addFeatureTypeStyle(sb.createFeatureTypeStyle(fts[m].getName(), 
+                              new Symbolizer[] { ((TextSymbolizer) symbs[i]) }));
+
+
+                           //((MapLayer) baseMapLabels.elementAt(n)).setStyle(
+                           //      sb.createStyle(((TextSymbolizer) symbs[i])));
+                           //i = symbs.length;
+                        }
+                     }
+                  
+                  }
+                  ((MapLayer) baseMapLabels.elementAt(n)).setStyle(style);
+
+
+
+               } catch (Exception e) {
+               }
+            }
+         }
+
+         /*
+          *  String hexString = "#"+Integer.toHexString(newColor.getRed())+
+          *  Integer.toHexString(newColor.getGreen())+
+          *  Integer.toHexString(newColor.getBlue());
+          *  MapLayer ml = ((MapLayer) baseMapThemes.elementAt(index));
+          *  FeatureTypeStyle[] fts = ml.getStyle().getFeatureTypeStyles();
+          *  Symbolizer symb = fts[0].getRules()[0].getSymbolizers()[0];
+          *  Class geometryClass = ml.getFeatureSource().getSchema().getDefaultGeometry().getType();
+          *  if (LineString.class.isAssignableFrom(geometryClass)
+          *  || MultiLineString.class.isAssignableFrom(geometryClass)) {
+          *  ((LineSymbolizer)symb).getStroke().setColor(sb.literalExpression(hexString));
+          *  return;
+          *  } else if (Point.class.isAssignableFrom(geometryClass)
+          *  || MultiPoint.class.isAssignableFrom(geometryClass)) {
+          *  ((PointSymbolizer)symb).getGraphic().getMarks()[0].getFill().setColor(sb.literalExpression(hexString));
+          *  return;
+          *  } else {
+          *  try {
+          *  ((PolygonSymbolizer)symb).getStroke().setColor(sb.literalExpression(hexString));
+          *  return;
+          *  } catch (Exception e) {
+          *  ((LineSymbolizer)symb).getStroke().setColor(sb.literalExpression(hexString));
+          *  return;
+          *  }
+          *  }
+          */
+         MapLayer ml = ((MapLayer) baseMapThemes.elementAt(index));
+         Class geometryClass = ml.getFeatureSource().getSchema().getDefaultGeometry().getType();
+//         ((MapLayer) baseMapThemes.elementAt(index)).setStyle(sb.createStyle(
+//                               sb.createLineSymbolizer(newColor, getThemeLineWidth(index)-1)));
+         if (Point.class.isAssignableFrom(geometryClass)
+                || MultiPoint.class.isAssignableFrom(geometryClass)) {
+            Mark wsrMark = sb.createMark(StyleBuilder.MARK_CIRCLE, getThemeFillColor(index),
+                  newColor, getThemeLineWidth(index));
+//                               newColor, getThemeLineWidth(index)-1);
+            Graphic grWSR = sb.createGraphic(null, wsrMark, null);
+            ((MapLayer) baseMapThemes.elementAt(index)).setStyle(sb.createStyle(sb.createPointSymbolizer(grWSR)));
+         }
+         else {
+            ((MapLayer) baseMapThemes.elementAt(index)).setStyle(sb.createStyle(
+                  sb.createLineSymbolizer(newColor, getThemeLineWidth(index))));
+//                                   sb.createLineSymbolizer(newColor, getThemeLineWidth(index)-1)));
+         }
+
+         try {
+            ml = ((MapLayer) baseMapLabels.elementAt(index));
+            if (ml != null) {
+               FeatureTypeStyle[] fts = ml.getStyle().getFeatureTypeStyles();
+               Style style = sb.createStyle();
+               for (int m=0; m<fts.length; m++) {
+                  
+                  Symbolizer[] symbs = fts[m].getRules()[0].getSymbolizers();
+                  for (int i = 0; i < symbs.length; i++) {
+                     if (symbs[i] instanceof TextSymbolizer) {
+                        ((TextSymbolizer) symbs[i]).setFill(sb.createFill(newColor));
+                        ((TextSymbolizer) symbs[i]).setHalo(sb.createHalo(getThemeFillColor(STATES), .7, 2.2));
+                        
+                        style.addFeatureTypeStyle(sb.createFeatureTypeStyle(fts[m].getName(), 
+                           new Symbolizer[] { ((TextSymbolizer) symbs[i]) }));
+
+                     }
+                  }
+               }
+            }
+            setLabelVisibility(index, !isLabelVisible(index));
+            setLabelVisibility(index, !isLabelVisible(index));
+         } catch (Exception ee) {
+         }
+
+         setThemeVisibility(index, !isThemeVisible(index));
+         setThemeVisibility(index, !isThemeVisible(index));
+
+
+
+      } catch (Exception e) {
+         e.printStackTrace();
+         return;
+      }
+   }
+
+
+   // END METHOD setThemeLineColor
+
+   /**
+    *  Sets the themeFillColor attribute of the NexradIAViewer object
+    *
+    * @param  index     The new themeFillColor value
+    * @param  newColor  The new themeFillColor value
+    */
+   public void setThemeFillColor(int index, Color newColor) {
+      try {
+         ((BaseMapStyleInfo) (baseMapStyleInfo.elementAt(index))).setFillColor(newColor);
+
+         if (index == STATES) {
+            for (int n = STATES+1; n < NUM_LAYERS; n++) {
+               MapLayer ml = ((MapLayer) baseMapLabels.elementAt(n));
+               try {
+                  FeatureTypeStyle[] fts = ml.getStyle().getFeatureTypeStyles();
+                  Style style = sb.createStyle();
+                  for (int m=0; m<fts.length; m++) {
+                  
+                     Symbolizer[] symbs = fts[m].getRules()[0].getSymbolizers();
+System.out.println("SETTING TEXT SYM FILL STYLE FOR INDEX: "+n);                  
+                     for (int i = 0; i < symbs.length; i++) {
+                        if (symbs[i] instanceof TextSymbolizer && i != index) {
+                           ((TextSymbolizer) symbs[i]).setFill(sb.createFill(newColor));
+                           ((TextSymbolizer) symbs[i]).setHalo(sb.createHalo(getThemeFillColor(STATES), .7, 2.2));
+                        
+                           style.addFeatureTypeStyle(sb.createFeatureTypeStyle(fts[m].getName(), 
+                              new Symbolizer[] { ((TextSymbolizer) symbs[i]) }));
+
+                           //((MapLayer) baseMapLabels.elementAt(n)).setStyle(
+                           //      sb.createStyle(((TextSymbolizer) symbs[i])));
+                           //i = symbs.length;
+                        }
+                     }
+                  }
+               } catch (Exception e) {
+               }
+            }
+         }
+
+         /*
+          *  String hexString = "#"+Integer.toHexString(newColor.getRed())+
+          *  Integer.toHexString(newColor.getGreen())+
+          *  Integer.toHexString(newColor.getBlue());
+          *  MapLayer ml = ((MapLayer) baseMapThemes.elementAt(index));
+          *  FeatureTypeStyle[] fts = ml.getStyle().getFeatureTypeStyles();
+          *  Symbolizer symb = fts[0].getRules()[0].getSymbolizers()[0];
+          *  Class geometryClass = ml.getFeatureSource().getSchema().getDefaultGeometry().getType();
+          *  if (LineString.class.isAssignableFrom(geometryClass)
+          *  || MultiLineString.class.isAssignableFrom(geometryClass)) {
+          *  ((LineSymbolizer)symb).getStroke().setColor(sb.literalExpression(hexString));
+          *  return;
+          *  } else if (Point.class.isAssignableFrom(geometryClass)
+          *  || MultiPoint.class.isAssignableFrom(geometryClass)) {
+          *  ((PointSymbolizer)symb).getGraphic().getMarks()[0].getFill().setColor(sb.literalExpression(hexString));
+          *  return;
+          *  } else {
+          *  try {
+          *  ((PolygonSymbolizer)symb).getStroke().setColor(sb.literalExpression(hexString));
+          *  return;
+          *  } catch (Exception e) {
+          *  ((LineSymbolizer)symb).getStroke().setColor(sb.literalExpression(hexString));
+          *  return;
+          *  }
+          *  }
+          */
+         /*
+          *  JFrame jf = new JFrame();
+          *  MapLayer ml = ((MapLayer) baseMapThemes.elementAt(index));
+          *  FeatureType ftype = ml.getFeatureSource().getSchema();
+          *  FeatureTypeStyle[] fts = ml.getStyle().getFeatureTypeStyles();
+          *  Symbolizer[] symbs = fts[0].getRules()[0].getSymbolizers();
+          *  Fill fill = symb[0].getFill();
+          *  DefaultFillEditor dfe = new DefaultFillEditor(ftype, fill, true);
+          *  jf.getContentPane().add(dfe);
+          *  jf.pack();
+          *  jf.show();
+          */
+         MapLayer ml = ((MapLayer) baseMapThemes.elementAt(index));
+         Class geometryClass = ml.getFeatureSource().getSchema().getDefaultGeometry().getType();
+         //       ((MapLayer) baseMapThemes.elementAt(index)).setStyle(sb.createStyle(
+         //                                 sb.createLineSymbolizer(newColor, getThemeLineWidth(index)-1)));
+         if (Point.class.isAssignableFrom(geometryClass)
+                || MultiPoint.class.isAssignableFrom(geometryClass)) {
+            Mark wsrMark = sb.createMark(StyleBuilder.MARK_CIRCLE, newColor,
+                  getThemeLineColor(index), getThemeLineWidth(index) - 1);
+            Graphic grWSR = sb.createGraphic(null, wsrMark, null);
+            ((MapLayer) baseMapThemes.elementAt(index)).setStyle(sb.createStyle(sb.createPointSymbolizer(grWSR)));
+         }
+         else if (LineString.class.isAssignableFrom(geometryClass)
+                || MultiLineString.class.isAssignableFrom(geometryClass)) {
+            ((MapLayer) baseMapThemes.elementAt(index)).setStyle(sb.createStyle(
+                  sb.createLineSymbolizer(newColor, getThemeLineWidth(index) - 1)));
+         }
+         else {
+            ((MapLayer) baseMapThemes.elementAt(index)).setStyle(sb.createStyle(
+                  sb.createPolygonSymbolizer(newColor, getThemeLineColor(index),
+                  getThemeLineWidth(index) - 1)));
+         }
+
+         try {
+            ml = ((MapLayer) baseMapLabels.elementAt(index));
+            FeatureTypeStyle[] fts = ml.getStyle().getFeatureTypeStyles();
+            Style style = sb.createStyle();
+            for (int m=0; m<fts.length; m++) {
+                  
+               Symbolizer[] symbs = fts[m].getRules()[0].getSymbolizers();
+               for (int i = 0; i < symbs.length; i++) {
+                  if (symbs[i] instanceof TextSymbolizer) {
+                     ((TextSymbolizer) symbs[i]).setFill(sb.createFill(newColor));
+                     ((TextSymbolizer) symbs[i]).setHalo(sb.createHalo(getThemeFillColor(STATES), .7, 2.2));
+
+                     style.addFeatureTypeStyle(sb.createFeatureTypeStyle(fts[m].getName(), 
+                        new Symbolizer[] { ((TextSymbolizer) symbs[i]) }));
+
+                     //((MapLayer) baseMapLabels.elementAt(index)).setStyle(
+                     //      sb.createStyle(((TextSymbolizer) symbs[i])));
+                     //i = symbs.length;
+                  }
+               }
+            }
+            setLabelVisibility(index, !isLabelVisible(index));
+            setLabelVisibility(index, !isLabelVisible(index));
+         } catch (Exception ee) {
+         }
+      } catch (Exception e) {
+         e.printStackTrace();
+         return;
+      }
+
+      setThemeVisibility(index, !isThemeVisible(index));
+      setThemeVisibility(index, !isThemeVisible(index));
+
+      //setThemeVisibility(index, isThemeVisible(index));
+      //if (isThemeVisible(index)) {
+      //   setLabelVisibility(index, isLabelVisible(index));
+      //}
+   }
+
+
+   // END METHOD setThemeFillColor
+
+   /**
+    *  Sets the themeFillColor attribute of the NexradIAViewer object
+    *
+    * @param  index      The new themeFillColor value
+    * @param  fillColor  The new themeFillAndLineColor value
+    * @param  lineColor  The new themeFillAndLineColor value
+    */
+   public void setThemeFillAndLineColor(int index, Color fillColor, Color lineColor) {
+      try {
+         ((BaseMapStyleInfo) (baseMapStyleInfo.elementAt(index))).setLineColor(lineColor);
+         ((BaseMapStyleInfo) (baseMapStyleInfo.elementAt(index))).setFillColor(fillColor);
+
+         if (index == STATES) {
+//            gov.noaa.ncdc.common.SwingWorker worker = new gov.noaa.ncdc.common.SwingWorker() {
+//               public Object construct() {
+                  JFrame frame = new JFrame("Style Update Progress");
+                  JProgressBar progressBar = new JProgressBar(0, NUM_LAYERS);
+                  progressBar.setStringPainted(true);
+                  frame.getContentPane().add(progressBar);
+                  frame.setBounds(10, 10, 300, 50);
+                  frame.show();
+                  for (int n = STATES + 1; n < NUM_LAYERS; n++) {          
+                     progressBar.setValue(n);
+                     progressBar.setString("Updating Style "+n+" of "+NUM_LAYERS+" Layers");
+                     if (n == CITY250 || n == CITY100 || 
+                        n == CITY35 || n == CITY10 || 
+                        n == CITY_SMALL || n == AIRPORTS || 
+                        n == ASOS_AWOS || n == WSR) {
+                           
+                        setThemeFillAndLineColor(n, getThemeFillColor(n), getThemeLineColor(n));
+                     }
+                     else {
+                        setThemeLineColor(n, getThemeLineColor(n));
+                     }
+                  }
+                  frame.dispose();
+                  //return "Done";
+//               }
+//            };
+//            worker.start();                  
+         }
+
+         MapLayer ml = ((MapLayer) baseMapThemes.elementAt(index));
+         Class geometryClass = ml.getFeatureSource().getSchema().getDefaultGeometry().getType();
+//         ((MapLayer) baseMapThemes.elementAt(index)).setStyle(sb.createStyle(
+//                               sb.createLineSymbolizer(lineColor, getThemeLineWidth(index)-1)));
+         if (Point.class.isAssignableFrom(geometryClass)
+                || MultiPoint.class.isAssignableFrom(geometryClass)) {
+            Mark wsrMark = sb.createMark(StyleBuilder.MARK_CIRCLE, fillColor, lineColor, getThemeLineWidth(index) - 1);
+            Graphic grWSR = sb.createGraphic(null, wsrMark, null);
+            ((MapLayer) baseMapThemes.elementAt(index)).setStyle(sb.createStyle(sb.createPointSymbolizer(grWSR)));
+         }
+         else if (LineString.class.isAssignableFrom(geometryClass)
+                || MultiLineString.class.isAssignableFrom(geometryClass)) {
+            ((MapLayer) baseMapThemes.elementAt(index)).setStyle(sb.createStyle(
+                  sb.createLineSymbolizer(lineColor, getThemeLineWidth(index) - 1)));
+         }
+         else {
+            ((MapLayer) baseMapThemes.elementAt(index)).setStyle(sb.createStyle(
+                  sb.createPolygonSymbolizer(fillColor, lineColor, getThemeLineWidth(index) - 1)));
+         }
+         
+         try {
+            ml = ((MapLayer) baseMapLabels.elementAt(index));
+            FeatureTypeStyle[] fts = ml.getStyle().getFeatureTypeStyles();
+            Style style = sb.createStyle();
+            for (int m=0; m<fts.length; m++) {
+                  
+               Symbolizer[] symbs = fts[m].getRules()[0].getSymbolizers();
+               for (int i = 0; i < symbs.length; i++) {
+                  if (symbs[i] instanceof TextSymbolizer) {
+                     ((TextSymbolizer) symbs[i]).setFill(sb.createFill(lineColor));
+                     ((TextSymbolizer) symbs[i]).setHalo(sb.createHalo(getThemeFillColor(STATES), .7, 2.2));
+
+                     style.addFeatureTypeStyle(sb.createFeatureTypeStyle(fts[m].getName(), 
+                        new Symbolizer[] { ((TextSymbolizer) symbs[i]) }));
+
+                     //((MapLayer) baseMapLabels.elementAt(index)).setStyle(
+                     //      sb.createStyle(((TextSymbolizer) symbs[i])));
+                     //i = symbs.length;
+                  }
+               }
+            }
+            setLabelVisibility(index, !isLabelVisible(index));
+            setLabelVisibility(index, !isLabelVisible(index));
+         } catch (Exception ee) {
+         }
+
+         setThemeVisibility(index, !isThemeVisible(index));
+         setThemeVisibility(index, !isThemeVisible(index));
+
+         //setThemeVisibility(index, isThemeVisible(index));
+         //if (isThemeVisible(index)) {
+         //   setLabelVisibility(index, isLabelVisible(index));
+         //}
+         /*
+          *  org.geotools.styling.Font font = sb.createFont(new Font("Arial", Font.PLAIN, 12));
+          *  TextSymbolizer ts = sb.createTextSymbolizer(lineColor, font, "ID");
+          *  if (Point.class.isAssignableFrom(geometryClass)
+          *  || MultiPoint.class.isAssignableFrom(geometryClass)) {
+          *  ts.setLabelPlacement(sb.createPointPlacement(0.0, 0.0, 5.0, -5.0, 0.0));
+          *  }
+          *  else {
+          *  ts.setLabelPlacement(sb.createPointPlacement(0.0, 0.0, 0.0, 0.0, 0.0));
+          *  }
+          *  ts.setHalo(sb.createHalo(Color.BLACK, .7, 2.2));
+          *  Style style = sb.createStyle(ts);
+          *  ((MapLayer) baseMapLabels.elementAt(index)).setStyle(style);
+          */
+      } catch (Exception e) {
+         e.printStackTrace();
+         return;
+      }
+   }
+
+
+   // END METHOD setThemeFillAndLineColor
+
+   /**
+    *  Sets the themeLineWidth attribute of the NexradIAViewer object
+    *
+    * @param  index     The new themeLineWidth value
+    * @param  newWidth  The new themeLineWidth value
+    */
+   public void setThemeLineWidth(int index, int newWidth) {
+      try {
+         ((BaseMapStyleInfo) (baseMapStyleInfo.elementAt(index))).setLineWidth(newWidth);
+
+         /*
+          *  MapLayer ml = ((MapLayer) baseMapThemes.elementAt(index));
+          *  FeatureTypeStyle[] fts = ml.getStyle().getFeatureTypeStyles();
+          *  Symbolizer symb = fts[0].getRules()[0].getSymbolizers()[0];
+          *  Class geometryClass = ml.getFeatureSource().getSchema().getDefaultGeometry().getType();
+          *  if (LineString.class.isAssignableFrom(geometryClass)
+          *  || MultiLineString.class.isAssignableFrom(geometryClass)) {
+          *  ((LineSymbolizer)symb).getStroke().setWidth(sb.literalExpression((float)newWidth+1.0));
+          *  return;
+          *  } else if (Point.class.isAssignableFrom(geometryClass)
+          *  || MultiPoint.class.isAssignableFrom(geometryClass)) {
+          *  ((PointSymbolizer)symb).getGraphic().setSize(sb.literalExpression(newWidth*6.0));
+          *  return;
+          *  } else {
+          *  try {
+          *  ((LineSymbolizer)symb).getStroke().setWidth(sb.literalExpression((float)newWidth+1.0));
+          *  return;
+          *  } catch (Exception e) {
+          *  ((PolygonSymbolizer)symb).getStroke().setWidth(sb.literalExpression((float)newWidth+1.0));
+          *  return;
+          *  }
+          *  }
+          */
+         MapLayer ml = ((MapLayer) baseMapThemes.elementAt(index));
+         Class geometryClass = ml.getFeatureSource().getSchema().getDefaultGeometry().getType();
+//         ((MapLayer) baseMapThemes.elementAt(index)).setStyle(sb.createStyle(
+//                     sb.createLineSymbolizer(getThemeLineColor(index), newWidth)));
+         if (Point.class.isAssignableFrom(geometryClass)
+                || MultiPoint.class.isAssignableFrom(geometryClass)) {
+            Mark wsrMark = sb.createMark(StyleBuilder.MARK_CIRCLE, getThemeLineColor(index),
+                  getThemeLineColor(index), newWidth);
+            Graphic grWSR = sb.createGraphic(null, wsrMark, null);
+            ((MapLayer) baseMapThemes.elementAt(index)).setStyle(
+                  sb.createStyle(sb.createPointSymbolizer(grWSR)));
+         }
+         else {
+            ((MapLayer) baseMapThemes.elementAt(index)).setStyle(
+                  sb.createStyle(sb.createLineSymbolizer(getThemeLineColor(index), newWidth)));
+         }
+
+         setThemeVisibility(index, !isThemeVisible(index));
+         setThemeVisibility(index, !isThemeVisible(index));
+
+      } catch (NullPointerException e) {
+         return;
+      }
+   }
+
+
+   // END METHOD setThemeLineWidth
+
+
+   /**
+    *  Sets the themeVisibility attribute of the NexradIAViewer object
+    *
+    * @param  index  The new themeVisibility value
+    * @param  vis    The new themeVisibility value
+    */
+   public void setThemeVisibility(int index, boolean vis) {
+      try {
+         
+         nxZoomChange.setActive(false);
+
+         // don't unload or reload the background map
+         if (index == STATES) {
+            ((MapLayer) baseMapThemes.elementAt(index)).setVisible(vis);
+            return;
+         }
+         
+         // NEW!  Add layer if not already added to context.
+         if (vis && map.indexOf((MapLayer)baseMapThemes.elementAt(index)) == -1) {
+            map.addLayer(map.getLayerCount()-1-index, (MapLayer)baseMapThemes.elementAt(index));
+            map.removeLayer(map.getLayerCount()-1);
+            
+//javax.swing.JOptionPane.showMessageDialog(null, "INDEX: "+index+"  POS: "+map.indexOf((MapLayer)baseMapThemes.elementAt(index)), 
+//"MARKER", javax.swing.JOptionPane.ERROR_MESSAGE);
+            
+            //((StyledMapRenderer)mapPane.getRenderer()).insertLayer((MapLayer) baseMapThemes.elementAt(index), index);
+            
+            
+         }
+         else {
+            //((StyledMapRenderer)mapPane.getRenderer()).removeLayer((MapLayer) baseMapThemes.elementAt(index));
+            map.removeLayer((MapLayer)baseMapThemes.elementAt(index));
+            map.addLayer(new DefaultMapLayer(org.geotools.feature.FeatureCollections.newCollection(), sb.createStyle()));
+   
+         }
+         
+         
+         System.out.println("SETTING " + index + " TO " + vis);
+         ((MapLayer) baseMapThemes.elementAt(index)).setVisible(vis);
+         
+         updateMemoryLabel();
+         
+         nxZoomChange.setActive(true);
+         
+         return;
+      } catch (Exception e) {
+         e.printStackTrace();
+         return;
+      }
+   }
+
+
+   // END METHOD setThemeVisibility
+
+   /**
+    *  Gets the themeVisibility attribute of the NexradIAViewer object
+    *
+    * @param  index  The new themeVisibility value
+    * @return        The themeVisible value
+    */
+   public boolean isThemeVisible(int index) {
+      try {
+         return ((MapLayer) baseMapThemes.elementAt(index)).isVisible();
+      } catch (NullPointerException e) {
+         return false;
+      }
+   }
+
+
+   // END METHOD isThemeVisibility
+
+   /**
+    *  Sets the labelVisibility attribute of the NexradIAViewer object
+    *
+    * @param  index  The new labelVisibility value
+    * @param  vis    The new labelVisibility value
+    */
+   public void setLabelVisibility(int index, boolean vis) {
+      try {
+         // NEW!  Add layer if not already added to context.
+         //if (map.indexOf((MapLayer)baseMapLabels.elementAt(index)) == -1) {
+         //   map.addLayer(index, (MapLayer)baseMapLabels.elementAt(index));
+            
+//javax.swing.JOptionPane.showMessageDialog(null, "Marker", "MARKER", javax.swing.JOptionPane.ERROR_MESSAGE);
+            
+         //}
+         
+         nxZoomChange.setActive(false);
+         
+         
+         System.out.println("SETTING LABEL " + index + " TO " + vis);
+         if (vis && map.indexOf((MapLayer)baseMapLabels.elementAt(index)) == -1) {
+            map.addLayer(index, (MapLayer)baseMapLabels.elementAt(index));
+            //((StyledMapRenderer)mapPane.getRenderer()).insertLayer((MapLayer) baseMapLabels.elementAt(index), NUM_LAYERS+index);
+            
+//javax.swing.JOptionPane.showMessageDialog(null, "Marker Label", "MARKER", javax.swing.JOptionPane.ERROR_MESSAGE);
+            
+         }
+         else {
+            map.removeLayer((MapLayer)baseMapLabels.elementAt(index));
+            //((StyledMapRenderer)mapPane.getRenderer()).removeLayer((MapLayer) baseMapLabels.elementAt(index));
+         }
+         //((MapLayer) baseMapLabels.elementAt(index)).setVisible(vis);
+         
+         nxZoomChange.setActive(true);
+         
+         
+         updateMemoryLabel();
+         
+         
+         return;
+      } catch (Exception e) {
+         // get any exception
+         return;
+      }
+   }
+
+
+   // END METHOD setLabelVisibility
+
+   /**
+    *  Gets the labelVisibility attribute of the NexradIAViewer object
+    *
+    * @param  index  The new labelVisibility value
+    * @return        The labelVisible value
+    */
+   public boolean isLabelVisible(int index) {
+      try {
+         return ((MapLayer) baseMapLabels.elementAt(index)).isVisible();
+      } catch (Exception e) {
+         // get any exception
+         return false;
+      }
+   }
+   // END METHOD setLabelVisibility
+
+
+   // Eventually add SimpleShapefileLayer object to easily hold the shading information
+   public int getThemeShapeType(int index) {   
+         // TODO: Replace with:
+         // SimpleShapefileLayer sml = ((SimpleShapefileLayer) baseMapThemes.elementAt(index));
+         // return sml.getShapeType();
+         
+         MapLayer ml = ((MapLayer) baseMapThemes.elementAt(index));
+         Class geometryClass = ml.getFeatureSource().getSchema().getDefaultGeometry().getType();
+         if (Point.class.isAssignableFrom(geometryClass)) {
+            return SimpleShapefileLayer.POINT;
+         }
+         else if (MultiPoint.class.isAssignableFrom(geometryClass)) {
+            return SimpleShapefileLayer.MULTIPOINT;
+         }
+         else if (LineString.class.isAssignableFrom(geometryClass)) {
+            return SimpleShapefileLayer.LINE;
+         }
+         else if (MultiLineString.class.isAssignableFrom(geometryClass)) {
+            return SimpleShapefileLayer.MULTILINE;
+         }
+         else if (Polygon.class.isAssignableFrom(geometryClass)) {
+            return SimpleShapefileLayer.POLYGON;
+         }
+         else if (MultiPolygon.class.isAssignableFrom(geometryClass)) {
+            return SimpleShapefileLayer.MULTIPOLYGON;
+         }
+         else {
+            return SimpleShapefileLayer.UNKNOWN;
+         }
+
+   }
+   
+   /**
+    *  Description of the Method
+    *
+    * @param  index  Description of the Parameter
+    */
+   public void removeTheme(int index) {
+      try {
+         //view.removeStaticTheme((Theme) baseMapThemes.elementAt(index));
+         //view.repaint();
+
+         map.removeLayer((MapLayer) baseMapThemes.elementAt(index));
+
+         // Force garbage collection
+         baseMapThemes.setElementAt(null, index);
+         System.gc();
+         return;
+      } catch (NullPointerException e) {
+         return;
+      }
+   }
+
+
+   // END METHOD setThemeLineWidth
+
+   /**
+    *  Gets the backgroundColor attribute of the NexradIAViewer object
+    *
+    * @return    The backgroundColor value
+    */
+   public Color getBackgroundColor() {
+      return mapPane.getBackground();
+   }
+
+
+   /**
+    *  Sets the backgroundColor attribute of the NexradIAViewer object
+    *
+    * @param  c  The new backgroundColor value
+    */
+   public void setBackgroundColor(Color c) {
+      mapPane.setBackground(c);
+      mapPane.setMagnifierGlass(c);
+   }
+
+
+   /**
+    *  Sets the metaLabelFont attribute of the NexradIAViewer object
+    *
+    * @param  font  The new metaLabelFont value
+    */
+   public void setMetaLabelFont(Font font) {
+      for (int i = 0; i < metaLabel.length; i++) {
+         metaLabel[i].setFont(font);
+      }
+   }
+
+
+   /**
+    *  Sets the legendFGColor attribute of the NexradIAViewer object
+    *
+    * @param  fgcolor  The new legendFGColor value
+    */
+   public void setLegendFGColor(Color fgcolor) {
+      for (int i = 0; i < metaLabel.length; i++) {
+         metaLabel[i].setForeground(fgcolor);
+      }
+      keyPanel.setForeground(fgcolor);
+   }
+
+
+   /**
+    *  Sets the legendBGColor attribute of the NexradIAViewer object
+    *
+    * @param  bgcolor  The new legendBGColor value
+    */
+   public void setLegendBGColor(Color bgcolor) {
+      infoPanel.setBackground(bgcolor);
+      metaPanel.setBackground(bgcolor);
+      for (int i = 0; i < metaLabel.length; i++) {
+         metaLabel[i].setBackground(bgcolor);
+      }
+      keyPanel.setBackground(bgcolor);
+   }
+
+
+   /**
+    *  Gets the legendFGColor attribute of the NexradIAViewer object
+    *
+    * @return    The legendFGColor value
+    */
+   public Color getLegendFGColor() {
+      return metaLabel[0].getForeground();
+   }
+
+
+   /**
+    *  Gets the legendBGColor attribute of the NexradIAViewer object
+    *
+    * @return    The legendBGColor value
+    */
+   public Color getLegendBGColor() {
+      return keyPanel.getBackground();
+   }
+
+
+
+   // END METHOD setAnimateEnable
+
+   /**
+    * Calls the loadNexradFile method and returns an AWT Image.
+    * Uses the current extent of the viewer.
+    *
+    * @param  nexrad_url  Description of the Parameter
+    * @return             The viewerAWTImage value
+    */
+   public Image getViewerAWTImage(URL nexrad_url) {
+      return (getViewerAWTImage(nexrad_url, true, false));
+   }
+
+
+   // END METHOD getViewerImage
+
+   /**
+    * Calls the loadNexradFile method and returns an AWT Image.
+    *
+    * @param  curExtent   Description of the Parameter
+    * @param  nexrad_url  Description of the Parameter
+    * @return             The viewerAWTImage value
+    */
+   public Image getViewerAWTImage(URL nexrad_url, boolean curExtent) {
+      return (getViewerAWTImage(nexrad_url, curExtent, false));
+   }
+
+
+   // END METHOD getViewerImage
+
+   /**
+    * Get BufferedImage from a nexrad url (could be local file).
+    * Can create image at current extent (true) or max nexrad extent (false).
+    * Use isAnimation if called from a animation thread
+    *
+    * @param  curExtent    Description of the Parameter
+    * @param  isAnimation  Description of the Parameter
+    * @param  nexrad_url   Description of the Parameter
+    * @return              The viewerAWTImage value
+    */
+   public BufferedImage getViewerBufferedImage(URL nexrad_url, boolean curExtent, boolean isAnimation) {
+
+      if (isAnimation) {
+         loadNexradAnimationFile(nexrad_url);
+      }
+      else {
+         loadNexradFile(nexrad_url);
+      }
+      if (!curExtent) {
+         //view.setMapExtent(nexradBounds);
+      }
+      return (getViewerBufferedImage());
+   }
+
+   /**
+    * Get BufferedImage from a nexrad url (could be local file).
+    * Can create image at current extent (true) or max nexrad extent (false).
+    * Use isAnimation if called from a animation thread 
+    *
+    * @param  curExtent    Description of the Parameter
+    * @param  isAnimation  Description of the Parameter
+    * @param  nexrad_url   Description of the Parameter
+    * @param  rangeModel   RangeModel from a progress bar -- will update this model during processing
+    * @return              The viewerAWTImage value
+    */
+   public BufferedImage getViewerBufferedImage(URL nexrad_url, boolean curExtent, 
+      boolean isAnimation, BoundedRangeModel rangeModel) {
+
+      if (isAnimation) {
+         loadNexradAnimationFile(nexrad_url, rangeModel);
+      }
+      else {
+         loadNexradFile(nexrad_url, rangeModel);
+      }
+      if (!curExtent) {
+         //view.setMapExtent(nexradBounds);
+      }
+      return (getViewerBufferedImage());
+   }
+
+   // END METHOD getViewerImage
+
+   /**
+    * Get AWT Image from a nexrad url (could be local file).
+    * Can create image at current extent (true) or max nexrad extent (false).
+    * Use isAnimation if called from a animation thread
+    *
+    * @param  curExtent    Description of the Parameter
+    * @param  isAnimation  Description of the Parameter
+    * @param  nexrad_url   Description of the Parameter
+    * @return              The viewerAWTImage value
+    */
+   public Image getViewerAWTImage(URL nexrad_url, boolean curExtent, boolean isAnimation) {
+
+      if (isAnimation) {
+         loadNexradAnimationFile(nexrad_url);
+
+         //mapPane.repaint(10000, 0, 0, mapPane.getWidth(), mapPane.getHeight());
+         //while (mapPane.isPaintingTile()) {
+         //   ;
+         //}
+
+
+
+      }
+      else {
+         loadNexradFile(nexrad_url);
+      }
+      if (!curExtent) {
+         //view.setMapExtent(nexradBounds);
+      }
+      return (getViewerAWTImage());
+   }
+
+
+   // END METHOD getViewerImage
+
+   /**
+    * Create a BufferedImage from just the view panel and legend panel (optional).
+    *
+    * @return    The viewerBufferedImage value
+    */
+   public BufferedImage getViewerBufferedImage() {
+      if (isVADdisplayed) {
+         int exportWidth = vadPanel.getWidth();
+         //int exportWidth = vadScrollPane.getViewport().getView().getWidth();
+         if (legendVisible) {
+            exportWidth += infoPanel.getWidth();
+         }
+         int exportHeight = vadPanel.getHeight();
+         //int exportHeight = vadScrollPane.getViewport().getView().getHeight();
+         BufferedImage buffImage = new BufferedImage(exportWidth, exportHeight, BufferedImage.TYPE_INT_RGB);
+         Graphics2D g2 = buffImage.createGraphics();
+         // paint background to legend color
+         g2.setColor(getLegendBGColor());
+         g2.fillRect(0, 0, exportWidth, exportHeight);
+
+         vadPanel.paint(g2);
+         //vadScrollPane.getViewport().getView().paint(g2);
+
+         if (legendVisible) {
+            g2.translate(vadPanel.getWidth(), 0);
+            //g2.translate(vadScrollPane.getViewport().getView().getWidth(), 0);
+            infoPanel.paint(g2);
+         }
+
+         // Draw NOAA logo
+//         if (logo != null) {
+//            g2.drawImage(logo, 5, 5, this);
+//         }
+
+         g2.dispose();
+         
+         
+         return buffImage;
+      }
+      else {
+         int exportWidth = mapPane.getWidth();
+         if (legendVisible) {
+            exportWidth += infoPanel.getWidth();
+         }
+         //int exportHeight = (infoPanel.getHeight() > 0) ? infoPanel.getHeight() : mapPane.getHeight();
+         int exportHeight = mapPane.getHeight();
+         
+exportWidth=400;
+exportHeight=300;
+         
+         BufferedImage buffImage = new BufferedImage(exportWidth, exportHeight, BufferedImage.TYPE_INT_RGB);
+         Graphics2D g2 = buffImage.createGraphics();
+         // paint background to legend color
+         g2.setColor(getLegendBGColor());
+         g2.fillRect(0, 0, exportWidth, exportHeight);
+
+         // Draw NOAA logo
+         if (renderedLogo != null) {
+            mapPane.getRenderer().addLayer(renderedLogo);
+         }
+
+         //mapPane.paint(g2);
+         //mapPane.paint(g2); // do twice just to be sure!
+
+         // Get map pane size
+         java.awt.Rectangle bounds = mapPane.getNexradZoomableBounds(new java.awt.Rectangle());
+
+         // Paint map pane background
+         g2.setColor(mapPane.getBackground());
+         g2.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
+
+         // Paint map pane layers
+         mapPane.getRenderer().paint(g2, bounds, mapPane.getNexradZoom(), true);
+
+         if (legendVisible) {
+            g2.translate(mapPane.getWidth(), 0);
+            infoPanel.paint(g2);
+            infoPanel.paint(g2);
+            // do twice just to be sure!
+
+            //g2.translate(-1*mapPane.getWidth(), mapPane.getHeight()-70);
+            //g2.drawImage(logo, 1, 1, this);
+         }
+
+         // Draw NOAA logo
+         /*
+          *  if (logo != null) {
+          *  g2.translate(-1*mapPane.getWidth(), mapPane.getHeight()-71);
+          *  g2.drawImage(logo, 1, 1, this);
+          *  g2.drawImage(logo, 1, 1, this); // twice just to be sure!
+          *  System.out.println("YES LOGO YES LOGO YES LOGO");
+          *  }
+          *  else {
+          *  System.out.println("NO LOGO NO LOGO NO LOGO");
+          *  }
+          */
+         // Remove NOAA logo
+         if (renderedLogo != null) {
+            mapPane.getRenderer().removeLayer(renderedLogo);
+         }
+
+         g2.dispose();
+         
+         
+         
+         
+/*         
+      // Smooth?
+      int kernelSize = 15;
+      float[] kernelMatrix = new float[kernelSize*kernelSize];
+      for (int k=0; k<kernelMatrix.length; k++) {
+         kernelMatrix[k] = 1.0f/(kernelSize * kernelSize);
+      }   
+      javax.media.jai.KernelJAI kernel = new javax.media.jai.KernelJAI(kernelSize, kernelSize, kernelMatrix);
+      javax.media.jai.PlanarImage output = javax.media.jai.JAI.create("convolve", buffImage, kernel);
+      buffImage = convertRenderedImage(output);
+         
+  */       
+         
+         
+         
+         
+         
+         
+         
+         return buffImage;
+      }
+   }
+
+
+   
+   
+	public BufferedImage convertRenderedImage(RenderedImage img) {
+		if (img instanceof BufferedImage) {
+			return (BufferedImage)img;	
+		}	
+		ColorModel cm = img.getColorModel();
+		int width = img.getWidth();
+		int height = img.getHeight();
+		WritableRaster raster = cm.createCompatibleWritableRaster(width, height);
+		boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
+		Hashtable properties = new Hashtable();
+		String[] keys = img.getPropertyNames();
+		if (keys!=null) {
+			for (int i = 0; i < keys.length; i++) {
+				properties.put(keys[i], img.getProperty(keys[i]));
+			}
+		}
+		BufferedImage result = new BufferedImage(cm, raster, isAlphaPremultiplied, properties);
+		img.copyData(raster);
+		return result;
+	}
+   
+   
+   
+   
+   
+   /**
+    * Create a AWT Image from just the view panel and the legend panel.
+    *
+    * @return    The viewerAWTImage value
+    */
+   public Image getViewerAWTImage() {
+      /*
+       *  if (!legendVisible) {
+       *  Image img = view.getScreenBuffer();
+       *  img = img.getScaledInstance(img.getWidth(null), img.getHeight(null), Image.SCALE_DEFAULT);
+       *  return (img);
+       *  }
+       */
+      BufferedImage buffImage = getViewerBufferedImage();
+
+      try {
+         MediaTracker tracker = new MediaTracker(mainPanel);
+         tracker.addImage(buffImage, 0);
+         tracker.waitForID(0);
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+
+      Image newImage = buffImage.getScaledInstance(buffImage.getWidth(), buffImage.getHeight(), Image.SCALE_DEFAULT);
+      buffImage = null;
+      System.gc();
+
+      try {
+         MediaTracker tracker = new MediaTracker(mainPanel);
+         tracker.addImage(newImage, 0);
+         tracker.waitForID(0);
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+
+      return newImage;
+   }
+
+
+
+
+   /**
+    * Get legend visibility
+    *
+    * @return    The legendVisibility value
+    */
+   public boolean getLegendVisibility() {
+      return legendVisible;
+   }
+
+
+   /**
+    * Set legend visibility
+    *
+    * @param  showLegend  The new legendVisibility value
+    */
+   public void setLegendVisibility(boolean showLegend) {
+      legendVisible = showLegend;
+      if (showLegend) {
+         try {
+            mainPanel.add(infoScrollPane, "East");
+         } catch (Exception e) {}
+      }
+      else {
+         try {
+            mainPanel.remove(infoScrollPane);
+         } catch (Exception e) {}
+      }
+      mainPanel.validate();
+      return;
+   }
+
+
+   /**
+    * Get current viewer extent.
+    *
+    * @return    The currentExtent value
+    */
+   public java.awt.geom.Rectangle2D.Double getCurrentExtent() {
+      return ((java.awt.geom.Rectangle2D.Double) mapPane.getVisibleArea());
+   }
+
+
+   // END METHOD getCurrentExtent
+
+   /**
+    * Get current viewer maximum (reset) extent.
+    *
+    * @return    The maxExtent value
+    */
+   public java.awt.geom.Rectangle2D.Double getMaxExtent() {
+      return ((java.awt.geom.Rectangle2D.Double) mapPane.getPreferredArea());
+   }
+
+
+   // END METHOD getCurrentExtent
+
+   /**
+    * Set current viewer extent.
+    *
+    * @param  curExtent  The new currentExtent value
+    */
+   public void setCurrentExtent(java.awt.geom.Rectangle2D.Double curExtent) {
+      mapPane.setVisibleArea(curExtent);
+      return;
+   }
+
+
+   // END METHOD setCurrentExtent
+
+   /**
+    * Set current viewer max (reset) extent.
+    *
+    * @param  maxExtent  The new maxExtent value
+    */
+   public void setMaxExtent(java.awt.geom.Rectangle2D.Double maxExtent) {
+      mapPane.setPreferredArea(maxExtent);
+      return;
+   }
+
+
+   // END METHOD setCurrentExtent
+
+   /**
+    * Get nexrad extent.
+    *
+    * @return    The nexradExtent value
+    */
+   public java.awt.geom.Rectangle2D.Double getNexradExtent() {
+      return (nexradBounds);
+   }
+
+
+   // END METHOD getNexradExtent
+
+   /**
+    * Save the view and legend to a Postscript (Vector based) file.
+    */
+   public void saveViewToPDF() {
+      /*
+       *  try {
+       *  String outFile = "C:\\Documents and Settings\\steve.ansari\\My Documents\\pdfoutput.pdf";
+       *  int exportWidth = view.getWidth() + infoPanel.getWidth();
+       *  int exportHeight = (infoPanel.getHeight() > 0) ? infoPanel.getHeight() : view.getHeight();
+       *  /Document document = new Document();
+       *  Document document = new Document(PageSize.LETTER.rotate());
+       *  PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(outFile));
+       *  document.open();
+       *  / Create really big AWT Image
+       *  /         Dimension holddim = nexframe.getSize();
+       *  /         nexframe.setVisible(false);
+       *  /         setSize(3400, 2800);
+       *  /         validate();
+       *  com.lowagie.text.Image itextImage = com.lowagie.text.Image.getInstance(getViewerAWTImage(), null);
+       *  /         itextImage.scalePercent(20);
+       *  document.add(itextImage);
+       *  /         setSize(holddim);
+       *  /         nexframe.setVisible(true);
+       */
+      /*
+       *  Graphic grx = new Graphic();
+       *  /PdfContentByte cb = writer.getDirectContent();
+       *  /cb.saveState();
+       *  /cb.concatCTM(1, 0, 0, 1, 0, 0);
+       *  /cb.concatCTM(0, 1, -1, 0, exportWidth, 0); // rotate 90 deg
+       *  /Graphics2D g2 = cb.createGraphics(exportWidth, exportHeight);
+       *  /Graphics2D g2 = cb.createGraphics(exportHeight, exportWidth);
+       *  double scaleFactor = getCurrentExtent().getWidth()/800.0;
+       *  double ulX = getCurrentExtent().getX();
+       *  double ulY = getCurrentExtent().getY()+getCurrentExtent().getHeight();
+       *  / Draw the map backgrounds
+       *  for (int themeCnt=0; themeCnt<baseMapThemes.size(); themeCnt++) {
+       *  /         for (int themeCnt=STATES; themeCnt<STATES+1; themeCnt++) {
+       *  try {
+       *  if (view.isThemeVisible((Theme)baseMapThemes.elementAt(themeCnt)) ) {
+       *  MultiLayer ml = (MultiLayer)(((Theme)baseMapThemes.elementAt(themeCnt)).getLayer());
+       *  System.out.println("MULTILAYER SIZE = "+ml.getLayers().size());
+       *  ShapeLayer l = (ShapeLayer)(ml.getLayers().elementAt(0));
+       *  if (l instanceof LineLayer) {
+       *  System.out.println("THEME "+themeCnt+" is a LineLayer");
+       *  int[] contids = l.getIDs(getCurrentExtent(), SelectionManager.CONTAINS);
+       *  System.out.println("contains ids SIZE = "+contids.length);
+       *  int[] ids = l.getIDs(getCurrentExtent(), SelectionManager.CROSSES);
+       *  System.out.println("crosses ids SIZE = "+ids.length);
+       *  grx.setColorStroke(((Theme)baseMapThemes.elementAt(themeCnt)).getShadeStyle().getLineColor() );
+       *  for (int i=0; i<ids.length; i++) {
+       *  try {
+       *  GeoShape geoshape = l.getGeoShape(ids[i]);
+       *  Vector v = geoshape.getPoints();
+       *  / Advance to first point inside current extent
+       *  int cnt=0;
+       *  /while (! getCurrentExtent().contains((GeoPoint)v.elementAt(cnt++)) && cnt < v.size());
+       *  /if (cnt < v.size() - 1) {
+       *  grx.moveTo((float)((ulY-((GeoPoint)v.elementAt(cnt)).getY())/(float)scaleFactor),
+       *  (float)((((GeoPoint)v.elementAt(cnt)).getX()-ulX)/(float)scaleFactor));
+       *  for (int n=cnt; n<v.size(); n++) {
+       *  /if (getCurrentExtent().contains((GeoPoint)v.elementAt(n))) {
+       *  grx.lineTo((float)((ulY-((GeoPoint)v.elementAt(n)).getY())/(float)scaleFactor),
+       *  (float)((((GeoPoint)v.elementAt(n)).getX()-ulX)/(float)scaleFactor));
+       *  /}
+       *  }
+       *  /}
+       *  } catch (Exception ee) {
+       *  System.out.println("EXCEPTION AT ids["+i+"] = "+ids[i]);
+       *  ee.printStackTrace();
+       *  }
+       *  grx.stroke();
+       *  }
+       *  } // END else if LineLayer
+       *  else if (l instanceof PolygonLayer) {
+       *  int[] contids = l.getIDs(getCurrentExtent(), SelectionManager.CONTAINS);
+       *  System.out.println("contains ids SIZE = "+contids.length);
+       *  int[] ids = l.getIDs(getCurrentExtent(), SelectionManager.CROSSES);
+       *  System.out.println("crosses ids SIZE = "+ids.length);
+       *  if (((Theme)baseMapThemes.elementAt(themeCnt)).getShadeStyle().isFilled()) {
+       *  grx.setColorFill(((Theme)baseMapThemes.elementAt(themeCnt)).getShadeStyle().getFillColor() );
+       *  }
+       *  else {
+       *  grx.setColorStroke(((Theme)baseMapThemes.elementAt(themeCnt)).getShadeStyle().getLineColor() );
+       *  }
+       *  for (int i=0; i<ids.length; i++) {
+       *  try {
+       *  GeoShape geoshape = l.getGeoShape(ids[i]);
+       *  Vector v = geoshape.getPoints();
+       *  / Advance to first point inside current extent
+       *  int cnt=0;
+       *  /while (! getCurrentExtent().contains((GeoPoint)v.elementAt(cnt++)) && cnt < v.size());
+       *  /if (cnt < v.size() - 1) {
+       *  grx.moveTo((float)((ulY-((GeoPoint)v.elementAt(cnt)).getY())/(float)scaleFactor),
+       *  (float)((((GeoPoint)v.elementAt(cnt)).getX()-ulX)/(float)scaleFactor));
+       *  for (int n=cnt; n<v.size(); n++) {
+       *  /if (getCurrentExtent().contains((GeoPoint)v.elementAt(n))) {
+       *  grx.lineTo((float)((ulY-((GeoPoint)v.elementAt(n)).getY())/(float)scaleFactor),
+       *  (float)((((GeoPoint)v.elementAt(n)).getX()-ulX)/(float)scaleFactor));
+       *  /}
+       *  }
+       *  /                        grx.lineTo((float)((ulY-((GeoPoint)v.elementAt(0)).getY())/(float)scaleFactor),
+       *  /                                   (float)((((GeoPoint)v.elementAt(0)).getX()-ulX)/(float)scaleFactor));
+       *  /}
+       *  } catch (Exception ee) {
+       *  System.out.println("EXCEPTION AT ids["+i+"] = "+ids[i]);
+       *  ee.printStackTrace();
+       *  }
+       *  if (((Theme)baseMapThemes.elementAt(themeCnt)).getShadeStyle().isFilled()) {
+       *  grx.fillStroke();
+       *  }
+       *  else {
+       *  grx.stroke();
+       *  }
+       *  }
+       *  } // END else if polygonlayer
+       *  / ASSUME POINTLAYER (Can't cast into PointLayer from ShapeLayer!)
+       *  else {
+       *  System.out.println("THEME "+themeCnt+" is a PointLayer");
+       *  }
+       *  } // END if theme is visible
+       *  } catch (Exception e) {
+       *  System.out.println("THEME "+themeCnt+" --- "+e);
+       *  }
+       *  } // END for all base map layers
+       *  / Draw the radar
+       *  *
+       *  java.awt.Polygon[][] polys = decoder.getPolygonLayer().getScaledShapes();
+       *  for (int i=0; i<10; i++)
+       *  System.out.println("POLYS: "+polys[i][0].getBounds());
+       *  for (int i=0; i<polys.length; i++) {
+       *  for (int n=0; n<polys[i].length; n++) {
+       *  g2.setColor(shade.getColor(decoder.getGeoData().getValue(i+1)));
+       *  g2.fillPolygon(polys[i][n]);
+       *  }
+       *  }
+       */
+      /*
+       *  ShapeLayer l = (ShapeLayer)(tNexrad.getLayer());
+       *  int[] ids = l.getIDs(getCurrentExtent(), SelectionManager.CONTAINS);
+       *  for (int i=0; i<ids.length; i++) {
+       *  /         for (int i=0; i<10; i++) {
+       *  GeoShape geoshape = l.getGeoShape(ids[i]);
+       *  Vector v = geoshape.getPoints();
+       *  grx.moveTo((float)((ulY-((GeoPoint)v.elementAt(0)).getY())/(float)scaleFactor),
+       *  (float)((((GeoPoint)v.elementAt(0)).getX()-ulX)/(float)scaleFactor));
+       *  /              System.out.println(((((GeoPoint)v.elementAt(0)).getX()-ulX)/(float)scaleFactor)+","+
+       *  /                         ((ulY-((GeoPoint)v.elementAt(0)).getY())/(float)scaleFactor));
+       *  grx.setColorFill(shade.getColor(decoder.getGeoData().getValue(ids[i])));
+       *  grx.setColorStroke(shade.getColor(decoder.getGeoData().getValue(ids[i])));
+       *  for (int n=1; n<v.size(); n++) {
+       *  grx.lineTo((float)((ulY-((GeoPoint)v.elementAt(n)).getY())/(float)scaleFactor),
+       *  (float)((((GeoPoint)v.elementAt(n)).getX()-ulX)/(float)scaleFactor));
+       *  /int[] screenxy = scale.toGraphics((GeoPoint)v.elementAt(n));
+       *  /poly.addPoint(screenxy[0], screenxy[1]);
+       *  }
+       *  /              grx.lineTo((float)((ulY-((GeoPoint)v.elementAt(0)).getY())/(float)scaleFactor),
+       *  /                         (float)((((GeoPoint)v.elementAt(0)).getX()-ulX)/(float)scaleFactor));
+       *  grx.eoFillStroke();
+       *  /grx.stroke();
+       *  /g2.setColor(shade.getColor(decoder.getGeoData().getValue(i+1)));
+       *  /g2.drawPolygon(poly);
+       *  /g2.fillPolygon(poly);
+       *  }
+       *  /g2.dispose();
+       *  /cb.restoreState();
+       *  document.add(grx);
+       */
+      /*
+       *  document.close();
+       *  }
+       *  catch (Exception e) {
+       *  System.out.println("CAUGHT EXCEPTION IN POSTSCRIPT OUTPUT");
+       *  e.printStackTrace();
+       *  }
+       *  return;
+       */
+   }
+
+
+
+   /**
+    * Save the view and legend to a Postscript (Vector based) file.
+    */
+   public void saveViewToPostscript() {
+
+      try {
+         saveViewToPDF();
+         /*
+          *  SaveAsDialog saveAs;
+          *  saveAs = new SaveAsDialog();
+          *  saveAs.addAllExportFileTypes();
+          *  saveAs.showExportDialog(this, "Export...", this, "export");
+          */
+         /*
+          *  String outFile = "C:\\Documents and Settings\\steve.ansari\\My Documents\\psoutput";
+          *  int exportWidth = view.getWidth() + infoPanel.getWidth();
+          *  int exportHeight = (infoPanel.getHeight() > 0) ? infoPanel.getHeight() : view.getHeight();
+          *  EpsGraphics2D eps = new EpsGraphics2D(outFile, new File(outFile.toString() + ".ps"),
+          *  0, 0, exportHeight, exportWidth);
+          *  eps.scale(1.5, 1.5);
+          *  eps.setStroke(new BasicStroke(0.04f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+          *  java.awt.Polygon[][] polys = decoder.getPolygonLayer().getScaledShapes();
+          *  for (int i=0; i<10; i++)
+          *  System.out.println("POLYS: "+polys[i][0].getBounds());
+          *  for (int i=0; i<polys.length; i++) {
+          *  for (int n=0; n<polys[i].length; n++) {
+          *  eps.setColor(shade.getColor(decoder.getGeoData().getValue(i+1)));
+          *  eps.fillPolygon(polys[i][n]);
+          *  }
+          *  }
+          *  /         view.paint(eps);
+          *  /         if (legendVisible) {
+          *  /            eps.translate(view.getWidth(), 0);
+          *  /            infoPanel.paint(eps);
+          *  /         }
+          *  eps.close();
+          *  eps.dispose();
+          */
+      } catch (Exception e) {
+         System.out.println("CAUGHT EXCEPTION IN POSTSCRIPT OUTPUT");
+         System.out.println(e);
+      }
+      return;
+   }
+
+
+   /**
+    * Save a PNG or JPEG Image to a file.
+    *
+    * @param  outFileName  Description of the Parameter
+    */
+   public void saveViewToImage(String outFileName) {
+
+      AWTImageExport imgExport = new AWTImageExport(getViewerAWTImage());
+      File[] outFile = new File[1];
+      outFile[0] = new File(outFileName);
+      imgExport.exportImage(outFile, AWTImageExport.JPEG);
+      return;
+   }
+
+
+   /**
+    * Save a PNG or JPEG Image using JFileChooser.
+    */
+   public void saveViewToImage() {
+
+      AWTImageExport imgExport = new AWTImageExport(getViewerAWTImage());
+      File savedir = imgExport.exportAWTChooser(null, JNXProperties.getJNXProperty("imgsavedir"));
+      JNXProperties.setJNXProperty("imgsavedir", savedir.toString());
+      return;
+   }
+
+
+   // END METHOD saveViewToImage
+
+   /**
+    * Set the size of mainPanel and thus the resulting image and NexradIAViewer.
+    * (Merely accounts for the size of the other panels in the NexradIAViewer frame)
+    *
+    * @param  width   The new mainPanelSize value
+    * @param  height  The new mainPanelSize value
+    */
+   public void setMainPanelSize(int width, int height) {
+
+      mainPanel.setSize(width, height);
+      mainPanel.validate();
+   }
+
+
+
+   /**
+    *  Sets the rasterizer attribute of the NexradIAViewer object
+    *
+    * @param  gridSize  The new rasterizer value
+    */
+   public void setRasterizer(int gridSize) {
+      setRasterizer(gridSize, false, -999.0f);
+   }
+
+
+   /**
+    *  Sets the rasterizer attribute of the NexradIAViewer object
+    *
+    * @param  gridSize       The new rasterizer value
+    * @param  isVariableRes  The new rasterizer value
+    * @param  noData         The new rasterizer value
+    */
+   public void setRasterizer(int gridSize, boolean isVariableRes, float noData) {
+      rasterizer = new NexradRasterizer(gridSize, gridSize, noData);
+      isRasterVariableRes = isVariableRes;
+   }
+   
+   
+   public NexradRasterizer getNexradRasterizer() {
+      return rasterizer;
+   }
+
+
+   /**
+    *  Sets the autoView attribute of the NexradIAViewer object
+    *
+    * @param  autoView  The new autoView value
+    */
+   public void setAutoView(boolean autoView) {
+      this.autoView = autoView;
+   }
+
+
+   /**
+    *  Sets the nexradView attribute of the NexradIAViewer object
+    *
+    * @param  nexradView  The new nexradView value
+    */
+   public void setNexradView(int nexradView) {
+      this.nexradView = nexradView;
+      System.out.println("SETTING nexradView " + nexradView);
+
+      // VIEW RASTER APPROXIMATION OF NEXRAD
+      if (nexradView == VIEW_RASTER) {
+         try {
+            System.out.println("************* VIEWING RASTER ***************");
+            map.removeLayer(mlNexrad);
+            //mlNexrad.setVisible(false);
+            if (!nexradRGC.isVisible()) {
+               nexradRGC.setVisible(true);
+            }
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
+      }
+      else {
+         // VIEW ONLY VECTOR DATA
+         try {
+            System.out.println("************* VIEWING VECTOR ***************");
+            if (nexradRGC.isVisible()) {
+               nexradRGC.setVisible(false);
+            }
+            //1//if (map.indexOf(mlNexrad) == -1) {
+            //1//   map.addLayer(mlNexrad);
+            //1//   map.moveLayer(map.indexOf(mlNexrad), 1);
+            //1//}
+            
+            
+            //if (! mlNexrad.isVisible()) {
+            //mlNexrad.setVisible(true);
+            //}
+         } catch (Exception e) {
+            e.printStackTrace();
+         }
+      }
+   }
+
+
+
+   /**
+    * Load an ESRI Shapefile from user PC.
+    */
+   public void loadLocalShapefile(URL url, Color localColor) {
+      try {
+         
+         System.gc();
+         
+                     statusBar.setText("Loading Local Data:  " + url.getFile());
+                     
+                     // Enlarge the layer vector
+                     baseMapThemes.setSize(NUM_LAYERS + localThemeCounter + 1);
+                     baseMapStyleInfo.setSize(NUM_LAYERS + localThemeCounter + 1);
+                     // Find vector position
+                     int pos = NUM_LAYERS + localThemeCounter;
+                     ShapefileDataStore dsLocal = new ShapefileDataStore(url);
+                     FeatureSource fsLocal = dsLocal.getFeatureSource(dsLocal.getTypeNames()[0]);
+                     Class geometryClass = fsLocal.getSchema().getDefaultGeometry().getType();
+                     Style localStyle;
+                     if (Point.class.isAssignableFrom(geometryClass)
+                            || MultiPoint.class.isAssignableFrom(geometryClass)) {
+                        Mark wsrMark = sb.createMark(StyleBuilder.MARK_CIRCLE, localColor, localColor, 1);
+                        Graphic grWSR = sb.createGraphic(null, wsrMark, null);
+                        localStyle = sb.createStyle(sb.createPointSymbolizer(grWSR));
+                     }
+                     else if (LineString.class.isAssignableFrom(geometryClass)
+                            || MultiLineString.class.isAssignableFrom(geometryClass)) {
+                        localStyle = sb.createStyle(sb.createLineSymbolizer(localColor, 1));
+                     }
+                     else {
+                        // Don't fill any of the polygons
+                        localStyle = sb.createStyle(sb.createLineSymbolizer(localColor, 1));
+                     }
+                     baseMapThemes.setElementAt((Object) new DefaultMapLayer(fsLocal, localStyle), pos);
+                     baseMapStyleInfo.setElementAt((Object) new BaseMapStyleInfo(1, localColor, localColor), pos);
+                     map.addLayer(pos, (MapLayer) baseMapThemes.elementAt(pos));
+                     //((StyledMapRenderer)mapPane.getRenderer()).insertLayer((MapLayer) baseMapThemes.elementAt(pos), pos);
+
+                     localThemeCounter++;
+
+
+                     String urlString = url.toString();
+                     String urlFilename = urlString.substring(urlString.lastIndexOf('/')+1, urlString.length());
+
+                     statusBar.setText("");
+
+                  } catch (NullPointerException npe) {
+                     System.out.println("CAUGHT NULL POINTER EXCEPTION WHEN LOADING LOCAL SHAPEFILE");
+                  } catch (OutOfMemoryError merr) {
+                     // Free up memory
+                     //sfrLocal = null;
+                     try {
+                        baseMapThemes.setElementAt(null, NUM_LAYERS + localThemeCounter);
+                     } catch (ArrayIndexOutOfBoundsException aerr) {}
+                     System.gc();
+                     // Display error message
+                     //  info.dispose();
+                     String message = "The shapefile\n" +
+                           "<html><font color=red>" + url + "</font></html>\n" +
+                           "exceeds the allocated memory.\n\n" +
+                           "Please load a smaller shapefile\n" +
+                           "or remove some locally added layers.";
+
+                     JOptionPane.showMessageDialog(null, (Object) message,
+                           "MEMORY OVERLOAD", JOptionPane.ERROR_MESSAGE);
+                  } catch (Exception e) {
+                     e.printStackTrace();
+                  }
+                  // END catch
+   }
+
+
+   // END METHOD loadLocalShapefile
+   /**
+    *  Description of the Method
+    */
+   public void updateMemoryLabel() {
+
+      Runtime r = Runtime.getRuntime();
+      /*
+       *  /memLabel.setText("Memory Usage: "+((r.maxMemory()-r.freeMemory())*100/r.maxMemory())+"%");
+       *  progress.setIndeterminate(false);
+       *  /      this.setCursor(Frame.DEFAULT_CURSOR); ASDF
+       *  progress.setString("Memory Usage: " + ((r.maxMemory() - r.freeMemory()) * 100 / r.maxMemory()) + "%");
+       *  progress.setValue((int) ((r.maxMemory() - r.freeMemory()) * 100 / r.maxMemory()));
+       *  /      progress.setString("Memory Usage: "+((r.maxMemory()-r.freeMemory())*100/500000000)+"%");
+       *  /      progress.setValue((int)((r.maxMemory()-r.freeMemory())*100/500000000));
+       *  progress.setStringPainted(true);
+       */
+      
+      double maxMemory = (double)r.maxMemory();
+      //double maxMemory = 200000000.0;
+      
+      //statusBar.setText(map.getLayerCount()+" LAYERS,  Memory Usage: "+ ((int)(((double)(r.totalMemory() - r.freeMemory()) / maxMemory)*100.0)) + "%");
+      statusBar.setText("Memory Usage: "+ ((int)(((double)(r.totalMemory() - r.freeMemory()) / maxMemory)*100.0)) + "%");
+      //statusBar.setText("Memory Usage: "+ ((int)(((double)(r.totalMemory() - r.freeMemory()) / (double)r.maxMemory())*100.0)) + "%");
+
+   }
+
+
+   /**
+    *  Description of the Method
+    */
+   public void startMemoryUpdateThread() {
+      // Put in thread
+      /*
+      gov.noaa.ncdc.common.SwingWorker worker =
+         new gov.noaa.ncdc.common.SwingWorker() {
+            public Object construct() {
+               Runtime r = Runtime.getRuntime();
+               try {
+                  while (isMemoryThreadRunning()) {
+                     //System.gc();
+                     statusBar.setText("Memory Usage: " + ((int) (((double) r.freeMemory() / (double) r.maxMemory()) * 100.0)) + "%");
+                     Thread.sleep(5000);
+                  }
+               } catch (Exception e) {
+               }
+               return "Done";
+            }
+         };
+      worker.start();
+      */
+   }
+
+
+   /**
+    *  Gets the memoryThreadRunning attribute of the NexradIAViewer object
+    *
+    * @return    The memoryThreadRunning value
+    */
+   public boolean isMemoryThreadRunning() {
+      return memoryThreadRunning;
+   }
+
+
+   /**
+    *  Sets the memoryThreadRunning attribute of the NexradIAViewer object
+    *
+    * @param  running  The new memoryThreadRunning value
+    */
+   public void setMemoryThreadRunning(boolean running) {
+      if (memoryThreadRunning != running) {
+         memoryThreadRunning = running;
+         if (memoryThreadRunning) {
+            startMemoryUpdateThread();
+         }
+      }
+   }
+
+
+   /**
+    *  Sets the progressBarToLoading attribute of the NexradIAViewer object
+    *
+    * @param  loading  The new progressBarToLoading value
+    */
+   public void setProgressBarToLoading(boolean loading) {
+      if (loading) {
+         progress.setString("Loading NEXRAD Data");
+         progress.setIndeterminate(true);
+         System.out.println("JUST SET THE PROGRESS BAR TO LOADING");
+      }
+      else {
+         updateMemoryLabel();
+      }
+   }
+
+
+
+
+
+    
+   /**
+    *  The main program for the NexradIAViewer class
+    *
+    * @param  args  The command line arguments
+    */
+   public static void main(String[] args) {
+      try {
+         System.out.println("STARTING");
+
+//        UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+//         UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+//        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+/*
+
+            this.setUndecorated(true);
+            this.setIgnoreRepaint(true);
+            
+            GraphicsEnvironment env = GraphicsEnvironment.
+                getLocalGraphicsEnvironment();
+            GraphicsDevice device = env.getDefaultScreenDevice();
+            GraphicsConfiguration gc = device.getDefaultConfiguration();
+            
+            device.setFullScreenWindow(this);
+            
+
+*/
+
+         NexradIAViewer map = new NexradIAViewer();
+         // Load NEXRADIAViewer user properties
+         String version = JNXProperties.getJNXProperty("version");
+         if (version == null || (version != null && ! version.equals(NDITUiInterface.JNX_VERSION))) {
+            NewJNXFeatures newFeatures = new NewJNXFeatures(map, NDITUiInterface.JNX_VERSION);
+            newFeatures.getEditorPane().scrollToReference(NDITUiInterface.JNX_VERSION);
+            newFeatures.setVisible(true);
+            JNXProperties.setJNXProperty("version", NDITUiInterface.JNX_VERSION);
+         }
+         
+         // Set legend properties ?
+         
+      } catch (Exception e) {
+         // Exit the Application
+         e.printStackTrace();
+         System.exit(0);
+      }
+   }
+
+
+
+}
+

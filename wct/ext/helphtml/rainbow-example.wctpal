@@ -1,0 +1,11 @@
+# WCT palette - similar to other palettes, but with alpha added.
+# Example 1: Very simple - equally spaced rainbow showing values between 0-50
+
+#       VALUE  R    G     B    A
+Color:  0      0     0  124  255
+Color:  10     0     0  255  255
+Color:  20     0   255    0  255  
+Color:  30   255   255    0  255
+Color:  40   255   200    0  255
+Color:  50   255     0    0  255
+

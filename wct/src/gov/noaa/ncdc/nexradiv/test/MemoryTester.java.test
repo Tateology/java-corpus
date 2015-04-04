@@ -1,0 +1,81 @@
+/**
+ * NOAA's National Climatic Data Center
+ * NOAA/NESDIS/NCDC
+ * 151 Patton Ave, Asheville, NC  28801
+ * 
+ * THIS SOFTWARE AND ITS DOCUMENTATION ARE CONSIDERED TO BE IN THE 
+ * PUBLIC DOMAIN AND THUS ARE AVAILABLE FOR UNRESTRICTED PUBLIC USE.  
+ * THEY ARE FURNISHED "AS IS." THE AUTHORS, THE UNITED STATES GOVERNMENT, ITS
+ * INSTRUMENTALITIES, OFFICERS, EMPLOYEES, AND AGENTS MAKE NO WARRANTY,
+ * EXPRESS OR IMPLIED, AS TO THE USEFULNESS OF THE SOFTWARE AND
+ * DOCUMENTATION FOR ANY PURPOSE. THEY ASSUME NO RESPONSIBILITY (1)
+ * FOR THE USE OF THE SOFTWARE AND DOCUMENTATION; OR (2) TO PROVIDE
+ * TECHNICAL SUPPORT TO USERS.
+ */
+
+package gov.noaa.ncdc.nexradiv.test;
+
+import gov.noaa.ncdc.nexradiv.*;
+import java.lang.ref.SoftReference;
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.*;
+
+
+public class MemoryTester implements ActionListener {
+
+   JButton jbStart, jbStop;
+   JFrame frame;
+   NexradIAViewer map;
+   SoftReference softmap;
+   
+   public static void main (String[] args) {
+      try {
+        
+         UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+//       UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+         MemoryTester memtest = new MemoryTester();
+
+      } catch (Exception e) {
+         // Exit the Application
+         System.out.println("EXCEPTION IN MAIN -->"+e);
+         System.exit(0);
+      }
+   }
+
+   public MemoryTester() {
+    
+         makeGUI();       
+   }
+
+   
+   private void makeGUI() {
+         jbStart = new JButton("Start Viewer");
+         jbStop = new JButton("Stop Viewer");
+         jbStop.setEnabled(false);
+         jbStart.addActionListener(this);
+         jbStop.addActionListener(this);
+         frame = new JFrame("Nexrad Memory Test");
+         frame.getContentPane().setLayout(new GridLayout(1,2));
+         frame.getContentPane().add(jbStart);
+         frame.getContentPane().add(jbStop);      
+         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         frame.pack();
+         frame.show();
+   }
+   
+   public void actionPerformed(ActionEvent e) {
+      Object source = e.getSource();
+      if (source == jbStart) {         
+         jbStop.setEnabled(true);
+         map = new NexradIAViewer();
+         softmap = new SoftReference(map);
+      }
+      else {
+         map.dispose();
+         map = null;
+         System.gc();         
+      }
+   }
+}

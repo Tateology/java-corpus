@@ -1,0 +1,399 @@
+/**
+ * NOAA's National Climatic Data Center
+ * NOAA/NESDIS/NCDC
+ * 151 Patton Ave, Asheville, NC  28801
+ * 
+ * THIS SOFTWARE AND ITS DOCUMENTATION ARE CONSIDERED TO BE IN THE 
+ * PUBLIC DOMAIN AND THUS ARE AVAILABLE FOR UNRESTRICTED PUBLIC USE.  
+ * THEY ARE FURNISHED "AS IS." THE AUTHORS, THE UNITED STATES GOVERNMENT, ITS
+ * INSTRUMENTALITIES, OFFICERS, EMPLOYEES, AND AGENTS MAKE NO WARRANTY,
+ * EXPRESS OR IMPLIED, AS TO THE USEFULNESS OF THE SOFTWARE AND
+ * DOCUMENTATION FOR ANY PURPOSE. THEY ASSUME NO RESPONSIBILITY (1)
+ * FOR THE USE OF THE SOFTWARE AND DOCUMENTATION; OR (2) TO PROVIDE
+ * TECHNICAL SUPPORT TO USERS.
+ */
+
+package steve.test;
+
+import java.io.*;
+import java.util.*;
+
+import ucar.nc2.*;
+import ucar.ma2.*;
+
+/**
+ *  Some examples for using the NetCDF-Java library.
+ *
+ * @author    steve.ansari
+ */
+public class ReprocessQ2 {
+
+
+
+
+   
+
+   private NetcdfFileWriteable ncfile;
+   private int numRows = 3;
+   private int numCols = 3;
+   //private int numHeights = 2;
+   private String longName = "This is a test of writing NetCDF";
+   private String units = "None";
+
+   private ArrayDouble valueArray;
+   private Index valueIndex;
+
+   private Dimension latDim; 
+   private Dimension lonDim;
+   private Dimension heightDim;
+   
+   private ArrayDouble latArray;
+   private ArrayDouble lonArray;
+   private ArrayInt heightArray;
+   private Index latIndex;
+   private Index lonIndex;
+   private Index heightIndex;   
+   
+   
+   private NetcdfFile q2File;
+   
+   
+   /**
+    *  Reads file and prints out metadata and example values from the dataset
+    *
+    * @param  inFile  Description of the Parameter
+    */
+   public void writeFile(String inFile, String outFile) throws IOException, InvalidRangeException {
+  
+         // Open a file readable by the NetCDF-Java library
+      q2File = NetcdfFile.open(inFile);      
+      ncfile = new NetcdfFileWriteable(outFile.toString(), true);
+        
+        
+      
+      System.out.println("STARTING !!! ");
+      
+      float[] heightData = getHeightData();
+      float[] latData = getLatData();
+      float[] lonData = getLonData();
+      
+      System.out.println("OBTAINED GRID INFO");
+      
+      // define dimensions
+      latDim = ncfile.addDimension("lat", latData.length);
+      lonDim = ncfile.addDimension("lon", lonData.length);
+      heightDim = ncfile.addDimension("height", heightData.length);
+      //heightDim = ncfile.addDimension("time", numHeights, true, true, false);
+      // define Variables
+      ucar.nc2.Dimension[] dim3 = new ucar.nc2.Dimension[3];
+      dim3[0] = heightDim;
+      dim3[1] = latDim;
+      dim3[2] = lonDim;
+      // int rh(time, lat, lon) ;
+      // rh:long_name="relative humidity" ;
+      // rh:units = "percent" ;
+      ncfile.addVariable("mrefl_mosaic", DataType.DOUBLE, dim3);
+      ncfile.addVariableAttribute("mrefl_mosaic", "long_name", longName);
+      ncfile.addVariableAttribute("mrefl_mosaic", "units", units);
+      // :title = "Test NetCDF File" ;
+      String title = "Test NetCDF File";
+      ncfile.addGlobalAttribute("title", title);
+      
+      // float lat(lat) ;
+      // lat:units = "degrees_north" ;
+      ncfile.addVariable("lat", DataType.FLOAT, new ucar.nc2.Dimension[] {latDim});
+      ncfile.addVariableAttribute("lat", "units", "degrees_north");
+      // float lon(lon) ;
+      // lon:units = "degrees_east" ;
+      ncfile.addVariable("lon", DataType.FLOAT, new ucar.nc2.Dimension[] {lonDim});
+      ncfile.addVariableAttribute("lon", "units", "degrees_east");         
+      
+      // int time(time) ;
+      ncfile.addVariable("height", DataType.FLOAT, new ucar.nc2.Dimension[] {heightDim});
+      ncfile.addVariableAttribute("height", "units", "meters");         
+      
+      // create the file
+      ncfile.create();
+      
+      System.out.println( "Create NetCDF File: "+ ncfile);
+
+      // Create value array
+      valueArray = new ArrayDouble.D3(heightDim.getLength(), latDim.getLength(), lonDim.getLength());
+      valueIndex = valueArray.getIndex();
+
+      // Store the rest of variable values 
+      latArray = new ArrayDouble.D1(latDim.getLength());
+      latIndex = latArray.getIndex();
+      lonArray = new ArrayDouble.D1(lonDim.getLength());
+      lonIndex = lonArray.getIndex();
+      heightArray = new ArrayInt.D1(heightDim.getLength());
+      heightIndex = heightArray.getIndex();
+      
+      
+      
+      
+      System.out.println("WRITING HEIGHT ARRAY");
+      // write data out to disk
+      for (int n=0; n<heightData.length; n++) {
+         heightArray.setFloat(heightIndex.set(n), heightData[n]);
+      }
+      ncfile.write("height", heightArray);
+      heightData = null;
+      heightArray = null;
+      
+      System.out.println("WRITING LAT ARRAY");
+      for (int n=0; n<numRows; n++) {
+         latArray.setFloat(latIndex.set(n), latData[n]);
+      }
+      ncfile.write("lat", latArray);
+      latData = null;
+      latArray = null;
+      
+      System.out.println("WRITING LON ARRAY");
+      for (int n=0; n<numCols; n++) {
+         lonArray.setFloat(lonIndex.set(n), lonData[n]);
+      }
+      ncfile.write("lon", lonArray);
+      lonData = null;
+      lonArray = null;
+
+ 
+      System.out.println("WRITING DATA ARRAY");
+      String variableName = "mrefl_mosaic";
+      Variable var = q2File.findVariable(variableName);
+      Array data = var.read();
+      
+      ncfile.write(variableName, data);
+      
+      data = null;
+      valueArray = null;
+
+      ncfile.close();
+      
+      
+   
+   }
+   
+   
+   
+   private float[] getHeightData() throws IOException {
+      String variableName = "Height";
+      Variable var = q2File.findVariable(variableName);
+      Array data = var.read();
+      Index index = data.getIndex();
+      int[] shape = data.getShape();
+      float[] heights = new float[shape[0]];
+      
+      for (int i = 0; i < shape[0]; i++) {
+         //System.out.println("height=" + i + "  value=" + data.getDouble(index.set(i)));
+         heights[i] = data.getFloat(index.set(i));
+      }
+      return heights; 
+   }
+   
+   private float[] getLatData() {
+      //float[] lat = new float[] {34.0f, 35.0f, 36.0f};
+      Attribute latAtt = q2File.findGlobalAttribute("Latitude"); 
+      Attribute latSpacingAtt = q2File.findGlobalAttribute("LatGridSpacing"); 
+      System.out.println("\n\nLATITUDE ATTRIBUTE = "+latAtt.getNumericValue());
+      
+      double ulCornerLat = latAtt.getNumericValue().doubleValue();
+      double latSpacing = latSpacingAtt.getNumericValue().doubleValue();
+      
+      Dimension latDim = q2File.findDimension("Lat");
+      float[] lat = new float[latDim.getLength()];
+      
+      for (int n=0; n<latDim.getLength(); n++) {
+         lat[n] = (float)(ulCornerLat-n*latSpacing);
+      }
+      
+      return lat; 
+   }
+   
+   private float[] getLonData() {
+      //float[] lon = new float[] {-80.0f, -79.0f, -78.0f};
+      Attribute lonAtt = q2File.findGlobalAttribute("Longitude"); 
+      Attribute lonSpacingAtt = q2File.findGlobalAttribute("LonGridSpacing"); 
+      System.out.println("\n\nLONGITUDE ATTRIBUTE = "+lonAtt.getNumericValue());
+      
+      double ulCornerLon = lonAtt.getNumericValue().doubleValue();
+      double lonSpacing = lonSpacingAtt.getNumericValue().doubleValue();
+      
+      Dimension lonDim = q2File.findDimension("Lon");
+      float[] lon = new float[lonDim.getLength()];
+      
+      for (int n=0; n<lonDim.getLength(); n++) {
+         lon[n] = (float)(ulCornerLon+n*lonSpacing);
+      }
+      
+      return lon; 
+   }
+   
+   private float[][] getData(int heightLevel) throws IOException {
+      
+      Dimension latDim = q2File.findDimension("Lat");
+      Dimension lonDim = q2File.findDimension("Lon");
+      
+      float[][] data = new float[latDim.getLength()][lonDim.getLength()];
+      
+      String variableName = "mrefl_mosaic";
+      Variable var = q2File.findVariable(variableName);
+      
+      System.out.println("BEFORE SLICE");
+      Variable dataSliceVar = var.slice(0, heightLevel);
+      System.out.println("AFTER SLICE");
+      
+      Array data = dataSliceVar.read();
+      Index index = data.getIndex();
+      int[] shape = data.getShape();
+      
+      
+      for (int j=0; j<latDim.getLength(); j++) {
+         for (int k=0; k<lonDim.getLength(); k++) {
+            data[j][k] = data.getFloat(index.set(j, k));
+         }
+      }
+
+
+      return data;      
+
+
+   }
+   
+   
+      
+   
+   
+   
+   
+   
+   
+   
+   
+   /**
+    *  The main program for the WriteNetCDFTest1 class
+    *
+    * @param  args  The command line arguments
+    */
+   public static void main2(String[] args) {
+
+      try {
+         
+         ReprocessQ2 test = new ReprocessQ2();
+         
+         //String inFile = "H:\\Nexrad_Viewer_Test\\QPE\\QPE_3d_20060427_00-07\\QPE_20060427-0000_t1_3d.netcdf";
+         //String outFile = "H:\\Nexrad_Viewer_Test\\QPE\\QPE_3d_20060427_00-07\\QPE_20060427-0000_t1_3d_CF.netcdf";
+         String inFile = "C:\\work\\qpe\\QPE_20060427-0000_t1_3d.netcdf";
+         String outFile = "C:\\work\\qpe\\QPE_20060427-0000_t1_3d_CF.netcdf";
+         test.writeFile(inFile, outFile);
+
+
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+   
+
+   
+   
+   
+   
+   
+   
+   public static void describeQPEFile(String inFile) {
+  
+      try {
+         
+         // Open a file readable by the NetCDF-Java library
+         NetcdfFile ncFile = NetcdfFile.open(inFile);
+      
+         // List the attributes of the file (general information about data)
+         System.out.println("\n\nNetCDF ATTRIBUTES: \n");
+         List globalAtts = ncFile.getGlobalAttributes();
+         for (int n = 0; n < globalAtts.size(); n++) {
+            System.out.println(globalAtts.get(n).toString());
+         }
+         
+         // Print specific attribute
+         Attribute latAtt = ncFile.findGlobalAttribute("Latitude"); 
+         System.out.println("\n\nLATITUDE ATTRIBUTE = "+latAtt.getNumericValue());
+
+         // List the variables present in the file (gate, azimuth, value)
+         System.out.println("\n\nNetCDF VARIABLES: \n");
+         List vars = ncFile.getVariables();
+         for (int n = 0; n < vars.size(); n++) {
+            System.out.println(((Variable) (vars.get(n))).toString());
+         }
+
+         
+         // List the dimensions of the "value" array of data
+         //String variableName = "pcp_flag";
+         String variableName = "mrefl_mosaic";
+         System.out.println("\n\n"+variableName+" DIMENSIONS: \n");
+         Variable var = ncFile.findVariable(variableName);
+         List dims = var.getDimensions();
+         for (int n = 0; n < dims.size(); n++) {
+            System.out.println(dims.get(n).toString());
+         }
+/*
+         // Print the primitive datatype
+         System.out.println("\n\n"+variableName+" DATATYPE: \n");
+         System.out.println(var.getDataType().toString());
+
+         // Read the data from the "value" array, create an index and print some values
+         System.out.println("\n\n"+variableName+" DATA: \n");
+         Array data = var.read();
+         Index index = data.getIndex();
+         int[] shape = data.getShape();
+         System.out.println("Data Array Dimensions: " + shape[0] + " , " + shape[1] + " , " + shape[2]);
+//         for (int i=0; i<shape[0]; i++) {
+//            for (int j=0; j<shape[1]; j++) {
+         for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+               for (int k = 0; k < 3; k++) {
+                  System.out.println("i=" + i + " j=" + j + " k=" + k +" value=" + data.getDouble(index.set(i, j, k)));
+               }
+            }
+         }
+
+        */ 
+         
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+      
+   }
+   
+
+   
+   
+   
+   
+   
+   
+   
+
+   
+   /**
+    *  The main program for the NetCDFTest class
+    *
+    * @param  args  The command line arguments
+    */
+   public static void main(String[] args) {
+
+      try {
+         
+         main2(args);
+         
+         
+         //String inFile = "H:\\Nexrad_Viewer_Test\\QPE\\QPE_2d_20060427_00-07\\QPE_20060427-0000_t1_2d.netcdf";
+         //String inFile = "H:\\Nexrad_Viewer_Test\\QPE\\QPE_3d_20060427_00-07\\QPE_20060427-0000_t1_3d.netcdf";
+         //describeQPEFile(inFile);
+
+
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+}
+

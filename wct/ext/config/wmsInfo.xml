@@ -1,0 +1,665 @@
+<?xml version="1.0"?>
+<wmsInfo>
+
+
+   <!-- 
+   <wms name="Shaded Relief" index="0">
+      <capabilitiesURL
+         href="http://gisdata.usgs.net/servlet/com.esri.wms.Esrimap?ServiceName=USGS_WMS_NED" />
+      <defaultLayers>US_NED_Shaded_Relief
+      </defaultLayers>
+      <imageType>jpeg</imageType>
+      <transparency>false</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         USGS Shaded Relief
+         ]]>
+      </info>
+   </wms>
+   <wms name="DEM" index="0">
+      <capabilitiesURL
+         href="http://toposervices.cr.usgs.gov:80/wmsconnector/com.esri.wms.Esrimap/USGS_EDNA_geo?" />
+      <defaultLayers>NED_2003_DEM</defaultLayers>
+      <imageType>jpeg</imageType>
+      <transparency>false</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         USGS Shaded Relief 2
+         ]]>
+      </info>
+   </wms>
+   -->
+   
+
+
+   <wms name="World Roads (ESRI)" index="0">
+      <capabilitiesURL
+         href="http://www.ncdc.noaa.gov/arcwms/wms?" />
+      <defaultLayers>ESRI_StreetMap_World_2D
+      </defaultLayers>
+      <imageType>jpeg</imageType>
+      <transparency>false</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         ]]>
+      </info>
+   </wms>
+   <!-- 
+   <wms name="World Boundaries/Places (ESRI)" index="0">
+      <capabilitiesURL
+         href="http://www.ncdc.noaa.gov/arcwms/wms?" />
+      <defaultLayers>Reference/ESRI_BoundariesPlaces_World_2D
+      </defaultLayers>
+      <imageType>png</imageType>
+      <transparency>false</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         ]]>
+      </info>
+   </wms>
+   <wms name="World Boundaries/Places (2) (ESRI)" index="0">
+      <capabilitiesURL
+         href="http://www.ncdc.noaa.gov/arcwms/wms?" />
+      <defaultLayers>Reference/ESRI_BoundariesPlacesAlt_World_2D
+      </defaultLayers>
+      <imageType>png</imageType>
+      <transparency>false</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         ]]>
+      </info>
+   </wms>
+   -->
+   <wms name="World Imagery (ESRI)" index="0">
+      <capabilitiesURL
+         href="http://www.ncdc.noaa.gov/arcwms/wms?" />
+      <defaultLayers>ESRI_Imagery_World_2D
+      </defaultLayers>
+      <imageType>jpeg</imageType>
+      <transparency>false</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         ]]>
+      </info>
+   </wms>
+   <!-- 
+   <wms name="World I3 Imagery (ESRI)" index="0">
+      <capabilitiesURL
+         href="http://www.ncdc.noaa.gov/arcwms/wms?" />
+      <defaultLayers>I3_Imagery_Prime_World_2D
+      </defaultLayers>
+      <imageType>jpeg</imageType>
+      <transparency>false</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         ]]>
+      </info>
+   </wms>
+   <wms name="World Shaded Relief (ESRI)" index="0">
+      <capabilitiesURL
+         href="http://www.ncdc.noaa.gov/arcwms/wms?" />
+      <defaultLayers>ESRI_ShadedRelief_World_2D
+      </defaultLayers>
+      <imageType>jpeg</imageType>
+      <transparency>false</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         ]]>
+      </info>
+   </wms>
+   -->
+   <wms name="U.S. Nat. Geo. Soc. Topo (ESRI)" index="0">
+      <capabilitiesURL
+         href="http://www.ncdc.noaa.gov/arcwms/wms?" />
+      <defaultLayers>NGS_Topo_US_2D
+      </defaultLayers>
+      <imageType>jpeg</imageType>
+      <transparency>false</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         ]]>
+      </info>
+   </wms>
+   <!-- 
+   <wms name="U.S. N.P.S. World Physical Map (ESRI)" index="0">
+      <capabilitiesURL
+         href="http://www.ncdc.noaa.gov/arcwms/wms?" />
+      <defaultLayers>NPS_Physical_World_2D
+      </defaultLayers>
+      <imageType>jpeg</imageType>
+      <transparency>false</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         ]]>
+      </info>
+   </wms>
+
+   
+   <wms name="World Road Overlay (ESRI)" index="1,2">
+      <capabilitiesURL
+         href="http://www.ncdc.noaa.gov/arcwms/wms?" />
+      <defaultLayers>Reference/ESRI_Transportation_World_2D
+      </defaultLayers>
+      <imageType>gif</imageType>
+      <transparency>true</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         ]]>
+      </info>
+   </wms>
+
+   <wms name="World Boundaries/Places Overlay (ESRI)" index="1,2">
+      <capabilitiesURL
+         href="http://www.ncdc.noaa.gov/arcwms/wms?" />
+      <defaultLayers>Reference/ESRI_BoundariesPlaces_World_2D
+      </defaultLayers>
+      <imageType>gif</imageType>
+      <transparency>true</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         ]]>
+      </info>
+   </wms>
+
+   <wms name="World Boundaries/Places Overlay (2) (ESRI)" index="1,2">
+      <capabilitiesURL
+         href="http://www.ncdc.noaa.gov/arcwms/wms?" />
+      <defaultLayers>Reference/ESRI_BoundariesPlacesAlt_World_2D
+      </defaultLayers>
+      <imageType>gif</imageType>
+      <transparency>true</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         ]]>
+      </info>
+   </wms>
+
+    -->
+    
+    
+
+   <wms name="Color Shaded Relief (NOAA/NGDC ETOPO1)" index="0">
+      <capabilitiesURL
+         href="http://maps.ngdc.noaa.gov/arcgis/services/web_mercator/etopo1_hillshade/MapServer/WMSServer?service=WMS" />
+      <defaultLayers>ETOPO1%20Hillshade
+      </defaultLayers>
+      <imageType>jpeg</imageType>
+      <transparency>false</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+Description:
+Metadata URL:
+         ]]>
+      </info>
+   </wms>
+
+
+   <wms name="Color Shaded Relief (NOAA/NGDC GEBCO08)" index="0">
+      <capabilitiesURL
+         href="http://maps.ngdc.noaa.gov/arcgis/services/web_mercator/dem_hillshades_mosaic/MapServer/WMSServer?service=WMS" />
+      <defaultLayers>0
+      </defaultLayers>
+      <imageType>jpeg</imageType>
+      <transparency>false</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+Description:
+Metadata URL:
+         ]]>
+      </info>
+   </wms>
+
+
+
+   
+   <wms name="Color Shaded Relief (USGS ETOPO1)" index="0">
+      <capabilitiesURL
+         href="http://ims.cr.usgs.gov/servlet/com.esri.wms.Esrimap/USGS_EDC_Elev_GTOPO?" />
+      <defaultLayers>GTOPO60+Color+Shaded+Relief
+      </defaultLayers>
+      <imageType>jpeg</imageType>
+      <transparency>false</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+Description:
+GTOPO60 Color Shaded Relief is a dataset derived by sampling the USGS GTOPO30 dataset. 
+Metadata URL:
+http://mcmcweb.er.usgs.gov/catalog/metadata/gtopo60.html
+         ]]>
+      </info>
+   </wms>
+   
+   
+   <wms name="Shaded Relief (USGS NED)" index="0">
+      <capabilitiesURL
+         href="http://toposervices.cr.usgs.gov:80/wmsconnector/com.esri.wms.Esrimap/USGS_EDNA_geo?" />
+      <defaultLayers>NED_2003_SHADEDRELIEF
+      </defaultLayers>
+      <imageType>jpeg</imageType>
+      <transparency>false</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         NED_2003_SHADEDRELIEF Layer from USGS
+         ]]>
+      </info>
+   </wms>
+<!--    
+   <wms name="SRTM_2000_SHADEDRELIEF" index="0">
+      <capabilitiesURL
+         href="http://toposervices.cr.usgs.gov:80/wmsconnector/com.esri.wms.Esrimap/USGS_EDNA_geo?" />
+      <defaultLayers>SRTM_2000_SHADEDRELIEF
+      </defaultLayers>
+      <imageType>jpeg</imageType>
+      <transparency>false</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         SRTM_2000_SHADEDRELIEF
+         ]]>
+      </info>
+   </wms>
+   -->
+
+
+   <wms name="Blue Marble" index="0">
+      <capabilitiesURL
+         href="http://www2.demis.nl/WMS/wms.asp?wms=BlueMarble" />
+      <defaultLayers>Earth+Image
+      </defaultLayers>
+      <imageType>jpeg</imageType>
+      <transparency>false</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         NASA Blue Marble imagery served from demis.nl
+         ]]>
+      </info>
+   </wms>
+
+   <wms name="DEMIS Global Map" index="0">
+      <capabilitiesURL
+         href="http://www2.demis.nl/WMS/wms.asp?wms=WorldMap" />
+      <defaultLayers>
+         Bathymetry,Countries,Topography,Hillshading,Coastlines,Waterbodies,Inundated,Rivers,Streams,Builtup+areas,Railroads,Highways,Roads,Trails,Borders,Cities,Settlements,Airports,Spot+elevations,Ocean+features
+      </defaultLayers>
+      <imageType>jpeg</imageType>
+      <transparency>false</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         Global Map from demis.nl
+         ]]>
+      </info>
+   </wms>
+
+<!-- 
+   <wms name="Geography Network" index="0">
+      <capabilitiesURL
+         href="http://columbo.nrlssc.navy.mil/ogcwms/servlet/WMSServlet/Geography_Network.wms?service=wms" />
+      <defaultLayers>11:0
+      </defaultLayers>
+      <imageType>jpeg</imageType>
+      <transparency></transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         Geography Network data ( www.geographynetwork.com )
+         ]]>
+      </info>
+   </wms>
+
+   <wms name="ESRI World Map" index="0">
+      <capabilitiesURL
+         href="http://columbo.nrlssc.navy.mil/ogcwms/servlet/WMSServlet/Geography_Network.wms?service=wms" />
+      <defaultLayers>12:0
+      </defaultLayers>
+      <imageType>jpeg</imageType>
+      <transparency></transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         World Map data from ESRI
+         ]]>
+      </info>
+   </wms>
+-->
+
+
+   <wms name="Topo Map" index="0">
+      <capabilitiesURL
+         href="http://orthoimage.er.usgs.gov/ogcmap.ashx?" />
+      <defaultLayers>DRG
+      </defaultLayers>
+      <imageType>jpeg</imageType>
+      <transparency>false</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         Topo Map from USGS
+         ]]>
+      </info>
+   </wms>
+
+   <wms name="Aerial Photo (DOQ)" index="0">
+      <capabilitiesURL
+         href="http://orthoimage.er.usgs.gov/ogcmap.ashx?" />
+      <defaultLayers>DOQ
+      </defaultLayers>
+      <imageType>jpeg</imageType>
+      <transparency>false</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         Aerial Photography (Digital Ortho Quads) from USGS
+         ]]>
+      </info>
+   </wms>
+
+<!-- 
+   <wms name="Urban Area" index="0">
+      <capabilitiesURL
+         href="http://terraserver-usa.com/ogcmap.ashx?" />
+      <defaultLayers>UrbanArea
+      </defaultLayers>
+      <imageType>jpeg</imageType>
+      <transparency>false</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         Hi-Res Color Photography from USGS (Urban areas only)
+         ]]>
+      </info>
+   </wms>
+
+
+   <wms name="Earth at Night" index="0">
+      <capabilitiesURL
+         href="http://columbo.nrlssc.navy.mil/ogcwms/servlet/WMSServlet/Geography_Network.wms?service=wms" />
+      <defaultLayers>13:13
+      </defaultLayers>
+      <imageType>jpeg</imageType>
+      <transparency></transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         Earth at Night generated from DMSP Satellite Data (NGDC)
+         ]]>
+      </info>
+   </wms>
+ -->
+
+   <wms name="Landsat Imagery" index="0">
+      <capabilitiesURL
+         href="http://ims.cr.usgs.gov:80/wmsconnector/com.esri.wms.Esrimap/USGS_EDC_Ortho_Landsat7?" />
+      <defaultLayers>LANDSAT7
+      </defaultLayers>
+      <imageType>jpeg</imageType>
+      <transparency>false</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         Landsat imagery from USGS
+         ]]>
+      </info>
+   </wms>
+
+   <wms name="Current NEXRAD Reflectivity" index="1,2">
+      <capabilitiesURL
+         href="http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi" />
+      <defaultLayers>nexrad-n0r
+      </defaultLayers>
+      <imageType>image/gif</imageType>
+      <transparency>true</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         Current National NEXRAD Reflectivity 
+         ]]>
+      </info>
+   </wms>
+
+   <wms name="Current NWS Warnings" index="1,2">
+      <capabilitiesURL
+         href="http://mesonet.agron.iastate.edu/cgi-bin/wms/us/wwa.cgi" />
+      <defaultLayers>warnings_c, warnings_p
+      </defaultLayers>
+      <imageType>image/gif</imageType>
+      <transparency>true</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         Current NWS Warnings
+         ]]>
+      </info>
+   </wms>
+
+   <wms name="Current GOES Satellite Visible" index="0,1,2">
+      <capabilitiesURL
+         href="http://mesonet.agron.iastate.edu/cgi-bin/wms/goes/conus_vis.cgi" />
+      <defaultLayers>conus_vis_4km
+      </defaultLayers>
+      <imageType>image/gif</imageType>
+      <transparency>true</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         Current GOES Satellite Visible Imagery 
+         ]]>
+      </info>
+   </wms>
+
+   <wms name="Current GOES Satellite IR" index="0,1,2">
+      <capabilitiesURL
+         href="http://mesonet.agron.iastate.edu/cgi-bin/wms/goes/conus_ir.cgi" />
+      <defaultLayers>conus_ir_4km
+      </defaultLayers>
+      <imageType>image/gif</imageType>
+      <transparency>true</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         Current GOES Satellite IR Imagery 
+         ]]>
+      </info>
+   </wms>
+
+   <wms name="Current NWS Warnings" index="1,2">
+      <capabilitiesURL
+         href="http://mesonet.agron.iastate.edu/cgi-bin/wms/us/wwa.cgi" />
+      <defaultLayers>warnings_c, warnings_p
+      </defaultLayers>
+      <imageType>image/gif</imageType>
+      <transparency>true</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         Current NWS Warnings
+         ]]>
+      </info>
+   </wms>
+
+
+
+
+<!-- 
+   <wms name="Roads" index="1,2">
+      <capabilitiesURL
+         href="http://mcmcwebmap.usgs.gov/OGCConnector/servlet/OGCConnector?ServiceName=national_atlas_data" />
+      <defaultLayers>Roads
+      </defaultLayers>
+      <imageType>gif</imageType>
+      <transparency>true</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         Roads
+         ]]>
+      </info>
+   </wms>
+      
+   -->
+<!-- -->
+   <wms name="Roads (Plain)" index="1,2">
+      <capabilitiesURL
+         href="http://toposervices.cr.usgs.gov:80/wmsconnector/com.esri.wms.Esrimap/USGS_EDNA_geo?" />
+      <defaultLayers>Roads
+      </defaultLayers>
+      <imageType>gif</imageType>
+      <transparency>true</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         Roads
+         ]]>
+      </info>
+   </wms>
+<!--
+
+   
+   <wms name="Trails" index="1,2">
+      <capabilitiesURL
+         href="http://imsref.cr.usgs.gov:80/wmsconnector/com.esri.wms.Esrimap/EDC_GNIS?" />
+      <defaultLayers>GNIS_TRAIL250,GNIS_TRAIL,GNIS_TRAIL_Labels
+      </defaultLayers>
+      <imageType>gif</imageType>
+      <transparency>true</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         Trails
+         ]]>
+      </info>
+   </wms>
+   
+   
+   <wms name="Dams" index="1,2">
+      <capabilitiesURL
+         href="http://mcmcwebmap.usgs.gov/OGCConnector/servlet/OGCConnector?ServiceName=usar" />
+      <defaultLayers>55
+      </defaultLayers>
+      <imageType>gif</imageType>
+      <transparency>true</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         Dams
+         ]]>
+      </info>
+   </wms>
+   
+   -->
+         <!-- HDM:PRELIM_AVALIBILITY,HDM:Q3_COUNTYMAP,REF:FLOODMAPINDEX,DFIRM_Streets -->
+   <!-- 
+   <wms name="FEMA Flood Maps" index="0">
+      <capabilitiesURL
+         href="http://hazards.fema.gov/wmsconnector/wmsconnector/Servlet/NFHL?SERVICE=WMS" />
+      <defaultLayers>
+         DFIRM_Streets,Floodways,Flood%20Hazards%20Zone%20Boundaries
+      </defaultLayers>
+      <imageType>image/gif</imageType>
+      <transparency>true</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         FEMA Flood Maps
+         ]]>
+      </info>
+   </wms>
+   -->
+   
+   <!-- 
+   -->
+   <wms name="Watersheds (HUCs)" index="0,1,2">
+      <capabilitiesURL
+         href="http://hazards.fema.gov/wmsconnector/wmsconnector/Servlet/NFHL?SERVICE=WMS" />
+      <defaultLayers>REF:HYDRO_UNIT_CODE
+      </defaultLayers>
+      <imageType>image/gif</imageType>
+      <transparency>true</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         FEMA Flood Maps
+         ]]>
+      </info>
+      <legend
+         href="https://hazards.fema.gov/femaportal/resources/symbology.htm" />
+   </wms>
+   
+   <!-- 
+   <wms name="Reference" index="1,2">
+      <capabilitiesURL
+         href="http://imsref.cr.usgs.gov/wmsconnector/com.esri.wms.Esrimap/USGS_EDC_National_Atlas" />
+      <defaultLayers>
+         ATLAS_ROADS_INTERSTATE_LABELS,ATLAS_ROADS_LABELS,ATLAS_ROADS,ATLAS_ROADS_INTERSTATE
+      </defaultLayers>
+      <imageType>gif</imageType>
+      <transparency>true</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         USGS Shaded Relief
+         ]]>
+      </info>
+   </wms>
+   
+   <wms name="Reference" index="1,2">
+      <capabilitiesURL
+         href="http://gisdata.usgs.net:80/servlet/com.esri.wms.Esrimap?servicename=USGS_WMS_REF" />
+      <defaultLayers>
+         States,County,Roads,Route_Numbers,Streams,Federal_Lands
+      </defaultLayers>
+      <imageType>gif</imageType>
+      <transparency>true</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         USGS Reference Info
+         ]]>
+      </info>
+   </wms>
+   -->
+
+
+
+
+
+
+
+
+   <wms name="Population Density 2010 (NASA CIESIN GRUMP)" index="0">
+      <capabilitiesURL
+         href="http://sedac.ciesin.columbia.edu/geoserver/wms" />
+      <defaultLayers>
+         nuclear:grump-v1-population-density_2010
+      </defaultLayers>
+      <imageType>image/gif</imageType>
+      <transparency>true</transparency>
+      <version>1.1.1</version>
+      <info href="http://www.ncdc.noaa.gov/oa/wct"> 
+         <![CDATA[
+         Gridded Population Density from NASA CIESIN GRUMP project 
+         ]]>
+      </info>
+   </wms>
+
+   
+   
+</wmsInfo>

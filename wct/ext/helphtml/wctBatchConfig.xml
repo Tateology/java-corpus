@@ -1,0 +1,335 @@
+<?xml version="1.0"?>
+<wctExportBatchOptions version="3">
+   <!--
+      Logging options: These can be 'SEVERE', 'WARNING', 'INFO', 'DEBUG'
+   -->
+   <logging> WARNING</logging>
+   
+   <!--
+      Cache options: TRUE or FALSE
+      TRUE: The WCT cache (default location of ${user.home}/.wct_cache/data)
+            will be used for downloaded files.
+      FALSE: Remote files will always be re-downloaded, even if they exist 
+            in the cache directory.
+   -->
+   <useCache> TRUE </useCache>
+	
+	
+	<!--  ============================================================== -->
+	<!--  Grid Section - decoding and filtering options                 -->
+	<!--  ============================================================== -->
+   <grid>
+   
+   <!--   match="exact|ignoreCase|wildcard|regex"  sometime in the future? -->
+      <gridOptions>
+         <variable name="Total_precipitation"/>
+         <!-- lookupType can be "closestValue" (no not yet), "index" (yes - only index is supported) -->
+         <time    lookupType="index" lookup="0"  />
+         <runtime lookupType="index" lookup="0"  />
+         <height  lookupType="index" lookup="0"  />
+      </gridOptions>
+   
+      <gridFilter>
+         <!--
+            Geographic Extent Filter units of decimal degrees
+         -->
+          
+         <minLat> NONE</minLat>
+         <maxLat> NONE</maxLat>
+         <minLon> NONE</minLon>
+         <maxLon> NONE</maxLon>
+         
+         <!--
+            Example geographic filter: Uncomment and modify if desired.
+            Because the 'min' or 'max' longitude value can be confusing,
+            it doesn't matter which has the 'true' min value. This will
+            be calculated automatically in the program.  Radar products default
+            to the range of the product centered on the Radar site.
+            GOES Satellite products default to a generous ConUS extent.
+         -->
+         <!-- 
+            <minLat> 35.0 </minLat> 
+            <maxLat> 36.0 </maxLat> 
+            <minLon>-90.0 </minLon> 
+            <maxLon> -91.0 </maxLon>
+            -->
+         <!--
+            (-82.6, 26.4, 1.2, 1.2) <minLat> 35.8 </minLat> <maxLat>
+            37.0 </maxLat> <minLon> -87.1 </minLon> <maxLon> -85.9
+            </maxLon>
+         -->
+         
+         <minValue> NONE </minValue>
+         <maxValue> NONE </maxValue>
+      </gridFilter>
+   </grid>
+	
+	
+	<!--  ============================================================== -->
+	<!--  Radar Section - decoding and filtering options                 -->
+	<!--  ============================================================== -->
+   <radar>
+	<!--
+		Define Options and Filtering for Command-Line Batch Export
+	-->
+      <radialOptions>
+         <!--
+            For Level-II NEXRAD this can be: 'Reflectivity',
+            'RadialVelocity' or 'SpectrumWidth'
+         -->
+         <variable> Reflectivity</variable>
+         <!--
+            integer sweep (sometimes called cut, not elevation angle) of
+            radar file - some sweeps will not contain any information
+            for the desired moment - 0 & 2 generally only have
+            Reflectivity data while 1 & 3 have Velocity/Spec. Width -
+            The remaining sweeps usually have all moments in each cut
+            although this may vary with - vcp 12 and 121.
+         -->
+         <sweep> 0</sweep>
+         <!--
+            Classify polygon values into 5 dbZ (4 dbZ in Clear-Air Mode)
+            intervals
+         -->
+         <classify> false</classify> 
+
+      	<!-- 
+      		Export RF values for BVEL and SPEC moments 
+      	-->
+         <useRFvalues> true</useRFvalues>
+
+     	   <!-- 
+     	   	Export single cut in point shapefile 
+     	   -->
+         <exportPoints> false</exportPoints>
+         <!--
+            Export entire moment in point shapefile (overrides
+            exportPoints value and any specified cut integer)
+         -->
+         <exportAllPoints> false</exportAllPoints>
+      </radialOptions>
+      <radialFilter>
+     
+         <!-- Range Filter units of kilometers -->
+         <minRange> NONE</minRange>
+         <maxRange> NONE</maxRange>
+         <!-- Azimuth Filter units of decimal degrees -->
+         <minAzimuth> NONE</minAzimuth>
+         <maxAzimuth> NONE</maxAzimuth>
+         <!--
+            Value Filter of int or floating point number Multiple
+            max-min ranges can be created for the value filter. Use a
+            comma-separated list of min values with a comma-separated
+            list of max values. For example, min values of '-200,30' and
+            max values of '-30,200' creates 2 value ranges of -200 to
+            -30 and 30 to 200. This is useful for velocity products
+            where the strongest winds are of most interest.
+         -->
+         <minValue> NONE</minValue>
+         <maxValue> NONE</maxValue>
+         <!--
+            All geographic extent fields must be specified for
+            geographic filter to be engaged.
+         -->
+   <!--
+    Geographic Extent Filter units of decimal degrees
+   -->
+         <minLat> NONE</minLat>
+         <maxLat> NONE</maxLat>
+         <minLon> NONE</minLon>
+         <maxLon> NONE</maxLon>
+         <!--
+            Example geographic filter: Uncomment and modify if desired
+            Because the 'min' or 'max' longitude value can be confusing,
+            it doesn't matter which has the 'true' min value. This will
+            be calculated automatically in the program.
+         -->
+         <!--
+            <minLat> 35.0 </minLat> <maxLat> 36.0 </maxLat> <minLon>
+            -90.0 </minLon> <maxLon> -91.0 </maxLon>
+         -->
+         <!--
+            (-82.6, 26.4, 1.2, 1.2) <minLat> 35.8 </minLat> <maxLat>
+            37.0 </maxLat> <minLon> -87.1 </minLon> <maxLon> -85.9
+            </maxLon>
+         -->
+         <!--
+            Height Filter units of meters (relative to radar site)
+         -->
+         <minHeight> NONE</minHeight>
+         <maxHeight> NONE</maxHeight>
+      </radialFilter>
+      <level3Options>
+         <!--
+            Join equal value polygons - this greatly increases
+            processing time but reduces filesizes by ~35%
+         -->
+         <reducePolygons> false</reducePolygons>
+      </level3Options>
+      <level3Filter>
+         <!-- Range Filter units of kilometers -->
+         <minRange> NONE</minRange>
+         <maxRange> NONE</maxRange>
+      
+         <!--
+            While most Level-III data is categorized, this software will
+            calculate which categories should be included based on max
+            and min filter values. Multiple max-min ranges can be
+            created for the value filter. Use a comma-separated list of
+            min values with a comma-separated list of max values. For
+            example, min values of '-200,30' and max values of '-30,200'
+            creates 2 value ranges of -200 to -30 and 30 to 200. This is
+            useful for velocity products where the strongest winds are
+            of most interest.
+         -->
+         <minValue> NONE</minValue>
+         <maxValue> NONE</maxValue>
+         <!--
+            The Category Override allows non-numeric fields (such as
+            'RF' for range folding) to be included if desired.
+         -->
+         <categoryOverrides>RF</categoryOverrides>
+         <!--
+            All geographic extent fields must be specified for
+            geographic filter to be engaged.
+         -->
+   	   <!-- Geographic Extent Filter units of decimal degrees -->
+         <minLat> NONE</minLat>
+         <maxLat> NONE</maxLat>
+         <minLon> NONE</minLon>
+         <maxLon> NONE</maxLon>
+         <!--
+            Example geographic filter: Uncomment and modify if desired
+            Because the 'min' or 'max' longitude value can be confusing,
+            it doesn't matter which has the 'true' min value. This will
+            be calculated automatically in the program.
+         -->
+         <!--
+            <minLat> 35.0 </minLat> <maxLat> 36.0 </maxLat> <minLon>
+            -90.0 </minLon> <maxLon> -91.0 </maxLon>
+         -->
+      </level3Filter>
+   </radar>
+   <exportGridOptions>
+      <!--
+         'squareGridSize' represents the size for the 'long' side of the
+         raster grid. The short side is dynamically calculated (always
+         height because we are on a lat/lon grid). The grid cell
+         resolution is dynamically calculated. For example, if 1000 is
+         used, the width will be 1000, but the height will probably be
+         somewhere between 800 and 900 depending on the latitude. This
+         is done to reduce filesize by minimizing the amount of 'noData'
+         areas outside the extent of the Radar site. If this value is
+         '-1', the 'gridCellResolution' value will be used and the
+         raster size is dynamically generated.
+      -->
+      <squareGridSize> 1000</squareGridSize>
+      <!--
+         'gridCellResolution' represents the grid cell resolution in
+         decimal degrees. The actual size (height and width) of the
+         raster is dynamically calculated based on this value and the
+         extent of the data.  Currently all GOES Satellite data extents
+         default to a general ConUS area.  If this value is '-1', the
+         'squareGridSize' value will be used and the grid cell
+         resolution is dynamically generated. ** This functionality
+         implemented in version >= 1.5.1 **
+      -->
+      <gridCellResolution> -1</gridCellResolution>
+
+      <!-- 'noDataValue': Value for 'No Data' points in the grid -->
+      <noDataValue> -999</noDataValue>
+      <!--
+         'smoothFactor': Smoothing factor to apply to the grid 0 = No
+         Smoothing, 8 = Moderate Smoothing, 16 = Heavy Smoothing PLEASE
+         USE WITH CAUTION!!! The smoothing algorithm is a simple
+         kernal-based smoothing used in common image manipulation
+         software. Each pixel will be equally averaged with a radius of
+         neighboring pixels. The number neighboring pixels used depends
+         on the smoothing factor and zoom extent. NOTE: Excessive
+         smoothing will distort the data and remove important features.
+         PLEASE USE WITH CAUTION!!!
+      -->
+      <smoothFactor> 0</smoothFactor>
+   </exportGridOptions>
+   
+   
+   
+   
+   
+   <exportKmlOptions>
+      <!-- 
+         Can be 'DRAPE_ON_MODEL', 'CLAMPED_TO_GROUND' or 'ABSOLUTE'
+         'DRAPE_ON_MODEL' only applies to Radial datatype.
+       -->
+      <altMode> DRAPE_ON_MODEL </altMode>
+      <!--  
+         'elevationExaggeration' ONLY applies when altMode is 'DRAPE_ON_MODEL'
+         This is because COLLADA models are not automatically exaggerated when
+         the Google Earth terrain exaggeration is increased.  The Google Earth
+         exaggeration only applies to terrain and absolute heights above the 
+         terrain. 
+      -->
+      <elevationExaggeration> 3 </elevationExaggeration>
+      
+      
+      <!-- 
+         A value of NONE indicates using the default palette.  For some data
+         files, such as NEXRAD and GOES, the default palette is meaningful.
+         For generic gridded datasets, the default 'rainbow' will be used
+         along with the min/max values in the data.
+      
+         Example external palette:
+         E:\work\export\nexrad-bref.wctpal
+       -->
+      <palette> rainbow-example.wctpal </palette>
+      
+
+       <!-- 
+         'drawColorMapTransparentBackgroundPattern' currently does not apply to
+         legends created from Radar datasets.
+       
+         The location of the legend is defined using the KML syntax for 
+         screen overlay objects.  For more information, check out:
+         https://developers.google.com/kml/documentation/kml_tut#screen_overlays
+       -->
+       <legend drawColorMapTransparentBackgroundPattern="true">
+           <location>
+              <![CDATA[  
+         	<overlayXY x="0" y="1" xunits="fraction" yunits="fraction"/>
+         	<screenXY x="0" y="0.975" xunits="fraction" yunits="fraction"/>
+         	<rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>
+         	<size x="-1" y="-1" xunits="fraction" yunits="fraction"/>
+              ]]>
+           </location>
+       </legend>
+       
+               
+       <!-- 
+         Logo URL used in KMZ.  The special URL value of 'NOAA' will use the
+         default NOAA logo which is packaged as part of the WCT.
+         
+         The location of the logo is defined using the KML syntax for 
+         screen overlay objects.  For more information, check out:
+         https://developers.google.com/kml/documentation/kml_tut#screen_overlays
+       -->
+       <logo url="NOAA">
+          <location>
+             <![CDATA[  
+          	<overlayXY x="1" y="0" xunits="fraction" yunits="fraction"/>
+          	<screenXY x="1" y="0.125" xunits="fraction" yunits="fraction"/>
+          	<rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>
+          	<size x="-1" y="-1" xunits="fraction" yunits="fraction"/>
+             ]]>
+          </location>
+       </logo>
+              
+   </exportKmlOptions>
+
+   
+   <!-- Multiple timesteps defined by multiple files or dimensions -->
+   <!-- operations of 'EXPORT_ALL', 'MATH_MAX', 'MATH_MIN', etc... -->
+   <!--
+   <multipleTimestepHandler operation="EXPORT_ALL" />
+   -->
+   
+</wctExportBatchOptions>

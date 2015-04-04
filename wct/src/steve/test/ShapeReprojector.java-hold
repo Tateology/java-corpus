@@ -1,0 +1,102 @@
+package steve.test;
+
+import java.io.File;
+import java.net.URL;
+
+import javax.media.jai.ParameterList;
+import javax.swing.JFileChooser;
+
+import org.geotools.cs.AxisInfo;
+import org.geotools.cs.Ellipsoid;
+import org.geotools.cs.GeographicCoordinateSystem;
+import org.geotools.cs.ProjectedCoordinateSystem;
+import org.geotools.cs.Projection;
+import org.geotools.data.DefaultQuery;
+import org.geotools.data.FeatureSource;
+import org.geotools.data.FeatureStore;
+import org.geotools.data.crs.CRSService;
+import org.geotools.data.shapefile.ShapefileDataStore;
+import org.geotools.units.Unit;
+import org.opengis.referencing.crs.CoordinateReferenceSystem;
+
+
+/**
+ * Basic reading abilities demo: open a file, get the feature type, read the
+ * features and output their contents to the standard output
+ *
+ * @author aaime
+ */
+public class ShapeReprojector {
+    private static URL getResource(String path) {
+        return ShapeReprojector.class.getClassLoader().getResource(path);
+    }
+
+    public static void main(String[] args) {
+        try {
+            // get the shapefile URL by either loading it from the file system
+            // or from the classpath
+            URL shapeURL = null;
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Choose a shapefile, or press cancel to use the default one");
+            fileChooser.setFileFilter(new SimpleFileFilter("shp", "Shapefile"));
+
+            int result = fileChooser.showOpenDialog(null);
+
+            if (result == JFileChooser.APPROVE_OPTION) {
+                File f = fileChooser.getSelectedFile();
+                shapeURL = f.toURL();
+            } else {
+                shapeURL = getResource("org/geotools/sampleData/statepop.shp");
+            }
+
+            
+            
+            // get a origin CRS, let's say that data are expressed in WGS84
+            // if you want a list of codes, please look into the epsg.properties file
+            // included in the EPSG module
+            // Let's also create an auto crs based on the UTM with the standard parallel and meridian
+            // as the equator and Greenwich 
+            CRSService crsService = new CRSService();
+            CoordinateReferenceSystem originCrs = GeographicCoordinateSystem.WGS84; // crsService.createCRS("EPSG:4326");
+            CoordinateReferenceSystem destCrs = crsService.createCRS("AUTO:42001,0.0,0.0");
+            
+            System.out.println("Origin CRS: " + originCrs);
+            System.out.println("Destination CRS: " + destCrs);
+            
+            // since we assume the data does not include a CRS, we need to force one, and
+            // then ask for reprojection
+            ShapefileDataStore store = new ShapefileDataStore(shapeURL);
+            String name = store.getTypeNames()[0];
+            DefaultQuery q = new DefaultQuery(name);
+            q.setCoordinateSystem(originCrs);
+            q.setCoordinateSystemReproject(destCrs);
+            FeatureSource reprojectedSource = store.getView(q);
+            
+            // now we need to write out the reprojected features. 
+            // first ask the user where to save data
+            result = fileChooser.showSaveDialog(null);
+            
+            if (result != JFileChooser.APPROVE_OPTION)
+            	return;
+
+            File f = fileChooser.getSelectedFile();
+            if(!f.getName().toLowerCase().endsWith(".shp")) {
+            	f = new File(f.getAbsolutePath() + ".shp");
+            }
+            
+            // then create the destination data store and write them all to
+            // to the disk
+            ShapefileDataStore dest = new ShapefileDataStore(f.toURL());
+            dest.createSchema(reprojectedSource.getSchema());
+            FeatureStore writer = (FeatureStore) dest.getFeatureSource();
+            writer.setFeatures(reprojectedSource.getFeatures().reader());
+            
+            System.out.println("Reprojected shapefile " + f.getAbsolutePath() + " successfully written");
+        } catch (Exception e) {
+            System.out.println("Ops! Something went wrong :-(");
+            e.printStackTrace();
+        }
+
+        System.exit(0);
+    }
+}

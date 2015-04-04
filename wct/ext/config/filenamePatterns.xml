@@ -1,0 +1,856 @@
+<?xml version="1.0"?>
+<filenamePatterns>
+
+<!-- 
+	<patternFile href="$user.home/.wct-config/radarFilenamePatterns.xml" />
+	<patternFile href="$user.home/.wct-config/satFilenamePatterns.xml" />
+-->
+
+
+
+   <!-- 
+    Level-II data from test sites (DOP1, DAN1, KCRI)
+     0123456789012345678901234567890
+     DOP120080330_130339_V07.gz
+   -->
+   <filename>
+      <dataType> RADIAL </dataType>
+      <category> NEXRAD Radar </category>
+      <description>Level-II NEXRAD - Test Data</description>
+      <filePattern> ^(DOP1|DAN1|KCRI)[0-9]{8}_[0-9]{6}_V[0-9]{2}(|.Z|.z|.GZ|.gz)$ </filePattern>
+      <fileTimestampLocation> yyyy:4-8; MM:8-10; dd:10-12; HH:13-15; mm:15-17; ss:17-19 </fileTimestampLocation>
+      <sourceID> 0-4 </sourceID>
+      <productCode> 20-23 </productCode>
+      <info href="http://www.ncdc.noaa.gov/oa/radar/radarproducts.html"> 
+         <![CDATA[
+         NEXRAD Test Site Data
+         ]]> 
+      </info>
+   </filename>  
+   
+
+	
+
+
+   <!-- 
+    Level-II Super Res NCDC legacy format
+    0123456789012345678901234567890
+    KPAH2008033013.tar
+   -->
+   <filename>
+      <dataType> RADIAL </dataType>
+      <category> NEXRAD Radar </category>
+      <description>Level-II NEXRAD - One Hour Archive</description>
+      <filePattern> ^[a-zA-Z]{4}[0-9]{10}(.tar|.tar.Z|.tar.gz)$ </filePattern>
+      <fileTimestampLocation> yyyy:4-8; MM:8-10; dd:10-12; HH:12-14; </fileTimestampLocation>
+      <sourceID> 0-4 </sourceID>
+      <info href="http://www.ncdc.noaa.gov/oa/radar/radarproducts.html"> 
+         <![CDATA[
+         Level-II NEXRAD Data contains the three base moments, or variables, for NEXRAD data.  These
+         moments are Reflectivity, Radial Velocity and Spectrum Width.  Level-II data contains all
+         elevation angles within the Radar's volume scan.  The version 1 (V01) files contain data at the
+         legacy resolution (1 km x 1 deg.) in the legacy Message 1 format.  The version 2 (V02) files contain data at the
+         legacy resolution (1 km x 1 deg.) in the current Message 31 format.  The version 3 (V03) files contain data at the
+		 'super' resolution (.25 km x .5 deg.).  The version 4 (V04) files contain data that was
+		 processed at super-resolution (1/4 km), then recombined to legacy (1 km) resolution.
+         ]]>
+      </info>
+   </filename> 
+
+
+
+
+   <!-- 
+    Level-II Super Res NCDC legacy format
+    0123456789012345678901234567890
+    KMRX20120129.tar.Z
+   -->
+   <filename>
+      <dataType> RADIAL </dataType>
+      <category> NEXRAD Radar </category>
+      <description>Level-III NEXRAD Products - Daily Archive</description>
+      <filePattern> ^[a-zA-Z]{4}[0-9]{8}(.tar|.tar.Z|.tar.gz)$ </filePattern>
+      <fileTimestampLocation> yyyy:4-8; MM:8-10; dd:10-12; </fileTimestampLocation>
+      <sourceID> 0-4 </sourceID>
+      <info href="http://www.ncdc.noaa.gov/oa/radar/radarproducts.html"> 
+         <![CDATA[
+         Level-III NEXRAD Data contains the products derived from the Level-II NEXRAD Data.
+         ]]>
+      </info>
+   </filename> 
+
+
+
+
+	<!-- 
+	 Level-II Super Res NCDC legacy format
+     0123456789012345678901234567890
+	 6500KPAH20080330_130339_V01.gz
+ 	-->
+	<filename>
+		<dataType> RADIAL </dataType>
+		<category> NEXRAD Radar </category>
+		<description>Level-II NEXRAD - Legacy (1 deg x 1 km)</description>
+		<filePattern> ^6500[a-zA-Z]{4}[0-9]{8}_[0-9]{6}_V01(|.Z|.z|.GZ|.gz)$ </filePattern>
+		<fileTimestampLocation> yyyy:8-12; MM:12-14; dd:14-16; HH:17-19; mm:19-21; ss:21-23 </fileTimestampLocation>
+		<sourceID> 4-8 </sourceID>
+		<productCode> 24-27 </productCode>
+		<info href="http://www.ncdc.noaa.gov/oa/radar/radarproducts.html"> 
+			<![CDATA[
+			Level-II NEXRAD Data contains the three base moments, or variables, for NEXRAD data.  These
+			moments are Reflectivity, Radial Velocity and Spectrum Width.  Level-II data contains all
+			elevation angles within the Radar's volume scan.  The version 1 (V01) files contain data at the
+			legacy resolution (1 km x 1 deg.) in the legacy Message 1 format.
+			]]>
+		</info>
+	</filename>	
+   <!-- 
+    Level-II Super Res NCDC legacy format
+     0123456789012345678901234567890
+    KPAH20080330_130339_V01.gz
+   -->
+   <filename>
+      <dataType> RADIAL </dataType>
+      <category> NEXRAD Radar </category>
+      <description>Level-II NEXRAD - Legacy (1 deg x 1 km)</description>
+      <filePattern> ^[a-zA-Z]{4}[0-9]{8}_[0-9]{6}_V01(|.Z|.z|.GZ|.gz)$ </filePattern>
+      <fileTimestampLocation> yyyy:4-8; MM:8-10; dd:10-12; HH:13-15; mm:15-17; ss:17-19 </fileTimestampLocation>
+      <sourceID> 0-4 </sourceID>
+      <productCode> 20-23 </productCode>
+      <info href="http://www.ncdc.noaa.gov/oa/radar/radarproducts.html"> 
+         <![CDATA[
+         Level-II NEXRAD Data contains the three base moments, or variables, for NEXRAD data.  These
+         moments are Reflectivity, Radial Velocity and Spectrum Width.  Level-II data contains all
+         elevation angles within the Radar's volume scan.  The version 1 (V01) files contain data at the
+         legacy resolution (1 km x 1 deg.) in the legacy Message 1 format.
+         ]]>
+      </info>
+   </filename> 
+	
+	
+	<!-- 
+	 Level-II Super Res NCDC legacy format
+     0123456789012345678901234567890
+	 6500KPAH20080330_130339_V02.gz
+ 	-->
+	<filename>
+		<dataType> RADIAL </dataType>
+		<category> NEXRAD Radar </category>
+		<description>Level-II NEXRAD - Legacy (1 deg x 1 km)</description>
+		<filePattern> ^6500[a-zA-Z]{4}[0-9]{8}_[0-9]{6}_V02(|.Z|.z|.GZ|.gz)$ </filePattern>
+		<fileTimestampLocation> yyyy:8-12; MM:12-14; dd:14-16; HH:17-19; mm:19-21; ss:21-23 </fileTimestampLocation>
+		<sourceID> 4-8 </sourceID>
+		<productCode> 24-27 </productCode>
+		<info href="http://www.ncdc.noaa.gov/oa/radar/radarproducts.html"> 
+			<![CDATA[
+			Level-II NEXRAD Data contains the three base moments, or variables, for NEXRAD data.  These
+			moments are Reflectivity, Radial Velocity and Spectrum Width.  Level-II data contains all
+			elevation angles within the Radar's volume scan.  The version 2 (V02) files contain data at the
+			legacy resolution (1 km x 1 deg.) in the current Message 31 format.
+			]]> 
+		</info>
+	</filename>	
+   
+   <!-- 
+    Level-II Super Res NCDC legacy format
+     0123456789012345678901234567890
+     KPAH20080330_130339_V02.gz
+   -->
+   <filename>
+      <dataType> RADIAL </dataType>
+      <category> NEXRAD Radar </category>
+      <description>Level-II NEXRAD - Legacy (1 deg x 1 km)</description>
+      <filePattern> ^[a-zA-Z]{4}[0-9]{8}_[0-9]{6}_V02(|.Z|.z|.GZ|.gz)$ </filePattern>
+      <fileTimestampLocation> yyyy:4-8; MM:8-10; dd:10-12; HH:13-15; mm:15-17; ss:17-19 </fileTimestampLocation>
+      <sourceID> 0-4 </sourceID>
+      <productCode> 20-23 </productCode>
+      <info href="http://www.ncdc.noaa.gov/oa/radar/radarproducts.html"> 
+         <![CDATA[
+         Level-II NEXRAD Data contains the three base moments, or variables, for NEXRAD data.  These
+         moments are Reflectivity, Radial Velocity and Spectrum Width.  Level-II data contains all
+         elevation angles within the Radar's volume scan.  The version 2 (V02) files contain data at the
+         legacy resolution (1 km x 1 deg.) in the current Message 31 format.
+         ]]> 
+      </info>
+   </filename> 	
+   
+   
+   
+	
+	<!-- 
+	 Level-II Super Res NCDC super-res format
+     0123456789012345678901234567890
+	 6500KPAH20080330_130339_V03.gz
+ 	-->
+	<filename>
+		<dataType> RADIAL </dataType>
+		<category> NEXRAD Radar </category>
+		<description>Level-II NEXRAD - Super Resolution (0.5 deg x 0.25 km) </description>
+		<filePattern> ^6500[a-zA-Z]{4}[0-9]{8}_[0-9]{6}_V03(|.Z|.z|.GZ|.gz)$ </filePattern>
+		<fileTimestampLocation> yyyy:8-12; MM:12-14; dd:14-16; HH:17-19; mm:19-21; ss:21-23 </fileTimestampLocation>
+		<sourceID> 4-8 </sourceID>
+		<productCode> 24-27 </productCode>
+		<info href="http://www.ncdc.noaa.gov/oa/radar/radarproducts.html"> 
+			<![CDATA[
+			Level-II NEXRAD Data contains the three base moments, or variables, for NEXRAD data.  These
+			moments are Reflectivity, Radial Velocity and Spectrum Width.  Level-II data contains all
+			elevation angles within the Radar's volume scan.  The version 3 (V03) files contain data at the
+			'super' resolution (.25 km x .5 deg.).
+			]]> 
+		</info>
+	</filename>	
+	
+   
+   <!-- 
+    Level-II Super Res NCDC super-res format
+     0123456789012345678901234567890
+     KPAH20080330_130339_V03.gz
+   -->
+   <filename>
+      <dataType> RADIAL </dataType>
+      <category> NEXRAD Radar </category>
+      <description>Level-II NEXRAD - Super Resolution (0.5 deg x 0.25 km) </description>
+      <filePattern> ^[a-zA-Z]{4}[0-9]{8}_[0-9]{6}_V03(|.Z|.z|.GZ|.gz)$ </filePattern>
+      <fileTimestampLocation> yyyy:4-8; MM:8-10; dd:10-12; HH:13-15; mm:15-17; ss:17-19 </fileTimestampLocation>
+      <sourceID> 0-4 </sourceID>
+      <productCode> 20-23 </productCode>
+      <info href="http://www.ncdc.noaa.gov/oa/radar/radarproducts.html"> 
+         <![CDATA[
+         Level-II NEXRAD Data contains the three base moments, or variables, for NEXRAD data.  These
+         moments are Reflectivity, Radial Velocity and Spectrum Width.  Level-II data contains all
+         elevation angles within the Radar's volume scan.  The version 3 (V03) files contain data at the
+         'super' resolution (.25 km x .5 deg.).
+         ]]> 
+      </info>
+   </filename> 
+   
+	
+
+
+	<!-- 
+	 Level-II Super Res NCDC recombined format
+     0123456789012345678901234567890
+	  6500KPAH20080330_130339_V04.gz
+ 	-->
+	<filename>
+		<dataType> RADIAL </dataType>
+		<category> NEXRAD Radar </category>
+		<description>Level-II NEXRAD - Recombined (1 deg x 1 km) </description>
+		<filePattern> ^6500[a-zA-Z]{4}[0-9]{8}_[0-9]{6}_V04(|.Z|.z|.GZ|.gz)$ </filePattern>
+		<fileTimestampLocation> yyyy:8-12; MM:12-14; dd:14-16; HH:17-19; mm:19-21; ss:21-23 </fileTimestampLocation>
+		<sourceID> 4-8 </sourceID>
+		<productCode> 24-27 </productCode>
+		<info href="http://www.ncdc.noaa.gov/oa/radar/radarproducts.html"> 
+		<![CDATA[
+			Level-II NEXRAD Data contains the three base moments, or variables, for NEXRAD data.  These
+			moments are Reflectivity, Radial Velocity and Spectrum Width.  Level-II data contains all
+			elevation angles within the Radar's volume scan.  The version 4 (V04) files contain data that was
+			processed at super-resolution (1/4 km), then recombined to legacy (1 km) resolution.
+		]]> </info>
+	</filename>	
+
+   <!-- 
+    Level-II Super Res NCDC recombined format
+     0123456789012345678901234567890
+     KPAH20080330_130339_V04.gz
+   -->
+   <filename>
+      <dataType> RADIAL </dataType>
+      <category> NEXRAD Radar </category>
+      <description>Level-II NEXRAD - Recombined (1 deg x 1 km) </description>
+      <filePattern> ^[a-zA-Z]{4}[0-9]{8}_[0-9]{6}_V04(|.Z|.z|.GZ|.gz)$ </filePattern>
+      <fileTimestampLocation> yyyy:4-8; MM:8-10; dd:10-12; HH:13-15; mm:15-17; ss:17-19 </fileTimestampLocation>
+      <sourceID> 0-4 </sourceID>
+      <productCode> 20-23 </productCode>
+      <info href="http://www.ncdc.noaa.gov/oa/radar/radarproducts.html"> 
+      <![CDATA[
+         Level-II NEXRAD Data contains the three base moments, or variables, for NEXRAD data.  These
+         moments are Reflectivity, Radial Velocity and Spectrum Width.  Level-II data contains all
+         elevation angles within the Radar's volume scan.  The version 4 (V04) files contain data that was
+         processed at super-resolution (1/4 km), then recombined to legacy (1 km) resolution.
+      ]]> </info>
+   </filename> 
+
+
+
+
+   <!-- 
+    Level-II Dual-Pol NCDC format
+     0123456789012345678901234567890
+     KPAH20080330_130339_V06.gz
+   -->
+   <filename>
+      <dataType> RADIAL </dataType>
+      <category> NEXRAD Radar </category>
+      <description>Level-II NEXRAD - Dual Pol </description>
+      <filePattern> ^[a-zA-Z]{4}[0-9]{8}_[0-9]{6}_V06(|.Z|.z|.GZ|.gz)$ </filePattern>
+      <fileTimestampLocation> yyyy:4-8; MM:8-10; dd:10-12; HH:13-15; mm:15-17; ss:17-19 </fileTimestampLocation>
+      <sourceID> 0-4 </sourceID>
+      <productCode> 20-23 </productCode>
+      <info href="http://www.ncdc.noaa.gov/oa/radar/radarproducts.html"> 
+      <![CDATA[
+      ]]> </info>
+   </filename> 
+   
+   <!-- 
+    Level-II Dual-Pol NCDC format
+     0123456789012345678901234567890
+     KPAH20080330_130339_V07.gz
+   -->
+   <filename>
+      <dataType> RADIAL </dataType>
+      <category> NEXRAD Radar </category>
+      <description>Level-II NEXRAD - Dual Pol </description>
+      <filePattern> ^[a-zA-Z]{4}[0-9]{8}_[0-9]{6}_V07(|.Z|.z|.GZ|.gz)$ </filePattern>
+      <fileTimestampLocation> yyyy:4-8; MM:8-10; dd:10-12; HH:13-15; mm:15-17; ss:17-19 </fileTimestampLocation>
+      <sourceID> 0-4 </sourceID>
+      <productCode> 20-23 </productCode>
+      <info href="http://www.ncdc.noaa.gov/oa/radar/radarproducts.html"> 
+      <![CDATA[
+      ]]> </info>
+   </filename> 
+	
+
+
+
+	<!-- 
+	 Level-II Super Res NCDC format
+     0123456789012345678901234567890
+	 KPAH20080330_130339_V03.gz
+ 	-->
+ 	<!-- 
+	<filename>
+		<dataType> RADIAL </dataType>
+		<category> NEXRAD Radar </category>
+		<description>Level-II NEXRAD - ${productDesc}</description>
+		<filePattern> ^[a-zA-Z]{4}[0-9]{8}_[0-9]{6}_[a-zA-Z]{3}(|.Z|.z|.GZ|.gz)$ </filePattern>
+		<fileTimestampLocation> yyyy:4-8; MM:8-10; dd:10-12; HH:13-15; mm:15-17; ss:17-19 </fileTimestampLocation>
+		<sourceID> 0-4 </sourceID>
+		<productCode> 20-23 </productCode>
+	</filename>	
+	-->
+	 	
+    <!--
+     012345678901234567890
+     KHTX20020424_164107
+    -->
+	<filename>
+		<dataType> RADIAL </dataType>
+		<category> NEXRAD Radar </category>
+		<description>Level-II NEXRAD - Legacy</description>
+		<filePattern> ^[a-zA-Z]{4}[0-9]{8}_[0-9]{6}(|.Z|.z|.GZ|.gz)$ </filePattern>
+		<fileTimestampLocation> yyyy:4-8; MM:8-10; dd:10-12; HH:13-15; mm:15-17; ss:17-19 </fileTimestampLocation>
+		<sourceID> 0-4 </sourceID>
+	</filename>	
+	
+    <!--
+     012345678901234567890
+     6500KHTX20020424_164107
+    -->
+	<filename>
+		<dataType> RADIAL </dataType>
+		<category> NEXRAD Radar </category>
+		<description>Level-II NEXRAD - Legacy</description>
+		<filePattern> ^6500[a-zA-Z]{4}[0-9]{8}_[0-9]{6}(|.Z|.z|.GZ|.gz)$ </filePattern>
+		<fileTimestampLocation> yyyy:8-12; MM:12-14; dd:14-16; HH:17-19; mm:19-21; ss:21-23 </fileTimestampLocation>
+		<sourceID> 4-8 </sourceID>
+	</filename>
+
+	<!--
+	 LDM AR2V0001 Level-2 Archive Partial BZIP2 Check
+         012345678901234567890
+         KHTX_20020424_1641
+	-->
+	<filename>
+		<dataType> RADIAL </dataType>
+		<category> NEXRAD Radar </category>
+		<description>Level-II NEXRAD</description>
+		<filePattern> ^[a-zA-Z]{4}_[0-9]{8}_[0-9]{4}$ </filePattern>
+		<fileTimestampLocation> yyyy:5-9; MM:9-11; dd:11-13; HH:14-16; mm:16-18 </fileTimestampLocation>
+		<sourceID> 0-4 </sourceID>
+	</filename>
+            
+	<!-- 
+	  Check for Unidata THREDDS Server Level-II Files
+              0         1         2         3
+              012345678901234567890123456789012345
+              Level2_KVWX_20060522_1404.ar2v
+	-->
+	<filename>
+		<dataType> RADIAL </dataType>
+		<category> NEXRAD Radar </category>
+		<description>Level-II NEXRAD</description>
+		<filePattern> ^Level2_[a-zA-Z]{4}_[0-9]{8}_[0-9]{4}.ar2v$ </filePattern>
+		<fileTimestampLocation> yyyy:12-16; MM:16-18; dd:18-20; HH:21-23; mm:23-25 </fileTimestampLocation>
+		<sourceID> 7-11 </sourceID>
+	</filename>
+
+
+
+    <!-- 
+      Check for Universal Format
+              0         1         2         3
+              012345678901234567890123456789012345
+              xxxxxx.uf
+    -->
+    <filename>
+        <dataType> RADIAL </dataType>
+        <category> Unknown </category>
+        <description>Radar Universal Format</description>
+        <filePattern> .*.uf$ </filePattern>
+    </filename>
+
+    	
+	
+	
+	
+	<!--
+	 Level-3 from Texas A&M LDM Feed
+         012345678901234567890
+         N0R_20050721_2025
+	-->
+	<filename>
+		<dataType> NEXRAD_LEVEL3 </dataType>
+		<category> NEXRAD Radar </category>
+		<description> NEXRAD Level-III </description>
+		<filePattern> ^[a-zA-Z0-9]{3}_[0-9]{8}_[0-9]{4}$ </filePattern>
+		<fileTimestampLocation> yyyy:4-8; MM:8-10; dd:10-12; HH:13-15; mm:15-17 </fileTimestampLocation>
+		<productCode> 0-3 </productCode>
+	</filename>
+
+	<!-- 
+	NWS Gateway Level-III filenames
+	01234567890123456789012345678901234567890
+	sn.last
+	 -->
+	<filename>
+		<dataType> NEXRAD_LEVEL3_NWS </dataType>
+		<category> NEXRAD Radar </category>
+		<description> NEXRAD Level-III from NWS Gateway </description>
+		<filePattern> ^sn.[a-zA-Z0-9]{4}$ </filePattern>
+	</filename>
+	
+	<!-- 
+	NWS Gateway Level-III cached filenames
+	01234567890123456789012345678901234567890
+	sn.last.142304
+	 -->
+	<filename>
+		<dataType> NEXRAD_LEVEL3_NWS </dataType>
+		<category> NEXRAD Radar </category>
+		<description> NEXRAD Level-III from NWS Gateway </description>
+		<filePattern> ^sn.[a-zA-Z0-9]{4}.[0-9]{6}$ </filePattern>
+	</filename>
+	
+
+	<!-- 
+	Unidata Motherlode files:
+	01234567890123456789012345678901234567890
+	Level3_HGX_N0R_20080926_2357.nids
+	-->
+	<filename>
+		<dataType> NEXRAD_LEVEL3 </dataType>
+		<category> NEXRAD Radar </category>
+		<description> NEXRAD Level-III </description>
+		<filePattern> ^Level3_[a-zA-Z]{3}_[0-9a-zA-Z]{3}_[0-9]{8}_[0-9]{4}.nids$ </filePattern>
+		<fileTimestampLocation> yyyy:15-19; MM:19-21; dd:21-23; HH:24-26; mm:26-28 </fileTimestampLocation>
+		<sourceID> 7-10 </sourceID>
+		<productCode> 11-14 </productCode>
+      <productLookupTable> /config/nexrad-level3-prodlist.txt </productLookupTable>
+	</filename>
+	
+	<!-- 
+	NCDC Level-III untarred filenames
+	01234567890123456789012345678901234567890
+	7000KCLE_SDUS61_NCZCLE_200211102304
+	 -->
+	<filename>
+		<dataType> NEXRAD_LEVEL3 </dataType>
+		<category> NEXRAD Radar </category>
+		<description> NEXRAD Level-III </description>
+		<filePattern> ^7000[a-zA-Z]{4}_[a-zA-Z0-9]{6}_[a-zA-Z0-9]{3}[a-zA-Z]{3}_[0-9]{12}$ </filePattern>
+		<fileTimestampLocation> yyyy:23-27; MM:27-29; dd:29-31; HH:31-33; mm:33-35 </fileTimestampLocation>
+		<sourceID> 4-5; 19-22</sourceID>
+		<productCode> 16-19 </productCode>
+      <productLookupTable> /config/nexrad-level3-prodlist.txt </productLookupTable>
+      <idAliasLookupTable> /config/tdwr-idalias-list.txt </idAliasLookupTable>
+	</filename>
+	
+	<!-- 
+	NCDC Level-III untarred filenames
+	01234567890123456789012345678901234567890
+	KCLE_SDUS61_NCZCLE_200211102304
+	 -->
+	<filename>
+		<dataType> NEXRAD_LEVEL3 </dataType>
+		<category> NEXRAD Radar </category>
+		<description> NEXRAD Level-III </description>
+		<filePattern> ^[a-zA-Z]{4}_[a-zA-Z0-9]{6}_[a-zA-Z0-9]{3}[a-zA-Z]{3}_[0-9]{12}$ </filePattern>
+		<fileTimestampLocation> yyyy:19-23; MM:23-25; dd:25-27; HH:27-29; mm:29-31 </fileTimestampLocation>
+		<sourceID> 0-1; 15-18</sourceID>
+		<productCode> 12-15 </productCode>
+      <productLookupTable> /config/nexrad-level3-prodlist.txt </productLookupTable>
+      <idAliasLookupTable> /config/tdwr-idalias-list.txt </idAliasLookupTable>
+	</filename>
+	
+	
+   <!-- 
+   Herzmann Level-III filenames
+   01234567890123456789012345678901234567890
+   EWX_N0R_19970809_0211
+    -->
+   <filename>
+      <dataType> NEXRAD_LEVEL3 </dataType>
+      <category> NEXRAD Radar </category>
+      <description> NEXRAD Level-III </description>
+      <filePattern> ^[a-zA-Z]{3}_[a-zA-Z]{3}_[0-9]{8}_[0-9]{4}$ </filePattern>
+      <fileTimestampLocation> yyyy:8-12; MM:12-14; dd:14-16; HH:17-19; mm:19-21 </fileTimestampLocation>
+      <sourceID> 0-3 </sourceID>
+      <productCode> 4-7 </productCode>
+      <productLookupTable> /config/nexrad-level3-prodlist.txt </productLookupTable>
+      <idAliasLookupTable> /config/tdwr-idalias-list.txt </idAliasLookupTable>
+   </filename>
+   
+   
+   
+   
+   <!-- 
+   Istok Level-III filenames from test dual-pol products
+   01234567890123456789012345678901234567890
+   KOAX.159x0.20100428_2329
+    -->
+   <filename>
+      <dataType> NEXRAD_LEVEL3 </dataType>
+      <category> NEXRAD Radar </category>
+      <description> NEXRAD Level-III </description>
+      <filePattern> ^[a-zA-Z]{4}.[0-9a-zA-Z]{5}.[0-9]{8}_[0-9]{4}$ </filePattern>
+      <fileTimestampLocation> yyyy:11-15; MM:15-17; dd:17-19; HH:20-22; mm:22-24 </fileTimestampLocation>
+      <sourceID> 0-4 </sourceID>
+      <productCode> 5-10 </productCode>
+      <productLookupTable> /config/nexrad-level3-prodlist.txt </productLookupTable>
+      <idAliasLookupTable> /config/tdwr-idalias-list.txt </idAliasLookupTable>
+   </filename>
+      
+   
+   
+   
+   
+   <!-- 
+   NWS XMRG untarred filenames
+   01234567890123456789012345678901234567890
+   xmrg_09192004_00z_SE
+    -->
+   <filename>
+      <dataType> NEXRAD_XMRG </dataType>
+      <category> NEXRAD Radar </category>
+      <description> XMRG Stage-III / MPE </description>
+      <filePattern> ^xmrg_[a-zA-Z0-9]{8}_[a-zA-Z0-9]{3}_[a-zA-Z]{2}$ </filePattern>
+      <fileTimestampLocation> yyyy:9-13; MM:5-7; dd:7-9; HH:14-16 </fileTimestampLocation>
+      <productCode> 18-20 </productCode>
+   </filename>
+	
+   <!-- 
+   NWS XMRG untarred filenames
+   01234567890123456789012345678901234567890
+   xmrg0818200216z
+    -->
+   <filename>
+      <dataType> NEXRAD_XMRG </dataType>
+      <category> NEXRAD Radar </category>
+      <description> XMRG Stage-III / MPE </description>
+      <filePattern> ^xmrg[a-zA-Z0-9]{10}z$ </filePattern>
+      <fileTimestampLocation> yyyy:8-12; MM:4-6; dd:6-8; HH:12-14 </fileTimestampLocation>
+   </filename>
+   
+   <!-- 
+   NWS XMRG untarred filenames
+   01234567890123456789012345678901234567890
+   xmrg-ggggg-0818200216z
+    -->
+   <filename>
+      <dataType> NEXRAD_XMRG </dataType>
+      <category> NEXRAD Radar </category>
+      <description> XMRG Stage-III / MPE </description>
+      <filePattern> ^xmrg.*$ </filePattern>
+      <fileTimestampLocation> yyyy:15-19; MM:11-13; dd:13-15; HH:19-21 </fileTimestampLocation>
+   </filename>
+   
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!--  Satellite Layers -->
+	
+	
+	<!-- 
+	GOES from CLASS Subscription
+	01234567890123456789012345678901234567890	
+	L7884403.goes12.2005.241.124515.BAND_01 (Visible)
+	L7884403.goes12.2005.241.124515.BAND_02 (Short Wave)
+	L7884403.goes12.2005.241.124515.BAND_03 (Infrared Water Vapor)
+	L7884403.goes12.2005.241.124515.BAND_04 (Infrared Window)
+	L7884403.goes12.2005.241.124515.BAND_05 (Infrared Split Window)
+	L7884403.goes12.2005.241.124515.BAND_06 (Infrared CO2)
+	-->
+	<filename>
+		<dataType> GOES_SATELLITE_AREA_FORMAT </dataType>
+		<category> GOES Satellite Imagery </category>
+		<description> Visible Imagery </description>
+		<filePattern> ^[0-9a-zA-Z]{8}.[a-zA-Z]{4}[0-9]{2}.[0-9]{4}.[0-9]{3}.[0-9]{6}.BAND_01$ </filePattern>
+		<fileTimestampLocation> yyyy:16-20; ddd:21-24; HH:25-27; mm:27-29; ss:29-31; </fileTimestampLocation>
+		<sourceID> 9-15 </sourceID>
+		<productCode> 32-39 </productCode>	
+	</filename>
+	<filename>
+		<dataType> GOES_SATELLITE_AREA_FORMAT </dataType>
+		<category> GOES Satellite Imagery </category>
+		<description> Short Wave </description>
+		<filePattern> ^[0-9a-zA-Z]{8}.[a-zA-Z]{4}[0-9]{2}.[0-9]{4}.[0-9]{3}.[0-9]{6}.BAND_02$ </filePattern>
+		<fileTimestampLocation> yyyy:16-20; ddd:21-24; HH:25-27; mm:27-29; ss:29-31; </fileTimestampLocation>
+		<sourceID> 9-15 </sourceID>
+		<productCode> 32-39 </productCode>	
+	</filename>
+	<filename>
+		<dataType> GOES_SATELLITE_AREA_FORMAT </dataType>
+		<category> GOES Satellite Imagery </category>
+		<description> Infrared Water Vapor </description>
+		<filePattern> ^[0-9a-zA-Z]{8}.[a-zA-Z]{4}[0-9]{2}.[0-9]{4}.[0-9]{3}.[0-9]{6}.BAND_03$ </filePattern>
+		<fileTimestampLocation> yyyy:16-20; ddd:21-24; HH:25-27; mm:27-29; ss:29-31; </fileTimestampLocation>
+		<sourceID> 9-15 </sourceID>
+		<productCode> 32-39 </productCode>	
+	</filename>
+	<filename>
+		<dataType> GOES_SATELLITE_AREA_FORMAT </dataType>
+		<category> GOES Satellite Imagery </category>
+		<description> Infrared Window </description>
+		<filePattern> ^[0-9a-zA-Z]{8}.[a-zA-Z]{4}[0-9]{2}.[0-9]{4}.[0-9]{3}.[0-9]{6}.BAND_04$ </filePattern>
+		<fileTimestampLocation> yyyy:16-20; ddd:21-24; HH:25-27; mm:27-29; ss:29-31; </fileTimestampLocation>
+		<sourceID> 9-15 </sourceID>
+		<productCode> 32-39 </productCode>	
+	</filename>
+	<filename>
+		<dataType> GOES_SATELLITE_AREA_FORMAT </dataType>
+		<category> GOES Satellite Imagery </category>
+		<description> Infrared Split Window </description>
+		<filePattern> ^[0-9a-zA-Z]{8}.[a-zA-Z]{4}[0-9]{2}.[0-9]{4}.[0-9]{3}.[0-9]{6}.BAND_05$ </filePattern>
+		<fileTimestampLocation> yyyy:16-20; ddd:21-24; HH:25-27; mm:27-29; ss:29-31; </fileTimestampLocation>
+		<sourceID> 9-15 </sourceID>
+		<productCode> 32-39 </productCode>	
+	</filename>
+	<filename>
+		<dataType> GOES_SATELLITE_AREA_FORMAT </dataType>
+		<category> GOES Satellite Imagery </category>
+		<description> Infrared CO2 </description>
+		<filePattern> ^[0-9a-zA-Z]{8}.[a-zA-Z]{4}[0-9]{2}.[0-9]{4}.[0-9]{3}.[0-9]{6}.BAND_06$ </filePattern>
+		<fileTimestampLocation> yyyy:16-20; ddd:21-24; HH:25-27; mm:27-29; ss:29-31; </fileTimestampLocation>
+		<sourceID> 9-15 </sourceID>
+		<productCode> 32-39 </productCode>	
+	</filename>
+	<!-- 
+	GOES from CLASS Order
+	01234567890123456789012345678901234567890	
+	goes12.2005.241.124515.BAND_01
+	-->
+	<filename>
+		<dataType> GOES_SATELLITE_AREA_FORMAT </dataType>
+		<category> GOES Satellite Imagery </category>
+		<description> Visible Imagery </description>
+		<filePattern> ^[a-zA-Z]{4}[0-9]{2}.[0-9]{4}.[0-9]{3}.[0-9]{6}.BAND_01$ </filePattern>
+		<fileTimestampLocation> yyyy:7-11; ddd:12-15; HH:16-18; mm:18-20; ss:20-22; </fileTimestampLocation>
+		<sourceID> 0-6 </sourceID>
+		<productCode> 23-30 </productCode>		
+	</filename>
+	<filename>
+		<dataType> GOES_SATELLITE_AREA_FORMAT </dataType>
+		<category> GOES Satellite Imagery </category>
+		<description> Short Wave </description>
+		<filePattern> ^[a-zA-Z]{4}[0-9]{2}.[0-9]{4}.[0-9]{3}.[0-9]{6}.BAND_02$ </filePattern>
+		<fileTimestampLocation> yyyy:7-11; ddd:12-15; HH:16-18; mm:18-20; ss:20-22; </fileTimestampLocation>
+		<sourceID> 0-6 </sourceID>
+		<productCode> 23-30 </productCode>	
+	</filename>
+	<filename>
+		<dataType> GOES_SATELLITE_AREA_FORMAT </dataType>
+		<category> GOES Satellite Imagery </category>
+		<description> Infrared Water Vapor </description>
+		<filePattern> ^[a-zA-Z]{4}[0-9]{2}.[0-9]{4}.[0-9]{3}.[0-9]{6}.BAND_03$ </filePattern>
+		<fileTimestampLocation> yyyy:7-11; ddd:12-15; HH:16-18; mm:18-20; ss:20-22; </fileTimestampLocation>
+		<sourceID> 0-6 </sourceID>
+		<productCode> 23-30 </productCode>	
+	</filename>
+	<filename>
+		<dataType> GOES_SATELLITE_AREA_FORMAT </dataType>
+		<category> GOES Satellite Imagery </category>
+		<description> Infrared Window </description>
+		<filePattern> ^[a-zA-Z]{4}[0-9]{2}.[0-9]{4}.[0-9]{3}.[0-9]{6}.BAND_04$ </filePattern>
+		<fileTimestampLocation> yyyy:7-11; ddd:12-15; HH:16-18; mm:18-20; ss:20-22; </fileTimestampLocation>
+		<sourceID> 0-6 </sourceID>
+		<productCode> 23-30 </productCode>	
+	</filename>
+	<filename>
+		<dataType> GOES_SATELLITE_AREA_FORMAT </dataType>
+		<category> GOES Satellite Imagery </category>
+		<description> Infrared Split Window </description>
+		<filePattern> ^[a-zA-Z]{4}[0-9]{2}.[0-9]{4}.[0-9]{3}.[0-9]{6}.BAND_05$ </filePattern>
+		<fileTimestampLocation> yyyy:7-11; ddd:12-15; HH:16-18; mm:18-20; ss:20-22; </fileTimestampLocation>
+		<sourceID> 0-6 </sourceID>
+		<productCode> 23-30 </productCode>	
+	</filename>
+	<filename>
+		<dataType> GOES_SATELLITE_AREA_FORMAT </dataType>
+		<category> GOES Satellite Imagery </category>
+		<description> Infrared CO2 </description>
+		<filePattern> ^[a-zA-Z]{4}[0-9]{2}.[0-9]{4}.[0-9]{3}.[0-9]{6}.BAND_06$ </filePattern>
+		<fileTimestampLocation> yyyy:7-11; ddd:12-15; HH:16-18; mm:18-20; ss:20-22; </fileTimestampLocation>
+		<sourceID> 0-6 </sourceID>
+		<productCode> 23-30 </productCode>	
+	</filename>
+
+
+
+
+   <filename>
+      <dataType> RADIAL </dataType>
+      <category> NEXRAD Radar </category>
+      <description> Canadian Radar </description>
+      <filePattern> ^[0-9]{12}~~(CONVOL|DOPVOL1_A|DOPVOL1_B)-[A-Z]{3}-[A-Z]{3}-RADAR-IRIS--[0-9]{14}$ </filePattern>
+   </filename>
+
+   <filename>
+      <dataType> RADIAL </dataType>
+      <category> NEXRAD Radar </category>
+      <description> Canadian Radar </description>
+      <filePattern> ^[0-9]{12}~~(CONVOL|DOPVOL1_A|DOPVOL1_B|DOPVOL1_C|DOPVOL2).* </filePattern>
+   </filename>
+   
+   <filename>
+      <dataType> GRIDDED </dataType>
+      <category> Unknown </category>
+      <description> NetCDF file </description>
+      <filePattern> .*.nc(|.Z|.z|.GZ|.gz)$ </filePattern>
+   </filename>
+   <filename>
+      <dataType> GRIDDED </dataType>
+      <category> Unknown </category>
+      <description> NetCDF4 file </description>
+      <filePattern> .*.nc4(|.Z|.z|.GZ|.gz)$ </filePattern>
+   </filename>
+   <filename>
+      <dataType> GRIDDED </dataType>
+      <category> Unknown </category>
+      <description> NetCDF file </description>
+      <filePattern> .*.netcdf(|.Z|.z|.GZ|.gz)$ </filePattern>
+   </filename>
+   <filename>
+      <dataType> GRIDDED </dataType>
+      <category> Unknown </category>
+      <description> GINI file </description>
+      <filePattern> .*.gini$ </filePattern>
+   </filename>
+   <filename>
+      <dataType> GRIDDED </dataType>
+      <category> Unknown </category>
+      <description> GRIB file </description>
+      <filePattern> .*.grib$ </filePattern>
+   </filename>
+   <filename>
+      <dataType> GRIDDED </dataType>
+      <category> Unknown </category>
+      <description> GRIB1 file </description>
+      <filePattern> .*.grib1$ </filePattern>
+   </filename>
+   <filename>
+      <dataType> GRIDDED </dataType>
+      <category> Unknown </category>
+      <description> GRIB2 file </description>
+      <filePattern> .*.grib2$ </filePattern>
+   </filename>
+   <filename>
+      <dataType> GRIDDED </dataType>
+      <category> Unknown </category>
+      <description> GRIB file </description>
+      <filePattern> .*.grb$ </filePattern>
+   </filename>
+   <filename>
+      <dataType> GRIDDED </dataType>
+      <category> Unknown </category>
+      <description> GRIB file </description>
+      <filePattern> .*.grb2$ </filePattern>
+   </filename>
+   
+   <filename>
+      <dataType> GRIDDED </dataType>
+      <category> Unknown </category>
+      <description> NDFD file </description>
+      <filePattern> ^9959.* </filePattern>
+   </filename>
+   <filename>
+      <dataType> GRIDDED </dataType>
+      <category> Unknown </category>
+      <description> MPR file </description>
+      <filePattern> ^mmosaic.* </filePattern>
+   </filename>
+	<filename>
+      <dataType> GRIDDED </dataType>
+      <category> Unknown </category>
+      <description> HDF file </description>
+      <filePattern> .*.hdf(|.Z|.z|.GZ|.gz)$ </filePattern>
+   </filename>
+    <filename>
+      <dataType> GRIDDED </dataType>
+      <category> Unknown </category>
+      <description> HDF file </description>
+      <filePattern> .*.h5(|.Z|.z|.GZ|.gz)$ </filePattern>
+   </filename>
+   <filename>
+      <dataType> GRIDDED </dataType>
+      <category> Unknown </category>
+      <description> HDF file </description>
+      <filePattern> .*.h4(|.Z|.z|.GZ|.gz)$ </filePattern>
+   </filename>
+   
+   <!-- ISCCP.D1.0.GLOBAL.2003.01.09.1800.GPC -->
+    <filename>
+      <dataType> GRIDDED </dataType>
+      <category> Unknown </category>
+      <description> ISCCP D1 file </description>
+      <filePattern> ^ISCCP.D1.*.GPC(|.Z|.z|.GZ|.gz)$ </filePattern>
+   </filename>
+   
+   
+   
+   
+    <filename>
+      <dataType> POINT_TIMESERIES </dataType>
+      <category> Unknown </category>
+      <description> CRN hourly data text file </description>
+      <filePattern> ^CRNH0201-.*.txt(|.Z|.z|.GZ|.gz)$ </filePattern>
+   </filename>
+   
+    <filename>
+      <dataType> POINT_TIMESERIES </dataType>
+      <category> Unknown </category>
+      <description> CRN daily data text file </description>
+      <filePattern> ^CRNDAILY01-.*.txt(|.Z|.z|.GZ|.gz)$ </filePattern>
+   </filename>
+   
+   
+	
+	<!-- 
+	tar and zip files
+	 -->
+	<filename>
+		<dataType> ARCHIVE </dataType>
+		<category> ARCHIVE </category>
+		<description> Archive File </description>
+		<filePattern> .*(.tar|.zip|.tar.gz|.tgz|.tar.Z)$ </filePattern>
+	</filename>
+	
+	
+</filenamePatterns>
+

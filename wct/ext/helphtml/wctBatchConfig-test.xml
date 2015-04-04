@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+
+<wctExportBatchOptions>
+
+   <!-- Define Options for Level-II Command-Line Batch Export
+
+   -->
+   <radialOptions>
+
+      <!-- moment value of 0 (REFLECTIVITY), 1 (VELOCITY) or 2 (SPECTRUM WIDTH) -->
+      <moment> 0 </moment> 
+
+      <!-- integer cut (not elevation angle) of radar file 
+           - some cuts will not contain any information for the desired moment 
+           - 0 & 2 generally only have Reflectivity data while 1 & 3 have Velocity/Spec. Width 
+           - The remaining cuts usually have all moments in each cut although this may vary with
+           - vcp 12 and 121. -->
+      <cut> 0 </cut> 
+     
+      <!-- Classify polygon values into 5 dbZ (4 dbZ in Clear-Air Mode) intervals -->
+      <classify> true </classify> 
+      <!--<classify> false </classify>--> 
+
+      <!-- Export RF values for BVEL and SPEC moments -->
+      <useRFvalues> true </useRFvalues>
+
+      <!-- Export single cut in point shapefile -->
+      <exportPoints> false </exportPoints> 
+
+      <!-- Export entire moment in point shapefile (overrides exportPoints value 
+        and any specified cut integer)-->
+      <exportAllPoints> false </exportAllPoints> 
+
+   </radialOptions>
+
+   
+   
+   
+   <radialFilter>
+     
+      <!-- Range Filter units of kilometers -->
+      <minRange> NONE </minRange>
+      <maxRange> NONE </maxRange>
+      <!-- Azimuth Filter units of decimal degrees -->
+      <minAzimuth> NONE </minAzimuth>
+      <maxAzimuth> NONE </maxAzimuth>
+      <!-- Value Filter of int or floating point number -->
+      <minValue> NONE </minValue>
+      <maxValue> NONE </maxValue>
+      
+      <!-- All geographic extent fields must be specified for
+           geographic filter to be engaged. -->
+      <!-- Geographic Extent Filter units of decimal degrees -->
+      <!--
+      <minLat> NONE </minLat>
+      <maxLat> NONE </maxLat>
+      <minLon> NONE </minLon>
+      <maxLon> NONE </maxLon>
+      -->
+      <!-- Example geographic filter: 
+           Uncomment and modify if desired 
+           Because the 'min' or 'max' longitude value can be confusing, 
+           it doesn't matter which has the 'true' min value.  This 
+           will be calculated automatically in the program. -->
+      <!--
+      <minLat> 35.0 </minLat>
+      <maxLat> 36.0 </maxLat>
+      <minLon> -90.0 </minLon>  
+      <maxLon> -91.0 </maxLon>
+      -->
+      <!--(-82.6, 26.4, 1.2, 1.2)-->
+      <minLat> 35.8 </minLat>
+      <maxLat> 37.0 </maxLat>
+      <minLon> -87.1 </minLon>  
+      <maxLon> -85.9 </maxLon>
+      
+      
+      <!-- Height Filter units of meters (relative to radar site) -->
+      <minHeight> NONE </minHeight>
+      <maxHeight> NONE </maxHeight>
+
+   </radialFilter>
+
+
+   
+   
+   
+   <level3options>
+
+      <!-- Join equal value polygons - this greatly increases 
+         processing time but reduces filesizes by ~35% -->
+      <reducePolygons> false </reducePolygons> 
+
+   </level3options>
+
+
+   
+   <level3filter>
+     
+      <minRange> NONE </minRange>
+      <maxRange> NONE </maxRange>
+      <!-- Value filter will be implemented soon -->
+      <minValue> NONE </minValue>
+      <maxValue> NONE </maxValue>
+      <!-- All geographic extent fields must be specified for
+           geographic filter to be engaged. -->
+      <!-- Geographic Extent Filter units of decimal degrees -->
+      <minLat> NONE </minLat>
+      <maxLat> NONE </maxLat>
+      <minLon> NONE </minLon>
+      <maxLon> NONE </maxLon>
+      <!-- Example geographic filter: 
+           Uncomment and modify if desired 
+           Because the 'min' or 'max' longitude value can be confusing, 
+           it doesn't matter which has the 'true' min value.  This 
+           will be calculated automatically in the program. -->
+      <!--
+      <minLat> 35.0 </minLat>
+      <maxLat> 36.0 </maxLat>
+      <minLon> -90.0 </minLon>  
+      <maxLon> -91.0 </maxLon>
+      -->
+               
+   </level3filter>
+
+
+   
+   
+   
+   
+   <exportRasterOptions>
+      
+      <!-- Represents the basic size for the 
+         'long' side of the raster grid.  The short
+         side is dynamically calculated. -->
+      <squareGridSize> 600 </squareGridSize>
+      <!-- Value for 'No Data' points in the grid -->
+      <noDataValue> -999 </noDataValue>
+      <!-- Fit the grid size around the decoded features (Auto-Resolution)? -->
+      <autoResolution> true </autoResolution>
+      <!-- Smooth data? (0 = no smoothing, 10 = moderate, 20 = heavy -->
+      <smoothFactor> 4 </smoothFactor>
+
+   </exportRasterOptions>
+
+   
+   
+   
+   
+   
+   <!-- =============================================================================== -->
+   <!-- Sections below are optional and use the "status" attribute to be turned on/off  -->   
+   <!-- Any status of "on" will cause that module to override any other export options  -->   
+   <!-- =============================================================================== -->
+   
+   <!-- 
+   
+   3 types of operations here:
+   1)  Composite/mosaic multiple files together on single rasterizer
+   2)  'Stack' multiple files together in one NetCDF
+   3)  Create 3D XYZ volumes - hold in temp.dir NetCDF and allow export to VTK
+   
+   
+   
+   Overrides level2Options.
+   Allows custom layer composites to be created from height intervals.
+   These custom layers represent the greatest value throughout a volume.
+   
+   CAPPI = Constant Altitude Plan Position Indicator
+   A CAPPI display shows the values at a specified height (horizontal slice).
+   
+   The cappiOptions section allows both custom layer composites and 
+   traditional CAPPI slices to be created.
+   
+   Only applicable with the following conditions:
+   1) Input file is Level-II
+   2) Output formats of NetCDF or VTK Structured Points will use single file, other '2D'
+   raster formats will use a series of files (*_z1.asc, *_z2.asc, etc...)
+   
+   Height units are meters and are RELATIVE to the radar site altitude.  
+   The Height filter in <level2options> is ignored. 
+   -->
+   <cappiOptions status="on">
+   
+      <!-- Custom layer composite example -->
+      <!--<numHeightIntervals> 6 </numHeightIntervals>-->
+      <numHeightIntervals> 8 </numHeightIntervals>
+      <startHeight> 0 </startHeight>
+      <endHeight> 15000 </endHeight>
+      <overlap> 1200 </overlap>
+   
+      <!-- CAPPI example -->
+      <!--
+      <numHeightIntervals> 1 </numHeightIntervals>
+      <startHeight> 1000 </startHeight>
+      <endHeight> 1000 </endHeight>
+      <overlap> 0 </overlap>
+      -->
+      
+      
+      <!-- Composite example -->
+      <!--
+      <numHeightIntervals> 1 </numHeightIntervals>
+      <startHeight> 0 </startHeight>
+      <endHeight> 10000000 </endHeight> 
+      <overlap> 0 </overlap>
+      -->
+      
+      
+   </cappiOptions>
+
+
+   
+   <netCDFOptions status="off">
+      
+      <!-- 
+      Will create a single NetCDF file with:
+      1) Time dimension (when multiple input files are specified via directory)
+      2) Height dimension (when used in combination with cappiOptions)
+      3) Both time and height dimensions
+      -->
+      <append> false </append>
+      
+   </netCDFOptions>   
+   
+   
+
+   <!-- 
+   Overrides any other geographic extent filters in level2Options or
+   level3Options
+   -->   
+   <mathOptions status="off">
+   
+      <!-- All geographic extent fields must be specified for
+           geographic filter to be engaged. -->
+      <!-- Geographic Extent Filter units of decimal degrees -->
+      <!-- Example geographic filter: 
+           Uncomment and modify if desired 
+           Because the 'min' or 'max' longitude value can be confusing, 
+           it doesn't matter which has the 'true' min value.  This 
+           will be calculated automatically in the program. -->
+      
+      <minLat> 25.0 </minLat>
+      <maxLat> 50.0 </maxLat>
+      <minLon> -110.0 </minLon>  
+      <maxLon> -85.0 </maxLon>
+   
+      <!-- Overrides any input file specified at the command line -->
+      <inputURL> http://weather.noaa.gov/pub/SL.us008001/DF.of/DC.radar/DS.p19r1/SI.kgsp/sn.last </inputURL>
+      <inputURL> http://weather.noaa.gov/pub/SL.us008001/DF.of/DC.radar/DS.p19r1/SI.kmrx/sn.last </inputURL>
+      <inputURL> http://weather.noaa.gov/pub/SL.us008001/DF.of/DC.radar/DS.p19r1/SI.kcae/sn.last </inputURL>
+      <inputURL> http://weather.noaa.gov/pub/SL.us008001/DF.of/DC.radar/DS.p19r1/SI.kfcx/sn.last </inputURL>
+   
+      <!-- 
+      This operation simply creates a grid covering the defined area and
+      iterates through each input file recording the greatest value from
+      any radar feature for each grid cell.  Because of this methodology, defining
+      different Level-III files for different elevation angles from the same
+      radar site is an easy way to create a composite product from the 4 lowest 
+      elevation angles present in the Level-III data.
+      
+      Example below:  Creates custom mosaic and composite from 
+      -->
+      
+   </mathOptions>
+   
+   
+   <!-- 
+   Creates composite from Level-II data using specified number of cuts
+   -->
+   <radialComposite status="off">
+   
+      <numberOfCuts> ALL </numberOfCuts>
+   
+   </radialComposite>
+   
+</wctExportBatchOptions>

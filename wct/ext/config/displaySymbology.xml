@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<displaySymbology>
+
+	<fileTypeAlias name="NexradLevel2">
+	
+		<subType name="Reflectivity">
+	
+		</subType>
+		<subType name="Velocity">
+	
+		</subType>
+		<subType name="Spectrum Width">
+	 
+		</subType>
+		
+	</fileTypeAlias>
+
+
+	<fileTypeAlias name="NexradLevel3">
+	
+		<subType name="N0R">
+	
+		</subType>
+		<subType name="NTP">
+	
+		</subType>
+		<subType name="DPA">
+	
+		</subType>
+		
+	</fileTypeAlias>
+
+
+
+</displaySymbology>
+

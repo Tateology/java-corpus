@@ -1,0 +1,711 @@
+/**
+ * NOAA's National Climatic Data Center
+ * NOAA/NESDIS/NCDC
+ * 151 Patton Ave, Asheville, NC  28801
+ * 
+ * THIS SOFTWARE AND ITS DOCUMENTATION ARE CONSIDERED TO BE IN THE 
+ * PUBLIC DOMAIN AND THUS ARE AVAILABLE FOR UNRESTRICTED PUBLIC USE.  
+ * THEY ARE FURNISHED "AS IS." THE AUTHORS, THE UNITED STATES GOVERNMENT, ITS
+ * INSTRUMENTALITIES, OFFICERS, EMPLOYEES, AND AGENTS MAKE NO WARRANTY,
+ * EXPRESS OR IMPLIED, AS TO THE USEFULNESS OF THE SOFTWARE AND
+ * DOCUMENTATION FOR ANY PURPOSE. THEY ASSUME NO RESPONSIBILITY (1)
+ * FOR THE USE OF THE SOFTWARE AND DOCUMENTATION; OR (2) TO PROVIDE
+ * TECHNICAL SUPPORT TO USERS.
+ */
+
+package steve.test;
+
+import java.net.*;
+import java.io.*;
+
+import gov.noaa.ncdc.ndit.decoders.*;
+import gov.noaa.ncdc.ndit.decoders.nexrad.DecodeL3Header;
+import gov.noaa.ncdc.ndit.decoders.nexrad.DecodeL3NexradLite;
+import gov.noaa.ncdc.ndit.decoders.nexrad.NexradColorFactory;
+import gov.noaa.ncdc.ndit.decoders.nexrad.NexradHeader;
+import gov.noaa.ncdc.ndit.decoders.nexrad.NexradValueFactory;
+import gov.noaa.ncdc.ndit.export.raster.*;
+import gov.noaa.ncdc.ndit.export.vector.*;
+import gov.noaa.ncdc.nexradexport.*;
+
+import java.awt.*;
+import java.awt.geom.*;
+import java.awt.image.*;
+import javax.imageio.*;
+import org.geotools.gc.*;
+import gov.noaa.ncdc.nexradiv.*;
+
+public class NexradViewerBatchTest {
+   
+   public static void main(String[] args) {
+      //runBasicExample();
+      runMosaicExample4();
+      //runMosaicExample2(args[0]);
+      System.exit(1);
+   }
+   
+   
+   
+   public static void runBasicExample() {
+      
+      try {
+         
+         //--------------------------------------------------------------------
+         // Input file or URL:
+         //--------------------------------------------------------------------
+         URL url = new File("C:\\ViewerData\\HAS999900001\\7000KCLE_SDUS51_N0RCLE_200211102258").toURL();
+         //URL url = new File("C:\\ViewerData\\HAS000202248\\7000KDTX_SDUS53_N0RDTX_200211102300").toURL();
+
+         // BEGIN LITE DECODE
+         long startTime = System.currentTimeMillis();
+            
+         //--------------------------------------------------------------------
+         // Create Level-III decoders
+         //--------------------------------------------------------------------
+         DecodeL3Header header = new DecodeL3Header();
+         header.decodeHeader(url);               
+         DecodeL3NexradLite data = new DecodeL3NexradLite(header);
+
+         //--------------------------------------------------------------------
+         // Output files for shapefile and ASCII raster files
+         //--------------------------------------------------------------------
+         File outShapefile = new File("D:\\Nexrad_Viewer_Test\\1.0.12 BETA\\lite\\lite-vec-ex01");
+         File outRaster = new File("D:\\Nexrad_Viewer_Test\\1.0.12 BETA\\lite\\lite-ras-ex01");
+         
+         //--------------------------------------------------------------------
+         // Create LiteProcess objects for vector export and rasterizer
+         //--------------------------------------------------------------------
+         LiteProcess liteVectorExport = NexradVectorExportLite.getLiteProcess(
+            outShapefile, data.getFeatureType(), NexradExport.OUTPUT_SHAPEFILE
+         );
+         // remember the rasterizer is a LiteProcess too!
+         NexradRasterizer rasterizer = new NexradRasterizer(1000, 1000, -999.0f); // x, y, noData
+         
+         //--------------------------------------------------------------------
+         // Set up rasterizer
+         //--------------------------------------------------------------------
+         // This sets the operation when multiple features intersect the same
+         // grid cell.         
+         //  CMD_KEEP_LARGER_VALUE --or-- CMD_KEEP_LARGER_ABSOLUTE_VALUE
+         // I use CMD_KEEP_LARGER_VALUE for Reflectivity and Spectrum Width 
+         // and CMD_KEEP_LARGER_ABSOLUTE_VALUE for Velocity moments.
+         rasterizer.setCellMathDecision(NexradRasterizer.CMD_KEEP_LARGER_VALUE);
+         // Sets the data type for the raster
+         rasterizer.setRasterType(NexradRasterizer.FLOAT);
+         // Sets the attribute from the Feature that will represent the pixel value 
+         rasterizer.setAttName("value");
+         // Sets the bounds for the raster
+         rasterizer.setBounds(new java.awt.geom.Rectangle2D.Double(-85.0, 35.0, 10.0, 10.0));
+         //rasterizer.setBounds(new java.awt.geom.Rectangle2D.Double(-83.0, 41.0, 1.0, 1.0)); // closer look
+         // Usually you would want these bounds generated from the header object
+         //rasterizer.setBounds(header.getNexradBounds());
+         // initialize raster to NoData value
+         rasterizer.clearRaster();
+         
+         //--------------------------------------------------------------------
+         // Decode the data
+         //--------------------------------------------------------------------
+         data.decodeData(new LiteProcess[] { liteVectorExport, rasterizer });
+         
+         //--------------------------------------------------------------------
+         // Close the shapefile export 
+         //--------------------------------------------------------------------
+         liteVectorExport.close();
+         
+         //--------------------------------------------------------------------
+         // Save the raster
+         //--------------------------------------------------------------------
+         NexradRasterExport rasterExport = new NexradRasterExport();
+         rasterExport.saveAsciiGrid(outRaster, rasterizer);
+
+         System.out.println("SAVED AND RASTERIZED IN " + (System.currentTimeMillis() - startTime) + " MILLISECONDS (total)");
+         
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+   
+   
+   
+   public static void runMosaicExample() {
+      
+      try {
+         
+         //--------------------------------------------------------------------
+         // Input file or URL:
+         //--------------------------------------------------------------------
+         java.net.URL[] urls = new URL[] {
+            new java.io.File("H:\\ViewerData\\HAS999900001\\7000KCLE_SDUS51_N0RCLE_200211102258").toURL(),
+            new java.io.File("H:\\ViewerData\\HAS000202646\\7000KILN_SDUS51_N0RILN_200211102258").toURL(),
+            new java.io.File("H:\\ViewerData\\HAS000202674\\7000KLMK_SDUS53_N0RLVX_200211102259").toURL(),
+            new java.io.File("H:\\ViewerData\\HAS000202248\\7000KDTX_SDUS53_N0RDTX_200211102300").toURL()
+         };
+
+         // BEGIN LITE DECODE
+         long startTime = System.currentTimeMillis();
+            
+         //--------------------------------------------------------------------
+         // Output files for ASCII raster files
+         //--------------------------------------------------------------------
+         File outRaster = new File("D:\\Nexrad_Viewer_Test\\1.0.12 BETA\\lite\\lite-ras-ex02");
+         
+         //--------------------------------------------------------------------
+         // Create LiteProcess objects for and rasterizer
+         //--------------------------------------------------------------------
+         // remember the rasterizer is a LiteProcess too!
+         NexradRasterizer rasterizer = new NexradRasterizer(1200, 1200, -999.0f); // x, y, noData
+         
+         //--------------------------------------------------------------------
+         // Set up rasterizer
+         //--------------------------------------------------------------------
+         // This sets the operation when multiple features intersect the same
+         // grid cell.         
+         //  CMD_KEEP_LARGER_VALUE --or-- CMD_KEEP_LARGER_ABSOLUTE_VALUE
+         // I use CMD_KEEP_LARGER_VALUE for Reflectivity and Spectrum Width 
+         // and CMD_KEEP_LARGER_ABSOLUTE_VALUE for Velocity moments.
+         rasterizer.setCellMathDecision(NexradRasterizer.CMD_KEEP_LARGER_VALUE);
+         // Sets the data type for the raster
+         //rasterizer.setRasterType(NexradRasterizer.FLOAT);
+         rasterizer.setRasterType(NexradRasterizer.INT);
+         // Sets the attribute from the Feature that will represent the pixel value 
+         //rasterizer.setAttName("value");
+         rasterizer.setAttName("colorIndex");
+         // Sets the bounds for the raster
+         java.awt.geom.Rectangle2D.Double bounds = new java.awt.geom.Rectangle2D.Double(-91.0, 35.0, 12.0, 10.0); 
+//         java.awt.geom.Rectangle2D.Double bounds = new java.awt.geom.Rectangle2D.Double(-83.0, 41.0, 1.0, 1.0); 
+         rasterizer.setBounds(bounds);
+         // Usually you would want these bounds generated from the header object
+         //rasterizer.setBounds(header.getNexradBounds());
+         // initialize raster to NoData value
+         rasterizer.clearRaster();
+         
+         //--------------------------------------------------------------------
+         // Decode the data and rasterize for each url
+         //--------------------------------------------------------------------
+         // Create Level-III decoders
+         for (int n=0; n<urls.length; n++) {
+            System.out.println("PROCESSING: "+urls[n]);
+            DecodeL3Header header = new DecodeL3Header();
+            header.decodeHeader(urls[n]);               
+            DecodeL3NexradLite data = new DecodeL3NexradLite(header);
+            data.decodeData(new LiteProcess[] { rasterizer });
+         }
+
+         
+         
+         //--------------------------------------------------------------------
+         // Save the raster
+         //--------------------------------------------------------------------
+         //NexradRasterExport.saveAsciiGrid(outRaster, rasterizer);
+
+         //System.out.println("SAVED AND RASTERIZED IN " + (System.currentTimeMillis() - startTime) + " MILLISECONDS (total)");
+         
+         
+         System.out.println("DISPLAYING MOSAIC");
+         
+         gov.noaa.ncdc.nexradiv.NexradIAViewer nexview = new gov.noaa.ncdc.nexradiv.NexradIAViewer(true);
+         nexview.setCurrentExtent(bounds);
+         nexview.setMaxExtent(bounds);
+         nexview.pack();
+         nexview.show();
+         
+         DecodeL3Header header = new DecodeL3Header();
+         header.decodeHeader(urls[0]);               
+         //rasterizer.setSmoothing(true);
+         //rasterizer.setSmoothFactor(20);
+         nexview.setNexradGridCoverage(rasterizer.getGridCoverage(header));
+         nexview.setNexradGridCoverageVisibility(true);
+         /*
+         gov.noaa.ncdc.nexradiv.MapSelector mapSelect = new gov.noaa.ncdc.nexradiv.MapSelector(nexview);
+         mapSelect.getWMSPanel().setSelectedWMS(0, "Topo Map");
+         //mapSelect.getWMSPanel().setSelectedWMSLayers(0, " ", "Topo Map", 2);
+         nexview.getNexradMapPaneZoomChange().setWMSPanel(mapSelect.getWMSPanel());
+         mapSelect.getWMSPanel().refreshWMS();
+         nexview.setNexradTransparency(50, rasterizer);
+         */
+
+         gov.noaa.ncdc.nexradiv.AWTImageExport imgExport = 
+            new gov.noaa.ncdc.nexradiv.AWTImageExport(nexview.getViewerAWTImage());
+         imgExport.exportImage(new File[] {
+               new File("H:\\Nexrad_Viewer_Test\\Batch\\Viewer\\batchTest")
+            },
+            gov.noaa.ncdc.nexradiv.AWTImageExport.PNG);
+         
+         
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+
+
+   public static void runMosaicExample2(String outDir) {
+      
+      try {
+         
+         //--------------------------------------------------------------------
+         // Input file or URL:
+         //--------------------------------------------------------------------
+         java.net.URL[] urls = new URL[] {
+            new URL("http://weather.noaa.gov/pub/SL.us008001/DF.of/DC.radar/DS.p19r0/SI.kgsp/sn.last"),
+            new URL("http://weather.noaa.gov/pub/SL.us008001/DF.of/DC.radar/DS.p19r1/SI.kgsp/sn.last"),
+            new URL("http://weather.noaa.gov/pub/SL.us008001/DF.of/DC.radar/DS.p19r0/SI.kmrx/sn.last"),
+            new URL("http://weather.noaa.gov/pub/SL.us008001/DF.of/DC.radar/DS.p19r1/SI.kmrx/sn.last"),
+         };
+
+         // BEGIN LITE DECODE
+         long startTime = System.currentTimeMillis();
+            
+         //--------------------------------------------------------------------
+         // Output files for ASCII raster files
+         //--------------------------------------------------------------------
+         //File outRaster = new File("D:\\Nexrad_Viewer_Test\\1.0.12 BETA\\lite\\lite-ras-ex02");
+         
+         //--------------------------------------------------------------------
+         // Create LiteProcess objects for and rasterizer
+         //--------------------------------------------------------------------
+         // remember the rasterizer is a LiteProcess too!
+         NexradRasterizer rasterizer = new NexradRasterizer(1200, 1200, -999.0f); // x, y, noData
+         
+         //--------------------------------------------------------------------
+         // Set up rasterizer
+         //--------------------------------------------------------------------
+         // This sets the operation when multiple features intersect the same
+         // grid cell.         
+         //  CMD_KEEP_LARGER_VALUE --or-- CMD_KEEP_LARGER_ABSOLUTE_VALUE
+         // I use CMD_KEEP_LARGER_VALUE for Reflectivity and Spectrum Width 
+         // and CMD_KEEP_LARGER_ABSOLUTE_VALUE for Velocity moments.
+         rasterizer.setCellMathDecision(NexradRasterizer.CMD_KEEP_LARGER_VALUE);
+         // Sets the data type for the raster
+         rasterizer.setRasterType(NexradRasterizer.FLOAT);
+         //rasterizer.setRasterType(NexradRasterizer.INT);
+         // Sets the attribute from the Feature that will represent the pixel value 
+         rasterizer.setAttName("value");
+         //rasterizer.setAttName("colorIndex");
+         // Sets the bounds for the raster
+         double centerLon = -82.54;
+         double centerLat = 35.57;
+         double width = 1.2;
+         double height = 1.0;
+         java.awt.geom.Rectangle2D.Double rasterBounds = new java.awt.geom.Rectangle2D.Double(centerLon-width/1.5, centerLat-height/1.5, width*1.5, height*1.5); 
+         java.awt.geom.Rectangle2D.Double bounds = new java.awt.geom.Rectangle2D.Double(centerLon-width/2.0, centerLat-height/2.0, width, height); 
+//         java.awt.geom.Rectangle2D.Double bounds = new java.awt.geom.Rectangle2D.Double(-83.0, 41.0, 1.0, 1.0); 
+         rasterizer.setBounds(rasterBounds);
+         // Usually you would want these bounds generated from the header object
+         //rasterizer.setBounds(header.getNexradBounds());
+         // initialize raster to NoData value
+         rasterizer.clearRaster();
+         
+         //--------------------------------------------------------------------
+         // Decode the data and rasterize for each url
+         //--------------------------------------------------------------------
+         // Create Level-III decoders
+         for (int n=0; n<urls.length; n++) {
+            System.out.println("PROCESSING: "+urls[n]);
+            DecodeL3Header header = new DecodeL3Header();
+            header.decodeHeader(urls[n]);               
+            DecodeL3NexradLite data = new DecodeL3NexradLite(header);
+            data.decodeData(new LiteProcess[] { rasterizer });
+         }
+
+         
+         
+         //--------------------------------------------------------------------
+         // Save the raster
+         //--------------------------------------------------------------------
+         //NexradRasterExport.saveAsciiGrid(outRaster, rasterizer);
+
+         //System.out.println("SAVED AND RASTERIZED IN " + (System.currentTimeMillis() - startTime) + " MILLISECONDS (total)");
+         
+         
+         System.out.println("DISPLAYING MOSAIC");
+         
+         gov.noaa.ncdc.nexradiv.NexradIAViewer nexview = new gov.noaa.ncdc.nexradiv.NexradIAViewer(true);
+         nexview.setCurrentExtent(bounds);
+         nexview.setMaxExtent(bounds);
+         nexview.getMapPane().reset();
+         nexview.pack();
+         nexview.setMainPanelSize(600, 600);
+         //nexview.show();
+         
+         DecodeL3Header header = new DecodeL3Header();
+         header.decodeHeader(urls[0]);               
+         rasterizer.setSmoothing(true);
+         rasterizer.setSmoothFactor(14);
+
+         //nexview.setNexradGridCoverage(rasterizer.getGridCoverage(header));
+         // Use Level-II color scale and don't classify
+         java.awt.Color[] colors = NexradColorFactory.getColors(NexradHeader.LEVEL2_REFLECTIVITY, false);
+         double[] maxmin = NexradValueFactory.getProductMaxMinValues(NexradHeader.LEVEL2_REFLECTIVITY, 12, false);
+         nexview.setNexradGridCoverage(rasterizer.getGridCoverage(header, false, colors, maxmin));
+         nexview.setNexradGridCoverageVisibility(true);
+
+         gov.noaa.ncdc.nexradiv.AWTImageExport imgExport = 
+            new gov.noaa.ncdc.nexradiv.AWTImageExport(nexview.getViewerAWTImage());
+         imgExport.exportImage(new File[] {
+               new File(outDir+File.separator+"avl-plain")
+            },
+            gov.noaa.ncdc.nexradiv.AWTImageExport.PNG);
+         imgExport.exportImage(new File[] {
+               new File(outDir+File.separator+"avl-plain")
+            },
+            gov.noaa.ncdc.nexradiv.AWTImageExport.JPEG);
+
+
+         //nexview.setNexradGridCoverage(rasterizer.getGridCoverage(header));
+         // Use Level-II color scale and don't classify
+         java.awt.Color[] transcolors = NexradColorFactory.getTransparentColors(NexradHeader.LEVEL2_REFLECTIVITY, false, 180);
+         nexview.setNexradGridCoverage(rasterizer.getGridCoverage(header, false, transcolors, maxmin));
+         
+         gov.noaa.ncdc.nexradiv.MapSelector mapSelect = new gov.noaa.ncdc.nexradiv.MapSelector(nexview);
+         mapSelect.setNexradOnTop(true);
+         mapSelect.setIsThemeVisible(gov.noaa.ncdc.nexradiv.NexradIAViewer.HWY_INT, false);
+         nexview.setThemeVisibility(gov.noaa.ncdc.nexradiv.NexradIAViewer.HWY_INT, false);
+         mapSelect.getWMSPanel().setSelectedWMS(0, "Shaded Relief");
+         mapSelect.getWMSPanel().setSelectedWMS(1, "Reference");
+         mapSelect.getWMSPanel().setSelectedWMSLayers(1, "Federal_Lands,Names-Federal_Lands,Urban_Areas,"+
+            "Names-Urban_Areas,Water_Bodies,Names-Water_Bodies,Streams,Names-Streams,Roads,"+
+            "Interstate%20Labels,Route_Numbers,State_Labels,County_Labels"
+            , "Reference", 4);
+         nexview.getNexradMapPaneZoomChange().setWMSPanel(mapSelect.getWMSPanel());
+         mapSelect.getWMSPanel().refreshWMS();
+         
+         System.out.println("WAITING FOR WMS");
+         while (mapSelect.getWMSPanel().isWaiting(0) || mapSelect.getWMSPanel().isWaiting(1)) {
+            Thread.sleep(100);
+         }
+         System.out.println("DONE WAITING FOR WMS");
+         
+         gov.noaa.ncdc.nexradiv.AWTImageExport imgExport2 = 
+            new gov.noaa.ncdc.nexradiv.AWTImageExport(nexview.getViewerAWTImage());
+         imgExport2.exportImage(new File[] {
+               new File(outDir+File.separator+"avl-labels")
+            },
+            gov.noaa.ncdc.nexradiv.AWTImageExport.PNG);
+         imgExport2.exportImage(new File[] {
+               new File(outDir+File.separator+"avl-labels")
+            },
+            gov.noaa.ncdc.nexradiv.AWTImageExport.JPEG);
+
+            
+
+            
+            
+         mapSelect.getWMSPanel().setSelectedWMS(0, "Topo Map");
+         bounds = new java.awt.geom.Rectangle2D.Double(centerLon-width/4.0, centerLat-height/4.0, width/2.0, height/2.0); 
+         nexview.setCurrentExtent(bounds);
+         mapSelect.getWMSPanel().setSelectedWMS(1, "None");
+         //mapSelect.getWMSPanel().setSelectedWMSLayers(1, " ", "None", gov.noaa.ncdc.wms.WMSData.NONE);
+         mapSelect.getWMSPanel().refreshWMS();
+
+         System.out.println("WAITING FOR WMS");
+         while (mapSelect.getWMSPanel().isWaiting(0) || mapSelect.getWMSPanel().isWaiting(1)) {
+            Thread.sleep(100);
+         }
+         System.out.println("DONE WAITING FOR WMS");
+         
+         gov.noaa.ncdc.nexradiv.AWTImageExport imgExport3 = 
+            new gov.noaa.ncdc.nexradiv.AWTImageExport(nexview.getViewerAWTImage());
+         imgExport3.exportImage(new File[] {
+               new File(outDir+File.separator+"avl-topo")
+            },
+            gov.noaa.ncdc.nexradiv.AWTImageExport.PNG);
+         imgExport3.exportImage(new File[] {
+               new File(outDir+File.separator+"avl-topo")
+            },
+            gov.noaa.ncdc.nexradiv.AWTImageExport.JPEG);
+
+            
+            
+            
+            
+            
+         //nexview.show();
+         nexview.dispose();
+         
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+   
+   public static void runMosaicExample3() {
+      
+      try {
+         
+         //--------------------------------------------------------------------
+         // Input file or URL:
+         //--------------------------------------------------------------------
+         java.net.URL[] urls = new URL[] {
+            //new java.io.File("H:\\ViewerData\\HAS999900001\\7000KCLE_SDUS51_N0RCLE_200211102258").toURL(),
+            //new java.io.File("H:\\ViewerData\\HAS000202646\\7000KILN_SDUS51_N0RILN_200211102258").toURL(),
+            //new java.io.File("H:\\ViewerData\\HAS000202674\\7000KLMK_SDUS53_N0RLVX_200211102259").toURL(),
+            new java.io.File("H:\\ViewerData\\HAS000202248\\7000KDTX_SDUS53_N0RDTX_200211102300").toURL()
+         };
+
+         // BEGIN LITE DECODE
+         long startTime = System.currentTimeMillis();
+            
+         //--------------------------------------------------------------------
+         // Create LiteProcess objects for and rasterizer
+         //--------------------------------------------------------------------
+         // remember the rasterizer is a LiteProcess too!
+         NexradRasterizer rasterizer = new NexradRasterizer(1200, 1200, -999.0f); // x, y, noData
+         
+         //--------------------------------------------------------------------
+         // Set up rasterizer
+         //--------------------------------------------------------------------
+         // This sets the operation when multiple features intersect the same
+         // grid cell.         
+         //  CMD_KEEP_LARGER_VALUE --or-- CMD_KEEP_LARGER_ABSOLUTE_VALUE
+         // I use CMD_KEEP_LARGER_VALUE for Reflectivity and Spectrum Width 
+         // and CMD_KEEP_LARGER_ABSOLUTE_VALUE for Velocity moments.
+         rasterizer.setCellMathDecision(NexradRasterizer.CMD_KEEP_LARGER_VALUE);
+         // Sets the data type for the raster
+         //rasterizer.setRasterType(NexradRasterizer.FLOAT);
+         rasterizer.setRasterType(NexradRasterizer.INT);
+         // Sets the attribute from the Feature that will represent the pixel value 
+         //rasterizer.setAttName("value");
+         rasterizer.setAttName("colorIndex");
+         // Sets the bounds for the raster
+         java.awt.geom.Rectangle2D.Double bounds = new java.awt.geom.Rectangle2D.Double(-91.0, 35.0, 12.0, 10.0); 
+//         java.awt.geom.Rectangle2D.Double bounds = new java.awt.geom.Rectangle2D.Double(-83.0, 41.0, 1.0, 1.0); 
+         rasterizer.setBounds(bounds);
+         // Usually you would want these bounds generated from the header object
+         //rasterizer.setBounds(header.getNexradBounds());
+         // initialize raster to NoData value
+         rasterizer.clearRaster();
+         
+         //--------------------------------------------------------------------
+         // Decode the data and rasterize for each url
+         //--------------------------------------------------------------------
+         // Create Level-III decoders
+         DecodeL3Header header = new DecodeL3Header();
+         DecodeL3NexradLite data = new DecodeL3NexradLite(header);
+         for (int n=0; n<urls.length; n++) {
+            System.out.println("PROCESSING: "+urls[n]);
+            header.decodeHeader(urls[n]);               
+            data.decodeData(new LiteProcess[] { rasterizer });
+         }
+
+         
+         
+         //--------------------------------------------------------------------
+         // Save the raster
+         //--------------------------------------------------------------------
+         //NexradRasterExport.saveAsciiGrid(outRaster, rasterizer);
+
+         //System.out.println("SAVED AND RASTERIZED IN " + (System.currentTimeMillis() - startTime) + " MILLISECONDS (total)");
+         
+         
+         System.out.println("DISPLAYING MOSAIC");
+         
+         steve.test.NexradViewerBatch nexview = new steve.test.NexradViewerBatch();
+         nexview.setCurrentExtent(bounds);
+         nexview.setMaxExtent(bounds);
+         nexview.setMainPanelSize(800, 600);
+         
+         header.decodeHeader(urls[0]);               
+         rasterizer.setSmoothing(true);
+         rasterizer.setSmoothFactor(20);
+         nexview.setNexradGridCoverage(rasterizer.getGridCoverage(header));
+         nexview.setNexradGridCoverageVisibility(true);
+         /*
+         gov.noaa.ncdc.nexradiv.MapSelector mapSelect = new gov.noaa.ncdc.nexradiv.MapSelector(nexview);
+         mapSelect.getWMSPanel().setSelectedWMS(0, "Topo Map");
+         //mapSelect.getWMSPanel().setSelectedWMSLayers(0, " ", "Topo Map", 2);
+         nexview.getNexradMapPaneZoomChange().setWMSPanel(mapSelect.getWMSPanel());
+         mapSelect.getWMSPanel().refreshWMS();
+         nexview.setNexradTransparency(50, rasterizer);
+         */
+
+         gov.noaa.ncdc.nexradiv.AWTImageExport imgExport = 
+            new gov.noaa.ncdc.nexradiv.AWTImageExport(nexview.getViewerAWTImage());
+         imgExport.exportImage(new File[] {
+               new File("H:\\Nexrad_Viewer_Test\\Batch\\Viewer\\batchTest")
+            },
+            gov.noaa.ncdc.nexradiv.AWTImageExport.PNG);
+         
+         
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+
+
+
+   
+   
+   public static void runMosaicExample4() {
+      
+      try {
+         
+         //--------------------------------------------------------------------
+         // Input file or URL:
+         //--------------------------------------------------------------------
+         java.net.URL[] urls = new URL[] {
+            //new java.io.File("H:\\ViewerData\\HAS999900001\\7000KCLE_SDUS51_N0RCLE_200211102258").toURL(),
+            new java.io.File("H:\\ViewerData\\HAS000202646\\7000KILN_SDUS51_N0RILN_200211102258").toURL(),
+            new java.io.File("H:\\ViewerData\\HAS000202674\\7000KLMK_SDUS53_N0RLVX_200211102259").toURL(),
+            new java.io.File("H:\\ViewerData\\HAS000202248\\7000KDTX_SDUS53_N0RDTX_200211102300").toURL()
+         };
+
+         // BEGIN LITE DECODE
+         long startTime = System.currentTimeMillis();
+            
+         //--------------------------------------------------------------------
+         // Create LiteProcess objects for and rasterizer
+         //--------------------------------------------------------------------
+         // remember the rasterizer is a LiteProcess too!
+         NexradRasterizer rasterizer = new NexradRasterizer(1200, 1200, -999.0f); // x, y, noData
+         
+         //--------------------------------------------------------------------
+         // Set up rasterizer
+         //--------------------------------------------------------------------
+         // This sets the operation when multiple features intersect the same
+         // grid cell.         
+         //  CMD_KEEP_LARGER_VALUE --or-- CMD_KEEP_LARGER_ABSOLUTE_VALUE
+         // I use CMD_KEEP_LARGER_VALUE for Reflectivity and Spectrum Width 
+         // and CMD_KEEP_LARGER_ABSOLUTE_VALUE for Velocity moments.
+         rasterizer.setCellMathDecision(NexradRasterizer.CMD_KEEP_LARGER_VALUE);
+         // Sets the data type for the raster
+         //rasterizer.setRasterType(NexradRasterizer.FLOAT);
+         rasterizer.setRasterType(NexradRasterizer.INT);
+         // Sets the attribute from the Feature that will represent the pixel value 
+         //rasterizer.setAttName("value");
+         rasterizer.setAttName("colorIndex");
+         // Sets the bounds for the raster
+         java.awt.geom.Rectangle2D.Double bounds = new java.awt.geom.Rectangle2D.Double(-91.0, 35.0, 12.0, 10.0); 
+//         java.awt.geom.Rectangle2D.Double bounds = new java.awt.geom.Rectangle2D.Double(-83.0, 41.0, 1.0, 1.0); 
+         rasterizer.setBounds(bounds);
+         // Usually you would want these bounds generated from the header object
+         //rasterizer.setBounds(header.getNexradBounds());
+         // initialize raster to NoData value
+         rasterizer.clearRaster();
+         
+         //--------------------------------------------------------------------
+         // Decode the data and rasterize for each url
+         //--------------------------------------------------------------------
+         // Create Level-III decoders
+         DecodeL3Header header = new DecodeL3Header();
+         DecodeL3NexradLite data = new DecodeL3NexradLite(header);
+         for (int n=0; n<urls.length; n++) {
+            System.out.println("PROCESSING: "+urls[n]);
+            header.decodeHeader(urls[n]);               
+            data.decodeData(new LiteProcess[] { rasterizer });
+         }
+
+         
+         
+         //--------------------------------------------------------------------
+         // Save the image
+         //--------------------------------------------------------------------
+         int nexradAlphaChannelValue = 100; // 0-255 values
+         boolean classify = true; // always true for level3
+         //java.awt.Color[] colors = NexradColorFactory.getTransparentColors(header.getProductCode(), classify, nexradAlphaChannelValue);
+         //java.awt.Color[] colors = NexradColorFactory.getTransparentColors(header.getProductCode(), classify, nexradAlphaChannelValue);
+         //GridCoverage gc = rasterizer.getGridCoverage(header, classify, colors);
+         GridCoverage gc = rasterizer.getGridCoverage(header, classify);
+         RenderedImage renImage = gc.getRenderedImage();
+         BufferedImage bufImage = new BufferedImage (renImage.getWidth(), renImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
+         ((Graphics2D) bufImage.getGraphics()).drawRenderedImage(renImage, new AffineTransform()); 
+
+         
+         
+         int kernelSize = 1;         
+         float[] kernelMatrix = new float[kernelSize*kernelSize];
+         for (int k=0; k<kernelMatrix.length; k++) {
+            kernelMatrix[k] = 1.0f/(kernelSize * kernelSize);
+         }   
+         javax.media.jai.KernelJAI kernel = new javax.media.jai.KernelJAI(kernelSize, kernelSize, kernelMatrix);    
+         java.awt.image.renderable.ParameterBlock pb = new java.awt.image.renderable.ParameterBlock();
+         pb.addSource(renImage);
+         pb.add(kernel);      
+         javax.media.jai.PlanarImage output = javax.media.jai.JAI.create("convolve", pb, null);
+         BufferedImage bufImage2 = output.getAsBufferedImage();
+         
+         
+         
+         javax.media.jai.PlanarImage planImage = javax.media.jai.PlanarImage.wrapRenderedImage(renImage);
+         BufferedImage bufImage3 = planImage.getAsBufferedImage();
+         
+         
+         
+         
+         AWTImageExport imgExport = new AWTImageExport(bufImage);
+         imgExport.exportImage(new File[] { new File("H:\\Nexrad_Viewer_Test\\Batch\\Viewer\\batchTest4") }, AWTImageExport.PNG);
+         
+         
+         if (! ImageIO.write(bufImage, "png", new File("H:\\Nexrad_Viewer_Test\\Batch\\Viewer\\batchTest5.png")) ) {
+            System.out.println("COULD NOT WRITE: H:\\Nexrad_Viewer_Test\\Batch\\Viewer\\batchTest5.png");  
+         }
+         if (! ImageIO.write(bufImage, "jpeg", new File("H:\\Nexrad_Viewer_Test\\Batch\\Viewer\\batchTest5.jpeg")) ) {
+            System.out.println("COULD NOT WRITE: H:\\Nexrad_Viewer_Test\\Batch\\Viewer\\batchTest5.jpeg");  
+         }
+
+         AWTImageExport imgExport2 = new AWTImageExport(bufImage2);
+         imgExport2.exportImage(new File[] { new File("H:\\Nexrad_Viewer_Test\\Batch\\Viewer\\batchTest6a") }, AWTImageExport.PNG);
+
+         if (! ImageIO.write(bufImage2, "png", new File("H:\\Nexrad_Viewer_Test\\Batch\\Viewer\\batchTest6.png")) ) {
+            System.out.println("COULD NOT WRITE: H:\\Nexrad_Viewer_Test\\Batch\\Viewer\\batchTest6.png");  
+         }
+         if (! ImageIO.write(bufImage2, "jpeg", new File("H:\\Nexrad_Viewer_Test\\Batch\\Viewer\\batchTest6.jpeg")) ) {
+            System.out.println("COULD NOT WRITE: H:\\Nexrad_Viewer_Test\\Batch\\Viewer\\batchTest6.jpeg");  
+         }
+
+         AWTImageExport imgExport3 = new AWTImageExport(bufImage3);
+         imgExport3.exportImage(new File[] { new File("H:\\Nexrad_Viewer_Test\\Batch\\Viewer\\batchTest7a") }, AWTImageExport.PNG);
+
+         if (! ImageIO.write(bufImage3, "png", new File("H:\\Nexrad_Viewer_Test\\Batch\\Viewer\\batchTest7.png")) ) {
+            System.out.println("COULD NOT WRITE: H:\\Nexrad_Viewer_Test\\Batch\\Viewer\\batchTest7.png");  
+         }
+         if (! ImageIO.write(bufImage3, "jpeg", new File("H:\\Nexrad_Viewer_Test\\Batch\\Viewer\\batchTest7.jpeg")) ) {
+            System.out.println("COULD NOT WRITE: H:\\Nexrad_Viewer_Test\\Batch\\Viewer\\batchTest7.jpeg");  
+         }
+
+         
+            
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+
+
+   
+}
+

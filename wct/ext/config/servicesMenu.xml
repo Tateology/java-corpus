@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<servicesMenu>
+
+	<!-- type: REMOTE_DIR, THREDDS_CATALOG, DIRECT_URL -->
+	
+	
+	<folder name="NOAA/NCDC Climate Data Records" >
+		<entry name="RSS MSU/AMSU-A Mean Layer Atmospheric Temperatures" type="THREDDS_CATALOG"
+			location="http://data.ncdc.noaa.gov/thredds/catalog/cdr/rss-msu-amsu/catalog.xml" />
+
+		<entry name="Optimally Interpolated V2 Sea Surface Temp. (SST) AVHRR" type="THREDDS_CATALOG"
+			location="http://www.ncdc.noaa.gov/thredds/oisst-catalog.xml" />
+			
+		<entry name="Northern Hemisphere Snow Cover Extent" type="DIRECT_URL"
+			location="http://data.ncdc.noaa.gov/thredds/dodsC/cdr/snowcover/nhsce_v01r00_19661004_latest.nc" />
+
+		<entry name="Sea Ice Concentration" type="THREDDS_CATALOG"
+			location="http://data.ncdc.noaa.gov/thredds/seaiceCatalog.xml" />
+			
+		<entry name="UAH MSU/AMSU Mean Layer Atmospheric Temperatures" type="THREDDS_CATALOG"
+			location="http://data.ncdc.noaa.gov/thredds/mltCatalog.xml" />
+
+		<entry name="AVHRR Aerosol Optical Thickness (AOT)" type="THREDDS_CATALOG"
+			location="http://data.ncdc.noaa.gov/thredds/catalog/avhrr-aot/catalog.xml" />
+
+		<entry name="AMSU-A Channel 9 Brightness Temperature" type="THREDDS_CATALOG"
+			location="http://data.ncdc.noaa.gov/thredds/catalog/cdr/amsu-ch9/catalog.xml" />
+
+		<entry name="Monthly HIRS Outgoing Longwave Radiation (OLR)" type="DIRECT_URL"
+			location="http://data.ncdc.noaa.gov/thredds/dodsC/cdr/hirs-olr/hirs_olr_mon_v02r02_197901_201012.nc" />
+
+		<entry name="Pathfinder Sea Surface Temperature (SST)" type="THREDDS_CATALOG"
+			location="http://data.nodc.noaa.gov/thredds/catalog/pathfinder/Version5.2/catalog.xml" />
+
+		<entry name="RSS SSMI Brightness Temperatures" type="THREDDS_CATALOG"
+			location="http://data.ncdc.noaa.gov/thredds/catalog/cdr/ssmi/catalog.xml" />
+
+		<entry name="AVHRR Pathfinder Atmospheres- Extended (PATMOS-x) Reflectance" type="THREDDS_CATALOG"
+			location="http://data.ncdc.noaa.gov/thredds/patmosxCatalog.xml" />
+
+		<entry name="Gridded Satellite Data from ISCCP B1 (GridSat-B1) IR Window Channel" type="DIRECT_URL"
+			location="http://data.ncdc.noaa.gov/thredds/dodsC/cdr/gridsat/gridsat-aggregation-physical.ncml" />
+
+		<entry name="HIRS Clear Sky Channel 12 Brightness Temperature" type="THREDDS_CATALOG"
+			location="http://data.ncdc.noaa.gov/thredds/catalog/hirsch12swath/catalog.xml" />
+
+			
+	</folder>	
+	
+	<folder name="NOAA/NWS Weather Radar (Current from NWS)" >
+		<folder name="KGSP Greenville, SC">
+			<entry name="N0Q" type="DIRECT_URL"
+				location="http://weather.noaa.gov/pub/SL.us008001/DF.of/DC.radar/DS.p94r0/SI.kgsp/sn.last" />
+			<entry name="N1Q" type="DIRECT_URL"
+				location="http://weather.noaa.gov/pub/SL.us008001/DF.of/DC.radar/DS.p94r0/SI.kgsp/sn.last" />
+			<entry name="N2Q" type="DIRECT_URL"
+				location="http://weather.noaa.gov/pub/SL.us008001/DF.of/DC.radar/DS.p94r0/SI.kgsp/sn.last" />
+			<entry name="N3Q" type="DIRECT_URL"
+				location="http://weather.noaa.gov/pub/SL.us008001/DF.of/DC.radar/DS.p94r0/SI.kgsp/sn.last" />
+		</folder>
+		
+		<folder name="KFCX Blacksburg, VA">
+			<entry name="N0Q" type="DIRECT_URL"
+				location="http://weather.noaa.gov/pub/SL.us008001/DF.of/DC.radar/DS.p94r0/SI.kfcx/sn.last" />
+			<entry name="N1Q" type="DIRECT_URL"
+				location="http://weather.noaa.gov/pub/SL.us008001/DF.of/DC.radar/DS.p94r0/SI.kfcx/sn.last" />
+			<entry name="N2Q" type="DIRECT_URL"
+				location="http://weather.noaa.gov/pub/SL.us008001/DF.of/DC.radar/DS.p94r0/SI.kfcx/sn.last" />
+			<entry name="N3Q" type="DIRECT_URL"
+				location="http://weather.noaa.gov/pub/SL.us008001/DF.of/DC.radar/DS.p94r0/SI.kfcx/sn.last" />
+		</folder>
+		
+		<folder name="KMRX Morristown, TN">
+			<entry name="N0Q" type="DIRECT_URL"
+				location="http://weather.noaa.gov/pub/SL.us008001/DF.of/DC.radar/DS.p94r0/SI.kmrx/sn.last" />
+			<entry name="N1Q" type="DIRECT_URL"
+				location="http://weather.noaa.gov/pub/SL.us008001/DF.of/DC.radar/DS.p94r0/SI.kmrx/sn.last" />
+			<entry name="N2Q" type="DIRECT_URL"
+				location="http://weather.noaa.gov/pub/SL.us008001/DF.of/DC.radar/DS.p94r0/SI.kmrx/sn.last" />
+			<entry name="N3Q" type="DIRECT_URL"
+				location="http://weather.noaa.gov/pub/SL.us008001/DF.of/DC.radar/DS.p94r0/SI.kmrx/sn.last" />
+		</folder>
+	</folder>
+	
+	<folder name="NOAA/NWS Weather Radar (Last 45 days from Unidata)" >
+		<folder name="Level-2">
+			<entry name="KGSP Greenville, SC" type="THREDDS_CATALOG"
+				location="http://motherlode.ucar.edu/thredds/catalog/nexrad/level2/KGSP/catalog.xml" />
+			<entry name="KFCX Blacksburg, VA" type="THREDDS_CATALOG"
+				location="http://motherlode.ucar.edu/thredds/catalog/nexrad/level2/KFCX/catalog.xml" />
+			<entry name="KMRX Morristown, TN" type="THREDDS_CATALOG"
+				location="http://motherlode.ucar.edu/thredds/catalog/nexrad/level2/KMRX/catalog.xml" />
+		</folder>
+		<folder name="Level-3 Products">
+		   <folder name="KGSP Greenville, SC">
+			<entry name="N0Q" type="THREDDS_CATALOG"
+				location="http://motherlode.ucar.edu/thredds/catalog/nexrad/level3/N0Q/GSP/catalog.xml" />
+			<entry name="N1Q" type="THREDDS_CATALOG"
+				location="http://motherlode.ucar.edu/thredds/catalog/nexrad/level3/N1Q/GSP/catalog.xml" />
+			<entry name="N2Q" type="THREDDS_CATALOG"
+				location="http://motherlode.ucar.edu/thredds/catalog/nexrad/level3/N2Q/GSP/catalog.xml" />
+			<entry name="N3Q" type="THREDDS_CATALOG"
+				location="http://motherlode.ucar.edu/thredds/catalog/nexrad/level3/N3Q/GSP/catalog.xml" />
+		  </folder>
+		
+	      <folder name="KFCX Blacksburg, VA">
+			<entry name="N0Q" type="THREDDS_CATALOG"
+				location="http://motherlode.ucar.edu/thredds/catalog/nexrad/level3/N0Q/FCX/catalog.xml" />
+			<entry name="N1Q" type="THREDDS_CATALOG"
+				location="http://motherlode.ucar.edu/thredds/catalog/nexrad/level3/N1Q/FCX/catalog.xml" />
+			<entry name="N2Q" type="THREDDS_CATALOG"
+				location="http://motherlode.ucar.edu/thredds/catalog/nexrad/level3/N2Q/FCX/catalog.xml" />
+			<entry name="N3Q" type="THREDDS_CATALOG"
+				location="http://motherlode.ucar.edu/thredds/catalog/nexrad/level3/N3Q/FCX/catalog.xml" />
+		  </folder>
+		
+		  <folder name="KMRX Morristown, TN">
+			<entry name="N0Q" type="THREDDS_CATALOG"
+				location="http://motherlode.ucar.edu/thredds/catalog/nexrad/level3/N0Q/MRX/catalog.xml" />
+			<entry name="N1Q" type="THREDDS_CATALOG"
+				location="http://motherlode.ucar.edu/thredds/catalog/nexrad/level3/N1Q/MRX/catalog.xml" />
+			<entry name="N2Q" type="THREDDS_CATALOG"
+				location="http://motherlode.ucar.edu/thredds/catalog/nexrad/level3/N2Q/MRX/catalog.xml" />
+			<entry name="N3Q" type="THREDDS_CATALOG"
+				location="http://motherlode.ucar.edu/thredds/catalog/nexrad/level3/N3Q/MRX/catalog.xml" />
+		  </folder>
+		</folder>
+	</folder>
+
+</servicesMenu>
+
+

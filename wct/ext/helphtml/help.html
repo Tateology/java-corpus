@@ -1,0 +1,184 @@
+<html>
+<head>
+  <title>Quick Help for Weather and Climate Toolkit</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+<center>
+<h2>Quick Help for Weather and Climate Toolkit</h2></b>
+</center>
+
+<p>
+<h3>Data:</h3>
+
+NOAA's Weather and Climate Toolkit is an application that provides simple visualization and data 
+export of weather and climatological data archived at NCDC. The Toolkit also provides access to 
+weather/climate web services provided from NCDC and other organizations.
+<br><br>
+The Viewer provides tools for displaying custom data overlays, Web Map Services (WMS), 
+animations and basic filters. The export of images and movies is provided in multiple formats. 
+The Data Exporter allows for data export in both vector point/line/polygon and raster grid formats.
+<br><br>
+Current data types supported:
+<ul>
+    <li> CF-compliant Gridded NetCDF </li>
+    <li> Generic CF-compliant Irregularly-Spaced/Curvilinear Gridded NetCDF/HDF </li>
+    <li> GRIB1, GRIB2, GINI, GEMPAK, HDF (CF-compliant) and more gridded formats </li>
+    <li> GOES Satellite AREA Files </li>
+    <li> NEXRAD Radar Data (Level-II and Level-III) </li>
+    <li> U.S. Drought Monitor Service (from the National Drought Mitigation Center (NDMC)) </li>
+    <li> OPeNDAP support for Gridded Datasets </li>    
+</ul>
+
+<br><br>
+
+To order archived NEXRAD Radar data, go to the 
+<b>NCDC NEXRAD Inventory</b> ( http://www.ncdc.noaa.gov/nexradinv ).<br>
+The NCDC NEXRAD Data Inventory online search tool is accessable through the Viewer's "Data - Order NEXRAD Data" menu option.
+The webpage will be opened from the default browser.  Data may be ordered 
+directly from the inventory.  The user will recieve an email and "HAS Job Number" when 
+an order is complete.  The data may then be accessed through the "Load NEXRAD Data" menu
+item.<br><br>
+To order archived GOES Satellite data, go to the 
+<b>NOAA CLASS System</b> ( http://www.class.noaa.gov ), select 'GVAR_IMG' and order in 'AREA' format.<br>
+CLASS is NOAA's online facility for distribution of Polor-orbiting (POES) and Geostationary (GOES) data.
+Select the 'GVAR_IMG' product and order the data in 'AREA' format and accept all other default options.<br><br>
+
+</p>
+
+<p>
+<h3>Controls:</h3>
+<b>Zoom:</b> Use mouse wheel to zoom in or out, drag out zoom box with left mouse button, or use page-up/page-down keys.<br>
+<b>Pan:</b> Select Pan tool (hand icon) and drag the map or use arrow keys.<br>
+</p>
+
+<p>
+<h3>NEXRAD Data Filename Format:</h3>
+YYYY = year, MM = month, DD = day, HH = hour, MM = minute, SS = second <br><br>
+<b>Level-II (uncompressed, UNIX .Z or GZIP .gz compression):</b><br> 
+AAAAYYYYMMDD_HHMMSS or 6500AAAAYYYYMMDD_HHMMSS - where AAAA = 4-letter Radar ID<br>
+AAAAYYYYMMDD_HHMMSS_Vvv or 6500AAAAYYYYMMDD_HHMMSS_Vvv - where AAAA = 4-letter Radar ID and vv = data version number (> build 10 NEXRAD software)<br>
+Example: KHTX20020424_164107 or 6500KHTX20020424_164107 or KHTX20020424_164107_V03.gz <br><br> 
+
+<b>Level-III: (uncompressed NIDS format) </b><br>
+ABBB_CCCCCC_EEEAAA_YYYYMMDDHHMM or 7000ABBB_CCCCCC_DDDAAA_YYYYMMDDHHMM <br>
+Where: AAAA = 4-letter ID of source Radar, BBB = 3-letter ID of transmitting Radar, 
+CCCCCC = WMO code, EEE = Level-III Product Code. <br>
+Example: KMHX_SDUS52_N0RMHX_200309182020 or 7000KMHX_SDUS52_N0RMHX_200309182020 <br><br>
+
+<b>Level-III: (uncompressed NIDS format from NWS FTP Site) </b><br>
+sn.last or sn.XXXX <br>
+Where: XXXX = Repeating file index number <br> 
+Example: sn.last, sn.0001, sn.0002, sn.0003 <br><br>
+
+<b>Stage-III XMRG: </b><br>
+xmrg_MMDDYYYY_HHz_XX <br>
+Where: XXXX = 2-letter initials for RFC Region <br> 
+Example: xmrg_09192004_00z_SE (Southeast Region)
+
+<b>GOES AREA Files from CLASS: </b><br>
+goesAA.YYYY.DDD.HHMMSS.BAND_BB <br>
+Where: AA = GOES satellite ID (09, 12, etc...), DDD = Julian Day, BB = Band <br>
+Band 01 = Visible, 02 = Short Wave, 03 = Infrared Water Vapor, 04 = Infrared Window, 05 - Infrared Split Window, 06 - Infrared CO2 <br>  
+Example: goes12.2008.213.204514.BAND_01 ( GOES 12 Visible ) 
+
+
+</p>
+
+
+
+<p>
+<h3>Features:</h3>
+<b>Load Data (from NCDC, Local Disk or Custom URL):</b><pre> Data > Load Data. </pre><br>
+<b>Adjust Map Overlays:</b><pre> Data > Layer Selector. </pre><br>
+<b>Load Local Shapefile:</b><pre> Data > Layer Selector > Load Local Data. </pre><br>
+<b>Export Data to Shapefile, ESRI Grid, GrADS, etc:</b><pre> Data > Load Data > Export. </pre><br>
+<b>Save Image:</b><pre> File > Save Image. </pre><br>
+</p>
+<p>
+<b>Web Map Services (WMS) Backgrounds</b><br>
+WMS data such as road maps, topo map, aerial photography, shaded relief and landsat7 
+can be loaded directly into the Viewer.<br><br>
+To use this feature, select the "WMS" tab from the "Layer Selector" window.  
+The WMS layers will automatically refresh with a change in the zoom extent or by pressing "Refresh".<br><br>
+</p><br><br>
+
+
+<p>
+<h3>More information on currently supported data:</h3></b>
+<b><h4>1. Nexrad Level-II</h4></b>
+Nexrad Level-II contains the three base data moments (Reflectivity, Velocity and Spectrum Width).<br>
+<b><h4>2. Nexrad Level-III</h4></b>
+Nexrad Level-III are products derived from Level-II data. <br>
+Currently the following Level-III Products are supported:<br><br>
+N0R,N1R,N2R,N3R - Reflectivity  <br>
+N0V,N1V,N2V,N3V - Velocity 124 nm <br>
+N0S,N1S,N2S,N3S - Storm Relative Velocity <br>
+N0W - Velocity 32 nm <br>
+NSP - Spectrum Width 32 nm <br>
+NSW - Spectrum Width 124 nm <br>
+NCO - Composite Reflectivity 248 nm 8-levels <br>
+NCR - Composite Reflectivity 124 nm <br>
+NCZ - Composite Reflectivity 248 nm <br>
+NLL - Low Layer Composite Reflectivity 124 nm <br>
+NML - Mid Layer Composite Reflectivity 124 nm <br>
+NHL - High Layer Composite Reflectivity 124 nm <br>
+NVW - VAD Wind Profile <br>
+NVL - Vertical Integrated Liquid <br>
+NET - Echo Tops <br>
+NST - Storm Tracking <br>
+NHI - Hail Index <br>
+NME - Mesocyclone <br>
+NTV - Tornadic Vortex Signature <br>
+NSS - Storm Structure <br>
+N1P - One Hour Precipitation Total <br>
+N3P - Three Hour Precipitation Total <br>
+NTP - Storm Total Precipitation Total <br>
+DPA - Digital Precipitation Array <br>
+RSL - Radar Status Log <br>
+GSM - General Status Message <br>
+NCF - Clutter Filter <br>
+
+<b><h4>3. Stage-III XMRG Data </h4></b>
+Stage-III XMRG Data is produced at the River Forecast Centers by mosaicking the Level-III DPA product
+from multiple NEXRAD sites into defined regions.  Manual QC and gauge data is integrated to form hourly
+regional precipitation estimates.  For more information go to: 
+http://dipper.nws.noaa.gov/hdsb/data/nexrad/nexrad.html <br>
+
+<b><h4>4. GOES Satellite Imagery </h4></b>
+GOES Satellite Imagery (GVAR_IMG) is supported as AREA files from CLASS. 
+http://www.class.noaa.gov<br>
+</p>
+
+<h3>External APIs Used:</h3>
+<p>
+This viewer uses several external Open Source API's to expand the functionality.<br><br>
+<b>NetCDF for Java</b> http://www.unidata.ucar.edu/software/netcdf-java/ -- NetCDF and Common Data Model Library <br>
+<b>GeoTools</b> http://www.geotools.org -- Mapping Environment <br>
+<b>VividSolutions' Java Topology Suite (JTS)</b> http://www.vividsolutions.com -- Open GIS Geometry Library <br>
+<b>JGoodies</b> http://www.jgoodies.com -- Custom Look and Feel <br>
+<b>Open Source Physics</b> http://www.opensourcephysics.org -- Animated GIF and Apple Quicktime Export <br>
+<b>Faidon Image Toolkit</b> http://www.cs.hut.fi/~framling/JVG/ -- Image Export in PNG, PICT, BMP, TIFF, Targa Formats <br>
+<b>JFreeChart</b> http://www.jfree.org/jfreechart/ -- Graphing library <br>
+<b>Apache Commons</b> http://commons.apache.org/ -- Reusable Java components <br>
+<b>SwingX</b> http://swinglabs.org/ -- Swing component extentions <br>
+<b>ncWMS</b> http://www.resc.rdg.ac.uk/trac/ncWMS/ -- 2-D coordinate system processing <br>
+
+</p>
+
+
+<h3>Contact Information:</h3>
+<p>
+This viewer was developed at the <b>NOAA National Climatic Data Center (NCDC)</b> (http://www.ncdc.noaa.gov).<br>
+To order NEXRAD data go to: <b>NCDC NEXRAD Inventory</b> ( http://www.ncdc.noaa.gov/nexradinv ).<br>
+To order GOES Satellite data go to: <b>NOAA CLASS System</b> ( http://www.class.noaa.gov ), select 'GVAR_IMG' and order in 'AREA' format.<br>
+
+For more information, questions and/or comments please contact:<br><br>
+Steve Ansari<br>Physical Scientist<br>Data Access and Applications Branch<br> 
+National Climatic Data Center<br> steve.ansari@noaa.gov<br><br>
+Stephen Del Greco<br> Deputy Division Chief<br> Climate Services and Monitoring Division<br> 
+National Climatic Data Center<br> stephen.a.delgreco@noaa.gov<br><br>
+</p>
+</body>
+</html>

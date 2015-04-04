@@ -1,0 +1,20 @@
+
+# Color map for the instantaneous precip product (DPR)
+                                                                                                                                                                                                                                                                                                                                                                           
+Color: 20.00    255  255   255   
+Color: 10.00    204  164   164   
+Color: 8.00     204    2     0  
+Color: 7.00     204   50     0
+Color: 6.00     204   96     1  
+Color: 5.00     204  148     2
+Color: 4.00     204  199     2
+Color: 4.00     200  116   200  
+Color: 3.00     142    0   144
+Color: 3.00      64  199   124
+Color: 2.00       8  100    11
+Color: 2.00      21  192   204
+Color: 1.00       3    0   204    
+Color: 1.00     145  145   145
+Color: 0.01      80   80    80
+Color: 0.00       0    0     0 
+
