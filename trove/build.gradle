@@ -1,0 +1,70 @@
+///////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2009-2010, Rob Eden All Rights Reserved.
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+///////////////////////////////////////////////////////////////////////////////
+
+apply plugin: 'base'
+
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'osgi'
+
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+    }
+
+
+    jar {
+        manifest {
+            attributes 'Implementation-Title': 'Trove',
+                    'Implementation-Version': "${version}",
+                    'Implementation-URL': 'https://bitbucket.org/robeden/trove/',
+                    'Sealed': 'false'
+
+            // OSGI stuff
+            instruction 'Bundle-Name', 'Trove'
+            instruction 'Bundle-SymbolicName', 'gnu.trove'
+            instruction 'Bundle-Version', "${version}"
+            instruction 'Bundle-Vendor', 'Trove Development Team'
+            instruction 'Bundle-License', 'http://www.gnu.org/licenses/lgpl-2.1.html'
+            instruction 'Bundle-ContactAddress:', 'http://trove.starlight-systems.com/contacts'
+        }
+    }
+}
+
+
+
+task assembleDistDir {
+    outputs.dir file("${buildDir}/dist")
+    subprojects.each { project ->
+        inputs.dir project.buildDir
+    }
+
+    dependsOn(subprojects.jar)
+    dependsOn(subprojects.javadoc)
+}
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.2'
+}

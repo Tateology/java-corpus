@@ -1,0 +1,26 @@
+jar {
+    baseName 'trove-experimental'
+}
+
+
+dependencies {
+    compile project( ':core' )
+    compile project( ':generator' )
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+
+task( generateTemplates, type: JavaExec ) {
+    main = 'gnu.trove.generator.Generator'
+    classpath = configurations.runtime
+    args = [ 'src/main/templates', "${buildDir}/generated-src" ]
+}
+
+
+sourceSets {
+    main {
+        java.srcDirs += "${buildDir}/generated-src"
+//        runtimeClasspath += sourceSets.codeGen.output
+    }
+}
+compileJava.dependsOn( generateTemplates )
