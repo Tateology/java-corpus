@@ -1,0 +1,936 @@
+Buildfile: /home/ben/code/shapes/java-corpus/jedit/jEdit/build.xml
+
+init:
+     [echo] Buildfile for jedit (/home/ben/code/shapes/java-corpus/jedit/jEdit/build.xml)
+
+check-ivy:
+
+download-ivy:
+    [mkdir] Created dir: /home/ben/code/shapes/java-corpus/jedit/jEdit/lib/ivy
+      [get] Getting: http://repo2.maven.org/maven2/org/apache/ivy/ivy/2.2.0/ivy-2.2.0.jar
+      [get] To: /home/ben/code/shapes/java-corpus/jedit/jEdit/lib/ivy/ivy-2.2.0.jar
+
+init-ivy:
+
+retrieve:
+[ivy:retrieve] :: Ivy 2.2.0 - 20100923230623 :: http://ant.apache.org/ivy/ ::
+[ivy:retrieve] :: loading settings :: file = /home/ben/code/shapes/java-corpus/jedit/jEdit/ivysettings.xml
+[ivy:retrieve] :: resolving dependencies :: org.jedit#jedit;working@NSA
+[ivy:retrieve] 	confs: [default, master, compile, runtime, test, provided, sources, javadoc, ant-contrib, docbook, fop, launch4j, scripting, default-plugins]
+[ivy:retrieve] 	found com.google.code.findbugs#jsr305;3.0.0 in public
+[ivy:retrieve] 	found junit#junit-dep;4.10 in public
+[ivy:retrieve] 	found org.hamcrest#hamcrest-core;1.1 in public
+[ivy:retrieve] 	found org.hamcrest#hamcrest-library;1.2.1 in public
+[ivy:retrieve] 	found org.hamcrest#hamcrest-core;1.2.1 in public
+[ivy:retrieve] 	found ant-contrib#ant-contrib;1.0b3 in public
+[ivy:retrieve] 	found ant#ant;1.5 in public
+[ivy:retrieve] 	found saxon#saxon;6.5.3 in public
+[ivy:retrieve] 	found net.sf.docbook#docbook-xsl;1.76.1 in public
+[ivy:retrieve] 	found net.sf.docbook#docbook-xsl-saxon;1.0.0 in public
+[ivy:retrieve] 	found xerces#xercesImpl;2.10.0 in public
+[ivy:retrieve] 	found xml-apis#xml-apis;1.4.01 in public
+[ivy:retrieve] 	found org.apache.xmlgraphics#fop;1.0 in public
+[ivy:retrieve] 	found org.apache.xmlgraphics#xmlgraphics-commons;1.4 in public
+[ivy:retrieve] 	found commons-io#commons-io;1.3.1 in public
+[ivy:retrieve] 	found commons-logging#commons-logging;1.0.4 in public
+[ivy:retrieve] 	found org.apache.xmlgraphics#batik-svg-dom;1.7 in public
+[ivy:retrieve] 	found org.apache.xmlgraphics#batik-anim;1.7 in public
+[ivy:retrieve] 	found org.apache.xmlgraphics#batik-awt-util;1.7 in public
+[ivy:retrieve] 	found org.apache.xmlgraphics#batik-util;1.7 in public
+[ivy:retrieve] 	found org.apache.xmlgraphics#batik-dom;1.7 in public
+[ivy:retrieve] 	found org.apache.xmlgraphics#batik-css;1.7 in public
+[ivy:retrieve] 	found org.apache.xmlgraphics#batik-ext;1.7 in public
+[ivy:retrieve] 	found xml-apis#xml-apis;1.3.04 in public
+[ivy:retrieve] 	found xml-apis#xml-apis-ext;1.3.04 in public
+[ivy:retrieve] 	found org.apache.xmlgraphics#batik-xml;1.7 in public
+[ivy:retrieve] 	found xalan#xalan;2.6.0 in public
+[ivy:retrieve] 	found org.apache.xmlgraphics#batik-parser;1.7 in public
+[ivy:retrieve] 	found org.apache.xmlgraphics#batik-bridge;1.7 in public
+[ivy:retrieve] 	found org.apache.xmlgraphics#batik-gvt;1.7 in public
+[ivy:retrieve] 	found org.apache.xmlgraphics#batik-script;1.7 in public
+[ivy:retrieve] 	found org.apache.xmlgraphics#batik-js;1.7 in public
+[ivy:retrieve] 	found org.apache.xmlgraphics#batik-transcoder;1.7 in public
+[ivy:retrieve] 	found org.apache.xmlgraphics#batik-svggen;1.7 in public
+[ivy:retrieve] 	found org.apache.xmlgraphics#batik-extension;1.7 in public
+[ivy:retrieve] 	found org.apache.avalon.framework#avalon-framework-api;4.3.1 in public
+[ivy:retrieve] 	found org.apache.avalon.framework#avalon-framework-impl;4.3.1 in public
+[ivy:retrieve] 	found net.sf.launch4j#launch4j;3.5.0 in public
+[ivy:retrieve] 	found commons-beanutils#commons-beanutils;1.9.2 in public
+[ivy:retrieve] 	found commons-logging#commons-logging;1.2 in public
+[ivy:retrieve] 	found foxtrot#foxtrot;2.0 in public
+[ivy:retrieve] 	found com.jgoodies#jgoodies-common;1.7.0 in public
+[ivy:retrieve] 	found com.jgoodies#forms;1.2.1 in public
+[ivy:retrieve] 	found com.jgoodies#looks;2.2.2 in public
+[ivy:retrieve] 	found com.thoughtworks.xstream#xstream;1.4.7 in public
+[ivy:retrieve] 	found xmlpull#xmlpull;1.1.3.1 in public
+[ivy:retrieve] 	found xpp3#xpp3_min;1.1.4c in public
+[ivy:retrieve] 	found org.apache.ant#ant;1.9.4 in public
+[ivy:retrieve] 	found org.apache.ant#ant-launcher;1.9.4 in public
+[ivy:retrieve] 	found bsf#bsf;2.4.0 in public
+[ivy:retrieve] 	found org.beanshell#bsh;2.0b4 in public
+[ivy:retrieve] 	found org.bouncycastle#bcpg-jdk16;1.46 in public
+[ivy:retrieve] 	found org.bouncycastle#bcprov-jdk16;1.46 in public
+[ivy:retrieve] 	found org.jedit.plugins#MacOSX;1.3 in jedit-plugins
+[ivy:retrieve] 	found org.jedit.plugins#QuickNotepad;5.0 in jedit-plugins
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/3.0.0/jsr305-3.0.0-sources.jar ...
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] com.google.code.findbugs#jsr305;3.0.0!jsr305.jar(source) (165ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/3.0.0/jsr305-3.0.0.jar ...
+[ivy:retrieve] ....... (32kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] com.google.code.findbugs#jsr305;3.0.0!jsr305.jar (204ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/3.0.0/jsr305-3.0.0-javadoc.jar ...
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] com.google.code.findbugs#jsr305;3.0.0!jsr305.jar(javadoc) (164ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/junit/junit-dep/4.10/junit-dep-4.10-javadoc.jar ...
+[ivy:retrieve] ....................................................................... (343kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] junit#junit-dep;4.10!junit-dep.jar(javadoc) (358ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/junit/junit-dep/4.10/junit-dep-4.10-sources.jar ...
+[ivy:retrieve] ...................... (137kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] junit#junit-dep;4.10!junit-dep.jar(source) (239ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/junit/junit-dep/4.10/junit-dep-4.10.jar ...
+[ivy:retrieve] ............................................. (228kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] junit#junit-dep;4.10!junit-dep.jar (283ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/hamcrest/hamcrest-library/1.2.1/hamcrest-library-1.2.1-javadoc.jar ...
+[ivy:retrieve] ........................................... (187kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.hamcrest#hamcrest-library;1.2.1!hamcrest-library.jar(javadoc) (247ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/hamcrest/hamcrest-library/1.2.1/hamcrest-library-1.2.1-sources.jar ...
+[ivy:retrieve] ..... (27kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.hamcrest#hamcrest-library;1.2.1!hamcrest-library.jar(source) (173ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/hamcrest/hamcrest-library/1.2.1/hamcrest-library-1.2.1.jar ...
+[ivy:retrieve] ............. (49kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.hamcrest#hamcrest-library;1.2.1!hamcrest-library.jar (173ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.2.1/hamcrest-core-1.2.1.jar ...
+[ivy:retrieve] ....... (40kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.hamcrest#hamcrest-core;1.2.1!hamcrest-core.jar (196ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/ant-contrib/ant-contrib/1.0b3/ant-contrib-1.0b3.jar ...
+[ivy:retrieve] ............................................... (219kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] ant-contrib#ant-contrib;1.0b3!ant-contrib.jar (259ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/ant/ant/1.5/ant-1.5.jar ...
+[ivy:retrieve] ....................................................................................................................................... (699kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] ant#ant;1.5!ant.jar (533ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/saxon/saxon/6.5.3/saxon-6.5.3.jar ...
+[ivy:retrieve] ......................................................................................... (615kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] saxon#saxon;6.5.3!saxon.jar (487ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/net/sf/docbook/docbook-xsl/1.76.1/docbook-xsl-1.76.1-resources.zip ...
+[ivy:retrieve] .............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+[ivy:retrieve] .................... (2880kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] net.sf.docbook#docbook-xsl;1.76.1!docbook-xsl.zip (1879ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/net/sf/docbook/docbook-xsl-saxon/1.0.0/docbook-xsl-saxon-1.0.0.jar ...
+[ivy:retrieve] ........ (42kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] net.sf.docbook#docbook-xsl-saxon;1.0.0!docbook-xsl-saxon.jar (173ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/xerces/xercesImpl/2.10.0/xercesImpl-2.10.0.jar ...
+[ivy:retrieve] ............................................................................................................................................................................................................................................................................................. (1331kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] xerces#xercesImpl;2.10.0!xercesImpl.jar (953ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/xml-apis/xml-apis/1.4.01/xml-apis-1.4.01.jar ...
+[ivy:retrieve] ............................................ (215kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] xml-apis#xml-apis;1.4.01!xml-apis.jar (344ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/xmlgraphics/fop/1.0/fop-1.0.jar ...
+[ivy:retrieve] .........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+[ivy:retrieve] ......... (3007kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.xmlgraphics#fop;1.0!fop.jar (1758ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/xmlgraphics/xmlgraphics-commons/1.4/xmlgraphics-commons-1.4.jar ...
+[ivy:retrieve] ......................................................................... (555kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.xmlgraphics#xmlgraphics-commons;1.4!xmlgraphics-commons.jar (479ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/xmlgraphics/batik-svg-dom/1.7/batik-svg-dom-1.7.jar ...
+[ivy:retrieve] ...................................................................................................................................... (587kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.xmlgraphics#batik-svg-dom;1.7!batik-svg-dom.jar (601ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/xmlgraphics/batik-bridge/1.7/batik-bridge-1.7.jar ...
+[ivy:retrieve] ....................................................................................................................... (545kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.xmlgraphics#batik-bridge;1.7!batik-bridge.jar (489ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/xmlgraphics/batik-awt-util/1.7/batik-awt-util-1.7.jar ...
+[ivy:retrieve] ......................................................................................... (392kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.xmlgraphics#batik-awt-util;1.7!batik-awt-util.jar (389ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/xmlgraphics/batik-gvt/1.7/batik-gvt-1.7.jar ...
+[ivy:retrieve] .................................................... (237kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.xmlgraphics#batik-gvt;1.7!batik-gvt.jar (300ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/xmlgraphics/batik-transcoder/1.7/batik-transcoder-1.7.jar ...
+[ivy:retrieve] ......................... (119kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.xmlgraphics#batik-transcoder;1.7!batik-transcoder.jar (234ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/xmlgraphics/batik-extension/1.7/batik-extension-1.7.jar ...
+[ivy:retrieve] ............ (66kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.xmlgraphics#batik-extension;1.7!batik-extension.jar (205ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/xmlgraphics/batik-ext/1.7/batik-ext-1.7.jar ...
+[ivy:retrieve] .. (10kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.xmlgraphics#batik-ext;1.7!batik-ext.jar (167ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar ...
+[ivy:retrieve] ....... (37kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-logging#commons-logging;1.0.4!commons-logging.jar (180ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-io/commons-io/1.3.1/commons-io-1.3.1.jar ...
+[ivy:retrieve] ................. (81kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-io#commons-io;1.3.1!commons-io.jar (206ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/avalon/framework/avalon-framework-api/4.3.1/avalon-framework-api-4.3.1.jar ...
+[ivy:retrieve] ........ (32kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.avalon.framework#avalon-framework-api;4.3.1!avalon-framework-api.jar (182ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/avalon/framework/avalon-framework-impl/4.3.1/avalon-framework-impl-4.3.1.jar ...
+[ivy:retrieve] ............ (59kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.avalon.framework#avalon-framework-impl;4.3.1!avalon-framework-impl.jar (199ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/xmlgraphics/batik-anim/1.7/batik-anim-1.7.jar ...
+[ivy:retrieve] .................... (93kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.xmlgraphics#batik-anim;1.7!batik-anim.jar (215ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/xmlgraphics/batik-css/1.7/batik-css-1.7.jar ...
+[ivy:retrieve] ................................................................ (303kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.xmlgraphics#batik-css;1.7!batik-css.jar (359ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/xmlgraphics/batik-dom/1.7/batik-dom-1.7.jar ...
+[ivy:retrieve] ..................................... (169kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.xmlgraphics#batik-dom;1.7!batik-dom.jar (250ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/xmlgraphics/batik-parser/1.7/batik-parser-1.7.jar ...
+[ivy:retrieve] ............. (71kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.xmlgraphics#batik-parser;1.7!batik-parser.jar (208ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/xmlgraphics/batik-util/1.7/batik-util-1.7.jar ...
+[ivy:retrieve] ............................ (125kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.xmlgraphics#batik-util;1.7!batik-util.jar (239ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/xml-apis/xml-apis/1.3.04/xml-apis-1.3.04.jar ...
+[ivy:retrieve] ....................................... (189kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] xml-apis#xml-apis;1.3.04!xml-apis.jar (325ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/xml-apis/xml-apis-ext/1.3.04/xml-apis-ext-1.3.04.jar ...
+[ivy:retrieve] ................. (83kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] xml-apis#xml-apis-ext;1.3.04!xml-apis-ext.jar (268ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/xmlgraphics/batik-xml/1.7/batik-xml-1.7.jar ...
+[ivy:retrieve] ...... (30kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.xmlgraphics#batik-xml;1.7!batik-xml.jar (175ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/xalan/xalan/2.6.0/xalan-2.6.0.jar ...
+[ivy:retrieve] ...................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................... (3075kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] xalan#xalan;2.6.0!xalan.jar (1715ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/xmlgraphics/batik-script/1.7/batik-script-1.7.jar ...
+[ivy:retrieve] .......... (59kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.xmlgraphics#batik-script;1.7!batik-script.jar (178ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/xmlgraphics/batik-js/1.7/batik-js-1.7.jar ...
+[ivy:retrieve] ............................................................................................ (492kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.xmlgraphics#batik-js;1.7!batik-js.jar (840ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/xmlgraphics/batik-svggen/1.7/batik-svggen-1.7.jar ...
+[ivy:retrieve] ............................................ (210kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.xmlgraphics#batik-svggen;1.7!batik-svggen.jar (265ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/net/sf/launch4j/launch4j/3.5.0/launch4j-3.5.0-workdir-linux.jar ...
+[ivy:retrieve] ............................................................................................................................................... (913kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] net.sf.launch4j#launch4j;3.5.0!launch4j.jar (750ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/net/sf/launch4j/launch4j/3.5.0/launch4j-3.5.0-workdir-mac.jar ...
+[ivy:retrieve] .......................................................................................................................................................................................................................................... (1100kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] net.sf.launch4j#launch4j;3.5.0!launch4j.jar (918ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/net/sf/launch4j/launch4j/3.5.0/launch4j-3.5.0-core.jar ...
+[ivy:retrieve] ................................ (164kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] net.sf.launch4j#launch4j;3.5.0!launch4j.jar (303ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/net/sf/launch4j/launch4j/3.5.0/launch4j-3.5.0-workdir-win32.jar ...
+[ivy:retrieve] .................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................... (2376kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] net.sf.launch4j#launch4j;3.5.0!launch4j.jar (1651ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-beanutils/commons-beanutils/1.9.2/commons-beanutils-1.9.2.jar ...
+[ivy:retrieve] ............................................... (228kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-beanutils#commons-beanutils;1.9.2!commons-beanutils.jar (280ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-logging/commons-logging/1.2/commons-logging-1.2.jar ...
+[ivy:retrieve] ........... (60kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-logging#commons-logging;1.2!commons-logging.jar (173ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/foxtrot/foxtrot/2.0/foxtrot-2.0.jar ...
+[ivy:retrieve] ...... (25kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] foxtrot#foxtrot;2.0!foxtrot.jar (177ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/com/jgoodies/jgoodies-common/1.7.0/jgoodies-common-1.7.0.jar ...
+[ivy:retrieve] ...... (33kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] com.jgoodies#jgoodies-common;1.7.0!jgoodies-common.jar (173ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/com/jgoodies/forms/1.2.1/forms-1.2.1.jar ...
+[ivy:retrieve] ........................ (115kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] com.jgoodies#forms;1.2.1!forms.jar (211ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/com/jgoodies/looks/2.2.2/looks-2.2.2.jar ...
+[ivy:retrieve] ..................................................................................... (411kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] com.jgoodies#looks;2.2.2!looks.jar (412ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/com/thoughtworks/xstream/xstream/1.4.7/xstream-1.4.7.jar ...
+[ivy:retrieve] ........................................................................................................... (519kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] com.thoughtworks.xstream#xstream;1.4.7!xstream.jar (475ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/ant/ant/1.9.4/ant-1.9.4.jar ...
+[ivy:retrieve] ...................................................................................................................................................................................................................................................................................................................................................................................................................................... (1971kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.ant#ant;1.9.4!ant.jar (1162ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/xmlpull/xmlpull/1.1.3.1/xmlpull-1.1.3.1.jar ...
+[ivy:retrieve] .. (7kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] xmlpull#xmlpull;1.1.3.1!xmlpull.jar (166ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/xpp3/xpp3_min/1.1.4c/xpp3_min-1.1.4c.jar ...
+[ivy:retrieve] ..... (24kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] xpp3#xpp3_min;1.1.4c!xpp3_min.jar (166ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/ant/ant-launcher/1.9.4/ant-launcher-1.9.4.jar ...
+[ivy:retrieve] .... (17kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.ant#ant-launcher;1.9.4!ant-launcher.jar (169ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/bsf/bsf/2.4.0/bsf-2.4.0.jar ...
+[ivy:retrieve] ....................... (110kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] bsf#bsf;2.4.0!bsf.jar (237ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/beanshell/bsh/2.0b4/bsh-2.0b4.jar ...
+[ivy:retrieve] ........................................................... (275kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.beanshell#bsh;2.0b4!bsh.jar (280ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/bouncycastle/bcpg-jdk16/1.46/bcpg-jdk16-1.46.jar ...
+[ivy:retrieve] .................... (169kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.bouncycastle#bcpg-jdk16;1.46!bcpg-jdk16.jar (244ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/bouncycastle/bcprov-jdk16/1.46/bcprov-jdk16-1.46.jar ...
+[ivy:retrieve] ....................................................................................................................................................................................................................................................................................................................................................................................... (1832kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.bouncycastle#bcprov-jdk16;1.46!bcprov-jdk16.jar (1180ms)
+[ivy:retrieve] downloading jar:http://downloads.sourceforge.net/project/jedit-plugins/MacOSX/1.3/MacOSX-1.3-bin.zip!/MacOSX.jar ...
+[ivy:retrieve] ... (12kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.jedit.plugins#MacOSX;1.3!MacOSX.jar (261ms)
+[ivy:retrieve] downloading jar:http://downloads.sourceforge.net/project/jedit-plugins/QuickNotepad/5.0/QuickNotepad-5.0-bin.zip!/QuickNotepad.jar ...
+[ivy:retrieve] .... (18kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.jedit.plugins#QuickNotepad;5.0!QuickNotepad.jar (523ms)
+[ivy:retrieve] :: resolution report :: resolve 27180ms :: artifacts dl 27189ms
+[ivy:retrieve] 	:: evicted modules:
+[ivy:retrieve] 	org.hamcrest#hamcrest-core;1.1 by [org.hamcrest#hamcrest-core;1.2.1] in [test]
+[ivy:retrieve] 	xml-apis#xml-apis;2.0.2 by [xml-apis#xml-apis;1.3.04] in [fop]
+[ivy:retrieve] 	commons-logging#commons-logging;1.1.1 by [commons-logging#commons-logging;1.2] in [launch4j]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   1   |   1   |   1   |   0   ||   1   |   1   |
+	|      master      |   0   |   0   |   0   |   0   ||   0   |   0   |
+	|      compile     |   1   |   1   |   1   |   0   ||   1   |   1   |
+	|      runtime     |   1   |   1   |   1   |   0   ||   1   |   1   |
+	|       test       |   5   |   5   |   5   |   1   ||   4   |   4   |
+	|     provided     |   0   |   0   |   0   |   0   ||   0   |   0   |
+	|      sources     |   3   |   3   |   3   |   0   ||   3   |   3   |
+	|      javadoc     |   3   |   3   |   3   |   0   ||   3   |   3   |
+	|    ant-contrib   |   2   |   2   |   2   |   0   ||   2   |   2   |
+	|      docbook     |   5   |   5   |   5   |   0   ||   5   |   5   |
+	|        fop       |   26  |   25  |   25  |   1   ||   25  |   25  |
+	|     launch4j     |   13  |   12  |   12  |   1   ||   15  |   15  |
+	|     scripting    |   5   |   5   |   5   |   0   ||   5   |   5   |
+	|  default-plugins |   2   |   2   |   0   |   0   ||   2   |   2   |
+	---------------------------------------------------------------------
+[ivy:retrieve] :: retrieving :: org.jedit#jedit [sync]
+[ivy:retrieve] 	confs: [default, master, compile, runtime, test, provided, sources, javadoc, ant-contrib, docbook, fop, launch4j, scripting, default-plugins]
+[ivy:retrieve] 	67 artifacts copied, 0 already retrieved (28209kB/58ms)
+[ivy:retrieve] :: resolving dependencies :: org.apache.ivy#ivy-caller;working
+[ivy:retrieve] 	confs: [default]
+[ivy:retrieve] 	found org.apache.ivy#ivy;2.2.0 in public
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/apache/ivy/ivy/2.2.0/ivy-2.2.0.jar ...
+[ivy:retrieve] ......................................................................................................................................................................................... (925kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.apache.ivy#ivy;2.2.0!ivy.jar (603ms)
+[ivy:retrieve] :: resolution report :: resolve 670ms :: artifacts dl 603ms
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   1   |   1   |   1   |   0   ||   1   |   1   |
+	---------------------------------------------------------------------
+[ivy:retrieve] :: retrieving :: org.apache.ivy#ivy-caller
+[ivy:retrieve] 	confs: [default]
+[ivy:retrieve] 	1 artifacts copied, 0 already retrieved (925kB/2ms)
+
+setup:
+
+compile:
+    [javac] Compiling 536 source files to /home/ben/code/shapes/java-corpus/jedit/jEdit/build/classes/core
+    [javac] warning: [options] bootstrap class path not set in conjunction with -source 1.7
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/pluginmgr/MirrorListHandler.java:33: warning: [deprecation] PluginOptions in org.gjt.sp.jedit.options has been deprecated
+    [javac] import org.gjt.sp.jedit.options.PluginOptions;
+    [javac]                                ^
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/gui/ActionBar.java:475: warning: [unchecked] unchecked call to setListData(E[]) as a member of the raw type JList
+    [javac] 			list.setListData(actions);
+    [javac] 			                ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class JList
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/gui/ActionBar.java:494: warning: [unchecked] unchecked call to JList(E[]) as a member of the raw type JList
+    [javac] 				super(data);
+    [javac] 				     ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class JList
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/input/AbstractInputHandler.java:133: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac] 					hash.put(PREFIX_STR,prefixStr);
+    [javac] 					        ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/input/AbstractInputHandler.java:135: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac] 					current.put(keyStroke,o);
+    [javac] 					           ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/input/AbstractInputHandler.java:140: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac] 				current.put(keyStroke,action);
+    [javac] 				           ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/Macros.java:804: warning: [unchecked] unchecked call to add(E) as a member of the raw type List
+    [javac] 					submenu.add(submenuName);
+    [javac] 					           ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/Macros.java:805: warning: [unchecked] unchecked call to add(E) as a member of the raw type List
+    [javac] 					vector.add(submenu);
+    [javac] 					          ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/Macros.java:838: warning: [unchecked] unchecked call to add(E) as a member of the raw type List
+    [javac] 			vector.add(newMacro.getName());
+    [javac] 			          ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/buffer/JEditBuffer.java:105: warning: [unchecked] unchecked conversion
+    [javac] 		Set<Map.Entry> set = props.entrySet();
+    [javac] 		                                   ^
+    [javac]   required: Set<Entry>
+    [javac]   found:    Set
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/textarea/TextArea.java:111: warning: [unchecked] unchecked call to JLayer(V,LayerUI<V>) as a member of the raw type JLayer
+    [javac] 		verticalBox.add(new JLayer(
+    [javac] 		                ^
+    [javac]   where V is a type-variable:
+    [javac]     V extends Component declared in class JLayer
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/textarea/TextArea.java:115: warning: [unchecked] unchecked call to JLayer(V,LayerUI<V>) as a member of the raw type JLayer
+    [javac] 		add(ScrollLayout.BOTTOM, new JLayer(
+    [javac] 		                         ^
+    [javac]   where V is a type-variable:
+    [javac]     V extends Component declared in class JLayer
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/JEditActionContext.java:112: warning: [unchecked] unchecked cast
+    [javac] 		E[] retVal =(E[]) Array.newInstance(clazz, actionSets.size());
+    [javac] 		                                   ^
+    [javac]   required: E[]
+    [javac]   found:    Object
+    [javac]   where E,F are type-variables:
+    [javac]     E extends JEditActionSet<F> declared in class JEditActionContext
+    [javac]     F extends JEditAbstractEditAction declared in class JEditActionContext
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/NameSpace.java:341: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac]             varScope.variables.put(
+    [javac]                                   ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/NameSpace.java:400: warning: [unchecked] unchecked call to addElement(E) as a member of the raw type Vector
+    [javac]             v.addElement( e.nextElement() );
+    [javac]                         ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class Vector
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/NameSpace.java:415: warning: [unchecked] unchecked call to addElement(E) as a member of the raw type Vector
+    [javac]                 v.addElement( o );
+    [javac]                             ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class Vector
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/NameSpace.java:419: warning: [unchecked] unchecked call to addElement(E) as a member of the raw type Vector
+    [javac]                     v.addElement( ov.elementAt( i ) );
+    [javac]                                 ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class Vector
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/NameSpace.java:716: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac]         variables.put( name, new Variable( name, type, value, modifiers ) );
+    [javac]                      ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/NameSpace.java:748: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac]             methods.put(name, method);
+    [javac]                        ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/NameSpace.java:755: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac]                 methods.put(name, method);
+    [javac]                            ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/NameSpace.java:760: warning: [unchecked] unchecked call to addElement(E) as a member of the raw type Vector
+    [javac]                 v.addElement( m );
+    [javac]                             ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class Vector
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/NameSpace.java:761: warning: [unchecked] unchecked call to addElement(E) as a member of the raw type Vector
+    [javac]                 v.addElement( method );
+    [javac]                             ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class Vector
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/NameSpace.java:762: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac]                 methods.put( name, v );
+    [javac]                            ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/NameSpace.java:780: warning: [unchecked] unchecked call to addElement(E) as a member of the raw type Vector
+    [javac]             _methods.addElement( method );
+    [javac]                                ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class Vector
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/NameSpace.java:881: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac]         importedClasses.put( Name.suffix(name, 1), name );
+    [javac]                            ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/NameSpace.java:897: warning: [unchecked] unchecked call to addElement(E) as a member of the raw type Vector
+    [javac]         importedPackages.addElement(name);
+    [javac]                                    ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class Vector
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/NameSpace.java:926: warning: [unchecked] unchecked call to addElement(E) as a member of the raw type Vector
+    [javac]         importedCommands.addElement(name);
+    [javac]                                    ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class Vector
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/NameSpace.java:1146: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac]         classCache.put(name, c);
+    [javac]                       ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/NameSpace.java:1342: warning: [unchecked] unchecked call to addElement(E) as a member of the raw type Vector
+    [javac]             vec.addElement( varNames.nextElement() );
+    [javac]                           ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class Vector
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/NameSpace.java:1346: warning: [unchecked] unchecked call to addElement(E) as a member of the raw type Vector
+    [javac]             vec.addElement( methodNames.nextElement() );
+    [javac]                           ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class Vector
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/NameSpace.java:1360: warning: [unchecked] unchecked call to addElement(E) as a member of the raw type Vector
+    [javac]         nameSourceListeners.addElement( listener );
+    [javac]                                       ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class Vector
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/NameSpace.java:1510: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac]             names.put( ambigname, name );
+    [javac]                      ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/NameSpace.java:1587: warning: [unchecked] unchecked call to addElement(E) as a member of the raw type Vector
+    [javac]         importedObjects.addElement( obj );
+    [javac]                                   ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class Vector
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/NameSpace.java:1603: warning: [unchecked] unchecked call to addElement(E) as a member of the raw type Vector
+    [javac]         importedStatic.addElement( clas );
+    [javac]                                  ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class Vector
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/NameSpace.java:1643: warning: [unchecked] unchecked call to addElement(E) as a member of the raw type Vector
+    [javac]         importedCommands.addElement(new CommandPathEntry(path,clas));
+    [javac]                                    ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class Vector
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/BshClassManager.java:294: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac]             absoluteClassCache.put( name, value );
+    [javac]                                   ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/BshClassManager.java:296: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac]             absoluteNonClasses.put( name, NOVALUE );
+    [javac]                                   ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/BshClassManager.java:314: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac]             resolvedStaticMethods.put( sk, method );
+    [javac]                                      ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/BshClassManager.java:316: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac]             resolvedObjectMethods.put( sk, method );
+    [javac]                                      ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/BshClassManager.java:498: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac]         definingClasses.put( className, NOVALUE );
+    [javac]                            ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/BshClassManager.java:499: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac]         definingClassesBaseNames.put( baseName, className );
+    [javac]                                     ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/JEditActionSet.java:190: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac] 			context.actionHash.put(action.getName(),this);
+    [javac] 			                      ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/JEditActionSet.java:250: warning: [unchecked] unchecked cast
+    [javac] 		return (E) obj;
+    [javac] 		           ^
+    [javac]   required: E
+    [javac]   found:    Object
+    [javac]   where E is a type-variable:
+    [javac]     E extends JEditAbstractEditAction declared in class JEditActionSet
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/JEditActionSet.java:331: warning: [unchecked] unchecked cast
+    [javac] 			retVal[i++] = (E) value;
+    [javac] 			                  ^
+    [javac]   required: E
+    [javac]   found:    Object
+    [javac]   where E is a type-variable:
+    [javac]     E extends JEditAbstractEditAction declared in class JEditActionSet
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/gui/BufferSwitcher.java:60: warning: [unchecked] unchecked call to setRenderer(ListCellRenderer<? super E>) as a member of the raw type JComboBox
+    [javac] 		setRenderer(new BufferCellRenderer());
+    [javac] 		           ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class JComboBox
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/gui/BufferSwitcher.java:107: warning: [unchecked] unchecked call to DefaultComboBoxModel(E[]) as a member of the raw type DefaultComboBoxModel
+    [javac] 				setModel(new DefaultComboBoxModel(bufferSet.getAllBuffers()));
+    [javac] 				         ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class DefaultComboBoxModel
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/gui/BufferSwitcher.java:107: warning: [unchecked] unchecked call to setModel(ComboBoxModel<E>) as a member of the raw type JComboBox
+    [javac] 				setModel(new DefaultComboBoxModel(bufferSet.getAllBuffers()));
+    [javac] 				        ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class JComboBox
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/Mode.java:219: warning: [unchecked] unchecked method invocation: method putAll in interface Map is applied to given types
+    [javac] 		this.props.putAll(props);
+    [javac] 		                 ^
+    [javac]   required: Map<? extends K,? extends V>
+    [javac]   found: Map
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in interface Map
+    [javac]     V extends Object declared in interface Map
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/Mode.java:219: warning: [unchecked] unchecked conversion
+    [javac] 		this.props.putAll(props);
+    [javac] 		                  ^
+    [javac]   required: Map<? extends K,? extends V>
+    [javac]   found:    Map
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in interface Map
+    [javac]     V extends Object declared in interface Map
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/JARClassLoader.java:264: warning: [unchecked] getResources(String) in JARClassLoader overrides getResources(String) in ClassLoader
+    [javac] 	public Enumeration getResources(String name) throws IOException
+    [javac] 	                   ^
+    [javac]   return type requires unchecked conversion from Enumeration to Enumeration<URL>
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/JARClassLoader.java:494: warning: [deprecation] toURL() in File has been deprecated
+    [javac] 				sealBase = jar.getFile().toURL();
+    [javac] 				                        ^
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/gui/HistoryModel.java:105: warning: [unchecked] unchecked call to insertElementAt(E,int) as a member of the raw type DefaultListModel
+    [javac] 		super.insertElementAt(obj,index);
+    [javac] 		                     ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class DefaultListModel
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/Modifiers.java:25: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac] 		Object existing = modifiers.put( name, Void.TYPE/*arbitrary flag*/ );
+    [javac] 		                               ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/ServiceManager.java:287: warning: [unchecked] unchecked cast
+    [javac] 		return (E) getService(clazz.getName(), name);
+    [javac] 		                     ^
+    [javac]   required: E
+    [javac]   found:    Object
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in method <E>getService(Class<E>,String)
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/JJTParserState.java:44: warning: [unchecked] unchecked call to push(E) as a member of the raw type Stack
+    [javac]     nodes.push(n);
+    [javac]               ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class Stack
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/JJTParserState.java:78: warning: [unchecked] unchecked call to push(E) as a member of the raw type Stack
+    [javac]     marks.push(new Integer(mk));
+    [javac]               ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class Stack
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/browser/VFSBrowser.java:305: warning: [unchecked] unchecked call to addItem(E) as a member of the raw type JComboBox
+    [javac] 		filterField.addItem(filterEditor.getItem());
+    [javac] 		                   ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class JComboBox
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/browser/VFSBrowser.java:307: warning: [unchecked] unchecked call to setRenderer(ListCellRenderer<? super E>) as a member of the raw type JComboBox
+    [javac] 		filterField.setRenderer(new VFSFileFilterRenderer());
+    [javac] 		                       ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class JComboBox
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/browser/VFSBrowser.java:315: warning: [unchecked] unchecked call to addItem(E) as a member of the raw type JComboBox
+    [javac] 			filterField.addItem(_filter);
+    [javac] 			                   ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class JComboBox
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/browser/VFSBrowser.java:534: warning: [unchecked] unchecked call to addItem(E) as a member of the raw type JComboBox
+    [javac] 		filterField.addItem(filter);
+    [javac] 		                   ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class JComboBox
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/browser/VFSBrowser.java:704: warning: [unchecked] unchecked call to JList(E[]) as a member of the raw type JList
+    [javac] 		JList list = new JList(files);
+    [javac] 		             ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class JList
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/browser/VFSBrowser.java:1037: warning: [deprecation] getSelectedValues() in JList has been deprecated
+    [javac] 				.getSelectedValues();
+    [javac] 				^
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/browser/VFSBrowser.java:1090: warning: [unchecked] unchecked cast
+    [javac] 				Iterable<VFSFile> copiedFiles = (Iterable<VFSFile>) transferable.getTransferData(ListVFSFileTransferable.jEditFileList);
+    [javac] 				                                                                                ^
+    [javac]   required: Iterable<VFSFile>
+    [javac]   found:    Object
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/browser/VFSBrowser.java:1098: warning: [unchecked] unchecked cast
+    [javac] 				Iterable<File> copiedFiles = (Iterable<File>) transferable.getTransferData(DataFlavor.javaFileListFlavor);
+    [javac] 				                                                                          ^
+    [javac]   required: Iterable<File>
+    [javac]   found:    Object
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/browser/BrowserView.java:63: warning: [unchecked] unchecked call to setCellRenderer(ListCellRenderer<? super E>) as a member of the raw type JList
+    [javac] 		parentDirectories.setCellRenderer(new ParentDirectoryRenderer());
+    [javac] 		                                 ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class JList
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/browser/BrowserView.java:180: warning: [unchecked] unchecked call to setListData(E[]) as a member of the raw type JList
+    [javac] 			parentDirectories.setListData(new Object[] {
+    [javac] 			                             ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class JList
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/browser/BrowserView.java:254: warning: [unchecked] unchecked call to insertElementAt(E,int) as a member of the raw type DefaultListModel
+    [javac] 				parentList.insertElementAt(file,0);
+    [javac] 				                          ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class DefaultListModel
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/browser/BrowserView.java:264: warning: [unchecked] unchecked call to setModel(ListModel<E>) as a member of the raw type JList
+    [javac] 			parentDirectories.setModel(parentList);
+    [javac] 			                          ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class JList
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/ActionListHandler.java:128: warning: [unchecked] unchecked call to addAction(E) as a member of the raw type JEditActionSet
+    [javac] 				actionSet.addAction(action);
+    [javac] 				                   ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends JEditAbstractEditAction declared in class JEditActionSet
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/BufferHistory.java:154: warning: [unchecked] unchecked cast
+    [javac] 			return (List<Entry>)history.clone();
+    [javac] 			                                 ^
+    [javac]   required: List<Entry>
+    [javac]   found:    Object
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/GUIUtilities.java:976: warning: [unchecked] unchecked call to JList(E[]) as a member of the raw type JList
+    [javac] 			JList list = new JList(listModel);
+    [javac] 			             ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class JList
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/GUIUtilities.java:1032: warning: [unchecked] unchecked call to JList(E[]) as a member of the raw type JList
+    [javac] 			JList list = new JList(listModel);
+    [javac] 			             ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class JList
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/GUIUtilities.java:1047: warning: [deprecation] getSelectedValues() in JList has been deprecated
+    [javac] 			Object[] selectedValues = list.getSelectedValues();
+    [javac] 			                              ^
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/GUIUtilities.java:1048: warning: [unchecked] unchecked call to addAll(Collection<? extends E>) as a member of the raw type List
+    [javac] 			selectedItems.addAll(Arrays.asList(selectedValues));
+    [javac] 			                    ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/gui/EnhancedButton.java:69: warning: [deprecation] isFocusTraversable() in Component has been deprecated
+    [javac] 	public boolean isFocusTraversable()
+    [javac] 	               ^
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/JEditRegisterSaver.java:114: warning: [deprecation] toString() in Register has been deprecated
+    [javac] 				   register.toString().length() == 0)
+    [javac] 				           ^
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/JEditRegisterSaver.java:125: warning: [deprecation] toString() in Register has been deprecated
+    [javac] 					register.toString(), false));
+    [javac] 					        ^
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/browser/VFSFileChooserDialog.java:202: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac] 							props.put(JEditBuffer.ENCODING,browser.currentEncoding);
+    [javac] 							         ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/browser/VFSFileChooserDialog.java:204: warning: [unchecked] unchecked method invocation: method openFile in class jEdit is applied to given types
+    [javac] 						jEdit.openFile(browser.getView(),
+    [javac] 						              ^
+    [javac]   required: View,String,String,boolean,Hashtable<String,Object>
+    [javac]   found: View,String,String,boolean,Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/browser/VFSFileChooserDialog.java:206: warning: [unchecked] unchecked conversion
+    [javac] 							path,false,props);
+    [javac] 							           ^
+    [javac]   required: Hashtable<String,Object>
+    [javac]   found:    Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/BSHTryStatement.java:59: warning: [unchecked] unchecked call to addElement(E) as a member of the raw type Vector
+    [javac] 			catchParams.addElement(node);
+    [javac] 			                      ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class Vector
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/BSHTryStatement.java:60: warning: [unchecked] unchecked call to addElement(E) as a member of the raw type Vector
+    [javac] 			catchBlocks.addElement(jjtGetChild(i++));
+    [javac] 			                      ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class Vector
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/Capabilities.java:126: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac] 				classes.put(c,"unused");
+    [javac] 				           ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/ClassGeneratorImpl.java:182: warning: [unchecked] unchecked call to add(E) as a member of the raw type List
+    [javac] 						vars.add( var );
+    [javac] 						        ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/ClassGeneratorImpl.java:190: warning: [unchecked] unchecked call to <T>toArray(T[]) as a member of the raw type List
+    [javac] 		return (Variable [])vars.toArray( new Variable[0] );
+    [javac] 		                                ^
+    [javac]   where T is a type-variable:
+    [javac]     T extends Object declared in method <T>toArray(T[])
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/ClassGeneratorImpl.java:225: warning: [unchecked] unchecked call to add(E) as a member of the raw type List
+    [javac] 				methods.add( bm );
+    [javac] 				           ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/ClassGeneratorImpl.java:229: warning: [unchecked] unchecked call to <T>toArray(T[]) as a member of the raw type List
+    [javac] 		return (DelayedEvalBshMethod [])methods.toArray( 
+    [javac] 		                                               ^
+    [javac]   where T is a type-variable:
+    [javac]     T extends Object declared in method <T>toArray(T[])
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/ClassGeneratorUtil.java:153: warning: [unchecked] unchecked call to add(E) as a member of the raw type List
+    [javac] 				consl.add( bshmethods[i] );
+    [javac] 				         ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/ClassGeneratorUtil.java:155: warning: [unchecked] unchecked call to add(E) as a member of the raw type List
+    [javac] 				methodsl.add( bshmethods[i] );
+    [javac] 				            ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/ClassGeneratorUtil.java:157: warning: [unchecked] unchecked call to <T>toArray(T[]) as a member of the raw type List
+    [javac] 		this.constructors = (DelayedEvalBshMethod [])consl.toArray( 
+    [javac] 		                                                          ^
+    [javac]   where T is a type-variable:
+    [javac]     T extends Object declared in method <T>toArray(T[])
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/ClassGeneratorUtil.java:159: warning: [unchecked] unchecked call to <T>toArray(T[]) as a member of the raw type List
+    [javac] 		this.methods = (DelayedEvalBshMethod [])methodsl.toArray( 
+    [javac] 		                                                        ^
+    [javac]   where T is a type-variable:
+    [javac]     T extends Object declared in method <T>toArray(T[])
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/CollectionManager.java:101: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac]         return ((Hashtable)map).put(key, value);
+    [javac]                                    ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/ExternalNameSpace.java:97: warning: [unchecked] unchecked call to addAll(Collection<? extends E>) as a member of the raw type Set
+    [javac] 		nameSet.addAll( Arrays.asList( nsNames ) );
+    [javac] 		              ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface Set
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/ExternalNameSpace.java:98: warning: [unchecked] unchecked call to addAll(Collection<? extends E>) as a member of the raw type Set
+    [javac] 		nameSet.addAll( externalMap.keySet() );
+    [javac] 		              ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface Set
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/ExternalNameSpace.java:99: warning: [unchecked] unchecked call to <T>toArray(T[]) as a member of the raw type Set
+    [javac] 		return (String [])nameSet.toArray( new String[0] );
+    [javac] 		                                 ^
+    [javac]   where T is a type-variable:
+    [javac]     T extends Object declared in method <T>toArray(T[])
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/ExternalNameSpace.java:231: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Map
+    [javac] 		externalMap.put( name, value );
+    [javac] 		               ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in interface Map
+    [javac]     V extends Object declared in interface Map
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/Primitive.java:75: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac] 		wrapperMap.put( Boolean.TYPE, Boolean.class );
+    [javac] 		              ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/Primitive.java:76: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac] 		wrapperMap.put( Byte.TYPE, Byte.class );
+    [javac] 		              ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] /home/ben/code/shapes/java-corpus/jedit/jEdit/org/gjt/sp/jedit/bsh/Primitive.java:77: warning: [unchecked] unchecked call to put(K,V) as a member of the raw type Hashtable
+    [javac] 		wrapperMap.put( Short.TYPE, Short.class );
+    [javac] 		              ^
+    [javac]   where K,V are type-variables:
+    [javac]     K extends Object declared in class Hashtable
+    [javac]     V extends Object declared in class Hashtable
+    [javac] Note: Some input files additionally use or override a deprecated API.
+    [javac] Note: Some input files additionally use unchecked or unsafe operations.
+    [javac] 100 warnings
+
+build:
+      [jar] Building jar: /home/ben/code/shapes/java-corpus/jedit/jEdit/build/jedit.jar
+     [copy] Copying 331 files to /home/ben/code/shapes/java-corpus/jedit/jEdit/build
+     [copy] Copying 1 file to /home/ben/code/shapes/java-corpus/jedit/jEdit/build/jars
+
+init:
+
+check-ivy:
+
+download-ivy:
+
+init-ivy:
+
+retrieve:
+
+compile:
+
+compile-test:
+    [mkdir] Created dir: /home/ben/code/shapes/java-corpus/jedit/jEdit/build/classes/test
+    [javac] Compiling 1 source file to /home/ben/code/shapes/java-corpus/jedit/jEdit/build/classes/test
+    [javac] warning: [options] bootstrap class path not set in conjunction with -source 1.7
+    [javac] 1 warning
+
+test:
+    [mkdir] Created dir: /home/ben/code/shapes/java-corpus/jedit/jEdit/build/test/raw-reports
+    [junit] Running org.jedit.io.Native2ASCIIEncodingTest
+    [junit] Tests run: 108, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.038 sec
+    [mkdir] Created dir: /home/ben/code/shapes/java-corpus/jedit/jEdit/build/test/merged-reports
+[junitreport] Processing /home/ben/code/shapes/java-corpus/jedit/jEdit/build/test/merged-reports/TESTS-TestSuites.xml to /tmp/null1513513495
+[junitreport] Loading stylesheet jar:file:/usr/share/apache-ant/lib/ant-junit.jar!/org/apache/tools/ant/taskdefs/optional/junit/xsl/junit-frames.xsl
+[junitreport] Transform time: 265ms
+[junitreport] Deleting: /tmp/null1513513495
+
+BUILD SUCCESSFUL
+Total time: 1 minute 3 seconds

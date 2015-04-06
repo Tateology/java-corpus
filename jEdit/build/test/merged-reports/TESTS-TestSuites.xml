@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites>
+  <testsuite errors="0" failures="0" hostname="NSA" id="0" name="Native2ASCIIEncodingTest" package="org.jedit.io" skipped="0" tests="108" time="0.038" timestamp="2015-04-03T22:44:26">
+      <properties>
+          <property name="config.lib.dir" value="lib" />
+
+          <property name="file.encoding.pkg" value="sun.io" />
+
+          <property name="ivy.retrieve.pattern.ivy.instance" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/lib/[artifact]-[revision](-[classifier]).[ext]" />
+
+          <property name="java.vendor.url.ivy.instance" value="http://java.oracle.com/" />
+
+          <property name="ivy.local.default.ivy.pattern.ivy.instance" value="[organisation]/[module]/[revision]/[type]s/[artifact].[ext]" />
+
+          <property name="ivy.project.dir.ivy.instance" value="/home/ben/code/shapes/java-corpus/jedit/jEdit" />
+
+          <property name="ivy.resolve.default.type.filter" value="*" />
+
+          <property name="java.home" value="/usr/lib/jvm/java-8-openjdk/jre" />
+
+          <property name="ivy.configurations.ivy.instance" value="*" />
+
+          <property name="ivy.basedir.ivy.instance" value="/home/ben/code/shapes/java-corpus/jedit/jEdit" />
+
+          <property name="ivy.dep.file.ivy.instance" value="ivy.xml" />
+
+          <property name="java.endorsed.dirs" value="/usr/lib/jvm/java-8-openjdk/jre/lib/endorsed" />
+
+          <property name="java.class.path.ivy.instance" value="/usr/share/apache-ant/lib/ant-launcher.jar:/usr/share/java/junit.jar:/usr/share/apache-ant/lib/ant-apache-bcel.jar:/usr/share/apache-ant/lib/ant-commons-logging.jar:/usr/share/apache-ant/lib/ant-launcher.jar:/usr/share/apache-ant/lib/ant-antlr.jar:/usr/share/apache-ant/lib/ant-swing.jar:/usr/share/apache-ant/lib/ant-jai.jar:/usr/share/apache-ant/lib/ant-junit4.jar:/usr/share/apache-ant/lib/ant-apache-oro.jar:/usr/share/apache-ant/lib/ant-apache-resolver.jar:/usr/share/apache-ant/lib/ant-netrexx.jar:/usr/share/apache-ant/lib/ant-apache-bsf.jar:/usr/share/apache-ant/lib/ant-apache-log4j.jar:/usr/share/apache-ant/lib/ant-commons-net.jar:/usr/share/apache-ant/lib/ant-jsch.jar:/usr/share/apache-ant/lib/ant-javamail.jar:/usr/share/apache-ant/lib/ant.jar:/usr/share/apache-ant/lib/ant-testutil.jar:/usr/share/apache-ant/lib/ant-apache-regexp.jar:/usr/share/apache-ant/lib/ant-jdepend.jar:/usr/share/apache-ant/lib/ant-apache-xalan2.jar:/usr/share/apache-ant/lib/ant-jmf.jar:/usr/share/apache-ant/lib/ant-junit.jar:/usr/lib/jvm/java-8-openjdk/lib/tools.jar" />
+
+          <property name="ivy.home" value="/home/ben/.ivy2" />
+
+          <property name="jEdit.keymap" value="#{{{ Function keys&#xa;help.shortcut=F1&#xa;show-context-menu.shortcut=CONTEXT_MENU&#xa;#}}}&#xa;&#xa;#{{{ C+X&#xa;select-all.shortcut=C+a&#xa;complete-word.shortcut=C+b&#xa;copy.shortcut=C+c&#xa;delete-line.shortcut=C+d&#xa;# C+e is a prefix&#xa;find.shortcut=C+f&#xa;find-next.shortcut=F3&#xa;# C+h is not usable on MacOS X&#xa;indent-lines.shortcut=C+i&#xa;join-lines.shortcut=C+j&#xa;swap-marker.shortcut=C+k&#xa;goto-line.shortcut=C+g&#xa;# C+m is a prefix&#xa;new-file.shortcut=C+n&#xa;new-file-in-mode.shortcut=CS+n&#xa;open-file.shortcut=C+o&#xa;reload.shortcut=F5&#xa;print.shortcut=C+p&#xa;exit.shortcut=C+q&#xa;# C+r is a prefix&#xa;save.shortcut=C+s&#xa;add-marker-shortcut.shortcut=C+t&#xa;select-marker.shortcut=C+u&#xa;paste.shortcut=C+v&#xa;close-buffer.shortcut=C+w&#xa;cut.shortcut=C+x&#xa;goto-marker.shortcut=C+y&#xa;undo.shortcut=C+z&#xa;unsplit-current.shortcut=C+0&#xa;unsplit.shortcut=C+1&#xa;split-horizontal.shortcut=C+2&#xa;split-vertical.shortcut=C+3&#xa;resplit.shortcut=C+4&#xa;#}}}&#xa;&#xa;#{{{ C+non-alpha&#xa;delete-start-line.shortcut=CS+BACK_SPACE&#xa;delete-end-line.shortcut=CS+DELETE&#xa;prev-paragraph.shortcut=C+UP&#xa;next-paragraph.shortcut=C+DOWN&#xa;select-prev-paragraph.shortcut=CS+UP&#xa;select-next-paragraph.shortcut=CS+DOWN&#xa;backspace-word.shortcut=C+BACK_SPACE&#xa;delete-word.shortcut=C+DELETE&#xa;document-home.shortcut=C+HOME&#xa;document-end.shortcut=C+END&#xa;select-document-home.shortcut=CS+HOME&#xa;select-document-end.shortcut=CS+END&#xa;prev-word.shortcut=C+LEFT&#xa;select-prev-word.shortcut=CS+LEFT&#xa;next-word.shortcut=C+RIGHT&#xa;select-next-word.shortcut=CS+RIGHT&#xa;action-bar.shortcut=C+ENTER&#xa;prev-buffer.shortcut=C+PAGE_UP&#xa;next-buffer.shortcut=C+PAGE_DOWN&#xa;last-action.shortcut=C+SPACE&#xa;&#xa;recent-buffer.shortcut=C+BACK_QUOTE&#xa;select-block.shortcut=C+OPEN_BRACKET&#xa;match-bracket.shortcut=C+CLOSE_BRACKET&#xa;expand-abbrev.shortcut=C+SEMICOLON&#xa;quick-search.shortcut=C+COMMA&#xa;hypersearch.shortcut=C+PERIOD&#xa;scroll-up-line.shortcut=C+QUOTE&#xa;scroll-down-line.shortcut=C+SLASH&#xa;toggle-multi-select.shortcut=C+BACK_SLASH&#xa;#}}}&#xa;&#xa;#{{{ C+e C+X&#xa;# Unused: f, h, q, y&#xa;copy-append.shortcut=C+e C+a&#xa;search-in-open-buffers.shortcut=C+e C+b&#xa;range-comment.shortcut=C+e C+c&#xa;search-in-directory.shortcut=C+e C+d&#xa;replace-and-find-next.shortcut=C+e C+g&#xa;ignore-case.shortcut=C+e C+i&#xa;scroll-to-current-line.shortcut=C+e C+j&#xa;line-comment.shortcut=C+e C+k&#xa;select-line-range.shortcut=C+e C+l&#xa;add-marker.shortcut=C+e C+m&#xa;center-caret.shortcut=C+e C+n&#xa;scroll-and-center.shortcut=C+l&#xa;open-path.shortcut=C+e C+o&#xa;vertical-paste.shortcut=C+e C+p&#xa;replace-in-selection.shortcut=C+e C+r&#xa;save-all.shortcut=C+e C+s&#xa;toggle-line-numbers.shortcut=C+e C+t&#xa;cut-append.shortcut=C+e C+u&#xa;paste-previous.shortcut=C+e C+v&#xa;close-all.shortcut=C+e C+w&#xa;regexp.shortcut=C+e C+x&#xa;paste-deleted.shortcut=C+e C+y&#xa;redo.shortcut=C+e C+z&#xa;#}}}&#xa;&#xa;#{{{ C+e C+non-alpha&#xa;left-docking-area.shortcut=C+e C+LEFT&#xa;top-docking-area.shortcut=C+e C+UP&#xa;right-docking-area.shortcut=C+e C+RIGHT&#xa;bottom-docking-area.shortcut=C+e C+DOWN&#xa;toggle-full-screen.shortcut=F11&#xa;toggle-dock-areas.shortcut=F12&#xa;combined-options.shortcut=C+F12&#xa;prev-marker.shortcut=C+e C+COMMA&#xa;next-marker.shortcut=C+e C+PERIOD&#xa;prev-bracket.shortcut=C+e C+OPEN_BRACKET&#xa;next-bracket.shortcut=C+e C+CLOSE_BRACKET&#xa;close-docking-area.shortcut=C+e C+BACK_QUOTE&#xa;#}}}&#xa;&#xa;#{{{ C+e X&#xa;# Unused: b e g h j k m o q t y z&#xa;add-explicit-fold.shortcut=C+e a&#xa;collapse-all-folds.shortcut=C+e c&#xa;delete-paragraph.shortcut=C+e d&#xa;format-paragraph.shortcut=C+e f&#xa;find-previous.shortcut=C+e g&#xa;invert-selection.shortcut=C+e i&#xa;select-line.shortcut=C+e l&#xa;narrow-to-fold.shortcut=C+e n n&#xa;narrow-to-selection.shortcut=C+e n s&#xa;select-paragraph.shortcut=C+e p&#xa;remove-trailing-ws.shortcut=C+e r&#xa;select-fold.shortcut=C+e s&#xa;insert-literal.shortcut=C+e v&#xa;select-word.shortcut=C+e w&#xa;parent-fold.shortcut=C+e u&#xa;expand-all-folds.shortcut=C+e x&#xa;#}}}&#xa;&#xa;#{{{ C+e non-alpha&#xa;expand-folds.shortcut=C+e ENTER&#xa;#}}}&#xa;&#xa;#{{{ C+m C+X&#xa;record-temp-macro.shortcut=C+m C+m&#xa;run-temp-macro.shortcut=C+m C+p&#xa;record-macro.shortcut=C+m C+r&#xa;stop-recording.shortcut=C+m C+s&#xa;last-macro.shortcut=C+m C+l&#xa;#}}}&#xa;&#xa;#{{{ C+r C+X&#xa;copy-append-string-register.shortcut=C+r C+a&#xa;copy-string-register.shortcut=C+r C+c&#xa;clear-register.shortcut=C+r C+l&#xa;vertical-paste-string-register.shortcut=C+r C+p&#xa;cut-append-string-register.shortcut=C+r C+u&#xa;paste-string-register.shortcut=C+r C+v&#xa;cut-string-register.shortcut=C+r C+x&#xa;#}}}&#xa;&#xa;#{{{ A+non-alpha&#xa;prev-fold.shortcut=A+UP&#xa;next-fold.shortcut=A+DOWN&#xa;shift-left.shortcut=A+LEFT&#xa;shift-right.shortcut=A+RIGHT&#xa;collapse-fold.shortcut=A+BACK_SPACE&#xa;expand-fold.shortcut=AS+ENTER&#xa;expand-one-level.shortcut=A+ENTER&#xa;quick-search-word.shortcut=A+COMMA&#xa;hypersearch-word.shortcut=A+PERIOD&#xa;scroll-up-page.shortcut=A+QUOTE&#xa;scroll-down-page.shortcut=A+SLASH&#xa;prev-textarea.shortcut=A+PAGE_UP&#xa;next-textarea.shortcut=A+PAGE_DOWN&#xa;&#xa;focus-buffer-switcher.shortcut=A+BACK_QUOTE&#xa;toggle-rect-select.shortcut=A+BACK_SLASH&#xa;#}}}&#xa;&#xa;#{{{ Other keys&#xa;shift-left.shortcut2=S+TAB&#xa;select-none.shortcut=ESCAPE&#xa;backspace.shortcut=BACK_SPACE&#xa;delete.shortcut=DELETE&#xa;overwrite.shortcut=INSERT&#xa;home.shortcut=HOME&#xa;end.shortcut=END&#xa;select-home.shortcut=S+HOME&#xa;select-end.shortcut=S+END&#xa;prev-page.shortcut=PAGE_UP&#xa;next-page.shortcut=PAGE_DOWN&#xa;select-prev-page.shortcut=S+PAGE_UP&#xa;select-next-page.shortcut=S+PAGE_DOWN&#xa;prev-char.shortcut=LEFT&#xa;select-prev-char.shortcut=S+LEFT&#xa;next-char.shortcut=RIGHT&#xa;select-next-char.shortcut=S+RIGHT&#xa;prev-line.shortcut=UP&#xa;select-prev-line.shortcut=S+UP&#xa;next-line.shortcut=DOWN&#xa;select-next-line.shortcut=S+DOWN&#xa;insert-newline-indent.shortcut=ENTER&#xa;insert-newline.shortcut=S+ENTER&#xa;insert-tab-indent.shortcut=TAB&#xa;#}}}&#xa;&#xa;#{{{ Alternative shortcuts for frequently-used commands&#xa;select-next-page.shortcut2=AS+a&#xa;select-prev-line.shortcut2=AS+i&#xa;select-prev-char.shortcut2=AS+j&#xa;select-next-line.shortcut2=AS+k&#xa;select-next-char.shortcut2=AS+l&#xa;select-prev-page.shortcut2=AS+q&#xa;select-end.shortcut2=AS+x&#xa;select-home.shortcut2=AS+z&#xa;copy.shortcut2=C+INSERT&#xa;paste.shortcut2=S+INSERT&#xa;cut.shortcut2=S+DELETE&#xa;#}}}&#xa;&#xa;#{{{ VFS browser&#xa;vfs.browser.delete.shortcut=DELETE&#xa;vfs.browser.home.shortcut=~&#xa;vfs.browser.new-directory.shortcut=INSERT&#xa;vfs.browser.new-file.shortcut=C+n&#xa;vfs.browser.reload.shortcut=F5&#xa;vfs.browser.rename.shortcut=F2&#xa;vfs.browser.roots.shortcut=/&#xa;vfs.browser.synchronize.shortcut=-&#xa;vfs.browser.up.shortcut=A+Up&#xa;vfs.browser.previous.shortcut=A+Left&#xa;vfs.browser.next.shortcut=A+Right&#xa;#}}}&#xa;" />
+
+          <property name="java.vm.specification.vendor.ivy.instance" value="Oracle Corporation" />
+
+          <property name="sun.os.patch.level" value="unknown" />
+
+          <property name="ivy.dep.file" value="ivy.xml" />
+
+          <property name="java.vendor.url" value="http://java.oracle.com/" />
+
+          <property name="ivy.local.default.artifact.pattern.ivy.instance" value="[organisation]/[module]/[revision]/[type]s/[artifact].[ext]" />
+
+          <property name="ivy.lib.dir.ivy.instance" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/lib" />
+
+          <property name="java.version" value="1.8.0_40" />
+
+          <property name="ivy.conf.dir.ivy.instance" value="/home/ben/code/shapes/java-corpus/jedit/jEdit" />
+
+          <property name="sun.boot.library.path.ivy.instance" value="/usr/lib/jvm/java-8-openjdk/jre/lib/amd64" />
+
+          <property name="ivy.done" value="true" />
+
+          <property name="ivy.report.output.pattern.ivy.instance" value="[organisation]-[module]-[conf].[ext]" />
+
+          <property name="ivy.module" value="jedit" />
+
+          <property name="ivy.publish.src.artifacts.pattern.ivy.instance" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/distrib/[type]s/[artifact]-[revision](-[classifier]).[ext]" />
+
+          <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/" />
+
+          <property name="sun.management.compiler.ivy.instance" value="HotSpot 64-Bit Tiered Compilers" />
+
+          <property name="ant.project.invoked-targets" value="test" />
+
+          <property name="ivy.local.default.artifact.pattern" value="[organisation]/[module]/[revision]/[type]s/[artifact].[ext]" />
+
+          <property name="os.name.ivy.instance" value="Linux" />
+
+          <property name="ivy.default.ivy.user.dir.ivy.instance" value="/home/ben/.ivy2" />
+
+          <property name="ivy.default.always.check.exact.revision" value="false" />
+
+          <property name="ivy.default.settings.dir.ivy.instance" value="jar:file:/home/ben/code/shapes/java-corpus/jedit/jEdit/lib/ivy/ivy-2.2.0.jar!/org/apache/ivy/core/settings" />
+
+          <property name="user.name" value="ben" />
+
+          <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
+
+          <property name="ivy.shared.default.root.ivy.instance" value="/home/ben/.ivy2/shared" />
+
+          <property name="sun.jnu.encoding" value="UTF-8" />
+
+          <property name="java.runtime.name" value="OpenJDK Runtime Environment" />
+
+          <property name="ant.home.ivy.instance" value="/usr/share/apache-ant" />
+
+          <property name="file.encoding.ivy.instance" value="UTF-8" />
+
+          <property name="ivy.cache.ttl.default.ivy.instance" value="10s" />
+
+          <property name="ivy.conf.file.ivy.instance" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/ivysettings.xml" />
+
+          <property name="java.specification.vendor.ivy.instance" value="Oracle Corporation" />
+
+          <property name="java.vendor.ivy.instance" value="Oracle Corporation" />
+
+          <property name="lib.dir" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/lib" />
+
+          <property name="sun.cpu.isalist.ivy.instance" value="" />
+
+          <property name="java.specification.name" value="Java Platform API Specification" />
+
+          <property name="user.timezone" value="America/New_York" />
+
+          <property name="java.endorsed.dirs.ivy.instance" value="/usr/lib/jvm/java-8-openjdk/jre/lib/endorsed" />
+
+          <property name="slackware.target.java.version" value="1_7_0" />
+
+          <property name="path.separator" value=":" />
+
+          <property name="config.dist.dir" value="dist" />
+
+          <property name="mac.target.java.version" value="1.7+" />
+
+          <property name="java.class.version.ivy.instance" value="52.0" />
+
+          <property name="ivy.default.conf.dir" value="jar:file:/home/ben/code/shapes/java-corpus/jedit/jEdit/lib/ivy/ivy-2.2.0.jar!/org/apache/ivy/core/settings" />
+
+          <property name="file.encoding" value="UTF-8" />
+
+          <property name="java.runtime.name.ivy.instance" value="OpenJDK Runtime Environment" />
+
+          <property name="ivy.resolve.default.type.filter.ivy.instance" value="*" />
+
+          <property name="ant.project.default-target" value="build" />
+
+          <property name="jedit.version.final" value="true" />
+
+          <property name="win.filename" value="jedit5.2.0install" />
+
+          <property name="ivy.targets.copied" value="true" />
+
+          <property name="sun.java.command" value="org.apache.tools.ant.launch.Launcher -cp " />
+
+          <property name="ivy.shared.default.artifact.pattern" value="[organisation]/[module]/[revision]/[type]s/[artifact].[ext]" />
+
+          <property name="ant.file" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/build.xml" />
+
+          <property name="ivy.distrib.dir.ivy.instance" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/distrib" />
+
+          <property name="ivy.checksums.ivy.instance" value="sha1,md5" />
+
+          <property name="sun.arch.data.model.ivy.instance" value="64" />
+
+          <property name="ivy.build.artifacts.dir.ivy.instance" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/build/artifacts" />
+
+          <property name="ivy.settings.file" value="ivysettings.xml" />
+
+          <property name="java.io.tmpdir" value="/tmp" />
+
+          <property name="ivy.buildlist.ivyfilepath.ivy.instance" value="ivy.xml" />
+
+          <property name="ivy.cache.ttl.default" value="10s" />
+
+          <property name="user.language" value="en" />
+
+          <property name="user.dir.ivy.instance" value="/home/ben/code/shapes/java-corpus/jedit/jEdit" />
+
+          <property name="ivy.home.ivy.instance" value="/home/ben/.ivy2" />
+
+          <property name="line.separator" value="&#xa;" />
+
+          <property name="java.specification.version.ivy.instance" value="1.8" />
+
+          <property name="ant.file.type" value="file" />
+
+          <property name="ivy.build.artifacts.dir" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/build/artifacts" />
+
+          <property name="src.archive.filename" value="jedit5.2.0source.tar.bz2" />
+
+          <property name="sun.io.unicode.encoding.ivy.instance" value="UnicodeLittle" />
+
+          <property name="ivy.status" value="integration" />
+
+          <property name="java.vm.info" value="mixed mode" />
+
+          <property name="ivy.lib.dir" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/lib" />
+
+          <property name="jedit.build.number" value="05.02.99.00" />
+
+          <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+
+          <property name="ivy.default.conf.dir.ivy.instance" value="jar:file:/home/ben/code/shapes/java-corpus/jedit/jEdit/lib/ivy/ivy-2.2.0.jar!/org/apache/ivy/core/settings" />
+
+          <property name="java.vm.version.ivy.instance" value="25.40-b23" />
+
+          <property name="user.name.ivy.instance" value="ben" />
+
+          <property name="config.build.compilerarg" value="-Xlint:unchecked" />
+
+          <property name="ivy.cache.dir" value="/home/ben/.ivy2/cache" />
+
+          <property name="java.awt.printerjob" value="sun.print.PSPrinterJob" />
+
+          <property name="java.io.tmpdir.ivy.instance" value="/tmp" />
+
+          <property name="jar.location" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/build" />
+
+          <property name="ant.version" value="Apache Ant(TM) version 1.9.4 compiled on October 4 2014" />
+
+          <property name="java.home.ivy.instance" value="/usr/lib/jvm/java-8-openjdk/jre" />
+
+          <property name="java.vm.vendor.ivy.instance" value="Oracle Corporation" />
+
+          <property name="ivy.default.settings.dir" value="jar:file:/home/ben/code/shapes/java-corpus/jedit/jEdit/lib/ivy/ivy-2.2.0.jar!/org/apache/ivy/core/settings" />
+
+          <property name="jedit.version" value="5.2.0" />
+
+          <property name="ivy.configurations" value="*" />
+
+          <property name="ivy.settings.url" value="file:/home/ben/code/shapes/java-corpus/jedit/jEdit/ivysettings.xml" />
+
+          <property name="os.name" value="Linux" />
+
+          <property name="java.specification.vendor" value="Oracle Corporation" />
+
+          <property name="sun.jnu.encoding.ivy.instance" value="UTF-8" />
+
+          <property name="ivy.deliver.ivy.pattern.ivy.instance" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/distrib/[type]s/[artifact]-[revision](-[classifier]).[ext]" />
+
+          <property name="manual.filename.prefix" value="jedit5.2.0manual-" />
+
+          <property name="ivy.checksums" value="sha1,md5" />
+
+          <property name="ant.file.jedit" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/build.xml" />
+
+          <property name="java.vm.name" value="OpenJDK 64-Bit Server VM" />
+
+          <property name="ivy.jar.file" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/lib/ivy/ivy-2.2.0.jar" />
+
+          <property name="ivy.log.modules.in.use" value="false" />
+
+          <property name="java.runtime.version.ivy.instance" value="1.8.0_40-b20" />
+
+          <property name="ivy.report.output.pattern" value="[organisation]-[module]-[conf].[ext]" />
+
+          <property name="ivy.version" value="2.2.0" />
+
+          <property name="java.library.path" value="/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib" />
+
+          <property name="ivy.conf.url" value="file:/home/ben/code/shapes/java-corpus/jedit/jEdit/ivysettings.xml" />
+
+          <property name="java.vm.name.ivy.instance" value="OpenJDK 64-Bit Server VM" />
+
+          <property name="os.version.ivy.instance" value="3.17.8-1-MANJARO" />
+
+          <property name="line.separator.ivy.instance" value="&#xa;" />
+
+          <property name="ant.java.version" value="1.8" />
+
+          <property name="sun.cpu.endian.ivy.instance" value="little" />
+
+          <property name="mac.disk.image.filename" value="jedit5.2.0install.dmg" />
+
+          <property name="java.vm.specification.name.ivy.instance" value="Java Virtual Machine Specification" />
+
+          <property name="basedir" value="/home/ben/code/shapes/java-corpus/jedit/jEdit" />
+
+          <property name="java.class.version" value="52.0" />
+
+          <property name="ivy.settings.url.ivy.instance" value="file:/home/ben/code/shapes/java-corpus/jedit/jEdit/ivysettings.xml" />
+
+          <property name="path.separator.ivy.instance" value=":" />
+
+          <property name="sun.boot.class.path.ivy.instance" value="/usr/lib/jvm/java-8-openjdk/jre/lib/resources.jar:/usr/lib/jvm/java-8-openjdk/jre/lib/rt.jar:/usr/lib/jvm/java-8-openjdk/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-8-openjdk/jre/lib/jsse.jar:/usr/lib/jvm/java-8-openjdk/jre/lib/jce.jar:/usr/lib/jvm/java-8-openjdk/jre/lib/charsets.jar:/usr/lib/jvm/java-8-openjdk/jre/lib/jfr.jar:/usr/lib/jvm/java-8-openjdk/jre/classes" />
+
+          <property name="ant.home" value="/usr/share/apache-ant" />
+
+          <property name="ivy.jar.filename" value="ivy-2.2.0.jar" />
+
+          <property name="config.ivy.version" value="2.2.0" />
+
+          <property name="dist.jar.filename" value="jedit5.2.0install.jar" />
+
+          <property name="ivy.resolved.configurations" value="default, master, compile, runtime, test, provided, sources, javadoc, ant-contrib, docbook, fop, launch4j, scripting, default-plugins" />
+
+          <property name="config.build.deprecation" value="true" />
+
+          <property name="ivy.deliver.ivy.pattern" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/distrib/[type]s/[artifact]-[revision](-[classifier]).[ext]" />
+
+          <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-openjdk/jre/lib/amd64" />
+
+          <property name="build.dir" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/build" />
+
+          <property name="ivy.default.always.check.exact.revision.ivy.instance" value="false" />
+
+          <property name="java.library.path.ivy.instance" value="/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib" />
+
+          <property name="ivy.jar.present" value="true" />
+
+          <property name="awt.toolkit.ivy.instance" value="sun.awt.X11.XToolkit" />
+
+          <property name="ivy.basedir" value="/home/ben/code/shapes/java-corpus/jedit/jEdit" />
+
+          <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers" />
+
+          <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment" />
+
+          <property name="java.ext.dirs.ivy.instance" value="/usr/lib/jvm/java-8-openjdk/jre/lib/ext:/usr/java/packages/lib/ext" />
+
+          <property name="ivy.log.modules.in.use.ivy.instance" value="false" />
+
+          <property name="sun.os.patch.level.ivy.instance" value="unknown" />
+
+          <property name="file.encoding.pkg.ivy.instance" value="sun.io" />
+
+          <property name="ivy.shared.default.ivy.pattern" value="[organisation]/[module]/[revision]/[type]s/[artifact].[ext]" />
+
+          <property name="ivy.resolver.default.check.modified" value="false" />
+
+          <property name="ivy.settings.file.ivy.instance" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/ivysettings.xml" />
+
+          <property name="ivy.nb.targets.copied" value="1" />
+
+          <property name="ant.project.name" value="jedit" />
+
+          <property name="ivy.cache.dir.ivy.instance" value="/home/ben/.ivy2/cache" />
+
+          <property name="java.vm.specification.version" value="1.8" />
+
+          <property name="ivy.status.ivy.instance" value="integration" />
+
+          <property name="awt.toolkit" value="sun.awt.X11.XToolkit" />
+
+          <property name="sun.cpu.isalist" value="" />
+
+          <property name="file.separator.ivy.instance" value="/" />
+
+          <property name="ivy.deps.changed" value="true" />
+
+          <property name="java.ext.dirs" value="/usr/lib/jvm/java-8-openjdk/jre/lib/ext:/usr/java/packages/lib/ext" />
+
+          <property name="ivy.local.default.root.ivy.instance" value="/home/ben/.ivy2/local" />
+
+          <property name="os.version" value="3.17.8-1-MANJARO" />
+
+          <property name="user.home" value="/home/ben" />
+
+          <property name="sun.java.launcher.ivy.instance" value="SUN_STANDARD" />
+
+          <property name="java.vm.vendor" value="Oracle Corporation" />
+
+          <property name="ivy.local.default.root" value="/home/ben/.ivy2/local" />
+
+          <property name="ivy.organisation" value="org.jedit" />
+
+          <property name="user.dir" value="/home/ben/code/shapes/java-corpus/jedit/jEdit" />
+
+          <property name="ant.library.dir.ivy.instance" value="/usr/share/apache-ant/lib" />
+
+          <property name="ivy.local.default.ivy.pattern" value="[organisation]/[module]/[revision]/[type]s/[artifact].[ext]" />
+
+          <property name="ivy.shared.default.ivy.pattern.ivy.instance" value="[organisation]/[module]/[revision]/[type]s/[artifact].[ext]" />
+
+          <property name="java.vm.info.ivy.instance" value="mixed mode" />
+
+          <property name="ivy.publish.src.artifacts.pattern" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/distrib/[type]s/[artifact]-[revision](-[classifier]).[ext]" />
+
+          <property name="sun.java.command.ivy.instance" value="org.apache.tools.ant.launch.Launcher -cp " />
+
+          <property name="ivy.distrib.dir" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/distrib" />
+
+          <property name="sun.cpu.endian" value="little" />
+
+          <property name="ivy.revision" value="working@NSA" />
+
+          <property name="user.timezone.ivy.instance" value="America/New_York" />
+
+          <property name="java.vm.version" value="25.40-b23" />
+
+          <property name="config.build.debuglevel" value="lines,vars,source" />
+
+          <property name="ivy.default.ivy.user.dir" value="/home/ben/.ivy2" />
+
+          <property name="java.class.path" value="/usr/share/apache-ant/lib/ant-launcher.jar:/usr/share/java/junit.jar:/usr/share/apache-ant/lib/ant-apache-bcel.jar:/usr/share/apache-ant/lib/ant-commons-logging.jar:/usr/share/apache-ant/lib/ant-launcher.jar:/usr/share/apache-ant/lib/ant-antlr.jar:/usr/share/apache-ant/lib/ant-swing.jar:/usr/share/apache-ant/lib/ant-jai.jar:/usr/share/apache-ant/lib/ant-junit4.jar:/usr/share/apache-ant/lib/ant-apache-oro.jar:/usr/share/apache-ant/lib/ant-apache-resolver.jar:/usr/share/apache-ant/lib/ant-netrexx.jar:/usr/share/apache-ant/lib/ant-apache-bsf.jar:/usr/share/apache-ant/lib/ant-apache-log4j.jar:/usr/share/apache-ant/lib/ant-commons-net.jar:/usr/share/apache-ant/lib/ant-jsch.jar:/usr/share/apache-ant/lib/ant-javamail.jar:/usr/share/apache-ant/lib/ant.jar:/usr/share/apache-ant/lib/ant-testutil.jar:/usr/share/apache-ant/lib/ant-apache-regexp.jar:/usr/share/apache-ant/lib/ant-jdepend.jar:/usr/share/apache-ant/lib/ant-apache-xalan2.jar:/usr/share/apache-ant/lib/ant-jmf.jar:/usr/share/apache-ant/lib/ant-junit.jar:/usr/lib/jvm/java-8-openjdk/lib/tools.jar" />
+
+          <property name="user.home.ivy.instance" value="/home/ben" />
+
+          <property name="basedir.ivy.instance" value="/home/ben/code/shapes/java-corpus/jedit/jEdit" />
+
+          <property name="ant.library.dir" value="/usr/share/apache-ant/lib" />
+
+          <property name="os.arch" value="amd64" />
+
+          <property name="ivy.conf.file" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/ivysettings.xml" />
+
+          <property name="ivy.jar.dir" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/lib/ivy" />
+
+          <property name="java.awt.graphicsenv.ivy.instance" value="sun.awt.X11GraphicsEnvironment" />
+
+          <property name="java.vendor.url.bug.ivy.instance" value="http://bugreport.sun.com/bugreport/" />
+
+          <property name="java.vm.specification.version.ivy.instance" value="1.8" />
+
+          <property name="dist.dir" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/dist" />
+
+          <property name="sun.java.launcher" value="SUN_STANDARD" />
+
+          <property name="init.done" value="true" />
+
+          <property name="classes.dir" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/build/classes" />
+
+          <property name="java.awt.printerjob.ivy.instance" value="sun.print.PSPrinterJob" />
+
+          <property name="ivy.settings.dir.ivy.instance" value="/home/ben/code/shapes/java-corpus/jedit/jEdit" />
+
+          <property name="ant.core.lib" value="/usr/share/apache-ant/lib/ant.jar" />
+
+          <property name="ivy.resolver.default.check.modified.ivy.instance" value="false" />
+
+          <property name="java.vm.specification.vendor" value="Oracle Corporation" />
+
+          <property name="ivy.settings.dir" value="/home/ben/code/shapes/java-corpus/jedit/jEdit" />
+
+          <property name="file.separator" value="/" />
+
+          <property name="user.language.ivy.instance" value="en" />
+
+          <property name="ivy.shared.default.artifact.pattern.ivy.instance" value="[organisation]/[module]/[revision]/[type]s/[artifact].[ext]" />
+
+          <property name="user.country.ivy.instance" value="US" />
+
+          <property name="ivy.conf.url.ivy.instance" value="file:/home/ben/code/shapes/java-corpus/jedit/jEdit/ivysettings.xml" />
+
+          <property name="java.runtime.version" value="1.8.0_40-b20" />
+
+          <property name="java.specification.name.ivy.instance" value="Java Platform API Specification" />
+
+          <property name="sun.boot.class.path" value="/usr/lib/jvm/java-8-openjdk/jre/lib/resources.jar:/usr/lib/jvm/java-8-openjdk/jre/lib/rt.jar:/usr/lib/jvm/java-8-openjdk/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-8-openjdk/jre/lib/jsse.jar:/usr/lib/jvm/java-8-openjdk/jre/lib/jce.jar:/usr/lib/jvm/java-8-openjdk/jre/lib/charsets.jar:/usr/lib/jvm/java-8-openjdk/jre/lib/jfr.jar:/usr/lib/jvm/java-8-openjdk/jre/classes" />
+
+          <property name="ivy.conf.dir" value="/home/ben/code/shapes/java-corpus/jedit/jEdit" />
+
+          <property name="config.build.dir" value="build" />
+
+          <property name="ivy.retrieve.pattern" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/lib/[conf]/[artifact](-[classifier]).[ext]" />
+
+          <property name="textAreaPackage" value="/home/ben/code/shapes/java-corpus/jedit/textarea" />
+
+          <property name="jar.filename" value="jedit.jar" />
+
+          <property name="user.country" value="US" />
+
+          <property name="ivy.shared.default.root" value="/home/ben/.ivy2/shared" />
+
+          <property name="java.version.ivy.instance" value="1.8.0_40" />
+
+          <property name="ant.file.type.jedit" value="file" />
+
+          <property name="ivy.resolved.file" value="/home/ben/code/shapes/java-corpus/jedit/jEdit/ivy.xml" />
+
+          <property name="target.java.version" value="1.7" />
+
+          <property name="os.arch.ivy.instance" value="amd64" />
+
+          <property name="java.vendor" value="Oracle Corporation" />
+
+          <property name="ivy.project.dir" value="/home/ben/code/shapes/java-corpus/jedit/jEdit" />
+
+          <property name="java.specification.version" value="1.8" />
+
+          <property name="config.build.nowarn" value="false" />
+
+          <property name="sun.arch.data.model" value="64" />
+
+          <property name="ivy.buildlist.ivyfilepath" value="ivy.xml" />
+
+      </properties>
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_int_int_ShouldThrowExceptionOnIncompleteEscapeSequence" time="0.002" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="readShouldThrowExceptionOnMissingInputAfterU" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_ShouldThrowExceptionOnMissingInputAfterU" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_int_int_ShouldThrowExceptionOnMissingInputAfterU" time="0.001" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_CharBuffer_ShouldThrowExceptionOnMissingInputAfterU" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="readShouldThrowExceptionOnMalformedInput" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_ShouldThrowExceptionOnMalformedInput" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_int_int_ShouldThrowExceptionOnMalformedInput" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_CharBuffer_ShouldThrowExceptionOnMalformedInput" time="0.001" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="permissiveReadShouldAcceptIncompleteEscapeSequence" time="0.002" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="permissiveRead_charArray_ShouldAcceptIncompleteEscapeSequence" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="permissiveRead_charArray_int_int_ShouldAcceptIncompleteEscapeSequence" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="permissiveReadShouldAcceptMissingInputAfterU" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_int_int_ShouldConvertEscapeSequenceWithThrottledInputStream" time="0.001" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_CharBuffer_ShouldConvertEscapeSequenceWithThrottledInputStream" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="readShouldReadBackslashWithoutFollowingUAsBackslash" time="0.001" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_ShouldReadBackslashWithoutFollowingUAsBackslash" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_int_int_ShouldReadBackslashWithoutFollowingUAsBackslash" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_CharBuffer_ShouldReadBackslashWithoutFollowingUAsBackslash" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="permissiveReadShouldAcceptMalformedInputWithThrottledReader" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="permissiveRead_charArray_ShouldAcceptMalformedInputWithThrottledReader" time="0.001" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="permissiveRead_charArray_int_int_ShouldAcceptMalformedInputWithThrottledReader" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="permissiveRead_CharBuffer_ShouldAcceptMalformedInputWithThrottledReader" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_shouldReadOnAfterCollapsingEscapeSequences" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_int_int_shouldReadOnAfterCollapsingEscapeSequences" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_CharBuffer_shouldReadOnAfterCollapsingEscapeSequences" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="readShouldIgnoreEscapeSequenceThatFollowsOneBackslash" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_ShouldIgnoreEscapeSequenceThatFollowsOneBackslash" time="0.001" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_int_int_ShouldIgnoreEscapeSequenceThatFollowsOneBackslash" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_CharBuffer_ShouldIgnoreEscapeSequenceThatFollowsOneBackslash" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="readShouldConvertEscapeSequenceThatFollowsTwoBackslashes" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_ShouldConvertEscapeSequenceThatFollowsTwoBackslashes" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_int_int_ShouldConvertEscapeSequenceThatFollowsTwoBackslashes" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_CharBuffer_ShouldConvertEscapeSequenceThatFollowsTwoBackslashes" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="differentReadMethodsShouldBeUsableOnTheSameStream" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="readShouldIgnoreEscapeSequenceThatFollowsThreeBackslashes" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_ShouldIgnoreEscapeSequenceThatFollowsThreeBackslashes" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_int_int_ShouldIgnoreEscapeSequenceThatFollowsThreeBackslashes" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_CharBuffer_ShouldIgnoreEscapeSequenceThatFollowsThreeBackslashes" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="readShouldIgnoreIncompleteEscapeSequenceThatFollowsOneBackslash" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="permissiveRead_CharBuffer_ShouldAcceptIncompleteEscapeSequence" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="permissiveRead_charArray_ShouldAcceptMissingInputAfterU" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="permissiveRead_charArray_int_int_ShouldAcceptMissingInputAfterU" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="permissiveRead_CharBuffer_ShouldAcceptMissingInputAfterU" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="permissiveReadShouldAcceptMalformedInput" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="permissiveRead_charArray_ShouldAcceptMalformedInput" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="permissiveRead_charArray_int_int_ShouldAcceptMalformedInput" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="permissiveRead_CharBuffer_ShouldAcceptMalformedInput" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="readShouldCorrectlyHandleEOF" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_ShouldCorrectlyHandleEOF" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_int_int_ShouldCorrectlyHandleEOF" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_CharBuffer_ShouldCorrectlyHandleEOF" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="readShouldCorrectlyHandleEOFAfterBackslash" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_ShouldCorrectlyHandleEOFAfterBackslash" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_int_int_ShouldCorrectlyHandleEOFAfterBackslash" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_CharBuffer_ShouldCorrectlyHandleEOFAfterBackslash" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="readShouldCorrectlyHandleLessThan5NonEscapeCharactersAfterBackslash" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_ShouldCorrectlyHandleLessThan5NonEscapeCharactersAfterBackslash" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_int_int_ShouldCorrectlyHandleLessThan5NonEscapeCharactersAfterBackslash" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_CharBuffer_ShouldCorrectlyHandleLessThan5NonEscapeCharactersAfterBackslash" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="readShouldThrowExceptionOnMalformedInputWithThrottledReader" time="0.001" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_ShouldThrowExceptionOnMalformedInputWithThrottledReader" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_int_int_ShouldThrowExceptionOnMalformedInputWithThrottledReader" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_CharBuffer_ShouldThrowExceptionOnMalformedInputWithThrottledReader" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="readShouldConvertEscapeSequenceWithThrottledInputStream" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_ShouldConvertEscapeSequenceWithThrottledInputStream" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="readShouldConvertEscapeSequence" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_ShouldConvertEscapeSequence" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_CharBuffer_ShouldConvertEscapeSequence" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_ShouldIgnoreIncompleteEscapeSequenceThatFollowsOneBackslash" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_int_int_ShouldIgnoreIncompleteEscapeSequenceThatFollowsOneBackslash" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_CharBuffer_ShouldIgnoreIncompleteEscapeSequenceThatFollowsOneBackslash" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="readShouldIgnoreMalformedEscapeSequenceThatFollowsOneBackslash" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_ShouldIgnoreMalformedEscapeSequenceThatFollowsOneBackslash" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_int_int_ShouldIgnoreMalformedEscapeSequenceThatFollowsOneBackslash" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_CharBuffer_ShouldIgnoreMalformedEscapeSequenceThatFollowsOneBackslash" time="0.001" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="differentReadMethodsShouldHaveACommonEscapeSequenceHandling" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="skipShouldThrowExceptionIfToSkipIsNegative" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="skipShouldNotDoAnythingIfToSkipIsZero" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="skipShouldSkipGivenAmountIfAvailable" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="skipShouldSkipAllIfToSkipIsGreaterThanInputLength" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="multipleSkipCallsShouldWork" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="textReaderWithNullAsClassParameterShouldWork" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="readerShouldBeAbleToDecodeWhatWriterHasEncoded" time="0.001" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="readerShouldReadSingleCharactersIfWriterAddedAnEscapingBackslash" time="0.001" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="readerShouldDecodeIfWriterHasWrittenEscapeSequenceAsSingleCharacters" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="write_int_ShouldEncodeASCIICharactersCorrectly" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="write_charArray_int_int_ShouldEncodeASCIICharactersCorrectly" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="write_String_int_int_ShouldEncodeASCIICharactersCorrectly" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="write_charArray_ShouldEncodeASCIICharactersCorrectly" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="write_String_ShouldEncodeASCIICharactersCorrectly" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="append_char_ShouldEncodeASCIICharactersCorrectly" time="0.001" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="append_CharSequence_int_int_ShouldEncodeASCIICharactersCorrectly" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="append_CharSequence_ShouldEncodeASCIICharactersCorrectly" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="write_int_ShouldEncodeNonASCIICharactersCorrectly" time="0.001" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="write_charArray_int_int_ShouldEncodeNonASCIICharactersCorrectly" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="write_String_int_int_ShouldEncodeNonASCIICharactersCorrectly" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="write_charArray_ShouldEncodeNonASCIICharactersCorrectly" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="write_String_ShouldEncodeNonASCIICharactersCorrectly" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="append_char_ShouldEncodeNonASCIICharactersCorrectly" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="append_CharSequence_int_int_ShouldEncodeNonASCIICharactersCorrectly" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="append_CharSequence_ShouldEncodeNonASCIICharactersCorrectly" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="append_CharSequence_int_int_ShouldEncodeNullCorrectly" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="append_CharSequence_ShouldEncodeNullCorrectly" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_int_int_ShouldConvertEscapeSequence" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="readShouldThrowExceptionOnIncompleteEscapeSequence" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_charArray_ShouldThrowExceptionOnIncompleteEscapeSequence" time="0.0" />
+
+      <testcase classname="org.jedit.io.Native2ASCIIEncodingTest" name="read_CharBuffer_ShouldThrowExceptionOnIncompleteEscapeSequence" time="0.0" />
+
+      <system-out><![CDATA[]]></system-out>
+
+      <system-err><![CDATA[]]></system-err>
+
+  </testsuite>
+</testsuites>

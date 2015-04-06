@@ -1,0 +1,218 @@
+jEdit 5.2 version history
+       (changes since jEdit 5.1.0)
+:encoding=UTF-8:
+
+{{{ Version 5.2.0
+
+Thanks to Björn "Vampire" Kautler, Makarius, Dale Anson, Alan Ezust,
+Matt Galligan, Eric Le Lay, Makarius, and Matthieu Casanova for contributing to
+this release.
+
+{{{ Bug Fixes
+
+- EnhancedDialog does not throw NullPointerExceptions anymore when checking
+  whether a pressed key is the buffer close shortcut. (Björn "Vampire" Kautler)
+
+- When using extra vertical line spacing and a selection foreground color, the
+  selected text was painted twice, once with the extra spacing, once without.
+  Now the selected text is drawn correctly. (Björn "Vampire" Kautler)
+
+- Make the TextArea a JPanel instead of a JComponent, so that it draws its
+  background and set the background color to the Gutter background color. This
+  prevents the parent component to shine through, which would e. g. show blue
+  edges with the BufferTabs plugin installed and active.
+  (Björn "Vampire" Kautler)
+
+- Fix a bug preventing from removing an unloaded plugin
+  (#3877 - Matthieu Casanova)
+
+- The native splashscreen is removed as it was not possible to disable it
+  (#3876 - Matthieu Casanova)
+
+- Bugfix in EditPane.java related to file status checks.
+  (Patch #534 - Matt Galligan)
+
+- Fix for bug #3389 in BufferSwitcher.java where look and feel was locked to
+  Metal. (Dale Anson)
+
+- Fix for bug #3893 where PluginResURLConnection.openStream returning null for
+  non existing resources made jEdit hang on Java 8, Mac OS 10.10. (Eric Le Lay)
+
+- Fix for Bugs #3895, #3897: Invalid HelpIndex URLs on windows.
+  (Alan Ezust,  Eric Le Lay)
+
+}}}
+{{{ Miscellaneous
+- MiscUtilities.openInDesktop() works with URIs on Windows now. (Alan Ezust)
+
+- Upgrade Launch4J to the latest version 3.5.0. This makes it possible to UTF-8
+  encode the config file and build the EXE launcher on Mac OS again, removing
+  the need for Rosetta being installed, which is not supported anymore anyway
+  since Mac OS 10.7. (Björn "Vampire" Kautler)
+
+}}}
+{{{ API Changes
+
+- DockableWindowContainer interface is now public (Patch #528 - Makarius)
+
+- PluginResURLConnection.openStream() is garanteed to return non-null stream;
+  PluginResURLConnection.connect() and PluginResURLConnection.openStream()
+  throw an IOException when the resource is not found. (Eric Le Lay)
+
+}}}
+{{{ Editing
+
+
+}}}
+
+}}}
+
+{{{ Version 5.2pre1
+
+Thanks to Björn "Vampire" Kautler, Matthieu Casanova, Dale Anson, Thomas Meyer,
+Patrick Eibl, László Schmidt, Zsombor Franczia, Bence Pintér, Makarius,
+Benjamin Zengin, Yihua Zhang, Marc Häfner, EdorFaus, Jordan Miner,
+Thiemo Kellner, Tim Blackler, Alan Ezust, and Eric Le Lay for contributing to
+this release.
+
+{{{ Bug Fixes
+
+- Fix for bug #3843: Russian localization breaks Search dialog
+
+- Fixed Whole word search (bug #3824, patch #516 - Benjamin Zengin)
+
+- Fixed the systray not added on EDT thread (Matthieu Casanova)
+
+- Fix the integration with Unity and other Linux Desktop Environments,
+  broken by patch #464 (Björn "Vampire" Kautler)
+
+- Reload optionally dependent plugins when a plugin is unloaded.
+  (bug #3807 - Dale Anson)
+
+- Applied patch #513 (Makarius), plus some additional cleanup of setting
+  the look and feel (Dale Anson)
+
+- Fixed a bug in pluginmanager: transitive deps not installed when filtering
+  (bug #3825 - Eric Le Lay)
+
+- Fix java installer bug: Installing from jedit5.1.0install.jar failure
+  (bug #3837 - Eric Le Lay)
+
+- HelpIndex includes .txt files again. (Bug #3896 - Alan Ezust)
+
+}}}
+{{{ API Changes
+
+- jEdit now depends on Java 1.7
+
+- StandardUtilities.objectsEqual() is deprecated as Objects.equals() does the
+  same job in Java 7 (Matthieu Casanova)
+
+- New method: VFSFile.getModified() which allows sorting by date in the FSB
+  for other VFSs (plugin patch #161 Yihua Zhang)
+
+- GUIUtilities.getShortcutLabel() has a second boolean argument to specify
+  whether platform modifier symbols are desired or not. (patch #514 Makarius)
+
+- Removed deprecated (ambiguous) overloads of IOUtilities.closeQuietly().
+
+- View.getBuffers() returns an array that is now sorted according to View
+  option. (Alan Ezust)
+
+- New status "REMOVED" added to PluginUpdate message. (Dale Anson)
+
+}}}
+{{{ UI improvements
+
+- Relative line offsets are allowed in "Goto Line" dialog. (Patch #526,
+  Feature Request #286, Tim Blackler)
+
+- OptionsDialog now remembers and restores the last selected pane
+  under more circumstances. See Project Options Dialog for example.
+  (Alan Ezust)
+
+- KP_ARROW keys now behave the same way as the regular arrow keys,
+  with modifiers, on all platforms. (startup/startup.bsh:100 - Alan Ezust)
+
+- Focus the text area when scroll bar is clicked (patch #521 - Jordan Miner)
+
+- Selecting line from gutter should move caret (patch #520 - Jordan Miner)
+
+- Fix for the scroll click suppression (patch #505 - EdorFaus)
+
+- Important speedup of LogViewer (Matthieu Casanova)
+
+- Support for shortcuts to "copy" the error in Error widget (Matthieu Casanova)
+
+- The bufferSwitcher now supports Drag&Drop (patch #515 - Yihua Zhang)
+
+- Added "loading" icon for task status bar widget (request #474 -
+  Matthieu Casanova)
+
+- The TextArea will not scroll anymore when dragging files on jEdit
+  (Matthieu Casanova)
+
+- EnhancedDialog instances (Search/Replace, Options, Open) now can be closed
+  using a single-key close-buffer.shortcut. (patch #497, request #454 -
+  László Schmidt, Zsombor Franczia, Bence Pintér)
+
+- Plugin dependencies are shown in the plugin manager details pane for all three
+  tabs. (request #469 - Dale Anson)
+
+- Increased the scrolling speed in option pane (Matthieu Casanova)
+
+- In plugin manager's install panel plugin dependencies are unchecked
+  if they are not required (Eric Le Lay)
+
+- Use a native splash screen if available (patch #519 - Eric Le Lay)
+
+- Improved layout manager for text area (patch #518 - Dale Anson)
+
+- "Copy link to clipboard" popup menu in HelpViewer (Eric Le Lay)
+
+}}}
+{{{ Editing
+
+- Patch to toggle word completion of words with digits.
+  (patch #503, Patrick Eibl)
+
+- New PowerCenter Parameter File format (Patch # 524, Thiemo Kellner)
+
+- Several fixes for html mode: (Dale Anson/Marc Häfner)
+  patch #504 HTML mode: Fix mode properties in <script> blocks.
+  bug #3850 Html edit mode
+  bug #3842 HTML syntax highlighting error: & in href
+  bug #3839 Syntax highlight is wrong for some HTML file
+
+}}}
+{{{ Miscellaneous
+
+- MiscUtilities.expandVariables() converts from Windows to Linux-style paths
+  when necessary (the reverse was already true). (Alan Ezust)
+
+- New macros: Go To Offset, Reverse Selection (patch #501, #502 Thomas Meyer)
+
+- Removed some no longer needed pre-Java7 MacOSX key handling workaround code
+  (patch #511, #512, Makarius, Alan Ezust)
+
+- Make the OS X application bundle work with Oracle Java 7
+  (bug #3743, #3841, #3862 - Björn "Vampire" Kautler)
+
+- Add copyright tag to the OS X application bundle (Björn "Vampire" Kautler)
+
+- Add UTI to the document type in the OS X application bundle
+  (Björn "Vampire" Kautler)
+
+- Bundle version 1.3 of the MacOSX plugin (Björn "Vampire" Kautler)
+
+- Customize the look of the DMG root folder to provide a simple yet convenient
+  installation GUI for OS X users and to tell them how to work-around Gatekeeper
+  blocking jEdit (bug #3821, #3757 - Björn "Vampire" Kautler)
+
+}}}
+
+}}}
+
+jEdit buffer local properties:
+:maxLineLen=80:wrap=hard:autoIndent=simple:noTabs=true:indentSize=2:tabSize=2:
+:folding=explicit:collapseFolds=2:

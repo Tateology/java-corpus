@@ -1,0 +1,183 @@
+==================================================
+Packaging jEdit for release
+==================================================
+
+This document contains instructions on how to create and release jEdit for distribution, with all of the installers.
+
+The analogous document for releasing plugins is in the jedit SVN repository under the name "pjo/doc/pjo.txt".
+
+Release Workflow
+================
+Before you read this document, be sure to read first the README.SRC.txt, in the root source directory. It contains instructions on how to get and set up Apache Ant, what the targets mean, and what you need to build each kind of package.
+
+Workflow
+--------
+
+1. Execute the BeanShell snippet at the end of this file ("Utilities -> BeanShell -> Evaluate Selection"). This will replace the version tags in this document by actual version numbers for easy copy & paste.
+
+2. Review https://svn.code.sf.net/p/jedit/svn/jEdit/branches/5.2.x/doc/CHANGES.txt for formatting errors (like missing newline characters, wrong indentation or empty blocks), fix them and check them in.
+
+3. Tag the sourcecode for release in the SVN repository by doing
+        svn copy https://svn.code.sf.net/p/jedit/svn/jEdit/branches/5.2.x https://svn.code.sf.net/p/jedit/svn/jEdit/tags/jedit-5-2-0 -m "Tagging 5.2.0 for release."
+   with the correct version in the second URL and in the commit message
+
+4. To be sure to work with the exact tagged source, check out the newly tagged source in a new directory by doing
+        svn checkout https://svn.code.sf.net/p/jedit/svn/jEdit/tags/jedit-5-2-0
+   no matter where. You will find the source in a subfolder jedit-5-2-0 where you executed the command
+
+5. Copy build.properties from your jEdit source directory to the newly created jedit-5-2-0 source directory if needed. If you don't have it, then create it if needed. You find a template called build.properties.sample in the root directory.
+   To give an example, in build.properties I customized the following properties:
+    - wine.executable=wine
+    - winepath.executable=winepath
+    - innosetup.compiler.executable=/home/vampire/.wine/drive_c/Programme/Inno Setup 5/ISCC.exe
+    - innosetup.via.wine=true
+    - gpg.secring=/home/vampire/.gnupg/secring.gpg
+   You may not need to customize the same properties than me, e. g. if you are on Windows you don't need to set the three wine properties.
+   For further information about what you need to build the source, please read README.SRC.txt in the sources root directory.
+
+6.1. Build the distribution files by doing
+          ant dist
+     in the jedit-5-2-0 directory
+     In the newly created directory jedit-5-2-0/dist you find 13 files:
+      - jedit5.2.0manual-a4.pdf
+      - jedit5.2.0manual-letter.pdf
+      - jedit5.2.0source.tar.bz2
+      - jedit5.2.0install.jar
+      - jedit-5.2.0-noarch-1sao.tgz
+      - jedit_5.2.0_all.deb
+      - jedit5.2.0install.exe or jedit5.2.0-dist-win-finish.tar.bz2
+      - jedit5.2.0install.dmg or jedit5.2.0-dist-mac-finish.tar.bz2
+      - Packages
+      - Packages.gz
+      - Packages.bz2
+      - Release
+      - Release.gpg
+
+6.2. If you have jedit5.2.0-dist-win-finish.tar.bz2 in your jedit-5-2-0/dist folder you probably don't run a Windows box and don't have wine installed and set up, so please hand over this file to someone (e. g. <Björn "Vampire" Kautler> Vampire@jEdit.org) who does and ask him to unpack the file and run
+          ant dist-win-finish
+     and to hand over the resulting file jedit5.2.0install.exe to you. The requirements for this are described in README.SRC.txt
+
+6.3. If you have jedit5.2.0-dist-mac-finish.tar.bz2 in your jedit-5-2-0/dist folder you probably don't run a Mac OS X box, so please hand over this file to someone (e. g. Björn "Vampire" Kautler <Vampire@jEdit.org>) who does and ask him to unpack the file and run
+          ant dist-mac-finish
+     and to hand over the resulting file jedit5.2.0install.dmg to you. The requirements for this are described in README.SRC.txt
+
+6.4. After you received the final distribution files jedit5.2.0install.exe and jedit5.2.0install.dmg you can delete jedit5.2.0-dist-win-finish.tar.bz2 and jedit5.2.0-dist-mac-finish.tar.bz2
+
+6.5. If you don't have Release.gpg, you didn't have setup a GPG secring. Either create a GPG secring, run
+          ant dist-sign-deb-Release
+     , upload the public key to a public keyserver and make sure your key is mentioned on http://jedit.org/index.php?page=download&platform=unix#option_two so the users know the key is valid for signing jEdit releases. Alternatively send Release to someone whose key is already mentioned on the download page (e. g. Björn "Vampire" Kautler <Vampire@jEdit.org>) and ask him to put Release in the dist folder, to run
+          ant dist-sign-deb-Release
+     and to hand over the resulting file Release.gpg to you. The second way is preferable if you only create a release once or from time to time as a new key means the user will get confused and has to react for verifying and installing the new key.
+
+7. - Connect to the SourceForge servers via one of the methods described in https://sourceforge.net/apps/trac/sourceforge/wiki/Release%20files%20for%20download
+   - Add the sub-folder "5.2.0" under "/home/frs/project/j/je/jedit/jedit"
+   - Upload the 8 final distribution files starting with "jedit" to the newly created folder on the SourceForge servers
+   - Upload the 5 remaining distribution files not starting with "jedit" to the folder "/home/frs/project/j/je/jedit" on the SourceForge servers.
+
+8. - Go to https://sourceforge.net/projects/jedit/files/jedit/5.2.0/
+   - Make the following settings for each file after clicking on the respective "i" icon
+        - jedit_5.2.0_all.deb
+            - Download Button: Debian Installer
+            - Default Download For: <none>
+        - jedit5.2.0source.tar.bz2
+            - Download Button: Source Package
+            - Default Download For: <none>
+        - jedit5.2.0install.jar
+            - Download Button: Java based Installer
+            - Default Download For: linux, bsd, solaris, others
+        - jedit5.2.0manual-letter.pdf
+            - Download Button: Manual in Letter Paper size
+            - Default Download For: <none>
+        - jedit5.2.0manual-a4.pdf
+            - Download Button: Manual in A4 Paper size
+            - Default Download For: <none>
+        - jedit5.2.0install.dmg
+            - Download Button: Mac OS X Installer
+            - Default Download For: mac
+        - jedit5.2.0install.exe
+            - Download Button: Windows Installer
+            - Default Download For: windows
+        - jedit-5.2.0-noarch-1sao.tgz
+            - Download Button: Slackware Installer
+            - Default Download For: <none>
+
+9. Update the website in the following places and also update this state in SVN:
+    - Open sftp://elberry,jedit@web.sourceforge.net/home/project-web/jedit/htdocs/download.html e. g. in jEdit with installed FTP plugin and update the website for the new release, means the filenames, filesizes and amount of pages in the User's Guides
+    - Open sftp://elberry,jedit@web.sourceforge.net/home/project-web/jedit/htdocs/jEdit-version.txt e. g. in jEdit with installed FTP plugin and update the versions in the file, which is needed by the LatestVersion Plugin
+    - Open sftp://elberry,jedit@web.sourceforge.net/home/project-web/jedit/htdocs/CHANGES52.txt e. g. in jEdit with installed FTP plugin and copy the contents of jedit-5-2-0/doc/CHANGES.txt to this file
+    - Open sftp://elberry,jedit@web.sourceforge.net/home/project-web/jedit/htdocs/index.php e. g. in jEdit with installed FTP plugin and update the version number and the Last Site Update date
+    - Open sftp://elberry,jedit@web.sourceforge.net/home/project-web/jedit/htdocs/devel.html e. g. in jEdit with installed FTP plugin and add a line for 5.2.0 in the Release Schedule
+
+10. Update the plugin wizard
+     - Go to http://plugins.jedit.org/wiz/release_list.php?package_id=24
+     - Find or create the entry for this jEdit Release
+          The entry may already exist but have an invalid date 
+          if a plugin was released that depends on it. 
+     - Switch "Head of Branch" to "main"
+     - Check the "Remove" checkbox for the jEdit dependency
+     - Switch the "Low Version" of the JDK dependency to "1.7 [jdk-1.7]"
+     - Click "Update Dependencies"
+     - Click "Create Release"
+
+11. Send an announcement eMail to the jEdit-announce list. The announcement should contain some announcing text and in the end the contents of jedit-5-2-0/doc/CHANGES.txt for this release.
+    You have to be set up to be able to post to jEdit-announce list.
+    The mail should automatically get forwarded to the jedit-users list, but for that you have to be subscribed to that list too.
+
+12. Ask Vampire <Vampire@jEdit.org> (Vampire0@#jEdit@chat.freenode.net) to update the topic of the IRC Channel
+
+13. Spread the word about the new release whereever possible e. g.:
+     - On Twitter
+     - On Google+
+     - On Facebook
+     - On the jEdit Community page
+     - Send a mail to the Community Growth Hacker of SourceForge for promotion of the release, currently this is Rich Bowen <communityteam@sourceforge.net>
+     - Send a mail to Heise for inclusion in the weekly Heise Developer Snapshots at developer@ix.de
+
+14. Delete the jedit-5-2-0 folder
+
+15. Update the version number on the release branch
+     - Add the following section to doc/CHANGES.txt
+
+{{{ Version 5.2.1
+
+Thanks to  for contributing to this release.
+
+{{{ Bug Fixes
+
+
+}}}
+{{{ Miscellaneous
+
+
+}}}
+{{{ API Changes
+
+
+}}}
+{{{ Editing
+
+
+}}}
+
+}}}
+     - Update the build number in org/gjt/sp/jedit/jEdit.java getBuild() method to
+            return "05.02.99.01";
+     - Submit your changes by doing
+            svn commit -m "Update the version number to 5.2.1"
+       in the root source directory
+
+16. If the release is from the latest release branch, clean up doc/CHANGES.txt on trunk.
+     - Update the version number which is the base of CHANGES.txt.
+            "changes since jEdit 5.2.0"
+     - Remove all entries which have been released in 5.2.0.
+       The entries to be removed are tagged with "[merged into 5.2.x]".
+     - Submit your changes by doing
+            svn commit -m "Update the base version of CHANGES.txt to 5.2.0" doc/CHANGES.txt
+       in trunk.
+
+====================================================================================================
+Variables replaced
+
+====================================================================================================
+
+:wrap=soft:maxLineLen=0:folding=indent:
