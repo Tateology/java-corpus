@@ -1,0 +1,148 @@
+
+UNICAST3
+========
+
+Author: Bela Ban
+
+Motivation
+----------
+
+UNICAST has the sender resend messages until they're acked by the receiver; UNICAST2 has the receiver ask the sender
+for retransmission only when it detects missing messages, and there are periodic stable messages from the receiver to
+the sender, so the sender can remove messages received by the receiver.
+
+The characteristics of UNICAST are ('+' = positive, '-' = negative):
++ A message gets removed by the sender as soon as an ack for it has been received, keeping memory needs low
++ No problems with first or last message lost [1] [2]
+- Lots of acks from receiver to sender
+- Unneeded resending of messages by the sender if an ack was dropped or is delayed
+
+The characteristics of UNICAST2 are:
++ No unneeded ack traffic
++ Faster than UNICAST
+- Problems with first or last message dropped [1] [2]
+- Effectively, on a lot of traffic, stable messages amount to acks
+
+
+The disadvantages of both are
+- Problems with concurrent creation / deletion of connections [3]
+- When a connection is closed, pending messages are not flushed [4]
+
+
+UNICAST3 aims to keep the positive characteristics of UNICAST and UNICAST2, while fixing the negative ones. It should
+- Provide correct connection management (using explicit connection establishment and teardown phases)
+- Prevent problems with concurrent closing and message sending on the same connection by flushing pending messages
+  before closing a connection
+- Reduce memory requirements at the sender by quickly purging messages received by the receiver
+- Reduce ack-based traffic
+- Provide selective retransmission (request from receiver to sender)
+
+
+UNICAST3 is closer to UNICAST, because it goes back to a positive acking scheme.
+
+
+
+Design
+------
+
+Sender A attaches monotonically increasing sequence numbers (seqnos) to messages sent to receiver B
+
+On reception of a message M from A, B acks M. The ack is sent at the end of the processing of an individual message,
+or *message batch*. If we get a message batch of messages A[20-50], only one ack(50) will be sent to A.
+
+Acks are cumulative: if A receives ack(50) from B, then it can remove all messages with seqnos <= 50.
+
+Acks are delayed; there is a min time between successive acks. If B sends acks for message 5, 8, 13, 52, 62, 83 and 101
+to A in the course of 1 sec (and the min time is 500ms), then perhaps we'll effectively only send ack(52) and ack(101)
+to A, and drop the other acks. This reduces the number of acks sent. Ack sending could be done by the retransmit task
+at the receiver.
+
+The sender maintains the highest acked (HA, highest message acked) and highest sent (HS) seqno for each connection.
+It has a retransmit task that's run periodically (say every 500ms) for all connections of a given member. A will
+resend the *highest sent* message M to B if its HA is smaller than HS and the HA/HS combo is the same as the one read
+in the previous run. Say we have HA=45 and HS=50. This means that we sent messages up to 50 to B, but B has only acked
+45 so far. We're missing acks 46-50 from B.
+
+The retransmit task will (on the second iteration) now resend message 50 to B. B receives 50 and adds it to its
+retransmit table. B's own retransmit task does the same thing as UNICAST2: it scans all receiver windows and asks the
+senders to retransmit missing messages. Say B is missing message 46 and 48 from A. Once it receives 50, it'll ask
+A for retransmission of messages 46 and 48. A then sends 46 and 47, allowing B to remove messages 46-50 from A, and
+sending an ack(50) back to A. A now has HA=50 and HS=50, so the retransmit task will not resend any message.
+
+In summary, UNICAST3 will ack messages quickly, allowing the sender to remove them from memory, because each message
+or message batch is acked. However, delayed acking ensures that there's a min time between subsequent acks, reducing
+ack traffic.
+
+There is a guaranteed max time until a message is acked (unless the ack is lost) and there is also a guaranteed max
+time until a message is resent by the sender.
+
+
+
+Connection establishment
+------------------------
+
+Instead of adding explicit connection establishment and teardown, we'll add states OPEN, CLOSING and CLOSED to a
+connection entry (SenderEntry, ReceiverEntry).
+
+When a connection is closed, it won't get removed immediately, but its state will be set to CLOSING.
+The retransmitter will flush unacked messages in the sender entry in this state.
+After a few minutes and no activity, the state will be set to CLOSED and the entry removed. This is also done by the
+retransmission task.
+
+The advantage of a time lag between CLOSING and setting a connection to CLOSED (and removing it) is that when a message
+is sent on a CLOSING connection, it will be reverted to OPEN again. When there wasn't a message sent during the time
+lag, then chances are the connection is not used any longer and can safely be removed. The time lag is configurable
+(conn_expiry_timeout).
+
+The design is below:
+
+
+SENDER:
+Closing a sender connection entry:
+- The state is set to CLOSING
+- The retransmission task will keep retransmitting if HA < HS
+
+Sending a message:
+- If the state is CLOSING: set it to OPEN, reset timestamp
+- If the state is CLOSED (should almost never happen, and the entry should be removed a few ms (max) later):
+  - Go to the top of the loop and fetch the sender entry again (or create a new connection entry)
+  - Actually, this is not implemented, as it's an edge case and having to use locking would increase complexity
+
+
+RECEIVER:
+Reception of a CLOSE message (conn-id must be the same)
+- Set the state of the receiver entry (if found) to CLOSED
+- Remove the receiver entry
+
+Reception of a message:
+- In addition to a null receiver entry, we also check for a CLOSED connection entry (counts the same as a null entry)
+- If we have a message batch, we check if there is a message with first==true. If so, we add that message first,
+  then the rest as a mass-insertion into Table. Else, we insert all messages via mass-insertion.
+
+Sending of SEND_FIRST_SEQNO message
+- We don't send this message immediately, but set a flag in the receiver entry
+- When the retransmission task kicks in, it clears the flag and sends a SEND_FIRST_SEQNO message
+- On reception of this message, the sender only sends the first message; the rest will get retransmitted by the sender
+  anyway, or the receiver will ask for retransmission
+
+
+
+SENDER and RECEIVER:
+Retransmission task (reaping)
+- If the state is OPEN and the entry has expired and connection reaping is enabled (conn-expiry-timeout > 0):
+  - Update the timestamp
+  - Set the state to CLOSING
+- If the state of an entry is CLOSING and conn-close-timeout has expired:
+  - Set the state to CLOSED and remove the entry from the send-table
+  - [if SENDER] Send a CLOSE message to the target destination
+
+
+
+References
+----------
+
+[1] https://issues.jboss.org/browse/JGRP-1563
+[2] https://issues.jboss.org/browse/JGRP-1548
+[3] https://issues.jboss.org/browse/JGRP-1577
+[4] https://issues.jboss.org/browse/JGRP-1586
+

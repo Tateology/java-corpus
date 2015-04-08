@@ -1,0 +1,160 @@
+package org.jgroups.util;
+
+import org.jgroups.Global;
+
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+/**
+ * A bitset of missing messages with a fixed size. The index (in the bit set) of a seqno is computed as seqno - offset.
+ * @author Bela Ban
+ * @since  3.1
+ */
+public class SeqnoList extends FixedSizeBitSet implements Streamable, Iterable<Long> {
+    protected long offset; // first seqno
+
+    /** Only to be used by serialization */
+    public SeqnoList() {
+    }
+
+    /**
+     * Creates a SeqnoList with a capacity for size elements.
+     * @param size The max number of seqnos in the bitset
+     * @param offset Lowest seqno. Used to compute the index of a given seqno into the bitset: seqno - offset
+     */
+    public SeqnoList(int size, long offset) {
+        super(size);
+        this.offset=offset;
+    }
+
+    public SeqnoList(int size) {
+        this(size, 0);
+    }
+
+    /** Adds a single seqno */
+    public SeqnoList add(long seqno) {
+        super.set(index(seqno));
+        return this;
+    }
+
+    public SeqnoList add(long ... seqnos) {
+        if(seqnos != null)
+            for(long seqno: seqnos)
+                add(seqno);
+        return this;
+    }
+
+    /** Adds a seqno range */
+    public SeqnoList add(long from, long to) {
+        super.set(index(from), index(to));
+        return this;
+    }
+
+
+    /** Removes all seqnos > seqno */
+    public void removeHigherThan(long max_seqno) {
+        int from=index(max_seqno + 1), to=size-1;
+        if(from <= to && from >= 0)
+            super.clear(from, to);
+    }
+
+
+
+    /** Returns the last seqno, this should also be the highest seqno in the list as we're supposed to add seqnos
+     * in order
+     * @return
+     */
+    public long getLast() {
+        int index=previousSetBit(size - 1);
+        return index == -1? -1 : seqno(index);
+    }
+
+    public int serializedSize() {
+        return Global.INT_SIZE // number of words
+          + (words.length+1) * Global.LONG_SIZE; // words + offset
+    }
+
+    public void writeTo(DataOutput out) throws Exception {
+        out.writeInt(size);
+        out.writeLong(offset);
+        for(long word: words)
+            out.writeLong(word);
+    }
+
+    public void readFrom(DataInput in) throws Exception {
+        size=in.readInt();
+        offset=in.readLong();
+        words=new long[wordIndex(size - 1) + 1];
+        for(int i=0; i < words.length; i++)
+            words[i]=in.readLong();
+    }
+
+
+
+    public int size() {
+        return super.cardinality();
+    }
+
+    public boolean isEmpty() {return cardinality() == 0;}
+
+
+    public String toString() {
+        if(isEmpty())
+            return "{}";
+        StringBuilder sb=new StringBuilder("(").append(cardinality()).append("): {");
+
+        boolean first=true;
+        int num=Util.MAX_LIST_PRINT_SIZE;
+        for(int i=nextSetBit(0); i >= 0; i=nextSetBit(i + 1)) {
+            int endOfRun=nextClearBit(i);
+            if(first)
+                first=false;
+            else
+                sb.append(", ");
+
+            if(endOfRun != -1 && endOfRun-1 != i) {
+                sb.append(seqno(i)).append('-').append(seqno(endOfRun-1));
+                i=endOfRun;
+            }
+            else
+                sb.append(seqno(i));
+            if(--num <= 0) {
+                sb.append(", ... ");
+                break;
+            }
+        }
+
+        sb.append('}');
+        return sb.toString();
+    }
+
+    public Iterator<Long> iterator() {
+        return new SeqnoListIterator();
+    }
+
+    protected int index(long seqno) {return (int)(seqno-offset);}
+
+    protected long seqno(int index) {return offset + index;}
+
+
+    protected class SeqnoListIterator implements Iterator<Long> {
+        protected int         index;
+
+        public boolean hasNext() {
+            return index < size && nextSetBit(index) != -1;
+        }
+
+        public Long next() {
+            int next_index=nextSetBit(index);
+            if(next_index == -1 || next_index >= size)
+                throw new NoSuchElementException("index: " + next_index);
+            index=next_index+1;
+            return seqno(next_index);
+        }
+
+        public void remove() { // not supported
+        }
+    }
+}
