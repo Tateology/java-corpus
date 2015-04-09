@@ -1,0 +1,165 @@
+Buildfile: /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/build.xml
+
+-pre-init:
+
+-init-private:
+
+-init-user:
+
+-init-project:
+
+-init-macrodef-property:
+
+-do-init:
+
+-post-init:
+
+-init-check:
+
+-init-macrodef-javac:
+
+-init-macrodef-junit:
+
+-init-macrodef-nbjpda:
+
+-init-macrodef-debug:
+
+-init-macrodef-java:
+
+-init-presetdef-jar:
+
+init:
+
+deps-jar:
+
+-pre-pre-compile:
+
+-pre-compile:
+
+-do-compile:
+    [javac] Compiling 309 source files to /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/build/classes
+    [javac] warning: [options] bootstrap class path not set in conjunction with -source 1.5
+    [javac] warning: [options] source value 1.5 is obsolete and will be removed in a future release
+    [javac] warning: [options] target value 1.5 is obsolete and will be removed in a future release
+    [javac] warning: [options] To suppress warnings about obsolete options, use -Xlint:-options.
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/app/DefaultOSXApplication.java:18: error: package ch.randelshofer.quaqua does not exist
+    [javac] import ch.randelshofer.quaqua.*;
+    [javac] ^
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/app/action/OSXDropOnDockAction.java:20: error: package net.roydesign.event does not exist
+    [javac] import net.roydesign.event.*;
+    [javac] ^
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/draw/ChopEllipseConnector.java:18: error: package com.sun.tools.javac.jvm does not exist
+    [javac] import com.sun.tools.javac.jvm.Gen;
+    [javac]                               ^
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/samples/draw/DrawLiveConnectApplet.java:31: error: package netscape.javascript does not exist
+    [javac] import netscape.javascript.*;
+    [javac] ^
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/samples/svg/SVGLiveConnectApplet.java:30: error: package netscape.javascript does not exist
+    [javac] import netscape.javascript.*;
+    [javac] ^
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/app/DefaultOSXApplication.java:162: error: cannot find symbol
+    [javac]             UIManager.setLookAndFeel(QuaquaManager.getLookAndFeelClassName());
+    [javac]                                      ^
+    [javac]   symbol:   variable QuaquaManager
+    [javac]   location: class DefaultOSXApplication
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/app/DefaultOSXApplication.java:440: error: package net.roydesign.app does not exist
+    [javac]         net.roydesign.app.Application mrjapp = net.roydesign.app.Application.getInstance();
+    [javac]                          ^
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/app/DefaultOSXApplication.java:440: error: package net.roydesign.app does not exist
+    [javac]         net.roydesign.app.Application mrjapp = net.roydesign.app.Application.getInstance();
+    [javac]                                                                 ^
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/app/action/OSXDropOnDockAction.java:50: error: cannot find symbol
+    [javac]         if (evt instanceof ApplicationEvent) {
+    [javac]                            ^
+    [javac]   symbol:   class ApplicationEvent
+    [javac]   location: class OSXDropOnDockAction
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/app/action/OSXDropOnDockAction.java:51: error: cannot find symbol
+    [javac]             final ApplicationEvent ae = (ApplicationEvent) evt;
+    [javac]                   ^
+    [javac]   symbol:   class ApplicationEvent
+    [javac]   location: class OSXDropOnDockAction
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/app/action/OSXDropOnDockAction.java:51: error: cannot find symbol
+    [javac]             final ApplicationEvent ae = (ApplicationEvent) evt;
+    [javac]                                          ^
+    [javac]   symbol:   class ApplicationEvent
+    [javac]   location: class OSXDropOnDockAction
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/samples/draw/DrawApplet.java:78: error: reference to SwingWorker is ambiguous
+    [javac]         new SwingWorker() {
+    [javac]             ^
+    [javac]   both class javax.swing.SwingWorker in javax.swing and class org.jhotdraw.draw.action.SwingWorker in org.jhotdraw.draw.action match
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/samples/draw/DrawLiveConnectApplet.java:125: error: cannot find symbol
+    [javac]                     JSObject win = JSObject.getWindow(DrawLiveConnectApplet.this);
+    [javac]                     ^
+    [javac]   symbol: class JSObject
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/samples/draw/DrawLiveConnectApplet.java:125: error: cannot find symbol
+    [javac]                     JSObject win = JSObject.getWindow(DrawLiveConnectApplet.this);
+    [javac]                                    ^
+    [javac]   symbol: variable JSObject
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/samples/draw/DrawLiveConnectApplet.java:251: error: cannot find symbol
+    [javac]             JSObject win = JSObject.getWindow(this);
+    [javac]             ^
+    [javac]   symbol:   class JSObject
+    [javac]   location: class DrawLiveConnectApplet
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/samples/draw/DrawLiveConnectApplet.java:251: error: cannot find symbol
+    [javac]             JSObject win = JSObject.getWindow(this);
+    [javac]                            ^
+    [javac]   symbol:   variable JSObject
+    [javac]   location: class DrawLiveConnectApplet
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/samples/draw/DrawLiveConnectApplet.java:268: error: cannot find symbol
+    [javac]             JSObject win = JSObject.getWindow(this);
+    [javac]             ^
+    [javac]   symbol:   class JSObject
+    [javac]   location: class DrawLiveConnectApplet
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/samples/draw/DrawLiveConnectApplet.java:268: error: cannot find symbol
+    [javac]             JSObject win = JSObject.getWindow(this);
+    [javac]                            ^
+    [javac]   symbol:   variable JSObject
+    [javac]   location: class DrawLiveConnectApplet
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/samples/net/NetApplet.java:79: error: reference to SwingWorker is ambiguous
+    [javac]         new SwingWorker() {
+    [javac]             ^
+    [javac]   both class javax.swing.SwingWorker in javax.swing and class org.jhotdraw.draw.action.SwingWorker in org.jhotdraw.draw.action match
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/samples/pert/PertApplet.java:78: error: reference to SwingWorker is ambiguous
+    [javac]         new SwingWorker() {
+    [javac]             ^
+    [javac]   both class javax.swing.SwingWorker in javax.swing and class org.jhotdraw.draw.action.SwingWorker in org.jhotdraw.draw.action match
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/samples/svg/SVGApplet.java:76: error: reference to SwingWorker is ambiguous
+    [javac]         new SwingWorker() {
+    [javac]             ^
+    [javac]   both class javax.swing.SwingWorker in javax.swing and class org.jhotdraw.draw.action.SwingWorker in org.jhotdraw.draw.action match
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/samples/svg/SVGLiveConnectApplet.java:66: error: reference to SwingWorker is ambiguous
+    [javac]         new SwingWorker() {
+    [javac]             ^
+    [javac]   both class javax.swing.SwingWorker in javax.swing and class org.jhotdraw.draw.action.SwingWorker in org.jhotdraw.draw.action match
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/samples/svg/SVGLiveConnectApplet.java:242: error: cannot find symbol
+    [javac]             JSObject win = JSObject.getWindow(this);
+    [javac]             ^
+    [javac]   symbol:   class JSObject
+    [javac]   location: class SVGLiveConnectApplet
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/samples/svg/SVGLiveConnectApplet.java:242: error: cannot find symbol
+    [javac]             JSObject win = JSObject.getWindow(this);
+    [javac]                            ^
+    [javac]   symbol:   variable JSObject
+    [javac]   location: class SVGLiveConnectApplet
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/samples/svg/SVGLiveConnectApplet.java:259: error: cannot find symbol
+    [javac]             JSObject win = JSObject.getWindow(this);
+    [javac]             ^
+    [javac]   symbol:   class JSObject
+    [javac]   location: class SVGLiveConnectApplet
+    [javac] /home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/src/org/jhotdraw/samples/svg/SVGLiveConnectApplet.java:259: error: cannot find symbol
+    [javac]             JSObject win = JSObject.getWindow(this);
+    [javac]                            ^
+    [javac]   symbol:   variable JSObject
+    [javac]   location: class SVGLiveConnectApplet
+    [javac] Note: Some input files use or override a deprecated API.
+    [javac] Note: Recompile with -Xlint:deprecation for details.
+    [javac] Note: Some input files use unchecked or unsafe operations.
+    [javac] Note: Recompile with -Xlint:unchecked for details.
+    [javac] 26 errors
+    [javac] 4 warnings
+
+BUILD FAILED
+/home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/nbproject/build-impl.xml:245: The following error occurred while executing this line:
+/home/ben/code/shapes/java-corpus/jh/JHotDraw 7.0.6/nbproject/build-impl.xml:126: Compile failed; see the compiler error output for details.
+
+Total time: 2 seconds
