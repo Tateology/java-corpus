@@ -1,0 +1,23 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+<head>
+    <title>Index Page</title>
+</head>
+<body>
+
+<h1>App Folder Demo Application</h1>
+
+<t:alerts/>
+
+<img src="${context:images/t5-logo.png}" alt="Logo"/>
+
+<p>
+
+    <t:pagelink page="contexttemplate">context template demo</t:pagelink>
+
+</p>
+
+<p>
+    <t:actionlink t:id="showAlert">show index page alert</t:actionlink>
+</p>
+</body>
+</html>

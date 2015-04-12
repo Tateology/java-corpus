@@ -1,0 +1,34 @@
+<t:layout xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd" xmlns:p="tapestry:parameter">
+
+  <dl>
+    <dt>app</dt>
+    <dd id="app">${message:app-message}</dd>
+    <dt>app perclient</dt>
+    <dd id="app-over">${message:app-perclient-message}</dd>
+    <dt>page</dt>
+    <dd id="page">${message:page-message}</dd>
+    <dt>page perclient</dt>
+    <dd id="page-over">${message:page-perclient-message}</dd>
+    <dt>hello</dt>
+    <dd id="hello">${message:hello}</dd>
+    <dt>selector</dt>
+    <dd id="selector">${selector}</dd>
+  </dl>
+
+
+  <ul>
+    <li>
+      <t:actionlink t:id="fred">Fred Client</t:actionlink>
+    </li>
+    <li>
+      <t:actionlink t:id="barney">Barney Client</t:actionlink>
+    </li>
+    <li>
+      <t:actionlink t:id="english">English</t:actionlink>
+    </li>
+    <li>
+      <t:actionlink t:id="french">French</t:actionlink>
+    </li>
+  </ul>
+
+</t:layout>

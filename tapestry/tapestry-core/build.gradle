@@ -1,0 +1,74 @@
+import org.apache.tools.ant.filters.*
+
+description = "Central module for Tapestry, containing all core services and components"
+
+project.ext { 
+  antlrSource = "src/main/antlr"
+  antlrOutput = "$buildDir/generated-sources/antlr"
+}
+
+
+configurations {
+  antlr3
+}
+
+sourceSets.main.java.srcDir antlrOutput
+
+dependencies {
+  compile project(':tapestry-ioc')
+  compile project(':tapestry-json')
+
+  provided project(":tapestry-test")
+  provided "javax.servlet:servlet-api:${versions.servletapi}"
+
+  compile "commons-codec:commons-codec:1.5"
+
+  // Transitive will bring in the unwanted string template library as well
+  compile "org.antlr:antlr-runtime:3.3", { transitive = false }
+
+  // Antlr3 tool path used with the antlr3 task
+  antlr3 "org.antlr:antlr:3.3"
+
+  testRuntime "org.hsqldb:hsqldb:1.8.0.10"
+}
+
+// This may spin out as a plugin once we've got the details down pat
+
+task generateGrammarSource(type: JavaExec) {
+  description "Generates Java sources from Antlr3 grammars."
+  inputs.source fileTree(dir: antlrSource, include: "**/*.g")
+  outputs.dir file(antlrOutput)
+
+  // See http://forums.gradle.org/gradle/topics/why_does_a_task_execute_even_when_inputs_and_outputs_are_defined_and_nothing_has_changed
+  outputs.upToDateSpec = new AndSpec();
+
+  classpath configurations.antlr3
+
+  main "org.antlr.Tool"
+  args "-o", "${antlrOutput}/org/apache/tapestry5/internal/antlr"
+  args inputs.sourceFiles
+
+  doFirst {
+    logger.info "Executing Antlr3 grammar generation:\n${commandLine.join(' ')}"
+  }
+}
+
+ideaModule.dependsOn generateGrammarSource
+
+def generatedDir = file("$buildDir/generated-sources")
+
+def buildMinusGeneratedDir = (buildDir.listFiles() - generatedDir) as Set<File>
+
+idea.module.excludeDirs += buildMinusGeneratedDir
+
+compileJava.options.fork(memoryMaximumSize: '512m')
+compileJava.dependsOn generateGrammarSource
+
+// Not sure why this is necessary:
+compileTestGroovy.dependsOn compileTestJava
+
+jar {
+  from("src/main/filtered-resources") {
+    filter(ReplaceTokens, tokens: [version: project.version])
+  }
+}

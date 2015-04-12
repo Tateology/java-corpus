@@ -1,0 +1,5 @@
+<html><head><link type="text/css" rel="stylesheet" href="everybody.css"/>
+<!--[if IE]>
+<link type="text/css" rel="stylesheet" href="just_ie.css"/>
+<![endif]-->
+</head></html>

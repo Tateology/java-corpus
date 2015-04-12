@@ -1,0 +1,16 @@
+./src/main/java/org/apache/tapestry5/ioc/test/MockTester.java
+./src/main/java/org/apache/tapestry5/ioc/test/TestUtils.java
+./src/main/java/org/apache/tapestry5/ioc/test/TestBase.java
+./src/main/java/org/apache/tapestry5/ioc/test/package-info.java
+./src/main/java/org/apache/tapestry5/test/Tomcat6Runner.java
+./src/main/java/org/apache/tapestry5/test/ErrorReportingCommandProcessor.java
+./src/main/java/org/apache/tapestry5/test/TapestryTestConstants.java
+./src/main/java/org/apache/tapestry5/test/ServletContainerRunner.java
+./src/main/java/org/apache/tapestry5/test/SeleniumTestCase.java
+./src/main/java/org/apache/tapestry5/test/ErrorReporterImpl.java
+./src/main/java/org/apache/tapestry5/test/Jetty7Runner.java
+./src/main/java/org/apache/tapestry5/test/SeleniumLauncher.java
+./src/main/java/org/apache/tapestry5/test/TapestryTestConfiguration.java
+./src/main/java/org/apache/tapestry5/test/ErrorReporter.java
+./src/main/java/org/apache/tapestry5/test/RandomDataSource.java
+./src/test/java/org/apache/tapestry5/test/SanityCheckTestSuite.java
