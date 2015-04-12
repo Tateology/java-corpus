@@ -1,0 +1,1 @@
+javac -Xmaxerrs 1 -encoding ISO-8859-1 -cp "./xwork-core/src/test/resources/xwork-jar.jar:./xwork-core/src/test/resources/xwork - jar.jar:./plugins/embeddedjsp/src/test/resources/jsps.jar:./lib/*" @COMPILE_ARGS
