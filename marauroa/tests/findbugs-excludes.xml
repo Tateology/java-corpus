@@ -1,0 +1,48 @@
+<FindBugsFilter>
+
+	<!-- a fatal error that kills one thread should shutdown
+	     the complete JVM, because a lot of nasty things can
+	     happen with a missing thread (for example no logging
+	     of item trades or game events. -->
+	<Match> 
+		<Bug pattern="DM_EXIT" />
+		<Class name="marauroa.server.MarauroaUncaughtExceptionHandler" />
+	</Match>
+
+	<!-- if the initialization fails, the JVM is shutdown -->
+	<Match>
+		<Bug pattern="DM_EXIT" />
+		<Class name="marauroa.server.marauroad" />
+	</Match>
+
+	<!-- the problem does not occur because the singleton 
+	     initialization happens before the multi threading -->
+	<Match>
+		<Bug pattern="LI_LAZY_INIT_STATIC" />
+	</Match>
+
+	<!-- empty arrays are a valid response in these cases
+	     so returning null on error is a good choice. -->
+	<Match>
+		<Bug pattern="PZLA_PREFER_ZERO_LENGTH_ARRAYS" />
+	</Match>
+
+	<!-- cannot change this as it is in use for years -->
+	<Match>
+		<Bug pattern="NM_CLASS_NAMING_CONVENTION" />
+		<Class name="marauroa.server.marauroad" />
+	</Match>
+
+	<!-- this method is the low level database interface so it
+	     is a requirement that it accept dynamic strings.
+	     This method, however, is only supposed to be called
+	     from ...DAO-classes which should provide a method interface. -->
+	<Match>
+		<Bug pattern="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE" />
+		<Package name="~marauroa\.server\.db\.adapter.*" />
+	</Match>
+	<Match>
+		<Bug pattern="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" />
+		<Package name="~marauroa\.server\.db\.adapter.*" />
+	</Match>
+</FindBugsFilter>

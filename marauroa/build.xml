@@ -1,0 +1,198 @@
+<?xml version='1.0'?>
+<project name="marauroa" default="dist" basedir=".">
+	<property file="build.ant.properties"/>
+
+	<property name="jarname" value="marauroa-${version}.jar"/>
+	<property name="jarname_client" value="marauroa-client-only-${version}.jar"/>
+
+	<!-- Clears the instalation -->
+	<target name="clean">
+		<delete dir="${build}"/>
+		<delete dir="${docs}"/>
+		<delete dir="${build-archive}"/>
+		<delete dir="${dist}"/>
+	</target>
+
+	<!-- Create the initial folders for the build -->
+	<target name="init">
+		<mkdir dir="${build-archive}" />
+		<mkdir dir="${build}" />
+		<mkdir dir="${dist}" />
+		<mkdir dir="${docs}" />
+	</target>
+
+	<!-- Compiles the project -->
+	<target name="compile" depends="init">
+		<!-- Exclude python support if jython.jar is not present -->
+		<condition property="exclude.python" value="**/python/*.*">
+			<not>
+				<available file="${jython_jar}"/>
+			</not>
+		</condition>
+
+		<!-- Exclude junit support if junit is not present -->
+		<condition property="exclude.junit" value="**/*tests/*.*">
+			<not>
+				<available file="${junit_jar}"/>
+			</not>
+		</condition>
+
+		<!-- Update version number. -->
+		<replaceregexp file="${src}/marauroa/server/marauroad.java"
+                   match="private static final String VERSION = &quot;.*&quot;;"
+                   replace="private static final String VERSION = &quot;${version}&quot;;"
+                   byline="true"/>
+
+		<!-- Compile it -->
+		<javac srcdir="${src}" source="1.5" target="1.5" destdir="${buildroot}" debug="true" debuglevel="source,lines" includes="**/marauroa/**" excludes="${exclude.python};${exclude.junit}" includeantruntime="false">
+			<classpath>
+				<pathelement path="${log4j_jar}"/>
+				<pathelement path="${junit_jar}"/>
+				<pathelement path="${jnlp_jar}"/>
+				<pathelement path="${jython_jar}"/>
+			</classpath>
+		</javac>
+
+		<copy todir="${buildroot}/marauroa/server/">
+			<fileset dir="${src}/marauroa/server">
+				<include name="*.sql"/>
+				<include name="*.properties"/>
+			</fileset>
+		</copy>
+	</target>
+
+
+	<!-- Compiles the project -->
+	<target name="compile-client">
+		<delete dir="${buildroot_client}" quiet="true" />
+		<mkdir dir="${buildroot_client}"/>
+		
+		<!-- Compile it -->
+		<javac srcdir="${src}" source="1.5" target="1.5" destdir="${buildroot_client}" debug="true" debuglevel="source,lines" includeantruntime="false">
+			<include name="marauroa/client/**"/>
+			<include name="marauroa/common/**"/>
+			<classpath>
+				<pathelement path="${log4j_jar}"/>
+				<pathelement path="${jnlp_jar}"/>
+			</classpath>
+		</javac>
+	</target>
+
+	<!-- Generate Java docs -->
+	<target name="docs" depends="compile">
+		<javadoc packagenames="marauroa.*"
+           defaultexcludes="yes"
+           destdir="${docs}"
+           author="true"
+           version="true"
+           use="true"
+           windowtitle="Marauroa API Documentation Version: ${version}">
+			<classpath>
+				<pathelement path="${log4j_jar}"/>
+				<pathelement path="${junit_jar}"/>
+				<pathelement path="${jnlp_jar}"/>
+				<pathelement path="${jython_jar}"/>
+			</classpath>
+			<packageset dir="src" defaultexcludes="yes" />
+		</javadoc>
+	</target>
+
+	<!-- Create jar file for Marauroa -->
+	<target name="jar-all" depends="compile">
+		<jar jarfile="${build-archive}/${jarname}" basedir="${buildroot}/">
+			<manifest>
+				<attribute name="Main-Class" value="marauroa.server.marauroad"/>
+			</manifest>
+		</jar>
+		<copy tofile="${build-archive}/marauroa.jar" file="${build-archive}/${jarname}"/>
+	</target>
+
+	<!-- Create jar file for Marauroa -->
+	<target name="jar-client" depends="compile-client">
+		<jar jarfile="${build-archive}/${jarname_client}" basedir="${buildroot_client}/" />
+	</target>
+
+	<target name="jar" depends="jar-all, jar-client" />
+
+	<!-- Prepare the tarball for releases -->
+	<target name="dist_binary" depends="jar">
+		<replaceregexp file="${extras}/marauroad.bat"
+                   match="set LOCALCLASSPATH=.*"
+                   replace="set LOCALCLASSPATH=.;marauroa-${version}.jar;${jython_jar};${h2_jar};${connectorJ_jar};${log4j_jar}"
+                   byline="true"/>
+
+		<replaceregexp file="${extras}/marauroad"
+	    	       match="export LOCALCLASSPATH=.*"
+    	    	   replace="export LOCALCLASSPATH=.:libs/marauroa-${version}.jar:{jython_jar}:${h2_jar}:${connectorJ_jar}:${log4j_jar}"
+                   byline="true"/>
+
+		<mkdir dir="marauroa-${version}"/>
+		<mkdir dir="marauroa-${version}/libs"/>
+		<copy todir="marauroa-${version}" file="${extras}/marauroad.bat"/>
+		<copy todir="marauroa-${version}" file="${extras}/marauroad"/>
+		<copy todir="marauroa-${version}" file="${build-archive}/${jarname}"/>
+		<copy todir="marauroa-${version}" file="${build-archive}/${jarname_client}"/>
+		<copy todir="marauroa-${version}/libs">
+			<fileset dir="${libdir}">
+				<exclude name="jnlp.jar" />
+				<exclude name="junit-4.4jar" />
+			</fileset>
+		</copy>
+		<copy todir="marauroa-${version}" file="AUTHORS.txt"/>
+		<copy todir="marauroa-${version}" file="CHANGES.txt"/>
+		<copy todir="marauroa-${version}" file="LICENSE.txt"/>
+		<copy todir="marauroa-${version}" file="README.txt"/>
+		<zip destfile="${dist}/marauroa-${version}.zip" basedir="marauroa-${version}"/>
+		<delete dir="marauroa-${version}"/>
+	</target>
+
+	<target name="dist_docs" depends="docs">
+		<mkdir dir="marauroa-${version}"/>
+		<copy todir="marauroa-${version}/${docs}">
+			<fileset dir="${docs}"/>
+		</copy>
+		<copy todir="marauroa-${version}" file="AUTHORS.txt"/>
+		<copy todir="marauroa-${version}" file="CHANGES.txt"/>
+		<copy todir="marauroa-${version}" file="LICENSE.txt"/>
+		<copy todir="marauroa-${version}" file="README.txt"/>
+		<zip destfile="${dist}/marauroa-${version}-docs.zip" basedir="marauroa-${version}"/>
+		<delete dir="marauroa-${version}"/>
+	</target>
+
+
+	<target name="dist_source" depends="docs">
+		<mkdir dir="marauroa-${version}"/>
+		<copy todir="marauroa-${version}/src">
+			<fileset dir="src"/>
+		</copy>
+		<copy todir="marauroa-${version}/tests">
+			<fileset dir="tests"/>
+		</copy>
+			<copy todir="marauroa-${version}/functional_tests">
+				<fileset dir="functional_tests"/>
+			</copy>
+		<copy todir="marauroa-${version}/extras">
+			<fileset dir="extras"/>
+		</copy>
+		<copy todir="marauroa-${version}/libs">
+			<fileset dir="libs"/>
+		</copy>
+		<copy todir="marauroa-${version}" file="build.xml"/>
+		<copy todir="marauroa-${version}" file="build.ant.properties"/>
+		<copy todir="marauroa-${version}" file="AUTHORS.txt"/>
+		<copy todir="marauroa-${version}" file="CHANGES.txt"/>
+		<copy todir="marauroa-${version}" file="LICENSE.txt"/>
+		<copy todir="marauroa-${version}" file="README.txt"/>
+
+		<tar destfile="${dist}/marauroa-${version}-src.tar.gz" compression="gzip">
+			<tarfileset dir="marauroa-${version}" prefix="marauroa-${version}">
+				<exclude name="**/CVS/**"/>
+			</tarfileset>
+		</tar>
+
+		<delete dir="marauroa-${version}"/>
+	</target>
+
+	<!-- builds the whole project for releasing -->
+	<target name="dist" depends="clean, dist_binary, dist_docs, dist_source"/>
+</project>
