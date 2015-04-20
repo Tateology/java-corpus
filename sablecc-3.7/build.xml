@@ -1,0 +1,485 @@
+<?xml version="1.0"?>
+
+<!-- 
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* This file is part of SableCC.                             * 
+* See the file "LICENSE" for copyright information and the  *
+* terms and conditions for copying, distribution and        *
+* modification of SableCC.                                  *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+-->
+
+<project name="sablecc" default="compile" basedir=".">
+
+<!-- 
+=====================================
+Global Properties 
+=====================================
+-->
+
+  <property name="package" value="sablecc"/>
+  <property name="version" value="3.7"/>
+
+  <property name="src.dir" value="src"/>
+  <property name="classes.dir" value="classes"/>
+  <property name="package.name" value="${package}-${version}"/>
+  <property name="lib.dir" value="lib"/>
+  <property name="bin.dir" value="bin"/>
+  <property name="doc.dir" value="doc"/>
+  <property name="sablecc-anttask.version" value="1.0.1"/>
+  <property name="manifest" value="etc/manifest"/>
+
+  <!-- Jikes 1.18 generates incorrect bytecode, unfortunately. -->
+  <!-- property name="build.compiler" value="jikes"/-->
+
+  <property file="${user.home}/.ant.properties" />
+
+
+<!--
+=====================================
+Changelog Target
+=====================================
+-->
+
+  <target 
+    name="changelog"
+    description="generate ChangeLog"
+  >
+
+    <exec executable="/usr/bin/svn" output="ChangeLog">
+      <arg value="log"/>
+      <arg value="-v"/>
+    </exec>
+
+  </target>
+
+<!--
+=====================================
+Configure Target
+=====================================
+-->
+
+  <target 
+    name="configure" 
+    depends="version-in,readme-in"
+    description="expand *.in files"
+  />
+
+  <target 
+    name="version-in" 
+    depends="version-in-available,version-in-notRequired"
+    if="version-in.available"
+    unless="version-in.notRequired"
+  >
+
+    <copy file="${version-in.file}.in" tofile="${version-in.file}"/>
+    <replace file="${version-in.file}" token="@version@" value="${version}"/>
+    <touch file="${version-in.file}"/>
+
+  </target>
+
+  <target name="version-in-name">
+
+    <property 
+      name="version-in.file" 
+      value="${src.dir}/org/sablecc/sablecc/Version.java"
+    />
+
+  </target>
+
+  <target name="version-in-available" depends="version-in-name">
+
+    <available property="version-in.available" file="${version-in.file}.in"/>
+
+  </target>
+
+  <target name="version-in-notRequired" depends="version-in-name">
+
+    <uptodate property="version-in.notRequired" targetfile="${version-in.file}">
+      <srcfiles dir= "" includes="${version-in.file}.in"/>
+      <srcfiles dir= "" includes="build.xml"/>
+    </uptodate>
+
+  </target>
+
+  <target 
+    name="readme-in" 
+    depends="readme-in-available,readme-in-notRequired" 
+    if="readme-in.available"
+    unless="readme-in.notRequired"
+  >
+
+    <copy file="${readme-in.file}.in" tofile="${readme-in.file}"/>
+    <replace file="${readme-in.file}" token="@version@" value="${version}"/>
+    <touch file="${readme-in.file}"/>
+
+  </target>
+
+  <target name="readme-in-name">
+
+    <property 
+      name="readme-in.file" 
+      value="README.html"
+    />
+
+  </target>
+
+  <target name="readme-in-available" depends="readme-in-name">
+
+    <available property="readme-in.available" file="${readme-in.file}.in"/>
+
+  </target>
+
+  <target name="readme-in-notRequired" depends="readme-in-name">
+
+    <uptodate property="readme-in.notRequired" targetfile="${readme-in.file}">
+      <srcfiles dir= "" includes="${readme-in.file}.in"/>
+      <srcfiles dir= "" includes="build.xml"/>
+    </uptodate>
+
+  </target>
+
+<!--
+=====================================
+Reconfigure Target
+=====================================
+-->
+
+  <target 
+    name="reconfigure" 
+    depends="version-in-delete,readme-in-delete,configure"
+    description="force expansion of *.in files"
+  />
+
+  <target
+    name="version-in-delete"
+    depends="version-in-available"
+    if="version-in.available"
+  >
+
+    <delete file="${version-in.file}"/>
+
+  </target>
+
+  <target
+    name="readme-in-delete"
+    depends="readme-in-available"
+    if="readme-in.available"
+  >
+
+    <delete file="${readme-in.file}"/>
+
+  </target>
+
+<!--
+=====================================
+Compile Target
+=====================================
+-->
+
+  <target
+    name="compile"
+    depends="configure"
+    description="compile source files"
+  >
+
+    <mkdir dir="${classes.dir}"/>
+
+    <javac 
+      srcdir="${src.dir}"
+      destdir="${classes.dir}"
+      includes="**/*.java" 
+      debug="true"
+      debuglevel="lines,vars,source"
+    />
+
+    <copy todir="${classes.dir}">
+      <fileset dir="${src.dir}">
+        <include name="**/*.dat"/>
+        <include name="**/*.txt"/>
+      </fileset>
+    </copy>
+
+    <copy todir="${classes.dir}/org/sablecc/sablecc">
+      <fileset dir="${basedir}">
+        <include name="LICENSE"/>
+        <include name="AUTHORS"/>
+        <include name="COPYING-LESSER"/>
+      </fileset>
+    </copy>
+
+  </target>
+
+<!--
+=====================================
+Dist Target
+=====================================
+-->
+
+  <target 
+    name="dist" 
+    depends="srcdist,jar"
+    description="build main distribution file"
+  >
+
+    <gunzip src="${package.name}-src.tar.gz" dest="${package.name}-src.tar"/>
+    <untar src="${package.name}-src.tar" dest="${basedir}"/>
+
+    <copy todir="${package.name}/lib">
+      <fileset dir="${lib.dir}"/>
+    </copy>
+
+    <tar tarfile="${package.name}.tar" basedir="${basedir}" includes="${package.name}/"/>
+    <gzip zipfile="${package.name}.tar.gz" src="${package.name}.tar"/>
+
+    <delete file="${package.name}.tar"/>
+    <delete file="${package.name}-src.tar"/>
+    <delete dir="${package.name}"/>
+
+  </target>
+
+<!--
+===================================== 
+Dist-zip Target
+=====================================
+-->
+
+  <target 
+    name="dist-zip" 
+    depends="dist" 
+    description="build main distribution file in zip format"
+  >
+
+    <gunzip src="${package.name}.tar.gz" dest="${package.name}.tar"/>
+    <untar src="${package.name}.tar" dest="${basedir}"/>
+
+    <zip zipfile="${package.name}.zip" basedir="${basedir}" includes="${package.name}/"/>
+
+    <delete file="${package.name}.tar"/>
+    <delete dir="${package.name}"/>
+
+  </target>
+
+<!--
+=====================================
+Srcdist Target
+=====================================
+-->
+
+  <target 
+    name="srcdist" 
+    depends="configure,changelog,sablecc-anttask_get" 
+    description="build source-only distribution"
+  >
+
+    <copy todir="${package.name}/src" includeEmptyDirs="no">
+      <fileset dir="${src.dir}">
+        <include name="**/*.java"/>
+        <include name="**/*.dat"/>
+        <include name="**/*.txt"/>
+      </fileset>
+    </copy>
+
+    <copy todir="${package.name}/bin">
+      <fileset dir="${bin.dir}"/>
+    </copy>
+
+    <copy todir="${package.name}/doc">
+      <fileset dir="${doc.dir}">
+        <include name="test.sablecc3"/>
+        <include name="description.html"/>
+      </fileset>
+    </copy>
+
+    <copy file="${manifest}" todir="${package.name}/etc"/>
+
+    <copy todir="${package.name}">
+      <fileset dir="${basedir}">
+        <include name="AUTHORS"/>
+        <include name="COPYING-LESSER"/>
+        <include name="ChangeLog"/>
+        <include name="LICENSE"/>
+        <include name="README.html"/>
+        <include name="THANKS"/>
+        <include name="sablecc-anttask-${sablecc-anttask.version}.tar.gz"/>
+        <include name="build.xml"/>
+	<include name="sablecc-3x.sablecc3"/>
+      </fileset>
+    </copy>
+
+    <copy todir="${package.name}/src/org/sablecc/sablecc">
+      <fileset dir="${basedir}">
+        <include name="LICENSE"/>
+        <include name="AUTHORS"/>
+        <include name="COPYING-LESSER"/>
+      </fileset>
+    </copy>
+
+    <tar tarfile="${package.name}-src.tar" basedir="${basedir}" includes="${package.name}/"/>
+    <gzip zipfile="${package.name}-src.tar.gz" src="${package.name}-src.tar"/>
+
+    <delete file="${package.name}-src.tar"/>
+    <delete dir="${package.name}"/>
+
+  </target>
+
+<!--
+=====================================
+Jar Target
+=====================================
+-->
+
+  <target 
+    name="jar" 
+    depends="sablecc-anttask_prepare"
+    description="build executable jar"
+  >
+
+    <mkdir dir="${lib.dir}"/>
+
+    <jar 
+      jarfile="${lib.dir}/${package}.jar" 
+      basedir="${classes.dir}"
+      manifest="${manifest}"
+    />
+
+  </target>
+
+  <target name="sablecc-anttask_check_ready" depends="compile">
+
+    <available 
+      property="sablecc-anttask_ready" 
+      file="${classes.dir}/org/sablecc/ant/taskdef/Sablecc.class"
+    />
+
+  </target>
+
+  <target name="sablecc-anttask_check_available">
+
+    <available 
+      property="sablecc-anttask_available" 
+      file="sablecc-anttask-${sablecc-anttask.version}.tar.gz"
+    />
+
+  </target>
+
+  <target
+    name="sablecc-anttask_get" 
+    depends="sablecc-anttask_check_available" 
+    unless="sablecc-anttask_available" 
+  >
+
+    <!-- GET sablecc-anttask-${sablecc-anttask.version}.tar.gz -->
+    <get
+      src="http://download.sourceforge.net/sablecc/sablecc-anttask-${sablecc-anttask.version}.tar.gz"
+      dest="sablecc-anttask-${sablecc-anttask.version}.tar.gz"
+    />
+ 
+  </target>
+
+  <target
+    name="sablecc-anttask_prepare" 
+    depends="sablecc-anttask_check_ready,sablecc-anttask_get" 
+    unless="sablecc-anttask_ready" 
+  >
+
+    <gunzip src="sablecc-anttask-${sablecc-anttask.version}.tar.gz" dest="sablecc-anttask-${sablecc-anttask.version}.tar"/>
+    <untar src="sablecc-anttask-${sablecc-anttask.version}.tar" dest="${basedir}"/>
+    <unjar src="sablecc-anttask-${sablecc-anttask.version}/lib/sablecc-anttask.jar" dest="${classes.dir}"/>
+    <delete file="sablecc-anttask-${sablecc-anttask.version}.tar"/>
+    <delete dir="sablecc-anttask-${sablecc-anttask.version}"/>
+    <delete dir="${classes.dir}/META-INF"/>
+ 
+  </target>
+
+<!--
+=====================================
+Clean Target
+=====================================
+-->
+
+  <target name="clean" description="remove compiled files">
+
+    <delete dir="${classes.dir}"/>
+
+  </target>
+
+<!--
+=====================================
+Distclean Target
+=====================================
+-->
+
+  <target 
+    name="distclean" 
+    depends="clean,version-in-delete,readme-in-delete" 
+    description="remove all generated files"
+  >
+
+    <delete dir="${lib.dir}"/>
+    <delete>
+      <fileset dir="${basedir}" includes="${package.name}*"/>
+    </delete>
+
+  </target>
+
+<!--
+=====================================
+Install Target
+=====================================
+-->
+
+  <target
+    name="install"
+    depends="install-error,install-no-error"
+    description="install executables"
+  />
+
+  <target name="install-error" unless="install.dir">
+
+    <echo>
+========================================================================
+*** ERROR ***  You must provide an installation directory.  For example:
+
+   ant -Dinstall.dir=/usr/local install     (on Linux)
+or
+   ant -Dinstall.dir=C:\sablecc install     (on Windows)
+========================================================================
+    </echo>
+
+    <fail message="missing installation directory (see explanation above)"/>
+
+  </target>
+
+  <target 
+    name="install-no-error"
+    depends="jar"
+    if="install.dir"
+  >
+
+    <property name="install.location" location="${install.dir}"/>
+
+    <copy todir="${install.location}/bin" overwrite="yes">
+      <fileset dir="${bin.dir}"/>
+    </copy>
+    <replace file="${install.location}/bin/sablecc" token="lib/sablecc.jar" value="${install.location}/lib/sablecc.jar"/>
+    <replace file="${install.location}/bin/sablecc.bat" token="lib\sablecc.jar" value="${install.location}\lib\sablecc.jar"/>
+    <chmod file="${install.location}/bin/sablecc" perm="ugo+x"/>
+
+    <copy todir="${install.location}/lib" overwrite="yes">
+      <fileset dir="${lib.dir}"/>
+    </copy>
+
+    <echo>
+==========================================================================
+IMPORTANT: You must add ${install.location}/bin to your PATH.  For example:
+
+   export PATH=${install.location}/bin:$$PATH      (on Linux)
+or
+   set PATH=${install.location}\bin;%PATH%        (on Windows)
+==========================================================================
+    </echo>
+
+  </target>
+
+</project>
