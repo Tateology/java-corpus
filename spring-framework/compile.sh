@@ -1,0 +1,1 @@
+javac -Xmaxerrs 1 -encoding ISO-8859-1 -cp "./gradle/jdiff/jdiff.jar:./gradle/jdiff/xerces.jar:./gradle/jdiff/antjdiff.jar:./gradle/wrapper/gradle-wrapper.jar:./spring-orm/src/test/resources/org/springframework/orm/jpa/jpa-archive.jar:./buildSrc/build/libs/buildSrc.jar:./lib/*" @COMPILE_ARGS_CORE
