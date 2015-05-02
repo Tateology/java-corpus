@@ -1,5 +1,6 @@
 URL: https://github.com/spring-projects/spring-framework
 Accessed: 2015-04-02
+Notes: only compiling files from `spring-core` and `spring-beans` folders
 
 ## Spring Framework
 The Spring Framework provides a comprehensive programming and configuration
