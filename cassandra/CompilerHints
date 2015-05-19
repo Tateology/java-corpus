@@ -1,0 +1,9 @@
+dontinline,*.*_all_jmhStub
+dontinline,*.*_avgt_jmhStub
+dontinline,*.*_sample_jmhStub
+dontinline,*.*_ss_jmhStub
+dontinline,*.*_thrpt_jmhStub
+inline,org/apache/cassandra/test/microbench/Sample.lz4
+inline,org/apache/cassandra/test/microbench/Sample.setup
+inline,org/apache/cassandra/test/microbench/Sample.snappy
+inline,org/openjdk/jmh/infra/Blackhole.clearSinks
