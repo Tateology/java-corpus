@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   elementFormDefault="qualified"
+   attributeFormDefault="unqualified"
+   version="1.0">
+
+   <xsd:simpleType name="classNameType">
+      <xsd:annotation>
+         <xsd:documentation> The elements that use this type designate the name
+            of a Java class or interface. The name is in the form of a "binary
+            name", as defined in the JLS and as used in Class.forName().
+         </xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:string">
+         <xsd:whiteSpace value="collapse"/>
+      </xsd:restriction>
+   </xsd:simpleType>
+
+</xsd:schema>
