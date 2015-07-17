@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>org.netbeans.modules.cnd.makeproject</type>
+    <configuration>
+        <data xmlns="http://www.netbeans.org/ns/make-project/1">
+            <name>tools</name>
+            <make-project-type>0</make-project-type>
+            <c-extensions>c</c-extensions>
+            <cpp-extensions/>
+            <header-extensions>h</header-extensions>
+            <sourceEncoding>UTF-8</sourceEncoding>
+            <make-dep-projects/>
+            <sourceRootList>
+                <sourceRootElem>.</sourceRootElem>
+            </sourceRootList>
+            <confList>
+                <confElem>
+                    <name>Debug32</name>
+                    <type>0</type>
+                </confElem>
+                <confElem>
+                    <name>Debug64</name>
+                    <type>0</type>
+                </confElem>
+                <confElem>
+                    <name>Release32</name>
+                    <type>0</type>
+                </confElem>
+                <confElem>
+                    <name>Release64</name>
+                    <type>0</type>
+                </confElem>
+                <confElem>
+                    <name>Test_filedata_32</name>
+                    <type>0</type>
+                </confElem>
+            </confList>
+            <formatting>
+                <project-formatting-style>false</project-formatting-style>
+            </formatting>
+        </data>
+    </configuration>
+</project>

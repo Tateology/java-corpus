@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Buildsystem">
+        <folder name="org.netbeans.modules.kjava.j2meproject">
+            <folder name="nbproject">
+                <folder name="build-impl.xml">
+                    <folder name="init-subtargets">
+                        <file name="savaje-init" url="savaje-init">
+                            <attr name="position" intvalue="700"/>
+                        </file>
+                    </folder>
+                    <folder name="jar-subtargets">
+                        <file name="savaje-build-jnlp" url="savaje-build-jnlp">
+                            <attr name="position" intvalue="1200"/>
+                        </file>
+                    </folder>
+                    <folder name="run-subtargets">
+                        <file name="savaje-run" url="savaje-run">
+                            <attr name="position" intvalue="400"/>
+                        </file>
+                    </folder>
+                    <folder name="debug-subtargets">
+                        <file name="savaje-debug" url="savaje-debug">
+                            <attr name="position" intvalue="400"/>
+                        </file>
+                        <file name="cdc-hi-debug" url="cdc-hi-debug">
+                            <attr name="position" intvalue="450"/>
+                        </file>
+                    </folder>
+                    <folder name="clean-subtargets">
+                        <file name="clean-savaje" url="clean-savaje">
+                            <attr name="position" intvalue="1300"/>
+                        </file>
+                    </folder>
+                </folder>
+            </folder>
+        </folder>
+    </folder>
+    <folder name="Customizer">
+        <folder name="org.netbeans.modules.kjava.j2meproject">
+            <folder name="Jad">
+                <file name="SavaJe">
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.j2me.cdc.project.savaje.Bundle"/>
+                    <attr name="customizerPanelClass" newvalue="org.netbeans.modules.j2me.cdc.project.savaje.SavaJeProjectCategoryCustomizer"/>
+                    <attr name="position" intvalue="700"/>
+                    <attr name="triggerPropertyName" stringvalue="platform.type"/>
+                    <attr name="triggerPropertyValue" stringvalue="savaje"/>
+                </file>
+            </folder>
+        </folder>
+    </folder>
+    <folder name="MainTemplates">
+        <folder name="org.netbeans.modules.kjava.j2meproject">
+            <file name="savaje">
+                <attr name="templateName" stringvalue="Templates/GUIForms/JFrame.java"/>
+                <attr name="templateType" stringvalue="main"/>
+            </file>
+            <file name="cdc-hi">
+                <attr name="templateName" stringvalue="Templates/CDC/PBPMain.java"/>
+                <attr name="templateType" stringvalue="main"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Templates">
+        <folder name="CDC">
+            <file name="PBPMain.java" url="PBPMain_java">
+                <attr name="position" intvalue="450"/>
+                <attr name="template" boolvalue="true"/>
+                <attr name="templateWizardURL" urlvalue="nbresloc:/org/netbeans/modules/j2me/cdc/project/savaje/resources/PBPMain.html"/>
+                <attr name="instantiatingIterator" methodvalue="org.netbeans.spi.java.project.support.ui.templates.JavaTemplates.createJavaTemplateIterator"/>
+                <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.j2me.cdc.project.savaje.Bundle"/>
+                <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/j2me/cdc/project/savaje/resources/class-savaje.gif"/>
+                <attr name="CDC" boolvalue="true"/>
+                <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
+                <attr name="templateCategory" stringvalue="CDC/PBP"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="org-netbeans-api-project-libraries">
+        <folder name="Libraries">
+            <file name="savaje-ant-utils.xml" url="Utils.xml">
+                <attr name="displayName" bundlevalue="org.netbeans.modules.j2me.cdc.project.savaje.Bundle#savaje-ant-utils"/>
+            </file>
+        </folder>
+    </folder>
+
+</filesystem>

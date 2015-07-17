@@ -1,0 +1,14 @@
+<xsl:comment>ricoh-run</xsl:comment>
+
+    <target name="ricoh-run" if="ricoh-platform.trigger">
+        <copy todir="${{platform.home}}/mnt/sd3/sdk/dsdk/dist/${{ricoh.application.uid}}" overwrite="true">
+            <fileset dir="${{dist.dir}}">
+                <patternset refid="deployment.patternset"/>
+            </fileset>
+            <flattenmapper/>
+        </copy>
+        <ant antfile="${{platform.home}}/startemulator.xml" target="start_emulator" dir="${{platform.home}}">
+            <property name="emulator.skin" value="WVGA.xml"/>
+            <property name="emulator.autolaunchid" value="${{ricoh.application.uid}}"/>
+        </ant>
+    </target>

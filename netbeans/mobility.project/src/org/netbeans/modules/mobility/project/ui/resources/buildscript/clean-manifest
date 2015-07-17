@@ -1,0 +1,4 @@
+    <target name="clean-manifest" if="manifest.build.file">
+        <delete file="${{manifest.build.file}}"/>
+    </target>
+    

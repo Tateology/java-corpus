@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Templates">
+        <folder name="Project">
+            <folder name="Groovy">
+                <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.groovy.grailsproject.ui.wizards.Bundle"/>
+                <attr name="instantiatingWizardURL" urlvalue="nbresloc:/org/netbeans/modules/groovy/grailsproject/resources/desktop.html"/>
+                <attr name="position" intvalue="825"/>
+            </folder>
+        </folder>
+    </folder>
+    
+    <folder name="Projects">
+        <folder name="org-netbeans-modules-groovy-grailsproject">
+            <folder name="Customizer">
+                <file name="General.instance">
+                    <attr name="instanceCreate" methodvalue="org.netbeans.modules.groovy.grailsproject.ui.customizer.GrailsProjectCustomizerProvider.createGeneral"/>
+                    <attr name="position" intvalue="100"/>
+                </file>
+                <file name="Libraries.instance">
+                    <attr name="instanceCreate" methodvalue="org.netbeans.modules.groovy.grailsproject.ui.customizer.GrailsProjectCustomizerProvider.createLibraries"/>
+                    <attr name="position" intvalue="150"/>
+                </file>
+                <file name="Formatting.instance">
+                    <attr name="instanceOf" stringvalue="org.netbeans.spi.project.ui.support.ProjectCustomizer$CompositeCategoryProvider"/>
+                    <attr name="instanceCreate" methodvalue="org.netbeans.modules.editor.indent.project.api.Customizers.createFormattingCategoryProvider"/>
+                    <attr name="allowedMimeTypes" stringvalue="text/x-groovy,text/x-java"/>
+                    <attr name="position" intvalue="1000"/>
+                </file>
+            </folder>
+
+            <folder name="Lookup"/>
+            
+        </folder>
+    </folder>
+</filesystem>

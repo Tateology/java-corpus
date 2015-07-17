@@ -1,0 +1,50 @@
+package com.foo.bar;
+
+import javax.management.ObjectName;
+import javax.management.MBeanServer;
+import java.lang.management.ManagementFactory;
+import javax.management.JMException;
+import com.foo.bar.Simple5;
+import javax.management.StandardMBean;
+import com.foo.bar.Simple5Intf;
+
+public class U5Simple4 {
+    
+    /**
+     * Instantiate and register your MBeans.
+     */
+    public void init() throws Exception {
+
+        //TODO Add your MBean registration code here
+        try { // Register MBean in Platform MBeanServer
+            ManagementFactory.getPlatformMBeanServer().
+                    // TODO Replace Simple5 Constructor parameters with valid values
+                    registerMBean(new StandardMBean(new Simple5(java.lang.String),
+                    Simple5Intf.class, true),
+                    new ObjectName("com.foo.bar:type=Simple5"));
+        }catch(JMException ex) {
+            // TODO handle exception
+        }
+    }
+    
+    /**
+     * Returns an agent singleton.
+     */
+    public synchronized static U5Simple4 getDefault() throws Exception {
+        if(singleton == null) {
+            singleton = new U5Simple4();
+            singleton.init();
+        }
+        return singleton;
+    }
+    
+    public MBeanServer getMBeanServer() {
+        return mbs;
+    }
+    
+    // Platform MBeanServer used to register your MBeans
+    private final MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+    
+    // Singleton instance
+    private static U5Simple4 singleton;
+}

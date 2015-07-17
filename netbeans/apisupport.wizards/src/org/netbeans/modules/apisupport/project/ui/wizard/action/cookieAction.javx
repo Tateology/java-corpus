@@ -1,0 +1,38 @@
+<#assign licenseFirst = "/*">
+<#assign licensePrefix = " * ">
+<#assign licenseLast = " */">
+<#include "${project.licensePath}">
+
+package ${PACKAGE_NAME};
+
+${IMPORTS}
+public final class ${CLASS_NAME} extends CookieAction {
+
+    protected void performAction(Node[] activatedNodes) {
+        ${PERFORM_ACTION_CODE}
+    }
+
+    protected int mode() {
+        return CookieAction.${MODE};
+    }
+
+    public String getName() {
+        return NbBundle.getMessage(${CLASS_NAME}.class, "${DISPLAY_NAME_KEY}");
+    }
+
+    protected Class[] cookieClasses() {
+        return new Class[] {${COOKIE_CLASSES_BLOCK}};
+    }
+    ${ICON_RESOURCE_METHOD}
+    ${INITIALIZE_METHOD}
+    public HelpCtx getHelpCtx() {
+        return HelpCtx.DEFAULT_HELP;
+    }
+
+    @Override
+    protected boolean asynchronous() {
+        return false;
+    }
+
+}
+

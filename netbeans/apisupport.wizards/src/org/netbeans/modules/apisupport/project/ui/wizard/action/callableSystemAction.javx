@@ -1,0 +1,32 @@
+<#assign licenseFirst = "/*">
+<#assign licensePrefix = " * ">
+<#assign licenseLast = " */">
+<#include "${project.licensePath}">
+
+package ${PACKAGE_NAME};
+
+import org.openide.util.HelpCtx;
+import org.openide.util.NbBundle;
+import org.openide.util.actions.CallableSystemAction;
+
+public final class ${CLASS_NAME} extends CallableSystemAction {
+
+    public void performAction() {
+        // TODO implement action body
+    }
+
+    public String getName() {
+        return NbBundle.getMessage(${CLASS_NAME}.class, "${DISPLAY_NAME_KEY}");
+    }
+    ${ICON_RESOURCE_METHOD}
+    ${INITIALIZE_METHOD}
+    public HelpCtx getHelpCtx() {
+        return HelpCtx.DEFAULT_HELP;
+    }
+
+    @Override
+    protected boolean asynchronous() {
+        return false;
+    }
+
+}

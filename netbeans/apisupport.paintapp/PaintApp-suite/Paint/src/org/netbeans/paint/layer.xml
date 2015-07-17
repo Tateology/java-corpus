@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Actions">
+        <folder name="File">
+            <file name="org-openide-actions-SaveAction.instance">
+                <attr name="instanceCreate" methodvalue="org.openide.awt.Actions.context"/>
+                <attr name="delegate" newvalue="org.openide.actions.SaveAction"/>
+                <attr name="selectionType" stringvalue="EXACTLY_ONE"/>
+                <attr name="surviveFocusChange" boolvalue="false"/>
+                <attr name="displayName" bundlevalue="org/openide/actions/Bundle#Save"/>
+                <attr name="noIconInMenu" boolvalue="false"/>
+                <attr name="iconBase" stringvalue="org/openide/resources/actions/save.png"/>
+                <attr name="type" stringvalue="org.openide.cookies.SaveCookie"/>
+            </file>
+            <file name="org-netbeans-core-actions-SystemExit.instance">
+                <attr name="noIconInMenu" boolvalue="true"/>
+            </file>
+        </folder>
+        <folder name="System">
+            <file name="org-openide-actions-GarbageCollectAction.instance">
+                <attr name="position" intvalue="100"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Menu">
+        <folder name="File">
+            <attr name="position" intvalue="0"/>
+            <file name="SaveAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/File/org-openide-actions-SaveAction.instance"/>
+                <attr name="position" intvalue="100"/>
+            </file>
+            <file name="SeparatorAfterSave.instance">
+                <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+                <attr name="position" intvalue="110"/>
+            </file>
+            <file name="SeparatorBeforeExit.instance">
+                <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+                <attr name="position" intvalue="3990"/>
+            </file>
+            <file name="ExitAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/File/org-netbeans-core-actions-SystemExit.instance"/>
+                <attr name="position" intvalue="4000"/>
+            </file>
+        </folder>
+        <folder name="Window">
+            <attr name="position" intvalue="400"/>
+            <file name="SeparatorBeforeFullscreen.instance">
+                <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+                <attr name="position" intvalue="3990"/>
+            </file>
+            <file name="ToggleFullScreenAction.shadow">
+                <attr name="position" intvalue="4000"/>
+                <attr name="originalFile" stringvalue="Actions/Window/org-netbeans-core-windows-actions-ToggleFullScreenAction.instance"/>
+            </file>
+            <folder name="Output_hidden"/>
+        </folder>
+        <folder name="Help">
+            <attr name="position" intvalue="500"/>
+            <file name="org-netbeans-core-actions-AboutAction.instance"/>
+        </folder>
+        <folder name="GoTo_hidden"/>
+        <folder name="Tools_hidden"/>
+        <folder name="View_hidden"/>
+    </folder>
+    <folder name="Toolbars">
+        <folder name="File">
+            <file name="SaveAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/File/org-openide-actions-SaveAction.instance"/>
+                <attr name="position" intvalue="100"/>
+            </file>
+        </folder>
+        <folder name="Memory">
+            <file name="Memory.shadow">
+                <attr name="originalFile" stringvalue="Actions/System/org-openide-actions-GarbageCollectAction.instance"/>
+                <attr name="position" intvalue="100"/>
+            </file>
+        </folder>
+    </folder>
+</filesystem>

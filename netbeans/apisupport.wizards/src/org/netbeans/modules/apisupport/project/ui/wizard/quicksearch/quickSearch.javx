@@ -1,0 +1,25 @@
+<#assign licenseFirst = "/*">
+<#assign licensePrefix = " * ">
+<#assign licenseLast = " */">
+<#include "${project.licensePath}">
+
+package ${PACKAGE_NAME};
+
+${IMPORTS}
+
+public class ${CLASS_NAME} implements SearchProvider {
+
+    public void evaluate(SearchRequest request, SearchResponse response) {
+
+        //sample code
+        //for (SearchedItem item : getAllItemsToSearchIn()) {
+	//    if (isConditionSatisfied(item, request)) {
+	//        if (!response.addResult(item.getRunnable(), item.getDisplayName(),
+	//	      item.getShortcut(), item.getDisplayHint())) {
+	//	      break;
+	//	  }
+	//    }
+	//}
+    }
+
+}

@@ -1,0 +1,22 @@
+/* Some NB-specific formatting stuff. */
+
+.nonnormative {
+  background: #E5E5FF;
+}
+
+.footnote {
+  font-size: 70%;
+  color: grey;
+}
+
+.warning {
+  font-weight: bold;
+  font-style: italic;
+  color: red;
+}
+
+samp {
+  border: dashed;
+  border-color: #DDFFDD;
+  border-width: thin;
+}

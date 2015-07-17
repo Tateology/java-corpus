@@ -1,0 +1,19 @@
+/*
+ * EmptyMBean3MBean.java
+ *
+ * Created on <current Date and Time>
+ */
+
+package com.foo.bar;
+
+/**
+ * Interface EmptyMBean3MBean
+ *
+ * @author <author>
+ */
+public interface EmptyMBean3MBean
+{
+    
+}
+
+

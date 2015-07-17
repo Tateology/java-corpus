@@ -1,0 +1,35 @@
+<xsl:comment>semc-run-and-debug-prepare-targets</xsl:comment>    
+
+    <target name="semc-icon-assembly" if="semc-platform.trigger" unless="semc.icon.invalid">
+       <copy file="${{semc.application.icon}}" tofile="${{platform.home}}/epoc32/release/winscw/udeb/z/Resource/Apps/${{semc.application.uid}}.mbm" failonerror="false"/>
+       <iconassembly home="${{platform.home}}" uid="${{semc.application.uid}}" count="${{application.icon.count}}"/>
+    </target>
+    <target name="semc-ppro-emulator" if="semc-platform.trigger" description="Builds neccessary files for semc emulator">
+        <exec executable="${{platform.home}}/epoc32/tools/create-ppro-app.bat" dir="${{platform.home}}/epoc32/tools/">
+            <arg value="win32"/>
+            <arg value="${{application.name}}"/>
+            <arg value="${{semc.application.uid}}"/>
+            <arg value="${{j9.dist}}"/>
+            <arg value="${{semc.application.caps}}"/>
+            <env key="SDKDRIVE" value="${{sdkdrive}}"/>
+            <env key="EPOCROOT" value="${{epocroot}}"/>
+            <env key="Path" value="${{epocpath}}"/>
+        </exec>
+    </target>
+    <target name="semc-do-run" if="semc-platform.trigger" description="Prepare log folders, copy necessary files">
+        <copy todir="${{platform.home}}/epoc32/winscw/C/private/${{semc.application.uid}}">
+            <fileset dir="${{dist.dir}}">
+                <exclude name="javadoc/**"/>
+            </fileset>
+        </copy>
+        <mkdir dir="${{platform.home}}/epoc32/winscw/c/logs/j9vm"/>
+        <epocinipath file="${{platform.home}}/epoc32/data/epoc.ini"/>
+        <exec executable="${{platform.home}}/epoc32/release/winscw/udeb/epoc.exe">
+            <env key="SDKDRIVE" value="${{sdkdrive}}"/>
+            <env key="EPOCROOT" value="${{epocroot}}"/>
+            <env key="Path" value="${{epocpath}}"/>
+        </exec>
+    </target>
+
+<xsl:comment>semc-run</xsl:comment>
+    <target name="semc-run" depends="semc-icon-assembly,semc-ppro-emulator,semc-do-run" if="semc-platform.trigger"/>

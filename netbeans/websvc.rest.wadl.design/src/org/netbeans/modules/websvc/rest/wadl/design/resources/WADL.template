@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xsi:schemaLocation="http://research.sun.com/wadl/2006/10 https://wadl.dev.java.net/wadl20061109.xsd"
+            xmlns="http://research.sun.com/wadl/2006/10">
+    <grammars/>
+    <resources base="#SERVICE_URL">
+    </resources>
+</application>

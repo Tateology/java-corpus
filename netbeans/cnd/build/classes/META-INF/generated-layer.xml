@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN"
+                            "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Services">
+        <folder name="MIMEResolver">
+            <file name="org-netbeans-modules-cnd-loaders-CMakeDataObject-Registration.xml">
+                <!--org.netbeans.modules.cnd.loaders.CMakeDataObject-->
+                <attr
+                    methodvalue="org.openide.filesystems.MIMEResolver.create" name="instanceCreate"/>
+                <attr name="instanceClass" stringvalue="org.openide.filesystems.MIMEResolver"/>
+                <attr name="bytes" serialvalue="ACED0005757200025B42ACF317F8060854E002000078700000005900000001000C746578742F782D636D616B6500000001000C746578742F782D636D616B65000000010003747874FFFFFFFFFFFFFFFFFFFFFFFF00FFFFFFFFFFFFFFFFFFFFFFFF00000001000A636D616B656C69737473010100"/>
+                <attr intvalue="138" name="position"/>
+                <attr
+                    bundlevalue="org.netbeans.modules.cnd.loaders.Bundle#NameExtResolver" name="displayName"/>
+            </file>
+            <file name="org-netbeans-modules-cnd-loaders-CMakeIncludeDataObject-Registration.xml">
+                <!--org.netbeans.modules.cnd.loaders.CMakeIncludeDataObject-->
+                <attr
+                    methodvalue="org.openide.filesystems.MIMEResolver.create" name="instanceCreate"/>
+                <attr name="instanceClass" stringvalue="org.openide.filesystems.MIMEResolver"/>
+                <attr name="bytes" serialvalue="ACED0005757200025B42ACF317F8060854E00200007870000002C2000000080014746578742F782D636D616B652D696E636C75646500166170706C69636174696F6E2F782D636F72652B656C6600176170706C69636174696F6E2F782D73746F626A2B656C6600176170706C69636174696F6E2F782D73686F626A2B656C6600176170706C69636174696F6E2F782D73686F626A2B656C6600186170706C69636174696F6E2F782D6F626A6563742B656C6600176170706C69636174696F6E2F782D73686F626A2B656C6600116170706C69636174696F6E2F782D657865000000080014746578742F782D636D616B652D696E636C756465000000010005636D616B65FFFFFFFFFFFFFFFFFFFFFFFF00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000166170706C69636174696F6E2F782D636F72652B656C66000000010000FFFFFFFFFFFFFFFFFFFFFFFF00FFFFFFFFFFFFFFFFFFFFFFFF000000010004636F726500000000176170706C69636174696F6E2F782D73746F626A2B656C6600000001000161FFFFFFFFFFFFFFFFFFFFFFFF00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000176170706C69636174696F6E2F782D73686F626A2B656C6600000001000564796C6962FFFFFFFFFFFFFFFFFFFFFFFF00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000176170706C69636174696F6E2F782D73686F626A2B656C66000000010002736FFFFFFFFFFFFFFFFFFFFFFFFF00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000186170706C69636174696F6E2F782D6F626A6563742B656C660000000100016FFFFFFFFFFFFFFFFFFFFFFFFF00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000176170706C69636174696F6E2F782D73686F626A2B656C66000000010003646C6CFFFFFFFFFFFFFFFFFFFFFFFF00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000116170706C69636174696F6E2F782D657865000000010003657865FFFFFFFFFFFFFFFFFFFFFFFF00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00"/>
+                <attr intvalue="215" name="position"/>
+                <attr
+                    bundlevalue="org.netbeans.modules.cnd.loaders.Bundle#ExtBasedResolver" name="displayName"/>
+            </file>
+            <file name="org-netbeans-modules-cnd-loaders-ExeObject-Registration.xml">
+                <!--org.netbeans.modules.cnd.loaders.ExeObject-->
+                <attr
+                    methodvalue="org.openide.filesystems.MIMEResolver.create" name="instanceCreate"/>
+                <attr name="instanceClass" stringvalue="org.openide.filesystems.MIMEResolver"/>
+                <attr name="bytes" serialvalue="ACED0005757200025B42ACF317F8060854E002000078700000086E0000001300116170706C69636174696F6E2F782D656C6600176170706C69636174696F6E2F782D73746F626A2B656C6600176170706C69636174696F6E2F782D73686F626A2B656C6600176170706C69636174696F6E2F782D73686F626A2B656C6600166170706C69636174696F6E2F782D636F72652B656C6600166170706C69636174696F6E2F782D636F72652B656C6600186170706C69636174696F6E2F782D6F626A6563742B656C6600186170706C69636174696F6E2F782D6F626A6563742B656C66001C6170706C69636174696F6E2F782D65786563757461626C652B656C66001C6170706C69636174696F6E2F782D65786563757461626C652B656C6600166170706C69636174696F6E2F782D636F72652B656C6600166170706C69636174696F6E2F782D636F72652B656C6600116170706C69636174696F6E2F782D65786500116170706C69636174696F6E2F782D65786500186170706C69636174696F6E2F782D6F626A6563742B656C6600116170706C69636174696F6E2F782D65786500166170706C69636174696F6E2F782D636F72652B656C6600116170706C69636174696F6E2F782D65786500116170706C69636174696F6E2F782D6578650000001300116170706C69636174696F6E2F782D656C66FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000047F454C46FFFFFFFFFFFFFFFFFFFFFFFF0000176170706C69636174696F6E2F782D73746F626A2B656C66FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000000007213C617263683E00000007FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000176170706C69636174696F6E2F782D73686F626A2B656C66FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000127F454C46000100000000000000000000030000000012FFFFFFFF00FF00000000000000000000FFFFFFFFFFFFFFFFFFFF0000176170706C69636174696F6E2F782D73686F626A2B656C66FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000127F454C46000200000000000000000000000300000012FFFFFFFF00FF00000000000000000000FFFFFFFFFFFFFFFFFFFF0000166170706C69636174696F6E2F782D636F72652B656C66FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000127F454C46000100000000000000000000040000000012FFFFFFFF00FF00000000000000000000FFFFFFFFFFFFFFFFFFFF0000166170706C69636174696F6E2F782D636F72652B656C66FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000127F454C46000200000000000000000000000400000012FFFFFFFF00FF00000000000000000000FFFFFFFFFFFFFFFFFFFF0000186170706C69636174696F6E2F782D6F626A6563742B656C66FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000127F454C46000100000000000000000000010000000012FFFFFFFF00FF00000000000000000000FFFFFFFFFFFFFFFFFFFF0000186170706C69636174696F6E2F782D6F626A6563742B656C66FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000127F454C46000200000000000000000000000100000012FFFFFFFF00FF00000000000000000000FFFFFFFFFFFFFFFFFFFF00001C6170706C69636174696F6E2F782D65786563757461626C652B656C66FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000127F454C46000100000000000000000000020000000012FFFFFFFF00FF00000000000000000000FFFFFFFFFFFFFFFFFFFF00001C6170706C69636174696F6E2F782D65786563757461626C652B656C66FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000127F454C46000200000000000000000000000200000012FFFFFFFF00FF00000000000000000000FFFFFFFFFFFFFFFFFFFF0000166170706C69636174696F6E2F782D636F72652B656C66FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000000012CFFAEDFE000000000000000004000000000000000012FFFFFFFF0000000000000000FF0000000000FFFFFFFFFFFFFFFF0000166170706C69636174696F6E2F782D636F72652B656C66FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000000012CEFAEDFE000000000000000004000000000000000012FFFFFFFF0000000000000000FF0000000000FFFFFFFFFFFFFFFF0000116170706C69636174696F6E2F782D657865FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000000012CAFEBABE000000000000000000000000000000000012FFFFFFFF0000000000000000000000000000FFFFFFFFFFFFFFFF0000116170706C69636174696F6E2F782D657865FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000000012CFFAEDFE000000000000000002000000000000000012FFFFFFFF0000000000000000FF0000000000FFFFFFFFFFFFFFFF0000186170706C69636174696F6E2F782D6F626A6563742B656C66FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000000012CEFAEDFE00000000000000000A000000000000000012FFFFFFFF0000000000000000FF0000000000FFFFFFFFFFFFFFFF0000116170706C69636174696F6E2F782D657865FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000000012CEFAEDFE000000000000000002000000000000000012FFFFFFFF0000000000000000FF0000000000FFFFFFFFFFFFFFFF0000166170706C69636174696F6E2F782D636F72652B656C66FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000000012FEEDFACE000000000000000000000004000000000012FFFFFFFF0000000000000000000000FF0000FFFFFFFFFFFFFFFF0000116170706C69636174696F6E2F782D657865FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000000012FEEDFACE000000000000000000000002000000000012FFFFFFFF0000000000000000000000FF0000FFFFFFFFFFFFFFFF0000116170706C69636174696F6E2F782D657865FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000084A6F79217065666600000008FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00"/>
+                <attr intvalue="500" name="position"/>
+                <attr
+                    bundlevalue="org.netbeans.modules.cnd.loaders.Bundle#HexBasedResolver" name="displayName"/>
+            </file>
+            <file name="org-netbeans-modules-cnd-loaders-QtProjectDataObject-Registration.xml">
+                <!--org.netbeans.modules.cnd.loaders.QtProjectDataObject-->
+                <attr
+                    methodvalue="org.openide.filesystems.MIMEResolver.create" name="instanceCreate"/>
+                <attr name="instanceClass" stringvalue="org.openide.filesystems.MIMEResolver"/>
+                <attr name="ext.0" stringvalue="pro"/>
+                <attr name="ext.1" stringvalue="qrc"/>
+                <attr name="ext.2" stringvalue="ts"/>
+                <attr name="ext.3" stringvalue="ui"/>
+                <attr name="mimeType.0" stringvalue="text/qtresource+xml"/>
+                <attr name="mimeType.1" stringvalue="text/qttranslation+xml"/>
+                <attr name="mimeType.2" stringvalue="text/qtui+xml"/>
+                <attr name="mimeType.3" stringvalue="text/x-qtproject"/>
+                <attr name="bytes" serialvalue="ACED0005757200025B42ACF317F8060854E002000078700000013E000000040010746578742F782D717470726F6A6563740016746578742F71747472616E736C6174696F6E2B786D6C0013746578742F71747265736F757263652B786D6C000D746578742F717475692B786D6C000000040010746578742F782D717470726F6A65637400000001000370726FFFFFFFFFFFFFFFFFFFFFFFFF00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000016746578742F71747472616E736C6174696F6E2B786D6C0000000100027473FFFFFFFFFFFFFFFFFFFFFFFF00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000013746578742F71747265736F757263652B786D6C000000010003717263FFFFFFFFFFFFFFFFFFFFFFFF00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000D746578742F717475692B786D6C0000000100027569FFFFFFFFFFFFFFFFFFFFFFFF00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00"/>
+                <attr intvalue="218" name="position"/>
+                <attr
+                    bundlevalue="org.netbeans.modules.cnd.loaders.Bundle#QtNameExtResolver.FileChooserName" name="fileChooser.0"/>
+                <attr
+                    bundlevalue="org.netbeans.modules.cnd.loaders.Bundle#QtNameExtResolver.Name" name="displayName"/>
+            </file>
+        </folder>
+        <folder name="PropertyEditorManager">
+            <file name="Package-org-netbeans-modules-cnd-builds.instance">
+                <!--org.netbeans.modules.cnd.builds-->
+                <attr
+                    methodvalue="org.netbeans.modules.openide.nodes.NodesRegistrationSupport.createPackageRegistration" name="instanceCreate"/>
+                <attr name="packagePath" stringvalue="org.netbeans.modules.cnd.builds"/>
+                <attr name="instanceOf" stringvalue="org.netbeans.modules.openide.nodes.NodesRegistrationSupport$PEPackageRegistration"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Editors">
+        <folder name="text">
+            <folder name="x-cmake">
+                <folder name="MultiView">
+                    <file name="org-netbeans-modules-cnd-loaders-CMakeDataObject-createMultiViewEditorElement.instance">
+                        <!--org.netbeans.modules.cnd.loaders.CMakeDataObject.createMultiViewEditorElement(org.openide.util.Lookup)-->
+                        <attr
+                            methodvalue="org.netbeans.core.spi.multiview.MultiViewFactory.createMultiViewDescription" name="instanceCreate"/>
+                        <attr name="instanceClass" stringvalue="org.netbeans.core.multiview.ContextAwareDescription"/>
+                        <attr name="class" stringvalue="org.netbeans.modules.cnd.loaders.CMakeDataObject"/>
+                        <attr
+                            bundlevalue="org.netbeans.modules.cnd.loaders.Bundle#Source" name="displayName"/>
+                        <attr name="iconBase" stringvalue="org/netbeans/modules/cnd/loaders/CMakefileDataIcon.png"/>
+                        <attr name="preferredID" stringvalue="cmakefile.source"/>
+                        <attr intvalue="1" name="persistenceType"/>
+                        <attr intvalue="1" name="position"/>
+                        <attr name="method" stringvalue="createMultiViewEditorElement"/>
+                    </file>
+                </folder>
+            </folder>
+            <folder name="x-cmake-include">
+                <folder name="MultiView">
+                    <file name="org-netbeans-modules-cnd-loaders-CMakeIncludeDataObject-createMultiViewEditorElement.instance">
+                        <!--org.netbeans.modules.cnd.loaders.CMakeIncludeDataObject.createMultiViewEditorElement(org.openide.util.Lookup)-->
+                        <attr
+                            methodvalue="org.netbeans.core.spi.multiview.MultiViewFactory.createMultiViewDescription" name="instanceCreate"/>
+                        <attr name="instanceClass" stringvalue="org.netbeans.core.multiview.ContextAwareDescription"/>
+                        <attr name="class" stringvalue="org.netbeans.modules.cnd.loaders.CMakeIncludeDataObject"/>
+                        <attr
+                            bundlevalue="org.netbeans.modules.cnd.loaders.Bundle#Source" name="displayName"/>
+                        <attr name="iconBase" stringvalue="org/netbeans/modules/cnd/loaders/cmake.png"/>
+                        <attr name="preferredID" stringvalue="cmakeincludefile.source"/>
+                        <attr intvalue="1" name="persistenceType"/>
+                        <attr intvalue="1" name="position"/>
+                        <attr name="method" stringvalue="createMultiViewEditorElement"/>
+                    </file>
+                </folder>
+            </folder>
+            <folder name="x-qtproject">
+                <folder name="MultiView">
+                    <file name="org-netbeans-modules-cnd-loaders-QtProjectDataObject-createMultiViewEditorElement.instance">
+                        <!--org.netbeans.modules.cnd.loaders.QtProjectDataObject.createMultiViewEditorElement(org.openide.util.Lookup)-->
+                        <attr
+                            methodvalue="org.netbeans.core.spi.multiview.MultiViewFactory.createMultiViewDescription" name="instanceCreate"/>
+                        <attr name="instanceClass" stringvalue="org.netbeans.core.multiview.ContextAwareDescription"/>
+                        <attr name="class" stringvalue="org.netbeans.modules.cnd.loaders.QtProjectDataObject"/>
+                        <attr
+                            bundlevalue="org.netbeans.modules.cnd.loaders.Bundle#Source" name="displayName"/>
+                        <attr name="iconBase" stringvalue="org/netbeans/modules/cnd/loaders/QtProjectIcon.png"/>
+                        <attr name="preferredID" stringvalue="qtptoject.source"/>
+                        <attr intvalue="1" name="persistenceType"/>
+                        <attr intvalue="1" name="position"/>
+                        <attr name="method" stringvalue="createMultiViewEditorElement"/>
+                    </file>
+                </folder>
+            </folder>
+            <folder name="qtresource+xml">
+                <folder name="MultiView">
+                    <file name="org-netbeans-modules-cnd-loaders-QtResourceDataObject-createMultiViewEditorElement.instance">
+                        <!--org.netbeans.modules.cnd.loaders.QtResourceDataObject.createMultiViewEditorElement(org.openide.util.Lookup)-->
+                        <attr
+                            methodvalue="org.netbeans.core.spi.multiview.MultiViewFactory.createMultiViewDescription" name="instanceCreate"/>
+                        <attr name="instanceClass" stringvalue="org.netbeans.core.multiview.ContextAwareDescription"/>
+                        <attr name="class" stringvalue="org.netbeans.modules.cnd.loaders.QtResourceDataObject"/>
+                        <attr
+                            bundlevalue="org.netbeans.modules.cnd.loaders.Bundle#Source" name="displayName"/>
+                        <attr name="iconBase" stringvalue="org/netbeans/modules/cnd/loaders/QtResourceIcon.png"/>
+                        <attr name="preferredID" stringvalue="qtresource.source"/>
+                        <attr intvalue="1" name="persistenceType"/>
+                        <attr intvalue="1" name="position"/>
+                        <attr name="method" stringvalue="createMultiViewEditorElement"/>
+                    </file>
+                </folder>
+            </folder>
+        </folder>
+    </folder>
+    <folder name="Actions">
+        <folder name="Build">
+            <file name="org-netbeans-modules-cnd-actions-impl-CompileAction-compile.instance">
+                <!--org.netbeans.modules.cnd.actions.CompileAction.compile()-->
+                <attr
+                    bundlevalue="org.netbeans.modules.cnd.actions.Bundle#BTN_Compile_File" name="displayName"/>
+                <attr
+                    methodvalue="org.netbeans.modules.cnd.actions.CompileAction.compile" name="instanceCreate"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Loaders">
+        <folder name="text">
+            <folder name="x-cnd+sourcefile">
+                <folder name="Actions">
+                    <file name="CompileAction.shadow">
+                        <!--org.netbeans.modules.cnd.actions.CompileAction.compile()-->
+                        <attr name="originalFile" stringvalue="Actions/Build/org-netbeans-modules-cnd-actions-impl-CompileAction-compile.instance"/>
+                        <attr intvalue="950" name="position"/>
+                    </file>
+                </folder>
+            </folder>
+        </folder>
+    </folder>
+    <folder name="OptionsDialog">
+        <folder name="CPlusPlus">
+            <file name="OtherOptionsTab.instance">
+                <!--org.netbeans.modules.cnd.ui.options.CndOtherOptionsPanelController-->
+                <attr
+                    methodvalue="org.netbeans.spi.options.AdvancedOption.createSubCategory" name="instanceCreate"/>
+                <attr name="controller" newvalue="org.netbeans.modules.cnd.ui.options.CndOtherOptionsPanelController"/>
+                <attr
+                    bundlevalue="org.netbeans.modules.cnd.ui.options.Bundle#TAB_CndOtherOptionsTab" name="displayName"/>
+                <attr intvalue="1000" name="position"/>
+            </file>
+        </folder>
+        <folder name="Keywords">
+            <file name="org.netbeans.modules.cnd.ui.options.CndOtherOptionsPanel">
+                <!--org.netbeans.modules.cnd.ui.options.CndOtherOptionsPanel-->
+                <attr name="location" stringvalue="CPlusPlus"/>
+                <attr
+                    bundlevalue="org.netbeans.modules.cnd.ui.options.Bundle#TAB_CndOtherOptionsTab" name="tabTitle"/>
+                <attr
+                    bundlevalue="org.netbeans.modules.cnd.ui.options.Bundle#OtherOptionsKeywords" name="keywords-1"/>
+            </file>
+        </folder>
+    </folder>
+</filesystem>

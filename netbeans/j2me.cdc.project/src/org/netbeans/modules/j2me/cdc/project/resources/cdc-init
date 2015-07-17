@@ -1,0 +1,44 @@
+<xsl:comment>cdc-init</xsl:comment>
+
+    <target name="cdc-init">
+        <condition property="cdc-platform.trigger">
+            <equals arg1="CDC" arg2="${{platform.trigger}}" casesensitive="false"/>
+        </condition>
+        <available file="${{manifest.file}}" property="manifest.available"/>
+        <condition property="main.class.applet">
+            <equals arg1="${{main.class.class}}" arg2="applet" casesensitive="false"/>
+        </condition>
+        <condition property="main.class.xlet">
+            <equals arg1="${{main.class.class}}" arg2="xlet" casesensitive="false"/>
+        </condition>
+        <condition property="manifest.available+main.class+fat.jar">
+            <and>
+                <isset property="manifest.available"/>
+                <isset property="main.class"/>
+                <istrue value="${{platform.fat.jar}}"/>
+                <not>
+                    <equals arg1="${{main.class}}" arg2="" trim="true"/>
+                </not>
+            </and>
+        </condition>
+        <condition property="manifest.available+main.class">
+            <and>
+                <isset property="manifest.available"/>
+                <isset property="main.class"/>
+                <isfalse value="${{platform.fat.jar}}"/>
+                <not>
+                    <equals arg1="${{main.class}}" arg2="" trim="true"/>
+                </not>
+            </and>
+        </condition>
+        <condition property="application.version.invalid" value="true">
+            <equals arg1="${{deployment.number}}" arg2="" trim="true"/>
+        </condition>
+        <fail if="application.version.invalid" message="Property deployment.number must not be empty and must contain version in format %d.%d.%d!"/>
+        <condition property="sign.jar.trigger" value="true">
+            <and>
+                <isset property="cdc-platform.trigger"/>
+                <istrue value="${{sign.enabled}}"/>
+            </and>
+        </condition>
+    </target>

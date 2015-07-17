@@ -1,0 +1,4 @@
+org.netbeans.modules.debugger.ui.models.ColumnModels.createSessionStateColumn()
+org.netbeans.modules.debugger.ui.models.ColumnModels.createSessionLanguageColumn()
+org.netbeans.modules.debugger.ui.models.ColumnModels.createSessionHostNameColumn()
+org.netbeans.modules.debugger.ui.models.ColumnModels.createDefaultSessionColumn()

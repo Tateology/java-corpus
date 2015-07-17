@@ -1,0 +1,46 @@
+<g id="%%COMPONENT_ID%%"  transform="translate(%%COORDINATE_X%%,%%COORDINATE_Y%%)">
+	<!-- Metadata information. Please don't edit. -->
+        <text display="none">type=spinner</text>
+        <rect x="-5.0" y="-3.0" rx="5" ry="5" width="46" height="26" fill="none" stroke="rgb(255,165,0)" stroke-width="2" visibility="hidden">
+            <set attributeName="visibility" attributeType="XML" begin="%%COMPONENT_ID%%.focusin" fill="freeze" to="visible"/>
+            <set attributeName="visibility" attributeType="XML" begin="%%COMPONENT_ID%%.focusout" fill="freeze" to="hidden"/>
+        </rect>
+        <rect id="%%COMPONENT_ID%%_border" transform="matrix(1.2035432,0.0,0.0,1.0,-7.234642,0.0)"   x="5.0" y="0.0" rx="2" ry="2" width="33" height="20" fill="none" stroke="rgb(73,46,55)" stroke-width="1.5"/>
+        <g id="%%COMPONENT_ID%%_editor" >		<!-- this editor is SVGTextField component -->		<!-- metadata definition-->
+            <text display="none">type=editor</text>
+            <text display="none">editable=false</text>
+            <text display="none">enabled=true</text>
+            <g>
+                <text id="%%COMPONENT_ID%%_editor_text" x="0.75" y="16.0" font-size="16" font-family="">0</text>                     <!-- Metadata information. Please don't edit. -->
+                <text display="none">type=text</text>
+            </g>
+        </g>
+        <g>	    	<!-- Metadata information. Please don't edit. -->
+            <text display="none">type=up_button</text>
+             <image transform="matrix(15.870103,0.0,0.0,0.3809426,22.583328,0.2012924)"  width="1" height="25"
+              xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAZCAIAAAB/8tMoAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+              jwv8YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAF9JREFU
+              GFdFw80KRUAAgNHv/R/FmqWyUOSmRN2bJLEgkvw2Y4xJ2dxTB2MM/zdG6/d9KbQ6uU6JkgIpD4TY
+              OPaZfR1Zpo5xqOnbgrb50pQJVR5RZD6/2CUNHT6eRRLYDwfARHOzUoReAAAAAElFTkSuQmCC">
+              </image>
+            <rect   id="%%COMPONENT_ID%%_up_button" x="22.25" y="0.0" rx="2" ry="2" width="16" height="10" fill="none" stroke="rgb(73,46,55)" stroke-width="1">
+                <animate id="%%COMPONENT_ID%%_up_button_pressed" attributeName="stroke" attributeType="XML" begin="indefinite" dur="0.25s" fill="freeze" to="red"/>
+                <animate id="%%COMPONENT_ID%%_up_button_released" attributeName="stroke" attributeType="XML" begin="indefinite" dur="0.25s" fill="freeze" to="rgb(73,46,55)"/>
+            </rect>
+        </g>
+        <g>	    	<!-- Metadata information. Please don't edit. -->
+            <text display="none">type=down_button</text>
+            <image transform="matrix(15.870103,0.0,0.0,0.3809426,22.583328,10.451292)"  width="1" height="25"
+              xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAZCAIAAAB/8tMoAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+              jwv8YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAF9JREFU
+              GFdFw80KRUAAgNHv/R/FmqWyUOSmRN2bJLEgkvw2Y4xJ2dxTB2MM/zdG6/d9KbQ6uU6JkgIpD4TY
+              OPaZfR1Zpo5xqOnbgrb50pQJVR5RZD6/2CUNHT6eRRLYDwfARHOzUoReAAAAAElFTkSuQmCC">
+              </image>
+            <rect id="%%COMPONENT_ID%%_down_button" rx="2" ry="2" x="22.25" y="10.0" width="16" height="10" fill="none" stroke="rgb(73,46,55)" stroke-width="1">
+                <animate id="%%COMPONENT_ID%%_down_button_pressed" attributeName="stroke" attributeType="XML" begin="indefinite" dur="0.25s" fill="freeze" to="red"/>
+                <animate id="%%COMPONENT_ID%%_down_button_released" attributeName="stroke" attributeType="XML" begin="indefinite" dur="0.25s" fill="freeze" to="rgb(73,46,55)"/>
+            </rect>
+        </g>
+        <polygon transform="translate(29.0,6.0)" points="0,0 2,0 1,-2" fill="blue" stroke="rgb(73,46,55)" stroke-width="2"/>
+        <polygon transform="translate(29.0,14.0)" points="0,0 2,0 1,2" fill="blue" stroke="rgb(73,46,55)" stroke-width="2"/>
+    </g>

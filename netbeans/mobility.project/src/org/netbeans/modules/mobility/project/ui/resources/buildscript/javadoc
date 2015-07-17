@@ -1,0 +1,23 @@
+<xsl:comment>javadoc</xsl:comment>    
+    
+    <target name="browse-javadoc" if="netbeans.home" unless="no.javadoc.preview">
+        <nbbrowse file="${{dist.javadoc.dir}}/index.html"/>
+    </target>
+    
+    <target name="javadoc" depends="preprocess">
+        <fail unless="dist.javadoc.dir">Must set dist.javadoc.dir</fail>
+        <mkdir dir="${{dist.javadoc.dir}}"/>
+        <copy todir="${{buildsystem.baton}}">
+            <fileset dir="${{src.dir}}" includes="**/*.html"/>
+        </copy>
+        <javadoc source="${{javac.source}}" destdir="${{dist.javadoc.dir}}" bootclasspath="${{platform.bootclasspath}}" notree="${{javadoc.notree}}" use="${{javadoc.use}}" nonavbar="${{javadoc.nonavbar}}" noindex="${{javadoc.noindex}}" splitindex="${{javadoc.splitindex}}" author="${{javadoc.author}}" version="${{javadoc.version}}" windowtitle="${{javadoc.windowtitle}}" private="${{javadoc.private}}" encoding="${{javac.encoding}}" docencoding="${{javac.encoding}}" charset="${{javac.encoding}}">
+            <classpath>
+                <path path="${{libs.classpath}}"/>
+            </classpath>
+            <sourcepath>
+                <pathelement location="${{buildsystem.baton}}"/>
+            </sourcepath>
+        </javadoc>
+        <antcall target="browse-javadoc"/>
+    </target>
+

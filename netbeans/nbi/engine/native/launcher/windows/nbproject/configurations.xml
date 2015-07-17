@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="84">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>src/Errors.h</itemPath>
+      <itemPath>src/ExtractUtils.h</itemPath>
+      <itemPath>src/FileUtils.h</itemPath>
+      <itemPath>src/JavaUtils.h</itemPath>
+      <itemPath>src/Launcher.h</itemPath>
+      <itemPath>src/Main.h</itemPath>
+      <itemPath>src/ProcessUtils.h</itemPath>
+      <itemPath>src/RegistryUtils.h</itemPath>
+      <itemPath>src/StringUtils.h</itemPath>
+      <itemPath>src/SystemUtils.h</itemPath>
+      <itemPath>src/Types.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+      <itemPath>resources/res.rc</itemPath>
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>src/ExtractUtils.c</itemPath>
+      <itemPath>src/FileUtils.c</itemPath>
+      <itemPath>src/JavaUtils.c</itemPath>
+      <itemPath>src/Launcher.c</itemPath>
+      <itemPath>src/Main.c</itemPath>
+      <itemPath>src/ProcessUtils.c</itemPath>
+      <itemPath>src/RegistryUtils.c</itemPath>
+      <itemPath>src/StringUtils.c</itemPath>
+      <itemPath>src/SystemUtils.c</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>Cygwin|Cygwin</compilerSet>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <stripSymbols>true</stripSymbols>
+          <commandLine>-mno-cygwin</commandLine>
+          <warningLevel>3</warningLevel>
+        </cTool>
+        <ccTool>
+          <stripSymbols>true</stripSymbols>
+        </ccTool>
+        <linkerTool>
+          <output>dist/nlw</output>
+          <stripSymbols>true</stripSymbols>
+          <linkerLibItems>
+            <linkerOptionItem>-lole32 -luuid -lkernel32 -lcomctl32 -luserenv</linkerOptionItem>
+          </linkerLibItems>
+          <commandLine>-mwindows -mno-cygwin build/icon.o</commandLine>
+        </linkerTool>
+      </compileType>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>Cygwin|Cygwin</compilerSet>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+      </compileType>
+    </conf>
+  </confs>
+</configurationDescriptor>

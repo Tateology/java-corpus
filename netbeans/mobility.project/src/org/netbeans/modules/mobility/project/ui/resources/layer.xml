@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright 1997-2010 Oracle and/or its affiliates. All rights reserved.
+
+Oracle and Java are registered trademarks of Oracle and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+
+The contents of this file are subject to the terms of either the GNU
+General Public License Version 2 only ("GPL") or the Common
+Development and Distribution License("CDDL") (collectively, the
+"License"). You may not use this file except in compliance with the
+License. You can obtain a copy of the License at
+http://www.netbeans.org/cddl-gplv2.html
+or nbbuild/licenses/CDDL-GPL-2-CP. See the License for the
+specific language governing permissions and limitations under the
+License.  When distributing the software, include this License Header
+Notice in each file and include the License file at
+nbbuild/licenses/CDDL-GPL-2-CP.  Oracle designates this
+particular file as subject to the "Classpath" exception as provided
+by Oracle in the GPL Version 2 section of the License file that
+accompanied this code. If applicable, add the following below the
+License Header, with the fields enclosed by brackets [] replaced by
+your own identifying information:
+"Portions Copyrighted [year] [name of copyright owner]"
+
+Contributor(s):
+
+The Original Software is NetBeans. The Initial Developer of the Original
+Software is Sun Microsystems, Inc. Portions Copyright 1997-2006 Sun
+Microsystems, Inc. All Rights Reserved.
+
+If you wish your version of this file to be governed by only the CDDL
+or only the GPL Version 2, indicate your decision by adding
+"[Contributor] elects to include this software in this distribution
+under the [CDDL or GPL Version 2] license." If you do not indicate a
+single choice of license, a recipient has the option to distribute
+your version of this file under either the CDDL, the GPL Version 2 or
+to extend the choice of license to its licensees as provided above.
+However, if you add GPL Version 2 code and therefore, elected the GPL
+Version 2 license, then the option applies only if the new code is
+made subject to such option by the copyright holder.
+-->
+<?xml-stylesheet type="text/xml" href="http://openide.netbeans.org/fs/filesystem.xsl"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Actions">
+        <folder name="Tools">
+            <file name="org-netbeans-modules-mobility-project-deployment-MobilityDeploymentManagerAction.instance">
+                <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.Bundle"/>
+                <attr name="delegate" newvalue="org.netbeans.modules.mobility.project.deployment.MobilityDeploymentManagerAction"/>
+                <attr name="displayName" bundlevalue="org.netbeans.modules.mobility.project.deployment.Bundle#LBL_DeploymentManagerAction"/>
+                <attr name="instanceCreate" methodvalue="org.openide.awt.Actions.alwaysEnabled"/>
+                <attr name="noIconInMenu" boolvalue="true"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Projects">
+        <folder name="org-netbeans-modules-mobility-project">
+            <folder name="Actions">
+                <folder name="Root">
+                    <file name="NewFile.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.spi.project.ui.support.CommonProjectActions.newFileAction"/>
+                        <attr name="position" intvalue="100"/>
+                    </file>
+                    <file name="sep1.instance">
+                        <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+                        <attr name="position" intvalue="200"/>
+                    </file>
+                    <file name="Build.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.modules.mobility.project.ui.actions.Actions.createBuildAction"/>
+                        <attr name="position" intvalue="300"/>
+                    </file>
+                    <file name="Rebuild.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.modules.mobility.project.ui.actions.Actions.createRebuildAction"/>
+                        <attr name="position" intvalue="400"/>
+                    </file>
+                    <file name="Clean.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.modules.mobility.project.ui.actions.Actions.createCleanAction"/>
+                        <attr name="position" intvalue="500"/>
+                    </file>
+                    <file name="Javadoc.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.modules.mobility.project.ui.actions.Actions.createJavadocAction"/>
+                        <attr name="position" intvalue="600"/>
+                    </file>
+                    <file name="Deploy.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.modules.mobility.project.ui.actions.Actions.createDeployAction"/>
+                        <attr name="position" intvalue="700"/>
+                    </file>
+                    <file name="sep2.instance">
+                        <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+                        <attr name="position" intvalue="800"/>
+                    </file>
+                    <file name="BuildAll.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.modules.mobility.project.ui.actions.Actions.createBuildAllAction"/>
+                        <attr name="position" intvalue="900"/>
+                    </file>
+                    <file name="RebuildAll.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.modules.mobility.project.ui.actions.Actions.createRebuildAllAction"/>
+                        <attr name="position" intvalue="1000"/>
+                    </file>
+                    <file name="CleanAll.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.modules.mobility.project.ui.actions.Actions.createCleanAllAction"/>
+                        <attr name="position" intvalue="1100"/>
+                    </file>
+                    <file name="DeployAll.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.modules.mobility.project.ui.actions.Actions.createDeployAllAction"/>
+                        <attr name="position" intvalue="1200"/>
+                    </file>
+                    <file name="sep3a.instance">
+                        <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+                        <attr name="position" intvalue="1300"/>
+                    </file>
+                    <file name="Run.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.modules.mobility.project.ui.actions.Actions.createRunAction"/>
+                        <attr name="position" intvalue="1400"/>
+                    </file>
+                    <file name="RunWith.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.modules.mobility.project.ui.actions.Actions.createRunWithAction"/>
+                        <attr name="position" intvalue="1500"/>
+                    </file>
+                    <file name="Debug.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.modules.mobility.project.ui.actions.Actions.createDebugAction"/>
+                        <attr name="position" intvalue="1600"/>
+                    </file>
+                    <file name="sep3.instance">
+                        <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+                        <attr name="position" intvalue="1700"/>
+                    </file>
+                    <file name="Main.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.spi.project.ui.support.CommonProjectActions.setAsMainProjectAction"/>
+                        <attr name="position" intvalue="1800"/>
+                    </file>
+                    <file name="Subprojects.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.spi.project.ui.support.CommonProjectActions.openSubprojectsAction"/>
+                        <attr name="position" intvalue="1900"/>
+                    </file>
+                    <file name="Close.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.spi.project.ui.support.CommonProjectActions.closeProjectAction"/>
+                        <attr name="position" intvalue="2000"/>
+                    </file>
+                    <file name="sep4.instance">
+                        <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+                        <attr name="position" intvalue="2100"/>
+                    </file>
+                    <file name="Rename.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.spi.project.ui.support.CommonProjectActions.renameProjectAction"/>
+                        <attr name="position" intvalue="2200"/>
+                    </file>
+                    <file name="Move.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.spi.project.ui.support.CommonProjectActions.moveProjectAction"/>
+                        <attr name="position" intvalue="2300"/>
+                    </file>
+                    <file name="Copy.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.spi.project.ui.support.CommonProjectActions.copyProjectAction"/>
+                        <attr name="position" intvalue="2400"/>
+                    </file>
+                    <file name="Delete.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.spi.project.ui.support.CommonProjectActions.deleteProjectAction"/>
+                        <attr name="position" intvalue="2500"/>
+                    </file>
+                    <file name="sep5.instance">
+                        <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+                        <attr name="position" intvalue="2600"/>
+                    </file>
+                    <file name="Find.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.modules.mobility.project.ui.actions.Actions.createFindAction"/>
+                        <attr name="position" intvalue="2700"/>
+                    </file>
+                    <file name="org-netbeans-modules-java-hints-jackpot-impl-refactoring-ApplyPatternAction.shadow">
+                        <attr name="originalFile" stringvalue="Actions/Refactoring/org-netbeans-modules-java-hints-jackpot-impl-refactoring-ApplyPatternAction.instance"/>
+                        <attr name="position" intvalue="2750"/>
+                    </file>
+                    <file name="sep6.instance">
+                        <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+                        <attr name="position" intvalue="2800"/>
+                    </file>
+                    <file name="Refresh.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.modules.mobility.project.ui.actions.Actions.createRefreshPackagesAction"/>
+                        <attr name="position" intvalue="2900"/>
+                    </file>
+                    <file name="sep7.instance">
+                        <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+                        <attr name="position" intvalue="3000"/>
+                    </file>
+                    <!-- Utilities.actionsForPath("Projects/Actions") inserted here -->
+                    <file name="sep8.instance">
+                        <attr name="instanceClass" stringvalue="javax.swing.JSeparator"/>
+                        <attr name="position" intvalue="3100"/>
+                    </file>
+                    <file name="Customize.instance">
+                        <attr name="instanceCreate" methodvalue="org.netbeans.spi.project.ui.support.CommonProjectActions.customizeProjectAction"/>
+                        <attr name="position" intvalue="3200"/>
+                    </file>
+                </folder>
+            </folder>
+            </folder>
+    </folder>
+
+    <folder name="Navigator">
+        <folder name="Panels">
+            <folder name="j2me">
+                <folder name="abilities">
+                    <file name="org-netbeans-modules-mobility-project-ui-AbilitiesPanel.instance"/>
+                </folder>
+            </folder>
+        </folder>
+    </folder>
+ 
+    <folder name="Menu">
+        <folder name="Tools">
+            <file name="org-netbeans-modules-mobility-project-deployment-MobilityDeploymentManagerAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Tools/org-netbeans-modules-mobility-project-deployment-MobilityDeploymentManagerAction.instance"/>
+                <attr name="position" intvalue="900"/>
+            </file>
+        </folder>
+    </folder>
+
+    <folder name="Templates">
+        <folder name="Project">
+
+            <folder name="J2ME">
+                <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.wizard.Bundle"/>
+                <attr name="instantiatingWizardURL" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/j2meProjectCategory.html"/>
+
+                
+
+                <file name="MobileApplication">
+                    <attr name="position" intvalue="100"/>
+                    <attr name="template" boolvalue="true"/>
+                    <attr name="instantiatingIterator" newvalue="org.netbeans.modules.mobility.project.ui.wizard.NewProjectIterator"/>
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.wizard.Bundle"/>
+                    <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/mobile-project.png"/>
+                    <attr name="instantiatingWizardURL" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/emptyProject.html"/>
+                    <attr boolvalue="true" name="application"/>
+                </file>
+
+                <file name="EmbeddedApplication">
+                    <attr name="position" intvalue="150"/>
+                    <attr name="template" boolvalue="true"/>
+                    <attr name="instantiatingIterator" newvalue="org.netbeans.modules.mobility.project.ui.wizard.NewProjectIterator"/>
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.wizard.Bundle"/>
+                    <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/mobile-project.png"/>
+                    <attr name="instantiatingWizardURL" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/emptyIMPNGProject.html"/>
+                    <attr boolvalue="true" name="application"/>
+                    <attr boolvalue="true" name="embedded"/>
+                </file>
+
+                <file name="MobileLibrary">
+                    <attr name="position" intvalue="200"/>
+                    <attr name="template" boolvalue="true"/>
+                    <attr name="instantiatingIterator" newvalue="org.netbeans.modules.mobility.project.ui.wizard.NewProjectIterator"/>
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.wizard.Bundle"/>
+                    <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/mobile-project.png"/>
+                    <attr name="instantiatingWizardURL" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/emptyLibrary.html"/>
+                </file>
+
+                <file name="j2me-sources">
+                    <attr name="position" intvalue="300"/>
+                    <attr name="template" boolvalue="true"/>
+                    <attr name="instantiatingIterator" newvalue="org.netbeans.modules.mobility.project.ui.wizard.imports.SourcesIterator"/>
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.wizard.imports.Bundle"/>
+                    <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/mobile-project.png"/>
+                    <attr name="instantiatingWizardURL" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/j2me-sources.html"/>
+                </file>
+
+                <file name="j2me-wtk">
+                    <attr name="position" intvalue="400"/>
+                    <attr name="template" boolvalue="true"/>
+                    <attr name="instantiatingIterator" newvalue="org.netbeans.modules.mobility.project.ui.wizard.imports.WtkIterator"/>
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.wizard.imports.Bundle"/>
+                    <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/mobile-project.png"/>
+                    <attr name="instantiatingWizardURL" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/j2me-wtk.html"/>
+                </file>
+
+            </folder>
+
+        </folder>
+        
+        <folder name="MIDP">
+            <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.wizard.Bundle"/>
+            <attr name="position" intvalue="300"/>
+            <attr name="instantiatingWizardURL" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/descriptions/MIDP/MIDPInfo.html"/>
+            <attr name="MIDP" boolvalue="true"/>
+            <attr name="templateCategory" stringvalue="MIDP"/>
+
+            <file name="Midlet.java" url="templates/MIDP/MIDlet_java.template">
+                <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.wizard.Bundle"/>
+                <attr name="instantiatingWizardURL" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/descriptions/MIDP/MIDlet_java.html"/>
+                <attr name="position" intvalue="200"/>
+                <attr boolvalue="true" name="template"/>
+                <attr name="instantiatingIterator" methodvalue="org.netbeans.modules.mobility.project.ui.wizard.FileWizardIterator.singleton"/>
+                <attr boolvalue="true" name="isMIDletTemplate"/>
+                <attr name="MIDP" boolvalue="true"/>
+                <attr name="templateCategory" stringvalue="MIDP"/>
+                <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
+                <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/class.gif"/> 
+            </file>
+
+            <file name="MIDPCanvas.java" url="templates/MIDP/MIDPCanvas_java.template">
+                <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.wizard.Bundle"/>
+                <attr name="instantiatingWizardURL" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/descriptions/MIDP/MIDPCanvas_java.html"/>
+                <attr name="position" intvalue="300"/>
+                <attr boolvalue="true" name="template"/>
+                <attr name="instantiatingIterator" methodvalue="org.netbeans.modules.mobility.project.ui.wizard.FileWizardIterator.singleton"/>
+                <attr name="MIDP" boolvalue="true"/>
+                <attr name="templateCategory" stringvalue="MIDP"/>
+                <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
+                <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/class.gif"/> 
+            </file>
+
+            <file name="LocalizationSupport.java" url="templates/MIDP/LocalizationSupport_java.template">
+                <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.wizard.i18n.Bundle"/>
+                <attr name="instantiatingWizardURL" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/descriptions/MIDP/LocalizationSupport.html"/>
+                <attr name="position" intvalue="600"/>
+                <attr boolvalue="true" name="template"/>
+                <attr name="instantiatingIterator" methodvalue="org.netbeans.modules.mobility.project.ui.wizard.i18n.LocalizationSupportIterator.singleton"/>
+                <attr name="MIDP" boolvalue="true"/>
+                <attr name="templateCategory" stringvalue="MIDP"/>
+                <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
+                <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/class.gif"/> 
+            </file>
+            <file name="LocalizationSupport.properties" url="templates/MIDP/LocalizationSupport_properties.template">
+                <attr name="position" intvalue="0"/>
+                <!--
+                <attr boolvalue="true" name="template"/>
+                -->
+             </file>             
+            
+        </folder>
+        
+    </folder>
+        
+    <folder name="Buildsystem">
+        <folder name="ApplicationDescriptor">
+            <folder name="Attributes"/>
+            <folder name="Permissions">
+                <file name="basepermissions" url="basepermissions.txt">
+                    <attr name="position" intvalue="0"/>
+                </file>
+            </folder>
+        </folder>
+        <folder name="org.netbeans.modules.kjava.j2meproject">
+            <file name="build.xml" url="/org/netbeans/modules/mobility/project/resources/build.xsl"/>
+            <folder name="nbproject">
+                <folder name="build-impl.xml">
+                    <file name="head" url="buildscript/head">
+                        <attr name="position" intvalue="100"/>
+                    </file>
+                    <file name="pre-init">
+                        <attr name="position" intvalue="200"/>
+                    </file>
+                    <folder name="init-subtargets">
+                        <attr name="position" intvalue="300"/>
+                        <file name="load-properties" url="buildscript/load-properties">
+                            <attr name="position" intvalue="100"/>
+                        </file>
+                        <file name="basic-init" url="buildscript/basic-init">
+                            <attr name="position" intvalue="200"/>
+                        </file>
+                        <file name="cldc-init" url="buildscript/cldc-init">
+                            <attr name="position" intvalue="300"/>
+                        </file>
+                        <!-- Java ME SDK beginning -->
+                        <file name="cdc-hi-init" url="buildscript/cdc-hi-init">
+                            <attr name="position" intvalue="750"/>
+                        </file>
+                        <!-- Java ME SDK end -->
+                    </folder>
+                    <file name="init" url="buildscript/init">
+                        <attr name="position" intvalue="400"/>
+                    </file>
+                    <file name="conditional-clean" url="buildscript/conditional-clean">
+                        <attr name="position" intvalue="500"/>
+                    </file>
+                    <file name="deps-jar" url="buildscript/deps-jar">
+                        <attr name="position" intvalue="600"/>
+                    </file>
+                    <file name="preprocess" url="buildscript/preprocess">
+                        <attr name="position" intvalue="700"/>
+                    </file>
+                    <file name="compile" url="buildscript/compile">
+                        <attr name="position" intvalue="800"/>
+                    </file>
+                    <folder name="obfuscate-subtargets">
+                        <attr name="position" intvalue="900"/>
+                        <file name="pre-obfuscate">
+                            <attr name="position" intvalue="100"/>
+                        </file>
+                        <file name="proguard" url="buildscript/proguard">
+                            <attr name="position" intvalue="200"/>
+                        </file>
+                    </folder>
+                    <file name="obfuscate" url="buildscript/obfuscate">
+                        <attr name="position" intvalue="1000"/>
+                    </file>
+                    <!-- Java ME SDK beginning -->
+                    <folder name="preverify-subtargets">
+                        <attr name="position" intvalue="1110"/>
+                        <file name="lwuit-build" url="buildscript/lwuit-build">
+                            <attr name="position" intvalue="100"/>
+                        </file>
+                    </folder>
+                    <!-- Java ME SDK end -->
+                    <file name="preverify" url="buildscript/preverify">
+                        <attr name="position" intvalue="1150"/>
+                    </file>
+                    <folder name="jar-subtargets">
+                        <attr name="position" intvalue="1200"/>
+                        <file name="pre-jar">
+                            <attr name="position" intvalue="100"/>
+                        </file>
+                        <file name="set-password" url="buildscript/set-password">
+                            <attr name="position" intvalue="200"/>
+                        </file>
+                        <file name="create-jad" url="buildscript/create-jad">
+                            <attr name="position" intvalue="300"/>
+                        </file>
+                        <file name="do-extra-libs" url="buildscript/do-extra-libs">
+                            <attr name="position" intvalue="400"/>
+                        </file>
+                        <!-- Java ME SDK beginning -->
+                        <file name="jad-jsr211-properties" url="buildscript/jad-jsr211-properties">
+                            <attr name="position" intvalue="550"/>
+                        </file>
+                        <!-- Java ME SDK end -->
+                        <file name="do-jar" url="buildscript/do-jar">
+                            <attr name="position" intvalue="700"/>
+                        </file>                        
+                        <file name="do-jar-no-manifest" url="buildscript/do-jar-no-manifest">
+                            <attr name="position" intvalue="900"/>
+                        </file>
+                        <file name="update-jad" url="buildscript/update-jad">
+                            <attr name="position" intvalue="1000"/>
+                        </file>
+                    </folder>
+                    <file name="jar" url="buildscript/jar">
+                        <attr name="position" intvalue="1300"/>
+                    </file>
+                    <folder name="build-subtargets">
+                        <attr name="position" intvalue="1400"/>
+                        <file name="pre-build">
+                            <attr name="position" intvalue="100"/>
+                        </file>
+                        <file name="override-jad" url="buildscript/override-jad">
+                            <attr name="position" intvalue="200"/>
+                        </file>
+                        <file name="increment-app-version" url="buildscript/increment-app-version">
+                            <attr name="position" intvalue="400"/>
+                        </file>
+                    </folder>
+                    <file name="build" url="buildscript/build">
+                        <attr name="position" intvalue="1500"/>
+                    </file>
+                    <file name="pre-run">
+                        <attr name="position" intvalue="1600"/>
+                    </file>
+                    <folder name="run-subtargets">
+                        <attr name="position" intvalue="1700"/>
+                        <file name="cldc-run" url="buildscript/cldc-run">
+                            <attr name="position" intvalue="100"/>
+                        </file>
+                        <!-- Java ME SDK beginning -->
+                        <file name="open-netmon" url="buildscript/open-netmon">
+                            <attr name="position" intvalue="0"/>
+                        </file>
+                        <file name="cdc-hi-run" url="buildscript/cdc-hi-run">
+                            <attr name="position" intvalue="975"/>
+                        </file>
+                        <file name="open-profiler" url="buildscript/open-profiler">
+                            <attr name="position" intvalue="1200"/>
+                        </file>
+                        <!-- Java ME SDK end -->
+                    </folder>
+                    <file name="run" url="buildscript/run">
+                        <attr name="position" intvalue="1800"/>
+                    </file>
+                    <file name="pre-debug">
+                        <attr name="position" intvalue="1900"/>
+                    </file>
+                    <folder name="debug-subtargets">
+                        <attr name="position" intvalue="2000"/>
+                        <file name="cldc-debug" url="buildscript/cldc-debug">
+                            <attr name="position" intvalue="100"/>
+                        </file>
+                    </folder>
+                    <file name="debug" url="buildscript/debug">
+                        <attr name="position" intvalue="2100"/>
+                    </file>
+                    <!-- Java ME SDK beginning -->
+                    <file name="debug-run-base" url="buildscript/debug-run-base">
+                        <attr name="position" intvalue="2150"/>
+                    </file>
+                    <!-- Java ME SDK end -->
+                    <file name="javadoc" url="buildscript/javadoc">
+                        <attr name="position" intvalue="2200"/>
+                    </file>
+                    <file name="rebuild" url="buildscript/rebuild">
+                        <attr name="position" intvalue="2300"/>
+                    </file>
+                    <file name="pre-clean">
+                        <attr name="position" intvalue="2400"/>
+                    </file>
+                    <folder name="clean-subtargets">
+                        <attr name="position" intvalue="2500"/>
+                        <file name="clean-timestamp" url="buildscript/clean-timestamp">
+                            <attr name="position" intvalue="100"/>
+                        </file>
+                        <file name="clean-preprocessed" url="buildscript/clean-preprocessed">
+                            <attr name="position" intvalue="200"/>
+                        </file>
+                        <file name="clean-classes" url="buildscript/clean-classes">
+                            <attr name="position" intvalue="300"/>
+                        </file>
+                        <file name="clean-obfuscated" url="buildscript/clean-obfuscated">
+                            <attr name="position" intvalue="400"/>
+                        </file>
+                        <file name="clean-preverified" url="buildscript/clean-preverified">
+                            <attr name="position" intvalue="500"/>
+                        </file>
+                        <file name="clean-manifest" url="buildscript/clean-manifest">
+                            <attr name="position" intvalue="600"/>
+                        </file>
+                        <file name="clean-jar" url="buildscript/clean-jar">
+                            <attr name="position" intvalue="700"/>
+                        </file>
+                        <file name="clean-jad" url="buildscript/clean-jad">
+                            <attr name="position" intvalue="800"/>
+                        </file>
+                        <file name="clean-javadoc" url="buildscript/clean-javadoc">
+                            <attr name="position" intvalue="900"/>
+                        </file>
+                    </folder>
+                    <file name="clean" url="buildscript/clean">
+                        <attr name="position" intvalue="2600"/>
+                    </file>
+                    <file name="deploy" url="buildscript/deploy">
+                        <attr name="position" intvalue="2700"/>
+                    </file>
+                    <file name="for-all-configs" url="buildscript/for-all-configs">
+                        <attr name="position" intvalue="2800"/>
+                    </file>
+                    <file name="end-of-project" url="buildscript/end-of-project">
+                        <attr name="position" intvalue="2900"/>
+                    </file>
+                    <file name="tail" url="buildscript/tail">
+                        <attr name="position" intvalue="3000"/>
+                    </file>
+                </folder>    
+            </folder>  
+       </folder>
+    </folder>    
+            
+    <folder name="Customizer">
+        <folder name="org.netbeans.modules.kjava.j2meproject">
+            <folder name="general">
+                <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/general.gif"/>
+                <attr name="position" intvalue="100"/>
+                <file name="general">
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                    <attr name="customizerPanelClass" newvalue="org.netbeans.modules.mobility.project.ui.customizer.CustomizerGeneral"/>
+                </file>
+            </folder>
+            <folder name="Platform">
+                <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/midp.gif"/>
+                <attr name="customizerPanelClass" newvalue="org.netbeans.modules.mobility.project.ui.customizer.CustomizerPlatform"/>
+                <attr name="position" intvalue="200"/>
+                <file name="CLDC">
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                    <attr name="customizerPanelClass" newvalue="org.netbeans.modules.mobility.project.ui.customizer.CustomizerMIDP"/>
+                    <attr name="position" intvalue="100"/>
+                </file>
+            </folder>
+            <folder name="Abilities">
+                <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/midp.gif"/>
+                <attr name="position" intvalue="300"/>
+                <file name="Abilities">
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                    <attr name="customizerPanelClass" newvalue="org.netbeans.modules.mobility.project.ui.customizer.CustomizerAbilities"/>
+                </file>
+            </folder>
+            <folder name="Jad">
+                <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/jad.gif"/>
+                <attr name="position" intvalue="400"/>
+                <file name="Attributes">
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                    <attr name="customizerPanelClass" newvalue="org.netbeans.modules.mobility.project.ui.customizer.CustomizerJad"/>
+                    <attr name="position" intvalue="100"/>
+                    <attr name="triggerPropertyName" stringvalue="platform.trigger"/>
+                    <attr name="triggerPropertyValue" stringvalue="CLDC"/>
+                </file>
+                <file name="MIDlets">
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                    <attr name="customizerPanelClass" newvalue="org.netbeans.modules.mobility.project.ui.customizer.CustomizerMIDlets"/>
+                    <attr name="position" intvalue="200"/>
+                    <attr name="triggerPropertyName" stringvalue="platform.trigger"/>
+                    <attr name="triggerPropertyValue" stringvalue="CLDC"/>
+                </file>
+                <file name="PushReg">
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                    <attr name="customizerPanelClass" newvalue="org.netbeans.modules.mobility.project.ui.customizer.CustomizerPushReg"/>
+                    <attr name="position" intvalue="300"/>
+                    <attr name="triggerPropertyName" stringvalue="platform.trigger"/>
+                    <attr name="triggerPropertyValue" stringvalue="CLDC"/>
+                </file>
+                <file name="Permissions">
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                    <attr name="customizerPanelClass" newvalue="org.netbeans.modules.mobility.project.ui.customizer.CustomizerPermissions"/>
+                    <attr name="position" intvalue="400"/>
+                    <attr name="triggerPropertyName" stringvalue="platform.trigger"/>
+                    <attr name="triggerPropertyValue" stringvalue="CLDC"/>
+                </file>
+            </folder>
+            <folder name="Build">
+                <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/build.gif"/>
+                <attr name="position" intvalue="500"/>
+                <folder name="Filtering">
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                    <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/filtering.gif"/>
+                    <attr name="position" intvalue="100"/>
+                    <file name="Filtering">
+                        <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                        <attr name="customizerPanelClass" newvalue="org.netbeans.modules.mobility.project.ui.customizer.CustomizerFiltering"/>
+                    </file>
+                </folder>
+                <folder name="Javac">
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                    <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/build.gif"/>
+                    <attr name="position" intvalue="200"/>
+                    <file name="Javac">
+                        <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                        <attr name="customizerPanelClass" newvalue="org.netbeans.modules.mobility.project.ui.customizer.CustomizerCompile"/>
+                    </file>
+                </folder>
+                <folder name="Libraries">
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                    <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/libraries.gif"/>
+                    <attr name="position" intvalue="300"/>
+                    <file name="Libraries">
+                        <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                        <attr name="customizerPanelClass" newvalue="org.netbeans.modules.mobility.project.ui.customizer.CustomizerLibraries"/>
+                    </file>
+                </folder>
+                <folder name="Obfuscate">
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                    <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/obfuscate.gif"/>
+                    <attr name="position" intvalue="400"/>
+                    <file name="ProGuard">
+                        <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                        <attr name="customizerPanelClass" newvalue="org.netbeans.modules.mobility.project.ui.customizer.CustomizerObfuscate"/>
+                    </file>
+                </folder>
+                <folder name="Jar">
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                    <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/jar.gif"/>
+                    <attr name="position" intvalue="500"/>
+                    <file name="Jar">
+                        <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                        <attr name="customizerPanelClass" newvalue="org.netbeans.modules.mobility.project.ui.customizer.CustomizerJar"/>
+                    </file>
+                </folder>
+                <folder name="Sign">
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                    <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/sign.gif"/>
+                    <attr name="position" intvalue="600"/>
+                    <file name="Sign">
+                        <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                        <attr name="customizerPanelClass" newvalue="org.netbeans.modules.mobility.project.ui.customizer.CustomizerSign"/>
+                    </file>
+                </folder>
+                <folder name="Javadoc">
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                    <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/javadoc.gif"/>
+                    <attr name="position" intvalue="700"/>
+                    <file name="Javadoc">
+                        <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                        <attr name="customizerPanelClass" newvalue="org.netbeans.modules.mobility.project.ui.customizer.CustomizerJavadoc"/>
+                    </file>
+                </folder>
+            </folder>
+            <folder name="Run">
+                <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/run.gif"/>
+                <attr name="position" intvalue="600"/>
+                <file name="Run">
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                    <attr name="position" intvalue="100"/>
+                    <attr name="customizerPanelClass" newvalue="org.netbeans.modules.mobility.project.ui.customizer.CustomizerRun"/>
+                    <attr name="triggerPropertyName" stringvalue="platform.trigger"/>
+                    <attr name="triggerPropertyValue" stringvalue="CLDC"/>
+                </file>
+            </folder>
+            <folder name="Deploy">
+                <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/modules/mobility/project/ui/resources/deploy.gif"/>
+                <attr name="position" intvalue="700"/>
+                <file name="Deploy">
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.mobility.project.ui.customizer.Bundle"/>
+                    <attr name="customizerPanelClass" newvalue="org.netbeans.modules.mobility.project.ui.customizer.CustomizerDeploy"/>
+                </file>
+            </folder>
+        </folder>
+    </folder>
+    
+    <folder name="RecommendedTemplates">
+        <folder name="org.netbeans.modules.kjava.j2meproject">
+            <file name="midp">
+                <attr name="RecommendedTemplates" stringvalue="MIDP"/>
+                <attr name="PriviledgedTemplates" stringvalue="Templates/MIDP/VisualMIDlet.java,Templates/MIDP/Midlet.java,Templates/MIDP/GameDesign.java"/>
+                <attr name="position" intvalue="100"/>
+            </file>
+            <file name="core">
+                <attr name="RecommendedTemplates" stringvalue="java-classes-basic,XML,ant-script,simple-files"/>
+                <attr name="PriviledgedTemplates" stringvalue="Templates/Classes/Class.java,Templates/Classes/Package,Templates/Classes/Interface.java"/>
+                <attr name="position" intvalue="400"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="ProjectXMLCatalog">
+        <!-- XXX unlike everyone else, does not use /1 versioning suffix -->
+        <file name="j2me-project.xsd" url="../../resources/j2me-project.xsd"/>
+        <file name="j2me-project-private.xsd" url="../../resources/j2me-project-private.xsd"/>
+        <folder name="project-configurations">
+            <file name="1.xsd" url="../../../../project/support/resources/project-configurations.xsd"/>
+        </folder>
+    </folder>
+</filesystem>

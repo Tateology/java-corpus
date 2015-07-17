@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Buildsystem">
+        <folder name="org.netbeans.modules.kjava.j2meproject">
+            <folder name="nbproject">
+                <folder name="build-impl.xml">
+                    <folder name="init-subtargets">
+                        <file name="nokiaS80-init" url="nokiaS80-init">
+                            <attr name="position" intvalue="800"/>
+                        </file>
+                    </folder>
+                    <folder name="jar-subtargets">
+                        <file name="nokiaS80-create-manifest" url="nokiaS80-create-manifest">
+                            <attr name="position" intvalue="500"/>
+                        </file>
+                        </folder>
+                    <folder name="run-subtargets">
+                        <attr name="position" intvalue="1700"/>
+                        <file name="nokiaS80-run" url="nokiaS80-run">
+                            <attr name="position" intvalue="500"/>
+                        </file>
+                    </folder>
+                    <folder name="debug-subtargets">
+                        <attr name="position" intvalue="2000"/>
+                        <file name="nokiaS80-debug" url="nokiaS80-debug">
+                            <attr name="position" intvalue="500"/>
+                        </file>
+                    </folder>
+                </folder>
+            </folder>
+        </folder>
+    </folder>
+    <folder name="Customizer">
+        <folder name="org.netbeans.modules.kjava.j2meproject">
+            <folder name="Jad">
+                <file name="NokiaS80">
+                    <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.j2me.cdc.project.nokiaS80.Bundle"/>
+                    <attr name="customizerPanelClass" newvalue="org.netbeans.modules.j2me.cdc.project.nokiaS80.NokiaS80ProjectCategoryCustomizer"/>
+                    <attr name="position" intvalue="900"/>
+                    <attr name="triggerPropertyName" stringvalue="platform.type"/>
+                    <attr name="triggerPropertyValue" stringvalue="nokiaS80"/>
+                </file>
+            </folder>
+        </folder>
+    </folder>
+    <folder name="MainTemplates">
+        <folder name="org.netbeans.modules.kjava.j2meproject">
+            <file name="nokiaS80">
+                <attr name="templateName" stringvalue="Templates/AWTForms/Frame.java"/>
+                <attr name="templateType" stringvalue="main"/>
+            </file>
+        </folder>
+    </folder>    
+    <folder name="org-netbeans-api-project-libraries">
+        <folder name="Libraries">
+            <file name="nokiaS80-ant-utils.xml" url="Utils.xml">
+                <attr name="displayName" bundlevalue="org.netbeans.modules.j2me.cdc.project.nokiaS80.Bundle#nokiaS80-ant-utils"/>
+            </file>
+        </folder>
+    </folder>
+</filesystem>

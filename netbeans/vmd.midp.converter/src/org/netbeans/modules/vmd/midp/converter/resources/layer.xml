@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.1//EN" "http://www.netbeans.org/dtds/filesystem-1_1.dtd">
+<filesystem>
+    <folder name="Actions">
+        <folder name="Tools">
+            <file name="org-netbeans-modules-vmd-midp-converter-wizard-ConvertAction.instance"/>
+        </folder>
+    </folder>
+    <folder name="Templates">
+        <folder name="MIDP">
+            <file name="ConverterVisualMIDlet.java" url="templates/convertervisualmidlet_java.template">
+                <attr name="SystemFileSystem.localizingBundle" stringvalue="org.netbeans.modules.vmd.midp.converter.resources.Bundle"/>
+                <attr name="position" intvalue="710"/>
+                <attr name="template" boolvalue="true"/>
+                <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
+                <attr name="isMIDletTemplate" boolvalue="true"/>
+                <attr name="templateCategory" stringvalue="MIDP-hidden"/>
+                <attr name="simple" boolvalue="false"/>
+            </file>
+            <file name="ConverterVisualMIDlet.vmd" url="templates/convertervisualmidlet_vmd.template">
+                <attr name="template" boolvalue="true"/>
+            </file>
+        </folder>
+    </folder>
+  <folder name="Loaders">
+    <folder name="text">
+        <folder name="x-java">
+            <folder name="Factories">
+                <file name="org-netbeans-modules-vmd-midp-converter-io-MVDDataLoader.instance">
+                    <attr name="position" intvalue="64999"/>
+                </file>
+            </folder>
+        </folder>
+    </folder>
+  </folder>
+</filesystem>

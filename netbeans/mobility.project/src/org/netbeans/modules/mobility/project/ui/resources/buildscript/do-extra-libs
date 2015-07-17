@@ -1,0 +1,11 @@
+<xsl:comment>do-extra-libs</xsl:comment>    
+
+    <target name="do-extra-libs" if="extra.classpath">
+        <property name="dist.lib.dir" value="${{dist.dir}}/lib"/>
+        <mkdir dir="${{dist.lib.dir}}"/>
+        <copy todir="${{dist.lib.dir}}">
+            <path path="${{extra.classpath}}"/>
+            <flattenmapper/>
+        </copy>
+    </target>
+

@@ -1,0 +1,5 @@
+# serverplugins/sun/appsrv81
+read global
+# Custom l10n.list inclusion for appsrvbridge. Not part of global l10n.list
+# since this is a java project 
+serverplugins/sun/appsrv81/appsrvbridge/src/**/Bundle*.properties

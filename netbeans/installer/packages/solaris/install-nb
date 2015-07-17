@@ -1,0 +1,26 @@
+#                Sun Public License Notice 
+#                
+#       The contents of this file are subject to the Sun Public License 
+#       Version 1.0 (the "License"). You may not use this file except in 
+#       compliance with the License. A copy of the License is available at 
+#       http://www.sun.com/ 
+#        
+#       The Original Code is NetBeans. The Initial Developer of the Original 
+#       Code is Sun Microsystems, Inc. Portions Copyright 1997-2004 Sun 
+#       Microsystems, Inc. All Rights Reserved. 
+#                                                            
+
+gunzip -c SUNWnetbeans-platform5.tar.gz | tar xf -
+gunzip -c SUNWnetbeans-ide5.tar.gz | tar xf -
+gunzip -c SUNWnetbeans-enterprise1.tar.gz | tar xf -
+gunzip -c SUNWnetbeans-netbeans4-1.tar.gz | tar xf -
+
+pkgadd -d ./ SUNWnetbeans-platform5 SUNWnetbeans-ide5 SUNWnetbeans-enterprise1 SUNWnetbeans-netbeans4-1
+
+rm -Rf SUNWnetbeans-platform5 SUNWnetbeans-ide5 SUNWnetbeans-enterprise1 SUNWnetbeans-netbeans4-1
+
+ls -l /opt/netbeans
+ls -l /usr/bin/netbeans
+ls -l /etc/netbeans.conf
+ls -l /usr/share/applications/NetBeans-IDE-4.1.desktop
+ls -l /usr/share/pixmaps/nb48x48.png

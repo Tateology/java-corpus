@@ -1,0 +1,21 @@
+/* stylesheet used for prose docs */
+
+@import "nb-docs.css";
+@import "netbeans.css"; /* copied from http://www.netbeans.org/netbeans.css */
+
+/* ... with just these changes: */
+
+/* XXX should these things really be overridden?
+pre {
+  background-color: #FFF0F0;
+  }
+
+samp {
+  background-color: #FFF0F0;
+  }
+*/
+
+p.overviewlink {
+  font-weight: bold;
+  text-align: right;
+}

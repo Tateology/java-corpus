@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN"
+                            "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Services">
+        <folder name="MIMEResolver">
+            <file name="resources-Registration.xml">
+                <!--org.netbeans.modules.php.project.resources-->
+                <attr
+                    methodvalue="org.openide.filesystems.MIMEResolver.create" name="instanceCreate"/>
+                <attr name="instanceClass" stringvalue="org.openide.filesystems.MIMEResolver"/>
+                <attr name="bytes" serialvalue="ACED0005757200025B42ACF317F8060854E002000078700000010E00000002000B746578742F782D70687035000B746578742F782D7068703500000003000B746578742F782D70687035FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00FFFFFFFFFFFFFFFF0000000300053C3F706870000000FF000000063C48544D4C3E000000FF010100053C3F70687000000FA00000000E3C21444F43545950452048544D4C000000FF010100053C3F70687000000FA00000FFFFFFFF000002C0800000000300046A6176610002726200057268746D6CFFFFFFFFFFFFFFFFFFFFFFFF01FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000B746578742F782D7068703500000002000370687000057068746D6CFFFFFFFFFFFFFFFFFFFFFFFF00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00"/>
+                <attr intvalue="99000" name="position"/>
+                <attr
+                    bundlevalue="org.netbeans.modules.php.project.resources.Bundle#PHPContentResolver" name="displayName"/>
+            </file>
+        </folder>
+        <file name="org-netbeans-modules-php-project-ui-actions-tests-PhpUnitTestCreatorProvider.instance">
+            <!--org.netbeans.modules.php.project.ui.actions.tests.PhpUnitTestCreatorProvider-->
+            <attr name="instanceOf" stringvalue="org.netbeans.modules.gsf.testrunner.api.TestCreatorProvider"/>
+            <attr name="displayName" stringvalue="PHPUnit"/>
+        </file>
+        <folder name="AntBasedProjectTypes">
+            <file name="org-netbeans-modules-php-project.instance">
+                <!--org.netbeans.modules.php.project.PhpProject-->
+                <attr name="type" stringvalue="org.netbeans.modules.php.project"/>
+                <attr name="iconResource" stringvalue="org/netbeans/modules/php/project/ui/resources/phpProject.png"/>
+                <attr name="sharedName" stringvalue="data"/>
+                <attr name="sharedNamespace" stringvalue="http://www.netbeans.org/ns/php-project/1"/>
+                <attr name="privateName" stringvalue="data"/>
+                <attr name="privateNamespace" stringvalue="http://www.netbeans.org/ns/php-project-private/1"/>
+                <attr name="className" stringvalue="org.netbeans.modules.php.project.PhpProject"/>
+                <attr name="instanceOf" stringvalue="org.netbeans.spi.project.support.ant.AntBasedProjectType"/>
+                <attr
+                    methodvalue="org.netbeans.modules.project.ant.AntBasedProjectFactorySingleton.create" name="instanceCreate"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Editors">
+        <folder name="text">
+            <folder name="x-php5">
+                <folder name="Popup">
+                    <file name="org-netbeans-modules-gsf-testrunner-TestMethodDebuggerAction.shadow">
+                        <!--org.netbeans.modules.php.project.ui.actions.tests.PhpTestMethodDebuggerProvider-->
+                        <attr name="originalFile" stringvalue="Actions/CommonTestRunner/org-netbeans-modules-gsf-testrunner-TestMethodDebuggerAction.instance"/>
+                        <attr intvalue="870" name="position"/>
+                    </file>
+                    <file name="org-netbeans-modules-gsf-testrunner-TestMethodRunnerAction.shadow">
+                        <!--org.netbeans.modules.php.project.ui.actions.tests.PhpTestMethodRunnerProvider-->
+                        <attr name="originalFile" stringvalue="Actions/CommonTestRunner/org-netbeans-modules-gsf-testrunner-TestMethodRunnerAction.instance"/>
+                        <attr intvalue="860" name="position"/>
+                    </file>
+                </folder>
+            </folder>
+        </folder>
+    </folder>
+    <folder name="Projects">
+        <folder name="org-netbeans-modules-php-project">
+            <folder name="Actions">
+                <file name="org-netbeans-modules-project-ui-problems-BrokenProjectActionFactory.shadow">
+                    <!--org.netbeans.modules.php.project.ui.logicalview.PhpLogicalViewProvider-->
+                    <attr name="originalFile" stringvalue="Actions/Project/org-netbeans-modules-project-ui-problems-BrokenProjectActionFactory.instance"/>
+                    <attr intvalue="1950" name="position"/>
+                </file>
+            </folder>
+            <folder name="Customizer">
+                <file name="org-netbeans-modules-php-project-ui-customizer-CompositePanelProviderImpl-createSources.instance">
+                    <!--org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createSources()-->
+                    <attr
+                        methodvalue="org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createSources" name="instanceCreate"/>
+                    <attr intvalue="100" name="position"/>
+                </file>
+                <file name="org-netbeans-modules-php-project-ui-customizer-CompositePanelProviderImpl-createRunConfig.instance">
+                    <!--org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createRunConfig()-->
+                    <attr
+                        methodvalue="org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createRunConfig" name="instanceCreate"/>
+                    <attr intvalue="150" name="position"/>
+                </file>
+                <file name="org-netbeans-modules-php-project-ui-customizer-CompositePanelProviderImpl-createBrowser.instance">
+                    <!--org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createBrowser()-->
+                    <attr
+                        methodvalue="org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createBrowser" name="instanceCreate"/>
+                    <attr intvalue="180" name="position"/>
+                </file>
+                <file name="org-netbeans-modules-php-project-ui-customizer-CompositePanelProviderImpl-createCssPreprocessors.instance">
+                    <!--org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createCssPreprocessors()-->
+                    <attr
+                        methodvalue="org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createCssPreprocessors" name="instanceCreate"/>
+                    <attr intvalue="195" name="position"/>
+                </file>
+                <file name="org-netbeans-modules-php-project-ui-customizer-CompositePanelProviderImpl-createPhpIncludePath.instance">
+                    <!--org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createPhpIncludePath()-->
+                    <attr
+                        methodvalue="org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createPhpIncludePath" name="instanceCreate"/>
+                    <attr intvalue="200" name="position"/>
+                </file>
+                <file name="org-netbeans-modules-php-project-ui-customizer-CompositePanelProviderImpl-createIgnorePath.instance">
+                    <!--org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createIgnorePath()-->
+                    <attr
+                        methodvalue="org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createIgnorePath" name="instanceCreate"/>
+                    <attr intvalue="250" name="position"/>
+                </file>
+                <file name="org-netbeans-modules-php-project-ui-customizer-CompositePanelProviderImpl-createFrameworks.instance">
+                    <!--org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createFrameworks()-->
+                    <attr
+                        methodvalue="org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createFrameworks" name="instanceCreate"/>
+                    <attr intvalue="300" name="position"/>
+                </file>
+                <file name="org-netbeans-modules-php-project-ui-customizer-CompositePanelProviderImpl-createTesting.instance">
+                    <!--org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createTesting()-->
+                    <attr
+                        methodvalue="org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createTesting" name="instanceCreate"/>
+                    <attr intvalue="350" name="position"/>
+                </file>
+                <file name="org-netbeans-modules-php-project-ui-customizer-CompositePanelProviderImpl-createSeleniumTesting.instance">
+                    <!--org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createSeleniumTesting()-->
+                    <attr
+                        methodvalue="org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createSeleniumTesting" name="instanceCreate"/>
+                    <attr intvalue="352" name="position"/>
+                </file>
+                <file name="org-netbeans-modules-php-project-ui-customizer-CompositePanelProviderImpl-createJsTesting.instance">
+                    <!--org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createJsTesting()-->
+                    <attr
+                        methodvalue="org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createJsTesting" name="instanceCreate"/>
+                    <attr intvalue="351" name="position"/>
+                </file>
+                <file name="org-netbeans-modules-php-project-ui-customizer-CompositePanelProviderImpl-createPhpDocumentation.instance">
+                    <!--org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createPhpDocumentation()-->
+                    <attr
+                        methodvalue="org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createPhpDocumentation" name="instanceCreate"/>
+                    <attr intvalue="360" name="position"/>
+                </file>
+                <file name="org-netbeans-modules-php-project-ui-customizer-CompositePanelProviderImpl-createLicense.instance">
+                    <!--org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createLicense()-->
+                    <attr
+                        methodvalue="org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createLicense" name="instanceCreate"/>
+                    <attr intvalue="900" name="position"/>
+                </file>
+                <file name="org-netbeans-modules-php-project-ui-customizer-CompositePanelProviderImpl-createFormatting.instance">
+                    <!--org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createFormatting()-->
+                    <attr
+                        methodvalue="org.netbeans.modules.php.project.ui.customizer.CompositePanelProviderImpl.createFormatting" name="instanceCreate"/>
+                    <attr intvalue="1000" name="position"/>
+                </file>
+            </folder>
+            <folder name="Nodes">
+                <file name="org-netbeans-modules-php-project-ui-logicalview-FrameworkConfigFilesNodeFactory.instance">
+                    <!--org.netbeans.modules.php.project.ui.logicalview.FrameworkConfigFilesNodeFactory-->
+                    <attr intvalue="250" name="position"/>
+                </file>
+                <file name="org-netbeans-modules-php-project-ui-logicalview-IncludePathNodeFactory.instance">
+                    <!--org.netbeans.modules.php.project.ui.logicalview.IncludePathNodeFactory-->
+                    <attr intvalue="300" name="position"/>
+                </file>
+                <file name="org-netbeans-modules-php-project-ui-logicalview-PhpLogicalViewProvider-createRemoteFiles.instance">
+                    <!--org.netbeans.modules.php.project.ui.logicalview.PhpLogicalViewProvider.createRemoteFiles()-->
+                    <attr
+                        methodvalue="org.netbeans.modules.php.project.ui.logicalview.PhpLogicalViewProvider.createRemoteFiles" name="instanceCreate"/>
+                    <attr intvalue="600" name="position"/>
+                </file>
+                <file name="org-netbeans-modules-php-project-ui-logicalview-PhpLogicalViewProvider-createJsTestingProvidersNodes.instance">
+                    <!--org.netbeans.modules.php.project.ui.logicalview.PhpLogicalViewProvider.createJsTestingProvidersNodes()-->
+                    <attr
+                        methodvalue="org.netbeans.modules.php.project.ui.logicalview.PhpLogicalViewProvider.createJsTestingProvidersNodes" name="instanceCreate"/>
+                    <attr intvalue="1000" name="position"/>
+                </file>
+                <file name="org-netbeans-modules-php-project-ui-logicalview-SourcesNodeFactory.instance">
+                    <!--org.netbeans.modules.php.project.ui.logicalview.SourcesNodeFactory-->
+                    <attr intvalue="100" name="position"/>
+                </file>
+            </folder>
+        </folder>
+    </folder>
+    <folder name="OptionsDialog">
+        <folder name="org-netbeans-modules-php-project-ui-options-PHPOptionsCategory">
+            <file name="Annotations.instance">
+                <!--org.netbeans.modules.php.project.ui.options.PhpAnnotationsPanelController-->
+                <attr
+                    methodvalue="org.netbeans.spi.options.AdvancedOption.createSubCategory" name="instanceCreate"/>
+                <attr name="controller" newvalue="org.netbeans.modules.php.project.ui.options.PhpAnnotationsPanelController"/>
+                <attr
+                    bundlevalue="org.netbeans.modules.php.project.ui.options.Bundle#LBL_AnnotationsOptions" name="displayName"/>
+                <attr intvalue="155" name="position"/>
+            </file>
+            <file name="Debugger.instance">
+                <!--org.netbeans.modules.php.project.ui.options.PhpDebuggerPanelController-->
+                <attr
+                    methodvalue="org.netbeans.spi.options.AdvancedOption.createSubCategory" name="instanceCreate"/>
+                <attr name="controller" newvalue="org.netbeans.modules.php.project.ui.options.PhpDebuggerPanelController"/>
+                <attr
+                    bundlevalue="org.netbeans.modules.php.project.ui.options.Bundle#LBL_DebuggerOptions" name="displayName"/>
+                <attr intvalue="130" name="position"/>
+            </file>
+            <file name="General.instance">
+                <!--org.netbeans.modules.php.project.ui.options.PhpOptionsPanelController-->
+                <attr
+                    methodvalue="org.netbeans.spi.options.AdvancedOption.createSubCategory" name="instanceCreate"/>
+                <attr name="controller" newvalue="org.netbeans.modules.php.project.ui.options.PhpOptionsPanelController"/>
+                <attr
+                    bundlevalue="org.netbeans.modules.php.project.ui.options.Bundle#LBL_GeneralOptions" name="displayName"/>
+                <attr intvalue="100" name="position"/>
+            </file>
+            <!--org.netbeans.modules.php.project.ui.options-->
+            <attr intvalue="0" name="position"/>
+        </folder>
+        <folder name="Keywords">
+            <file name="org.netbeans.modules.php.project.ui.options.PhpAnnotationsPanel">
+                <!--org.netbeans.modules.php.project.ui.options.PhpAnnotationsPanel-->
+                <attr name="location" stringvalue="org-netbeans-modules-php-project-ui-options-PHPOptionsCategory"/>
+                <attr
+                    bundlevalue="org.netbeans.modules.php.project.ui.options.Bundle#LBL_AnnotationsOptions" name="tabTitle"/>
+                <attr name="keywords-1" stringvalue="php"/>
+                <attr name="keywords-2" stringvalue="annotations"/>
+                <attr
+                    bundlevalue="org.netbeans.modules.php.project.ui.options.Bundle#KW_AnnotationsOptions" name="keywords-3"/>
+            </file>
+            <file name="org.netbeans.modules.php.project.ui.options.PhpDebuggerPanel">
+                <!--org.netbeans.modules.php.project.ui.options.PhpDebuggerPanel-->
+                <attr name="location" stringvalue="org-netbeans-modules-php-project-ui-options-PHPOptionsCategory"/>
+                <attr
+                    bundlevalue="org.netbeans.modules.php.project.ui.options.Bundle#LBL_DebuggerOptions" name="tabTitle"/>
+                <attr name="keywords-1" stringvalue="php"/>
+                <attr name="keywords-2" stringvalue="debugger"/>
+                <attr name="keywords-3" stringvalue="debugging"/>
+                <attr name="keywords-4" stringvalue="xdebug"/>
+                <attr
+                    bundlevalue="org.netbeans.modules.php.project.ui.options.Bundle#KW_DebuggerOptions" name="keywords-5"/>
+            </file>
+            <file name="org.netbeans.modules.php.project.ui.options.PhpOptionsPanel">
+                <!--org.netbeans.modules.php.project.ui.options.PhpOptionsPanel-->
+                <attr name="location" stringvalue="org-netbeans-modules-php-project-ui-options-PHPOptionsCategory"/>
+                <attr
+                    bundlevalue="org.netbeans.modules.php.project.ui.options.Bundle#LBL_GeneralOptions" name="tabTitle"/>
+                <attr name="keywords-1" stringvalue="php"/>
+            </file>
+        </folder>
+        <file name="org-netbeans-modules-php-project-ui-options-PHPOptionsCategory.instance">
+            <!--org.netbeans.modules.php.project.ui.options-->
+            <attr
+                methodvalue="org.netbeans.spi.options.OptionsCategory.createCategory" name="instanceCreate"/>
+            <attr name="advancedOptionsFolder" stringvalue="OptionsDialog/org-netbeans-modules-php-project-ui-options-PHPOptionsCategory"/>
+            <attr
+                bundlevalue="org.netbeans.modules.php.project.ui.options.Bundle#PHPOptionsCategory_name" name="categoryName"/>
+            <attr intvalue="650" name="position"/>
+            <attr name="iconBase" stringvalue="org/netbeans/modules/php/project/ui/resources/php-options-icon.png"/>
+        </file>
+    </folder>
+    <folder name="PHP">
+        <folder name="Annotations">
+            <file name="org-netbeans-modules-php-project-annotations-UserAnnotationsProvider-getInstance.instance">
+                <!--org.netbeans.modules.php.project.annotations.UserAnnotationsProvider.getInstance()-->
+                <attr
+                    methodvalue="org.netbeans.modules.php.project.annotations.UserAnnotationsProvider.getInstance" name="instanceCreate"/>
+                <attr intvalue="1000" name="position"/>
+            </file>
+        </folder>
+    </folder>
+</filesystem>

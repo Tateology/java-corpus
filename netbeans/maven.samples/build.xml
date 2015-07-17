@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="netbeans" name="maven.samples">
+    <description>Builds, tests, and runs the project org.netbeans.modules.maven.samples</description>
+    <import file="../nbbuild/templates/projectized.xml"/>
+    
+    <target name="jar" depends="zip-examples,projectized-common.jar"/>
+    
+    <target name="zip-examples" depends="build-init">
+        <property name="examples" location="${build.classes.dir}/org/netbeans/modules/maven/samples"/>
+        <mkdir dir="${examples}"/>
+        <zip basedir="samples_src/MavenCalculator"  destfile="${examples}/MavenCalculator.zip"/>
+        <zip basedir="samples_src/MavenCalculatorClient"  destfile="${examples}/MavenCalculatorClient.zip"/>
+        <zip basedir="samples_src/MavenScrumToys"  destfile="${examples}/MavenScrumToys.zip"/>
+        <zip basedir="samples_src/MavenCRUDSample"  destfile="${examples}/MavenCRUDSample.zip"/>
+        
+        <!--
+            Samples from the https://svn.java.net/svn/glassfish-samples~svn/trunk/ws/javaee7
+            EJB subsection:
+        -->
+        <zip basedir="samples_src/javaee7/ejb/hello-stateless-ejb" destfile="${examples}/HelloStatelessEjb.zip"/>
+        <zip basedir="samples_src/javaee7/ejb/ejb32-war" destfile="${examples}/HelloStatelessWar.zip"/>
+        <zip basedir="samples_src/javaee7/ejb/automatic-timer" destfile="${examples}/AutomaticTimer.zip"/>
+        <zip basedir="samples_src/javaee7/ejb/ejb-embedded" destfile="${examples}/EjbEmbedded.zip"/>
+        
+        <!--
+            Batch subsection:
+        -->
+        <zip basedir="samples_src/javaee7/batch/joboperator-api" destfile="${examples}/JoboperatorAPI.zip"/>
+        <zip basedir="samples_src/javaee7/batch/payroll" destfile="${examples}/Payroll.zip"/>
+        
+        <!--
+            Concurrency subsection:
+        -->
+        <zip basedir="samples_src/javaee7/concurrency/executor" destfile="${examples}/Executor.zip"/>
+        <zip basedir="samples_src/javaee7/concurrency/schedule" destfile="${examples}/Schedule.zip"/>
+        <zip basedir="samples_src/javaee7/concurrency/threads" destfile="${examples}/Threads.zip"/>
+        
+        <!--
+            Connectors subsection:
+        -->
+        <zip basedir="samples_src/javaee7/connectors/mailconnector" destfile="${examples}/MailConnector.zip"/>
+        
+        <!--
+            CDI subsection:
+        -->
+        <zip basedir="samples_src/javaee7/cdi/bean-validation" destfile="${examples}/BeanValidation.zip"/>
+        <zip basedir="samples_src/javaee7/cdi/cdi-guess" destfile="${examples}/CDIGuess.zip"/>
+        <zip basedir="samples_src/javaee7/cdi/cdi-servlet" destfile="${examples}/CDIServlet.zip"/>
+        <zip basedir="samples_src/javaee7/cdi/events" destfile="${examples}/Events.zip"/>
+        <zip basedir="samples_src/javaee7/cdi/interceptors" destfile="${examples}/Interceptors.zip"/>
+        <zip basedir="samples_src/javaee7/cdi/transactional" destfile="${examples}/Transactional.zip"/>
+        <zip basedir="samples_src/javaee7/cdi/transaction-scoped" destfile="${examples}/TransactionScoped.zip"/>
+        
+        <!--
+            EL subsection:
+        -->
+        <zip basedir="samples_src/javaee7/el" destfile="${examples}/EL.zip"/>
+        
+        <!--
+            JSF subsection:
+        -->
+        <zip basedir="samples_src/javaee7/jsf/contracts" destfile="${examples}/Contracts.zip"/>
+        <zip basedir="samples_src/javaee7/jsf/fileUpload" destfile="${examples}/FileUpload.zip"/>
+        <zip basedir="samples_src/javaee7/jsf/html5" destfile="${examples}/html5.zip"/>
+        <zip basedir="samples_src/javaee7/jsf/scrumtoys" destfile="${examples}/Scrumtoys.zip"/>
+        
+        <!--
+            JSON-P subsection:
+        -->
+        <zip basedir="samples_src/javaee7/jsonp/jaxrs" destfile="${examples}/JSONP.zip"/>
+        
+        <!--
+            REST subsection:
+        -->
+        <zip basedir="samples_src/javaee7/rest/async-chat" destfile="${examples}/AsyncChat.zip"/>
+        <zip basedir="samples_src/javaee7/rest/message-board" destfile="${examples}/MessageBoard.zip"/>
+        
+        <!--
+            Web Socket subsection:
+        -->
+        <zip basedir="samples_src/javaee7/websocket/auction" destfile="${examples}/Auction.zip"/>
+        <zip basedir="samples_src/javaee7/websocket/draw" destfile="${examples}/Draw.zip"/>
+        <zip basedir="samples_src/javaee7/websocket/echo" destfile="${examples}/Echo.zip"/>
+        <!--<zip basedir="samples_src/javaee7/websocket/tictactoe" destfile="${examples}/Tictactoe.zip"/>-->
+        
+        <!--
+            Servlet subsection:
+        -->
+        <zip basedir="samples_src/javaee7/servlet/absolute-ordering-web-fragments" destfile="${examples}/AbsoluteOrdering.zip"/>
+        <zip basedir="samples_src/javaee7/servlet/annotation-war" destfile="${examples}/AnnotationWar.zip"/>
+        <zip basedir="samples_src/javaee7/servlet/async-request-war" destfile="${examples}/AsynchronousProcessing.zip"/>
+        <zip basedir="samples_src/javaee7/servlet/dynamic-registration-war" destfile="${examples}/DynamicRegistration.zip"/>
+        <zip basedir="samples_src/javaee7/servlet/http-upgrade-war" destfile="${examples}/HttpUpgrade.zip"/>
+        <zip basedir="samples_src/javaee7/servlet/jsp-resource-in-bundled-jar-war" destfile="${examples}/JspResourceInJar.zip"/>
+        <zip basedir="samples_src/javaee7/servlet/multipart-war" destfile="${examples}/Multipart.zip"/>
+        <zip basedir="samples_src/javaee7/servlet/non-blocking-io-read-war" destfile="${examples}/NonBlockingRead.zip"/>
+        <zip basedir="samples_src/javaee7/servlet/non-blocking-io-write-war" destfile="${examples}/NonBlockingWrite.zip"/>
+        <zip basedir="samples_src/javaee7/servlet/servlet-container-initializer" destfile="${examples}/ServletContainer.zip"/>
+        <zip basedir="samples_src/javaee7/servlet/session-cookie-config-war" destfile="${examples}/SessionCookie.zip"/>
+    </target>
+</project>

@@ -1,0 +1,82 @@
+/*
+ * Test3Manager.java
+ *
+ * Created on <current Date and Time>
+ */
+
+package com.foo.bar;
+
+import java.util.HashMap;
+import java.util.Map;
+import javax.management.MBeanServerConnection;
+import javax.management.remote.JMXConnector;
+import javax.management.remote.JMXConnectorFactory;
+import javax.management.remote.JMXServiceURL;
+
+
+/**
+ * JMX manager class
+ * @author <author>
+ */
+public class Test3Manager {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) throws Exception {
+
+        //Manager instantiation and connection to the remote agent
+        Test3Manager manager = Test3Manager.getDefault();
+        // TODO add your Management Logic
+        // Close connection
+        manager.close();
+        System.out.println("Connection closed.");
+    }
+
+    /**
+     * JMX Agent connection
+     * This method is called automatically when <CODE>getDefault()</CODE>
+     * is called
+     */
+    public void connect() throws Exception {
+        // Create JMX Agent URL
+        JMXServiceURL url = new JMXServiceURL("service:jmx:jmxmp://server.sun.com:6000/jmxmppath");
+        Map env = new HashMap();
+        env.put(JMXConnector.CREDENTIALS, new String[]{"username", "password"});
+        // Connect the JMXConnector
+        connector = JMXConnectorFactory.connect(url, env);
+        // Get the MBeanServerConnection
+        mbsc = connector.getMBeanServerConnection();
+    }
+
+    /**
+     * Returns a manager singleton.
+     */
+    public synchronized static Test3Manager getDefault() throws Exception {
+        if(singleton == null) {
+            singleton = new Test3Manager();
+            singleton.connect();
+        }
+        return singleton;
+    }
+
+    public MBeanServerConnection getMBeanServerConnection() {
+        return mbsc;
+    }
+
+    public void close() throws Exception {
+
+        //Close the connection
+        connector.close();
+    }
+
+    //MBeanServerConnection definition
+    private MBeanServerConnection mbsc;
+
+    //The JMX Connector definition
+    private JMXConnector connector;
+
+    //Singleton instance
+    private static Test3Manager singleton;
+
+}

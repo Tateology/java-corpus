@@ -1,0 +1,11 @@
+!     
+! File:   %<%NAME%>%.%<%EXTENSION%>%
+! Author: %<%USER%>%
+!
+! Created on %<%DATE%>%, %<%TIME%>%
+!
+
+MODULE %<%NAME%>%
+
+
+END MODULE %<%NAME%>%

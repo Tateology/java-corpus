@@ -1,0 +1,65 @@
+/*
+ * Test2Manager.java
+ *
+ * Created on <current Date and Time>
+ */
+
+package com.foo.bar;
+
+import javax.management.MBeanServerConnection;
+import javax.management.remote.JMXConnector;
+import javax.management.remote.JMXConnectorFactory;
+import javax.management.remote.JMXServiceURL;
+
+
+/**
+ * JMX manager class
+ * @author <author>
+ */
+public class Test2Manager {
+    
+    /**
+     * JMX Agent connection
+     * This method is called automatically when <CODE>getDefault()</CODE>
+     * is called
+     */
+    public void connect() throws Exception {
+        // Create JMX Agent URL
+        JMXServiceURL url = new JMXServiceURL("service:jmx:rmi://server.sun.com:5000/jndi/rmi://server.sun.com:5000/jmxrmi");
+        // Connect the JMXConnector
+        connector = JMXConnectorFactory.connect(url, null);
+        // Get the MBeanServerConnection
+        mbsc = connector.getMBeanServerConnection();
+    }
+    
+    /**
+     * Returns a manager singleton.
+     */
+    public synchronized static Test2Manager getDefault() throws Exception {
+        if(singleton == null) {
+            singleton = new Test2Manager();
+            singleton.connect();
+        }
+        return singleton;
+    }
+    
+    public MBeanServerConnection getMBeanServerConnection() {
+        return mbsc;
+    }
+    
+    public void close() throws Exception {
+        
+        //Close the connection
+        connector.close();
+    }
+    
+    //MBeanServerConnection definition
+    private MBeanServerConnection mbsc;
+    
+    //The JMX Connector definition
+    private JMXConnector connector;
+    
+    //Singleton instance
+    private static Test2Manager singleton;
+    
+}

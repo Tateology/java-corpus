@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+  <folder name="NativeExecution">
+      <folder name="ExtTerminalSupport">
+          <file name="gnome-terminal" url="terminalsupport/gnome-terminal.xml"/>
+          <file name="xterm" url="terminalsupport/xterm.xml"/>
+          <file name="konsole_v1" url="terminalsupport/kde-konsole-1.x.xml"/>
+          <file name="konsole_v2" url="terminalsupport/kde-konsole-2.x.xml"/>
+          <file name="cmd.exe" url="terminalsupport/win-cmd.xml"/>
+      </folder>
+  </folder>
+</filesystem>

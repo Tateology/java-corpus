@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="org-netbeans-api-project-libraries">
+        <folder name="Libraries">
+            <file name="junit.xml" url="junit.xml">
+                <attr name="displayName" bundlevalue="org.netbeans.modules.junitlib.Bundle#junit"/>
+            </file>
+            <file name="junit_4.xml" url="junit_4.xml">
+                <attr name="displayName" bundlevalue="org.netbeans.modules.junitlib.Bundle#junit_4"/>
+            </file>
+        </folder>
+    </folder>
+</filesystem>

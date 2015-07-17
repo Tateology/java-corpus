@@ -1,0 +1,816 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="96">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="." name="0">
+      <df name="src">
+        <in>array.c</in>
+        <in>blocking_queue.c</in>
+        <in>dirtab.c</in>
+        <in>fs_server.c</in>
+        <in>queue.c</in>
+        <in>util.c</in>
+      </df>
+      <df name="test">
+        <in>test_main.c</in>
+      </df>
+    </df>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+      <itemPath>nbproject/configurations.xml</itemPath>
+      <itemPath>nbproject/launcher.properties</itemPath>
+      <itemPath>make</itemPath>
+      <itemPath>nbproject/project.xml</itemPath>
+      <itemPath>todo.txt</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Linux32" type="0">
+      <toolsSet>
+        <compilerSet>GNU|GNU</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <flagsDictionary>
+        <element flagsID="0" commonFlags="-std=c99 -g"/>
+      </flagsDictionary>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath>../../release/bin/Linux-x86/fs_server</executablePath>
+          <cTool>
+            <incDir>
+              <pElem>.</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>LINUX</Elem>
+              <Elem>_GNU_SOURCE</Elem>
+              <Elem>_REENTRANT</Elem>
+              <Elem>_XOPEN_SOURCE=700</Elem>
+            </preprocessorList>
+          </cTool>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
+          <preBuildCommand></preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <item path="src/array.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/blocking_queue.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/dirtab.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/fs_server.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/queue.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/util.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+    </conf>
+    <conf name="Solaris-x86" type="0">
+      <toolsSet>
+        <compilerSet>GNU|GNU</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <flagsDictionary>
+        <element flagsID="0" commonFlags="-std=c99 -g -m64"/>
+      </flagsDictionary>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>gmake -f Makefile</buildCommand>
+          <cleanCommand>gmake -f Makefile clean</cleanCommand>
+          <executablePath>../../release/bin/SunOS-x86/fs_server</executablePath>
+          <cTool>
+            <incDir>
+              <pElem>.</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>SOLARIS</Elem>
+              <Elem>_POSIX_PTHREAD_SEMANTICS</Elem>
+              <Elem>_REENTRANT</Elem>
+              <Elem>__EXTENSIONS__</Elem>
+            </preprocessorList>
+          </cTool>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
+          <preBuildCommand></preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <item path="src/array.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/blocking_queue.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/dirtab.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/fs_server.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/queue.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/util.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+    </conf>
+    <conf name="FreeBSD" type="0">
+      <toolsSet>
+        <compilerSet>GNU|GNU</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>gmake -f Makefile</buildCommand>
+          <cleanCommand>gmake -f Makefile clean</cleanCommand>
+          <executablePath>../../release/bin/FreeBSD-x86/fs_server</executablePath>
+          <cTool>
+            <incDir>
+              <pElem>.</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>_GNU_SOURCE</Elem>
+            </preprocessorList>
+          </cTool>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
+          <preBuildCommand></preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <folder path="0/test">
+        <cTool>
+          <preprocessorList>
+            <Elem>LINUX</Elem>
+            <Elem>_XOPEN_SOURCE=700</Elem>
+          </preprocessorList>
+        </cTool>
+      </folder>
+      <item path="src/array.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/blocking_queue.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/dirtab.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/fs_server.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/queue.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="src/util.c" ex="false" tool="0" flavor2="0">
+      </item>
+    </conf>
+    <conf name="MacOS" type="0">
+      <toolsSet>
+        <compilerSet>CLang|CLang</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <flagsDictionary>
+        <element flagsID="0" commonFlags="-std=c99 -g"/>
+      </flagsDictionary>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath>../../release/bin/MacOSX-x86/fs_server</executablePath>
+          <cTool>
+            <incDir>
+              <pElem>.</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>MAXOSX</Elem>
+              <Elem>_DARWIN_C_SOURCE</Elem>
+              <Elem>_REENTRANT</Elem>
+            </preprocessorList>
+          </cTool>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
+          <preBuildCommand></preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <folder path="0/test">
+        <cTool>
+          <preprocessorList>
+            <Elem>LINUX</Elem>
+            <Elem>_GNU_SOURCE</Elem>
+            <Elem>_XOPEN_SOURCE=700</Elem>
+          </preprocessorList>
+        </cTool>
+      </folder>
+      <item path="src/array.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/blocking_queue.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/dirtab.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/fs_server.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/queue.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/util.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+    </conf>
+    <conf name="Solaris-SPARC" type="0">
+      <toolsSet>
+        <compilerSet>GNU|GNU</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <flagsDictionary>
+        <element flagsID="0" commonFlags="-std=c99 -g -m64"/>
+      </flagsDictionary>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>gmake -f Makefile</buildCommand>
+          <cleanCommand>gmake -f Makefile clean</cleanCommand>
+          <executablePath>../../release/bin/SunOS-sparc/fs_server</executablePath>
+          <cTool>
+            <incDir>
+              <pElem>.</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>SOLARIS</Elem>
+              <Elem>_POSIX_PTHREAD_SEMANTICS</Elem>
+              <Elem>_REENTRANT</Elem>
+              <Elem>__EXTENSIONS__</Elem>
+            </preprocessorList>
+          </cTool>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
+          <preBuildCommand></preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <item path="src/array.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/blocking_queue.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/dirtab.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/fs_server.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/queue.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/util.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+    </conf>
+    <conf name="Linux64" type="0">
+      <toolsSet>
+        <compilerSet>GNU|GNU</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <flagsDictionary>
+        <element flagsID="0" commonFlags="-std=c99 -g -m64"/>
+      </flagsDictionary>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile 64BITS=1 </buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean 64BITS=1</cleanCommand>
+          <executablePath>../../release/bin/Linux-x86_64/fs_server</executablePath>
+          <cTool>
+            <incDir>
+              <pElem>.</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>LINUX</Elem>
+              <Elem>_GNU_SOURCE</Elem>
+              <Elem>_REENTRANT</Elem>
+              <Elem>_XOPEN_SOURCE=700</Elem>
+            </preprocessorList>
+          </cTool>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
+          <preBuildCommand></preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <item path="src/array.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/blocking_queue.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/dirtab.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/fs_server.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/queue.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/util.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+    </conf>
+    <conf name="Debug_Linux32" type="0">
+      <toolsSet>
+        <compilerSet>GNU|GNU</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath>../../release/bin/Linux-x86/fs_server</executablePath>
+          <cTool>
+            <incDir>
+              <pElem>.</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>LINUX</Elem>
+              <Elem>_GNU_SOURCE</Elem>
+              <Elem>_REENTRANT</Elem>
+              <Elem>_XOPEN_SOURCE=700</Elem>
+            </preprocessorList>
+          </cTool>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
+          <preBuildCommand></preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <item path="src/array.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="src/blocking_queue.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="src/dirtab.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="src/fs_server.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="src/queue.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="src/util.c" ex="false" tool="0" flavor2="3">
+      </item>
+    </conf>
+    <conf name="Debug_Linux64" type="0">
+      <toolsSet>
+        <compilerSet>GNU|GNU</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <flagsDictionary>
+        <element flagsID="0" commonFlags="-std=c99 -g -m64"/>
+      </flagsDictionary>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile 64BITS=1 </buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean 64BITS=1</cleanCommand>
+          <executablePath>../../release/bin/Linux-x86_64/fs_server</executablePath>
+          <cTool>
+            <standard>3</standard>
+            <incDir>
+              <pElem>.</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>LINUX</Elem>
+              <Elem>_GNU_SOURCE</Elem>
+              <Elem>_REENTRANT</Elem>
+              <Elem>_XOPEN_SOURCE=700</Elem>
+            </preprocessorList>
+          </cTool>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
+          <preBuildCommand></preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <item path="src/array.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/blocking_queue.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/dirtab.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/fs_server.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/queue.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/util.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+    </conf>
+    <conf name="Debug_Solaris-x86" type="0">
+      <toolsSet>
+        <compilerSet>GNU|GNU</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath>../../release/bin/SunOS-x86/fs_server</executablePath>
+          <cTool>
+            <incDir>
+              <pElem>.</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>SOLARIS</Elem>
+              <Elem>__EXTENSIONS__</Elem>
+            </preprocessorList>
+          </cTool>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
+          <preBuildCommand></preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <folder path="0/src">
+        <cTool>
+          <preprocessorList>
+            <Elem>_POSIX_PTHREAD_SEMANTICS</Elem>
+            <Elem>_REENTRANT</Elem>
+          </preprocessorList>
+        </cTool>
+      </folder>
+      <item path="src/array.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="src/blocking_queue.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="src/dirtab.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="src/fs_server.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="src/queue.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="src/util.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="test/test_main.c" ex="false" tool="0" flavor2="2">
+      </item>
+    </conf>
+    <conf name="Linux64_Parfait" type="0">
+      <toolsSet>
+        <compilerSet>GNU|GNU</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile 64BITS=1 PARFAIT=1</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean 64BITS=1 PARFAIT=1</cleanCommand>
+          <executablePath>../../release/bin/Linux-x86_64/fs_server</executablePath>
+          <cTool>
+            <standard>3</standard>
+            <incDir>
+              <pElem>/opt/parfait-tools-1.3.1/lib/clang/3.1/include</pElem>
+              <pElem>/usr/lib/gcc/x86_64-linux-gnu/4.6/include</pElem>
+              <pElem>/usr/local/include</pElem>
+              <pElem>/usr/lib/gcc/x86_64-linux-gnu/4.6/include-fixed</pElem>
+              <pElem>/usr/include/x86_64-linux-gnu</pElem>
+              <pElem>/usr/include</pElem>
+              <pElem>.</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>LINUX</Elem>
+              <Elem>_GNU_SOURCE</Elem>
+              <Elem>_XOPEN_SOURCE=700</Elem>
+              <Elem>__GNUC_MINOR__=6</Elem>
+              <Elem>__GNUC_PATCHLEVEL__=3</Elem>
+              <Elem>__GNUC__=4</Elem>
+              <Elem>__SIZEOF_INT128__=16</Elem>
+            </preprocessorList>
+            <undefinedList>
+              <Elem>__clang__</Elem>
+              <Elem>__clang_major__</Elem>
+              <Elem>__clang_minor__</Elem>
+              <Elem>__clang_patchlevel__</Elem>
+              <Elem>__clang_version__</Elem>
+              <Elem>__llvm__</Elem>
+            </undefinedList>
+          </cTool>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
+          <preBuildCommand></preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <item path="src/array.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="src/blocking_queue.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="src/dirtab.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="src/fs_server.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="src/queue.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="src/util.c" ex="false" tool="0" flavor2="3">
+      </item>
+    </conf>
+    <conf name="Tmp" type="0">
+      <toolsSet>
+        <compilerSet>GNU|GNU</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE}</buildCommand>
+          <cleanCommand>${MAKE} clean</cleanCommand>
+          <executablePath>../../release/bin/SunOS-x86/fs_server</executablePath>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
+          <preBuildCommand></preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <folder path="0/src">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>SOLARIS</Elem>
+            <Elem>_POSIX_PTHREAD_SEMANTICS</Elem>
+            <Elem>__EXTENSIONS__</Elem>
+          </preprocessorList>
+        </cTool>
+      </folder>
+      <item path="src/array.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="src/blocking_queue.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="src/dirtab.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="src/fs_server.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="src/queue.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="src/util.c" ex="false" tool="0" flavor2="3">
+      </item>
+      <item path="test/test_main.c" ex="false" tool="0" flavor2="2">
+      </item>
+    </conf>
+    <conf name="Armv6" type="0">
+      <toolsSet>
+        <compilerSet>GNU|GNU</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath>../../release/bin/Linux-arm/fs_server</executablePath>
+          <cTool>
+            <incDir>
+              <pElem>.</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>LINUX</Elem>
+              <Elem>_GNU_SOURCE</Elem>
+              <Elem>_XOPEN_SOURCE=700</Elem>
+            </preprocessorList>
+          </cTool>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
+          <preBuildCommand></preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <item path="src/array.c" ex="false" tool="0" flavor2="9">
+      </item>
+      <item path="src/blocking_queue.c" ex="false" tool="0" flavor2="9">
+      </item>
+      <item path="src/dirtab.c" ex="false" tool="0" flavor2="9">
+      </item>
+      <item path="src/fs_server.c" ex="false" tool="0" flavor2="9">
+      </item>
+      <item path="src/queue.c" ex="false" tool="0" flavor2="9">
+      </item>
+      <item path="src/util.c" ex="false" tool="0" flavor2="9">
+      </item>
+    </conf>
+    <conf name="Armv5" type="0">
+      <toolsSet>
+        <compilerSet>GNU|GNU</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <flagsDictionary>
+        <element flagsID="0" commonFlags="-std=c99 -g"/>
+      </flagsDictionary>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath>../../release/bin/Linux-arm/fs_server</executablePath>
+          <cTool>
+            <incDir>
+              <pElem>.</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>LINUX</Elem>
+              <Elem>_GNU_SOURCE</Elem>
+              <Elem>_REENTRANT</Elem>
+              <Elem>_XOPEN_SOURCE=700</Elem>
+            </preprocessorList>
+          </cTool>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
+          <preBuildCommand></preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <item path="src/array.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/blocking_queue.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/dirtab.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/fs_server.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/queue.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/util.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+    </conf>
+    <conf name="SLinux64" type="0">
+      <toolsSet>
+        <compilerSet>GNU|GNU</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <flagsDictionary>
+        <element flagsID="0" commonFlags="-std=c99 -g -m64"/>
+      </flagsDictionary>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath>../../release/bin/Linux-sparc/fs_server</executablePath>
+          <cTool>
+            <incDir>
+              <pElem>.</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>LINUX</Elem>
+              <Elem>_GNU_SOURCE</Elem>
+              <Elem>_POSIX_PTHREAD_SEMANTICS</Elem>
+              <Elem>_REENTRANT</Elem>
+              <Elem>_XOPEN_SOURCE=700</Elem>
+              <Elem>__EXTENSIONS__</Elem>
+            </preprocessorList>
+          </cTool>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
+          <preBuildCommand></preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <item path="src/array.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/blocking_queue.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/dirtab.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/fs_server.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/queue.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/util.c" ex="false" tool="0" flavor2="3">
+        <cTool flags="0">
+        </cTool>
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

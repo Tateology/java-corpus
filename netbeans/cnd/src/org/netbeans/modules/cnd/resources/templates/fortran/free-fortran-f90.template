@@ -1,0 +1,10 @@
+!     
+! File:   %<%NAME%>%.%<%EXTENSION%>%
+! Author: %<%USER%>%
+!
+! Created on %<%DATE%>%, %<%TIME%>%
+!
+
+PRINT*,'Hello World'
+END
+

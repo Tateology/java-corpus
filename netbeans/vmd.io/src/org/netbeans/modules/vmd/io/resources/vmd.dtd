@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright 1997-2010 Oracle and/or its affiliates. All rights reserved.
+
+Oracle and Java are registered trademarks of Oracle and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+
+The contents of this file are subject to the terms of either the GNU
+General Public License Version 2 only ("GPL") or the Common
+Development and Distribution License("CDDL") (collectively, the
+"License"). You may not use this file except in compliance with the
+License. You can obtain a copy of the License at
+http://www.netbeans.org/cddl-gplv2.html
+or nbbuild/licenses/CDDL-GPL-2-CP. See the License for the
+specific language governing permissions and limitations under the
+License.  When distributing the software, include this License Header
+Notice in each file and include the License file at
+nbbuild/licenses/CDDL-GPL-2-CP.  Oracle designates this
+particular file as subject to the "Classpath" exception as provided
+by Oracle in the GPL Version 2 section of the License file that
+accompanied this code. If applicable, add the following below the
+License Header, with the fields enclosed by brackets [] replaced by
+your own identifying information:
+"Portions Copyrighted [year] [name of copyright owner]"
+
+Contributor(s):
+
+The Original Software is NetBeans. The Initial Developer of the Original
+Software is Sun Microsystems, Inc. Portions Copyright 1997-2006 Sun
+Microsystems, Inc. All Rights Reserved.
+
+If you wish your version of this file to be governed by only the CDDL
+or only the GPL Version 2, indicate your decision by adding
+"[Contributor] elects to include this software in this distribution
+under the [CDDL or GPL Version 2] license." If you do not indicate a
+single choice of license, a recipient has the option to distribute
+your version of this file under either the CDDL, the GPL Version 2 or
+to extend the choice of license to its licensees as provided above.
+However, if you add GPL Version 2 code and therefore, elected the GPL
+Version 2 license, then the option applies only if the new code is
+made subject to such option by the copyright holder.
+-->
+<!--
+This dtd describes the vmd file format including the built-in plug-ins
+-->
+
+<!ELEMENT VisualMobileDesign (Document,FlowScene?)>
+<!ATTLIST VisualMobileDesign
+    version CDATA #REQUIRED
+    projectType CDATA #REQUIRED
+>
+
+<!ELEMENT Document (Component)?>
+<!ATTLIST Document
+    version CDATA #REQUIRED
+>
+
+<!ELEMENT Component (Component|Property)*>
+<!ATTLIST Component
+    componentID CDATA #REQUIRED
+    typeID CDATA #REQUIRED
+>
+
+<!ELEMENT Property EMPTY>
+<!ATTLIST Property
+    name CDATA #REQUIRED
+    typeID CDATA #REQUIRED
+    value CDATA #REQUIRED
+>
+
+<!ELEMENT FlowScene (Node)*>
+<!ATTLIST FlowScene
+    version CDATA #REQUIRED
+>
+
+<!ELEMENT Node EMPTY>
+<!ATTLIST Node
+    componentID CDATA #REQUIRED
+    descriptorID CDATA #REQUIRED
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+>
+
+<!-- there are endless x* and y* attributes -->
+<!ELEMENT Edge EMPTY>
+<!ATTLIST Edge
+    componentID CDATA #REQUIRED
+    descriptorID CDATA #REQUIRED
+    x1 CDATA #IMPLIED
+    y1 CDATA #IMPLIED
+    x2 CDATA #IMPLIED
+    y2 CDATA #IMPLIED
+    x3 CDATA #IMPLIED
+    y3 CDATA #IMPLIED
+    x4 CDATA #IMPLIED
+    y4 CDATA #IMPLIED
+    x5 CDATA #IMPLIED
+    y5 CDATA #IMPLIED
+    x6 CDATA #IMPLIED
+    y6 CDATA #IMPLIED
+    x7 CDATA #IMPLIED
+    y7 CDATA #IMPLIED
+    x8 CDATA #IMPLIED
+    y8 CDATA #IMPLIED
+    x9 CDATA #IMPLIED
+    y9 CDATA #IMPLIED
+>

@@ -1,0 +1,66 @@
+/*
+ * __NAME__.java
+ *
+ * Created on __DATE__, __TIME__
+ */
+
+package Template.Classes;
+
+import javax.management.MBeanServerConnection;
+import javax.management.remote.JMXConnector;
+
+
+/**
+ * JMX manager class
+ * @author __USER__
+ */
+public class Manager {
+ 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) throws Exception {
+
+        //Manager instantiation and connection to the remote agent
+        __NAME__ manager = __NAME__.getDefault(); 
+    }
+    
+    /**
+     * JMX Agent connection
+     * This method is called automatically when <CODE>getDefault()</CODE> 
+     * is called
+     */
+    public void connect() throws Exception {
+    }
+    
+    /**
+     * Returns a manager singleton.
+     */
+    public synchronized static __NAME__ getDefault() throws Exception {
+        if(singleton == null) {
+            singleton = new __NAME__();
+            singleton.connect();
+        }
+        return singleton;
+    }
+    
+    public MBeanServerConnection getMBeanServerConnection() {
+        return mbsc;
+    }
+    
+    public void close() throws Exception {
+        
+        //Close the connection
+        connector.close();
+    }
+    
+    //MBeanServerConnection definition
+    private MBeanServerConnection mbsc;
+    
+    //The JMX Connector definition
+    private JMXConnector connector;
+    
+    //Singleton instance
+    private static __NAME__ singleton;
+
+ }

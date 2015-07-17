@@ -1,0 +1,22 @@
+1.0.2:	Fixed #62873: Word wrapping in plain text chat.
+
+1.0.3:	Fixed #62875: Indicate when other users are typing.
+
+1.0.4:	Backport of JSE fixes
+	Code-aware chat fixed (was not displaying mime-typed text on remote end)
+	Refactored content type registration and handling, reduces class count.
+
+1.0.5:  Mnemonics for chat input
+        Send message also by Ctrl+Enter (#65734)
+	
+1.0.6:  Conversation UI cleanup (#68576)
+
+1.0.7:	Don't substitute smiles in code snippets (#68473)
+
+1.0.8:	Removed useless settings (#64551)
+
+1.0.9:	Removed Allow Enter/Tab buttons, #67634, #64467
+
+1.0.10: Move typing status into the chat toolbar. Prevents #69294
+
+1.3:	Wink smiley fixed to ";-)" (was accidentally ":-("). #73459

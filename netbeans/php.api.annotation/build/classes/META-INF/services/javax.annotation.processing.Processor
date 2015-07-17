@@ -1,0 +1,2 @@
+org.netbeans.modules.php.api.annotation.registration.AnnotationLineParserRegistrationProcessor
+org.netbeans.modules.php.api.annotation.registration.PhpAnnotationsRegistrationProcessor

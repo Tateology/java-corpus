@@ -1,0 +1,14 @@
+<xsl:comment>debug</xsl:comment>    
+    
+    <target name="remove-timestamp">
+        <delete file="${build.dir}/.timestamp"/>
+    </target>
+
+    <target name="pre-debug"/>
+
+    <target name="debug" description="Debug project." depends="clean,jar,remove-timestamp,__DEPENDS__"/>
+
+    <target name="nbdebug" description="Start NetBeans debugger" if="netbeans.home">
+        <property name="debug.delay" value="5000"/>
+        <nb-mobility-debug address="${{jpda.port}}" name="${{app.codename}}" delay="${{debug.delay}}" timeout="${{debug.timeout}}" period="2000"/>
+    </target>

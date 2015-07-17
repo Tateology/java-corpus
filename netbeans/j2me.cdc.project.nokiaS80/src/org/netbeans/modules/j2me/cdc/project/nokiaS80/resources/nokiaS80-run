@@ -1,0 +1,13 @@
+<xsl:comment>nokiaS80-run</xsl:comment>
+
+    <target name="nokiaS80-run" if="nokiaS80-platform.trigger">
+        <mkdir dir="${{platform.home}}/epoc32/wins/c/PP_Applications"/>
+        <mkdir dir="${{platform.home}}/epoc32/wins/c/logs/j9vm"/>
+        <taskdef name="nokiaexec" classname="org.netbeans.modules.j2me.cdc.project.nokiaS80.NokiaEmulatorExecTask" classpath="${{libs.nokiaS80-ant-utils.classpath}}"/>
+        <nokiaexec jvmargs="${{run.jvmargs}}" mainclass="${{main.class}}" args="${{application.args}}" home="${{platform.home}}" device="${{platform.device}}" xlet="${{main.class.xlet}}" applet="${{main.class.applet}}">
+            <fileset dir="${{dist.dir}}">
+                <exclude name="javadoc/**"/>
+            </fileset>
+        </nokiaexec>
+    </target>
+

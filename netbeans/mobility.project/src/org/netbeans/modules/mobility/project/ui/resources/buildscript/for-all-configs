@@ -1,0 +1,56 @@
+<xsl:comment>for-all-configs targets</xsl:comment>
+    
+    <target name="for-all-configs" depends="load-properties">
+        <fail unless="libs.ant-contrib.classpath">Classpath to Ant Contrib library (libs.ant-contrib.classpath property) is not set.</fail>
+        <property name="selected.configurations" value="${{all.configurations}}"/>
+        <taskdef resource="net/sf/antcontrib/antlib.xml">
+            <classpath>
+                <pathelement path="${{libs.ant-contrib.classpath}}"/>
+            </classpath>
+        </taskdef>
+        <for list="${{selected.configurations}}" param="cfg" keepgoing="true" trim="true">
+            <sequential>
+                <echo>Active project configuration: @{cfg}</echo>
+                <antcall target="${{target.to.call}}" inheritall="false" inheritrefs="false">
+                    <param name="config.active" value="@{{cfg}}"/>
+                    <propertyset>
+                        <propertyref name="no.deps"/>
+                    </propertyset>    
+                </antcall>
+                <property name="no.deps" value="true"/>
+            </sequential>
+        </for>
+    </target>
+    <target name="jar-all">
+        <antcall target="for-all-configs">
+            <param name="target.to.call" value="jar"/>
+        </antcall>
+    </target>
+    <target name="build-all">
+        <antcall target="for-all-configs">
+            <param name="target.to.call" value="build"/>
+        </antcall>
+    </target>
+    <target name="javadoc-all">
+        <antcall target="for-all-configs">
+            <param name="target.to.call" value="javadoc"/>
+        </antcall>
+    </target>
+    <target name="deploy-all">
+        <antcall target="for-all-configs">
+            <param name="target.to.call" value="deploy"/>
+        </antcall>
+    </target>
+    <target name="rebuild-all">
+        <antcall target="for-all-configs">
+            <param name="target.to.call" value="rebuild"/>
+        </antcall>
+    </target>
+    <target name="clean-all">
+        <property file="nbproject/project.properties"/>
+        <fail unless="build.root.dir">Property build.root.dir is not set. By default its value should be \"build\".</fail>
+        <fail unless="dist.root.dir">Property dist.root.dir is not set. By default its value should be \"dist\".</fail>
+        <antcall target="for-all-configs">
+            <param name="target.to.call" value="clean"/>
+        </antcall>
+    </target>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+    <action>
+        <actionName>cobertura</actionName>
+        <packagings>
+            <packaging>*</packaging>
+        </packagings>
+        <goals>
+            <goal>cobertura:clean</goal> <!-- otherwise adds up results from prior runs -->
+            <goal>cobertura:cobertura</goal>
+        </goals>
+        <properties>
+            <skipTests>false</skipTests> <!-- override TestSkippingChecker -->
+            <cobertura.report.format>xml</cobertura.report.format>
+        </properties>
+    </action>
+    <action>
+        <actionName>jacoco</actionName>
+        <packagings>
+            <packaging>*</packaging>
+        </packagings>
+        <goals>
+            <goal>clean</goal> <!-- otherwise never removes coverage -->
+            <goal>verify</goal>
+        </goals>
+        <properties>
+            <skipTests>false</skipTests>
+        </properties>
+    </action>
+</actions>

@@ -1,0 +1,102 @@
+form/build.xml:52:        <javac fork="true" executable="${mycompiler}" srcdir="release/sources" target="1.1" source="1.3" destdir="${build.dir}/absolutelayoutclasses"/>
+nbbuild/build.xml:75:    <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="${build.ant.classes.dir}" deprecation="true" debug="${build.compiler.debug}" source="1.7" target="1.7">
+nbbuild/build.xml:106:    <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="${build.ant.classes.dir}" deprecation="true" debug="${build.compiler.debug}" source="1.7" target="1.7">
+nbbuild/build.xml:1219:                <javac fork="true" executable="${mycompiler}" srcdir="test/unit/src" destdir="${nb.build.dir}/test/unit/classes" debug="true" source="1.7">
+j2ee.ant/build.xml:52:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.4" debug="true" deprecation="true">
+java.j2seembedded/build.xml:8:        <javac fork="true" executable="${mycompiler}" srcdir="jreprobe" destdir="build/probe/classes" source="1.3" debug="true" deprecation="true" target="1.1"/>
+debugger.jpda.ant/build.xml:52:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.6" target="1.6" debug="true" deprecation="true">
+collab.provider.im/service/src/org/netbeans/lib/collab/build.xml:14:    <javac fork="true" executable="${mycompiler}" debug="on" deprecation="on" source="1.6" srcdir="."
+autoupdate.services/build.xml:7:        <javac fork="true" executable="${mycompiler}" srcdir="libsrc" destdir="${build.dir}/updaterclasses"
+identity.ant/build.xml:53:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.6" debug="true" deprecation="true">
+websvc.jaxrpc/build.xml:108:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.4" debug="true" deprecation="true">
+j2me.cdc.project.ojec/build.xml:55:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.6" debug="true" deprecation="true">
+extbrowser.chrome/build.xml:20:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" debug="${build.compiler.debug}" deprecation="${build.compiler.deprecation}" includeantruntime="false">
+apisupport.ant/build.xml:52:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.4" debug="true" deprecation="true">
+websvc.registry/build.xml:64:        <javac fork="true" executable="${mycompiler}" srcdir="extsrc" destdir="build/extclasses" deprecation="${build.compiler.deprecation}" debug="${build.compiler.debug}" source="1.4">
+editor/demosrc/build.xml:65:     <javac fork="true" executable="${mycompiler}" srcdir="base" destdir="base" deprecation="${build.compiler.deprecation}" debug="${build.compiler.debug}">
+libs.ppawtlayout/build.xml:52:        <javac fork="true" executable="${mycompiler}" srcdir="layoutsrc" destdir="build/layoutclasses" source="1.2" target="1.2" debug="true" deprecation="true" />
+web.debug/test/qa-functional/data/TestFreeformLibrary/build.xml:10:        <javac fork="true" executable="${mycompiler}" destdir="classes" debug="true" source="1.5" target="1.5">
+o.apache.tools.ant.module/build.xml:62:        <javac fork="true" executable="${mycompiler}" srcdir="src-bridge" destdir="build/bridge-classes" deprecation="${build.compiler.deprecation}" debug="${build.compiler.debug}" source="1.6" target="1.6" includeantruntime="false">
+deployment.deviceanywhere/build.xml:56:        <javac fork="true" executable="${mycompiler}" srcdir="libsrc" destdir="build/libclasses" source="1.5" target="1.5" debug="true" deprecation="true">
+deployment.deviceanywhere/build.xml:86:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.5" target="1.5" debug="true" deprecation="true">
+j2me.cdc.platform.nsicom/build.xml:8:        <javac fork="true" executable="${mycompiler}" srcdir="probesrc" destdir="build/probe/classes" source="1.3" debug="true" deprecation="true" target="1.3"/>
+java.j2seplatform/build.xml:52:        <javac fork="true" executable="${mycompiler}" srcdir="probesrc" destdir="build/probe/classes" source="1.3" debug="true" deprecation="true" target="1.1"/>
+web.jspparser/build.xml:51:        <javac fork="true" executable="${mycompiler}" srcdir="extsrc" destdir="build/extclasses" deprecation="${build.compiler.deprecation}" debug="${build.compiler.debug}" source="1.5">
+profiler.nbimpl/build.xml:52:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" debug="${build.compiler.debug}" deprecation="${build.compiler.deprecation}" source="1.6" target="1.6" includeantruntime="false">
+db/build.xml:59:        <javac fork="true" executable="${mycompiler}" srcdir="libsrc" destdir="${build.dir}/lib-classes" deprecation="${build.compiler.deprecation}" debug="${build.compiler.debug}" source="1.6">
+db/build.xml:77:        <javac fork="true" executable="${mycompiler}" srcdir="${fake-jdbc-40.src}" destdir="${fake-jdbc-40.build}"/>
+j2me.cdc.project/build.xml:54:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.6" debug="true" deprecation="true">            
+o.n.bluej/build.xml:14:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.5" debug="true" deprecation="true">
+libs.aguiswinglayout/build.xml:51:        <javac fork="true" executable="${mycompiler}" srcdir="layoutsrc" destdir="build/layoutclasses" source="1.4" target="1.4" debug="true" deprecation="true" />
+jellytools.enterprise/test/qa-functional/data/WebFreeFormSrc/build.xml:85:    <javac fork="true" executable="${mycompiler}" srcdir="${src.home}"
+j2me.cdc.project.nsicom/build.xml:8:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.4" debug="true" deprecation="true">            
+xml.tax/build.xml:52:        <javac fork="true" executable="${mycompiler}" destdir="${build.dir}/libclasses" debug="${build.compiler.debug}" debuglevel="${build.compiler.debuglevel}" deprecation="${build.compiler.deprecation}" optimize="${build.compiler.optimize}" source="${javac.source}" includeantruntime="false">
+performance/imagecache/build.xml:49:    <javac fork="true" executable="${mycompiler}" srcdir="src" source="1.4" destdir="src" deprecation="${build.compiler.deprecation}" debug="true" verbose="false">
+performance/threaddemo/build.xml:93:        <javac fork="true" executable="${mycompiler}" srcdir="src" destdir="${build.classes.dir}" debug="true" deprecation="true" source="1.6">
+performance/threaddemo/build.xml:109:        <javac fork="true" executable="${mycompiler}" srcdir="src" destdir="${build.classes.dir}" debug="true" deprecation="true" source="1.6" includes="${files}">
+performance/threaddemo/build.xml:171:        <javac fork="true" executable="${mycompiler}" srcdir="src" destdir="${build.classes.dir}" debug="true" deprecation="true" source="1.6">
+performance/threaddemo/build.xml:225:        <javac fork="true" executable="${mycompiler}" srcdir="test" destdir="${build.test.classes.dir}" debug="true" deprecation="true" source="1.6">
+performance/sparrow/build.xml:93:        <javac fork="true" executable="${mycompiler}" srcdir="src/" destdir="src/" includes="ForEachFileTask">
+performance/sparrow/build.xml:107:        <javac fork="true" executable="${mycompiler}" srcdir="src/" destdir="src/" includes="IteratingTask">
+performance/sparrow/build.xml:413:        <javac fork="true" executable="${mycompiler}" srcdir="src" destdir="src" debug="true">
+performance/sparrow/build.xml:477:        <javac fork="true" executable="${mycompiler}" srcdir="lib/antext" destdir="lib/antext" debug="true">
+performance/sparrow/build.xml:496:        <javac fork="true" executable="${mycompiler}" srcdir="lib/antext" destdir="lib/antext" debug="true">
+performance/sparrow/build.xml:509:        <javac fork="true" executable="${mycompiler}" srcdir="lib/antext" destdir="lib/antext" debug="true">
+performance/benchmarks/build.xml:52:        <javac fork="true" executable="${mycompiler}" srcdir="src" destdir="src" deprecation="${build.compiler.deprecation}" debug="${build.compiler.debug}">
+performance/benchmarks/build.xml:94:        <javac fork="true" executable="${mycompiler}"c 
+performance/benchmarks/test/perf/build.xml:68:        <javac fork="true" executable="${mycompiler}" destdir="src" srcdir="src">
+deployment.wm/build.xml:52:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.4" debug="true" deprecation="true">            
+db.sql.visualeditor/build.xml:20:      <javac fork="true" executable="${mycompiler}"c target="src/org/netbeans/modules/db/sql/visualeditor/parser/SQLParser.jj"
+settings/examples/build.xml:60:        <javac fork="true" executable="${mycompiler}" srcdir="src" destdir="src" deprecation="${build.compiler.deprecation}" debug="${build.compiler.debug}">
+ant.browsetask/build.xml:52:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" debug="${build.compiler.debug}" deprecation="${build.compiler.deprecation}" source="1.4" includeantruntime="false">
+libs.jstestdriver/build.xml:8:        <javac fork="true" executable="${mycompiler}" srcdir="extsrc" destdir="build/extclasses" deprecation="${build.compiler.deprecation}" debug="${build.compiler.debug}" source="1.6">
+ide.ergonomics/build.xml:23:        <javac fork="true" executable="${mycompiler}" srcdir="src-ant" destdir="${src-ant.build}"
+jmx/test/qa-functional/data/SampleProject/build.xml:56:    <javac fork="true" executable="${mycompiler}" srcdir="src" destdir="src" deprecation="true">
+installer/infra/build/build.xml:161:        <javac fork="true" executable="${mycompiler}" 
+installer/infra/build/build.xml:168:        <javac fork="true" executable="${mycompiler}" 
+installer/infra/build/build.xml:173:        <javac fork="true" executable="${mycompiler}" 
+installer/infra/build/build.xml:178:        <javac fork="true" executable="${mycompiler}" 
+installer/mac/glassfish/getport/build.xml:12:		<javac fork="true" executable="${mycompiler}" 
+installer/mac/newbuild/build.xml:97:        <javac fork="true" executable="${mycompiler}" 
+installer/jnlp/build.xml:37:        <javac fork="true" executable="${mycompiler}" debug="${build.compiler.debug}" deprecation="${build.compiler.deprecation}" destdir="src" srcdir="src">
+java.project.ui/test/qa-functional/data/freeform1/build.xml:53:        <javac fork="true" executable="${mycompiler}" srcdir="src" destdir="classes"/>
+o.n.bootstrap/build.xml:59:        <javac fork="true" executable="${mycompiler}" srcdir="${src.dir}" destdir="${build.classes.dir}" debug="${build.compiler.debug}" debuglevel="${build.compiler.debuglevel}" deprecation="${build.compiler.deprecation}" optimize="${build.compiler.optimize}" source="1.4" target="1.4" includeantruntime="false">
+traceio/build.xml:52:        <javac fork="true" executable="${mycompiler}" srcdir="libsrc" destdir="${build.dir}/lib-classes" deprecation="${build.compiler.deprecation}" debug="${build.compiler.debug}" source="1.7">
+java.source.ant/build.xml:52:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.6" target="1.6" debug="true" deprecation="true">
+j2me.cdc.project.bdj/build.xml:52:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.6" debug="true" deprecation="true">            
+project.ant/build.xml:52:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.4" debug="true" deprecation="true">
+php.editor/build.xml:35:        <javac fork="true" executable="${mycompiler}"up srcfile="tools/ASTPHP5Parser.cup"
+j2me.cdc.project.nokiaS80/build.xml:55:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.4" debug="true" deprecation="true">            
+javawebstart/AntTasks/build.xml:71:        <javac fork="true" executable="${mycompiler}" srcdir="${src.dir}" classpath="${javac.classpath}"
+web.monitor/build.xml:54:        <javac fork="true" executable="${mycompiler}" srcdir="serversrc" destdir="build/server-classes" deprecation="${build.compiler.deprecation}" debug="${build.compiler.debug}" source="1.4" includeantruntime="false">
+lib.profiler/build.xml:54:        <javac fork="true" executable="${mycompiler}" srcdir="${src15.dir}" destdir="${build15.classes.dir}" debug="${build.compiler.debug}" debuglevel="${build.compiler.debuglevel}" encoding="UTF-8"
+lib.profiler/build.xml:60:        <javac fork="true" executable="${mycompiler}"  srcdir="${srccvm.dir}" destdir="${buildcvm.classes.dir}" deprecation="${build.compiler.deprecation}"
+lib.profiler/build.xml:66:        <javac fork="true" executable="${mycompiler}" srcdir="${src.dir}" destdir="${build.classes.dir}" debug="${build.compiler.debug}" debuglevel="${build.compiler.debuglevel}" encoding="UTF-8"
+lib.profiler/build.xml:76:        <javac fork="true" executable="${mycompiler}" srcdir="${src15.dir}" destdir="${build15.classes.dir}" debug="${build.compiler.debug}" debuglevel="${build.compiler.debuglevel}" encoding="UTF-8"
+loadgenerator/build.xml:52:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" debug="${build.compiler.debug}" deprecation="${build.compiler.deprecation}" source="1.6" includeantruntime="false">
+mobility.project.ant/build.xml:7:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.6" debug="true" deprecation="true">
+j2me.cdc.project.semc/build.xml:55:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.6" debug="true" deprecation="true">            
+web.project/build.xml:52:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.4" debug="true" deprecation="true">
+maven/build.xml:54:        <javac fork="true" executable="${mycompiler}" srcdir="mavensrc" destdir="build/mavenclasses" debug="${build.compiler.debug}" deprecation="${build.compiler.deprecation}" source="1.5" target="1.5" includeantruntime="false">
+csl.api/anttask/build.xml:60:    <javac fork="true" executable="${mycompiler}" srcdir="src" destdir="build/classes" deprecation="${build.compiler.deprecation}" debug="${build.compiler.debug}" target="1.6" source="1.6" >
+lexer/gen/build.xml:54:    <javac fork="true" executable="${mycompiler}" srcdir="src" destdir="build/classes"
+lexer/gen/build.xml:66:    <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" deprecation="true" debug="${build.compiler.debug}">
+lexer/demo/build.xml:61:    <javac fork="true" executable="${mycompiler}" srcdir="src" destdir="build/classes"
+libs.oracle.cloud/build.xml:8:        <javac fork="true" executable="${mycompiler}" srcdir="extsrc" destdir="build/extclasses" deprecation="${build.compiler.deprecation}" debug="${build.compiler.debug}" source="1.6">
+web.examples/jsp/build.xml:9:        <javac fork="true" executable="${mycompiler}" srcdir="web/plugin/applet" destdir="${build.web.dir}" />
+web.examples/appdev/build.xml:165:  is invoked using the <javac fork="true" executable="${mycompiler}"> task.
+web.examples/appdev/build.xml:296:    <javac fork="true" executable="${mycompiler}" srcdir="${src.home}"
+o.n.swing.tabcontrol/build.xml:64:        <javac fork="true" executable="${mycompiler}" srcdir="demosrc" destdir="build/democlasses" debug="true" source="1.4" deprecation="false" includeantruntime="false">
+j2me.cdc.project.savaje/build.xml:55:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.6" debug="true" deprecation="true">
+o.apache.tools.ant.module.docs/build.xml:58:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" classpath="${ant.cp}" source="1.4" debug="true"/>
+j2me.keystore/build.xml:8:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.7" debug="true" deprecation="true">
+j2me.cdc.project.sjmc/build.xml:55:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.6" debug="true" deprecation="true">
+lib.terminalemulator/examples/telnet/build.xml:27:	<javac fork="true" executable="${mycompiler}" srcdir="."
+lib.terminalemulator/examples/buildtool/build.xml:27:	<javac fork="true" executable="${mycompiler}" srcdir="."
+ant.freeform/test/unit/data/example-projects/web_jakarta/build.xml:156:  is invoked using the <javac fork="true" executable="${mycompiler}"> task.
+ant.freeform/test/unit/data/example-projects/web_jakarta/build.xml:283:    <javac fork="true" executable="${mycompiler}" srcdir="${src.home}"
+ant.freeform/test/unit/data/example-projects/simple/build.xml:16:        <javac fork="true" executable="${mycompiler}" srcdir="${src.dir}" destdir="${classes.dir}" source="1.4">
+ant.freeform/test/unit/data/example-projects/simple/build.xml:23:        <javac fork="true" executable="${mycompiler}" srcdir="${src.dir}" destdir="${classes.dir}" source="1.4" includes="${files}">
+ant.freeform/test/unit/data/example-projects/simple/build.xml:54:        <javac fork="true" executable="${mycompiler}" srcdir="${ant.src.dir}" destdir="${ant.classes.dir}" source="1.4">
+ant.freeform/test/unit/data/example-projects/simple/build.xml:63:        <javac fork="true" executable="${mycompiler}" srcdir="${ant.src.dir}" destdir="${ant.classes.dir}" source="1.4" includes="${files}">
+j2me.cdc.project.ricoh/build.xml:57:        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.4" debug="true" deprecation="true">

@@ -1,0 +1,27 @@
+/*
+ * ${name}.java
+ * JMUnit based test
+ *
+ * Created on ${date}, ${time}
+ */
+
+<#if package?? && package != "">
+package ${package};
+
+</#if>
+
+import jmunit.framework.cldc10.*;
+
+/**
+ * @author ${user}
+ */
+public class ${name} extends TestCase {
+    
+    public ${name}() {
+        //The first parameter of inherited constructor is the number of test cases
+        super(0,"${name}");
+    }            
+
+    public void test(int testNumber) throws Throwable {
+    }    
+}

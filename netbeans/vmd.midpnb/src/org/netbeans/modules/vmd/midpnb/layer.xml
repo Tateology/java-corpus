@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright 1997-2010 Oracle and/or its affiliates. All rights reserved.
+
+Oracle and Java are registered trademarks of Oracle and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+
+The contents of this file are subject to the terms of either the GNU
+General Public License Version 2 only ("GPL") or the Common
+Development and Distribution License("CDDL") (collectively, the
+"License"). You may not use this file except in compliance with the
+License. You can obtain a copy of the License at
+http://www.netbeans.org/cddl-gplv2.html
+or nbbuild/licenses/CDDL-GPL-2-CP. See the License for the
+specific language governing permissions and limitations under the
+License.  When distributing the software, include this License Header
+Notice in each file and include the License file at
+nbbuild/licenses/CDDL-GPL-2-CP.  Oracle designates this
+particular file as subject to the "Classpath" exception as provided
+by Oracle in the GPL Version 2 section of the License file that
+accompanied this code. If applicable, add the following below the
+License Header, with the fields enclosed by brackets [] replaced by
+your own identifying information:
+"Portions Copyrighted [year] [name of copyright owner]"
+
+Contributor(s):
+
+    The Original Software is NetBeans. The Initial Developer of the Original
+    Software is Sun Microsystems, Inc. Portions Copyright 1997-2006 Sun
+    Microsystems, Inc. All Rights Reserved.
+
+If you wish your version of this file to be governed by only the CDDL
+or only the GPL Version 2, indicate your decision by adding
+"[Contributor] elects to include this software in this distribution
+under the [CDDL or GPL Version 2] license." If you do not indicate a
+single choice of license, a recipient has the option to distribute
+your version of this file under either the CDDL, the GPL Version 2 or
+to extend the choice of license to its licensees as provided above.
+However, if you add GPL Version 2 code and therefore, elected the GPL
+Version 2 license, then the option applies only if the new code is
+made subject to such option by the copyright holder.
+-->
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="vmd-midp">
+        
+        <folder name="components">
+            <file name="org-netbeans-modules-vmd-midpnb-components-displayables-AbstractInfoScreenCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-displayables-WaitScreenCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-displayables-SplashScreenCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-displayables-FileBrowserCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-displayables-LoginScreenCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-displayables-SMSComposerCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-displayables-PIMBrowserCD.instance"/>
+            
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-SVGAnimatorWrapperCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-SVGPlayerCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-SVGSplashScreenCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-SVGWaitScreenCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-SVGImageCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-SVGMenuCD.instance"/>
+            
+
+            <file name="org-netbeans-modules-vmd-midpnb-components-items-TableItemCD.instance"/>
+            
+            <file name="org-netbeans-modules-vmd-midpnb-components-resources-CancellableTaskCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-resources-SimpleCancellableTaskCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-resources-TableModelCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-resources-SimpleTableModelCD.instance"/>
+            
+            <file name="org-netbeans-modules-vmd-midpnb-components-commands-WaitScreenFailureCommandCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-commands-WaitScreenSuccessCommandCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-commands-SplashScreenDismissCommandCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-commands-SVGWaitScreenFailureCommandCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-commands-SVGWaitScreenSuccessCommandCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-commands-SVGSplashScreenDismissCommandCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-commands-SVGMenuSelectCommandCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-commands-FileBrowserOpenCommandCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-commands-LoginScreenLoginCommandCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-commands-SMSComposerSendCommandCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-commands-PIMBrowserOpenCommandCD.instance"/>
+
+            <file name="org-netbeans-modules-vmd-midpnb-components-sources-AbstractCommandEventSourceCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-sources-WaitScreenFailureCommandEventSourceCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-sources-WaitScreenSuccessCommandEventSourceCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-sources-SplashScreenDismissCommandEventSourceCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-sources-SVGWaitScreenFailureCommandEventSourceCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-sources-SVGWaitScreenSuccessCommandEventSourceCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-sources-SVGSplashScreenDismissCommandEventSourceCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-sources-SVGMenuSelectCommandEventSourceCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-sources-SVGMenuElementEventSourceCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-sources-FileBrowserOpenCommandEventSourceCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-sources-LoginScreenLoginCommandEventSourceCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-sources-SMSComposerSendCommandEventSourceCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-sources-PIMBrowserOpenCommandEventSourceCD.instance"/>
+            
+            <file name="org-netbeans-modules-vmd-midpnb-components-handlers-SVGMenuEventHandlerCD.instance"/>
+
+            <!-- svg form components -->
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-form-SVGComponentCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-form-SVGButtonCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-form-SVGButtonGroupCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-form-SVGButtonEventSourceCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-form-SVGCheckBoxCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-form-SVGCheckBoxEventSourceCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-form-SVGComboBoxCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-form-SVGComboBoxEventSourceCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-form-SVGLabelCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-form-SVGLabelEventSourceCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-form-SVGListCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-form-SVGRadioButtonCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-form-SVGRadioButtonEventSourceCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-form-SVGSliderCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-form-SVGSliderEventSourceCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-form-SVGSpinnerCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-form-SVGSpinnerEventSourceCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-form-SVGTextFieldCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-form-SVGTextFieldEventSourceCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-form-SVGFormCD.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-components-svg-form-SVGListElementEventSourceCD.instance"/>
+        </folder>
+        
+        <folder name="producers">
+            <file name="org-netbeans-modules-vmd-midpnb-producers-WaitScreenProducer.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-producers-SplashScreenProducer.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-producers-FileBrowserProducer.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-producers-LoginScreenProducer.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-producers-SMSComposerProducer.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-producers-PIMBrowserProducer.instance"/>
+            
+            <file name="org-netbeans-modules-vmd-midpnb-producers-SVGWaitScreenProducer.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-producers-SVGSplashScreenProducer.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-producers-SVGMenuProducer.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-producers-SVGMenuElementEventSourceProducer.instance"/>
+            
+            <file name="org-netbeans-modules-vmd-midpnb-producers-CustomComponentProducer$SVGPlayerProducer.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-producers-CustomComponentProducer$SVGFormProducer.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-producers-CustomComponentProducer$SVGImageProducer.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-producers-CustomComponentProducer$SVGMenuEventHandlerProducer.instance"/>
+            
+            <file name="org-netbeans-modules-vmd-midpnb-producers-CustomComponentProducer$TableItemProducer.instance"/>
+            
+            <file name="org-netbeans-modules-vmd-midpnb-producers-CustomComponentProducer$SimpleCancellableTaskProducer.instance"/>
+            <file name="org-netbeans-modules-vmd-midpnb-producers-CustomComponentProducer$SimpleTableModelProducer.instance"/>
+        </folder>
+        
+    </folder>
+
+    <folder name="OptionsExport">
+        <folder name="Advanced">
+            <file name="VmdMidp">
+                <attr name="include" stringvalue="config/vmd-midp/palette/custom/.*"/>
+                <attr name="displayName" bundlevalue="org.netbeans.modules.vmd.midpnb.Bundle#VmdMidp.Options.Export.displayName"/>
+            </file>
+        </folder>
+    </folder>
+</filesystem>

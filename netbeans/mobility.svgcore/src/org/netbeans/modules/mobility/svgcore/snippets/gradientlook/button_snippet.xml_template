@@ -1,0 +1,29 @@
+   <g transform="translate(%%COORDINATE_X%%,%%COORDINATE_Y%%)" id="%%COMPONENT_ID%%">
+        <image transform="matrix(78.79452,0.0,0.0,0.9702,0.75,5.25)"  width="1" height="25"
+              xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAZCAIAAAB/8tMoAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+              jwv8YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAF9JREFU
+              GFdFw80KRUAAgNHv/R/FmqWyUOSmRN2bJLEgkvw2Y4xJ2dxTB2MM/zdG6/d9KbQ6uU6JkgIpD4TY
+              OPaZfR1Zpo5xqOnbgrb50pQJVR5RZD6/2CUNHT6eRRLYDwfARHOzUoReAAAAAElFTkSuQmCC">
+              </image>
+        <rect transform="" x="0.0" y="0.0" rx="5" ry="5"  width="80" height="30" fill="none" stroke="rgb(73,46,55)" stroke-width="1.5">   
+        </rect>
+        <g>
+            <text display="none">type=body</text>
+            <rect id="%%COMPONENT_ID%%_body" x="0.0" y="0.0" rx="5" ry="5"  width="80" height="30" fill="none" stroke="rgb(255,165,0)" stroke-width="0">
+                
+                <animate attributeName="stroke-width" attributeType="XML" begin="%%COMPONENT_ID%%.focusin" dur="0.25s" fill="freeze" to="2"/>
+                <animate attributeName="stroke-width" attributeType="XML" begin="%%COMPONENT_ID%%.focusout" dur="0.25s" fill="freeze" to="0"/>	            <!-- The third and fourth animation elements are used for animate button : on press, on release -->
+                <animate id="%%COMPONENT_ID%%_body_pressed" attributeName="stroke" attributeType="XML" begin="indefinite" dur="0.25s" fill="freeze" to="red"/>
+                <animate id="%%COMPONENT_ID%%_body_released" attributeName="stroke" attributeType="XML" begin="indefinite" dur="0.25s"  fill="freeze" to="rgb(255,165,0)"/>
+            </rect>
+        </g>
+        <g>
+            <text id="%%COMPONENT_ID%%_stext" x="27.999992" y="20.0" fill="black" font-size="15">		OK</text>
+            <text display="none">type=shadow_text</text>
+        </g>
+        <g>
+            <text id="%%COMPONENT_ID%%_text" x="23" y="21" fill="none" font-size="18">		OK</text>
+            <text display="none">type=text</text>
+        </g>
+        </g>
+

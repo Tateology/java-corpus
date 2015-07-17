@@ -1,0 +1,5 @@
+Code completion result for source line:
+module1.|first;
+(QueryType=COMPLETION, prefixSearch=true, caseSensitive=true)
+------------------------------------
+FIELD      first                           [PUBLIC]   issue245156.js

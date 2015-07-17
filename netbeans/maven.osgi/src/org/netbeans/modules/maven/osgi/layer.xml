@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Templates">
+        <folder name="OSGi">
+            <attr name="displayName" bundlevalue="org.netbeans.modules.maven.osgi.Bundle#Templates/OSGi"/>
+            <attr name="position" intvalue="723"/>
+        </folder>
+    </folder>
+</filesystem>

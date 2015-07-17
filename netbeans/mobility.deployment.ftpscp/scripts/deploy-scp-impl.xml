@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright 1997-2010 Oracle and/or its affiliates. All rights reserved.
+
+Oracle and Java are registered trademarks of Oracle and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+
+The contents of this file are subject to the terms of either the GNU
+General Public License Version 2 only ("GPL") or the Common
+Development and Distribution License("CDDL") (collectively, the
+"License"). You may not use this file except in compliance with the
+License. You can obtain a copy of the License at
+http://www.netbeans.org/cddl-gplv2.html
+or nbbuild/licenses/CDDL-GPL-2-CP. See the License for the
+specific language governing permissions and limitations under the
+License.  When distributing the software, include this License Header
+Notice in each file and include the License file at
+nbbuild/licenses/CDDL-GPL-2-CP.  Oracle designates this
+particular file as subject to the "Classpath" exception as provided
+by Oracle in the GPL Version 2 section of the License file that
+accompanied this code. If applicable, add the following below the
+License Header, with the fields enclosed by brackets [] replaced by
+your own identifying information:
+"Portions Copyrighted [year] [name of copyright owner]"
+
+Contributor(s):
+
+The Original Software is NetBeans. The Initial Developer of the Original
+Software is Sun Microsystems, Inc. Portions Copyright 1997-2006 Sun
+Microsystems, Inc. All Rights Reserved.
+
+If you wish your version of this file to be governed by only the CDDL
+or only the GPL Version 2, indicate your decision by adding
+"[Contributor] elects to include this software in this distribution
+under the [CDDL or GPL Version 2] license." If you do not indicate a
+single choice of license, a recipient has the option to distribute
+your version of this file under either the CDDL, the GPL Version 2 or
+to extend the choice of license to its licensees as provided above.
+However, if you add GPL Version 2 code and therefore, elected the GPL
+Version 2 license, then the option applies only if the new code is
+made subject to such option by the copyright holder.
+--><project default="deploy-scp">
+    <target name="init">
+        <fail unless="deployment.scp.server">Property deployment.scp.server is not set.</fail>
+        <property name="deployment.scp.port" value="22"/>
+        <property name="deployment.scp.remotedir" value=""/>
+        <fail unless="deployment.dir">Property deployment.dir is not set.</fail>
+        <condition property="deployment.scp.usekeyfile.eval">
+            <istrue value="${deployment.scp.usekeyfile}"/>
+        </condition>
+        <condition property="skip-password-input">
+            <or>
+                <not><isset property="netbeans.home"/></not>
+                <isset property="deployment.scp.usekeyfile.eval"/>
+                <and>
+                    <isset property="deployment.scp.userid"/>
+                    <isset property="deployment.scp.password"/>
+                    <not><equals arg1="${deployment.scp.userid}" arg2="" trim="true"/></not>
+                    <not><equals arg1="${deployment.scp.password}" arg2="" trim="true"/></not>
+                </and>
+            </or>
+        </condition>
+        <condition property="skip-passphrase-input">
+            <or>
+                <not><isset property="netbeans.home"/></not>
+                <not><isset property="deployment.scp.usekeyfile.eval"/></not>
+                <and>
+                    <isset property="deployment.scp.passphrase"/>
+                    <not><equals arg1="${deployment.scp.passphrase}" arg2="" trim="true"/></not>
+                </and>
+            </or>
+        </condition>
+    </target>
+    <target name="set-password" depends="init" unless="skip-password-input">
+        <property name="deployment.scp.userid" value=""/>
+        <nb-enter-password connectionid="scp://${deployment.scp.server}:${deployment.scp.port}" usernameproperty="deployment.scp.userid.eval" username="${deployment.scp.userid}" passwordproperty="deployment.scp.password.eval"/>
+    </target>
+    <target name="deploy-scp-1" depends="init,set-password" unless="deployment.scp.usekeyfile.eval">
+        <property name="deployment.scp.userid.eval" value="${deployment.scp.userid}"/>
+        <property name="deployment.scp.password.eval" value="${deployment.scp.password}"/>
+        <sshexec username="${deployment.scp.userid.eval}"
+             host="${deployment.scp.server}"
+             command="mkdir -p ${deployment.scp.remotedir}"
+             port="${deployment.scp.port}"
+             password="${deployment.scp.password.eval}"
+             trust="yes">
+         </sshexec>
+        <scp todir="${deployment.scp.userid.eval}@${deployment.scp.server}:${deployment.scp.remotedir}"
+             port="${deployment.scp.port}"
+             password="${deployment.scp.password.eval}"
+             trust="yes">
+             <fileset dir="${deployment.dir}">
+                 <patternset refid="deployment.patternset"/>
+             </fileset>
+         </scp>
+    </target>
+    <target name="set-passphrase" depends="init" unless="skip-passphrase-input">
+        <fail unless="deployment.scp.keyfile">Property deployment.scp.keyfile is not set.</fail>
+        <fail unless="deployment.scp.userid">Property deployment.scp.userid is not set.</fail>
+        <nb-enter-password keyfile="${deployment.scp.keyfile}" passwordproperty="deployment.scp.passphrase.eval"/>
+    </target>
+    <target name="deploy-scp-2" depends="init,set-passphrase" if="deployment.scp.usekeyfile.eval">
+        <fail unless="deployment.scp.keyfile">Property deployment.scp.keyfile is not set.</fail>
+        <fail unless="deployment.scp.userid">Property deployment.scp.userid is not set.</fail>
+        <property name="deployment.scp.passphrase.eval" value="${deployment.scp.passphrase}"/>
+        <sshexec username="${deployment.scp.userid}"
+             host="${deployment.scp.server}"
+             command="mkdir -p ${deployment.scp.remotedir}"
+             port="${deployment.scp.port}"
+             keyfile="${deployment.scp.keyfile}"
+             passphrase="${deployment.scp.passphrase.eval}"
+             trust="yes">
+        </sshexec>
+        <scp todir="${deployment.scp.userid}@${deployment.scp.server}:${deployment.scp.remotedir}"
+             port="${deployment.scp.port}"
+             keyfile="${deployment.scp.keyfile}"
+             passphrase="${deployment.scp.passphrase.eval}"
+             trust="yes">
+             <fileset dir="${deployment.dir}">
+                 <patternset refid="deployment.patternset"/>
+             </fileset>
+         </scp>
+    </target>
+    <target name="deploy-scp" depends="deploy-scp-1,deploy-scp-2"/>
+</project>

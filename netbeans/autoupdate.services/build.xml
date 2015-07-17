@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="netbeans" name="autoupdate.services">
+    <description>Builds, tests, and runs the project org.netbeans.modules.autoupdate.services</description>
+    <import file="../nbbuild/templates/projectized.xml"/>
+    <target name="compile-updater" depends="init">
+        <mkdir dir="${build.dir}/updaterclasses"/>
+        <javac fork="true" executable="${mycompiler}" srcdir="libsrc" destdir="${build.dir}/updaterclasses"
+               deprecation="${build.compiler.deprecation}" 
+               debug="${build.compiler.debug}" debuglevel="${build.compiler.debuglevel}" 
+               optimize="${build.compiler.optimize}" source="${javac.source}" 
+               target="${javac.target}">
+            <compilerarg line="${javac.compilerargs}"/>
+        </javac>
+        <copy todir="${build.dir}/updaterclasses">
+            <fileset dir="libsrc" excludes="${jar-excludes}"/>
+        </copy>
+    </target>
+
+    <target name="jar-updater" depends="init,compile-updater">
+        <mkdir dir="${cluster}/modules/ext" />
+        <jar jarfile="${cluster}/modules/ext/updater.jar"
+             compress="${build.package.compress}">
+            <manifest>
+                <attribute name="NetBeans-Own-Library" value="true"/>
+            </manifest>
+            <fileset dir="${build.dir}/updaterclasses"/>
+        </jar>
+    </target>
+
+    <target name="compile" depends="jar-updater,projectized-common.compile"/>
+
+    <target name="netbeans-extra" depends="jar-updater"/>
+
+</project>

@@ -1,0 +1,23 @@
+<xsl:comment>ricoh-debug</xsl:comment>
+
+    <target name="ricoh-debug" if="ricoh-platform.trigger">
+        <copy todir="${{platform.home}}/mnt/sd3/sdk/dsdk/dist/${{ricoh.application.uid}}" overwrite="true">
+            <fileset dir="${{dist.dir}}">
+                <patternset refid="deployment.patternset"/>
+            </fileset>
+            <flattenmapper/>
+        </copy>
+        <parallel>
+            <ant antfile="${{platform.home}}/startemulator_debug.xml" target="debug_emulator" dir="${{platform.home}}">
+                <property name="emulator.skin" value="WVGA.xml"/>
+                <property name="emulator.autolaunchid" value="${{ricoh.application.uid}}"/>
+            </ant>
+            <sequential>
+                <sleep seconds="5"/>
+                <property name="jpda.port" value="8000"/>
+                <property name="debug.period" value="3000"/>
+                <antcall target="nbdebug" inheritall="true" inheritrefs="true"/>
+            </sequential>
+        </parallel>
+    </target>
+    

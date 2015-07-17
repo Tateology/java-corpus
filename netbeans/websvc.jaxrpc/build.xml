@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright 1997-2010 Oracle and/or its affiliates. All rights reserved.
+
+Oracle and Java are registered trademarks of Oracle and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+The contents of this file are subject to the terms of either the GNU
+General Public License Version 2 only ("GPL") or the Common
+Development and Distribution License("CDDL") (collectively, the
+"License"). You may not use this file except in compliance with the
+License. You can obtain a copy of the License at
+http://www.netbeans.org/cddl-gplv2.html
+or nbbuild/licenses/CDDL-GPL-2-CP. See the License for the
+specific language governing permissions and limitations under the
+License.  When distributing the software, include this License Header
+Notice in each file and include the License file at
+nbbuild/licenses/CDDL-GPL-2-CP.  Oracle designates this
+particular file as subject to the "Classpath" exception as provided
+by Oracle in the GPL Version 2 section of the License file that
+accompanied this code. If applicable, add the following below the
+License Header, with the fields enclosed by brackets [] replaced by
+your own identifying information:
+"Portions Copyrighted [year] [name of copyright owner]"
+
+Contributor(s):
+
+The Original Software is NetBeans. The Initial Developer of the Original
+Software is Sun Microsystems, Inc. Portions Copyright 1997-2006 Sun
+Microsystems, Inc. All Rights Reserved.
+
+If you wish your version of this file to be governed by only the CDDL
+or only the GPL Version 2, indicate your decision by adding
+"[Contributor] elects to include this software in this distribution
+under the [CDDL or GPL Version 2] license." If you do not indicate a
+single choice of license, a recipient has the option to distribute
+your version of this file under either the CDDL, the GPL Version 2 or
+to extend the choice of license to its licensees as provided above.
+However, if you add GPL Version 2 code and therefore, elected the GPL
+Version 2 license, then the option applies only if the new code is
+made subject to such option by the copyright holder.
+-->
+<project basedir="." default="netbeans" name="websvc.jaxrpc">
+    <description>Builds, tests, and runs the project org.netbeans.modules.websvc.jaxrpc</description>
+    <import file="../nbbuild/templates/projectized.xml"/>
+    <target name="build-init" depends="projectized.build-init"/>
+    
+    <property name="s2b_root_wscompile_config" location="src/org/netbeans/modules/websvc/wsdl/config/impl/"/>
+    <property name="s2b_res_root" location="src/org/netbeans/modules/websvc/wsdl/config/resources"/>
+    <property name="wsdevcodegenroot" location="src/org/netbeans/modules/websvc/jaxrpc/dev/dd/gen"/>
+    
+    <target name="s2binit" depends="build-init">
+        <taskdef name="schema2beans" classname="org.netbeans.modules.s2banttask.Schema2BeansAntTask">
+            <classpath>
+                <pathelement path="${schema2beans.dir}/modules/org-netbeans-modules-schema2beans.jar" />
+            </classpath>
+        </taskdef>
+    </target>
+    
+    <target name="dd2beansgen" depends="s2binit">
+        <echo message="Generating DDBeans for wscompile config file"/>
+        <schema2beans schema="${s2b_res_root}/jax-rpc-ri-config_1_1.xsd"
+                      mddFile="${s2b_res_root}/jax-rpc-ri-config_1_1.mdd"
+                      package="org.netbeans.modules.websvc.wsdl.config.impl"
+                      schemaType="xmlschema"
+                      useInterfaces="true"
+                      validate="true"
+                      attrProp="true"
+                      removeUnreferencedNodes="true"
+                      rootDir="src"/>
+        <!-- XXX could use @Schema2Beans were it not for this -->
+        <replace dir="${s2b_root_wscompile_config}">
+            <include name="**/*.java"/>
+            <replacefilter token="CLASS2" value="ADDITIONAL_CLASS"/>
+            <replacefilter token="Class2" value="AdditionalClass"/>
+            <replacefilter token="PROPERTY2" value="HANDLER_PROPERTY"/>
+            <replacefilter token="Property2" value="HandlerProperty"/>
+        </replace>
+        <replace file="${s2b_root_wscompile_config}/Configuration.java" token="javax.xml.namespace.QName" value="java.lang.String(*QName*)"/>
+        <replace file="${s2b_root_wscompile_config}/Entry.java" token="javax.xml.namespace.QName" value="java.lang.String/*QName*/"/>
+        
+        <mkdir dir="${wsdevcodegenroot}"/>
+        <!--mddFile="src/org/netbeans/modules/websvc/dev/dd/jax-rpc-ri-config.mdd" -->
+        <schema2beans schema="src/org/netbeans/modules/websvc/jaxrpc/dev/dd/jax-rpc-ri-config.xsd"
+                    package="org.netbeans.modules.websvc.jaxrpc.dev.dd.gen"
+                    rootDir="src"
+                    attrProp="true"
+                    schemaType="xmlschema" 
+                    outputType="javabeans"
+                    commonInterface="CommonBean"
+                    extendBaseBean="true"
+                    standalone="true"/>
+        <schema2beans schema="src/org/netbeans/modules/websvc/jaxrpc/dev/wizard/xsl/WSCreation.dtd"
+                      package="org.netbeans.modules.websvc.jaxrpc.dev.dd.gen.wscreation"
+                      rootDir="src"
+                      outputType="javabeans"
+                      attrProp="true"
+                      standalone="true"/>
+    </target>
+    
+    <target name="compile" depends="dd2beansgen, projectized-common.compile"/>
+
+    <target name="ant-extra" depends="init">
+        <echo message = "ant-extra"/>
+        <mkdir dir="build/antclasses"/>
+        <javac fork="true" executable="${mycompiler}" srcdir="antsrc" destdir="build/antclasses" source="1.4" debug="true" deprecation="true">
+            <classpath>
+                <path refid="cp"/>
+                <pathelement location="${ant.jar}"/>
+                <pathelement location="${tools.jar}"/>
+            </classpath>
+        </javac>
+        <copy todir="build/antclasses">
+            <fileset dir="antsrc" excludes="${jar-excludes}"/>
+        </copy>
+        <mkdir dir="${cluster}/ant/extra"/>
+        <jar jarfile="${cluster}/ant/extra/wsclientuptodate.jar" compress="false">
+            <manifest>
+                <attribute name="NetBeans-Own-Library" value="true"/>
+            </manifest>
+            <fileset dir="build/antclasses"/>
+        </jar>
+        <copy todir="${cluster}/ant/sources">
+            <fileset dir="antsrc" includes="**/*.java"/>
+        </copy>
+    </target>
+
+    <target name="netbeans-extra" depends="ant-extra"/>
+
+    <target name="clean" depends="projectized-common.clean,clean-ddgen-src"/>
+    
+    <target name="clean-ddgen-src">
+        <delete dir="${s2b_root_wscompile_config}"/>
+        <delete dir="${wsdevcodegenroot}"/>
+    </target>
+</project>

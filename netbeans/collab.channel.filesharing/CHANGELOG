@@ -1,0 +1,45 @@
+1.0.2:	fix 64184
+	fixed memory leak #63910
+
+1.0.3:	Removed obsolete workaround from FilesystemExplorerPanel
+	Add "Share Project" action to the project node (#64510)
+
+1.0.4:	Integrated some JSE fixes (Implement 2-phase locking,
+	JSE issue #5101109). Should fix #67308.
+
+1.0.5:  Conversation UI cleanup (#68576)
+
+1.0.6:	Don't block AWT during sharing initialization.
+
+1.0.7:  Remove useless settings (#64551)
+
+1.0.8:	Filesharing fixes for 3 users editing (JSE issue #6318138)
+        Jumping focus (#62871, JSE issue #6317025)
+
+1.0.9:	Integrated JSE INF#76430 (NB#70523)
+
+1.3:	Fix for: Shared file is sometimes not received correctly
+	Fix for #71268: Stop sharing deletes master file.
+
+1.4:	Fix for #69662: missing cursor. Also prevent cursor jumping.
+
+1.5:	Fixed the shared file corruption bug, #69812
+	Made filesharing more provider agnostic, #71503
+
+1.6:	Additional fix for #69812. Now works properly even if you don't have
+	opened the remote document.
+
+1.7:	Better way of sharing form files. Remote can view, owner can edit. #69657
+
+1.8:	Another filesharing brokage, partially fixes #71965
+
+1.9:	Another attempt to fix #71965 - don't forcibly unlock, better line
+	number tracking, perform update as an atomic edit.
+
+1.10:   Prevents NPE when strange TC is opened, #78904.
+
+1.11:   Make filesharing compatible with new Java infrastructure
+
+1.12:   Don't call editor outside of AWT thread.
+
+1.13:   Prevent some NPEs - GuardedSectionsManager may be null

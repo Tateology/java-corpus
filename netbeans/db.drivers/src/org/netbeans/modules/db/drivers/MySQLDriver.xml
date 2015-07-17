@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library version="3.0" xmlns="http://www.netbeans.org/ns/library-declaration/3">
+    <name>MySQLDriver</name>
+    <type>j2se</type>
+    <localizing-bundle>org.netbeans.modules.db.drivers.Bundle</localizing-bundle>
+    <volume>
+        <type>classpath</type>
+        <resource>jar:nbinst://org.netbeans.modules.db.drivers/modules/ext/mysql-connector-java-5.1.23-bin.jar!/</resource>
+    </volume>
+    <volume>
+        <type>src</type>
+        
+    </volume>
+    <volume>
+        <type>javadoc</type>            
+        
+    </volume>
+    <properties>
+        <!-- please check with mkleint@netbeans.org before/after updating this or "classpath" section -->
+        <property>
+            <name>maven-dependencies</name>
+            <value>mysql:mysql-connector-java:5.1.23:jar</value>
+        </property>
+    </properties>
+</library>

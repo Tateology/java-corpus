@@ -1,0 +1,21 @@
+/*
+ * __NAME__.java
+ *
+ * Created on __DATE__, __TIME__
+ */
+
+package Template.Classes;
+import javax.management.*;
+
+/**
+ * Class __NAME__
+ * 
+ * @author __USER__
+ */
+public class __NAME__ implements __NAME__MBean {
+
+    public __NAME__(){
+    }
+}
+
+

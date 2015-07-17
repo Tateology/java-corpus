@@ -1,0 +1,31 @@
+<#assign licenseFirst = "/*">
+<#assign licensePrefix = " * ">
+<#assign licenseLast = " */">
+<#include "${project.licensePath}">
+
+package ${PACKAGENAME};
+
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
+import org.openide.util.NbBundle;
+import org.openide.util.Utilities;
+import org.openide.windows.TopComponent;
+
+/**
+ * Action which shows ${TEMPLATENAME} component.
+ */
+public class ${TEMPLATENAME}Action extends AbstractAction {
+
+    public ${TEMPLATENAME}Action() {
+        super(NbBundle.getMessage(${TEMPLATENAME}Action.class, "CTL_${TEMPLATENAME}Action"));
+${COMMENTICON}        putValue(SMALL_ICON, new ImageIcon(Utilities.loadImage(${TEMPLATENAME}TopComponent.ICON_PATH, true)));
+    }
+
+    public void actionPerformed(ActionEvent evt) {
+        TopComponent win = ${TEMPLATENAME}TopComponent.findInstance();
+        win.open();
+        win.requestActive();
+    }
+
+}

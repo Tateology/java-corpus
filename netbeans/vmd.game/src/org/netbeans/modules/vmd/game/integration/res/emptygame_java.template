@@ -1,0 +1,24 @@
+<#assign licenseFirst = "/*">
+<#assign licensePrefix = " * ">
+<#assign licenseLast = " */">
+<#include "${project.licensePath}">
+
+<#if package?? && package != "">
+package ${package};
+
+</#if>
+import javax.microedition.midlet.*;
+import javax.microedition.lcdui.*;
+import javax.microedition.lcdui.game.*;
+import java.io.IOException;
+
+/**
+ * @author ${user}
+ */
+public class ${name} {
+
+    //GEN-LINE:|fields|0|
+
+    //GEN-LINE:|methods|0|
+
+}

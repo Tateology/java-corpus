@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<!--
+ *     	  Copyright © 2004 Sun Microsystems, Inc. All rights reserved. 
+ *	  Use is subject to license terms.
+-->
+  <meta name="lastupdated" content="4Feb04">
+<!-- p1 -->
+  <title>About JMX Application Development</title>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <link rel="StyleSheet" href="ide.css" type="text/css">
+</head>
+<body>
+<h2>Generating an MBean</h2>
+<p class="pBody">An <em class="cEmphasis">MBean</em> is a managed Java
+object, similar to a JavaBean<sup class="cSuperscript">TM</sup>, that
+follows the design patterns set forth in the instrumentation level of
+the JMX specification. An MBean can represent a device, an application,
+or any resource that needs to be managed. MBeans expose a management
+interface: a set of readable and/or writable attributes and a set of
+invokable operations, along with a self-description. The management
+interface does not change throughout the life of an MBean instance.
+MBeans can also emit notifications when certain defined events occur.
+</p>
+<a name="wp1053105"> </a>
+<p class="pBody">The JMX specification defines four types of MBean: <em
+ class="cEmphasis">standard MBeans</em>, <em class="cEmphasis">dynamic
+MBeans</em>, <em class="cEmphasis">open MBeans</em> and <em
+ class="cEmphasis">model MBeans</em>. The examples in this chapter
+demonstrate the simplest type of MBean, namely standard MBeans.<br>
+</p>
+<h2>Standard MBeans</h2>
+<p class="pBody">A standard MBean is defined by writing a Java
+interface called <code class="cCode">SomethingMBean</code> and a Java
+class called <code class="cCode">Something</code> that implements that
+interface. Every method in the interface defines either an attribute or
+an operation in the MBean. By default every method defines an
+operation. Attributes and operations are simply methods which follow
+certain design patterns. A standard MBean is composed of the MBean
+interface which lists the methods for all exposed attributes and
+operations, and the class which implements this interface and provides
+the functionality of the instrumented resource. </p>
+<h2>Using the MBean Wizard to Generate a
+Standard MBean with Metadata</h2>
+<p class="pBody">This section dissects an example standard
+MBean exposing some metadata (in tools such as JConsole).
+The MBean wizard is used to generate the classes. <br>
+</p>
+<ol>
+  <li>Select <span style="font-style: italic;">File/New File...</span></li>
+  <li>Select the <span style="font-style: italic;">JMX </span>category.
+In <span style="font-style: italic;">File Types</span> select <span
+ style="font-style: italic;">Standard MBean With Metadata</span></li>
+  <li>Type in a <span style="font-style: italic;">Name</span>, a <span
+ style="font-style: italic;">Package </span>and a <span
+ style="font-style: italic;">Description</span>. <br>
+  </li>
+  <li>You can enter a Description in order to document your MBean
+class. Any documentation that is typed from this wizard will be
+generated as :</li>
+  <ul>
+    <li>Javadoc for Standard MBeans.</li>
+    <li>Added to the MBeanInfo to provide documentation on the MBean
+at runtime for Dynamic and Extended MBeans.<br>
+    </li>
+  </ul>
+  <li>Click <span style="font-style: italic;">Next&gt;</span><br>
+  </li>
+  <li>From now on, you can click <span style="font-style: italic;">Finish</span>
+at any time.</li>
+  <li>If you want your MBean to have attributes, click <span
+ style="font-style: italic;">Add Attribute.</span><br>
+  </li>
+  <li>In the <span style="font-style: italic;">Attributes </span>Table,
+first row, type in the following:</li>
+  <ol>
+    <li>In the column <span style="font-style: italic;">Name</span>
+type
+in an Attribute Name (eg : Status)<br>
+    </li>
+    <li>In the column <span style="font-style: italic;">Type </span>select
+a Java type<span style="font-style: italic;"> </span>(eg: <span
+ style="font-style: italic;">String</span>)<span
+ style="font-style: italic;"><br>
+      </span></li>
+    <li>In the column<span style="font-style: italic;"> Access </span>select
+an access type (eg:<span style="font-style: italic;">Read / Write</span>)</li>
+    <li>In the column <span style="font-style: italic;">Description</span>,
+type in what this attribute represents (eg: This MBean current Status)<span
+ style="font-style: italic;"><br>
+      </span></li>
+  </ol>
+  <li>Click <span style="font-style: italic;">Next&gt;</span><br>
+  </li>
+  <li>If you want your MBean to have operations, click <span
+ style="font-style: italic;">Add Operation.</span></li>
+  <li>In the <span style="font-style: italic;">Operations </span>Table,
+first row, type in :</li>
+  <ol>
+    <li>In the column <span style="font-style: italic;">Name</span>
+type
+in an operation name (eg : reset)<br>
+    </li>
+    <li>In the column <span style="font-style: italic;">Return Type </span>select
+a Java type<span style="font-style: italic;"> </span>(eg: <span
+ style="font-style: italic;">void</span>)</li>
+    <li>If you want to add input parameters, in the column <span
+ style="font-style: italic;">Parameters</span>, click the <span
+ style="font-style: italic;">Edit</span> button.</li>
+    <ol>
+      <li>Click <span style="font-style: italic;">Add Parameter</span></li>
+      <li>In the column <span style="font-style: italic;">Parameter
+Name</span>
+you can change the default parameter name.<br>
+      </li>
+      <li>In the column <span style="font-style: italic;">Parameter
+Type </span>select
+a Java type<span style="font-style: italic;"> </span>(eg: <span
+ style="font-style: italic;">String</span>)</li>
+      <li>In the column <span style="font-style: italic;">Parameter
+Description&nbsp;</span>
+type in what this parameter represents.</li>
+    </ol>
+    <li>In the column <span style="font-style: italic;">Description</span>,
+type in what this operation represents (eg: Reset the current Status)</li>
+  </ol>
+  <li>Click <span style="font-style: italic;">Finish</span>.</li>
+  <li>The MBean implementation class is opened in the editor.&nbsp;
+If you selected a Standard MBean type, an MBean interface (named <span
+ style="font-style: italic;">&lt;MBean
+Name&gt;MBean</span>) and an implementation class (named <span
+ style="font-style: italic;">&lt;MBean Name&gt;) </span> are generated in the src 
+ package you selected.</li>
+  <li>You can now add your own logic to the generated code.</li>
+</ol>
+<br>
+<h3 class="pHeading2">
+<hr><small><a href="credits.html">Legal Notices</a>
+<table cellpadding="20" border="0">
+  <tbody>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+</small>
+</h3>
+</body>
+</html>

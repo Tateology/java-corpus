@@ -1,0 +1,41 @@
+<xsl:comment>ricoh-init</xsl:comment>
+
+    <target name="ricoh-pre-init" if="cdc-platform.trigger">
+        <condition property="ricoh-platform.trigger">
+            <equals arg1="ricoh" arg2="${{platform.type}}" casesensitive="false"/>
+        </condition>
+    </target>
+    <target name="ricoh-init" depends="ricoh-pre-init" if="ricoh-platform.trigger">
+        <available property="jcifs" classname="jcifs.smb.SmbFile" classpath="${{libs.RicohAntTools.classpath}}"/>
+        <condition property="no.vendor.name" value="true">
+            <equals arg1="${{application.vendor}}" arg2="" trim="true"/>
+        </condition>        
+        <condition property="ricoh.dalp.install.mode" value="auto" else="manual">
+            <istrue value="${{ricoh.dalp.install.mode.auto}}"/>
+        </condition>
+        <condition property="ricoh.dalp.display-mode.type" value="COLOR" else="MONO">
+            <istrue value="${{ricoh.dalp.display-mode.color}}"/>
+        </condition>
+        <property name="xml.dir" value="${{build.dir}}/dalp"/>
+        <property name="xlet.dalp" value="${{application.name}}.dalp"/>
+        <property name="xlet.dalp.name-only" value="${{application.name}}.dalp"/>
+        <property name="deploy.dir" value="${{dist.dir}}/deploy"/>
+        <property name="rideploy.zip" value="${{dist.dir}}/${{application.name}}.zip"/>
+        <property name="ricoh.dalp.is-managed" value="true"/>
+        <property name="ricoh.dalp.information.is-icon-used" value="true"/>
+        <property name="ricoh.platform.target.version" value="2.0"/>
+        <property name="ricoh.dalp.version" value="${{deployment.number}}"/>
+        <property name="ricoh.dalp.application-desc.visible" value="true"/>
+        <property name="ricoh.dalp.install.destination" value="hdd"/>
+        <property name="ricoh.dalp.install.work-dir" value="hdd"/>
+        <property name="ricoh.dalp.information.abbreviation" value="RICOH"/>
+        <taskdef name="taskIf" classname="ricoh.ant.ConditionalTask" classpath="${{libs.ricoh-ant-utils.classpath}}"/>
+        <taskdef name="dalp" classname="org.netbeans.modules.j2me.cdc.project.ricoh.DalpBuilder" classpath="${{libs.ricoh-ant-utils.classpath}}"/>
+        <property name="dalp.dist" value="${{build.dir}}/dalp/${{application.name}}.dalp"/>
+        <property name="deployment.dir" location="${{dist.dir}}"/>
+        <patternset id="deployment.patternset">
+            <include name="${{dist.jar}}"/>
+            <include name="${{application.name}}.dalp"/>
+            <include name="lib/*"/>
+        </patternset>
+    </target>

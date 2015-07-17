@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE toc PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp TOC Version 1.0//EN" "http://java.sun.com/products/javahelp/toc_1_0.dtd">
+<!--
+DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+
+Copyright 1997-2010 Oracle and/or its affiliates. All rights reserved.
+
+Oracle and Java are registered trademarks of Oracle and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+
+The contents of this file are subject to the terms of either the GNU
+General Public License Version 2 only ("GPL") or the Common
+Development and Distribution License("CDDL") (collectively, the
+"License"). You may not use this file except in compliance with the
+License. You can obtain a copy of the License at
+http://www.netbeans.org/cddl-gplv2.html
+or nbbuild/licenses/CDDL-GPL-2-CP. See the License for the
+specific language governing permissions and limitations under the
+License.  When distributing the software, include this License Header
+Notice in each file and include the License file at
+nbbuild/licenses/CDDL-GPL-2-CP.  Oracle designates this
+particular file as subject to the "Classpath" exception as provided
+by Sun in the GPL Version 2 section of the License file that
+accompanied this code. If applicable, add the following below the
+License Header, with the fields enclosed by brackets [] replaced by
+your own identifying information:
+"Portions Copyrighted [year] [name of copyright owner]"
+
+Contributor(s):
+
+The Original Software is NetBeans. The Initial Developer of the Original
+Software is Sun Microsystems, Inc. Portions Copyright 1997-2006 Sun
+Microsystems, Inc. All Rights Reserved.
+
+If you wish your version of this file to be governed by only the CDDL
+or only the GPL Version 2, indicate your decision by adding
+"[Contributor] elects to include this software in this distribution
+under the [CDDL or GPL Version 2] license." If you do not indicate a
+single choice of license, a recipient has the option to distribute
+your version of this file under either the CDDL, the GPL Version 2 or
+to extend the choice of license to its licensees as provided above.
+However, if you add GPL Version 2 code and therefore, elected the GPL
+Version 2 license, then the option applies only if the new code is
+made subject to such option by the copyright holder.
+-->
+
+<toc version="1.0">
+  <tocitem>JMX Development
+    <tocitem target="ext_documentation">JMX / JConsole documentation links</tocitem>
+    <tocitem>Overview
+     <tocitem target="jmx_about">About JMX Application Development</tocitem>
+     <tocitem target="jmx_jdk50">JMX and JDK 5.0</tocitem>
+     <tocitem target="jmx_jdk60">JMX and JDK 6</tocitem>
+     <tocitem target="jmx_progr_model">JMX Programming Model</tocitem>
+    </tocitem>
+    <tocitem>Architecture
+     <tocitem target="jmx_architecture">JMX Architecture</tocitem>
+     <tocitem target="jmx_instrumentation">Instrumentation Level</tocitem>
+     <tocitem target="jmx_agent">Agent Level</tocitem>
+     <tocitem target="jmx_manager">Manager Level</tocitem>
+    </tocitem>
+    <tocitem target="jmx_sample">JMX Anagram Game sample project</tocitem>
+    <tocitem target="tutorial">Generating a Standard MBean or MXBean</tocitem>
+    <tocitem target="jmx_instrumenting_from_existing_app">Generating an MBean from an existing Java class</tocitem>
+    <tocitem target="jmx_instrumenting_app">Generating a Standard MBean With Metadata</tocitem>
+    <tocitem>Updating existing JMX MBeans
+      <tocitem target="jmx_mbean_update_attributes_operations">Adding Attributes / Operations</tocitem>
+      <tocitem target="jmx_mbean_update_registration">Implementing the MBeanRegistration Interface</tocitem>
+      <tocitem target="jmx_mbean_update_notification">Implementing the NotificationEmitter Interface</tocitem>
+    </tocitem>
+    <tocitem target="tutorial">Registering your JMX MBeans</tocitem>
+    
+    <tocitem target="jmx_manager_app">Writing a JMX Manager</tocitem>
+
+
+    <tocitem>Web Application Project and JMX
+     <tocitem target="jmx_web_app">Accessing MBeans from JSP</tocitem>
+    </tocitem>
+  </tocitem>
+</toc>

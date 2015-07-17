@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<!--
+ *     	  Copyright © 2004 Sun Microsystems, Inc. All rights reserved. 
+ *	  Use is subject to license terms.
+-->
+  <meta name="lastupdated" content="4Feb04">
+<!-- p1 -->
+  <title>About JMX Application Development</title>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=iso-8859-1">
+  <link rel="StyleSheet" href="ide.css" type="text/css">
+</head>
+<body>
+<h2>Generating an MBean from an Existing Java Class<br>
+</h2>
+The wizard allows you to generate an MBean based on an existing Java
+class. <br>
+The provided class is introspected in order to select what should be
+exported in the management interface.<br>
+The MBean that is generated is an extended Standard MBean.<br>
+<h2>Extended Standard MBean</h2>
+<p class="pBody">An <span style="font-style: italic;">Extended
+Standard MBean</span> is an MBean that extends the <span
+ style="font-weight: bold;">javax.management.StandardMBean</span> class
+(see the JMX javadoc for more details on the StandardMBean class). <br>
+In the case of an MBean generated from a Java class, the generated
+MBean implementation delegates all its calls to an instance of the
+introspected class. A reference to an instance of the introispected
+class can be passed to the generated MBean constructor.<br>
+</p>
+<h2>Using the MBean Wizard to Generate an MBean from an Existing Java
+Class<br>
+</h2>
+<p class="pBody">The following sections dissect an example standard
+MBean. The MBean wizard is used to generate the classes. <br>
+</p>
+<ol>
+  <li>Select <span style="font-style: italic;">File/New File...</span></li>
+  <li>Select the <span style="font-style: italic;">JMX </span>category.
+In <span style="font-style: italic;">File Types</span> select <span
+ style="font-style: italic;">JMX MBean From Existing Java Class</span></li>
+  <li>Type in a <span style="font-style: italic;">Name</span>, a <span
+ style="font-style: italic;">Package</span><br>
+  </li>
+  <li>Click <span style="font-style: italic;">Next&gt;</span></li>
+  <li>Check the <span style="font-style: italic;"> From Existing Class</span>
+checkbox.</li>
+  <li>Click on the <span style="font-style: italic;">Browse...</span>
+button in order to select a class from the current project. You can
+also enter your class name (package + name) in the textfield.</li>
+  <li>You can enter a Description in order to document your MBean
+class.
+Any documentation that is typed from this wizard will be generated as :</li>
+  <ul>
+    <li>Javadoc for Standard MBeans.</li>
+    <li>Added to the MBeanInfo in order to provide documentation on the MBean
+at runtime for Dynamic and Extended MBeans.<br>
+    </li>
+  </ul>
+  <li>Click <span style="font-style: italic;">Next&gt;</span><br>
+  </li>
+  <li>A set of discovered potential attributes (if any) are displayed
+in the attributes table. You can update the Attribute Description in
+order to provide interesting information on each attribute.</li>
+  <li>You can filter out some attributes by unselecting the
+corresponding checkbox.<br>
+  </li>
+  <li>You can also add new attributes. Click <span
+ style="font-style: italic;">Add Attribute.</span><br>
+  </li>
+  <li>In the <span style="font-style: italic;">Attributes </span>Table,
+first row, type in the following:</li>
+  <ul>
+    <li>In the column <span style="font-style: italic;">Name</span>
+type
+in an Attribute Name (eg : Status)<br>
+    </li>
+    <li>In the column <span style="font-style: italic;">Type </span>select
+a Java type<span style="font-style: italic;"> </span>(eg: <span
+ style="font-style: italic;">String</span>)<span
+ style="font-style: italic;"><br>
+      </span></li>
+    <li>In the column<span style="font-style: italic;"> Access </span>select
+an access type (eg:<span style="font-style: italic;">Read / Write</span>)</li>
+    <li>In the column <span style="font-style: italic;">Description</span>,
+type in what this attribute represents (eg: This MBean's current Status)</li>
+  </ul>
+  <li>Click <span style="font-style: italic;">Next&gt;</span><br>
+  </li>
+  <li>A set of discovered operations (if any) are displayed in the
+attributes table. You can update the Operation Description in order to
+provide interesting information on each operation.</li>
+  <li>You can filter out some operations by unselecting the
+corresponding checkbox.</li>
+  <li>If you want your MBean to have new operations, click <span
+ style="font-style: italic;">Add Operation.</span></li>
+  <li>In the <span style="font-style: italic;">Operations </span>Table,
+first row, type in the following:</li>
+  <ul>
+    <li>In the column <span style="font-style: italic;">Name</span>
+type
+in an operation name (eg : reset)<br>
+    </li>
+    <li>In the column <span style="font-style: italic;">Return Type </span>select
+a Java type<span style="font-style: italic;"> </span>(eg: <span
+ style="font-style: italic;">void</span>)</li>
+    <li>If you want to add input parameters, in the column <span
+ style="font-style: italic;">Parameters</span>, click the <span
+ style="font-style: italic;">Edit</span> button.</li>
+    <ul>
+      <li>Click <span style="font-style: italic;">Add Parameter</span></li>
+      <li>In the column <span style="font-style: italic;">Parameter
+Name</span>
+you can change the default parameter name.<br>
+      </li>
+      <li>In the column <span style="font-style: italic;">Parameter
+Type</span>, select
+a Java type<span style="font-style: italic;"> </span>(eg: <span
+ style="font-style: italic;">String</span>)</li>
+      <li>In the column <span style="font-style: italic;">Parameter
+Description&nbsp;</span>
+type in what this parameter represents.</li>
+    </ul>
+    <li>In the column <span style="font-style: italic;">Description</span>,
+type in what this operation represents (eg: Reset the current Status)</li>
+  </ul>
+  <li>Click <span style="font-style: italic;">Finish</span>.</li>
+  <li>The MBean implementation class is opened in the editor.&nbsp;
+If you selected a Standard MBean type, an MBean interface (named <span
+ style="font-style: italic;">&lt;MBean
+Name&gt;MBean</span>), an implementation class (named <span
+ style="font-style: italic;">&lt;MBean Name&gt;) </span>and a JUnit test
+are generated in the src and test packages you selected.</li>
+  <li>You can now add your own logic to the generated code and run the
+JUnit test.</li>
+</ol>
+<span style="font-style: italic; font-weight: bold;"></span>
+<br>
+<h3 class="pHeading2">
+<hr><small><a href="credits.html">Legal Notices</a>
+<table cellpadding="20" border="0">
+  <tbody>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+</small>
+</h3>
+</body>
+</html>

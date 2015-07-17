@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="netbeans" name="subversion">
+    <description>Builds, tests, and runs the project org.netbeans.modules.subversion</description>
+    <import file="../nbbuild/templates/projectized.xml"/>
+    <property name="test.unit.data.dir" value="test/unit/data"/>
+    <property name="build.test.unit.data.dir" value="build/test/unit/data"/>
+    <target name="test-build-datajar">
+        <antcall target="projectized-common.test-preinit"/>
+        <mkdir dir="${build.test.unit.data.dir}/SvnWcParser"/>
+        <unzip src="${test.unit.data.dir}/SvnWcParserData.zip"
+               dest="${build.test.unit.data.dir}/SvnWcParser"/>
+        <zip destfile="${test.qa-functional.out.folder}/data.zip" basedir="${test.qa-functional.data.dir}"/>
+    </target> 
+</project>

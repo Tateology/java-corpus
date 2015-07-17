@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE api-answers PUBLIC "-//NetBeans//DTD Arch Answers//EN" "../antsrc/org/netbeans/nbbuild/Arch.dtd" [
+  <!ENTITY api-questions SYSTEM "../antsrc/org/netbeans/nbbuild/Arch-api-questions.xml">
+]>
+<api-answers
+  question-version="1.23"
+  author="nobody@netbeans.org"
+>
+ &api-questions;
+<answer id="arch-what">
+    <strong>This module has not provided an architectural description, sorry.</strong>
+</answer>
+<answer id="arch-overall">No answer</answer>
+<answer id="arch-quality">No answer</answer>
+<answer id="arch-time">No answer</answer>
+<answer id="arch-usecases">No answer</answer>
+<answer id="compat-i18n">No answer</answer>
+<answer id="compat-standards">No answer</answer>
+<answer id="compat-version">No answer</answer>
+<answer id="dep-jre">No answer</answer>
+<answer id="dep-jrejdk">No answer</answer>
+<answer id="dep-nb">No answer</answer>
+<answer id="dep-non-nb">No answer</answer>
+<answer id="dep-platform">No answer</answer>
+<answer id="deploy-dependencies">No answer</answer>
+<answer id="deploy-jar">No answer</answer>
+<answer id="deploy-nbm">No answer</answer>
+<answer id="deploy-packages">No answer</answer>
+<answer id="deploy-shared">No answer</answer>
+<answer id="exec-classloader">No answer</answer>
+<answer id="exec-component">No answer</answer>
+<answer id="exec-introspection">No answer</answer>
+<answer id="exec-privateaccess">No answer</answer>
+<answer id="exec-process">No answer</answer>
+<answer id="exec-property">No answer</answer>
+<answer id="exec-reflection">No answer</answer>
+<answer id="exec-threading">No answer</answer>
+<answer id="format-clipboard">No answer</answer>
+<answer id="format-dnd">No answer</answer>
+<answer id="format-types">No answer</answer>
+<answer id="lookup-lookup">No answer</answer>
+<answer id="lookup-register">No answer</answer>
+<answer id="lookup-remove">No answer</answer>
+<answer id="perf-exit">No answer</answer>
+<answer id="perf-huge_dialogs">No answer</answer>
+<answer id="perf-limit">No answer</answer>
+<answer id="perf-mem">No answer</answer>
+<answer id="perf-menus">No answer</answer>
+<answer id="perf-progress">No answer</answer>
+<answer id="perf-scale">No answer</answer>
+<answer id="perf-spi">No answer</answer>
+<answer id="perf-startup">No answer</answer>
+<answer id="perf-wakeup">No answer</answer>
+<answer id="resources-file">No answer</answer>
+<answer id="resources-layer">No answer</answer>
+<answer id="resources-mask">No answer</answer>
+<answer id="resources-read">No answer</answer>
+</api-answers>
